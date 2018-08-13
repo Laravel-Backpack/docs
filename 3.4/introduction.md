@@ -1,7 +1,5 @@
----
-title: "Intro"
-excerpt: "What does it do and how is it organised?"
----
+# Introduction
+
 Backpack v3.4 is a collection of packages for Laravel 5.5 / 5.6. You can use them to build custom admin panels fast, for anything from presentation websites to complex web applications. 
 
 After getting to know Backpack, you'll be able to create a CRUD panel for each entity in just a few steps:
@@ -23,8 +21,6 @@ php artisan backpack:crud tag #use singular, not plural
 #    CRUD::resource('tag', 'TagCrudController');
 # });
 ```
-
-After that, you can customize it to your liking/specifications, use advanced features, etc. 
 
 # Updates
 If you're using Backpack, **please [subscribe to the monthly newsletter](http://backpackforlaravel.com/newsletter)**. That way we can let you know about security updates, breaking changes and new packages. We send newsletters every 1-3 months, only when there's something important.
