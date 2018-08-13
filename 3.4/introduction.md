@@ -1,4 +1,4 @@
-# Introduction
+# Introduction 6
 
 Backpack v3.4 is a collection of packages for Laravel 5.5 / 5.6. You can use them to build custom admin panels fast, for anything from presentation websites to complex web applications. 
 
