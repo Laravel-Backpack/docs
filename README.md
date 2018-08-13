@@ -1,4 +1,4 @@
-# Backpack for Laravel Documentation 2
+# Backpack for Laravel Documentation 3
 
 You can find the online version of the Backpack documentation at https://backpackforlaravel.com/docs
 
