@@ -1,5 +1,7 @@
 # Upgrade Guide
 
+---
+
 This will guide you through upgrading from Backpack 3.3 to 3.4. For upgrading from 3.2 to 3.3 [check out the previous upgrade guide](https://laravel-backpack.readme.io/v3.3/docs/upgrading-crud-32-to-33).
 
 ## Requirements

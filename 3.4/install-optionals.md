@@ -1,5 +1,7 @@
 # Install Optional Packages
 
+---
+
 Each Backpack package has its own installation instructions in its readme file. We duplicate them here for easy access.
 
 Everything else is optional. Your project might use them or it might not. Only do each following steps if you need the functionality that package provides.

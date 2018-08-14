@@ -1,5 +1,7 @@
 # Installation
 
+---
+
 We assume:
 
 - you have a working [installation of Laravel 5.6](https://laravel.com/docs/5.6#installing-laravel) (an existing project is fine, you don't need a *fresh* Laravel install);

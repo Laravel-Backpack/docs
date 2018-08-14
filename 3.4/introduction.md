@@ -1,5 +1,7 @@
 # Introduction
 
+---
+
 Backpack is a collection of Laravel packages. It helps you build your own CMS, for anything from presentation websites to complex web applications. You can drop it on existing Laravel installations _or_ fresh projects.
 
 In a nutshell:
