@@ -1,7 +1,5 @@
----
-title: "Demo"
-excerpt: ""
----
+# Demo
+
 The best way to see if you like Backpack is to install a working demo of Laravel with all Backpack packages pre-installed.
 
 However, if you do like it, please install it using [the recommended installation procedure](https://laravel-backpack.readme.io/v3.4/docs/install-on-laravel-56). That will take you through each package individually and you'll end up understanding how it works a lot better.

@@ -1,19 +1,21 @@
----
-title: "Installation"
-excerpt: ""
----
+# Installation
+
 Each Backpack package has its own installation instructions in its readme file. We duplicate them here for easy access.
 
 This page assumes 
+
 - that you have composer registered as a global command;
+
 - that you can run the ```composer``` command from any directory (you don't need to run ```php composer.phar``` or reference another directory);
+
 - that you have a working [installation of Laravel 5.6](https://laravel.com/docs/5.6#installing-laravel) (you don't need a *fresh* install for Backpack, you can use existing projects);
-[block:api-header]
-{
-  "type": "basic",
-  "title": "1. Backpack Base & CRUD"
-}
-[/block]
+
+
+> {tip} You may also use the `php artisan cache:table` Artisan command to generate a migration with the proper schema.
+
+
+## 1. Backpack Base & CRUD
+
 Run these commands:
 
 ``` bash
@@ -63,19 +65,13 @@ rm -rf app/Http/Controllers/Auth #deletes laravel's demo auth controllers
 ```
 
 If it's your first time installing Backpack, it is **highly recommended** that you go through our [Getting Started series](https://laravel-backpack.readme.io/docs/1-welcome-6-min), to understand how Backpack works. That's why we created it - to help you learn how to use our admin panel framework. It will guide you through creating a CRUD, so you can see how it works, but it will also explain _why_ it works and highlight its strengths and its weaknesses. No, really, [go through it](https://laravel-backpack.readme.io/docs/1-welcome-6-min).
-[block:api-header]
-{
-  "type": "basic",
-  "title": "---- OPTIONALS ----"
-}
-[/block]
+
+## ---- OPTIONALS ----
+
 Everything else is optional. Your project might use them or it might not. Only do each following steps if you need the functionality that package provides.
-[block:api-header]
-{
-  "type": "basic",
-  "title": "2. BackupManager"
-}
-[/block]
+
+### 2. BackupManager
+
 [>> See screenshots and installation](https://github.com/Laravel-Backpack/BackupManager)
 
 1) In your terminal
@@ -122,12 +118,10 @@ protected function schedule(Schedule $schedule)
             'dump_command_timeout' => 60 * 5, // 5 minute timeout
             'dump_using_single_transaction' => true,
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "3. LogManager"
-}
-[/block]
+
+
+### 3. LogManager
+
 [>> See screenshots and installation](https://github.com/Laravel-Backpack/logmanager)
 
 
@@ -164,12 +158,8 @@ or directly in your config/app.php file:
 <li><a href="{{ backpack_url('log') }}"><i class="fa fa-terminal"></i> <span>Logs</span></a></li>
 ```
 
-[block:api-header]
-{
-  "type": "basic",
-  "title": "4. Settings"
-}
-[/block]
+### 4. Settings
+
 An interface for the administrator to easily change application settings. Uses Laravel Backpack. 
 
 [>> See screenshots and installation](https://github.com/Laravel-Backpack/settings)
@@ -190,12 +180,9 @@ php artisan backpack:base:add-sidebar-content "<li><a href='{{ url(config('backp
 # [optional] insert some example dummy data to the database
 php artisan db:seed --class="Backpack\Settings\database\seeds\SettingsTableSeeder"
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "5. PageManager"
-}
-[/block]
+
+### 5. PageManager
+
 [>> See screenshots and installation](https://github.com/Laravel-Backpack/pagemanager)
 
 1) In your terminal
@@ -216,31 +203,24 @@ php artisan migrate
 ```html
 <li><a href="{{backpack_url('page') }}"><i class="fa fa-file-o"></i> <span>Pages</span></a></li>
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "6. PermissionManager"
-}
-[/block]
+
+### 6. PermissionManager
+
 An admin panel for user authentication on Laravel 5, using Backpack\CRUD. Add, edit, delete users, roles and permission.
 
 [>> Installation](https://github.com/Laravel-Backpack/PermissionManager#install)
 [>> Github](https://github.com/Laravel-Backpack/PermissionManager)
-[block:api-header]
-{
-  "type": "basic",
-  "title": "7. MenuCRUD"
-}
-[/block]
+
+
+### 7. MenuCrud
+
 An admin panel for menu items on Laravel 5, using Backpack\CRUD. Add, edit, reorder, nest, rename menu items and link them to Backpack\PageManager pages, external link or custom internal link.
 
 [>> Github](https://github.com/Laravel-Backpack/MenuCRUD)
-[block:api-header]
-{
-  "type": "basic",
-  "title": "8. NewsCRUD"
-}
-[/block]
+
+
+### 8. NewsCrud
+
 Since NewsCRUD does not provide any extra functionality other than Backpack\CRUD, it is not a package. It's just a tutorial to show you how this can be achieved. In the future, CRUD examples like this one will be easily installed from the command line, from a central repository. Until then, you will need to manually create the files.
 
 [>> Github](https://github.com/Laravel-Backpack/NewsCRUD)
