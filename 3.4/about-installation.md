@@ -2,16 +2,11 @@
 
 Each Backpack package has its own installation instructions in its readme file. We duplicate them here for easy access.
 
-This page assumes 
+This page assumes that
 
-- that you have composer registered as a global command;
+- you have a working [installation of Laravel 5.6](https://laravel.com/docs/5.6#installing-laravel) (you don't need a *fresh* Laravel install for Backpack, you can install Backpack on an existing projects);
 
-- that you can run the ```composer``` command from any directory (you don't need to run ```php composer.phar``` or reference another directory);
-
-- that you have a working [installation of Laravel 5.6](https://laravel.com/docs/5.6#installing-laravel) (you don't need a *fresh* install for Backpack, you can use existing projects);
-
-
-> {tip} You may also use the `php artisan cache:table` Artisan command to generate a migration with the proper schema.
+- you have composer registered as a global command & you can run the ```composer``` command from any directory (you don't need to run ```php composer.phar``` or reference another directory);
 
 
 ## 1. Backpack Base & CRUD
@@ -30,30 +25,18 @@ php artisan backpack:crud:install
 ```
 
 Note: If you'd also like to enable the [file manager functionality](https://backpackforlaravel.com/uploads/home_slider/4.png), reply "yes" when the installer asks you. By default it lets users manage the ```public/uploads``` directory, but you can change that in the ```elfinder.php``` config file.
-[block:callout]
-{
-  "type": "info",
-  "body": "If you get the error above, it might mean Github or Packagist is unavailable at the moment. This usually doesn't last for more than a few minutes, so you can run ```php artisan backpack:base:install --timeout=600``` to increase the timeout to 10 minutes. If this doesn't work either, take a look behind the scenes with ```php artisan backpack:base:install --timeout=600 --debug```, and refer to [this thread](https://github.com/Laravel-Backpack/Base/issues/217).",
-  "title": "Error: The process X exceeded the timeout of 60 seconds."
-}
-[/block]
 
-[block:callout]
-{
-  "type": "info",
-  "body": "If you receive the error above, your MySQL version might be a bit old. Please [apply this quick fix](https://laravel-news.com/laravel-5-4-key-too-long-error), then run ```php artisan migrate:fresh```.",
-  "title": "Error: SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was too long;"
-}
-[/block]
+> **Error: The process X exceeded the timeout of 60 seconds.**
+> 
+> If you get the error above, it might mean Github or Packagist is unavailable at the moment. This usually doesn't last for more than a few minutes, so you can run ```php artisan backpack:base:install --timeout=600``` to increase the timeout to 10 minutes. If this doesn't work either, take a look behind the scenes with ```php artisan backpack:base:install --timeout=600 --debug```, and refer to [this thread](https://github.com/Laravel-Backpack/Base/issues/217).
 
-[block:callout]
-{
-  "type": "info",
-  "title": "Any other installation error?",
-  "body": "If you can't install Backpack\\Base because of a different error, you can [try the manual installation process](https://laravel-backpack.readme.io/docs/frequently-asked-questions#section-how-do-i-manually-install-base), which you can tweak to your needs."
-}
-[/block]
-Done!
+> **Error: SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was too long**
+> 
+  If you receive the error above, your MySQL version might be a bit old. Please [apply this quick fix](https://laravel-news.com/laravel-5-4-key-too-long-error), then run ```php artisan migrate:fresh```."
+
+> **Any other installation error?**
+> 
+> If you can't install Backpack\\Base because of a different error, you can [try the manual installation process](https://laravel-backpack.readme.io/docs/frequently-asked-questions#section-how-do-i-manually-install-base), which you can tweak to your needs.
 
 You can now optionally:
 - Change configuration values in ```config/backpack/base.php``` to make the admin panel your own. Backpack is white label, so you can change everything: menu color, project name, developer name etc.
