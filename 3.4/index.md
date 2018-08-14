@@ -17,9 +17,9 @@
 - [Installation](/docs/{{version}}/installation)
 - [Configuration](/docs/{{version}}/configuration)
 
-#### CRUD Controllers
+#### CRUD Panels
 
-- [Intro](/docs/{{version}}/crud-intro)
+- [Architecture](/docs/{{version}}/crud-intro)
 - [How to use](/docs/{{version}}/crud-how-to-use)
 - [Cheat Sheet](/docs/{{version}}/crud-cheat-sheet)
 - [Operations](/docs/{{version}}/crud-operations)

@@ -2,22 +2,21 @@
 
 Each Backpack package has its own installation instructions in its readme file. We duplicate them here for easy access.
 
-This page assumes that
+## Assumptions
 
 - you have a working [installation of Laravel 5.6](https://laravel.com/docs/5.6#installing-laravel) (an existing project is fine, you don't need a *fresh* Laravel install);
 
 - you have composer registered as a global command & you can run the ```composer``` command from any directory (otherwise, if you need to run ```php composer.phar``` or reference another directory, please remember to adapt the commands below to your configuration);
 
+## Steps
 
-## 1. Backpack Base & CRUD
-
-In your project's root, run these commands:
+1) In your project's main directory, install CRUD using composer:
 
 ``` bash
 composer require backpack/crud
 ```
 
-Backpack/Base will automatically be pulled by composer, since it's a dependency. Now run the installation commands for each of the core packages:
+2) Now run the installation commands for each of the core packages (Base has also been installed, as a dependency):
 
 ``` bash
 php artisan backpack:base:install
@@ -26,184 +25,29 @@ php artisan backpack:crud:install
 
 Note: If you'd also like to enable the [file manager functionality](https://backpackforlaravel.com/uploads/home_slider/4.png), reply "yes" when the installer asks you. By default it lets users manage the ```public/uploads``` directory, but you can change that in the ```elfinder.php``` config file.
 
-> **Error: The process X exceeded the timeout of 60 seconds.**
-> 
-> If you get the error above, it might mean Github or Packagist is unavailable at the moment. This usually doesn't last for more than a few minutes, so you can run ```php artisan backpack:base:install --timeout=600``` to increase the timeout to 10 minutes. If this doesn't work either, take a look behind the scenes with ```php artisan backpack:base:install --timeout=600 --debug```, and refer to [this thread](https://github.com/Laravel-Backpack/Base/issues/217).
 
-> **Error: SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was too long**
-> 
-  If you receive the error above, your MySQL version might be a bit old. Please [apply this quick fix](https://laravel-news.com/laravel-5-4-key-too-long-error), then run ```php artisan migrate:fresh```."
-
-> **Any other installation error?**
-> 
-> If you can't install Backpack\\Base because of a different error, you can [try the manual installation process](https://laravel-backpack.readme.io/docs/frequently-asked-questions#section-how-do-i-manually-install-base), which you can tweak to your needs.
-
-You can now optionally:
+3) [Optional] You can now:
 - Change configuration values in ```config/backpack/base.php``` to make the admin panel your own. Backpack is white label, so you can change everything: menu color, project name, developer name etc.
-- If your application only has one login screen (for the admins), that means you're not going to use the auth controllers that Laravel provided by default. You're only going to use Backpack's auth controllers. You can keep the Laravel ones in your project, of course. But some people like to delete them to not get confused later on:   
+- If your application has only one login screen (for the admins), that means you're not going to use the auth controllers that Laravel provided by default. You're only going to use Backpack's auth controllers. You can keep the Laravel ones in your project, of course. But some people like to delete them to not get confused later on:   
 
 ``` bash
 # OPTIONAL! Please read the notice above.
 rm -rf app/Http/Controllers/Auth #deletes laravel's demo auth controllers
 ```
 
-If it's your first time installing Backpack, it is **highly recommended** that you go through our [Getting Started series](https://laravel-backpack.readme.io/docs/1-welcome-6-min), to understand how Backpack works. That's why we created it - to help you learn how to use our admin panel framework. It will guide you through creating a CRUD, so you can see how it works, but it will also explain _why_ it works and highlight its strengths and its weaknesses. No, really, [go through it](https://laravel-backpack.readme.io/docs/1-welcome-6-min).
+That's it. If you already know how to use Backpack, next up you'll probably want to [create CRUD Panels](/docs/{{version}}/introduction#creating-crud-panels).
 
-## ---- OPTIONALS ----
+> If it's your first time installing Backpack, it is **highly recommended** that you go through our [Getting Started series](/docs/{{version}}/getting-started-basics), to understand how Backpack works. That's why we created it - to help you learn how to use this admin panel framework. In ~23 minutes we'll teach you 80% of what you can do, and how.
 
-Everything else is optional. Your project might use them or it might not. Only do each following steps if you need the functionality that package provides.
+## Extensions
 
-### 2. BackupManager
-
-[>> See screenshots and installation](https://github.com/Laravel-Backpack/BackupManager)
-
-1) In your terminal
-
-``` bash
-# Install the package
-composer require backpack/backupmanager
-
-# Publish the config file and lang files:
-php artisan vendor:publish --provider="Backpack\BackupManager\BackupManagerServiceProvider"
-
-# [optional] Add a sidebar_content item for it
-php artisan backpack:base:add-sidebar-content "<li><a href='{{ url(config('backpack.base.route_prefix', 'admin').'/backup') }}'><i class='fa fa-hdd-o'></i> <span>Backups</span></a></li>"
-```
-
-2) Add a new "disk" to config/filesystems.php:
-
-```php
-        // used for Backpack/BackupManager
-        'backups' => [
-            'driver' => 'local',
-            'root'   => storage_path('backups'), // that's where your backups are stored by default: storage/backups
-        ],
-```
-This is where you choose a different driver if you want your backups to be stored somewhere else (S3, Dropbox, Google Drive, Box, etc).
-
-3) [optional] Modify your backup options in config/backup.php
-
-4) [optional] Instruct Laravel to run the backups automatically in your console kernel:
-
-```php
-// app/Console/Kernel.php
-
-protected function schedule(Schedule $schedule)
-{
-   $schedule->command('backup:clean')->daily()->at('04:00');
-   $schedule->command('backup:run')->daily()->at('05:00');
-}
-```
-
-5) [optional] If you need to change the path to the mysql_dump command, you can do that in your config/database.php file. For MAMP on Mac OS, add these to your mysql connection:
-```
-            'dump_command_path' => '/Applications/MAMP/Library/bin/', // only the path, so without 'mysqldump' or 'pg_dump'
-            'dump_command_timeout' => 60 * 5, // 5 minute timeout
-            'dump_using_single_transaction' => true,
-```
+In case you want to add extra functionality that's already been built, check out [the installation steps for the extensions we've developed](/docs/{{version}}/install-optionals).
 
 
-### 3. LogManager
+## Frequently Asked Questions
 
-[>> See screenshots and installation](https://github.com/Laravel-Backpack/logmanager)
+- **Error: The process X exceeded the timeout of 60 seconds.** It might mean Github or Packagist is unavailable at the moment. This usually doesn't last for more than a few minutes, so you can run ```php artisan backpack:base:install --timeout=600``` to increase the timeout to 10 minutes. If this doesn't work either, take a look behind the scenes with ```php artisan backpack:base:install --timeout=600 --debug```, and refer to [this thread](https://github.com/Laravel-Backpack/Base/issues/217).
 
+- **Error: SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was too long**. Your MySQL version might be a bit old. Please [apply this quick fix](https://laravel-news.com/laravel-5-4-key-too-long-error), then run ```php artisan migrate:fresh```.
 
-1) Install via composer:
-
-``` bash
-composer require backpack/logmanager
-```
-
-2) Add a "storage" filesystem disk in config/filesystems.php:
-
-```
-// used for Backpack/LogManager
-'storage' => [
-            'driver' => 'local',
-            'root'   => storage_path(),
-        ],
-```
-
-3) Configure Laravel to create a new log file for every day, in your .ENV file, if it's not already. Otherwise there will only be one file at all times.
-
-```
-    APP_LOG=daily
-```
-
-or directly in your config/app.php file:
-```
-    'log' => env('APP_LOG', 'daily'),
-```
-
-4) [optional] Add a menu item for it in resources/views/vendor/backpack/base/inc/sidebar_content.blade.php or menu.blade.php:
-
-```html
-<li><a href="{{ backpack_url('log') }}"><i class="fa fa-terminal"></i> <span>Logs</span></a></li>
-```
-
-### 4. Settings
-
-An interface for the administrator to easily change application settings. Uses Laravel Backpack. 
-
-[>> See screenshots and installation](https://github.com/Laravel-Backpack/settings)
-
-Installation:
-
-``` bash
-# install the package
-composer require backpack/settings
-
-# run the migration
-php artisan vendor:publish --provider="Backpack\Settings\SettingsServiceProvider"
-php artisan migrate
-
-# [optional] add a menu item for it to the sidebar_content file
-php artisan backpack:base:add-sidebar-content "<li><a href='{{ url(config('backpack.base.route_prefix', 'admin') . '/setting') }}'><i class='fa fa-cog'></i> <span>Settings</span></a></li>"
-
-# [optional] insert some example dummy data to the database
-php artisan db:seed --class="Backpack\Settings\database\seeds\SettingsTableSeeder"
-```
-
-### 5. PageManager
-
-[>> See screenshots and installation](https://github.com/Laravel-Backpack/pagemanager)
-
-1) In your terminal
-
-``` bash
-composer require backpack/pagemanager
-```
-
-2) Publish the views, migrations and the PageTemplates trait; run the migrations:
-
-```
-php artisan vendor:publish --provider="Backpack\PageManager\PageManagerServiceProvider"
-php artisan migrate
-```
-
-3) [optional] Add a menu item for it in resources/views/vendor/backpack/base/inc/sidebar_content.blade.php or menu.blade.php:
-
-```html
-<li><a href="{{backpack_url('page') }}"><i class="fa fa-file-o"></i> <span>Pages</span></a></li>
-```
-
-### 6. PermissionManager
-
-An admin panel for user authentication on Laravel 5, using Backpack\CRUD. Add, edit, delete users, roles and permission.
-
-[>> Installation](https://github.com/Laravel-Backpack/PermissionManager#install)
-[>> Github](https://github.com/Laravel-Backpack/PermissionManager)
-
-
-### 7. MenuCrud
-
-An admin panel for menu items on Laravel 5, using Backpack\CRUD. Add, edit, reorder, nest, rename menu items and link them to Backpack\PageManager pages, external link or custom internal link.
-
-[>> Github](https://github.com/Laravel-Backpack/MenuCRUD)
-
-
-### 8. NewsCrud
-
-Since NewsCRUD does not provide any extra functionality other than Backpack\CRUD, it is not a package. It's just a tutorial to show you how this can be achieved. In the future, CRUD examples like this one will be easily installed from the command line, from a central repository. Until then, you will need to manually create the files.
-
-[>> Github](https://github.com/Laravel-Backpack/NewsCRUD)
+- **Any other installation error?** If you can't install Backpack\\Base because of a different error, you can [try the manual installation process](https://laravel-backpack.readme.io/docs/frequently-asked-questions#section-how-do-i-manually-install-base), which you can tweak to your needs.
