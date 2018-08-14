@@ -31,7 +31,7 @@
     + Revisions
     + Show
 - [Resources](/docs/{{version}}/crud-resources)
-    + Buttons
+    + [Buttons](/docs/{{version}}/crud-buttons)
     + Columns
     + Fields
     + Filters
