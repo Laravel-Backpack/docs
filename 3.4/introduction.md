@@ -26,7 +26,7 @@ php artisan backpack:base:add-sidebar-content "<li><a href='{{ backpack_url('tag
 # STEP 4. go through the generated files, customize according to your needs
 ```
 
-## Need to know
+## Need to Know
 - **Requirements:**
   - Laravel 5.5 or 5.6
   - PHP 7+
@@ -48,7 +48,7 @@ Packages you can install or download, that treat common use cases. Some have bee
   - LogManager - interface to preview Laravel log files;
   - BackupManager - interface to backup your files & db;
 
-## Where do I start?
+## How to Start
 
 We heavily recommend you spend a little time to understand Backpack, and only afterwards install and use it. Currently your options are:
 - **[Text Tutorial](/docs/{{version}}/getting-started-1-basics)** - 23 minutes
