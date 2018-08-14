@@ -1,13 +1,13 @@
 # Introduction
 
-Backpack is a framework that helps you build your own CMS, the way you like it. It will help you build _custom_ administration panels, for anything from presentation websites to complex web applications. You can drop it on existing Laravel installations, or on fresh projects.
+Backpack is a collection of Laravel packages. It helps you build your own CMS, the way you like it. Thousands of Laravel professionals use it every day, to build _custom_ administration panels, for anything from presentation websites to complex web applications. You can drop it on existing Laravel installations _or_ fresh projects.
 
 In a nutshell:
 
 - **Backpack\Base** will provide you with a visual interface you can use and customize (using the AdminLTE HTML theme), authentication & bubble notifications;
 - **Backpack\CRUD** will help _you_ build admin panels for your Eloquent models, where _your admins_ can easily create/read/update/delete/reoder/preview/etc entries;
 
-After getting to know Backpack, you'll be able to create a CRUD panel for each entity in just a few steps:
+After [understanding Backpack](/docs/{{version}}/getting-started-1-basics), you'll be able to create a CRUD panel for each entity in 10 minutes / model:
 
 ```bash
 # STEP 0. create migration (in case you're starting from scratch)
@@ -31,9 +31,9 @@ php artisan backpack:base:add-sidebar-content "<li><a href='{{ backpack_url('tag
   - Laravel 5.5 or 5.6
   - PHP 7+
   - MySQL (recommended) / PosgreSQL / SQLite / SQL Server
-- **License**: Backpack is under a license we call "_You make money, I make money_" (YummY). Its source is public, and you can use it for free for non-commercial purposes (testing, non-profits, personal use, etc), but if you make money using it you need to purchase a commercial license. Please see  [the pricing section](https://backpackforlaravel.com/pricing) for more details.
 - **Screenshots:** take a look at [our homepage](http://www.backpackforlaravel.com/).
 - **Security** : Backpack has never had a critical vulnerability/hack. But there have been important security updates for some dependencies (including Laravel). Please  [subscribe to the monthly newsletter](https://backpackforlaravel.com/newsletter), so we can reach you in case anything bad happens. We only send one email per month, and we never ever share our list with anyone.
+- **License**: Backpack is under a license we call "_You make money, I make money_" (YummY). Its source is public, and you can use it for free for non-commercial purposes (testing, non-profits, personal use, etc), but if you make money using it you need to purchase a commercial license. Please see  [the pricing section](https://backpackforlaravel.com/pricing) for more details.
 
 ## Extensions
 
@@ -52,5 +52,5 @@ Packages you can install or download, that treat common use cases. Some have bee
 
 We heavily recommend you spend a little time to understand Backpack, and only afterwards install and use it. Currently your options are:
 - **[Text Tutorial](/docs/{{version}}/getting-started-1-basics)** - 23 minutes
-- **[Email Tutorial](http://backpackforlaravel.test/getting-started-emails)** - 5 minutes * 5 days - If you don't have time right now, subscribe to get 1 short email every day, for the next 5 days, for free. Pretty much the same content as above, in bite-sized emails
+- **[Email Tutorial](http://backpackforlaravel.test/getting-started-emails)** - 1 email per day, for 5 days, 5 minutes each
 - **Video Tutorial** - working on it

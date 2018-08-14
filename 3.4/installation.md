@@ -4,14 +4,14 @@ Each Backpack package has its own installation instructions in its readme file. 
 
 This page assumes that
 
-- you have a working [installation of Laravel 5.6](https://laravel.com/docs/5.6#installing-laravel) (you don't need a *fresh* Laravel install for Backpack, you can install Backpack on an existing projects);
+- you have a working [installation of Laravel 5.6](https://laravel.com/docs/5.6#installing-laravel) (an existing project is fine, you don't need a *fresh* Laravel install);
 
-- you have composer registered as a global command & you can run the ```composer``` command from any directory (you don't need to run ```php composer.phar``` or reference another directory);
+- you have composer registered as a global command & you can run the ```composer``` command from any directory (otherwise, if you need to run ```php composer.phar``` or reference another directory, please remember to adapt the commands below to your configuration);
 
 
 ## 1. Backpack Base & CRUD
 
-Run these commands:
+In your project's root, run these commands:
 
 ``` bash
 composer require backpack/crud

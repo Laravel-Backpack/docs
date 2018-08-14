@@ -1,8 +1,8 @@
 #### About
 
 - [Introduction](/docs/{{version}}/introduction)
-- [Demo](/docs/{{version}}/about-demo)
-- [Installation](/docs/{{version}}/about-installation)
+- [Demo](/docs/{{version}}/demo)
+- [Installation](/docs/{{version}}/installation)
 - Getting Started
     - [1. Basics](/docs/{{version}}/getting-started-1-basics)
     - [2. Anatomy of a CRUD](/docs/{{version}}/getting-started-2-anatomy-of-a-crud)
