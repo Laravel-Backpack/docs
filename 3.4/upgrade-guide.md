@@ -1,49 +1,40 @@
----
-title: "Upgrade Guide"
-excerpt: ""
----
-# Upgrading Backpack 3.3 to 3.4
+# Upgrade Guide
 
-For upgrading from 3.2 to 3.3 [check out the previous upgrade guide](https://laravel-backpack.readme.io/v3.3/docs/upgrading-crud-32-to-33).
+This will guide you through upgrading from Backpack 3.3 to 3.4. For upgrading from 3.2 to 3.3 [check out the previous upgrade guide](https://laravel-backpack.readme.io/v3.3/docs/upgrading-crud-32-to-33).
 
 ## Requirements
 - PHP 7+
 - Laravel 5.5+
 - 10-30 minutes
 
-## Breaking changes
+## Breaking Changes
 - completely rewritten AjaxTables functionality - we fixed all AjaxTables issues and now AjaxDataTables are the default and only option;
 - in create/update forms, fields without a tab are displayed *before* all tabs;
 
 As you can see, we've struggled very hard to make this version as backwards-compatible as possible. As such, the upgrade steps are small, and few projects will be negatively affected, unless they've overwritten default functionality.
 
-## Upgrade steps
+## Upgrade Steps
 
 ### Require the latest versions
 1. run the commands below (or make these changes in your ```composer.json``` and run ```composer update```)
-[block:code]
-{
-  "codes": [
-    {
-      "code": "composer require backpack/base:\"^0.9.0\"\ncomposer require backpack/crud:\"^3.4.0\"",
-      "language": "shell",
-      "name": "Command line"
-    }
-  ]
-}
-[/block]
+
+```bash
+composer require backpack/base:"^0.9.0"
+composer require backpack/crud:"^3.4.0"
+```
+
 ### Upgrade Backpack\Base to 0.9.x 
 
 This brings [A LOT of new features](https://laravel-backpack.readme.io/v3.4/docs/release-notes#section-backpack-base-0-9-x) and makes sure all components are up-to-date.
 
-[OPTIONAL, but recommended] 
+**[OPTIONAL, but recommended]**
 2. inside your ```config/app.php``` file, if you have any Backpack service providers or aliases (any for any Backpack package), you can remove them; they're no longer needed, since L5.5 loads them automatically; 
 3. Starting with Backpack\Base 0.9.0, we have a new place for you to store your admin routes: ```routes/backpack/custom.php```. That's where ```CRUD::resource()``` routes are generated automatically, when you generate a new CRUD. To future-proof your application, you can publish that file using ```php artisan vendor:publish --provider="Backpack\Base\BaseServiceProvider" --tag=custom_routes```, then manually move your existing admin routes there (from your ```routes/web.php```).
 4. inside your routes and controllers, replace the ```admin``` middleware with the ```backpack_middleware()``` helper; this will pull in the admin middleware name, since you can now change that in the config file;
 5. The admin middleware's class has been renamed to CheckIfAdmin; if you were extending ```Backpack\Base\app\Http\Middleware\Admin``` anywhere, make sure to extend the new class name: ```Backpack\Base\app\Http\Middleware\CheckIfAdmin```;
 6. Replace your ```Auth::user()``` and ```Auth::check()``` calls with ```backpack_auth()->user()``` and ```backpack_auth()->check()``` etc, everywhere in your *admin panel's* custom controllers, models, views;
 
-[MANDATORY]
+**[MANDATORY]**
 7. Inside ```resources/views/vendor/backpack/base```:
   7.1. Delete any ```base``` blade files that you have not personally customized; namely ```layout.blade.php```; in most cases you should be left with only ```inc/sidebar.blade.php```;
   7.2. Create a ```inc//sidebar_content.blade.php``` file and copy all of your sidebar items and subitems there (```<li><a href=""></a></li>```; here's an [example file](https://github.com/Laravel-Backpack/Base/pull/252/files#diff-6ec82d09b237df882e119c54ec1be9f4));

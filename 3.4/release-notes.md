@@ -1,7 +1,5 @@
----
-title: "Release Notes"
-excerpt: ""
----
+# Release Notes
+
 **Launch date:** March 22nd 2018
 
 Here are the main differences between [Backpack 3.3](https://laravel-backpack.readme.io/v3.3/docs) and Backpack 3.4.

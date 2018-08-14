@@ -5,9 +5,9 @@ Backpack is a collection of Laravel packages. It helps you build your own CMS, f
 In a nutshell:
 
 - **Backpack\Base** will provide you with a visual interface for the admin panel; it pulls in the excellent AdminLTE HTML theme and adds authentication functionality & bubble notifications; so that when you decide to build a custom admin page/functionality, you already have a bunch of building blocks to use for the UI;
-- **Backpack\CRUD** will help you build admin panels for your Eloquent models; a place for _your admins_ to easily create/read/update/delete/reoder/preview/etc entries;
+- **Backpack\CRUD** will help you build admin panels for your Eloquent models; a place for your admins to easily create/read/update/delete/reoder/preview/etc entries;
 
-### Creating CRUD Panels
+## Creating CRUD Panels
 
 After [understanding Backpack](/docs/{{version}}/getting-started-1-basics), you'll be able to create a CRUD panel for each entity in 10 minutes / model:
 
