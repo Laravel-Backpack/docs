@@ -2,6 +2,7 @@
 
 ---
 
+<a name="working-with-buttons"></a>
 ## Working with Buttons
 
 Buttons work similarly to fields and columns. But, unlike fields and columns:
@@ -29,13 +30,14 @@ $this->crud->removeButton($name);
 
 $this->crud->removeButtonFromStack($name, $stack);
 ```
-
+<a name="overwriting-a-default-button"></a>
 ## Overwriting a Default Button
 
 Before showing any buttons, Backpack will check your ```resources\views\vendor\backpack\crud\buttons``` directory, to see if you've overwritten any default buttons. If it finds a blade file with the same name there as the default buttons, it will use your blade file, instead of the default.
 
 That means **you can overwrite an existing button simply by creating a blade file with the same name inside this directory**.
 
+<a name="creating-a-custom-button"></a>
 ## Creating a Custom Button
 
 To create a custom button:
@@ -47,8 +49,10 @@ In this blade file, you can use:
 - ```$crud``` - the entire CrudPanel object;
 - ```$button``` - the button you're currently showing;
 
+<a name="examples"></a>
 ## Examples
 
+<a name="adding-a-custom-button-with-a-blade-file"></a>
 ### Adding a Custom Button with a Blade File
 
 Let's say we want to create a simple ```ban.blade.php``` button. This button would just open a ```user/{id}/ban/``` route, which would point to ```UserCrudController::ban()```. The steps would be:
@@ -73,7 +77,7 @@ public function ban()
 }
 ```
 
-
+<a name="adding-a-custom-button-without-a-blade-file"></a>
 ### Adding a Custom Button without a Blade File
 
 Instead of creating a blade file for your button, you can use a function on your model to output the button's HTML.

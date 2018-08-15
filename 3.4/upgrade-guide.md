@@ -4,17 +4,20 @@
 
 This will guide you through upgrading from Backpack 3.3 to 3.4. For upgrading from 3.2 to 3.3 [check out the previous upgrade guide](https://laravel-backpack.readme.io/v3.3/docs/upgrading-crud-32-to-33).
 
+<a name="requirements"></a>
 ## Requirements
 - PHP 7+
 - Laravel 5.5+
 - 10-30 minutes
 
+<a name="breaking-changes"></a>
 ## Breaking Changes
 - completely rewritten AjaxTables functionality - we fixed all AjaxTables issues and now AjaxDataTables are the default and only option;
 - in create/update forms, fields without a tab are displayed *before* all tabs;
 
 As you can see, we've struggled very hard to make this version as backwards-compatible as possible. As such, the upgrade steps are small, and few projects will be negatively affected, unless they've overwritten default functionality.
 
+<a name="upgraade-steps"></a>
 ## Upgrade Steps
 
 ### Require the latest versions

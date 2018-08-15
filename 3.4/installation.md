@@ -8,6 +8,7 @@ We assume:
 
 - you have composer registered as a global command & you can run the ```composer``` command from any directory (otherwise, if you need to run ```php composer.phar``` or reference another directory, please remember to adapt the commands below to your configuration);
 
+<a name="steps"></a>
 ## Steps
 
 1) In your project's main directory, install CRUD using composer:
@@ -39,11 +40,12 @@ That's it. If you already know how to use Backpack, next up you'll probably want
 
 > If it's your first time installing Backpack, it is **highly recommended** that you go through our [Getting Started series](/docs/{{version}}/getting-started-basics), to understand how Backpack works. That's why we created it - to help you learn how to use this admin panel framework. In ~23 minutes we'll teach you 80% of what you can do, and how.
 
+<a name="extensions"></a>
 ## Extensions
 
 In case you want to add extra functionality that's already been built, check out [the installation steps for the extensions we've developed](/docs/{{version}}/install-optionals).
 
-
+<a name="frequently-asked-questions"></a>
 ## Frequently Asked Questions
 
 - **Error: The process X exceeded the timeout of 60 seconds.** It might mean Github or Packagist is unavailable at the moment. This usually doesn't last for more than a few minutes, so you can run ```php artisan backpack:base:install --timeout=600``` to increase the timeout to 10 minutes. If this doesn't work either, take a look behind the scenes with ```php artisan backpack:base:install --timeout=600 --debug```, and refer to [this thread](https://github.com/Laravel-Backpack/Base/issues/217).

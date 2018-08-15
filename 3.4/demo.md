@@ -12,6 +12,7 @@ We've put toghether a working Laravel backend app, that you can install on your 
 
 >**Don't use this demo to start your real projects.** Please use [the recommended installation procedure](/docs/{{version}}/installation). You don't want all the bogus entities we've created. You don't want all the packages we've used. And you _definitely_ don't want the default admin user. Start from scratch. 
 
+<a name="installation"></a>
 ## Installation
 
 1) In your ```Projects``` or ```www``` directory, wherever you host your apps:
@@ -36,6 +37,7 @@ php artisan db:seed --class="Backpack\Settings\database\seeds\SettingsTableSeede
 php artisan db:seed
 ```
 
+<a name="usage"></a>
 ## Usage 
 
 Once everything's installed, and your database has been set up:
