@@ -1,14 +1,8 @@
+# Fields
+
 ---
-title: "Field Types"
-excerpt: ""
----
-[About field types](https://laravel-backpack.readme.io/v3.0/docs/crud-fields#section-about-field-types)
-[Existing Field Types](https://laravel-backpack.readme.io/v3.0/docs/crud-fields#standard-field-types)
-[Custom Field Types](https://laravel-backpack.readme.io/v3.0/docs/crud-fields#section-custom-field-types)
 
-
-
-# ABOUT FIELD TYPES
+## About
 
 Field types are defined in the Controller and settle the way that particular field looks in the add / edit view.
 
@@ -31,7 +25,7 @@ The following fields are to be used as $field_definition_array inside:
 $this->crud->addField($field_definition_array, 'update/create/both');
 ```
 
-# OPTIONAL FIELD ATTRIBUTES
+## Field Attributes
 
 All fields require at least a `name` to be displayed however defining a `label` and `type` are recommended which you will read more about what types are available by default below. All fields also support additional parameters to be passed:
 
@@ -51,76 +45,71 @@ All fields require at least a `name` to be displayed however defining a `label` 
      'readonly'=>'readonly',
 ]
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "STANDARD FIELD TYPES"
-}
-[/block]
 
-[block:parameters]
-{
-  "data": {
-    "0-0": "[address](#section-address)",
-    "1-0": "[browse](#section-browse)",
-    "2-0": "[browse_multiple](#section-browse_multiple)",
-    "3-0": "[base64_image](#section-base64_image)",
-    "4-0": "[checkbox](#section-checkbox)",
-    "5-0": "[checklist](#section-checklist)",
-    "6-0": "[checklist_dependency](#section-checklist_dependency)",
-    "7-0": "[ckeditor](#section-ckeditor)",
-    "8-0": "[color](#section-color)",
-    "9-0": "[color_picker](#section-color_picker)",
-    "10-0": "[custom_html](#section-custom_html-v207)",
-    "0-1": "[hidden](#section-hidden)",
-    "1-1": "[icon_picker](#section-icon_picker)",
-    "2-1": "[image](#section-image)",
-    "3-1": "[month](#section-month)",
-    "4-1": "[number](#section-number)",
-    "5-1": "[page_or_link](#section-page_or_link)",
-    "6-1": "[password](#section-password-field)",
-    "7-1": "[radio](#section-radio)",
-    "8-1": "[range](#section-range)",
-    "9-1": "[select](#section-select-1-n-relationship) (1-n relationship)",
-    "10-1": "[select2](#section-select2-1-n-relationship) (1-n relationship)",
-    "0-2": "[simplemde](#section-simplemde)",
-    "1-2": "[summernote](#section-summernote)",
-    "2-2": "[table](#section-table)",
-    "3-2": "[text](#section-text)",
-    "4-2": "[textarea](#section-textarea)",
-    "5-2": "[time](#section-time)",
-    "6-2": "[tinymce](#section-tinymce)",
-    "7-2": "[upload](#section-upload)",
-    "8-2": "[upload_multiple](#section-upload_multiple)",
-    "9-2": "[url](#section-url)",
-    "10-2": "[video](#section-video)",
-    "11-0": "[date](#section-date)",
-    "11-2": "[view](#section-view)",
-    "11-1": "[select_multiple](#section-select_multiple-n-n-relationship) (n-n relationship)",
-    "12-1": "[select2_multiple](#section-select2_multiple-n-n-relationship) (n-n relationship)",
-    "12-2": "[week](#section-week)",
-    "12-0": "[date_picker](#section-date_picker)",
-    "13-2": "[wysiwyg](#section-wysiwyg)",
-    "14-0": "[datetime](#section-datetime)",
-    "13-0": "[date_range](#section-date_range)",
-    "15-0": "[datetime_picker](#section-datetime_picker)",
-    "13-1": "[select_from_array](#section-select_from_array)",
-    "14-1": "[select2_from_array](#section-select2_from_array)",
-    "16-0": "[email](#section-email)",
-    "15-1": "[select2_from_ajax](#section-select2_from_ajax)",
-    "16-1": "[select2_from_ajax_multiple](#section-select2_from_ajax_multiple)",
-    "17-0": "[enum](#section-enum)"
-  },
-  "cols": 3,
-  "rows": 18
-}
-[/block]
+## Creating a Custom Field Type
 
-[block:api-header]
-{
-  "type": "basic",
-  "title": "address"
-}
+The actual field types are stored in the Backpack/CRUD package in ```/resources/views/fields```. If you need to extend the CRUD with a new field type or overwrite an existing field, you don’t need to modify the package, you just need to add a file in your application in ```/resources/views/vendor/backpack/crud/fields```. The package checks there first, and only if there's no file there, it will load it from the package.
+
+Your field definition will be something like:
+
+```php
+[
+  // Custom Field
+  'name' => 'address',
+  'label' => 'Home address',
+  'type' => 'address'
+  /// 'view_namespace' => 'yourpackage' // use a custom namespace of your package to load views within a custom view folder.
+]);
+```
+
+And your blade file something like:
+```php
+<!-- field_type_name -->
+<div @include('crud::inc.field_wrapper_attributes') >
+    <label>{!! $field['label'] !!}</label>
+    <input
+        type="text"
+        name="{{ $field['name'] }}"
+        value="{{ old($field['name']) ? old($field['name']) : (isset($field['value']) ? $field['value'] : (isset($field['default']) ? $field['default'] : '' )) }}"
+        @include('crud::inc.field_attributes')
+    >
+
+    {{-- HINT --}}
+    @if (isset($field['hint']))
+        <p class="help-block">{!! $field['hint'] !!}</p>
+    @endif
+</div>
+
+
+@if ($crud->checkIfFieldIsFirstOfItsType($field, $fields))
+  {{-- FIELD EXTRA CSS  --}}
+  {{-- push things in the after_styles section --}}
+
+      @push('crud_fields_styles')
+          <!-- no styles -->
+      @endpush
+
+
+  {{-- FIELD EXTRA JS --}}
+  {{-- push things in the after_scripts section --}}
+
+      @push('crud_fields_scripts')
+          <!-- no scripts -->
+      @endpush
+@endif
+
+{{-- Note: most of the times you'll want to use @if ($crud->checkIfFieldIsFirstOfItsType($field, $fields)) to only load CSS/JS once, even though there are multiple instances of it. --}}
+```
+
+You will find everything you need inside the  ```$crud```, ```$entry```, and ```$field``` variables:
+- ```$crud``` - all the crudpanel settings, options and variables;
+- ```$entry``` - in EDIT forms, the current entry being modified (the actual values);
+- ```$field``` - all options that have been passed for this field;
+
+## Default Field Types
+
+### address
+
 [/block]
 Use [Algolia Places autocomplete](https://community.algolia.com/places/) to help users type their address faster. With the ```store_as_json``` option, it will store the address, postcode, city, country, latitude and longitude in a JSON in the database. Without it, it will just store the address string.
 
@@ -143,11 +132,8 @@ Please note
 }
 [/block]
 
-[block:api-header]
-{
-  "type": "basic",
-  "title": "browse"
-}
+### browse
+
 [/block]
 Open elFinder and select a file from there.
 
@@ -230,11 +216,8 @@ Input preview:
 }
 [/block]
 
-[block:api-header]
-{
-  "type": "basic",
-  "title": "base64_image"
-}
+### base64_image
+
 [/block]
 Upload an image and store it in the database as Base64. Notes:
 - make sure the column type is LONGBLOB;
@@ -252,11 +235,8 @@ $this->crud->addField([ // base64_image
 ]);
 ```
 
-[block:api-header]
-{
-  "type": "basic",
-  "title": "checkbox"
-}
+### checkbox
+
 [/block]
 Checkbox for true/false.
 
@@ -267,11 +247,8 @@ Checkbox for true/false.
     'type' => 'checkbox'
 ],
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "checklist"
-}
+### checklist
+
 [/block]
 ```php
 [
@@ -284,11 +261,8 @@ Checkbox for true/false.
     'pivot'     => true,
 ]);
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "checklist_dependency"
-}
+### checklist_dependency
+
 [/block]
 ```php
 
@@ -321,11 +295,8 @@ Checkbox for true/false.
     ],
 ],
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "ckeditor"
-}
+### ckeditor
+
 [/block]
 Show a wysiwyg CKEditor to the user.
 
@@ -338,11 +309,8 @@ Show a wysiwyg CKEditor to the user.
     'extra_plugins' => ['oembed', 'widget', 'justify']
 ],
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "color"
-}
+### color
+
 [/block]
 ```php
 [   // Color
@@ -351,11 +319,8 @@ Show a wysiwyg CKEditor to the user.
     'type' => 'color'
 ],
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "color_picker"
-}
+### color_picker
+
 [/block]
 Show a pretty colour picker using [Bootstrap Colorpicker](https://itsjavi.com/bootstrap-colorpicker/).
 
@@ -367,11 +332,8 @@ Show a pretty colour picker using [Bootstrap Colorpicker](https://itsjavi.com/bo
     'color_picker_options' => ['customClass' => 'custom-class']
 ]
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "custom_html [v2.0.7+]"
-}
+### custom_html
+
 [/block]
 Allows you to insert custom HTML in the create/update forms. Usually used in forms with a lot of fields, to separate them using h1-h5, hr, etc, but can be used for any HTML.
 
@@ -382,11 +344,8 @@ Allows you to insert custom HTML in the create/update forms. Usually used in for
     'value' => '<hr>'
 ],
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "date"
-}
+### date
+
 [/block]
 ```php
 [   // Date
@@ -395,11 +354,8 @@ Allows you to insert custom HTML in the create/update forms. Usually used in for
     'type' => 'date'
 ],
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "date_picker"
-}
+### date_picker
+
 [/block]
 Show a pretty [Bootstrap Datepicker](http://bootstrap-datepicker.readthedocs.io/en/latest/).
 
@@ -418,11 +374,8 @@ Show a pretty [Bootstrap Datepicker](http://bootstrap-datepicker.readthedocs.io/
 ```
 
 Please note it is recommended that you use [attribute casting](https://laravel.com/docs/5.3/eloquent-mutators#attribute-casting) on your model (cast to date).
-[block:api-header]
-{
-  "type": "basic",
-  "title": "date_range"
-}
+### date_range
+
 [/block]
 Starting with Backpack\CRUD 3.1.59
 
@@ -464,11 +417,8 @@ Your end result will look like this:
 }
 [/block]
 
-[block:api-header]
-{
-  "type": "basic",
-  "title": "datetime"
-}
+### datetime
+
 [/block]
 ```php
 [   // DateTime
@@ -485,11 +435,8 @@ Your end result will look like this:
 	}
 ```
 Otherwise the input's datetime-local formal will cause some errors.
-[block:api-header]
-{
-  "type": "basic",
-  "title": "datetime_picker"
-}
+### datetime_picker
+
 [/block]
 Show a [Bootstrap Datetime Picker](https://eonasdan.github.io/bootstrap-datetimepicker/).
 
@@ -515,18 +462,12 @@ Show a [Bootstrap Datetime Picker](https://eonasdan.github.io/bootstrap-datetime
 	}
 ```
 Otherwise the input's datetime-local formal will cause some errors. Remeber to change "datetime" with the name of your attribute (column name).
-[block:api-header]
-{
-  "type": "basic",
-  "title": "dropzone // TODO"
-}
+### dropzone // TODO
+
 [/block]
 
-[block:api-header]
-{
-  "type": "basic",
-  "title": "email"
-}
+### email
+
 [/block]
 ```php
 [   // Email
@@ -535,11 +476,8 @@ Otherwise the input's datetime-local formal will cause some errors. Remeber to c
     'type' => 'email'
 ],
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "enum"
-}
+### enum
+
 [/block]
 Show a select with the values in the database for that ENUM field. Requires that the db column type is "enum". If the db column allows null, the " - " value will also show up in the select.
 
@@ -552,11 +490,8 @@ Show a select with the values in the database for that ENUM field. Requires that
 ```
 
 PLEASE NOTE the enum field only works for MySQL databases.
-[block:api-header]
-{
-  "type": "basic",
-  "title": "hidden"
-}
+### hidden
+
 [/block]
 Include an <input type="hidden"> in the form.
 
@@ -566,11 +501,8 @@ Include an <input type="hidden"> in the form.
     'type' => 'hidden'
 ],
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "icon_picker"
-}
+### icon_picker
+
 [/block]
 Show an icon picker. Supported icon sets are fontawesome, glyphicon, ionicon, weathericon, mapicon, octicon, typicon, elusiveicon, materialdesign as per the jQuery plugin, [bootstrap-iconpicker](http://victor-valencia.github.io/bootstrap-iconpicker/).
 
@@ -602,11 +534,8 @@ Your input will look like button, with a dropdown where the user can search or p
 }
 [/block]
 
-[block:api-header]
-{
-  "type": "basic",
-  "title": "image"
-}
+### image
+
 [/block]
 Upload an image and store it on the disk. 
 
@@ -698,11 +627,8 @@ The value for aspect ratio is a float that represents the ratio of the cropping 
 - Portrait = 0.5
 
 And you can, of course, use any value for more extreme rectangles.
-[block:api-header]
-{
-  "type": "basic",
-  "title": "month"
-}
+### month
+
 [/block]
 ```php
 [   // Month
@@ -711,11 +637,8 @@ And you can, of course, use any value for more extreme rectangles.
     'type' => 'month'
 ],
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "number"
-}
+### number
+
 [/block]
 Shows an input type=number to the user, with optional prefix and suffix:
 [block:image]
@@ -744,11 +667,8 @@ Shows an input type=number to the user, with optional prefix and suffix:
     // 'suffix' => ".00",
 ],
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "page_or_link"
-}
+### page_or_link
+
 [/block]
 Select an existing page from PageManager or an internal or external link. It’s used in the MenuManager package, but can be used in any other model just as well. Looks like this:
 [block:image]
@@ -776,11 +696,8 @@ And its definition looks like this:
     'page_model' => '\Backpack\PageManager\app\Models\Page'
 ]
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "password field"
-}
+### password field
+
 [/block]
 ```php
 [   // Password
@@ -789,11 +706,8 @@ And its definition looks like this:
     'type' => 'password'
 ],
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "radio"
-}
+### radio
+
 [/block]
 Show radios according to an associative array you give the input and let the user pick from them. You can choose for the radio options to be displayed inline or one-per-line.
 
@@ -810,11 +724,8 @@ Show radios according to an associative array you give the input and let the use
     //'inline'      => false, // show the radios all on the same line?
 ]
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "range"
-}
+### range
+
 [/block]
 ```php
 [   // Range
@@ -823,11 +734,8 @@ Show radios according to an associative array you give the input and let the use
     'type' => 'range'
 ],
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "select (1-n relationship)"
-}
+### select (1-n relationship)
+
 [/block]
 Show a Select with the names of the connected entity and let the user select one of them.
 Your relationships should already be defined on your models.
@@ -842,11 +750,8 @@ Your relationships should already be defined on your models.
    'model' => "App\Models\Tag" // foreign key model
 ]
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "select2 (1-n relationship)"
-}
+### select2 (1-n relationship)
+
 [/block]
 [Works just like the SELECT field, but prettier]
 
@@ -863,11 +768,8 @@ Your relationships should already be defined on your models.
    'model' => "App\Models\Tag" // foreign key model
 ]
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "select_multiple (n-n relationship)"
-}
+### select_multiple (n-n relationship)
+
 [/block]
 Show a Select with the names of the connected entity and let the user select any number of them.
 Your relationships should already be defined on your models.
@@ -883,11 +785,8 @@ Your relationships should already be defined on your models.
 	'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
 ]
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "select2_multiple (n-n relationship)"
-}
+### select2_multiple (n-n relationship)
+
 [/block]
 [Works just like the SELECT field, but prettier]
 
@@ -906,11 +805,8 @@ Your relationships should already be defined on your models.
 	// 'select_all' => true, // show Select All and Clear buttons?
 ]
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "select_from_array"
-}
+### select_from_array
+
 [/block]
 Display a select with the values you want:
 
@@ -925,11 +821,8 @@ Display a select with the values you want:
     // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
 ],
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "select2_from_array"
-}
+### select2_from_array
+
 [/block]
 Display a select2 with the values you want:
 
@@ -944,11 +837,8 @@ Display a select2 with the values you want:
     // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
 ],
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "select2_from_ajax"
-}
+### select2_from_ajax
+
 [/block]
 Display a select2 that takes its values from an AJAX call.
 
@@ -1008,11 +898,8 @@ class CategoryController extends Controller
     }
 }
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "select2_from_ajax_multiple"
-}
+### select2_from_ajax_multiple
+
 [/block]
 Display a select2 that takes its values from an AJAX call. Same as [select2_from_ajax](#section-select2_from_ajax) above, but allows for multiple items to be selected. The only difference in the field definition is the "pivot" attribute.
 
@@ -1073,11 +960,8 @@ class CategoryController extends Controller
     }
 }
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "simplemde"
-}
+### simplemde
+
 [/block]
 Show a [SimpleMDE markdown editor](https://simplemde.com/) to the user.
 
@@ -1096,11 +980,8 @@ Show a [SimpleMDE markdown editor](https://simplemde.com/) to the user.
    // 'simplemdeAttributesRaw' => $some_json
 ],
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "summernote"
-}
+### summernote
+
 [/block]
 Show a [Summernote wysiwyg editor](http://summernote.org/) to the user.
 
@@ -1112,11 +993,8 @@ Show a [Summernote wysiwyg editor](http://summernote.org/) to the user.
     // 'options' => [], // easily pass parameters to the summernote JS initialization 
 ],
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "table"
-}
+### table
+
 [/block]
 Show a table with multiple inputs per row and store the values as JSON in the database. The user can add more rows and reorder the rows as they please.
 
@@ -1161,12 +1039,8 @@ The end result will look like this:
 }
 [/block]
 
-[block:api-header]
-{
-  "type": "basic",
-  "title": "text"
-}
-[/block]
+### text
+
 The basic field type, all it needs is the two mandatory parameters: name and label.
 
 ```php
@@ -1189,7 +1063,6 @@ The basic field type, all it needs is the two mandatory parameters: name and lab
      //], // extra HTML attributes for the field wrapper - mostly for resizing fields 
      //'readonly'=>'readonly',
 ],
-
 ```
 
 You can use the optional 'prefix' and 'suffix' attributes to display something before and after the input, like icons, path prefix, etc:
@@ -1209,12 +1082,8 @@ You can use the optional 'prefix' and 'suffix' attributes to display something b
 }
 [/block]
 
-[block:api-header]
-{
-  "type": "basic",
-  "title": "textarea"
-}
-[/block]
+### textarea
+
 Show a textarea to the user.
 
 ```php
@@ -1224,12 +1093,8 @@ Show a textarea to the user.
     'type' => 'textarea'
 ],
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "time"
-}
-[/block]
+### time
+
 ```php
 [   // Time
     'name' => 'start',
@@ -1237,19 +1102,9 @@ Show a textarea to the user.
     'type' => 'time'
 ],
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "time_picker // TODO"
-}
-[/block]
 
-[block:api-header]
-{
-  "type": "basic",
-  "title": "tinymce"
-}
-[/block]
+### tinymce
+
 Show a wysiwyg (TinyMCE) to the user.
 
 ```php
@@ -1259,12 +1114,8 @@ Show a wysiwyg (TinyMCE) to the user.
     'type' => 'tinymce'
 ],
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "upload"
-}
-[/block]
+### upload
+
 **Step 1.** Show a file input to the user:
 ```php
 [   // Upload
@@ -1294,7 +1145,7 @@ The field sends the file, through a Request, to the Controller. The Controller t
 
 [The ```uploadFileToDisk()``` method](https://github.com/Laravel-Backpack/CRUD/blob/master/src/CrudTrait.php#L108-L129) will take care of everything for most use cases:
 
-```
+```php
 /**
      * Handle file upload and DB storage for a file:
      * - on CREATE
@@ -1326,11 +1177,8 @@ If you're NOT using soft deletes on that Model and want the file to be deleted a
 		});
 	}
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "upload_multiple"
-}
+### upload_multiple
+
 [/block]
 Shows a multiple file input to the user and stores the values as a JSON array in the database.
 
@@ -1408,11 +1256,8 @@ If you're NOT using soft deletes on that Model and want the files to be deleted 
 ```
 
 You might notice the field is using a ```clear_photos``` variable. Don't worry, you don't need it in your db table. That's just used to delete photos upon "update". If you use ```$fillable``` on your model, just don't include it. If you use ```$guarded``` on your model, place it in guarded.
-[block:api-header]
-{
-  "type": "basic",
-  "title": "url"
-}
+### url
+
 [/block]
 ```php
 [   // URL
@@ -1421,11 +1266,8 @@ You might notice the field is using a ```clear_photos``` variable. Don't worry, 
     'type' => 'url'
 ],
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "video"
-}
+### video
+
 [/block]
 Allow the user to paste a Youtube/Vimeo link. That will get the video information with Javascript and store it as a JSON in the database.
 
@@ -1450,11 +1292,8 @@ $video = {
 ```
 
 So you should use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) in your model, to cast the video as ```array``` or ```object```.
-[block:api-header]
-{
-  "type": "basic",
-  "title": "view"
-}
+### view
+
 [/block]
 Load a custom view in the form.
 
@@ -1467,11 +1306,8 @@ Load a custom view in the form.
 ```
 
 **Note:** the same functionality can be achieved using a [custom field type](https://laravel-backpack.readme.io/v3.0/docs/crud-fields#section-custom-field-types), or using the [custom_html field type](https://laravel-backpack.readme.io/docs/crud-fields#custom_html-v207) (if the content is really simple).
-[block:api-header]
-{
-  "type": "basic",
-  "title": "week"
-}
+### week
+
 [/block]
 ```php
 [   // Week
@@ -1480,11 +1316,8 @@ Load a custom view in the form.
     'type' => 'week'
 ],
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "wysiwyg"
-}
+### wysiwyg
+
 [/block]
 Show a wysiwyg (CKEditor) to the user.
 
@@ -1495,35 +1328,3 @@ Show a wysiwyg (CKEditor) to the user.
     'type' => 'wysiwyg'
 ],
 ```
-
-# CUSTOM FIELD TYPES
-
-The actual field types are stored in the Backpack/CRUD package in ```/resources/views/fields```. If you need to extend the CRUD with a new field type or overwrite an existing field, you don’t need to modify the package, you just need to add a file in your application in ```/resources/views/vendor/backpack/crud/fields```. The package checks there first, and only if there's no file there, it will load it from the package.
-
-Your field definition will be something like:
-
-```php
-[
-  // Custom Field
-  'name' => 'address',
-  'label' => 'Home address',
-  'type' => 'address'
-  /// 'view_namespace' => 'yourpackage' // use a custom namespace of your package to load views within a custom view folder.
-]);
-```
-
-And your blade file something like:
-[block:code]
-{
-  "codes": [
-    {
-      "code": "<!-- field_type_name -->\n<div @include('crud::inc.field_wrapper_attributes') >\n    <label>{!! $field['label'] !!}</label>\n    <input\n        type=\"text\"\n        name=\"{{ $field['name'] }}\"\n        value=\"{{ old($field['name']) ? old($field['name']) : (isset($field['value']) ? $field['value'] : (isset($field['default']) ? $field['default'] : '' )) }}\"\n        @include('crud::inc.field_attributes')\n    >\n\n    {{-- HINT --}}\n    @if (isset($field['hint']))\n        <p class=\"help-block\">{!! $field['hint'] !!}</p>\n    @endif\n</div>\n\n\n@if ($crud->checkIfFieldIsFirstOfItsType($field, $fields))\n  {{-- FIELD EXTRA CSS  --}}\n  {{-- push things in the after_styles section --}}\n\n      @push('crud_fields_styles')\n          <!-- no styles -->\n      @endpush\n\n\n  {{-- FIELD EXTRA JS --}}\n  {{-- push things in the after_scripts section --}}\n\n      @push('crud_fields_scripts')\n          <!-- no scripts -->\n      @endpush\n@endif\n\n{{-- Note: most of the times you'll want to use @if ($crud->checkIfFieldIsFirstOfItsType($field, $fields)) to only load CSS/JS once, even though there are multiple instances of it. --}}",
-      "language": "html"
-    }
-  ]
-}
-[/block]
-You will find everything you need inside the  ```$crud```, ```$entry```, and ```$field``` variables:
-- ```$crud``` - all the crudpanel settings, options and variables;
-- ```$entry``` - in EDIT forms, the current entry being modified (the actual values);
-- ```$field``` - all options that have been passed for this field;

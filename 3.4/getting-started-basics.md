@@ -1,23 +1,19 @@
----
-title: "1. Basics [4 min]"
-excerpt: ""
----
-Hello newbie,
+# Basics
 
-Thanks for checking out Backpack for Laravel. In this series we’ll walk you through the basics of using Backpack. By the end you should be able to create your own admin panels using Backpack, from the simple to the most complex. It really doesn’t get much more difficult to understand than this simple series.
-[block:callout]
-{
-  "type": "warning",
-  "title": "Are you already comfortable with Laravel?",
-  "body": "In order to understand this series, and make use of Backpack, you’ll need to have a decent understanding of the Laravel framework. If you don’t, please go ahead and [watch this excellent intro series on Laracasts](https://laracasts.com/series/laravel-from-scratch-2017). We'll wait."
-}
-[/block]
-# What is Backpack?
+---
+
+**Duration:** 4 minutes
+
+> **Are you already comfortable with Laravel?** In order to understand this series and make use of Backpack, you’ll need to have a decent understanding of the Laravel framework. If you don’t, please go ahead and [watch this excellent intro series on Laracasts](https://laracasts.com/series/laravel-from-scratch-2017). We'll wait.
+
+
+
+## What is Backpack?
 A software that helps Laravel professionals build administration panels - secure areas where administrators login and create, read, update and delete application information. It is *not* a CMS, it is more a framework that lets you *build your own* CMS. You can install it in your existing project or in a totally new project. 
 
 It’s designed to be flexible enough to allow you to **build admin panels for everything from simple presentation websites to CRMs, ERPs, eCommerce, eLearning, etc**. We can vouch for that, because we have built all that complex stuff using Backpack already.
 
-# How to use?
+## How to use?
 Each Backpack package has its own specific purpose. But let’s start with the most important packages, the ones you’ll definitely be using in each of your projects:
 - **Backpack\Base** - provides the design of the admin area (based on [AdminLTE](https://adminlte.io/themes/AdminLTE/index2.html))
 - **Backpack\CRUD** - empowers you to create **CRUDs**, really fast
@@ -40,7 +36,10 @@ For the purpose of this series, we’ll show examples on the Tag entry. This is 
   ]
 }
 [/block]
-## Backpack\Base
+
+## Core Packages
+
+### Backpack\Base
 After you [install Backpack](https://laravel-backpack.readme.io/v3.4/docs/install-on-laravel-56) (don't do it now), you’ll be able to access your admin panel at ```http://yourapp/admin```. You can change the ```admin``` prefix in your ```config/backpack/base.php``` file, along with a bunch of other configuration options. [Click here](https://github.com/Laravel-Backpack/Base/blob/master/src/config/backpack/base.php) to browse the configuration file and see what it can do for you.
 
 **Backpack/Base** is the package that **will handle the authentication** and provide you with minimal admin area functionality. **Your admin will be able to login and change his password or email.** And that’s pretty much it. 
@@ -48,7 +47,7 @@ After you [install Backpack](https://laravel-backpack.readme.io/v3.4/docs/instal
 Backpack\Base pulls in the free [AdminLTE](https://adminlte.io/themes/AdminLTE/index2.html) theme and enhances the design a little bit. So any front-end block that AdminLTE has, you'll also be able to use in your custom admin panel. It also includes a simple notification bubble system, which you can use across the admin panel. You can easily [trigger notification bubbles in PHP](https://laravel-backpack.readme.io/v3.4/docs/base#section-triggering-notification-bubbles-in-php) or [trigger notification bubbles in JavaScript](https://laravel-backpack.readme.io/v3.4/docs/base#section-triggering-notification-bubbles-in-javascript).
 
 
-## Backpack\CRUD
+### Backpack\CRUD
 This is where it gets interesting. As soon as you [install Backpack](https://laravel-backpack.readme.io/docs/install-on-laravel-56) in your project, you can create **CRUDs** for your admins to easily manipulate DB information. Let’s browse through a simple example, of creating a CRUD administration panel for a Tag entity:
 [block:code]
 {

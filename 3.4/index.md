@@ -4,11 +4,11 @@
 - [Demo](/docs/{{version}}/demo)
 - [Installation](/docs/{{version}}/installation)
 - Getting Started
-    - [1. Basics](/docs/{{version}}/getting-started-1-basics)
-    - [2. Anatomy of a CRUD](/docs/{{version}}/getting-started-2-anatomy-of-a-crud)
-    - [3. Advanced Features](/docs/{{version}}/getting-started-3-advanced-features)
-    - [4. Other Packages](/docs/{{version}}/getting-started-4-other-packages)
-    - [5. License & Support](/docs/{{version}}/getting-started-5-license-and-support)
+    - [1. Basics](/docs/{{version}}/getting-started-basics)
+    - [2. Anatomy of a CRUD](/docs/{{version}}/getting-started-anatomy-of-a-crud)
+    - [3. Advanced Features](/docs/{{version}}/getting-started-advanced-features)
+    - [4. Other Packages](/docs/{{version}}/getting-started-other-packages)
+    - [5. License & Support](/docs/{{version}}/getting-started-license-and-support)
 - [Release Notes](/docs/{{version}}/release-notes)
 - [Upgrade Guide](/docs/{{version}}/upgrade-guide)
 
@@ -33,6 +33,6 @@
 - [Resources](/docs/{{version}}/crud-resources)
     + [Buttons](/docs/{{version}}/crud-buttons)
     + Columns
-    + Fields
+    + [Fields](/docs/{{version}}/crud-fields)
     + Filters
 - [FAQ](/docs/{{version}}/crud-faq)
