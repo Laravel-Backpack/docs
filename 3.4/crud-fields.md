@@ -2,6 +2,7 @@
 
 ---
 
+<a name="about"></a>
 ## About
 
 Field types are defined in the Controller and settle the way that particular field looks in the add / edit view.
@@ -25,6 +26,7 @@ The following fields are to be used as $field_definition_array inside:
 $this->crud->addField($field_definition_array, 'update/create/both');
 ```
 
+<a name="field-attributes"></a>
 ## Field Attributes
 
 All fields require at least a `name` to be displayed however defining a `label` and `type` are recommended which you will read more about what types are available by default below. All fields also support additional parameters to be passed:
@@ -46,6 +48,7 @@ All fields require at least a `name` to be displayed however defining a `label` 
 ]
 ```
 
+<a name="creating-a-custom-field-type"></a>
 ## Creating a Custom Field Type
 
 The actual field types are stored in the Backpack/CRUD package in ```/resources/views/fields```. If you need to extend the CRUD with a new field type or overwrite an existing field, you don’t need to modify the package, you just need to add a file in your application in ```/resources/views/vendor/backpack/crud/fields```. The package checks there first, and only if there's no file there, it will load it from the package.
@@ -98,7 +101,7 @@ And your blade file something like:
       @endpush
 @endif
 
-{{-- Note: most of the times you'll want to use @if ($crud->checkIfFieldIsFirstOfItsType($field, $fields)) to only load CSS/JS once, even though there are multiple instances of it. --}}
+// Note: most of the times you'll want to use @if ($crud->checkIfFieldIsFirstOfItsType($field, $fields)) to only load CSS/JS once, even though there are multiple instances of it.
 ```
 
 You will find everything you need inside the  ```$crud```, ```$entry```, and ```$field``` variables:
@@ -106,11 +109,12 @@ You will find everything you need inside the  ```$crud```, ```$entry```, and ```
 - ```$entry``` - in EDIT forms, the current entry being modified (the actual values);
 - ```$field``` - all options that have been passed for this field;
 
+<a name="default-field-types"></a>
 ## Default Field Types
 
+<a name="address"></a>
 ### address
 
-[/block]
 Use [Algolia Places autocomplete](https://community.algolia.com/places/) to help users type their address faster. With the ```store_as_json``` option, it will store the address, postcode, city, country, latitude and longitude in a JSON in the database. Without it, it will just store the address string.
 
 ```php
@@ -123,18 +127,11 @@ Use [Algolia Places autocomplete](https://community.algolia.com/places/) to help
 ],
 ```
 
-Please note
-[block:callout]
-{
-  "type": "info",
-  "title": "Use attribute casting",
-  "body": "For information stored as JSON in the database, it's recommended that you use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) to ```array``` or ```object```. That way, every time you get the info from the database you'd get it in a usable format."
-}
-[/block]
+> **Use attribute casting.** For information stored as JSON in the database, it's recommended that you use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) to ```array``` or ```object```. That way, every time you get the info from the database you'd get it in a usable format.
 
+<a name="browse"></a>
 ### browse
 
-[/block]
 Open elFinder and select a file from there.
 
 ```php
@@ -162,7 +159,7 @@ Input preview:
   ]
 }
 [/block]
-Onlick preview:
+Onclick preview:
 [block:image]
 {
   "images": [
@@ -180,11 +177,9 @@ Onlick preview:
 }
 [/block]
 
-[block:api-header]
-{
-  "title": "Browse_multiple"
-}
-[/block]
+<a name="browse-multiple"></a>
+### browse_multiple
+
 Open elFinder and select multiple file from there.
 
 ```php
@@ -216,9 +211,9 @@ Input preview:
 }
 [/block]
 
+<a name="base64-image"></a>
 ### base64_image
 
-[/block]
 Upload an image and store it in the database as Base64. Notes:
 - make sure the column type is LONGBLOB;
 - detailed [instructions and customizations here](https://github.com/Laravel-Backpack/CRUD/pull/56#issue-164712261); 
@@ -235,9 +230,9 @@ $this->crud->addField([ // base64_image
 ]);
 ```
 
+<a name="checkbox"></a>
 ### checkbox
 
-[/block]
 Checkbox for true/false.
 
 ```php
@@ -247,9 +242,10 @@ Checkbox for true/false.
     'type' => 'checkbox'
 ],
 ```
+
+<a name="checklist"></a>
 ### checklist
 
-[/block]
 ```php
 [
     'label'     => 'Roles',
@@ -261,9 +257,10 @@ Checkbox for true/false.
     'pivot'     => true,
 ]);
 ```
+
+<a name="checklist-dependency"></a>
 ### checklist_dependency
 
-[/block]
 ```php
 
 // two interconnected entities
@@ -295,9 +292,10 @@ Checkbox for true/false.
     ],
 ],
 ```
+
+<a name="ckeditor"></a>
 ### ckeditor
 
-[/block]
 Show a wysiwyg CKEditor to the user.
 
 ```php
@@ -309,9 +307,10 @@ Show a wysiwyg CKEditor to the user.
     'extra_plugins' => ['oembed', 'widget', 'justify']
 ],
 ```
+
+<a name="color"></a>
 ### color
 
-[/block]
 ```php
 [   // Color
     'name' => 'background_color',
@@ -319,9 +318,10 @@ Show a wysiwyg CKEditor to the user.
     'type' => 'color'
 ],
 ```
+
+<a name="color-picker"></a>
 ### color_picker
 
-[/block]
 Show a pretty colour picker using [Bootstrap Colorpicker](https://itsjavi.com/bootstrap-colorpicker/).
 
 ```php
@@ -332,9 +332,10 @@ Show a pretty colour picker using [Bootstrap Colorpicker](https://itsjavi.com/bo
     'color_picker_options' => ['customClass' => 'custom-class']
 ]
 ```
+
+<a name="custom-html"></a>
 ### custom_html
 
-[/block]
 Allows you to insert custom HTML in the create/update forms. Usually used in forms with a lot of fields, to separate them using h1-h5, hr, etc, but can be used for any HTML.
 
 ```php
@@ -344,9 +345,10 @@ Allows you to insert custom HTML in the create/update forms. Usually used in for
     'value' => '<hr>'
 ],
 ```
+
+<a name="date"></a>
 ### date
 
-[/block]
 ```php
 [   // Date
     'name' => 'birthday',
@@ -354,9 +356,10 @@ Allows you to insert custom HTML in the create/update forms. Usually used in for
     'type' => 'date'
 ],
 ```
+
+<a name="date-picker"></a>
 ### date_picker
 
-[/block]
 Show a pretty [Bootstrap Datepicker](http://bootstrap-datepicker.readthedocs.io/en/latest/).
 
 ```php
@@ -374,9 +377,10 @@ Show a pretty [Bootstrap Datepicker](http://bootstrap-datepicker.readthedocs.io/
 ```
 
 Please note it is recommended that you use [attribute casting](https://laravel.com/docs/5.3/eloquent-mutators#attribute-casting) on your model (cast to date).
+
+<a name="date-range"></a>
 ### date_range
 
-[/block]
 Starting with Backpack\CRUD 3.1.59
 
 Show a DateRangePicker and let the user choose a start date and end date.
@@ -417,9 +421,9 @@ Your end result will look like this:
 }
 [/block]
 
+<a name="datetime"></a>
 ### datetime
 
-[/block]
 ```php
 [   // DateTime
     'name' => 'start',
@@ -435,9 +439,10 @@ Your end result will look like this:
 	}
 ```
 Otherwise the input's datetime-local formal will cause some errors.
+
+<a name="datetime-picker"></a>
 ### datetime_picker
 
-[/block]
 Show a [Bootstrap Datetime Picker](https://eonasdan.github.io/bootstrap-datetimepicker/).
 
 ```php
@@ -462,13 +467,10 @@ Show a [Bootstrap Datetime Picker](https://eonasdan.github.io/bootstrap-datetime
 	}
 ```
 Otherwise the input's datetime-local formal will cause some errors. Remeber to change "datetime" with the name of your attribute (column name).
-### dropzone // TODO
 
-[/block]
-
+<a name="email"></a>
 ### email
 
-[/block]
 ```php
 [   // Email
     'name' => 'email',
@@ -476,9 +478,10 @@ Otherwise the input's datetime-local formal will cause some errors. Remeber to c
     'type' => 'email'
 ],
 ```
+
+<a name="enum"></a>
 ### enum
 
-[/block]
 Show a select with the values in the database for that ENUM field. Requires that the db column type is "enum". If the db column allows null, the " - " value will also show up in the select.
 
 ```php
@@ -490,9 +493,10 @@ Show a select with the values in the database for that ENUM field. Requires that
 ```
 
 PLEASE NOTE the enum field only works for MySQL databases.
+
+<a name="hidden"></a>
 ### hidden
 
-[/block]
 Include an <input type="hidden"> in the form.
 
 ```php
@@ -501,6 +505,8 @@ Include an <input type="hidden"> in the form.
     'type' => 'hidden'
 ],
 ```
+
+<a name="icon-picker"></a>
 ### icon_picker
 
 [/block]
@@ -534,9 +540,9 @@ Your input will look like button, with a dropdown where the user can search or p
 }
 [/block]
 
+<a name="image"></a>
 ### image
 
-[/block]
 Upload an image and store it on the disk. 
 
 **Step 1.** Show the field. 
@@ -601,15 +607,9 @@ public function setImageAttribute($value)
     	}
     }
 ```
-[block:callout]
-{
-  "type": "danger",
-  "title": "The uploaded images are not deleted for you",
-  "body": "If you delete an entry (using the CRUD or anywhere inside your app), the image file won't be deleted from the disk."
-}
-[/block]
-If you're NOT using soft deletes on that Model and want the image to be deleted at the same time the entry is, just specify that in your Model's ```deleting``` event:
-```php
+> **The uploaded images are not deleted for you.** If you delete an entry (using the CRUD or anywhere inside your app), the image file won't be deleted from the disk.
+> If you're NOT using soft deletes on that Model and want the image to be deleted at the same time the entry is, just specify that in your Model's ```deleting``` event:
+> ```php
 	public static function boot()
 	{
 		parent::boot();
@@ -617,7 +617,7 @@ If you're NOT using soft deletes on that Model and want the image to be deleted 
 			\Storage::disk('public_folder')->delete($obj->image);
 		});
 	}
-```
+  ```
 
 **A note about aspect_ratio**
 The value for aspect ratio is a float that represents the ratio of the cropping rectangle height and width. By way of example,
@@ -627,9 +627,10 @@ The value for aspect ratio is a float that represents the ratio of the cropping 
 - Portrait = 0.5
 
 And you can, of course, use any value for more extreme rectangles.
+
+<a name="month"></a>
 ### month
 
-[/block]
 ```php
 [   // Month
     'name' => 'month',
@@ -637,9 +638,10 @@ And you can, of course, use any value for more extreme rectangles.
     'type' => 'month'
 ],
 ```
+
+<a name="number"></a>
 ### number
 
-[/block]
 Shows an input type=number to the user, with optional prefix and suffix:
 [block:image]
 {
@@ -667,9 +669,10 @@ Shows an input type=number to the user, with optional prefix and suffix:
     // 'suffix' => ".00",
 ],
 ```
+
+<a name="page-or-link"></a>
 ### page_or_link
 
-[/block]
 Select an existing page from PageManager or an internal or external link. It’s used in the MenuManager package, but can be used in any other model just as well. Looks like this:
 [block:image]
 {
@@ -696,9 +699,10 @@ And its definition looks like this:
     'page_model' => '\Backpack\PageManager\app\Models\Page'
 ]
 ```
-### password field
 
-[/block]
+<a name="password"></a>
+### password
+
 ```php
 [   // Password
     'name' => 'password',
@@ -706,9 +710,10 @@ And its definition looks like this:
     'type' => 'password'
 ],
 ```
+
+<a name="radio"></a>
 ### radio
 
-[/block]
 Show radios according to an associative array you give the input and let the user pick from them. You can choose for the radio options to be displayed inline or one-per-line.
 
 ```php
@@ -724,9 +729,10 @@ Show radios according to an associative array you give the input and let the use
     //'inline'      => false, // show the radios all on the same line?
 ]
 ```
+
+<a name="range"></a>
 ### range
 
-[/block]
 ```php
 [   // Range
     'name' => 'range',
@@ -734,9 +740,10 @@ Show radios according to an associative array you give the input and let the use
     'type' => 'range'
 ],
 ```
+
+<a name="select"></a>
 ### select (1-n relationship)
 
-[/block]
 Show a Select with the names of the connected entity and let the user select one of them.
 Your relationships should already be defined on your models.
 
@@ -750,12 +757,11 @@ Your relationships should already be defined on your models.
    'model' => "App\Models\Tag" // foreign key model
 ]
 ```
+
+<a name="select2"></a>
 ### select2 (1-n relationship)
 
-[/block]
-[Works just like the SELECT field, but prettier]
-
-Show a Select2 with the names of the connected entity and let the user select one of them. 
+Works just like the SELECT field, but prettier. Shows a Select2 with the names of the connected entity and let the user select one of them. 
 Your relationships should already be defined on your models.
 
 ```php
@@ -768,9 +774,10 @@ Your relationships should already be defined on your models.
    'model' => "App\Models\Tag" // foreign key model
 ]
 ```
+
+<a name="select-multiple"></a>
 ### select_multiple (n-n relationship)
 
-[/block]
 Show a Select with the names of the connected entity and let the user select any number of them.
 Your relationships should already be defined on your models.
 
@@ -785,9 +792,10 @@ Your relationships should already be defined on your models.
 	'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
 ]
 ```
+
+<a name="select2-multiple"></a>
 ### select2_multiple (n-n relationship)
 
-[/block]
 [Works just like the SELECT field, but prettier]
 
 Show a Select2 with the names of the connected entity and let the user select any number of them.
@@ -805,9 +813,10 @@ Your relationships should already be defined on your models.
 	// 'select_all' => true, // show Select All and Clear buttons?
 ]
 ```
+
+<a name="select-from-array"></a>
 ### select_from_array
 
-[/block]
 Display a select with the values you want:
 
 ```php
@@ -821,9 +830,10 @@ Display a select with the values you want:
     // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
 ],
 ```
+
+<a name="select2-from-array"></a>
 ### select2_from_array
 
-[/block]
 Display a select2 with the values you want:
 
 ```php
@@ -837,9 +847,10 @@ Display a select2 with the values you want:
     // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
 ],
 ```
+
+<a name="select2-from-ajax"></a>
 ### select2_from_ajax
 
-[/block]
 Display a select2 that takes its values from an AJAX call.
 
 ```
@@ -898,9 +909,10 @@ class CategoryController extends Controller
     }
 }
 ```
+
+<a name="select2-from-ajax-multiple"></a>
 ### select2_from_ajax_multiple
 
-[/block]
 Display a select2 that takes its values from an AJAX call. Same as [select2_from_ajax](#section-select2_from_ajax) above, but allows for multiple items to be selected. The only difference in the field definition is the "pivot" attribute.
 
 ```
@@ -960,9 +972,10 @@ class CategoryController extends Controller
     }
 }
 ```
+
+<a name="simplemde"></a>
 ### simplemde
 
-[/block]
 Show a [SimpleMDE markdown editor](https://simplemde.com/) to the user.
 
 ```php
@@ -980,9 +993,10 @@ Show a [SimpleMDE markdown editor](https://simplemde.com/) to the user.
    // 'simplemdeAttributesRaw' => $some_json
 ],
 ```
+
+<a name="summernote"></a>
 ### summernote
 
-[/block]
 Show a [Summernote wysiwyg editor](http://summernote.org/) to the user.
 
 ```php
@@ -993,12 +1007,13 @@ Show a [Summernote wysiwyg editor](http://summernote.org/) to the user.
     // 'options' => [], // easily pass parameters to the summernote JS initialization 
 ],
 ```
+
+<a name="table"></a>
 ### table
 
-[/block]
 Show a table with multiple inputs per row and store the values as JSON in the database. The user can add more rows and reorder the rows as they please.
 
- ```php
+```php
 [ // Table
     'name' => 'options',
     'label' => 'Options',
@@ -1010,7 +1025,7 @@ Show a table with multiple inputs per row and store the values as JSON in the da
         'price' => 'Price'
     ],
     'max' => 5, // maximum rows allowed in the table
-    'min' => 0 // minimum rows allowed in the table
+    'min' => 0, // minimum rows allowed in the table
 ],
 ```
 
@@ -1039,6 +1054,7 @@ The end result will look like this:
 }
 [/block]
 
+<a name="text"></a>
 ### text
 
 The basic field type, all it needs is the two mandatory parameters: name and label.
@@ -1082,6 +1098,7 @@ You can use the optional 'prefix' and 'suffix' attributes to display something b
 }
 [/block]
 
+<a name="textarea"></a>
 ### textarea
 
 Show a textarea to the user.
@@ -1093,6 +1110,8 @@ Show a textarea to the user.
     'type' => 'textarea'
 ],
 ```
+
+<a name="time"></a>
 ### time
 
 ```php
@@ -1103,6 +1122,7 @@ Show a textarea to the user.
 ],
 ```
 
+<a name="tinymce"></a>
 ### tinymce
 
 Show a wysiwyg (TinyMCE) to the user.
@@ -1114,6 +1134,8 @@ Show a wysiwyg (TinyMCE) to the user.
     'type' => 'tinymce'
 ],
 ```
+
+<a name="upload"></a>
 ### upload
 
 **Step 1.** Show a file input to the user:
@@ -1177,6 +1199,8 @@ If you're NOT using soft deletes on that Model and want the file to be deleted a
 		});
 	}
 ```
+
+<a name="upload-multiple"></a>
 ### upload_multiple
 
 [/block]
@@ -1266,9 +1290,10 @@ You might notice the field is using a ```clear_photos``` variable. Don't worry, 
     'type' => 'url'
 ],
 ```
+
+<a name="video"></a>
 ### video
 
-[/block]
 Allow the user to paste a Youtube/Vimeo link. That will get the video information with Javascript and store it as a JSON in the database.
 
 Field definition:
@@ -1292,9 +1317,11 @@ $video = {
 ```
 
 So you should use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) in your model, to cast the video as ```array``` or ```object```.
+
+
+<a name="view"></a>
 ### view
 
-[/block]
 Load a custom view in the form.
 
 ```php
@@ -1306,9 +1333,10 @@ Load a custom view in the form.
 ```
 
 **Note:** the same functionality can be achieved using a [custom field type](https://laravel-backpack.readme.io/v3.0/docs/crud-fields#section-custom-field-types), or using the [custom_html field type](https://laravel-backpack.readme.io/docs/crud-fields#custom_html-v207) (if the content is really simple).
+
+<a name="week"></a>
 ### week
 
-[/block]
 ```php
 [   // Week
     'name' => 'first_week',
@@ -1316,9 +1344,10 @@ Load a custom view in the form.
     'type' => 'week'
 ],
 ```
+
+<a name="wysiwyg"></a>
 ### wysiwyg
 
-[/block]
 Show a wysiwyg (CKEditor) to the user.
 
 ```php
