@@ -9,7 +9,6 @@ We've put toghether a working Laravel backend app, that you can install on your 
 - installed a few Backpack extensions: PermissionManager, PageManager, LogManager, BackupManager, Settings, MenuCRUD, NewsCRUD;
 
 
-
 >**Don't use this demo to start your real projects.** Please use [the recommended installation procedure](/docs/{{version}}/installation). You don't want all the bogus entities we've created. You don't want all the packages we've used. And you _definitely_ don't want the default admin user. Start from scratch. 
 
 <a name="installation"></a>
