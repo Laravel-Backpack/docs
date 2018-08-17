@@ -1,63 +1,38 @@
+# FAQ for Backpack\Base
+
 ---
-title: "FAQ"
-excerpt: ""
----
-Here's how you can do most things that might not be that intuitive in Backpack\Base:
-[block:api-header]
-{
-  "type": "basic",
-  "title": "Customizing the menu or sidebar"
-}
-[/block]
-During installation, Backpack publishes a few files in you ```resources/views/vendor/backpack/base``` folder. In there, you'll also find ```inc/sidebar.php``` and ```inc/menu.php```. Change those files as you please.
-[block:api-header]
-{
-  "type": "basic",
-  "title": "Customizing the dashboard"
-}
-[/block]
+
+## Customizing the menu or sidebar
+
+During installation, Backpack publishes a few files in you ```resources/views/vendor/backpack/base``` folder. In there, you'll also find ```inc/sidebar_content.php``` and ```inc/menu.php```. Change those files as you please.
+
+## Customizing the dashboard
+
 In ```config/app.php```, Make sure the "RouteServiceProvider" is set **after** "BaseServiceProvider". 
 
 Add a route, so that the standard route will take the user to a controller you want:
-[block:code]
-{
-  "codes": [
-    {
-      "code": "Route::get('dashboard', 'DashboardController@index');",
-      "language": "php"
-    }
-  ]
-}
-[/block]
+```
+Route::get('dashboard', 'DashboardController@index');
+```
+
 Inside DashboardController on index method return dashboard view.
-[block:code]
-{
-  "codes": [
-    {
-      "code": "public function index() {\n    $someVar = 'Some text';\n    return view('vendor.backpack.base.dashboard', compact('someVar'));\n}",
-      "language": "php"
-    }
-  ]
+```
+public function index() {
+    $someVar = 'Some text';
+    return view('vendor.backpack.base.dashboard', compact('someVar'));
 }
-[/block]
+
 Update the dashboard view located at: ```resources/view/vendor/backpack/base/dashboard.blade.php```
 
 NOTE: if you don't have this folder you need to publish vendor assets
 php artisan vendor:publish --provider="Backpack\Base\BaseServiceProvider" 
 
-[block:api-header]
-{
-  "type": "basic",
-  "title": "Customizing the general layout/design"
-}
-[/block]
+## Customizing the general layout/design
+
 // TODO - use explanation in github issue to write steps
-[block:api-header]
-{
-  "type": "basic",
-  "title": "Customizing the Auth controllers"
-}
-[/block]
+
+## Customizing the Auth controllers
+
 In ```config/backpack/base.php``` you'll find these configuration options:
 
 ```php
@@ -73,12 +48,9 @@ Route::group(['middleware' => 'web', 'prefix' => config('backpack.base.route_pre
     Route::get('logout', 'Auth\LoginController@logout');
 });
 ```
-[block:api-header]
-{
-  "type": "basic",
-  "title": "Customizing the routes"
-}
-[/block]
+
+## Customizing the routes
+
 In ```config/backpack/base.php``` you'll find these configuration options:
 
 ```php
@@ -113,12 +85,8 @@ Route::group(['middleware' => 'web', 'prefix' => config('backpack.base.route_pre
 
 Additionally, you can place a new routes file in your ```app/routes/backpack/base.php```. If a file is present there, no default Backpack\Base routes will be loaded, only what's present in that file.
 
-[block:api-header]
-{
-  "type": "basic",
-  "title": "Use separate login/register forms for users and admins"
-}
-[/block]
+## Use separate login/register forms for users and admins
+
 If you need separate login for user and admin, probably the fastest way would be to use:
 - the backpack login for the admins
 - the default Laravel login for the users
@@ -128,11 +96,9 @@ That way, you have both AND you have most of your code already written - Backpac
 For this to happen, keep the ```setup_auth_routes``` and ```setup_dashboard_routes``` variables ```true``` in your config file. You'll be using the Backpack authentication, after all, for admins. Just [add the Laravel authentication, like instructed in the Laravel documentation](https://laravel.com/docs/5.5/authentication#authentication-quickstart): ```php artisan make:auth```. You'll then have:
 - the user login at ```/login``` -> using the AuthenticationController Laravel provides
 - the admin login at ```/admin/login``` -> using the AuthenticationControllers Backpack provides
-[block:api-header]
-{
-  "title": "Use separate sessions for admin&user authentication"
-}
-[/block]
+
+## Use separate sessions for admin&user authentication
+
 You might want your admins to be logged in as *Admin X* and *User Z* at the same time (for user impersonation, for example). If so, you will need to use different guards for those two authentications. The easiest way would be to use the default Laravel guard for the user authentication and just create a new guard for the Admin authentication. You'll notice in all Backpack views we've used ```backpack_auth()->user()``` instead of ```Auth::user()```. It's for this exact purpose. If you specify a guard, all Backpack views will impose that guard.
 
 **Step 1.** Follow [the section above](https://laravel-backpack.readme.io/v3.4/docs/frequently-asked-questions#section-use-separate-loginregister-forms-for-users-and-admins) in order to have two different login screens, one for admin and one for the user.
@@ -189,11 +155,9 @@ You might want your admins to be logged in as *Admin X* and *User Z* at the same
 ```
 
 That's it. Backpack will now use a separate session for the admin login. You can be logged in with ```Admin X``` and ```User Z``` at the same time, and log out ```Admin X``` without logging out the user too.
-[block:api-header]
-{
-  "title": "Login with username instead of email"
-}
-[/block]
+
+## Login with username instead of email
+
 1. Create a ```username``` column in your users table and add it in ```$fillable``` on your ```User``` model. Best to do this with a migration.
 2. Delete your ```email``` column and remove it from ```$fillable``` on your ```User``` model. Alternatively, just remove UNIQUE and NOT NULL from it. Best to do this with a migration.
 3. Change your ```config/backpack/base.php``` config options:
@@ -209,19 +173,24 @@ That's it. This will:
 - use ```username``` for registration;
 - use ```username``` in My Account, when a user wants to change his info;
 - completely disable the password recovery (if you've deleted the ```email``` db column);
-[block:api-header]
-{
-  "title": "How do I manually install Base?"
-}
-[/block]
+
+## How do I manually install Base?
+
 If for any reason the Backpack/Base installation process fails for you, you can manually run all the commands in the installer, which are listed below. Failure to install can happens sometimes if the user does not have enough permissions (sudo access is needed) or if the composer command is not registered (and ```php composer``` needs to be run instead).
-[block:code]
-{
-  "codes": [
-    {
-      "code": "# Install backpack/generators\ncomposer require backpack/generators --dev\n\n# Install laracasts/generators\ncomposer require laracasts/generators:dev-master --dev\n\n# Publish configs, langs, views and AdminLTE files\nphp artisan vendor:publish --provider=\"Backpack\\Base\\BaseServiceProvider\" --tag=\"minimum\"\n\n# Publish config for notifications - prologue/alerts\nphp artisan vendor:publish --provider=\"Prologue\\Alerts\\AlertsServiceProvider\"\n\n# Generate users table (using Laravel's default migrations)\nphp artisan migrate",
-      "language": "shell"
-    }
-  ]
-}
-[/block]
+
+```zsh
+# Install backpack/generators
+composer require backpack/generators --dev
+
+# Install laracasts/generators
+composer require laracasts/generators:dev-master --dev
+
+# Publish configs, langs, views and AdminLTE files
+php artisan vendor:publish --provider="Backpack\Base\BaseServiceProvider" --tag="minimum"
+
+# Publish config for notifications - prologue/alerts
+php artisan vendor:publish --provider="Prologue\Alerts\AlertsServiceProvider"
+
+# Generate users table (using Laravel's default migrations)
+php artisan migrate
+```

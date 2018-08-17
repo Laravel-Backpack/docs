@@ -12,12 +12,12 @@
 - [Release Notes](/docs/{{version}}/release-notes)
 - [Upgrade Guide](/docs/{{version}}/upgrade-guide)
 
-#### Design & Layout
+#### Backpack\Base
 
-- [Installation](/docs/{{version}}/installation)
-- [Configuration](/docs/{{version}}/configuration)
+- [About](/docs/{{version}}/base-about)
+- [FAQ](/docs/{{version}}/base-faq)
 
-#### CRUD Panels
+#### Backpack\CRUD
 
 - [Architecture](/docs/{{version}}/crud-intro)
 - [How to use](/docs/{{version}}/crud-how-to-use)
@@ -36,3 +36,9 @@
     + [Fields](/docs/{{version}}/crud-fields)
     + Filters
 - [FAQ](/docs/{{version}}/crud-faq)
+
+
+#### Extensions
+
+- [Official Extensions](/docs/{{version}}/extensions-official)
+- [Community Extensions](/docs/{{version}}/extensions-community)

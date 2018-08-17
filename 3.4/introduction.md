@@ -2,17 +2,12 @@
 
 ---
 
-Backpack is a collection of Laravel packages. It helps you build your own CMS, for anything from presentation websites to complex web applications. You can drop it on existing Laravel installations _or_ fresh projects.
+Backpack is a collection of Laravel packages that help you **build your own CMS**, for anything from presentation websites to complex web applications. You can drop it on existing Laravel installations _or_ fresh projects.
 
 In a nutshell:
 
-- **Backpack\Base** will provide you with a visual interface for the admin panel; it pulls in the excellent AdminLTE HTML theme and adds authentication functionality & bubble notifications; so that when you decide to build a custom admin page/functionality, you already have a bunch of building blocks to use for the UI;
-- **Backpack\CRUD** will help you build admin panels for your Eloquent models; a place for your admins to easily create/read/update/delete/reoder/preview/etc entries;
-
-<a name="creating-crud-panels"></a>
-## Creating CRUD Panels
-
-After [understanding Backpack](/docs/{{version}}/getting-started-1-basics), you'll be able to create a CRUD panel for each entity in 10 minutes / model:
+- **Backpack\Base** will provide you with a _visual interface_ for the admin panel (the HTML, the CSS, the JS); it pulls in the excellent [AdminLTE](https://adminlte.io/themes/AdminLTE/index2.html) theme, adds authentication functionality & bubble notifications; when you decide to build a custom feature for your admin panel, you already have the building blocks for the UI;
+- **Backpack\CRUD** will help you build _CRUD panels for your Eloquent models_; a place for your admins to easily create/read/update/delete/reoder/preview/etc entries; after [understanding Backpack](/docs/{{version}}/getting-started-1-basics), you'll be able to create a CRUD panel for each entity in 10 minutes / model:
 
 ```bash
 # STEP 0. create migration (in case you're starting from scratch)
@@ -33,27 +28,33 @@ php artisan backpack:base:add-sidebar-content "<li><a href='{{ backpack_url('tag
 
 <a name="need-to-know"></a>
 ## Need to Know
-- **Requirements:**
+
+### Requirements
+
   - Laravel 5.5 or 5.6
   - PHP 7+
   - MySQL (recommended) / PosgreSQL / SQLite / SQL Server
-- **Screenshots:** take a look at [our homepage](http://www.backpackforlaravel.com/).
-- **Security** : Backpack has never had a critical vulnerability/hack. But there have been important security updates for some dependencies (including Laravel). Please  [subscribe to the monthly newsletter](https://backpackforlaravel.com/newsletter), so we can reach you in case anything bad happens. We only send one email per month, and we never ever share our list with anyone.
-- **License**: Backpack is under a license we call "_You make money, I make money_" (YummY). Its source is public, and you can use it for free for non-commercial purposes (testing, non-profits, personal use, etc), but if you make money using it you need to purchase a commercial license. Please see  [the pricing section](https://backpackforlaravel.com/pricing) for more details.
+
+### Screenshots
+
+Take a look at [our homepage](http://www.backpackforlaravel.com/).
+
+### Security
+
+Backpack has never had a critical vulnerability/hack. But there _have_ been important security updates for dependencies (including Laravel). Please [login with Github](/auth/github) or  [subscribe to our monthly newsletter](https://backpackforlaravel.com/newsletter), so we can reach you in case anything bad happens. No spam, no marketing emails, we promise. We only send one email per month, with Backpack updates.
+
+### License
+
+Backpack is under a license we call "_You make money, I make money_" (YummY). Its source is public, and you can use it for free for non-commercial purposes (testing, non-profits, personal use, etc), but if you make money using it you need to purchase a commercial license. Please see  [the pricing section](https://backpackforlaravel.com/pricing) for more details. You need a license code for both commercial and non-commercial use, to prevent nagging notification bubbles.
 
 <a name="extensions"></a>
 ## Extensions
 
-Packages you can install or download, that treat common use cases. Some have been developed by us, some by our wonderful community. Check them out:
+In addition to our core packages (Base and CRUD), there are a few packages you can install or download, that treat common use cases. Some have been developed by our core team, some by our wonderful community. You can just install interfaces to manage [site-wide settings](https://github.com/Laravel-Backpack/Settings), [the default Laravel users table](https://github.com/eduardoarandah/UserManager), [users, groups & permissions](https://github.com/Laravel-Backpack/PermissionManager), [content for custom pages, using page templates](https://github.com/Laravel-Backpack/PageManager), [news articles, categories and tags](https://github.com/Laravel-Backpack/NewsCRUD), etc.
 
-  - PermissionManager - interface to manage users & permissions;
-  - Settings - interface to edit site-wide settings;
-  - PageManager - CRUD for custom pages, using page templates;
-  - MenuCRUD
-  - NewsCRUD
-  - LangFileManager - interface to edit Laravel language files;
-  - LogManager - interface to preview Laravel log files;
-  - BackupManager - interface to backup your files & db;
+For more, please see:
+- [all official extensions](/docs/{{version}}/extensions-official)
+- [all community extensions](/docs/{{version}}/extensions-community)
 
 <a name="how-to-start"></a>
 ## How to Start
