@@ -1,12 +1,9 @@
+# FAQ for Backpack\CRUD
+
 ---
-title: "FAQ"
-excerpt: ""
----
-[block:api-header]
-{
-  "title": "How do I filter the options in a select field?"
-}
-[/block]
+
+## How do I filter the options in a select field?
+
 This also applies to: select2, select2_multiple, select2_from_ajax, select2_from_ajax_multiple.
 
 There are 3 possible solutions:
@@ -46,11 +43,9 @@ class CompanyUser extends User
     }
 }
 ```
-[block:api-header]
-{
-  "title": "Use the same column name multiple times in a CRUD"
-}
-[/block]
+
+## Use the same column name multiple times in a CRUD
+
 If you try to add multiple columns with the same ```name```, by default Backpack will only show the last one. That's because ```name``` is also used as a key in the ```$column``` array. So when you ```addColumn()``` with the same name twice, it just overwrites the previous one.
 
 In order to insert two column with the same name, use the ```key``` attribute on the second column (or both columns). If this attribute is present for a column, Backpack will use ```key``` instead of ```name```. Example:
@@ -79,11 +74,9 @@ In order to insert two column with the same name, use the ```key``` attribute on
            'model' => "App\Models\Location"
         ]);
 ```
-[block:api-header]
-{
-  "title": "How do I manually install Backpack/CRUD?"
-}
-[/block]
+
+## How do I manually install Backpack/CRUD?
+
 If the automatic installation doesn't work for you and you need to manually install CRUD, here are all the commands it is running:
 
 1) In your terminal:
@@ -107,11 +100,9 @@ php artisan vendor:publish --provider="Backpack\CRUD\CrudServiceProvider" --tag=
 php artisan vendor:publish --provider="Backpack\CRUD\CrudServiceProvider" --tag="lang"
 php artisan vendor:publish --provider="Backpack\CRUD\CrudServiceProvider" --tag="config"
 ```
-[block:api-header]
-{
-  "title": "How do I load fields from a different folder?"
-}
-[/block]
+
+## How do I load fields from a different folder?
+
 If you're developing a package, you might need Backpack to pick up fields from your package folder, instead of having to publish them upon installation.
 
 Fields, Columns and Filters all have a ```view_namespace``` parameter you can use. Type your folder there, and Backpack will check that folder first, then where the views are published, then Backpack's package folder. Example:

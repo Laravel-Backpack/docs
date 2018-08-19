@@ -1,8 +1,8 @@
+# Operations
+
 ---
-title: "Features"
-excerpt: ""
----
-#CREATE & UPDATE
+
+## CREATE & UPDATE
 - [44+ field types](https://laravel-backpack.readme.io/docs/crud-fields#section-standard-field-types) (including 1-n and n-n relationship)
 - [customize field attributes/appearance](https://laravel-backpack.readme.io/docs/crud#section-fields);
 - [create your own field type](https://laravel-backpack.readme.io/docs/crud-fields#section-custom-field-types)
@@ -13,7 +13,7 @@ excerpt: ""
 - [reordering/nesting entries](https://laravel-backpack.readme.io/docs/advanced-features#section-reordering-and-nesting-items)
 - [show an entry's history](https://laravel-backpack.readme.io/docs/advanced-features#section-revisions) (create, update - we call it revisions)
 
-#READ
+## READ
 - [12+ column types](https://laravel-backpack.readme.io/docs/crud-columns-types)
 - [create your own column type](https://laravel-backpack.readme.io/docs/crud-columns-types#section-roll-your-own)
 - [custom buttons](https://laravel-backpack.readme.io/docs/crud-buttons)
@@ -22,5 +22,5 @@ excerpt: ""
 - [export to PDF, CSV, XLS](https://laravel-backpack.readme.io/docs/advanced-features#section-export-buttons)
 
 
-#DELETE
+## DELETE
 - in the DataTable, the entries are deleted using AJAX; you can customize [the default functionality](https://github.com/Laravel-Backpack/CRUD/blob/master/src/app/Http/Controllers/CrudController.php#L209-L221) by creating a ```destroy()``` method in your EntityCrudController

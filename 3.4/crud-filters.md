@@ -1,7 +1,7 @@
+# Filters
+
 ---
-title: "Filters"
-excerpt: ""
----
+
 Backpack CRUD allows you to show a filters bar right above the entries table. 
 [block:image]
 {

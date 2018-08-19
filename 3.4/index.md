@@ -19,22 +19,20 @@
 
 #### Backpack\CRUD
 
-- [Architecture](/docs/{{version}}/crud-intro)
-- [How to use](/docs/{{version}}/crud-how-to-use)
+- [Basics](/docs/{{version}}/crud-basics)
+- [Tutorial](/docs/{{version}}/crud-tutorial)
 - [Cheat Sheet](/docs/{{version}}/crud-cheat-sheet)
 - [Operations](/docs/{{version}}/crud-operations)
-    + Create
     + ListEntries
-    + Update
+        + Columns
+        + [Buttons](/docs/{{version}}/crud-buttons)
+        + Filters
+    + Create & Update
+        + [Fields](/docs/{{version}}/crud-fields)
     + Delete
+    + Show
     + Reorder
     + Revisions
-    + Show
-- [Resources](/docs/{{version}}/crud-resources)
-    + [Buttons](/docs/{{version}}/crud-buttons)
-    + Columns
-    + [Fields](/docs/{{version}}/crud-fields)
-    + Filters
 - [FAQ](/docs/{{version}}/crud-faq)
 
 

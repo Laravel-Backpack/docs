@@ -2,16 +2,17 @@
 
 ---
 
-We assume:
+<a name="requirements"></a>
+## Requirements
+
+If you can run Laravel 5.6, you can install Backpack. Backpack does _not_ have additional requirements. For the following process, we assume:
 
 - you have a working [installation of Laravel 5.6](https://laravel.com/docs/5.6#installing-laravel) (an existing project is fine, you don't need a *fresh* Laravel install);
 
-- you have composer registered as a global command & you can run the ```composer``` command from any directory (otherwise, if you need to run ```php composer.phar``` or reference another directory, please remember to adapt the commands below to your configuration);
+- you can run the ```composer``` command from any directory (you have composer registered as a global command); if you need to run ```php composer.phar``` or reference another directory, please remember to adapt the commands below to your configuration;
 
-<a name="steps"></a>
-## Installation Steps
-
-### Core Packages
+<a name="install-core-packages"></a>
+## Install Core Packages
 
 1) In your project's main directory, install CRUD using composer:
 
@@ -29,7 +30,7 @@ php artisan backpack:crud:install
 Note: If you'd also like to enable the [file manager functionality](https://backpackforlaravel.com/uploads/home_slider/4.png), reply "yes" when the installer asks you. By default it lets users manage the ```public/uploads``` directory, but you can change that in the ```elfinder.php``` config file.
 
 
-3) [Optional] You can now:
+3) [Optional] You should now:
 - Change configuration values in ```config/backpack/base.php``` to make the admin panel your own. Backpack is white label, so you can change everything: menu color, project name, developer name etc.
 - If your application has only one login screen (for the admins), that means you're not going to use the auth controllers that Laravel provided by default. You're only going to use Backpack's auth controllers. You can keep the Laravel ones in your project, of course. But some people like to delete them to not get confused later on:   
 
@@ -42,8 +43,8 @@ That's it. If you already know how to use Backpack, next up you'll probably want
 
 > If it's your first time installing Backpack, it is **highly recommended** that you go through our [Getting Started series](/docs/{{version}}/getting-started-basics), to understand how Backpack works. That's why we created it - to help you learn how to use this admin panel framework. In ~23 minutes we'll teach you 80% of what you can do, and how.
 
-<a name="extensions"></a>
-### Extensions
+<a name="install-extensions"></a>
+## Install Extensions
 
 In case you want to add extra functionality that's already been built, check out [the installation steps for the extensions we've developed](/docs/{{version}}/install-optionals).
 
