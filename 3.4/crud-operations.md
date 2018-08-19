@@ -2,6 +2,10 @@
 
 ---
 
+In a basic CRUD, you will only need to:
+- specify what fields the create/update form should show;
+- specify what columns the table view should show;
+
 ## CREATE & UPDATE
 - [44+ field types](https://laravel-backpack.readme.io/docs/crud-fields#section-standard-field-types) (including 1-n and n-n relationship)
 - [customize field attributes/appearance](https://laravel-backpack.readme.io/docs/crud#section-fields);

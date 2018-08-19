@@ -1,7 +1,7 @@
+# Columns
+
 ---
-title: "Column Types"
-excerpt: ""
----
+
 [block:api-header]
 {
   "type": "basic",

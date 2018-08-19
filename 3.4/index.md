@@ -23,16 +23,18 @@
 - [Tutorial](/docs/{{version}}/crud-tutorial)
 - [Cheat Sheet](/docs/{{version}}/crud-cheat-sheet)
 - [Operations](/docs/{{version}}/crud-operations)
-    + ListEntries
-        + Columns
+    + [ListEntries](/docs/{{version}}/crud-operation-list-entries)
+        + [Columns](/docs/{{version}}/crud-columns)
         + [Buttons](/docs/{{version}}/crud-buttons)
-        + Filters
-    + Create & Update
+        + [Filters](/docs/{{version}}/crud-filters)
+    + [Create](/docs/{{version}}/crud-operation-create) & [Update](/docs/{{version}}/crud-operation-update)
         + [Fields](/docs/{{version}}/crud-fields)
-    + Delete
-    + Show
-    + Reorder
-    + Revisions
+    + [Delete](/docs/{{version}}/crud-operation-delete)
+    + [Show](/docs/{{version}}/crud-operation-show)
+        + [Columns](/docs/{{version}}/crud-columns)
+    + [Reorder](/docs/{{version}}/crud-operation-reorder)
+    + [Revisions](/docs/{{version}}/crud-operation-revisions)
+    + [All Operations](/docs/{{version}}/crud-operation-all)
 - [FAQ](/docs/{{version}}/crud-faq)
 
 
