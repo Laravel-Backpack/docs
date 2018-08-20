@@ -2,7 +2,11 @@
 
 ---
 
-Backpack CRUD allows you to show a filters bar right above the entries table. 
+<a name="about"></a>
+## About
+
+Backpack CRUD allows you to show a filters bar right above the entries table. When selected or modified, they reload the DataTables results. The search will then search within the filtered elements.
+
 [block:image]
 {
   "images": [
@@ -18,15 +22,11 @@ Backpack CRUD allows you to show a filters bar right above the entries table.
   ]
 }
 [/block]
-When selected or modified, the filters work like this :
-- on standard DataTables they refresh the page with a new GET parameter;
-- on ajax DataTables they reload the DataTables by appling a GET parameter to the search route used by DataTables;
-
-Either way, the search will also work properly - it will search within the filtered elements.
 
 Just like with fields, columns or buttons, you can add existing filters or create a custom filter that fits to your particular needs. Everything's done inside your ```EntityCrudController::setup()```. 
 
-## Methods
+<a name="methods"></a>
+### Methods
 
 ```php
 $this->crud->addFilter($options, $values, $filter_logic);
@@ -37,19 +37,14 @@ $this->crud->removeAllFilters();
 $this->crud->filters(); // gets all the filters
 ```
 
-## Adding a filter
+<a name="adding-a-filter"></a>
+### Adding a filter
 
 When adding a filter you need to specify the 3 parameters of the ```addFilter()``` method:
 - $options - an array of options (name, type, label are most important)
 - $values - filter values - can be an array or a closure
 - $filter_logic - what should happen if the filter is applied (usually add a clause to the query) - can be a closure, a string for a simple operation or false for a simple "where";
-[block:callout]
-{
-  "type": "warning",
-  "title": "In case you updated Backpack to use Filters",
-  "body": "If you have already published the list.blade.php file (it is in your ```resources/views/vendor/backpack/crud```), you need to delete and republish it."
-}
-[/block]
+
 Here's a simple example, with comments that explain what we're doing:
 ```php
 $this->crud->addFilter([ // add a "simple" filter called Draft 
@@ -67,15 +62,17 @@ function() { // if the filter is active (the GET parameter "draft" exits)
     // $this->crud->addClause('draft'); 
 });
 ```
-[block:callout]
-{
-  "type": "info",
-  "title": "Notes about the filter logic closure",
-  "body": "- the code will only be run on the controller's ```index()``` or ```search()``` methods;\n- you can get the filter value by specifying a parameter to the function (ex: ```$value```);\n- you have access to other request variables using ```$this->crud->request```;\n- you also have read/write access to public properties using ```$this->crud```;\n- when building complicated \"OR\" logic, make sure the first \"where\" in your closure is a \"where\" and only the subsequent are \"orWhere\"; Laravel 5.3 no longer convers the first \"orWhere\" into a \"where\";"
-}
-[/block]
+> Notes about the filter logic closure
+> - the code will only be run on the controller's ```index()``` or ```search()``` methods;
+> - you can get the filter value by specifying a parameter to the function (ex: ```$value```);
+> - you have access to other request variables using ```$this->crud->request```;
+> - you also have read/write access to public properties using ```$this->crud```;
+> - when building complicated "OR" logic, make sure the first "where" in your closure is a "where" and only the subsequent are "orWhere"; Laravel 5.3+ no longer convers the first "orWhere" into a "where";
+
+<a name="filter-types"></a>
 ## Filter types
 
+<a name="simple"></a>
 ### Simple
 
 Only shows a label and can be toggled on/off. Useful for things like active/inactive and easily paired with [Eloquent Scopes](https://laravel.com/docs/5.3/eloquent#local-scopes). The "Draft" and "Has Video" filters in the screenshot above are simple filters.
@@ -92,6 +89,7 @@ function() { // if the filter is active
 } );
 ```
 
+<a name="text"></a>
 ### Text
 
 Shows a text input. Most useful for letting the user filter through information that not shown as a column in the CRUD table - otherwise they could just use the DataTables search field.
@@ -122,6 +120,7 @@ function($value) { // if the filter is active
 } );
 ```
 
+<a name="date"></a>
 ### Date
 
 Show a datepicker. The user can select one day.
@@ -152,6 +151,7 @@ Show a datepicker. The user can select one day.
         });
 ```
 
+<a name="date-range"></a>
 ### Date range
 
 Show a daterange picker. The user can select a start date and an end date.
@@ -184,6 +184,7 @@ Show a daterange picker. The user can select a start date and an end date.
          });
 ```
 
+<a name="dropdown"></a>
 ### Dropdown
 
 Shows a list of elements (that you provide) in a dropdown. The user can only select one of these elements.
@@ -217,6 +218,7 @@ $this->crud->addFilter([ // dropdown filter
 });
 ```
 
+<a name="select2"></a>
 ### Select2
 
 Shows a select2 and allows the user to select one item from the list or search for an item. Useful when the values list is long (over 10 elements).
@@ -254,6 +256,7 @@ $this->crud->addFilter([ // select2 filter
 
 **Note:** If you want to pass all entries of a Laravel model to your filter, you can do it in the second parameter (the closure), with something like ```return \Backpack\NewsCRUD\app\Models\Category::all()->keyBy('id')->pluck('name', 'id')->toArray();```;
 
+<a name="select2_multiple"></a>
 ### Select2_multiple
 
 Shows a select2 and allows the user to select one or more items from the list or search for an item. Useful when the values list is long (over 10 elements) and your user should be able to select multiple elements. You can decide yourself if the query for each element should use 'where' or 'orWhere', in the third parameter of the ```addFilter()``` method.
@@ -291,6 +294,7 @@ $this->crud->addFilter([ // select2_multiple filter
 });
 ```
 
+<a name="select2_ajax"></a>
 ### Select2_ajax
 
 Shows a select2 and allows the user to select one item from the list or search for an item. This list is fetched through an AJAX call by the select2. Useful when the values list is long (over 1000 elements).
@@ -341,6 +345,7 @@ function($value) { // if the filter is active
 });
 ```
 
+<a name="range"></a>
 ### Range
 
 Shows two number inputs, for min and max.
@@ -378,7 +383,7 @@ function($value) { // if the filter is active
             }
 });
 ```
-
+<a name="view"></a>
 ### View
 
 Display any custom column filter you want. Usually used by Backpack package developers, to use views from within their packages, instead of having to publish them. 
@@ -397,22 +402,97 @@ function($value) { // if the filter is active
 });
 ```
 
+<a name="creating-a-custom-filter-type"></a>
 ## Creating custom filters
 
 Creating a new filter type is as easy as using the template below and placing a new view in your ```resources/views/vendor/backpack/crud/filters``` folder. You can then call this new filter by its view's name (ex: ```custom_select.blade.php``` will mean your filter type is called ```custom_select```).
 
-The filters bar is actually a [bootstrap navbar](http://getbootstrap.com/components/#navbar) at its core, but slimmer.  So adding a new filter will be just like adding a menu item (for the HTML).
-[block:code]
-{
-  "codes": [
-    {
-      "code": "{{-- Example Backpack CRUD filter --}}\n\n<li filter-name=\"{{ $filter->name }}\"\n\tfilter-type=\"{{ $filter->type }}\"\n\tclass=\"dropdown {{ Request::get($filter->name)?'active':'' }}\">\n    <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">{{ $filter->label }} <span class=\"caret\"></span></a>\n    <div class=\"dropdown-menu padding-10\">\n\n\t\t{{-- dropdown content: everything you need is inside $filter --}}\n\t\tLorem ipsum dolor sit amet, consectetur adipisicing elit. Unde, inventore assumenda voluptate accusantium recusandae ipsam magni atque vel omnis est debitis, neque nam aspernatur ex quo fuga, nulla soluta. Rerum.\n\n    </div>\n  </li>\n\n\n{{-- ########################################### --}}\n{{-- Extra CSS and JS for this particular filter --}}\n\n{{-- FILTERS EXTRA CSS  --}}\n{{-- push things in the after_styles section --}}\n\n    {{-- @push('crud_list_styles')\n        <!-- no css -->\n    @endpush --}}\n\n\n{{-- FILTERS EXTRA JS --}}\n{{-- push things in the after_scripts section --}}\n\n\n{{-- FILTER JAVASCRIPT CHECKLIST\n\n- redirects to a new URL for standard DataTables\n- replaces the search URL for ajax DataTables\n- users have a way to clear this filter (and only this filter)\n- filter:clear event on li[filter-name], which is called by the \"Remove all filters\" button, clears this filter;\n\nEND OF FILTER JAVSCRIPT CHECKLIST --}}\n\n@push('crud_list_scripts')\n    <script>\n\t\tjQuery(document).ready(function($) {\n\t\t\t$(\"li[filter-name={{ $filter->name }}] a\").click(function(e) {\n\t\t\t\te.preventDefault();\n\n\t\t\t\tvar parameter = $(this).attr('parameter');\n\n\t\t\t\t@if (!$crud->ajaxTable())\n\t\t\t\t\t// behaviour for normal table\n\t\t\t\t\tvar current_url = normalizeAmpersand(\"{{ Request::fullUrl() }}\");\n\n\t\t\t\t\tif (URI(current_url).hasQuery(parameter)) {\n\t\t\t\t\t\tvar new_url = URI(current_url).removeQuery(parameter, true);\n\t\t\t\t\t} else {\n\t\t\t\t\t\tvar new_url = URI(current_url).addQuery(parameter, true);\n\t\t\t\t\t}\n\n\t\t\t\t\t// refresh the page to the new_url\n\t\t\t    \tnew_url = normalizeAmpersand(new_url.toString());\n\t\t\t    \twindow.location.href = new_url.toString();\n\t\t\t    @else\n\t\t\t    \t// behaviour for ajax table\n\t\t\t\t\tvar ajax_table = $(\"#crudTable\").DataTable();\n\t\t\t\t\tvar current_url = ajax_table.ajax.url();\n\n\t\t\t\t\tif (URI(current_url).hasQuery(parameter)) {\n\t\t\t\t\t\tvar new_url = URI(current_url).removeQuery(parameter, true);\n\t\t\t\t\t} else {\n\t\t\t\t\t\tvar new_url = URI(current_url).addQuery(parameter, true);\n\t\t\t\t\t}\n\n\t\t\t\t\t// replace the datatables ajax url with new_url and reload it\n\t\t\t\t\tnew_url = normalizeAmpersand(new_url.toString());\n\t\t\t\t\tajax_table.ajax.url(new_url).load();\n\n\t\t\t\t\t// mark this filter as active in the navbar-filters\n\t\t\t\t\tif (URI(new_url).hasQuery('{{ $filter->name }}', true)) {\n\t\t\t\t\t\t$(\"li[filter-name={{ $filter->name }}]\").removeClass('active').addClass('active');\n\t\t\t\t\t}\n\t\t\t\t\telse\n\t\t\t\t\t{\n\t\t\t\t\t\t$(\"li[filter-name={{ $filter->name }}]\").trigger(\"filter:clear\");\n\t\t\t\t\t}\n\t\t\t    @endif\n\t\t\t});\n\n\t\t\t// clear filter event (used here and by the Remove all filters button)\n\t\t\t$(\"li[filter-name={{ $filter->name }}]\").on('filter:clear', function(e) {\n\t\t\t\t// console.log('dropdown filter cleared');\n\t\t\t\t$(\"li[filter-name={{ $filter->name }}]\").removeClass('active');\n\t\t\t});\n\t\t});\n\t</script>\n@endpush\n\n{{-- End of Extra CSS and JS --}}\n{{-- ########################################## --}}",
-      "language": "php"
-    }
-  ]
-}
-[/block]
-## Extra Examples
+The filters bar is actually a [bootstrap navbar](http://getbootstrap.com/components/#navbar) at its core, but slimmer.  So adding a new filter will be just like adding a menu item (for the HTML). Start from the ```text``` filter below and build your functionality.
+
+Inside this file, you'll have:
+- ```$filter``` object - includes everything you've defined on the current field;
+- ```$crud``` - the CrudPanel object;
+
+```php
+{{-- Text Backpack CRUD filter --}}
+
+<li filter-name="{{ $filter->name }}"
+  filter-type="{{ $filter->type }}"
+  class="dropdown {{ Request::get($filter->name) ? 'active' : '' }}">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ $filter->label }} <span class="caret"></span></a>
+  <div class="dropdown-menu">
+    <div class="form-group backpack-filter m-b-0">
+      <div class="input-group">
+            <input class="form-control pull-right"
+                id="text-filter-{{ str_slug($filter->name) }}"
+                type="text"
+            @if ($filter->currentValue)
+              value="{{ $filter->currentValue }}"
+            @endif
+                >
+            <div class="input-group-addon">
+              <a class="text-filter-{{ str_slug($filter->name) }}-clear-button" href=""><i class="fa fa-times"></i></a>
+            </div>
+        </div>
+    </div>
+  </div>
+</li>
+
+{{-- ########################################### --}}
+{{-- Extra CSS and JS for this particular filter --}}
+
+
+{{-- FILTERS EXTRA JS --}}
+{{-- push things in the after_scripts section --}}
+
+@push('crud_list_scripts')
+  <!-- include select2 js-->
+  <script>
+    jQuery(document).ready(function($) {
+      $('#text-filter-{{ str_slug($filter->name) }}').on('change', function(e) {
+
+        var parameter = '{{ $filter->name }}';
+        var value = $(this).val();
+
+          // behaviour for ajax table
+        var ajax_table = $('#crudTable').DataTable();
+        var current_url = ajax_table.ajax.url();
+        var new_url = addOrUpdateUriParameter(current_url, parameter, value);
+
+        // replace the datatables ajax url with new_url and reload it
+        new_url = normalizeAmpersand(new_url.toString());
+        ajax_table.ajax.url(new_url).load();
+
+        // mark this filter as active in the navbar-filters
+        if (URI(new_url).hasQuery('{{ $filter->name }}', true)) {
+          $('li[filter-name={{ $filter->name }}]').removeClass('active').addClass('active');
+        } else {
+          $('li[filter-name={{ $filter->name }}]').trigger('filter:clear');
+        }
+      });
+
+      $('li[filter-name={{ str_slug($filter->name) }}]').on('filter:clear', function(e) {
+        $('li[filter-name={{ $filter->name }}]').removeClass('active');
+        $('#text-filter-{{ str_slug($filter->name) }}').val('');
+      });
+
+      // datepicker clear button
+      $(".text-filter-{{ str_slug($filter->name) }}-clear-button").click(function(e) {
+        e.preventDefault();
+
+        $('li[filter-name={{ str_slug($filter->name) }}]').trigger('filter:clear');
+        $('#text-filter-{{ str_slug($filter->name) }}').val('');
+        $('#text-filter-{{ str_slug($filter->name) }}').trigger('change');
+      })
+    });
+  </script>
+@endpush
+{{-- End of Extra CSS and JS --}}
+{{-- ########################################## --}}
+```
+
+<a name="examples"></a>
+## Examples
 
 Use a dropdown to filter by the values of a MySQL ENUM column:
 

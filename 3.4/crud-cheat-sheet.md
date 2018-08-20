@@ -2,7 +2,7 @@
 
 ---
 
-Here are all the functions you will be using inside your EntityCrudController's ```setup()``` method, grouped by the operation you will use them in.
+Here are all the functions you will be using **inside your EntityCrudController's ```setup()``` method**, grouped by the operation you will most likely use them for.
 
 ## Operations
 
