@@ -7,21 +7,8 @@
 
 Backpack CRUD allows you to show a filters bar right above the entries table. When selected or modified, they reload the DataTables results. The search will then search within the filtered elements.
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/4484004-Screen_Shot_2016-11-10_at_16.10.32.png",
-        "Screen Shot 2016-11-10 at 16.10.32.png",
-        1043,
-        479,
-        "#f2f5f5"
-      ]
-    }
-  ]
-}
-[/block]
+
+![Backpack CRUD Filters](https://backpackforlaravel.com/uploads/docs/filters/filters.png)
 
 Just like with fields, columns or buttons, you can add existing filters or create a custom filter that fits to your particular needs. Everything's done inside your ```EntityCrudController::setup()```. 
 
@@ -93,21 +80,9 @@ function() { // if the filter is active
 ### Text
 
 Shows a text input. Most useful for letting the user filter through information that not shown as a column in the CRUD table - otherwise they could just use the DataTables search field.
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/e236234-Screen_Shot_2017-09-04_at_12.26.32.png",
-        "Screen Shot 2017-09-04 at 12.26.32.png",
-        534,
-        264,
-        "#f2f2f2"
-      ]
-    }
-  ]
-}
-[/block]
+
+![Backpack CRUD Text Filter](https://backpackforlaravel.com/uploads/docs/filters/text.png)
+
 ```php
 $this->crud->addFilter([ // simple filter
   'type' => 'text',
@@ -124,21 +99,9 @@ function($value) { // if the filter is active
 ### Date
 
 Show a datepicker. The user can select one day.
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/70b37df-Screen_Shot_2017-07-10_at_15.56.10.png",
-        "Screen Shot 2017-07-10 at 15.56.10.png",
-        666,
-        678,
-        "#f3f3f3"
-      ]
-    }
-  ]
-}
-[/block]
+
+![Backpack CRUD Date Filter](https://backpackforlaravel.com/uploads/docs/filters/date.png)
+
 ```php
         $this->crud->addFilter([ // date filter
           'type' => 'date',
@@ -155,21 +118,9 @@ Show a datepicker. The user can select one day.
 ### Date range
 
 Show a daterange picker. The user can select a start date and an end date.
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/bd3b6e5-Screen_Shot_2017-07-10_at_15.56.28.png",
-        "Screen Shot 2017-07-10 at 15.56.28.png",
-        1440,
-        820,
-        "#246074"
-      ]
-    }
-  ]
-}
-[/block]
+
+![Backpack CRUD Date Range Filter](https://backpackforlaravel.com/uploads/docs/filters/date_range.png)
+
 ```php
         $this->crud->addFilter([ // daterange filter
            'type' => 'date_range',
@@ -188,21 +139,9 @@ Show a daterange picker. The user can select a start date and an end date.
 ### Dropdown
 
 Shows a list of elements (that you provide) in a dropdown. The user can only select one of these elements.
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/1aa1b83-Screen_Shot_2016-11-10_at_16.39.01.png",
-        "Screen Shot 2016-11-10 at 16.39.01.png",
-        200,
-        207,
-        "#f1f1f1"
-      ]
-    }
-  ]
-}
-[/block]
+
+![Backpack CRUD Dropdown Filter](https://backpackforlaravel.com/uploads/docs/filters/dropdown.png)
+
 ```php
 $this->crud->addFilter([ // dropdown filter
   'name' => 'status',
@@ -222,21 +161,9 @@ $this->crud->addFilter([ // dropdown filter
 ### Select2
 
 Shows a select2 and allows the user to select one item from the list or search for an item. Useful when the values list is long (over 10 elements).
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/73fadbc-Screen_Shot_2016-11-10_at_16.43.36.png",
-        "Screen Shot 2016-11-10 at 16.43.36.png",
-        314,
-        258,
-        "#555592"
-      ]
-    }
-  ]
-}
-[/block]
+
+![Backpack CRUD Select2 Filter](https://backpackforlaravel.com/uploads/docs/filters/select2.png)
+
 ```php
 $this->crud->addFilter([ // select2 filter
   'name' => 'status',
@@ -260,21 +187,9 @@ $this->crud->addFilter([ // select2 filter
 ### Select2_multiple
 
 Shows a select2 and allows the user to select one or more items from the list or search for an item. Useful when the values list is long (over 10 elements) and your user should be able to select multiple elements. You can decide yourself if the query for each element should use 'where' or 'orWhere', in the third parameter of the ```addFilter()``` method.
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/15a10fd-Screen_Shot_2016-11-10_at_16.48.10.png",
-        "Screen Shot 2016-11-10 at 16.48.10.png",
-        243,
-        219,
-        "#f1f1f1"
-      ]
-    }
-  ]
-}
-[/block]
+
+![Backpack CRUD Select2_multiple Filter](https://backpackforlaravel.com/uploads/docs/filters/select2_multiple.png)
+
 ```php
 $this->crud->addFilter([ // select2_multiple filter
   'name' => 'status',
@@ -298,21 +213,9 @@ $this->crud->addFilter([ // select2_multiple filter
 ### Select2_ajax
 
 Shows a select2 and allows the user to select one item from the list or search for an item. This list is fetched through an AJAX call by the select2. Useful when the values list is long (over 1000 elements).
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/c092b95-Screen_Shot_2016-11-10_at_17.00.18.png",
-        "Screen Shot 2016-11-10 at 17.00.18.png",
-        252,
-        177,
-        "#f1f1f1"
-      ]
-    }
-  ]
-}
-[/block]
+
+![Backpack CRUD Select2_ajax Filter](https://backpackforlaravel.com/uploads/docs/filters/select2_ajax.png)
+
 1. Add a route for the ajax search, right above your usual ```CRUD::resource()``` route. Example:
 
 ```php
@@ -349,21 +252,9 @@ function($value) { // if the filter is active
 ### Range
 
 Shows two number inputs, for min and max.
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/22c4676-Screen_Shot_2018-05-30_at_13.41.04.png",
-        "Screen Shot 2018-05-30 at 13.41.04.png",
-        171,
-        131,
-        "#f6f6f7"
-      ]
-    }
-  ]
-}
-[/block]
+
+![Backpack CRUD Range Filter](https://backpackforlaravel.com/uploads/docs/filters/range.png)
+
 ```php
 $this->crud->addFilter([
   'name' => 'number',

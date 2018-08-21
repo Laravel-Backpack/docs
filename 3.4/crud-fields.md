@@ -5,45 +5,45 @@
 <a name="about"></a>
 ## About
 
-Field types are defined in the Controller and settle the way that particular field looks in the add / edit view.
+Field types are defined in the Controller and settle the way that particular field looks in the add / edit view. Think of the field type as the type of input: ```<input type=”text” />```. But for most entities, you won't just need text inputs - you'll need datepickers, upload buttons, 1-n relationship, n-n relationships, textareas, etc.
 
-Think of the field type as the type of input:
+We do have a lot of default field types, detailed below. If you don't find what you're looking for, you can [create a custom field type](/docs/{{version}}/crud-fields#creating-a-custom-field-type). Or if you just want to tweak a default field type a little bit, you can [overwrite default field types](/docs/{{version}}/crud-fields#overwriting-default-field-types).
 
-```html
-<input type=”text” />
-```
+<a name="mandatory-field-attributes"></a>
+### Mandatory Field Attributes
 
-For some entities, you won't just need text inputs, you'll need datepickers, upload buttons, 1-n relationship, n-n relationships, textareas, etc.
+For each of them, you only need to define it properly in the Controller. All field types will need at least three things: 
+- the ```name``` of the column in the database (ex: "title")
+- the human-readable ```label``` for the input (ex: "Title")
+- the ```type``` of the input (ex: "text")
 
-For each of them, you only need to define it properly in the Controller, in the “fields” array. All field types will need at least three things: 
-- the ```name``` of the column in the database (and the name of the input, implicitly)
-- the human-readable ```label``` for the input
-- the ```type``` of the input
-
-The following fields are to be used as $field_definition_array inside:
-
+So at minimum, your field definition array should look like:
 ```php
-$this->crud->addField($field_definition_array, 'update/create/both');
+[
+    'name' => 'description',
+    'type' => 'textarea',
+    'label' => 'Article Description',
+]
 ```
 
-<a name="field-attributes"></a>
-### Field Attributes
+<a name="optional-field-attributes"></a>
+### Optional Field Attributes
 
-All fields require at least a `name` to be displayed however defining a `label` and `type` are recommended which you will read more about what types are available by default below. All fields also support additional parameters to be passed:
+There are a few optional attributes on all default field types, that you can use to easily achieve a few common cutomizations:
 
 ```php
 [
     'prefix' => '',
-    suffix' => '',
-    'default'    => 'some value', // default value
-    'hint'       => 'Some hint text', // helpful text, show up after input
+    'suffix' => '',
+    'default'    => 'some value', // set a default value
+    'hint'       => 'Some hint text', // helpful text, shows up after the input
     'attributes' => [
        'placeholder' => 'Some text when empty',
        'class' => 'form-control some-class'
-     ], // extra HTML attributes and values your input might need
+     ], // change the HTML attributes of your input
      'wrapperAttributes' => [
        'class' => 'form-group col-md-12'
-     ], // extra HTML attributes for the field wrapper - mostly for resizing fields 
+     ], // change the HTML attributes for the field wrapper - mostly for resizing fields 
      'readonly'=>'readonly',
 ]
 ```
