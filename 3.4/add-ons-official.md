@@ -1,4 +1,4 @@
-# Official Extensions
+# Official Add-ons
 
 In addition to our core packages (Base and CRUD), we've developed a few packages you can install or download, that treat common use cases. 
 
@@ -12,4 +12,4 @@ In addition to our core packages (Base and CRUD), we've developed a few packages
   - [BackupManager](https://github.com/Laravel-Backpack/BackupManager) - interface to backup your files & db using [spatie/laravel-backup](https://github.com/spatie/laravel-backup); ```free```
 
 
->**These packages only provide basic functionality.** What will be enough for _most_ projects. They do not intend to be a complete solution for all use cases. If you need to customize a package for your specific use case, you can easily do that, by copy-pasting their code in your project and modifying it. Every official package has been created with this in mind, has a very simple architecture, uses Backpack best practices. Find the "extend" section in each of their docs for more about this.
+>**These add-ons only provide basic functionality.** What will be enough for _most_ projects. They do not intend to be a complete solution for all use cases. If you need to customize a package for your specific use case, you can easily do that, by copy-pasting their code in your project and modifying it. Every official package has been created with this in mind, has a very simple architecture, uses Backpack best practices. Find the "extend" section in each of their docs for more about this.

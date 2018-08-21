@@ -1,8 +1,8 @@
-# Community Extensions
+# Community Add-ons
 
 ---
 
-We've been blessed with a wonderful, supportive community, where developers help each other out. Some of them have even created packages, so that we can all reuse functionality across our projects:
+We've been blessed with a wonderful, supportive community, where developers help each other out. Some of them have even created add-ons, so that we can all reuse functionality across our projects:
 
 | Name          | Description   | License  |
 | ------------- |:-------------:| --------:|

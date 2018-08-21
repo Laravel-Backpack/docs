@@ -16,9 +16,9 @@ Think of the field type as the type of input:
 For some entities, you won't just need text inputs, you'll need datepickers, upload buttons, 1-n relationship, n-n relationships, textareas, etc.
 
 For each of them, you only need to define it properly in the Controller, in the “fields” array. All field types will need at least three things: 
-- the name of the column in the database (and the name of the input, implicitly)
-- the human-readable label for the input
-- the type of the input
+- the ```name``` of the column in the database (and the name of the input, implicitly)
+- the human-readable ```label``` for the input
+- the ```type``` of the input
 
 The following fields are to be used as $field_definition_array inside:
 
@@ -27,7 +27,7 @@ $this->crud->addField($field_definition_array, 'update/create/both');
 ```
 
 <a name="field-attributes"></a>
-## Field Attributes
+### Field Attributes
 
 All fields require at least a `name` to be displayed however defining a `label` and `type` are recommended which you will read more about what types are available by default below. All fields also support additional parameters to be passed:
 
@@ -47,67 +47,6 @@ All fields require at least a `name` to be displayed however defining a `label` 
      'readonly'=>'readonly',
 ]
 ```
-
-<a name="creating-a-custom-field-type"></a>
-## Creating a Custom Field Type
-
-The actual field types are stored in the Backpack/CRUD package in ```/resources/views/fields```. If you need to extend the CRUD with a new field type or overwrite an existing field, you don’t need to modify the package, you just need to add a file in your application in ```/resources/views/vendor/backpack/crud/fields```. The package checks there first, and only if there's no file there, it will load it from the package.
-
-Your field definition will be something like:
-
-```php
-[
-  // Custom Field
-  'name' => 'address',
-  'label' => 'Home address',
-  'type' => 'address'
-  /// 'view_namespace' => 'yourpackage' // use a custom namespace of your package to load views within a custom view folder.
-]);
-```
-
-And your blade file something like:
-```php
-<!-- field_type_name -->
-<div @include('crud::inc.field_wrapper_attributes') >
-    <label>{!! $field['label'] !!}</label>
-    <input
-        type="text"
-        name="{{ $field['name'] }}"
-        value="{{ old($field['name']) ? old($field['name']) : (isset($field['value']) ? $field['value'] : (isset($field['default']) ? $field['default'] : '' )) }}"
-        @include('crud::inc.field_attributes')
-    >
-
-    {{-- HINT --}}
-    @if (isset($field['hint']))
-        <p class="help-block">{!! $field['hint'] !!}</p>
-    @endif
-</div>
-
-
-@if ($crud->checkIfFieldIsFirstOfItsType($field, $fields))
-  {{-- FIELD EXTRA CSS  --}}
-  {{-- push things in the after_styles section --}}
-
-      @push('crud_fields_styles')
-          <!-- no styles -->
-      @endpush
-
-
-  {{-- FIELD EXTRA JS --}}
-  {{-- push things in the after_scripts section --}}
-
-      @push('crud_fields_scripts')
-          <!-- no scripts -->
-      @endpush
-@endif
-
-// Note: most of the times you'll want to use @if ($crud->checkIfFieldIsFirstOfItsType($field, $fields)) to only load CSS/JS once, even though there are multiple instances of it.
-```
-
-You will find everything you need inside the  ```$crud```, ```$entry```, and ```$field``` variables:
-- ```$crud``` - all the crudpanel settings, options and variables;
-- ```$entry``` - in EDIT forms, the current entry being modified (the actual values);
-- ```$field``` - all options that have been passed for this field;
 
 <a name="default-field-types"></a>
 ## Default Field Types
@@ -1357,3 +1296,71 @@ Show a wysiwyg (CKEditor) to the user.
     'type' => 'wysiwyg'
 ],
 ```
+
+<a name="overwriting-default-field-types"></a>
+## Overwriting Default Field Types
+
+The actual field types are stored in the Backpack/CRUD package in ```/resources/views/fields```. If you need to change an existing field, you don’t need to modify the package, you just need to add a blade file in your application in ```/resources/views/vendor/backpack/crud/fields```, with the same name. The package checks there first, and only if there's no file there, will it load it from the package.
+
+>Please keep in mind that if you're using _your_ file for a field type, you're not using the _package file_. So any updates we push to that file, you're not getting them. In most cases, it's recommended you crate a custom field type for your use case, instead of overwriting default field types.
+
+<a name="creating-a-custom-field-type"></a>
+## Creating a Custom Field Type
+
+If you need to extend the CRUD with a new field type, you create a new file in your application in ```/resources/views/vendor/backpack/crud/fields```. Use a name that's different from all default field types. That's it, you'll now be able to use it just like a default field type.
+
+Your field definition will be something like:
+
+```php
+[
+  // Custom Field
+  'name' => 'address',
+  'label' => 'Home address',
+  'type' => 'address'
+  /// 'view_namespace' => 'yourpackage' // use a custom namespace of your package to load views within a custom view folder.
+]);
+```
+
+And your blade file something like:
+```php
+<!-- field_type_name -->
+<div @include('crud::inc.field_wrapper_attributes') >
+    <label>{!! $field['label'] !!}</label>
+    <input
+        type="text"
+        name="{{ $field['name'] }}"
+        value="{{ old($field['name']) ? old($field['name']) : (isset($field['value']) ? $field['value'] : (isset($field['default']) ? $field['default'] : '' )) }}"
+        @include('crud::inc.field_attributes')
+    >
+
+    {{-- HINT --}}
+    @if (isset($field['hint']))
+        <p class="help-block">{!! $field['hint'] !!}</p>
+    @endif
+</div>
+
+
+@if ($crud->checkIfFieldIsFirstOfItsType($field, $fields))
+  {{-- FIELD EXTRA CSS  --}}
+  {{-- push things in the after_styles section --}}
+
+      @push('crud_fields_styles')
+          <!-- no styles -->
+      @endpush
+
+
+  {{-- FIELD EXTRA JS --}}
+  {{-- push things in the after_scripts section --}}
+
+      @push('crud_fields_scripts')
+          <!-- no scripts -->
+      @endpush
+@endif
+
+// Note: most of the times you'll want to use @if ($crud->checkIfFieldIsFirstOfItsType($field, $fields)) to only load CSS/JS once, even though there are multiple instances of it.
+```
+
+Inside your custom field type, you can use these variables:
+- ```$crud``` - all the CRUD Panel settings, options and variables;
+- ```$entry``` - in the Update operation, the current entry being modified (the actual values);
+- ```$field``` - all attributes that have been passed for this field;

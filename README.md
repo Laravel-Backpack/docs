@@ -10,3 +10,5 @@ You can find the online version of the Backpack documentation at https://backpac
 ### Contribution guidelines
 - pull requests are welcome and appreciated;
 - pull requests should point to the ```master``` branch;
+- all links should point to the current version of the documentation page (ex: ```/docs/{{version}}/installation```);
+- all images should be uploaded to ```http://backpackforlaravel.com/uploads/docs/``` and used from there; ask @tabacitu to help upload them;

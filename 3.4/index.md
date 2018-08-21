@@ -5,10 +5,9 @@
 - [Installation](/docs/{{version}}/installation)
 - Getting Started
     - [1. Basics](/docs/{{version}}/getting-started-basics)
-    - [2. Anatomy of a CRUD](/docs/{{version}}/getting-started-anatomy-of-a-crud)
+    - [2. CRUD Operations](/docs/{{version}}/getting-started-crud-operations)
     - [3. Advanced Features](/docs/{{version}}/getting-started-advanced-features)
-    - [4. Other Packages](/docs/{{version}}/getting-started-other-packages)
-    - [5. License & Support](/docs/{{version}}/getting-started-license-and-support)
+    - [4. Add-ons, License & Support](/docs/{{version}}/getting-started-license-and-support)
 - [Release Notes](/docs/{{version}}/release-notes)
 - [Upgrade Guide](/docs/{{version}}/upgrade-guide)
 
@@ -38,7 +37,7 @@
 - [FAQ](/docs/{{version}}/crud-faq)
 
 
-#### Extensions
+#### Add-ons
 
-- [Official Extensions](/docs/{{version}}/extensions-official)
-- [Community Extensions](/docs/{{version}}/extensions-community)
+- [Official Add-ons](/docs/{{version}}/add-ons-official)
+- [Community Add-ons](/docs/{{version}}/add-ons-community)

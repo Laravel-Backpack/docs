@@ -11,8 +11,11 @@ If you can run Laravel 5.6, you can install Backpack. Backpack does _not_ have a
 
 - you can run the ```composer``` command from any directory (you have composer registered as a global command); if you need to run ```php composer.phar``` or reference another directory, please remember to adapt the commands below to your configuration;
 
+<a name="installation"></a>
+## Installation
+
 <a name="install-core-packages"></a>
-## Install Core Packages
+### Install Core Packages
 
 1) In your project's main directory, install CRUD using composer:
 
@@ -43,10 +46,10 @@ That's it. If you already know how to use Backpack, next up you'll probably want
 
 > If it's your first time installing Backpack, it is **highly recommended** that you go through our [Getting Started series](/docs/{{version}}/getting-started-basics), to understand how Backpack works. That's why we created it - to help you learn how to use this admin panel framework. In ~23 minutes we'll teach you 80% of what you can do, and how.
 
-<a name="install-extensions"></a>
-## Install Extensions
+<a name="install-add-ons"></a>
+### Install Add-ons
 
-In case you want to add extra functionality that's already been built, check out [the installation steps for the extensions we've developed](/docs/{{version}}/install-optionals).
+In case you want to add extra functionality that's already been built, check out [the installation steps for the add-ons we've developed](/docs/{{version}}/install-optionals).
 
 <a name="frequently-asked-questions"></a>
 ## Frequently Asked Questions

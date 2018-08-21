@@ -51,14 +51,14 @@ Backpack has never had a critical vulnerability/hack. But there _have_ been impo
 
 Backpack is under a license we call "_You make money, I make money_" (YummY). Its source is public, and you can use it for free for non-commercial purposes (testing, non-profits, personal use, etc), but if you make money using it you need to purchase a commercial license. Please see  [the pricing section](https://backpackforlaravel.com/pricing) for more details. You need a license code for both commercial and non-commercial use, to prevent nagging notification bubbles.
 
-<a name="extensions"></a>
-### Extensions
+<a name="add-ons"></a>
+### Add-ons
 
 In addition to our core packages (Base and CRUD), there are a few packages you can install or download, that treat common use cases. Some have been developed by our core team, some by our wonderful community. You can just install interfaces to manage [site-wide settings](https://github.com/Laravel-Backpack/Settings), [the default Laravel users table](https://github.com/eduardoarandah/UserManager), [users, groups & permissions](https://github.com/Laravel-Backpack/PermissionManager), [content for custom pages, using page templates](https://github.com/Laravel-Backpack/PageManager), [news articles, categories and tags](https://github.com/Laravel-Backpack/NewsCRUD), etc.
 
 For more, please see:
-- [all official extensions](/docs/{{version}}/extensions-official)
-- [all community extensions](/docs/{{version}}/extensions-community)
+- [all official add-ons](/docs/{{version}}/add-ons-official)
+- [all community add-ons](/docs/{{version}}/add-ons-community)
 
 <a name="how-to-start"></a>
 ## How to Start
