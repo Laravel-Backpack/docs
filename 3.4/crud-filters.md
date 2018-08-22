@@ -13,7 +13,9 @@ Backpack CRUD allows you to show a filters bar right above the entries table. Wh
 Just like with fields, columns or buttons, you can add existing filters or create a custom filter that fits to your particular needs. Everything's done inside your ```EntityCrudController::setup()```. 
 
 <a name="methods"></a>
-### Methods
+### Filters API
+
+In order to manipulate filters, you can use:
 
 ```php
 $this->crud->addFilter($options, $values, $filter_logic);

@@ -2,11 +2,48 @@
 
 ---
 
-## Columns
+<a name="about"></a>
+## About
 
-Columns represent the way your information is shown in the table view. 
+This operation shows a table with all database entries. It's the first page the admin lands on (for an entity), and it's usually the gateway to all other operations, because it holds all the buttons.
 
-All column types must have their name, label and type specified, but some could require some other attributes too.
+A simple ListEntries view might look like this:
+
+![Backpack CRUD ListEntries](https://backpackforlaravel.com/uploads/docs/operations/listEntries.png)
+
+But a complex implementation of the ListEntries operation, using Columns, Filters, custom Buttons, custom Operations, responsive table, Details Row, Export Buttons will still look pretty good:
+
+![Backpack CRUD ListEntries](https://backpackforlaravel.com/uploads/docs/operations/listEntries_full.png)
+
+You can easily customize [columns](#columns), [buttons](#buttons), [filters](#filters), [enable/disable additional features we've built](#other-features), or [overwrite the view and build your own features](#how-to-overwrite).
+
+<a name="how-it-works"></a>
+## How It Works
+
+The main route leads to ```EntityCrudController::index()```, which shows the table view (```list.blade.php```. Inside that table view, we're using AJAX to fetch the entries and place them inside DataTables. That AJAX points to the same controller, ```EntityCrudController::search()```.
+
+Actions:
+- ```index()```
+- ```search()```
+
+For views, it uses:
+- ```list.blade.php```
+- ```columns/```
+- ```buttons/```
+
+<a name="how-to-use"></a>
+## How to Use
+
+The ```ListEntries``` operations is **enabled by default**. To disable it, you can use ```$this->crud->denyAccess('list');``` inside your ```setup()``` method.
+
+Configuration for this operation is usually done inside your ```setup()``` method. That's recommended, because the columns you define here are used by a few actions (```index()```, ```search()```, ```show()```).
+
+**For a minimum setup, you only need to define the columns you need to show in the table.**
+
+<a name="columns"></a>
+### Columns
+
+Columns represent the way your information is shown in the table view. All column types must have their ```name```, ```label``` and ```type``` specified, but some could require some other attributes too.
 
 ```php
 $this->crud->addColumn([
@@ -16,182 +53,87 @@ $this->crud->addColumn([
          ]);
 ```
 
-Check out the 12+ column types in the [CRUD > Features > Column Types](https://laravel-backpack.readme.io/docs/crud-column-types) section.
+Backpack has 22+ [column types](/docs/{{version}}/crud-columns) you can use. Plus, you can easily [create your own type of column](/docs/{{version}}/crud-columns##creating-a-custom-column-type). **Check out the [Columns](/docs/{{version}}/crud-columns##creating-a-custom-column-type) documentation page** for a detailed look at column types, API and usage.
 
-Each column type has its own blade file, which can be customized by placing a file with the same name in your ```resources\views\vendor\backpack\crud\columns```. To publish a view from the package to your resources folder use the ```backpack:crud:publish``` command. For example ```php artisan backpack:crud:publish columns/text``` will take the view from the package and copy it to the directory above, so you can edit it. Backpack will the use _your_ view, instead of the one in the package. Please note once you publish a view you won't get any updates we push to that view, so don't overdo this.
+<a name="buttons"></a>
+### Buttons
 
-If you can't find the functionality you need in the existing column types, you can [very very easily roll your own](https://laravel-backpack.readme.io/v3.4/docs/crud-columns-types#section-roll-your-own).
+Buttons are used to trigger other operations. Some point to entirely new routes (```create```, ```update```, ```show```), others perform the operation on the current page using AJAX (```delete```).
 
-## Details Row
+The ShowList operation has 3 places where buttons can be placed:
+  - ```top``` (where the Add button is)
+  - ```line``` (where the Edit and Delete buttons are)
+  - ```bottom``` (after the table)
+
+Backpack adds a few buttons by default: 
+- ```add``` to the ```top``` stack;
+- ```edit``` and ```delete``` to the ```line``` stack;
+
+To learn more about buttons, **check out the [Buttons](/docs/{{version}}/crud-buttons) documentation page**.
+
+<a name="filters"></a>
+### Filters
+
+Filters show up right before the actual table, and provide a way for the admin to filter the results in the ListEntries table. To learn more about filters, **check out the [Filters](/docs/{{version}}/crud-filters) documentation page**.
+
+<a name="other-features"></a>
+### Other Features
+
+<a name="details-row"></a>
+#### Details Row
 
 The details row functionality allows you to present more information in the table view of a CRUD. When enabled, a "+" button will show up next to every row, which on click will expand a "details row" below it, showing additional information.
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/1214ccf-details_row.gif",
-        "details row.gif",
-        1034,
-        688,
-        "#e7e7dc"
-      ],
-      "border": false
-    }
-  ]
-}
-[/block]
-Behind the scenes, on click an AJAX request is sent to the ```entity/{id}/details``` route, which calls the ```showDetailsRow()``` method on your EntityCrudController. Everything returned by that method is then shown in the details row. You'll want to overwrite that method to show anything you'd like in the details row.
 
-**Usage** (everything in your EntityCrudController):
+![Backpack CRUD ListEntries Details Row](https://backpackforlaravel.com/uploads/docs/operations/listEntries_details_row.png)
+
+On click, an AJAX request is sent to the ```entity/{id}/details``` route, which calls the ```showDetailsRow()``` method on your EntityCrudController. Everything returned by that method is then shown in the details row. You'll want to overwrite that method to show anything you'd like in the details row.
+
+To use, inside your ```EntityCrudController```:
 1. Enable the functionality: ```$this->crud->enableDetailsRow();```
-2. Allow access to all users: ```$this->crud->allowAccess('details_row');```; Wrap an "if" statement around this if you don't want everybody to be able to see it.
+2. Allow access to all admins: ```$this->crud->allowAccess('details_row');```; Wrap an "if" statement around this if you don't want everybody to be able to see it.
 3. Overwrite the ```showDetailsRow($id)``` method;
 
-Alternative for the 3rd step: overwrite ```views/backpack/crud/details_row.blade.php``` which is called by the default showDetailsRow($id) functionality;
+Alternative for the 3rd step: overwrite ```views/backpack/crud/details_row.blade.php``` which is called by the default ```showDetailsRow($id)``` functionality.
 
-## Export buttons
+<a name="export-buttons"></a>
+#### Export buttons
 
 Exporting the DataTable to PDF, CSV, XLS is as easy as typing ```$this->crud->enableExportButtons();``` in your constructor. 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/7241f6e-Screen_Shot_2016-09-22_at_12.29.31.png",
-        "Screen Shot 2016-09-22 at 12.29.31.png",
-        1036,
-        315,
-        "#f3f6f6"
-      ]
-    }
-  ]
-}
-[/block]
 
-## Column and field order
+![Backpack CRUD ListEntries Details Row](https://backpackforlaravel.com/uploads/docs/operations/listEntries_export_buttons.png)
 
-You can use the ```beforeColumn('name')```, ```afterColumn('name')```, ```beforeField('name')```, ```afterField('name')``` methods to change the order of the fields/columns after the fact. Otherwise they will be shown in the order you write them.
+>**Please note that when clicked, each button will export the _currently visible_ table.** You can use the "visibility" button, and the "Items per page" dropdown to manipulate what is inside the export.
 
-Example usage:
-```php
-$this->crud->addColumn([
-         'name' => 'name', // The db column name
-         'label' => "Tag Name", // Table column heading
-       'type' => 'text'
-         ]);
-$this->crud->addColumn([
-         'name' => 'type', // The db column name
-         'label' => "Tag Type", // Table column heading
-       'type' => 'text'
-         ]);
-$this->crud->addColumn([
-         'name' => 'id', // The db column name
-         'label' => "Tag ID", // Table column heading
-       'type' => 'text'
-         ])->beforeColumn('name'); // ======> because of this, it will show up first
+<a name="how-to-overwrite"></a>
+## How to Overwrite
+
+The main route leads to ```EntityCrudController::index()```, which loads ```list.blade.php```. Inside that table view, we're using AJAX to fetch the entries and place them inside a DataTables. The AJAX points to the same controller, ```EntityCrudController::search()```.
+
+<a name="the-view"></a>
+### The View
+
+You can change how the ```list.blade.php``` file looks and works, by just placing a file with the same name in your ```resources/views/vendor/backpack/crud/list.blade.php```. To quickly do that, run:
+
+```zsh
+php artisan backpack:crud:publish list
 ```
 
-## Custom Search Logic in ListEntries View
+Keep in mind that by publishing this file, you won't be getting any updates we'll be pushing to it.
 
-If your column points to something atypical (not a value that is stored as plain text in the database column, maybe a model function, or a JSON, or something else), you might find that the search doesn't work for that column. You can choose which columns are searchable, and what those columns actually search, by using the column's ```searchLogic``` attribute:
+<a name="the-operation-logic"></a>
+### The Operation Logic
 
-```php
-// column with custom search logic
-$this->crud->addColumn([
-    'name' => 'slug_or_title',
-    'label' => 'Title',
-    'searchLogic' => function ($query, $column, $searchTerm) {
-        $query->orWhere('title', 'like', '%'.$searchTerm.'%');
-    }
-]);
+Getting and showing the information is done inside the ```index()``` method. Take a look at the ```CrudController::index()``` method (your EntityCrudController is extending this CrudController) to see how it works.
 
+To overwrite it, just create an ```index()``` method in your ```EntityCrudController```.
 
-// 1-n relationship column with custom search logic
-$this->crud->addColumn([
-    'label' => "Cruise Ship",
-    'type' => "select",
-    'name' => 'cruise_ship_id',
-    'entity' => 'cruise_ship',
-    'attribute' => "cruise_ship_name_date", // combined name & date column
-    'model' => "App\Models\CruiseShip",
-    'searchLogic' => function ($query, $column, $searchTerm) {
-        $query->orWhereHas('cruise_ship', function ($q) use ($column, $searchTerm) {
-            $q->where('name', 'like', '%'.$searchTerm.'%')
-              ->orWhereDate('depart_at', '=', date($searchTerm));
-        });
-    }
-]);
+<a name="the-search-logic"></a>
+### The Search Logic
 
+An AJAX call is made to the ```search()``` method:
+- when entries are shown in the table;
+- when entries are filtered in the table;
+- when search is performed on the table;
+- when pagination is performed on the table;
 
-// column that doesn't need to be searchable
-$this->crud->addColumn([
-    'name' => 'slug_or_title',
-    'label' => 'Title',
-    'searchLogic' => false
-]);
-
-// column whose search logic should behave like it were a 'text' column type
-$this->crud->addColumn([
-    'name' => 'slug_or_title',
-    'label' => 'Title',
-    'searchLogic' => 'text'
-]);
-```
-
-## Multiple Columns With the Same Name
-
-Starting with Backpack\CRUD 3.3 (Nov 2017), you can have multiple columns with the same name, by specifying a unique ```key``` property. So if you want to use the same column name twice, you can do that. Notice below we have the same name for both columns, but one of them has a ```key```. This additional key will be used as an array key, if provided.
-
-```php
-// column that shows the parent's first name
-$this->crud->addColumn([
-   'label' => "Parent First Name", // Table column heading
-   'type' => "select",
-   'name' => 'parent_id', // the column that contains the ID of that connected entity;
-   'entity' => 'parent', // the method that defines the relationship in your Model
-   'attribute' => "first_name", // foreign key attribute that is shown to user
-   'model' => "App\Models\User", // foreign key model
-]);
-
-// column that shows the parent's last name
-$this->crud->addColumn([
-   'label' => "Parent Last Name", // Table column heading
-   'type' => "select",
-   'name' => 'parent_id', // the column that contains the ID of that connected entity;
-   'key' => 'parent_last_name', // the column that contains the ID of that connected entity;
-   'entity' => 'parent', // the method that defines the relationship in your Model
-   'attribute' => "last_name", // foreign key attribute that is shown to user
-   'model' => "App\Models\User", // foreign key model
-]);
-```
-
-## Define which columns to show or hide in the responsive table
-
-By default, DataTables-responsive will try his best to show:
-- **the first column** (since that usually is the most important for the user, plus it holds the modal button and the details_row button so it's crucial for usability);
-- **the last column** (the actions column, where the action buttons reside);
-
-When giving priorities, lower is better. So a column with priority 4 will be hidden BEFORE a column with priority 2. The first and last columns have a priority of 1. You can define a different priority for a column using the ```priority``` attribute. For example:
-
-```php
-$this->crud->addColumn([
-                'name' => 'details',
-                'type' => 'text',
-                'label' => 'Details',
-                'priority' => 2,
-            ]);
-$this->crud->addColumn([
-                'name' => 'obs',
-                'type' => 'text',
-                'label' => 'Observations',
-                'priority' => 3,
-            ]);
-```
-In the example above, depending on how much space it's got in the viewport, DataTables will first hide the ```obs``` column, then ```details```, then the last column, then the first column.
-
-You can make the last column be less important (and hide) by giving it an unreasonable priority:
-
-```php
-$this->crud->setActionsColumnPriority(10000);
-```
+You can of course overwrite this ```search()``` method by just creating one with the same name in your ```EntityCrudController```. In addition, you can overwrite what a specific column is searching through (and how), by [using the searchLogic attribute](/docs/{{version}}/crud-columns#custom-search-logic) on columns.

@@ -28,6 +28,48 @@ When passing a column array, you need to specify at least these attributes:
 
 - searchLogic
 
+<a name="columns-api"></a>
+### Columns API
+
+Inside your ```setup()``` method there are a few calls you can make to configure or manipulate columns:
+
+```php
+// add a column, at the end of the stack
+$this->crud->addColumn($column_definition_array);
+
+// add multiple columns, at the end of the stack
+$this->crud->addColumns([$column_definition_array, $another_column_definition_array]);
+
+// remove a column from the stack
+$this->crud->removeColumn('column_name');
+
+// remove an array of columns from the stack
+$this->crud->removeColumns(['column_name_1', 'column_name_2']);
+
+// change the attributes of a column
+$this->crud->modifyColumn($name, $modifs_array);
+$this->crud->setColumnDetails('column_name', ['attribute' => 'value']);
+
+// change the attributes of multiple columns
+$this->crud->setColumnsDetails(['column_1', 'column_2'], ['attribute' => 'value']);
+
+// forget what columns have been previously defined, only use these columns
+$this->crud->setColumns([$column_definition_array, $another_column_definition_array]);
+```
+
+In addition, to manipulate the order columns are shown in, you can:
+
+```php
+// add this column before a given column
+$this->crud->addColumn('text')->beforeColumn('name');
+
+// add this column after a given column
+$this->crud->addColumn()->afterColumn('name');
+
+// make this column the first one in the list
+$this->crud->addColumn()->makeFirstColumn();
+```
+
 <a name="default-column-types"></a>
 ## Default Column Types
 
@@ -412,9 +454,11 @@ Display any custom column type you want. Usually used by Backpack package develo
 <a name="overwriting-default-column-types"></a>
 ## Overwriting Default Column Types
 
-You can overwrite a column type by placing a file with the same name in your ```resources\views\vendor\backpack\crud\columns``` directory. When a file is there, Backpack will pick that one up, instead of the one in the package.
+You can overwrite a column type by placing a file with the same name in your ```resources\views\vendor\backpack\crud\columns``` directory. When a file is there, Backpack will pick that one up, instead of the one in the package. You can do that from command line using ```php artisan backpack:crud:publish columns/column-file-name```
 
-For example, you can create a ```resources\views\vendor\backpack\crud\columns\number.blade.php``` file to overwrite the ```number``` column functionality.
+Examples:
+- creating a ```resources\views\vendor\backpack\crud\columns\number.blade.php``` file would overwrite the ```number``` column functionality;
+- ```php artisan backpack:crud:publish columns/text``` will take the view from the package and copy it to the directory above, so you can edit it;
 
 >Keep in mind that when you're overwriting a default column type, you're forfeiting any for that column. We can't push updates to a file that you're no longer using.
 
@@ -433,3 +477,114 @@ The most useful variables you'll have in this file here are:
 - ```$crud``` - the entire CrudPanel object, with settings, options and variables;
 
 By default, custom columns are not searchable. In order to make your column searchable you need to [specify a custom ```searchLogic``` in your declaration](https://laravel-backpack.readme.io/docs/advanced-features#section-custom-search-logic-in-table-view).
+
+
+<a name="advanced-columns-use"></a>
+## Advanced Columns Use
+
+<a name="custom-search-logic"></a>
+### Custom Search Logic for Columns
+
+If your column points to something atypical (not a value that is stored as plain text in the database column, maybe a model function, or a JSON, or something else), you might find that the search doesn't work for that column. You can choose which columns are searchable, and what those columns actually search, by using the column's ```searchLogic``` attribute:
+
+```php
+// column with custom search logic
+$this->crud->addColumn([
+    'name' => 'slug_or_title',
+    'label' => 'Title',
+    'searchLogic' => function ($query, $column, $searchTerm) {
+        $query->orWhere('title', 'like', '%'.$searchTerm.'%');
+    }
+]);
+
+
+// 1-n relationship column with custom search logic
+$this->crud->addColumn([
+    'label' => "Cruise Ship",
+    'type' => "select",
+    'name' => 'cruise_ship_id',
+    'entity' => 'cruise_ship',
+    'attribute' => "cruise_ship_name_date", // combined name & date column
+    'model' => "App\Models\CruiseShip",
+    'searchLogic' => function ($query, $column, $searchTerm) {
+        $query->orWhereHas('cruise_ship', function ($q) use ($column, $searchTerm) {
+            $q->where('name', 'like', '%'.$searchTerm.'%')
+              ->orWhereDate('depart_at', '=', date($searchTerm));
+        });
+    }
+]);
+
+
+// column that doesn't need to be searchable
+$this->crud->addColumn([
+    'name' => 'slug_or_title',
+    'label' => 'Title',
+    'searchLogic' => false
+]);
+
+// column whose search logic should behave like it were a 'text' column type
+$this->crud->addColumn([
+    'name' => 'slug_or_title',
+    'label' => 'Title',
+    'searchLogic' => 'text'
+]);
+```
+
+<a name="multiple-columns-with-the-same-name"></a>
+### Multiple Columns With the Same Name
+
+Starting with Backpack\CRUD 3.3 (Nov 2017), you can have multiple columns with the same name, by specifying a unique ```key``` property. So if you want to use the same column name twice, you can do that. Notice below we have the same name for both columns, but one of them has a ```key```. This additional key will be used as an array key, if provided.
+
+```php
+// column that shows the parent's first name
+$this->crud->addColumn([
+   'label' => "Parent First Name", // Table column heading
+   'type' => "select",
+   'name' => 'parent_id', // the column that contains the ID of that connected entity;
+   'entity' => 'parent', // the method that defines the relationship in your Model
+   'attribute' => "first_name", // foreign key attribute that is shown to user
+   'model' => "App\Models\User", // foreign key model
+]);
+
+// column that shows the parent's last name
+$this->crud->addColumn([
+   'label' => "Parent Last Name", // Table column heading
+   'type' => "select",
+   'name' => 'parent_id', // the column that contains the ID of that connected entity;
+   'key' => 'parent_last_name', // the column that contains the ID of that connected entity;
+   'entity' => 'parent', // the method that defines the relationship in your Model
+   'attribute' => "last_name", // foreign key attribute that is shown to user
+   'model' => "App\Models\User", // foreign key model
+]);
+```
+
+<a name="define-which-columns-to-hide-in-responsive-table"></a>
+### Define which columns to show or hide in the responsive table
+
+By default, DataTables-responsive will try his best to show:
+- **the first column** (since that usually is the most important for the user, plus it holds the modal button and the details_row button so it's crucial for usability);
+- **the last column** (the actions column, where the action buttons reside);
+
+When giving priorities, lower is better. So a column with priority 4 will be hidden BEFORE a column with priority 2. The first and last columns have a priority of 1. You can define a different priority for a column using the ```priority``` attribute. For example:
+
+```php
+$this->crud->addColumn([
+                'name' => 'details',
+                'type' => 'text',
+                'label' => 'Details',
+                'priority' => 2,
+            ]);
+$this->crud->addColumn([
+                'name' => 'obs',
+                'type' => 'text',
+                'label' => 'Observations',
+                'priority' => 3,
+            ]);
+```
+In the example above, depending on how much space it's got in the viewport, DataTables will first hide the ```obs``` column, then ```details```, then the last column, then the first column.
+
+You can make the last column be less important (and hide) by giving it an unreasonable priority:
+
+```php
+$this->crud->setActionsColumnPriority(10000);
+```

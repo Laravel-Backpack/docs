@@ -2,17 +2,33 @@
 
 ---
 
-<a name="working-with-buttons"></a>
-## Working with Buttons
+## About
 
-Buttons work similarly to fields and columns. But, unlike fields and columns:
-- you can choose where a button should be added, since there is more than one place you can display a button; **there are 3 stacks in the list view where you can add buttons**:
+Buttons are used inside the ListEdit operation, to allow the admin to trigger other operations. Some point to entirely new routes (```create```, ```update```, ```show```), others perform the operation on the current page using AJAX (```delete```).
+
+### Button Stacks
+
+The ShowList operation has 3 places where buttons can be placed:
   - ```top``` (where the Add button is)
   - ```line``` (where the Edit and Delete buttons are)
   - ```bottom``` (after the table)
-- when adding a button to the stack, you can choose whether to insert it at the ```beginning``` or ```end``` of the stack by specifying that as a last parameter;
 
-Here are a few things you can call in your EntityCrudController's ```setup()``` method, to work with buttons:
+When adding a button to the stack, you can choose whether to insert it at the ```beginning``` or ```end``` of the stack by specifying that as a last parameter.
+
+### Default Buttons
+
+Backpack adds a few buttons by default: 
+- ```add``` to the ```top``` stack;
+- ```edit``` and ```delete``` to the ```line``` stack;
+
+Default buttons are invisible if an operation has been disabled. For example, you can: 
+- hide the "delete" button using ```$this->crud->denyAccess('delete')```;
+- show a "preview" button by using ```$this->crud->allowAccess('show')```;
+
+<a name="buttons-api"></a>
+### Buttons API
+
+Here are a few things you can call in your EntityCrudController's ```setup()``` method, to manipulate buttons:
 
 ```php
 // possible positions: 'beginning' and 'end'; defaults to 'beginning' for the 'line' stack, 'end' for the others;
@@ -26,19 +42,21 @@ $this->crud->addButtonFromModelFunction($stack, $name, $model_function_name, $po
 // add a button whose HTML is in a view placed at resources\views\vendor\backpack\crud\buttons
 $this->crud->addButtonFromView($stack, $name, $view, $position);
 
+// remove a button
 $this->crud->removeButton($name);
 
+// remove a button for a certain stack (top, line, bottom)
 $this->crud->removeButtonFromStack($name, $stack);
 ```
 <a name="overwriting-a-default-button"></a>
-## Overwriting a Default Button
+### Overwriting a Default Button
 
 Before showing any buttons, Backpack will check your ```resources\views\vendor\backpack\crud\buttons``` directory, to see if you've overwritten any default buttons. If it finds a blade file with the same name there as the default buttons, it will use your blade file, instead of the default.
 
 That means **you can overwrite an existing button simply by creating a blade file with the same name inside this directory**.
 
 <a name="creating-a-custom-button"></a>
-## Creating a Custom Button
+### Creating a Custom Button
 
 To create a custom button:
 - create a new blade file in ```resources\views\vendor\backpack\crud\buttons```;

@@ -5,9 +5,11 @@
 <a name="about"></a>
 ## About
 
-Field types are defined in the Controller and settle the way that particular field looks in the add / edit view. Think of the field type as the type of input: ```<input type=”text” />```. But for most entities, you won't just need text inputs - you'll need datepickers, upload buttons, 1-n relationship, n-n relationships, textareas, etc.
+Field types define how the admin can manipulate an entry's values. They're used by the Create and Update operations.
 
-We do have a lot of default field types, detailed below. If you don't find what you're looking for, you can [create a custom field type](/docs/{{version}}/crud-fields#creating-a-custom-field-type). Or if you just want to tweak a default field type a little bit, you can [overwrite default field types](/docs/{{version}}/crud-fields#overwriting-default-field-types).
+Think of the field type as the type of input: ```<input type=”text” />```. But for most entities, you won't just need text inputs - you'll need datepickers, upload buttons, 1-n relationship, n-n relationships, textareas, etc.
+
+We have a lot of default field types, detailed below. If you don't find what you're looking for, you can [create a custom field type](/docs/{{version}}/crud-fields#creating-a-custom-field-type). Or if you just want to tweak a default field type a little bit, you can [overwrite default field types](/docs/{{version}}/crud-fields#overwriting-default-field-types).
 
 <a name="mandatory-field-attributes"></a>
 ### Mandatory Field Attributes
@@ -46,6 +48,45 @@ There are a few optional attributes on all default field types, that you can use
      ], // change the HTML attributes for the field wrapper - mostly for resizing fields 
      'readonly'=>'readonly',
 ]
+```
+
+<a name="fields-api"></a>
+### Fields API
+
+To manipulate fields, you can use the methods below. As a second parameter, you can specify the operation you want that to work for (```create``` or ```update```). If you want it to work for both, don't use the second parameter.
+
+```php
+// add a field to both Create and Update operation
+$this->crud->addField($field_definition_array);
+
+// add a field only to the Update operation
+$this->crud->addField($field_definition_array, 'update');
+
+// shorthand: add a text field to both Create and Update operations
+$this->crud->addField('db_column_name');
+
+// add multiple fields
+$this->crud->addFields([$field_definition_array_1, $field_definition_array_2]);
+
+// change the attributes of a field
+$this->crud->modifyField($name, $modifs_array);
+
+// remove a field from both operations
+$this->crud->removeField('name');
+
+// remove multiple fields from both operations
+$this->crud->removeFields($array_of_names);
+
+// remove all fields from all operations
+$this->crud->removeAllFields();
+
+// FIELD ORDER
+
+// add a field before a given field
+$this->crud->addField($field_definition_array)->beforeField('name');
+
+// add a field after a given field
+$this->crud->addField($field_definition_array)->afterField('name');
 ```
 
 <a name="default-field-types"></a>
@@ -1301,6 +1342,8 @@ Show a wysiwyg (CKEditor) to the user.
 ## Overwriting Default Field Types
 
 The actual field types are stored in the Backpack/CRUD package in ```/resources/views/fields```. If you need to change an existing field, you don’t need to modify the package, you just need to add a blade file in your application in ```/resources/views/vendor/backpack/crud/fields```, with the same name. The package checks there first, and only if there's no file there, will it load it from the package.
+
+To quickly publish a field blade file in your project, you can use ```php artisan backpack:crud:publish fields/field_name```. For example, to publish the number field type, you'd type ```php artisan backpack:crud:publish fields/number```
 
 >Please keep in mind that if you're using _your_ file for a field type, you're not using the _package file_. So any updates we push to that file, you're not getting them. In most cases, it's recommended you crate a custom field type for your use case, instead of overwriting default field types.
 
