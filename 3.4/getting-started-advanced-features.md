@@ -1,4 +1,4 @@
-# 3. Advanced Features
+# 2. Advanced Features
 
 ---
 

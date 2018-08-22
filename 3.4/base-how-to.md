@@ -1,12 +1,12 @@
-# FAQ for Backpack\Base
+# How To for Backpack\Base
 
 ---
 
-## Customizing the menu or sidebar
+## Customize the menu or sidebar
 
 During installation, Backpack publishes a few files in you ```resources/views/vendor/backpack/base``` folder. In there, you'll also find ```inc/sidebar_content.php``` and ```inc/menu.php```. Change those files as you please.
 
-## Customizing the dashboard
+## Customize the dashboard
 
 In ```config/app.php```, Make sure the "RouteServiceProvider" is set **after** "BaseServiceProvider". 
 
@@ -49,7 +49,7 @@ Route::group(['middleware' => 'web', 'prefix' => config('backpack.base.route_pre
 });
 ```
 
-## Customizing the routes
+## Customize the routes
 
 In ```config/backpack/base.php``` you'll find these configuration options:
 
@@ -174,7 +174,7 @@ That's it. This will:
 - use ```username``` in My Account, when a user wants to change his info;
 - completely disable the password recovery (if you've deleted the ```email``` db column);
 
-## How do I manually install Base?
+## Manually install Base
 
 If for any reason the Backpack/Base installation process fails for you, you can manually run all the commands in the installer, which are listed below. Failure to install can happens sometimes if the user does not have enough permissions (sudo access is needed) or if the composer command is not registered (and ```php composer``` needs to be run instead).
 

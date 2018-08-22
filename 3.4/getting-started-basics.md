@@ -1,4 +1,4 @@
-# Basics
+# 1. Basics
 
 ---
 

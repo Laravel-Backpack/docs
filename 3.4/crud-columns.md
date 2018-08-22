@@ -5,11 +5,28 @@
 <a name="about"></a>
 ## About
 
-A column shows the information of an Eloquent attribute, in a user-friendly format. For default operations it's used:
-- to show a table cell in **ListEntries**;
-- to show an attribute value in **Show**;
+A column shows the information of an Eloquent attribute, in a user-friendly format. 
+
+It's used inside default operations to:
+- show a table cell in **ListEntries**;
+- show an attribute value in **Show**;
 
 A column consists of only one file - a blade file with the same name as the column type (ex: ```text.blade.php```). Backpack provides you with [default column types](#default-column-types) for the common use cases, but you can easily [change how a default field type works](#overwriting-default-column-types), or [create an entirely new field type](#creating-a-custom-column-type).
+
+### Mandatory Attributes
+
+When passing a column array, you need to specify at least these attributes:
+```php
+[
+   'name' => 'options', // the db column name (attribute name)
+   'label' => "Options", // the human-readable label for it
+   'type' => 'text' // the kind of column to show
+],
+```
+
+### Optional Attributes
+
+- searchLogic
 
 <a name="default-column-types"></a>
 ## Default Column Types

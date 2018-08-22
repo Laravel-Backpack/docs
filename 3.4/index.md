@@ -14,7 +14,7 @@
 #### Backpack\Base
 
 - [About](/docs/{{version}}/base-about)
-- [FAQ](/docs/{{version}}/base-faq)
+- [How To](/docs/{{version}}/base-how-to)
 
 #### Backpack\CRUD
 
@@ -33,8 +33,7 @@
         + [Columns](/docs/{{version}}/crud-columns)
     + [Reorder](/docs/{{version}}/crud-operation-reorder)
     + [Revisions](/docs/{{version}}/crud-operation-revisions)
-    + [All Operations](/docs/{{version}}/crud-operation-all)
-- [FAQ](/docs/{{version}}/crud-faq)
+- [How To](/docs/{{version}}/crud-how-to)
 
 
 #### Add-ons

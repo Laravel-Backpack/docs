@@ -92,10 +92,9 @@ $this->crud->addColumn([
          ])->beforeColumn('name'); // ======> because of this, it will show up first
 ```
 
-## Custom Search Logic in Table View
+## Custom Search Logic in ListEntries View
 
-Starting with Backpack\CRUD 3.3 (Nov 2017), all tables are AjaxDataTables. As such, the search field in your tables will NOT search within the table, but will do an AJAX call. You can choose which columns are searchable, and what those columns _actually_ search, by using the column's ```searchLogic``` property:
-
+If your column points to something atypical (not a value that is stored as plain text in the database column, maybe a model function, or a JSON, or something else), you might find that the search doesn't work for that column. You can choose which columns are searchable, and what those columns actually search, by using the column's ```searchLogic``` attribute:
 
 ```php
 // column with custom search logic
