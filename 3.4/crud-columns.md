@@ -392,7 +392,7 @@ The select_multiple column will output a comma separated list of its connected e
 
 The ```table``` column will output a condensed table, when used on an attribute that stores a JSON array or object. It is meant to be used inside the show functionality (not list, though it also works there).
 
-Its definition is very similar to the [table *field type*](https://laravel-backpack.readme.io/docs/crud-fields#section-table).
+Its definition is very similar to the [table *field type*](/docs/{{version}}/crud-fields#table).
 
 ```php
 [
@@ -414,7 +414,7 @@ Its definition is very similar to the [table *field type*](https://laravel-backp
 
 The ```table``` column will output a list of files and links, when used on an attribute that stores a JSON array of file paths. It is meant to be used inside the show functionality (not list, though it also works there), to preview files uploaded with the ```upload_multiple``` field type.
 
-Its definition is very similar to the [upload_multiple *field type*](https://laravel-backpack.readme.io/docs/crud-fields#section-upload_multiple).
+Its definition is very similar to the [upload_multiple *field type*](/docs/{{version}}/crud-fields#upload_multiple).
 
 ```php
 [
@@ -478,7 +478,7 @@ The most useful variables you'll have in this file here are:
 - ```$entry``` - the database entry you're showing (Eloquent object);
 - ```$crud``` - the entire CrudPanel object, with settings, options and variables;
 
-By default, custom columns are not searchable. In order to make your column searchable you need to [specify a custom ```searchLogic``` in your declaration](https://laravel-backpack.readme.io/docs/advanced-features#section-custom-search-logic-in-table-view).
+By default, custom columns are not searchable. In order to make your column searchable you need to [specify a custom ```searchLogic``` in your declaration](#custom-search-logic).
 
 
 <a name="advanced-columns-use"></a>

@@ -58,4 +58,4 @@ In case you want to add extra functionality that's already been built, check out
 
 - **Error: SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was too long**. Your MySQL version might be a bit old. Please [apply this quick fix](https://laravel-news.com/laravel-5-4-key-too-long-error), then run ```php artisan migrate:fresh```.
 
-- **Any other installation error?** If you can't install Backpack\\Base because of a different error, you can [try the manual installation process](https://laravel-backpack.readme.io/docs/frequently-asked-questions#section-how-do-i-manually-install-base), which you can tweak to your needs.
+- **Any other installation error?** If you can't install Backpack\\Base because of a different error, you can [try the manual installation process](/docs/{{version}}/base-how-to#manually-install-base), which you can tweak to your needs.

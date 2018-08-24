@@ -32,7 +32,7 @@ composer require backpack/crud:"^3.4.0"
 <a name="upgrade-backpack-base-to-0-9-x"></a>
 ### Upgrade Backpack\Base to 0.9.x 
 
-This brings [A LOT of new features](https://laravel-backpack.readme.io/v3.4/docs/release-notes#section-backpack-base-0-9-x) and makes sure all components are up-to-date.
+This brings [A LOT of new features](/docs/{{version}}/release-notes) and makes sure all components are up-to-date.
 
 **[OPTIONAL, but recommended]**
 2. inside your ```config/app.php``` file, if you have any Backpack service providers or aliases (any for any Backpack package), you can remove them; they're no longer needed, since L5.5 loads them automatically; 

@@ -1391,7 +1391,7 @@ Load a custom view in the form.
 ],
 ```
 
-**Note:** the same functionality can be achieved using a [custom field type](https://laravel-backpack.readme.io/v3.0/docs/crud-fields#section-custom-field-types), or using the [custom_html field type](https://laravel-backpack.readme.io/docs/crud-fields#custom_html-v207) (if the content is really simple).
+**Note:** the same functionality can be achieved using a [custom field type](/docs/{{version}}/crud-fields#creating-a-custom-field-type), or using the [custom_html field type](/docs/{{version}}/crud-fields#custom-html) (if the content is really simple).
 
 <a name="week"></a>
 ### week

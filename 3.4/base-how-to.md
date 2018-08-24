@@ -97,7 +97,7 @@ If you need separate login for user and admin, probably the fastest way would be
 
 That way, you have both AND you have most of your code already written - Backpack comes with its own Authentication controllers, Laravel too. 
 
-For this to happen, keep the ```setup_auth_routes``` and ```setup_dashboard_routes``` variables ```true``` in your config file. You'll be using the Backpack authentication, after all, for admins. Just [add the Laravel authentication, like instructed in the Laravel documentation](https://laravel.com/docs/5.5/authentication#authentication-quickstart): ```php artisan make:auth```. You'll then have:
+For this to happen, keep the ```setup_auth_routes``` and ```setup_dashboard_routes``` variables ```true``` in your ```config/backpack/base.php``` file. You'll be using the Backpack authentication, after all, for admins. Just [add the Laravel authentication, like instructed in the Laravel documentation](https://laravel.com/docs/5.6/authentication#authentication-quickstart): ```php artisan make:auth```. You'll then have:
 - the user login at ```/login``` -> using the AuthenticationController Laravel provides
 - the admin login at ```/admin/login``` -> using the AuthenticationControllers Backpack provides
 
@@ -106,7 +106,7 @@ For this to happen, keep the ```setup_auth_routes``` and ```setup_dashboard_rout
 
 You might want your admins to be logged in as *Admin X* and *User Z* at the same time (for user impersonation, for example). If so, you will need to use different guards for those two authentications. The easiest way would be to use the default Laravel guard for the user authentication and just create a new guard for the Admin authentication. You'll notice in all Backpack views we've used ```backpack_auth()->user()``` instead of ```Auth::user()```. It's for this exact purpose. If you specify a guard, all Backpack views will impose that guard.
 
-**Step 1.** Follow [the section above](https://laravel-backpack.readme.io/v3.4/docs/frequently-asked-questions#section-use-separate-loginregister-forms-for-users-and-admins) in order to have two different login screens, one for admin and one for the user.
+**Step 1.** Follow [the section above](#use-sparate-login-for-users-and-admins) in order to have two different login screens, one for admin and one for the user.
 
 **Step 2.** In your ```config/auth.php```:
 

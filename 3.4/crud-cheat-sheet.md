@@ -181,7 +181,7 @@ $this->crud->isReorderEnabled(); // return true/false
 // Tracks all changes to an entry and provides an interface to revert to a previous state.
 //
 // IMPORTANT: You also need to use \Venturecraft\Revisionable\RevisionableTrait;
-// Please check out: https://laravel-backpack.readme.io/docs/crud#revisions
+// Please check out: https://backpackforlaravel.com/docs/crud-operation-revisions
 $this->crud->allowAccess('revisions');
 ```
 
