@@ -24,22 +24,11 @@ $this->crud->setDetailsRowView('your-view');
 <a name="customize-css-and-js-for-default-crud-operations"></a>
 ## Customize CSS and JS for Default CRUD Operations
 
-Starting with Backpack\CRUD 3.2, there's a place where you can place your custom operations javascript and styles. You'll find a CSS and JS file in your ```public/vendor/backpack/crud``` folder for each Backpack operation. You can place any custom operation code there, without bloating general files css, js or blade files.
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/872b2f8-Screen_Shot_2017-02-13_at_10.54.38.png",
-        "Screen Shot 2017-02-13 at 10.54.38.png",
-        220,
-        641,
-        "#e3e3e3"
-      ]
-    }
-  ]
-}
-[/block]
+Each default Backpack operation has its own CSS and JS file, in:
+- ```public/vendor/backpack/crud/css```
+- ```public/vendor/backpack/crud/js```
+
+If you don't find one there, you can create one, and Backpack will pick it up in that operation's view (ex: ```create.css``` or ```list.js```).
 
 <a name="add-extra-crud-routes"></a>
 ## Add Extra CRUD Routes
@@ -151,22 +140,7 @@ If you've chosen to install [elFinder](http://elfinder.org/) when installing Bac
 
 For the integration, barryvdh's [laravel-elfinder](https://github.com/barryvdh/laravel-elfinder) package is used.
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/DnLUQ1b5Q1KDjTa5lxou_68747470733a2f2f646c2e64726f70626f7875736572636f6e74656e742e636f6d2f752f323433313335322f6261636b7061636b5f637275645f656c66696e6465722e706e67.png",
-        "68747470733a2f2f646c2e64726f70626f7875736572636f6e74656e742e636f6d2f752f323433313335322f6261636b7061636b5f637275645f656c66696e6465722e706e67.png",
-        "1280",
-        "612",
-        "#645caa",
-        ""
-      ]
-    }
-  ]
-}
-[/block]
+![Backpack CRUD ListEntries](https://backpackforlaravel.com/uploads/docs/media_library.png)
 
 <a name="manually-install-backpack-crud"></a>
 ## Manually install Backpack/CRUD

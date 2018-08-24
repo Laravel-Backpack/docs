@@ -149,21 +149,9 @@ If the ```store_in``` attribute wasn't used, they would have been stored in the 
 #### Split Fields into Tabs
 
 You can now split your create/edit inputs into multiple tabs.
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/da959e4-Screen_Shot_2017-02-12_at_12.44.43.png",
-        "Screen Shot 2017-02-12 at 12.44.43.png",
-        741,
-        568,
-        "#db4c3c"
-      ]
-    }
-  ]
-}
-[/block]
+
+![CRUD Fields Tabs](https://backpackforlaravel.com/uploads/docs/operations/create_tabs.png)
+
 In order to use this feature, you just need to specify the tab name for each of your fields. Example:
 
 ```php
@@ -201,6 +189,11 @@ Use [Algolia Places autocomplete](https://community.algolia.com/places/) to help
 
 > **Use attribute casting.** For information stored as JSON in the database, it's recommended that you use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) to ```array``` or ```object```. That way, every time you get the info from the database you'd get it in a usable format.
 
+
+Input preview: 
+
+![CRUD Field - address](https://backpackforlaravel.com/uploads/docs/fields/address.png)
+
 <a name="browse"></a>
 ### browse
 
@@ -214,40 +207,14 @@ If you've chosen to use [elFinder](http://elfinder.org/) upon Backpack installat
 ],
 ```
 
-Input preview:
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/j2WEXAxQAa8FonURRS2J_Screen%20Shot%202016-05-22%20at%2018.10.34.png",
-        "Screen Shot 2016-05-22 at 18.10.34.png",
-        "685",
-        "93",
-        "#eceded",
-        ""
-      ]
-    }
-  ]
-}
-[/block]
+
+Input preview: 
+
+![CRUD Field - browse](https://backpackforlaravel.com/uploads/docs/fields/browse.png)
+
 Onclick preview:
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/5OvDZHWORcuVOzsMegeq_Screen%20Shot%202016-05-22%20at%2018.10.45.png",
-        "Screen Shot 2016-05-22 at 18.10.45.png",
-        "690",
-        "388",
-        "#2b5fa3",
-        ""
-      ]
-    }
-  ]
-}
-[/block]
+
+![CRUD Field - browse popup](https://backpackforlaravel.com/uploads/docs/fields/browse_popup.png)
 
 <a name="browse-multiple"></a>
 ### browse_multiple
@@ -266,22 +233,9 @@ Open elFinder and select multiple file from there.
 
 We recommend you cast your attribute as ```array``` on your model.  That way, when you do ```$entry->files``` you get a nice array. The field will work even if you don't cast.
 
-Input preview:
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/c93b860-Screen_Shot_2018-03-16_at_08.30.32.png",
-        "Screen Shot 2018-03-16 at 08.30.32.png",
-        663,
-        141,
-        "#efeff0"
-      ]
-    }
-  ]
-}
-[/block]
+Input preview: 
+
+![CRUD Field - browse_multiple](https://backpackforlaravel.com/uploads/docs/fields/browse_multiple.png)
 
 <a name="base64-image"></a>
 ### base64_image
@@ -302,6 +256,10 @@ $this->crud->addField([ // base64_image
 ]);
 ```
 
+Input preview: 
+
+![CRUD Field - base64_image](https://backpackforlaravel.com/uploads/docs/fields/base64_image.png)
+
 <a name="checkbox"></a>
 ### checkbox
 
@@ -314,6 +272,10 @@ Checkbox for true/false.
     'type' => 'checkbox'
 ],
 ```
+
+Input preview: 
+
+![CRUD Field - checkbox](https://backpackforlaravel.com/uploads/docs/fields/checkbox.png)
 
 <a name="checklist"></a>
 ### checklist
@@ -329,6 +291,10 @@ Checkbox for true/false.
     'pivot'     => true,
 ]);
 ```
+
+Input preview: 
+
+![CRUD Field - checklist](https://backpackforlaravel.com/uploads/docs/fields/checklist.png)
 
 <a name="checklist-dependency"></a>
 ### checklist_dependency
@@ -365,6 +331,10 @@ Checkbox for true/false.
 ],
 ```
 
+Input preview: 
+
+![CRUD Field - checklist_dependency](https://backpackforlaravel.com/uploads/docs/fields/checklist_dependency.png)
+
 <a name="ckeditor"></a>
 ### ckeditor
 
@@ -380,6 +350,10 @@ Show a wysiwyg CKEditor to the user.
 ],
 ```
 
+Input preview: 
+
+![CRUD Field - ckeditor](https://backpackforlaravel.com/uploads/docs/fields/ckeditor.png)
+
 <a name="color"></a>
 ### color
 
@@ -390,6 +364,10 @@ Show a wysiwyg CKEditor to the user.
     'type' => 'color'
 ],
 ```
+
+Input preview: 
+
+![CRUD Field - color](https://backpackforlaravel.com/uploads/docs/fields/color.png)
 
 <a name="color-picker"></a>
 ### color_picker
@@ -404,6 +382,10 @@ Show a pretty colour picker using [Bootstrap Colorpicker](https://itsjavi.com/bo
     'color_picker_options' => ['customClass' => 'custom-class']
 ]
 ```
+
+Input preview: 
+
+![CRUD Field - color_picker](https://backpackforlaravel.com/uploads/docs/fields/color_picker.png)
 
 <a name="custom-html"></a>
 ### custom_html
@@ -429,6 +411,10 @@ Allows you to insert custom HTML in the create/update forms. Usually used in for
 ],
 ```
 
+Input preview: 
+
+![CRUD Field - date](https://backpackforlaravel.com/uploads/docs/fields/date.png)
+
 <a name="date-picker"></a>
 ### date_picker
 
@@ -449,6 +435,11 @@ Show a pretty [Bootstrap Datepicker](http://bootstrap-datepicker.readthedocs.io/
 ```
 
 Please note it is recommended that you use [attribute casting](https://laravel.com/docs/5.3/eloquent-mutators#attribute-casting) on your model (cast to date).
+
+
+Input preview: 
+
+![CRUD Field - date_picker](https://backpackforlaravel.com/uploads/docs/fields/date_picker.png)
 
 <a name="date-range"></a>
 ### date_range
@@ -477,21 +468,10 @@ Show a DateRangePicker and let the user choose a start date and end date.
 Please note it is recommended that you use [attribute casting](https://laravel.com/docs/5.3/eloquent-mutators#attribute-casting) on your model (cast to date).
 
 Your end result will look like this:
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/65ea9f3-a635d4be-8a4b-11e6-94e6-191c3db5d816.png",
-        "a635d4be-8a4b-11e6-94e6-191c3db5d816.png",
-        1396,
-        816,
-        "#eaf1f8"
-      ]
-    }
-  ]
-}
-[/block]
+
+Input preview: 
+
+![CRUD Field - date_range](https://backpackforlaravel.com/uploads/docs/fields/date_range.png)
 
 <a name="datetime"></a>
 ### datetime
@@ -511,6 +491,10 @@ Your end result will look like this:
 	}
 ```
 Otherwise the input's datetime-local formal will cause some errors.
+
+Input preview: 
+
+![CRUD Field - datetime](https://backpackforlaravel.com/uploads/docs/fields/datetime.png)
 
 <a name="datetime-picker"></a>
 ### datetime_picker
@@ -540,6 +524,10 @@ Show a [Bootstrap Datetime Picker](https://eonasdan.github.io/bootstrap-datetime
 ```
 Otherwise the input's datetime-local formal will cause some errors. Remeber to change "datetime" with the name of your attribute (column name).
 
+Input preview: 
+
+![CRUD Field - datetime_picker](https://backpackforlaravel.com/uploads/docs/fields/datetime_picker.png)
+
 <a name="email"></a>
 ### email
 
@@ -550,6 +538,11 @@ Otherwise the input's datetime-local formal will cause some errors. Remeber to c
     'type' => 'email'
 ],
 ```
+
+Input preview: 
+
+![CRUD Field - email](https://backpackforlaravel.com/uploads/docs/fields/email.png)
+
 
 <a name="enum"></a>
 ### enum
@@ -565,6 +558,10 @@ Show a select with the values in the database for that ENUM field. Requires that
 ```
 
 PLEASE NOTE the enum field only works for MySQL databases.
+
+Input preview: 
+
+![CRUD Field - enum](https://backpackforlaravel.com/uploads/docs/fields/enum.png)
 
 <a name="hidden"></a>
 ### hidden
@@ -596,21 +593,10 @@ The stored value will be the class name (ex: fa-home).
 ```
 
 Your input will look like button, with a dropdown where the user can search or pick an icon:
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/4349bcf-Screen_Shot_2016-09-19_at_16.22.10.png",
-        "Screen Shot 2016-09-19 at 16.22.10.png",
-        801,
-        408,
-        "#e9f0f1"
-      ]
-    }
-  ]
-}
-[/block]
+
+Input preview: 
+
+![CRUD Field - icon_picker](https://backpackforlaravel.com/uploads/docs/fields/icon_picker.png)
 
 <a name="image"></a>
 ### image
@@ -631,22 +617,6 @@ $this->crud->addField([ // image
 ]);
 ```
 
-Here's how that looks:
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/312d5ff-Screen_Shot_2016-09-15_at_14.56.49.png",
-        "Screen Shot 2016-09-15 at 14.56.49.png",
-        664,
-        305,
-        "#3f673f"
-      ]
-    }
-  ]
-}
-[/block]
 **Step 2.** Set a mutator on your Model, so that the file can be stored. You can use this boilerplate code and modify it to match your use case:
 
 ```php
@@ -700,6 +670,11 @@ The value for aspect ratio is a float that represents the ratio of the cropping 
 
 And you can, of course, use any value for more extreme rectangles.
 
+Input preview: 
+
+![CRUD Field - image](https://backpackforlaravel.com/uploads/docs/fields/image.png)
+
+
 <a name="month"></a>
 ### month
 
@@ -711,25 +686,15 @@ And you can, of course, use any value for more extreme rectangles.
 ],
 ```
 
+Input preview: 
+
+![CRUD Field - month](https://backpackforlaravel.com/uploads/docs/fields/month.png)
+
 <a name="number"></a>
 ### number
 
 Shows an input type=number to the user, with optional prefix and suffix:
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/3816ba5-Screen_Shot_2016-09-16_at_09.18.55.png",
-        "Screen Shot 2016-09-16 at 09.18.55.png",
-        660,
-        62,
-        "#d5d5dc"
-      ]
-    }
-  ]
-}
-[/block]
+
 ```php
 [   // Number
     'name' => 'number',
@@ -742,27 +707,14 @@ Shows an input type=number to the user, with optional prefix and suffix:
 ],
 ```
 
+Input preview: 
+
+![CRUD Field - number](https://backpackforlaravel.com/uploads/docs/fields/number.png)
+
 <a name="page-or-link"></a>
 ### page_or_link
 
-Select an existing page from PageManager or an internal or external link. It’s used in the MenuManager package, but can be used in any other model just as well. Looks like this:
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/j18y2tY9T4uu2MkWp8tg_Screen%20Shot%202016-05-22%20at%2018.08.19.png",
-        "Screen Shot 2016-05-22 at 18.08.19.png",
-        "681",
-        "91",
-        "#a18671",
-        ""
-      ]
-    }
-  ]
-}
-[/block]
-And its definition looks like this:
+Select an existing page from PageManager or an internal or external link. It’s used in the MenuManager package, but can be used in any other model just as well. Its definition looks like this:
 ```php
 [   // PageOrLink
     'name' => 'type',
@@ -771,6 +723,10 @@ And its definition looks like this:
     'page_model' => '\Backpack\PageManager\app\Models\Page'
 ]
 ```
+
+Input preview: 
+
+![CRUD Field - page_or_link](https://backpackforlaravel.com/uploads/docs/fields/page_or_link.png)
 
 <a name="password"></a>
 ### password
@@ -782,6 +738,10 @@ And its definition looks like this:
     'type' => 'password'
 ],
 ```
+
+Input preview: 
+
+![CRUD Field - password](https://backpackforlaravel.com/uploads/docs/fields/password.png)
 
 <a name="radio"></a>
 ### radio
@@ -802,6 +762,10 @@ Show radios according to an associative array you give the input and let the use
 ]
 ```
 
+Input preview: 
+
+![CRUD Field - radio](https://backpackforlaravel.com/uploads/docs/fields/radio.png)
+
 <a name="range"></a>
 ### range
 
@@ -812,6 +776,10 @@ Show radios according to an associative array you give the input and let the use
     'type' => 'range'
 ],
 ```
+
+Input preview: 
+
+![CRUD Field - range](https://backpackforlaravel.com/uploads/docs/fields/range.png)
 
 <a name="select"></a>
 ### select (1-n relationship)
@@ -830,6 +798,10 @@ Your relationships should already be defined on your models.
 ]
 ```
 
+Input preview: 
+
+![CRUD Field - select](https://backpackforlaravel.com/uploads/docs/fields/select.png)
+
 <a name="select2"></a>
 ### select2 (1-n relationship)
 
@@ -846,6 +818,10 @@ Your relationships should already be defined on your models.
    'model' => "App\Models\Tag" // foreign key model
 ]
 ```
+
+Input preview: 
+
+![CRUD Field - select2](https://backpackforlaravel.com/uploads/docs/fields/select2.png)
 
 <a name="select-multiple"></a>
 ### select_multiple (n-n relationship)
@@ -864,6 +840,10 @@ Your relationships should already be defined on your models.
 	'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
 ]
 ```
+
+Input preview: 
+
+![CRUD Field - select_multiple](https://backpackforlaravel.com/uploads/docs/fields/select_multiple.png)
 
 <a name="select2-multiple"></a>
 ### select2_multiple (n-n relationship)
@@ -886,6 +866,10 @@ Your relationships should already be defined on your models.
 ]
 ```
 
+Input preview: 
+
+![CRUD Field - select2_multiple](https://backpackforlaravel.com/uploads/docs/fields/select2_multiple.png)
+
 <a name="select-from-array"></a>
 ### select_from_array
 
@@ -903,6 +887,10 @@ Display a select with the values you want:
 ],
 ```
 
+Input preview: 
+
+![CRUD Field - select_from_array](https://backpackforlaravel.com/uploads/docs/fields/select_from_array.png)
+
 <a name="select2-from-array"></a>
 ### select2_from_array
 
@@ -919,6 +907,10 @@ Display a select2 with the values you want:
     // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
 ],
 ```
+
+Input preview: 
+
+![CRUD Field - select2_from_array](https://backpackforlaravel.com/uploads/docs/fields/select2_from_array.png)
 
 <a name="select2-from-ajax"></a>
 ### select2_from_ajax
@@ -981,6 +973,10 @@ class CategoryController extends Controller
     }
 }
 ```
+
+Input preview: 
+
+![CRUD Field - select2_from_array](https://backpackforlaravel.com/uploads/docs/fields/select2_from_array.png)
 
 <a name="select2-from-ajax-multiple"></a>
 ### select2_from_ajax_multiple
@@ -1045,6 +1041,10 @@ class CategoryController extends Controller
 }
 ```
 
+Input preview: 
+
+![CRUD Field - select2_from_ajax_multiple](https://backpackforlaravel.com/uploads/docs/fields/select2_from_ajax_multiple.png)
+
 <a name="simplemde"></a>
 ### simplemde
 
@@ -1066,6 +1066,10 @@ Show a [SimpleMDE markdown editor](https://simplemde.com/) to the user.
 ],
 ```
 
+Input preview: 
+
+![CRUD Field - simplemde](https://backpackforlaravel.com/uploads/docs/fields/simplemde.png)
+
 <a name="summernote"></a>
 ### summernote
 
@@ -1079,6 +1083,10 @@ Show a [Summernote wysiwyg editor](http://summernote.org/) to the user.
     // 'options' => [], // easily pass parameters to the summernote JS initialization 
 ],
 ```
+
+Input preview: 
+
+![CRUD Field - summernote](https://backpackforlaravel.com/uploads/docs/fields/summernote.png)
 
 <a name="table"></a>
 ### table
@@ -1101,30 +1109,11 @@ Show a table with multiple inputs per row and store the values as JSON in the da
 ],
 ```
 
-The end result will look like this:
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/6ac79c0-Screen_Shot_2016-09-26_at_19.54.04.png",
-        "Screen Shot 2016-09-26 at 19.54.04.png",
-        666,
-        256,
-        "#f4f4f5"
-      ]
-    }
-  ]
-}
-[/block]
+>It's highly recommended that you use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) on your model when working with JSON stored in database columns, and cast your this attribute to either ```object``` or ```array```.
 
-[block:callout]
-{
-  "type": "info",
-  "title": "Cast the attribute as 'object' or 'array' in your model",
-  "body": "It's highly recommended that you use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) on your model when working with JSON stored in database columns."
-}
-[/block]
+Input preview: 
+
+![CRUD Field - table](https://backpackforlaravel.com/uploads/docs/fields/table.png)
 
 <a name="text"></a>
 ### text
@@ -1154,21 +1143,10 @@ The basic field type, all it needs is the two mandatory parameters: name and lab
 ```
 
 You can use the optional 'prefix' and 'suffix' attributes to display something before and after the input, like icons, path prefix, etc:
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/449b26d-Screen_Shot_2016-09-16_at_09.30.33.png",
-        "Screen Shot 2016-09-16 at 09.30.33.png",
-        666,
-        70,
-        "#d4d4dc"
-      ]
-    }
-  ]
-}
-[/block]
+
+Input preview: 
+
+![CRUD Field - text](https://backpackforlaravel.com/uploads/docs/fields/text.png)
 
 <a name="textarea"></a>
 ### textarea
@@ -1182,6 +1160,10 @@ Show a textarea to the user.
     'type' => 'textarea'
 ],
 ```
+
+Input preview: 
+
+![CRUD Field - textarea](https://backpackforlaravel.com/uploads/docs/fields/textarea.png)
 
 <a name="time"></a>
 ### time
@@ -1206,6 +1188,10 @@ Show a wysiwyg (TinyMCE) to the user.
     'type' => 'tinymce'
 ],
 ```
+
+Input preview: 
+
+![CRUD Field - tinymce](https://backpackforlaravel.com/uploads/docs/fields/tinymce.png)
 
 <a name="upload"></a>
 ### upload
@@ -1254,13 +1240,9 @@ public function uploadFileToDisk($value, $attribute_name, $disk, $destination_pa
 ```
 
 If you wish to have a different functionality, you can delete the method call from your mutator and do your own thing.
-[block:callout]
-{
-  "type": "danger",
-  "title": "The uploaded files are not deleted for you",
-  "body": "When you delete an entry (wether through CRUD or the application), the uploaded files will not be deleted."
-}
-[/block]
+
+>**The uploaded files are not deleted for you.** When you delete an entry (wether through CRUD or the application), the uploaded files will not be deleted.
+
 If you're NOT using soft deletes on that Model and want the file to be deleted at the same time the entry is, just specify that in your Model's ```deleting``` event:
 ```php
 	public static function boot()
@@ -1272,10 +1254,13 @@ If you're NOT using soft deletes on that Model and want the file to be deleted a
 	}
 ```
 
+Input preview: 
+
+![CRUD Field - upload](https://backpackforlaravel.com/uploads/docs/fields/upload.png)
+
 <a name="upload-multiple"></a>
 ### upload_multiple
 
-[/block]
 Shows a multiple file input to the user and stores the values as a JSON array in the database.
 
 **Step 1.** Show a multiple file input to the user:
@@ -1329,13 +1314,9 @@ public function uploadMultipleFilesToDisk($value, $attribute_name, $disk, $desti
 ```
 
 If you wish to have a different functionality, you can delete the method call from your mutator and do your own thing.
-[block:callout]
-{
-  "type": "danger",
-  "title": "The uploaded files are not deleted for you",
-  "body": "When you delete an entry (wether through CRUD or the application), the uploaded files will not be deleted."
-}
-[/block]
+
+>**The uploaded files are not deleted for you.** When you delete an entry (wether through CRUD or the application), the uploaded files will not be deleted.
+
 If you're NOT using soft deletes on that Model and want the files to be deleted at the same time the entry is, just specify that in your Model's ```deleting``` event:
 ```php
 	public static function boot()
@@ -1352,6 +1333,12 @@ If you're NOT using soft deletes on that Model and want the files to be deleted 
 ```
 
 You might notice the field is using a ```clear_photos``` variable. Don't worry, you don't need it in your db table. That's just used to delete photos upon "update". If you use ```$fillable``` on your model, just don't include it. If you use ```$guarded``` on your model, place it in guarded.
+
+Input preview: 
+
+![CRUD Field - upload_multiple](https://backpackforlaravel.com/uploads/docs/fields/upload_multiple.png)
+
+
 ### url
 
 [/block]
@@ -1416,6 +1403,10 @@ Load a custom view in the form.
     'type' => 'week'
 ],
 ```
+
+Input preview: 
+
+![CRUD Field - week](https://backpackforlaravel.com/uploads/docs/fields/week.png)
 
 <a name="wysiwyg"></a>
 ### wysiwyg
