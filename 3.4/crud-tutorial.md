@@ -331,7 +331,7 @@ This file is a 100% pure FormRequest file - all Laravel, nothing particular to B
     }
 ```
 
-> **Differences between the Create and Update validations?** If your Update operation requires a different validation than the Create operation, you can create separate request files and use them in you TagCrudController, for ex: ```UpdateTagRequest.php``` and ```CreateTagRequest.php```.
+> If your validation needs to be different between the Create and Update operations, [you can easily do that too](/docs/{{version}}/crud-operation-create#separate-requests-for-create-and-update).
 
 <a name="the-route"></a>
 ### The Route

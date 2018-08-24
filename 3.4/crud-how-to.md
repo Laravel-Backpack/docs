@@ -134,6 +134,34 @@ In order to insert two column with the same name, use the ```key``` attribute on
         ]);
 ```
 
+
+## Use the Media Library (File Manager)
+
+If you've chosen to install [elFinder](http://elfinder.org/) when installing Backpack, you already have a media manager. And it’s integrated into:
+- TinyMCE (as “tinymce” fieldtype)
+- CKEditor (as “ckeditor” fieldtype)
+- CRUD “browse” fieldtype
+- standalone, at the *your-project/admin/elfinder* route;
+
+For the integration, barryvdh's [laravel-elfinder](https://github.com/barryvdh/laravel-elfinder) package is used.
+
+[block:image]
+{
+  "images": [
+    {
+      "image": [
+        "https://files.readme.io/DnLUQ1b5Q1KDjTa5lxou_68747470733a2f2f646c2e64726f70626f7875736572636f6e74656e742e636f6d2f752f323433313335322f6261636b7061636b5f637275645f656c66696e6465722e706e67.png",
+        "68747470733a2f2f646c2e64726f70626f7875736572636f6e74656e742e636f6d2f752f323433313335322f6261636b7061636b5f637275645f656c66696e6465722e706e67.png",
+        "1280",
+        "612",
+        "#645caa",
+        ""
+      ]
+    }
+  ]
+}
+[/block]
+
 ## Manually install Backpack/CRUD
 
 If the automatic installation doesn't work for you and you need to manually install CRUD, here are all the commands it is running:

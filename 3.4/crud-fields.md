@@ -89,6 +89,95 @@ $this->crud->addField($field_definition_array)->beforeField('name');
 $this->crud->addField($field_definition_array)->afterField('name');
 ```
 
+### Extra Fields Features
+
+#### Fake Fields (all stored as JSON in the database)
+
+In case you want to store insignificant information for an entry, that don't need a database column, you can add any number of Fake Fields, and all their information will be store inside one column in the db, as JSON. By default, an ```extras``` column is assumed on the database table, but you can change that.
+
+**Step 1.** Use the fake attribute on your field:
+```php
+[
+    'name' => 'name', // JSON variable name
+    'label' => "Tag Name", // human-readable label for the input
+
+    'fake' => true, // show the field, but don’t store it in the database column above
+    'store_in' => 'extras' // [optional] the database column name where you want the fake fields to ACTUALLY be stored as a JSON array 
+],
+```
+
+**Step 2.** On your model, make sure the db columns where you store the JSONs (by default only ```extras```):
+- are in your ```$fillable``` property;
+- are on a new ```$fakeColumns``` property (create it now);
+- are casted as array in ```$casts```;
+
+>If you need your fakes to also be translatable, remember to also place ```extras``` in your model's ```$translatable``` property.
+
+Example:
+```php
+[
+    'name' => 'meta_title',
+    'label' => "Meta Title", 
+    'fake' => true, 
+    'store_in' => 'metas' // [optional]
+],
+[
+    'name' => 'meta_description',
+    'label' => "Meta Description", 
+    'fake' => true, 
+    'store_in' => 'metas' // [optional]
+],
+[
+    'name' => 'meta_keywords',
+    'label' => "Meta Keywords", 
+    'fake' => true, 
+    'store_in' => 'metas' // [optional]
+],
+```
+
+In this example, these 3 fields will show up in the create & update forms, the CRUD will process as usual, but in the database these values won’t be stored in the ```meta_title```, ```meta_description``` and ```meta_keywords``` columns. They will be stored in the ```metas``` column as a JSON array:
+
+```php
+{"meta_title":"title","meta_description":"desc","meta_keywords":"keywords"}
+```
+
+If the ```store_in``` attribute wasn't used, they would have been stored in the ```extras``` column.
+
+#### Split Fields into Tabs
+
+You can now split your create/edit inputs into multiple tabs.
+[block:image]
+{
+  "images": [
+    {
+      "image": [
+        "https://files.readme.io/da959e4-Screen_Shot_2017-02-12_at_12.44.43.png",
+        "Screen Shot 2017-02-12 at 12.44.43.png",
+        741,
+        568,
+        "#db4c3c"
+      ]
+    }
+  ]
+}
+[/block]
+In order to use this feature, you just need to specify the tab name for each of your fields. Example:
+
+```php
+$this->crud->addField([ // select_from_array
+    'name' => 'select_from_array',
+    'label' => "Select from array",
+    'type' => 'select_from_array',
+    'options' => ['one' => 'One', 'two' => 'Two', 'three' => 'Three'],
+    'allows_null' => false,
+    'allows_multiple' => true,
+    'tab' => 'Tab name here'
+]);
+```
+
+If you forget to specify a tab name for a field, Backpack will place it above all tabs.
+
+
 <a name="default-field-types"></a>
 ## Default Field Types
 
@@ -112,7 +201,7 @@ Use [Algolia Places autocomplete](https://community.algolia.com/places/) to help
 <a name="browse"></a>
 ### browse
 
-Open elFinder and select a file from there.
+If you've chosen to use [elFinder](http://elfinder.org/) upon Backpack installation, this button allows the admin to open [elFinder](http://elfinder.org/) and select a file from there.
 
 ```php
 [   // Browse

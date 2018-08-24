@@ -34,7 +34,7 @@ For views, it uses:
 <a name="how-to-use"></a>
 ## How to Use
 
-The ```ListEntries``` operations is **enabled by default**. To disable it, you can use ```$this->crud->denyAccess('list');``` inside your ```setup()``` method.
+The ```ListEntries``` operation is **enabled by default**. To disable it, you can use ```$this->crud->denyAccess('list');``` inside your ```setup()``` method.
 
 Configuration for this operation is usually done inside your ```setup()``` method. That's recommended, because the columns you define here are used by a few actions (```index()```, ```search()```, ```show()```).
 

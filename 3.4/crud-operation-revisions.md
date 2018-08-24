@@ -2,6 +2,7 @@
 
 ---
 
+<a name="about"></a>
 ## About
 
 Revisions allows your admins to store, see and undo changes to entries on an Eloquent model.
@@ -14,9 +15,10 @@ When enabled, ```Revisions``` will show another button in the table view, betwee
 ![CRUD Revision Operation](https://backpackforlaravel.com/uploads/docs/operations/revisions.png)
 
 
-## Enabling
+<a name="how-to-use"></a>
+## How to Use
 
-In order to enable this functionality for a crud panel, you need to:
+The ```Reorder``` operation is **disabled by default**. In order to enable this functionality for a CRUD panel, you need to:
 
 1. Create the revisions table:
 

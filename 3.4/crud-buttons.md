@@ -73,26 +73,30 @@ In this blade file, you can use:
 <a name="adding-a-custom-button-with-a-blade-file"></a>
 ### Adding a Custom Button with a Blade File
 
-Let's say we want to create a simple ```ban.blade.php``` button. This button would just open a ```user/{id}/ban/``` route, which would point to ```UserCrudController::ban()```. The steps would be:
+Let's say we want to create a simple ```moderate.blade.php``` button. This button would just open a ```user/{id}/moderate/``` route, which would point to ```UserCrudController::moderate()```. The steps would be:
 
 - Create the ```resources\views\vendor\backpack\crud\buttons\moderate.blade.php``` file:
 ```php
 @if ($crud->hasAccess('update'))
-  <a href="{{ Request::url().'/'.$entry->getKey() }}/moderate" class="btn btn-xs btn-default"><i class="fa fa-ban"></i> Ban</a>
+  <a href="{{ Request::url().'/'.$entry->getKey() }}/moderate" class="btn btn-xs btn-default"><i class="fa fa-ban"></i> Moderate</a>
 @endif
 ```
 - Add the new route, next to ```UserCrudController```'s route (most likely inside ```routes/backpack/custom.php```):
 ```php
-Route::get('user/{id}/ban', 'UserCrudController@ban');
+Route::get('user/{id}/moderate', 'UserCrudController@ban');
 ```
 
-- We can now create add a ```ban()``` method to our ```UserCrudController```, which would ban the user, and redirect back.
+- We can now create add a ```moderate()``` method to our ```UserCrudController```, which would moderate the user, and redirect back.
 ```php
-public function ban() 
+public function moderate() 
 {
-    // do stuff
-    return redirect()->back();
+    // show a form that does something
 }
+```
+
+- Now we can actually add this button to any of ```UserCrudController::setup()```:
+```php
+$this->crud->addButtonFromView('line', 'moderate', 'moderate', 'beginning');
 ```
 
 <a name="adding-a-custom-button-without-a-blade-file"></a>
