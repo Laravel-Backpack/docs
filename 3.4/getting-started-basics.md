@@ -7,12 +7,13 @@
 > **Are you already comfortable with Laravel?** In order to understand this series and make use of Backpack, you’ll need to have a decent understanding of the Laravel framework. If you don’t, please go ahead and [watch this excellent intro series on Laracasts](https://laracasts.com/series/laravel-from-scratch-2017) and accomodate yourself with Laravel first.
 
 
-
+<a name="what-is-backpack"></a>
 ## What is Backpack?
 A software that helps Laravel professionals build administration panels - secure areas where administrators login and create, read, update and delete application information. It is *not* a CMS, it is more a framework that lets you *build your own* CMS. You can install it in your existing project or in a totally new project. 
 
 It’s designed to be flexible enough to allow you to **build admin panels for everything from simple presentation websites to CRMs, ERPs, eCommerce, eLearning, etc**. We can vouch for that, because we have built all that stuff using Backpack already.
 
+<a name="how-to-use-backpack"></a>
 ## How to use?
 
 Backpack consists of two **core packages**:
@@ -25,8 +26,10 @@ For the purpose of this series, we’ll show examples on the Tag entry. This is 
 
 ![Tag CRUD - List Entries Operation](https://backpackforlaravel.com/uploads/docs/getting_started/tag_crud_list_entries.png)
 
+<a name="core-packages"></a>
 ## Core Packages
 
+<a name="backpack-base"></a>
 ### Backpack\Base
 
 **Backpack/Base** is the package that **will handle the authentication** and provide you with minimal admin area functionality. **Your admin will be able to login and change his password or email.** And that’s pretty much it. 
@@ -35,7 +38,7 @@ Thanks to Base, after you [install Backpack](/docs/{{version}}/installation) (do
 
 Backpack\Base pulls in the free [AdminLTE](https://adminlte.io/themes/AdminLTE/index2.html) theme and enhances the design a little bit. So any front-end block that AdminLTE has, you'll also be able to use in your custom pages. It also includes a system for bubble notifications, which you can use across the admin panel. You can easily [trigger notification bubbles in PHP](/docs/{{version}}/base-about#triggering-notification-bubbles-in-php) or [trigger notification bubbles in JavaScript](/docs/{{version}}/base-about#triggering-notification-bubbles-in-javascript).
 
-
+<a name="backpack-crud"></a>
 ### Backpack\CRUD
 This is where it gets interesting. As soon as you [install Backpack](https://laravel-backpack.readme.io/docs/install-on-laravel-56) in your project, you can create **CRUDs** for your admins to easily manipulate DB information. Let’s browse through a simple example, of creating a CRUD administration panel for a Tag entity:
 

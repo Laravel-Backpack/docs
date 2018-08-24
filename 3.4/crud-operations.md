@@ -58,14 +58,17 @@ To add an operation to an ```EntityCrudController```, you can just:
 
 Take a look at the examples below for a better picture and code examples.
 
+<a name="access-to-custom-operations"></a>
 ### Access to Custom Operations
 
 Since you're creating a new operation, in terms of restricting access you can:
 1. allow access to this new operation depending on access to a default operation (usually if the admin can ```update```, he's ok to perform custom operations);
 2. customize access to this particular operation, by just using a different key than the default ones; for example, you can allow access by using ```$this->crud->allowAccess('moderate')``` in your ```setup()``` method, then check for access to that operation using ```$this->crud->hasAccess('moderate')```;
 
+<a name="examples"></a>
 ### Examples
 
+<a name="creatig-a-new-operation-with-no-interface"></a>
 #### Creating a New Operation With No Interface
 
 Let's say we have a ```UserCrudController``` and we want to create a simple ```Ban``` operation, which would set ```banned``` to ```true``` for a user. So very similar to ```Delete```. What we need to do is:
@@ -160,7 +163,7 @@ $this->crud->addButtonFromView('line', 'ban', 'ban', 'beginning');
 
 >Of course, **if you plan to re-use this operation on another EntityCrudController**, it's a good idea to isolate the method inside a trait, then use that trait on each EntityCrudController where you want the operation to work.
 
-
+<a name="creating-a-new-operation-with-an-interface"></a>
 #### Creating a New Operation With An Interface
 
 Let's say we have a ```UserCrudController``` and we want to create a simple ```Moderate``` operation, where we show a form where the admin can add his observations and what not. In this respect, it should be similar to ```Update``` - the button should lead to a separate form, then that form will probably have a Save button. So when creating the methods, we should look at ```CrudController::edit()``` and ```CrudController::updateCrud()``` for working examples.

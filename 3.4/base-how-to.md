@@ -2,10 +2,12 @@
 
 ---
 
+<a name="customize-menu-or-sidebar"></a>
 ## Customize the menu or sidebar
 
 During installation, Backpack publishes a few files in you ```resources/views/vendor/backpack/base``` folder. In there, you'll also find ```inc/sidebar_content.php``` and ```inc/menu.php```. Change those files as you please.
 
+<a name="customize-dashboard"></a>
 ## Customize the dashboard
 
 In ```config/app.php```, Make sure the "RouteServiceProvider" is set **after** "BaseServiceProvider". 
@@ -49,6 +51,7 @@ Route::group(['middleware' => 'web', 'prefix' => config('backpack.base.route_pre
 });
 ```
 
+<a name="customize-routes"></a>
 ## Customize the routes
 
 In ```config/backpack/base.php``` you'll find these configuration options:
@@ -85,6 +88,7 @@ Route::group(['middleware' => 'web', 'prefix' => config('backpack.base.route_pre
 
 Additionally, you can place a new routes file in your ```app/routes/backpack/base.php```. If a file is present there, no default Backpack\Base routes will be loaded, only what's present in that file.
 
+<a name="use-sparate-login-for-users-and-admins"></a>
 ## Use separate login/register forms for users and admins
 
 If you need separate login for user and admin, probably the fastest way would be to use:
@@ -97,6 +101,7 @@ For this to happen, keep the ```setup_auth_routes``` and ```setup_dashboard_rout
 - the user login at ```/login``` -> using the AuthenticationController Laravel provides
 - the admin login at ```/admin/login``` -> using the AuthenticationControllers Backpack provides
 
+<a name="use-separate-sessions-for-admins-and-users"></a>
 ## Use separate sessions for admin&user authentication
 
 You might want your admins to be logged in as *Admin X* and *User Z* at the same time (for user impersonation, for example). If so, you will need to use different guards for those two authentications. The easiest way would be to use the default Laravel guard for the user authentication and just create a new guard for the Admin authentication. You'll notice in all Backpack views we've used ```backpack_auth()->user()``` instead of ```Auth::user()```. It's for this exact purpose. If you specify a guard, all Backpack views will impose that guard.
@@ -156,6 +161,7 @@ You might want your admins to be logged in as *Admin X* and *User Z* at the same
 
 That's it. Backpack will now use a separate session for the admin login. You can be logged in with ```Admin X``` and ```User Z``` at the same time, and log out ```Admin X``` without logging out the user too.
 
+<a name="login-with-username-instead-of-email"></a>
 ## Login with username instead of email
 
 1. Create a ```username``` column in your users table and add it in ```$fillable``` on your ```User``` model. Best to do this with a migration.
@@ -174,6 +180,7 @@ That's it. This will:
 - use ```username``` in My Account, when a user wants to change his info;
 - completely disable the password recovery (if you've deleted the ```email``` db column);
 
+<a name="manually-install-backpack-base"></a>
 ## Manually install Base
 
 If for any reason the Backpack/Base installation process fails for you, you can manually run all the commands in the installer, which are listed below. Failure to install can happens sometimes if the user does not have enough permissions (sudo access is needed) or if the composer command is not registered (and ```php composer``` needs to be run instead).

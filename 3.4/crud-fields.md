@@ -89,8 +89,10 @@ $this->crud->addField($field_definition_array)->beforeField('name');
 $this->crud->addField($field_definition_array)->afterField('name');
 ```
 
+<a name="extra-field-features"></a>
 ### Extra Fields Features
 
+<a name="fake-fields"></a>
 #### Fake Fields (all stored as JSON in the database)
 
 In case you want to store insignificant information for an entry, that don't need a database column, you can add any number of Fake Fields, and all their information will be store inside one column in the db, as JSON. By default, an ```extras``` column is assumed on the database table, but you can change that.
@@ -143,6 +145,7 @@ In this example, these 3 fields will show up in the create & update forms, the C
 
 If the ```store_in``` attribute wasn't used, they would have been stored in the ```extras``` column.
 
+<a name="split-fields-into-tabs"></a>
 #### Split Fields into Tabs
 
 You can now split your create/edit inputs into multiple tabs.

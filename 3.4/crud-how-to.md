@@ -4,6 +4,7 @@
 
 In addition the usual CRUD functionality, Backpack also allows you to do a few more complicated things:
 
+<a name="customize-views-for-each-crud-panel"></a>
 ## Customize Views for each CRUD Panel
 
 Previously, if you wanted to create a custom ```create.blade.php``` view for just one CRUD Panel, you needed to overwrite the create() method. The same for edit, list, revisions, reorder, etc.
@@ -20,7 +21,8 @@ $this->crud->setRevisionsTimelineView('your-view');
 $this->crud->setDetailsRowView('your-view');
 ```
 
-## Customize CSS and JS for CRUD operations
+<a name="customize-css-and-js-for-default-crud-operations"></a>
+## Customize CSS and JS for Default CRUD Operations
 
 Starting with Backpack\CRUD 3.2, there's a place where you can place your custom operations javascript and styles. You'll find a CSS and JS file in your ```public/vendor/backpack/crud``` folder for each Backpack operation. You can place any custom operation code there, without bloating general files css, js or blade files.
 [block:image]
@@ -39,6 +41,7 @@ Starting with Backpack\CRUD 3.2, there's a place where you can place your custom
 }
 [/block]
 
+<a name="add-extra-crud-routes"></a>
 ## Add Extra CRUD Routes
 
 Starting with Backpack\CRUD 3.2, you can use the ```with()``` method on ```CRUD::resource``` to better organize your routes. Something like this:
@@ -51,6 +54,7 @@ CRUD::resource(‘teams’, ‘Admin\TeamCrudController’)->with(function(){
 });
 ```
 
+<a name="publish-a-column-field-filter-button-to-modify"></a>
 ## Publish a column / field / filter / button and modify it
 
 All Backpack packages allow you to easily overwrite and customize the views. If you want Backpack to pick up _your_ file, instead of the one in the package, you can do that by just placing a file with the same name in your views. So if you want to overwrite the select2 field (```vendor/backpack/crud/src/resources/views/fields/select2.blade.php```) to change some functionality, you need to create ```resources/views/vendor/backpack/crud/fields/select2.blade.php```. You can do that manually, or use this command:
@@ -61,6 +65,7 @@ This will look for the blade file and copy it inside the folder, so you can edit
 
 >**Please note:** Once you place a file with the same name inside your project, Backpack will pick that one up instead of the one in the package. That means that even though the file in the package is updated, you won't be getting those updates, since you're not using that file. Blade modifications are almost never breaking changes, but it's a good thing to receive updates with zero effort. Even small ones. So please overwrite the files as little as possible. Best to create your own custom fields/column/filters/buttons, whenever you can.
 
+<a name="filter-the-options-in-a-select-field"></a>
 ## Filter the options in a select field
 
 This also applies to: select2, select2_multiple, select2_from_ajax, select2_from_ajax_multiple.
@@ -103,6 +108,7 @@ class CompanyUser extends User
 }
 ```
 
+<a name="use-the-same-column-name-multiple-times-in-a-crud"></a>
 ## Use the same column name multiple times in a CRUD
 
 If you try to add multiple columns with the same ```name```, by default Backpack will only show the last one. That's because ```name``` is also used as a key in the ```$column``` array. So when you ```addColumn()``` with the same name twice, it just overwrites the previous one.
@@ -134,7 +140,7 @@ In order to insert two column with the same name, use the ```key``` attribute on
         ]);
 ```
 
-
+<a name="use-the-media-library"></a>
 ## Use the Media Library (File Manager)
 
 If you've chosen to install [elFinder](http://elfinder.org/) when installing Backpack, you already have a media manager. And it’s integrated into:
@@ -162,6 +168,7 @@ For the integration, barryvdh's [laravel-elfinder](https://github.com/barryvdh/l
 }
 [/block]
 
+<a name="manually-install-backpack-crud"></a>
 ## Manually install Backpack/CRUD
 
 If the automatic installation doesn't work for you and you need to manually install CRUD, here are all the commands it is running:
@@ -188,6 +195,7 @@ php artisan vendor:publish --provider="Backpack\CRUD\CrudServiceProvider" --tag=
 php artisan vendor:publish --provider="Backpack\CRUD\CrudServiceProvider" --tag="config"
 ```
 
+<a name="load-fields-from-a-different-folder"></a>
 ## Load fields from a different folder
 
 If you're developing a package, you might need Backpack to pick up fields from your package folder, instead of having to publish them upon installation.

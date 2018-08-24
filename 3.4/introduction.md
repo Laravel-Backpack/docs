@@ -29,24 +29,29 @@ php artisan backpack:base:add-sidebar-content "<li><a href='{{ backpack_url('tag
 <a name="need-to-know"></a>
 ## Need to Know
 
+<a name="requirements"></a>
 ### Requirements
 
   - Laravel 5.5 or 5.6
   - PHP 7+
   - MySQL (recommended) / PosgreSQL / SQLite / SQL Server
 
+<a name="screenshots"></a>
 ### Screenshots
 
 Take a look at [our homepage](http://www.backpackforlaravel.com/).
 
+<a name="demo"></a>
 ### Demo
 
 You can easily [install a demo Laravel project with Backpack installed](/docs/{{version}}/demo) and play around.
 
+<a name="security"></a>
 ### Security
 
 Backpack has never had a critical vulnerability/hack. But there _have_ been important security updates for dependencies (including Laravel). Please [login with Github](/auth/github) or  [subscribe to our monthly newsletter](https://backpackforlaravel.com/newsletter), so we can reach you in case anything bad happens. No spam, no marketing emails, we promise. We only send one email per month, with Backpack updates.
 
+<a name="license"></a>
 ### License
 
 Backpack is under a license we call "_You make money, I make money_" (YummY). Its source is public, and you can use it for free for non-commercial purposes (testing, non-profits, personal use, etc), but if you make money using it you need to purchase a commercial license. Please see  [the pricing section](https://backpackforlaravel.com/pricing) for more details. You need a license code for both commercial and non-commercial use, to prevent nagging notification bubbles.

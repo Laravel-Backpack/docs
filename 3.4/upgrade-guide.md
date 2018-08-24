@@ -20,6 +20,7 @@ As you can see, we've struggled very hard to make this version as backwards-comp
 <a name="upgraade-steps"></a>
 ## Upgrade Steps
 
+<a name="require-the-lastest-versions"></a>
 ### Require the latest versions
 1. run the commands below (or make these changes in your ```composer.json``` and run ```composer update```)
 
@@ -28,6 +29,7 @@ composer require backpack/base:"^0.9.0"
 composer require backpack/crud:"^3.4.0"
 ```
 
+<a name="upgrade-backpack-base-to-0-9-x"></a>
 ### Upgrade Backpack\Base to 0.9.x 
 
 This brings [A LOT of new features](https://laravel-backpack.readme.io/v3.4/docs/release-notes#section-backpack-base-0-9-x) and makes sure all components are up-to-date.
@@ -47,6 +49,7 @@ This brings [A LOT of new features](https://laravel-backpack.readme.io/v3.4/docs
 8. Delete your ```public/vendor/backpack``` and ```public/vendor/adminlte``` folders; we will republish them shortly;
 9. Run ```php artisan backpack:base:install```; this might take a few minutes, but it will republish all assets needed;
 
+<a name="upgrade-backpack-crud-to-3-4-x"></a>
 ### Upgrade Backpack\CRUD to 3.4.x
 
 10. if you're using the filemanager (elFinder) or the ```browse``` field type, run ```composer require barryvdh/laravel-elfinder``` to install it, since it's no longer a mandatory requirement;

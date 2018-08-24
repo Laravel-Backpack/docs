@@ -96,13 +96,36 @@ To use, inside your ```EntityCrudController```:
 Alternative for the 3rd step: overwrite ```views/backpack/crud/details_row.blade.php``` which is called by the default ```showDetailsRow($id)``` functionality.
 
 <a name="export-buttons"></a>
-#### Export buttons
+#### Export Buttons
 
 Exporting the DataTable to PDF, CSV, XLS is as easy as typing ```$this->crud->enableExportButtons();``` in your constructor. 
 
 ![Backpack CRUD ListEntries Details Row](https://backpackforlaravel.com/uploads/docs/operations/listEntries_export_buttons.png)
 
 >**Please note that when clicked, each button will export the _currently visible_ table.** You can use the "visibility" button, and the "Items per page" dropdown to manipulate what is inside the export.
+
+<a name="custom-query"></a>
+#### Custom Query
+
+By default, all entries are shown in the ListEntries table, before filtering. If you want to restrict the entries to a subset, you can use the methods below in your EntityCrudController's ```setup()``` method:
+
+```php
+// Change what entries are show in the table view.
+// This changes all queries on the table view,
+// as opposed to filters, who only change it when that filter is applied. 
+$this->crud->addClause('active'); // apply a local scope
+$this->crud->addClause('type', 'car'); // apply local dynamic scope
+$this->crud->addClause('where', 'name', '=', 'car');
+$this->crud->addClause('whereName', 'car');
+$this->crud->addClause('whereHas', 'posts', function($query) {
+     $query->activePosts();
+ });
+$this->crud->groupBy();
+$this->crud->limit();
+
+$this->crud->orderBy();
+// please note it's generally a good idea to use crud->orderBy() inside "if (!$this->request->has('order')) {}"; that way, your custom order is applied ONLY IF the user hasn't forced another order (by clicking a column heading)
+```
 
 <a name="how-to-overwrite"></a>
 ## How to Overwrite

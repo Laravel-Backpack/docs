@@ -2,10 +2,12 @@
 
 ---
 
+<a name="about"></a>
 ## About
 
 Buttons are used inside the ListEdit operation, to allow the admin to trigger other operations. Some point to entirely new routes (```create```, ```update```, ```show```), others perform the operation on the current page using AJAX (```delete```).
 
+<a name="button-stacks"></a>
 ### Button Stacks
 
 The ShowList operation has 3 places where buttons can be placed:
@@ -15,6 +17,7 @@ The ShowList operation has 3 places where buttons can be placed:
 
 When adding a button to the stack, you can choose whether to insert it at the ```beginning``` or ```end``` of the stack by specifying that as a last parameter.
 
+<a name="default-buttons"></a>
 ### Default Buttons
 
 Backpack adds a few buttons by default: 

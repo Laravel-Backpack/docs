@@ -4,6 +4,7 @@
 
 **Duration:** 3 minutes
 
+<a name="add-ons"></a>
 ## Add-ons
 
 In addition to our core packages (Base and CRUD), we have quite a few packages you can install or download, that treat common use cases. Some have been developed by our core team, some by our wonderful community. For example, we have plug&play interfaces to manage [site-wide settings](https://github.com/Laravel-Backpack/Settings), [the default Laravel users table](https://github.com/eduardoarandah/UserManager), [users, groups & permissions](https://github.com/Laravel-Backpack/PermissionManager), [content for custom pages, using page templates](https://github.com/Laravel-Backpack/PageManager), [news articles, categories and tags](https://github.com/Laravel-Backpack/NewsCRUD), etc.
@@ -12,6 +13,7 @@ Take a look at:
 - [all official add-ons](/docs/{{version}}/add-ons-official)
 - [all community add-ons](/docs/{{version}}/add-ons-community)
 
+<a name="license"></a>
 ## License
 
 Backpack is **free for non-commercial use**, but needs a license code in order to prevent “_unlicensed use_” notification bubbles and interruption of service. You can get a license code for your project:
@@ -25,6 +27,7 @@ But **developers** or companies **who make money using it** - for themselves, th
 
 >**You don't need a license code on LOCALHOST.** If you’re just trying Backpack on your own machine, you don’t need a license code. You only need a license code when you take your application to production.
 
+<a name="support"></a>
 ## Support
 
 With thousands of developers using Backpack, a lot of them non-commercial, and such a small price, **we can’t offer official support for the packages**. We've been doing this since 2016, we actively maintain the packages, we try to squash any bugs ASAP and add new features all the time, but we unfortunately can't spend time on back-and-forth on implementation issues in your project. But. We do have good documentation and have been blessed with a **great community**, where people help each other out. If Backpack becomes your tool of preference, I highly recommend you join our gang. Help others get started, create cool stuff, or even influence the direction of Backpack: 

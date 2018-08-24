@@ -6,8 +6,10 @@ Here are all the functions you will be using **inside your EntityCrudController'
 
 ## Operations
 
+<a name="list-entries-api"></a>
 ### ListEntries
 
+<a name="columns-api"></a>
 #### Columns
 
 ```php
@@ -31,6 +33,7 @@ $this->crud->addColumn()->makeFirstColumn();
   // you need to also specify priority 1 in your addColumn statement for details_row or responsive expand buttons to show
 ```
 
+<a name="buttons-api"></a>
 #### Buttons
 
 ```php
@@ -42,7 +45,7 @@ $this->crud->removeButton($name);
 $this->crud->removeButtonFromStack($name, $stack);
 ```
 
-
+<a name="filters-api"></a>
 #### Filters
 
 ```php
@@ -56,6 +59,7 @@ $this->crud->removeAllFilters();
 $this->crud->filters(); // gets all the filters
 ```
 
+<a name="details-row-api"></a>
 #### Details Row
 
 ```php
@@ -67,6 +71,7 @@ $this->crud->enableDetailsRow();
 $this->crud->disableDetailsRow();
 ```
 
+<a name="export-buttons-api"></a>
 #### Export Buttons
 
 ```php
@@ -74,6 +79,7 @@ $this->crud->disableDetailsRow();
 $this->crud->enableExportButtons();
 ```
 
+<a name="responsive-table-api"></a>
 #### Responsive Table
 
 ```php
@@ -81,6 +87,7 @@ $this->crud->disableResponsiveTable();
 $this->crud->enableResponsiveTable();
 ```
 
+<a name="page-length"></a>
 #### Page Length
 
 ```php
@@ -88,16 +95,41 @@ $this->crud->setDefaultPageLength(10); // number of rows shown in list view
 $this->crud->setPageLengthMenu([100, 200, 300]); // page length menu to show in the list view
 ```
 
+<a name="action-column-api"></a>
 #### Actions Column
+
 ```php
 // make the actions column (in the table view) hide when not enough space is available, by giving it an unreasonable priority
 $this->crud->setActionsColumnPriority(10000);
 ```
 
+<a name="custom-queries-api"></a>
+#### Custom / Advanced Queries
+
+```php
+// Change what entries are show in the table view.
+// This changes all queries on the table view,
+// as opposed to filters, who only change it when that filter is applied. 
+$this->crud->addClause('active'); // apply local scope
+$this->crud->addClause('type', 'car'); // apply local dynamic scope
+$this->crud->addClause('where', 'name', '=', 'car');
+$this->crud->addClause('whereName', 'car');
+$this->crud->addClause('whereHas', 'posts', function($query) {
+     $query->activePosts();
+ });
+$this->crud->groupBy();
+$this->crud->limit();
+
+$this->crud->orderBy();
+// please note it's generally a good idea to use crud->orderBy() inside "if (!$this->request->has('order')) {}"; that way, your custom order is applied ONLY IF the user hasn't forced another order (by clicking a column heading)
+```
+
+<a name="show-api"></a>
 ### Show
 
 Use the same Columns API as for the ListEntries operation, but inside your ```show()``` method.
 
+<a name="create-and-update-api"></a>
 ### Create & Update Operations
 
 ```php
@@ -124,7 +156,7 @@ $this->crud->addField()->beforeField('name'); // will show this before the given
 $this->crud->addField()->afterField('name'); // will show this after the given field
 ```
 
-
+<a name="reorder-api"></a>
 ### Reorder
 
 ```php
@@ -139,6 +171,7 @@ $this->crud->isReorderEnabled(); // return true/false
 
 ```
 
+<a name="revisions-api"></a>
 ### Revisions
 
 ```php
@@ -152,28 +185,10 @@ $this->crud->isReorderEnabled(); // return true/false
 $this->crud->allowAccess('revisions');
 ```
 
+<a name="all-operations-api"></a>
 ## All Operations
 
 ```php
-// ----------------
-// ADVANCED QUERIES
-// ----------------
-// Change what entries are show in the table view.
-// This changes all queries on the table view,
-// as opposed to filters, who only change it when that filter is applied. 
-$this->crud->addClause('active'); // apply local scope
-$this->crud->addClause('type', 'car'); // apply local dynamic scope
-$this->crud->addClause('where', 'name', '=', 'car');
-$this->crud->addClause('whereName', 'car');
-$this->crud->addClause('whereHas', 'posts', function($query) {
-     $query->activePosts();
- });
-$this->crud->groupBy();
-$this->crud->limit();
-
-$this->crud->orderBy();
-// please note it's generally a good idea to use crud->orderBy() inside "if (!$this->request->has('order')) {}"; that way, your custom order is applied ONLY IF the user hasn't forced another order (by clicking a column heading)
-
 // ------ 
 // ACCESS
 // ------

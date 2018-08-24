@@ -6,6 +6,7 @@
 
 Here are the main differences between [Backpack 3.3](https://laravel-backpack.readme.io/v3.3/docs) and Backpack 3.4.
 
+<a name="backpack-base-0-9-x"></a>
 ## Backpack\Base 0.9.x
 - installation:
   - a single ```php artisan backpack:base:install``` command is needed to install Backpack\Base, instead of multiple steps;
@@ -22,7 +23,7 @@ Here are the main differences between [Backpack 3.3](https://laravel-backpack.re
 - a command to create a new sidebar item; it will publish the given HTML inside the new ```resources/views/vendor/backpack/base/inc/sidebar_contents.blade.php``` file;
 - upgraded to AdminLTE 2.4.x, and all its dependencies;
 
-
+<a name="backpack-crud-3-4-x"></a>
 ## Backpack\CRUD 3.4.x
 
 - CRUD list view (datatables) now [looks very good](https://github.com/Laravel-Backpack/CRUD/pull/1180#issuecomment-357522025) and is easy to use on mobile devices and tablets;

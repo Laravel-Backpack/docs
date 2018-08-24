@@ -60,10 +60,12 @@ By default, CRUDs have these operations already enabled:
 
 These are the basic operations an admin can execute on an Eloquent model, thanks to Backpack. We do have additional operations (Preview, Reorder, Revisions), and you can easily _create a custom operation_, but let’s not get ahead of ourselves. Baby steps. **Let's go through the most important features of the operations you'll be using _all the time_: ListEntries, Create and Update**.
 
+<a name="create-and-update-operations"></a>
 ## Create & Update Operations
 
 ![Tag CRUD - Edit Operation](https://backpackforlaravel.com/uploads/docs/getting_started/tag_crud_edit.png)
 
+<a name="fields"></a>
 ### Fields
 
 Inside your Controller's ```setup()``` method, you'll be able to define what fields you want the admin to see, when creating/updating entries. In the example above, we only have two fields, both using the ```text``` field type. So that's what's shown to the admin. When the admin presses _Save_, assuming your model has those two attributes as ```$fillable```, Backpack will save the entry and take you back to the ListEntries view. Keep in mind we're using a _pure_ Eloquent model. So of course, inside the model you could use accessors, mutators, events, etc.
@@ -147,6 +149,7 @@ $this->crud->addField([
 > 
 > Our recommendation, for anything but the simplest CRUDs, is to manually define each field - much easier to understand and customize, for your future self and any other developer that comes after you.
 
+<a name="callbacks"></a>
 ### Callbacks
 
 Developers coming from GroceryCRUD on CodeIgniter or other CRUD systems will be looking for callbacks to run ```before_insert```, ```before_update```, ```after_insert```, ```after_update```.
@@ -173,10 +176,12 @@ public function update(UpdateRequest $request)
 
 But before you do that, ask yourself - *is this something that should be done when an entry is added/updated/deleted from the application, too*? Not just the admin admin? If so, a better place for it would be the Model. Remember your Model is a pure Eloquent Model, so the cleanest way might be to use [Eloquent Event Observers](https://laravel.com/docs/5.5/eloquent#events) or [accessors and mutators](https://laravel.com/docs/master/eloquent-mutators#accessors-and-mutators).
 
+<a name="list-entries-operation"></a>
 ## ListEntries Operation
 
 ListEntries shows the admin a table with all entries. On the front-end, the information is pulled using AJAX calls, and shown using DataTables. It's the most feature-packed operation in Backpack, but right now we're just going through the most important features you need to know about: columns, filters and buttons.
 
+<a name="columns"></a>
 ### Columns
 
 Columns help you specify *which* attributes are shown in the table and *in which order*. **They’re defined in the ```setup()``` method, the same as fields, and their syntax is super-similar to fields too**:
@@ -205,6 +210,7 @@ $this->crud->addColumn([
 $this->crud->addColumn('text'); // adds a text column, at the end of the stack
 ```
 
+<a name="filters"></a>
 ### Filters
 
 ![Monster CRUD - List Entries Filters](https://backpackforlaravel.com/uploads/docs/getting_started/backpack_filters.png)
@@ -219,6 +225,7 @@ $this->crud->removeAllFilters();
 
 For more on this, check out the [filters documentation page](/docs/{{version}}/crud-filters), when you need them.
 
+<a name="buttons"></a>
 ### Buttons
 
 ![Tag CRUD - List Entries Buttons](https://backpackforlaravel.com/uploads/docs/getting_started/backpack_buttons.png)

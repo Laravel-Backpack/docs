@@ -42,6 +42,7 @@ The code above will have generated:
 
 **Next up:** we'll need to go through the generated files, and customize for our needs.
 
+<a name="customize-generated-files"></a>
 ## Customize Generated Files
 
 We'll skip the migration and database table, since there's nothing there specific to Backpack, nothing to customize, and we've already run the migration.

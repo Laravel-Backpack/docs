@@ -2,6 +2,7 @@
 
 ---
 
+<a name="about"></a>
 ## About
 
 This operation allows your admins to add new entries to a database table.
@@ -69,7 +70,7 @@ public function update(UpdateRequest $request)
 <a name="translatable-models"></a>
 ## Translatable models and multi-language CRUDs
 
-When creating multi-language entries, a form will be shown for the default language. The admin can then edit that entry in all available languages. Check out [this same section in the Update operation](/docs/{{version}}/crud-operation-update#translatable-models) for how to enable multi-language functionality.
+For UX purposes, when creating multi-language entries, the Create form will only allow the admin to add an entry in one language, the default one. The admin can then edit that entry in all available languages, to translate it. Check out [this same section in the Update operation](/docs/{{version}}/crud-operation-update#translatable-models) for how to enable multi-language functionality.
 
 <a name="separate-validation"></a>
 ## Separate Validation Rules for Create and Update

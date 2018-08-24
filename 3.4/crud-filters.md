@@ -7,7 +7,6 @@
 
 Backpack CRUD allows you to show a filters bar right above the entries table. When selected or modified, they reload the DataTables results. The search will then search within the filtered elements.
 
-
 ![Backpack CRUD Filters](https://backpackforlaravel.com/uploads/docs/filters/filters.png)
 
 Just like with fields, columns or buttons, you can add existing filters or create a custom filter that fits to your particular needs. Everything's done inside your ```EntityCrudController::setup()```. 
