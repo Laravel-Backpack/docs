@@ -17,7 +17,7 @@ Your model should have the following fields: ```parent_id```, ```lft```, ```rgt`
 <a name="how-to-use"></a>
 ## How to Use
 
-The ```Reorder``` operation is **disabled by default**. To enable it, you should use ```$this->crud->allowAccess('disabled');``` inside your ```setup()``` method. This will make a Reorder button appear in ListEntries, in the ```top``` button stack. Then, in your EntityCrudController's ```setup()``` method:
+The ```Reorder``` operation is **disabled by default**. To enable it, you should use ```$this->crud->allowAccess('reorder');``` inside your ```setup()``` method. This will make a Reorder button appear in ListEntries, in the ```top``` button stack. Then, in your EntityCrudController's ```setup()``` method:
 
 ```php
 $this->crud->enableReorder('attribute_name', ALLOWED_DEPTH);
