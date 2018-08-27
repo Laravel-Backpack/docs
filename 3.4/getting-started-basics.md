@@ -117,4 +117,4 @@ You should notice:
 - The request file is typehinted in the ```store()``` and ```update()``` methods; Since in case form validation fails, the information won’t even reach these methods;
 - All the CRUD setup is usually done in the ```setup()``` method;
 
-**That’s all for today! **If you want to learn more, go ahead and [read the next lesson](/docs/{{version}}/getting-started-anatomy-of-a-crud) of this series.
+**That’s all for today! **If you want to learn more, go ahead and [read the next lesson](/docs/{{version}}/getting-started-crud-operations) of this series.
