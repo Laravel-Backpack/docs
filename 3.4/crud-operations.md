@@ -71,94 +71,81 @@ Since you're creating a new operation, in terms of restricting access you can:
 <a name="creatig-a-new-operation-with-no-interface"></a>
 #### Creating a New Operation With No Interface
 
-Let's say we have a ```UserCrudController``` and we want to create a simple ```Ban``` operation, which would set ```banned``` to ```true``` for a user. So very similar to ```Delete```. What we need to do is:
+Let's say we have a ```UserCrudController``` and we want to create a simple ```Clone``` operation, which would create another entry with the same info. So very similar to ```Delete```. What we need to do is:
 
 1. Create a route for this operation - we can add it anywhere, but it's recommended we keep all admin routes within ```routes/backpack/custom.php```:
 
 ```php
-Route::post('user/{id}/ban', 'UserCrudController@ban');
+Route::post('user/{id}/clone', 'UserCrudController@clone');
 ```
 
 2. Add the method inside ```UserCrudController```:
 
 ```php
-public function ban($id) 
+public function clone($id) 
 {
-    $this->crud->hasAccessOrFail('update');
+    $this->crud->hasAccessOrFail('create');
 
-    $entry = $this->crud->getEntry($id);
+    $clonedEntry = $this->crud->model->findOrFail($id)->replicate();
 
-    if ($entry && !$entry->banned) {
-        $entry->banned = true;
-        return (string)$entry->save();
-    }
-
-    return 'false';
+    return (string) $clonedEntry->push();
 }
 ```
 
-3. Create a button for this method. Since our operation is similar to "Delete", lets start from that one and customize what we need. The button should ban the entry using an AJAX call. No need to load another page for an operation this simple. We'll create a ```resources\views\vendor\backpack\crud\buttons\ban.blade.php``` file:
+3. Create a button for this method. Since our operation is similar to "Delete", lets start from that one and customize what we need. The button should clone the entry using an AJAX call. No need to load another page for an operation this simple. We'll create a ```resources\views\vendor\backpack\crud\buttons\clone.blade.php``` file:
 
 ```php
-@if ($crud->hasAccess('update'))
-    <a href="javascript:void(0)" onclick="banEntry(this)" data-route="{{ url($crud->route.'/'.$entry->getKey()) }}" class="btn btn-xs btn-default" data-button-type="ban"><i class="fa fa-ban"></i> Ban</a>
+@if ($crud->hasAccess('create'))
+	<a href="javascript:void(0)" onclick="cloneEntry(this)" data-route="{{ url($crud->route.'/'.$entry->getKey().'/clone') }}" class="btn btn-xs btn-default" data-button-type="clone"><i class="fa fa-clone"></i> Clone</a>
 @endif
 
 <script>
-    if (typeof banEntry != 'function') {
-      $("[data-button-type=ban]").unbind('click');
+	if (typeof cloneEntry != 'function') {
+	  $("[data-button-type=clone]").unbind('click');
 
-      function banEntry(button) {
-          // ask for confirmation before deleting an item
-          // e.preventDefault();
-          var button = $(button);
-          var route = button.attr('data-route');
-          var row = $("#crudTable a[data-route='"+route+"']").closest('tr');
+	  function cloneEntry(button) {
+	      // ask for confirmation before deleting an item
+	      // e.preventDefault();
+	      var button = $(button);
+	      var route = button.attr('data-route');
 
-          if (confirm("Are you sure you want to ban this entry?") == true) {
-              $.ajax({
-                  url: route,
-                  type: 'POST',
-                  success: function(result) {
-                      // Show an alert with the result
-                      new PNotify({
-                          title: "Banned",
-                          text: "This entry has been successfully banned.",
-                          type: "success"
-                      });
+          $.ajax({
+              url: route,
+              type: 'POST',
+              success: function(result) {
+                  // Show an alert with the result
+                  new PNotify({
+                      title: "Entry cloned",
+                      text: "A new entry has been added, with the same information as this one.",
+                      type: "success"
+                  });
 
-                      // Hide the modal, if any
-                      $('.modal').modal('hide');
-                  },
-                  error: function(result) {
-                      // Show an alert with the result
-                      new PNotify({
-                          title: "Did not ban.",
-                          text: "This entry could not be banned.",
-                          type: "warning"
-                      });
-                  }
-              });
-          } else {
-              // Show an alert telling the user we don't know what went wrong
-              new PNotify({
-                  title: "Couldn't ban.",
-                  text: "So sorry, don't know what went wrong. Please try again.",
-                  type: "info"
-              });
-          }
+                  // Hide the modal, if any
+                  $('.modal').modal('hide');
+
+                  crud.table.ajax.reload();
+              },
+              error: function(result) {
+                  // Show an alert with the result
+                  new PNotify({
+                      title: "Cloning failed",
+                      text: "The new entry could not be created. Please try again.",
+                      type: "warning"
+                  });
+              }
+          });
       }
-    }
+	}
 
-    // make it so that the function above is run after each DataTable draw event
-    // crud.addFunctionToDataTablesDrawEventQueue('banEntry');
+	// make it so that the function above is run after each DataTable draw event
+	// crud.addFunctionToDataTablesDrawEventQueue('cloneEntry');
 </script>
 ```
 
 4. We can now actually add this button to our ```UserCrudController::setup()```:
 
 ```php
-$this->crud->addButtonFromView('line', 'ban', 'ban', 'beginning');
+$this->crud->addButtonFromView('line', 'clone', 'clone', 'beginning');
 ```
 
 >Of course, **if you plan to re-use this operation on another EntityCrudController**, it's a good idea to isolate the method inside a trait, then use that trait on each EntityCrudController where you want the operation to work.
