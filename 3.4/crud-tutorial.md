@@ -234,7 +234,7 @@ Since our ```Tag``` model is so simple, we _can_ leave it like this - it will wo
 +        $this->crud->addColumn(['name' => 'name', 'type' => 'text', 'label' => 'Name']);
 +
 +        // Fields
-+        $this->crud->addFields(['name' => 'name', 'type' => 'text', 'label' => 'Name']);
++        $this->crud->addField(['name' => 'name', 'type' => 'text', 'label' => 'Name']);
     }
 }
 ```
