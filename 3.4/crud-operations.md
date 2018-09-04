@@ -357,6 +357,7 @@ $this->crud->addButtonFromView('bottom', 'bulk_clone', 'bulk_clone', 'end');
 ```
 
 5. Add a route to point to this new method:
+
 ```php
 CRUD::resource('monster', 'MonsterCrudController')->with(function() {
   Route::post('monster/bulk-clone', 'MonsterCrudController@bulkClone');
