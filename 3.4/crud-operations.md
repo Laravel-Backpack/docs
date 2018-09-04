@@ -259,3 +259,177 @@ $this->crud->addButtonFromView('line', 'moderate', 'moderate', 'beginning');
 ```
 
 >Of course, **if you plan to re-use this operation on another EntityCrudController**, it's a good idea to isolate the method inside a trait, then use that trait on each EntityCrudController where you want the operation to work.
+
+<a name="creating-a-new-operation-with-bulk-action"></a>
+#### Creating a New Operation With a Bulk Action (No Interface)
+
+Say we want to create a ```Clone``` button which clones multiple entries at the same time. So very similar to our ```Bulk Delete```. What we need to do is:
+
+1. ```$this->crud->enableBulkActions()``` to make the checkboxes show up;
+
+2. Create a new button and add it to our buttom stack:
+
+```html
+@if ($crud->hasAccess('create') && $crud->bulk_actions)
+  <a href="javascript:void(0)" onclick="bulkCloneEntries(this)" class="btn btn-default bulk-button"><i class="fa fa-clone"></i> Clone</a>
+@endif
+
+@push('after_scripts')
+<script>
+  if (typeof bulkCloneEntries != 'function') {
+    function bulkCloneEntries(button) {
+
+        if (typeof crud.checkedItems === 'undefined' || crud.checkedItems.length == 0)
+        {
+          new PNotify({
+                title: "{{ trans('backpack::crud.bulk_no_entries_selected_title') }}",
+                text: "{{ trans('backpack::crud.bulk_no_entries_selected_message') }}",
+                type: "warning"
+            });
+
+          return;
+        }
+
+        var message = "Are you sure you want to clone these :number entries?";
+        message = message.replace(":number", crud.checkedItems.length);
+
+        // show confirm message
+        if (confirm(message) == true) {
+            var ajax_calls = [];
+            var clone_route = "{{ url($crud->route) }}/bulk-clone";
+
+        // submit an AJAX delete call
+        $.ajax({
+          url: clone_route,
+          type: 'POST',
+          data: { entries: crud.checkedItems },
+          success: function(result) {
+            // Show an alert with the result
+            new PNotify({
+                title: "Entries cloned",
+                text: crud.checkedItems.length+" new entries have been added.",
+                type: "success"
+            });
+
+            crud.checkedItems = [];
+            crud.table.ajax.reload();
+          },
+          error: function(result) {
+            // Show an alert with the result
+            new PNotify({
+                title: "Cloning failed",
+                text: "One or more entries could not be created. Please try again.",
+                type: "warning"
+            });
+          }
+        });
+        }
+      }
+  }
+</script>
+@endpush
+```
+
+3. In our ```setup()``` method, add this button to the bottom stack:
+
+```php
+$this->crud->addButtonFromView('bottom', 'bulk_clone', 'bulk_clone', 'end');
+```
+
+4. Create a method in your EntityCrudController (or in a trait, if you want to re-use it for multiple CRUDs):
+
+```php
+    public function bulkClone()
+    {
+        $this->crud->hasAccessOrFail('create');
+
+        $entries = $this->request->input('entries');
+        $clonedEntries = [];
+
+        foreach ($entries as $key => $id) {
+            if ($entry = $this->crud->model->find($id)) {
+                $clonedEntries[] = $entry->replicate()->push();
+            }
+        }
+
+        return $clonedEntries;
+    }
+```
+
+5. Add a route to point to this new method:
+```php
+CRUD::resource('monster', 'MonsterCrudController')->with(function() {
+  Route::post('monster/bulk-clone', 'MonsterCrudController@bulkClone');
+});
+```
+
+Now there's a Clone button on our bottom stack, that works as expected for multiple entries.
+
+The button makes one call for all entries, and only triggers one notification. If you would rather make a call for each entry, you can use something like below:
+
+```html
+@if ($crud->hasAccess('create') && $crud->bulk_actions)
+  <a href="javascript:void(0)" onclick="bulkCloneEntries(this)" class="btn btn-default"><i class="fa fa-clone"></i> Clone</a>
+@endif
+
+@push('after_scripts')
+<script>
+  if (typeof bulkCloneEntries != 'function') {
+    function bulkCloneEntries(button) {
+
+        if (typeof crud.checkedItems === 'undefined' || crud.checkedItems.length == 0)
+        {
+          new PNotify({
+                title: "{{ trans('backpack::crud.bulk_no_entries_selected_title') }}",
+                text: "{{ trans('backpack::crud.bulk_no_entries_selected_message') }}",
+                type: "warning"
+            });
+
+          return;
+        }
+
+        var message = "Are you sure you want to clone these :number entries?";
+        message = message.replace(":number", crud.checkedItems.length);
+
+        // show confirm message
+        if (confirm(message) == true) {
+            var ajax_calls = [];
+
+            // for each crud.checkedItems
+            crud.checkedItems.forEach(function(item) {
+              var clone_route = "{{ url($crud->route) }}/"+item+"/clone";
+
+              // submit an AJAX delete call
+              ajax_calls.push($.ajax({
+                  url: clone_route,
+                  type: 'POST',
+                  success: function(result) {
+                      // Show an alert with the result
+                      new PNotify({
+                          title: "Entry cloned",
+                          text: "A new entry has been added, with the same information as this one.",
+                          type: "success"
+                      });
+                  },
+                  error: function(result) {
+                      // Show an alert with the result
+                      new PNotify({
+                          title: "Cloning failed",
+                          text: "The new entry could not be created. Please try again.",
+                          type: "warning"
+                      });
+                  }
+              }));
+
+          });
+
+          $.when.apply(this, ajax_calls).then(function ( ajax_calls ) {
+              crud.checkedItems = [];
+              crud.table.ajax.reload();
+        });
+        }
+      }
+  }
+</script>
+@endpush
+```
