@@ -111,7 +111,7 @@ Show a datepicker. The user can select one day.
         ],
         false,
         function($value) { // if the filter is active, apply these constraints
-          // $this->crud->addClause('where', 'date', '=', $value);
+          // $this->crud->addClause('where', 'date', $value);
         });
 ```
 
