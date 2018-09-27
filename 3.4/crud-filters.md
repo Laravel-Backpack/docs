@@ -132,7 +132,7 @@ Show a daterange picker. The user can select a start date and an end date.
          function($value) { // if the filter is active, apply these constraints
            // $dates = json_decode($value);
            // $this->crud->addClause('where', 'date', '>=', $dates->from);
-           // $this->crud->addClause('where', 'date', '<=', $dates->to);
+           // $this->crud->addClause('where', 'date', '<=', $dates->to . ' 23:59:59');
          });
 ```
 
