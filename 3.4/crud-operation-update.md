@@ -26,7 +26,7 @@ To use the Update operation, you must:
 ```php
 // add a field only to the Update operation
 $this->crud->addField($field_definition_array, 'update');
-// add a field to both the Update and Update operations
+// add a field to both the Create and Update operations
 $this->crud->addField($field_definition_array);
 ```
 
