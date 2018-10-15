@@ -8,6 +8,7 @@ We've been blessed with a wonderful, supportive community, where developers help
 | ------------- |:-------------:| --------:|
 | [AbbyJanke/BackpackBlog](https://github.com/AbbyJanke/BackpackBlog)      | blog front-end and back-end | - |
 | [AbbyJanke/BackpackMeta](https://github.com/AbbyJanke/BackpackMeta)      | helps create meta options for extending core functions      |   - |
+| [eduardoarandah/LogViewer](https://github.com/eduardoarandah/backpacklogviewer) | advanced logging interface - brings the ArcaneDev/LogViewer package to Backpack admin panels    |  ```free``` |
 | [eduardoarandah/UserManager](https://github.com/eduardoarandah/UserManager) | manage the default Laravel users table (no permissions, no groups)      |  - |
 | [novius/laravel-backpack-redirection-manager](https://github.com/novius/laravel-backpack-redirection-manager) | manage missing page redirections      |  ```free``` |
 | [novius/laravel-backpack-translation-manager](https://github.com/novius/laravel-backpack-translation-manager) | manage translations stored in the database   |  - |
