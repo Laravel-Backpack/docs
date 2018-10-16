@@ -198,6 +198,15 @@ That's it. This will:
 - use ```username``` in My Account, when a user wants to change his info;
 - completely disable the password recovery (if you've deleted the ```email``` db column);
 
+
+<a name="use-your-own-user-model-instead-of-backpack-user"></a>
+## Use your own User model instead of BackpackUser
+
+By default, authentication and everything else inside Backpack is done using the ```Backpack\Base\app\Models\BackpackUser``` model, which extends Laravel's default ```App\User``` model. If you change the location of ```App\User```, or want to use a different User model for whatever other reason, you can do so by
+- changing ```user_model_fqn``` in ```config/backpack/base.php``` to your new class;
+- making sure everything inside ```BackpackUser``` is also inside your new model (this is important for recovering password, etc);
+
+
 <a name="manually-install-backpack-base"></a>
 ## Manually install Base
 
