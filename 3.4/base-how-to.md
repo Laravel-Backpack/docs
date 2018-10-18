@@ -23,11 +23,11 @@ public function index() {
     $someVar = 'Some text';
     return view('vendor.backpack.base.dashboard', compact('someVar'));
 }
-
+```
 Update the dashboard view located at: ```resources/view/vendor/backpack/base/dashboard.blade.php```
 
 NOTE: if you don't have this folder you need to publish vendor assets
-php artisan vendor:publish --provider="Backpack\Base\BaseServiceProvider" 
+```php artisan vendor:publish --provider="Backpack\Base\BaseServiceProvider" ```
 
 ## Customizing the general layout/design
 
