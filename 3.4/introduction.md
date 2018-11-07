@@ -32,7 +32,7 @@ php artisan backpack:base:add-sidebar-content "<li><a href='{{ backpack_url('tag
 <a name="requirements"></a>
 ### Requirements
 
-  - Laravel 5.5 or 5.6
+  - Laravel 5.5, 5.6 or 5.7
   - PHP 7+
   - MySQL (recommended) / PosgreSQL / SQLite / SQL Server
 
