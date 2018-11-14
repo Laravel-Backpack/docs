@@ -348,6 +348,11 @@ Show a wysiwyg CKEditor to the user.
     'type' => 'ckeditor',
     // optional:
     'extra_plugins' => ['oembed', 'widget', 'justify']
+    'options' => [
+	'autoGrow_minHeight' => 200,
+	'autoGrow_bottomSpace' => 50,
+	'removePlugins' => 'resize,maximize',
+    ]
 ],
 ```
 
