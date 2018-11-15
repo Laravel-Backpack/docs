@@ -90,6 +90,16 @@ $this->crud->addField($field_definition_array)->beforeField('name');
 $this->crud->addField($field_definition_array)->afterField('name');
 ```
 
+<a name="mandatory-primary-key"></a>
+### Mandatory Primary Key
+
+To enable the update actions in your CRUD you must add the primary key as one of its fields. The primary key is used to find the row that will be updated.
+
+If you don't add the primary key as a field of your CRUD, Backpack will return the following error when you try to update a record: `404 Page not found. No query results for model App\YourModel`.
+
+If you don't want to display the primary key in your form, set its field type to [hidden](/docs/{{version}}/crud-fields#hidden).
+
+
 <a name="extra-field-features"></a>
 ### Extra Fields Features
 
