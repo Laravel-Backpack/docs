@@ -54,7 +54,7 @@ Backpack has never had a critical vulnerability/hack. But there _have_ been impo
 <a name="license"></a>
 ### License
 
-Backpack is under a license we call "_You make money, I make money_" (YummY). Its source is public, and you can use it for free for non-commercial purposes (testing, non-profits, personal use, etc), but if you make money using it you need to purchase a commercial license. Please see  [the pricing section](https://backpackforlaravel.com/pricing) for more details. You need a license code for both commercial and non-commercial use, to prevent nagging notification bubbles.
+Backpack is under a license we call "_You make money, I make money_" (YummY). Backpack's source is public, and you can use it for free for non-commercial purposes (testing, non-profits, personal use, etc), but if you make money using it you need to purchase a commercial license. Please see  [the pricing section](https://backpackforlaravel.com/pricing) for more details. In production, you need a license code for both commercial and non-commercial use, to prevent nagging notification bubbles. On localhost, you don't need a license code.
 
 <a name="add-ons"></a>
 ### Add-ons

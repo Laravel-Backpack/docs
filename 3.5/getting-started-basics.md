@@ -22,9 +22,15 @@ Backpack consists of two **core packages**:
 
 A **CRUD** is what we call a section of your admin panel that lets the admin _Create, Read, Update or Delete_ entries of a certain entity (or Model). So you can have a CRUD for Products, a CRUD for Articles, a CRUD for Categories, or whatever else you might want to create, read, update or delete.
 
-For the purpose of this series, we’ll show examples on the Tag entry. This is what it could look like:
+For the purpose of this series, we’ll show examples on the ```Tag``` entity. This is what a Tag CRUD could look like:
 
-![Tag CRUD - List Entries Operation](https://backpackforlaravel.com/uploads/docs/getting_started/tag_crud_list_entries.png)
+![Tag CRUD - List Entries Operation](https://backpackforlaravel.com/uploads/docs-3-5/getting_started/tag_crud_list_entries.png)
+
+But Backpack is fully prepared for feature-packed CRUDs - since it's a good tool for very complex projects too. Here's what a CRUD that uses all of Backpack's features could look like:
+
+![Monsters CRUD - List Entries Operation](https://backpackforlaravel.com/uploads/docs-3-5/getting_started/monster_crud_list_entries.png)
+
+Mind that you will _almost never_ use all of Backpack's features in one CRUD. But if you do... it still looks good, and it'll be intuitive to use.
 
 <a name="core-packages"></a>
 ## Core Packages
@@ -33,6 +39,8 @@ For the purpose of this series, we’ll show examples on the Tag entry. This is 
 ### Backpack\Base
 
 **Backpack/Base** is the package that **will handle the authentication** and provide you with minimal admin area functionality. **Your admin will be able to login and change his password or email.** And that’s pretty much it. 
+
+![Backpack 3.5 Authentication Screens](https://backpackforlaravel.com/uploads/docs-3-5/getting_started/auth_screens.png)
 
 Thanks to Base, after you [install Backpack](/docs/{{version}}/installation) (don't do it now), you’ll be able to log into your admin panel at ```http://yourapp/admin```. You can change the URL prefix from ```admin``` to something else in your ```config/backpack/base.php``` file, along with a bunch of other configuration options. [Click here](https://github.com/Laravel-Backpack/Base/blob/master/src/config/backpack/base.php) to browse the configuration file and see what it can do for you.
 

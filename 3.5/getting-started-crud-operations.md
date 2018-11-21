@@ -6,7 +6,7 @@
 
 Let’s bring back the example in our first lesson. The Tags CRUD:
 
-![Tag CRUD - List Entries Operation](https://backpackforlaravel.com/uploads/docs/getting_started/tag_crud_list_entries.png)
+![Tag CRUD - List Entries Operation](https://backpackforlaravel.com/uploads/docs-3-5/getting_started/tag_crud_list_entries.png)
 
 With its ```TagCrudController```:
 
@@ -63,7 +63,7 @@ These are the basic operations an admin can execute on an Eloquent model, thanks
 <a name="create-and-update-operations"></a>
 ## Create & Update Operations
 
-![Tag CRUD - Edit Operation](https://backpackforlaravel.com/uploads/docs/getting_started/tag_crud_edit.png)
+![Tag CRUD - Edit Operation](https://backpackforlaravel.com/uploads/docs-3-5/getting_started/tag_crud_edit.png)
 
 <a name="fields"></a>
 ### Fields
@@ -97,7 +97,7 @@ A typical *field definition array* will need at least three things:
 
 You can use [one of the 44+ field types we’ve provided](/docs/{{version}}/crud-fields#default-field-types), or easily [create a custom field type](/docs/{{version}}/crud-fields#creating-a-custom-field-type) if you have some super-specific need that we haven’t covered yet, or even [overwrite how a field type works](#overwriting-default-field-types). Take a few minutes and [browse the 44+ field types](/docs/{{version}}/crud-fields#default-field-types), to understand how the definition array differs from one to another and how many use cases you have already covered.
 
-Let's take another example, slightly more complicated than the ```text``` fields we used above. Something you'll find encounter all the time is relationship fields. So let's say the ```Tag``` model has an **n-n relationship** with an Article model:
+Let's take another example, slightly more complicated than the ```text``` fields we used above. Something you'll encounter all the time is relationship fields. So let's say the ```Tag``` model has an **n-n relationship** with an Article model:
 
 ```php
     public function articles()
@@ -110,7 +110,6 @@ We could use the code below to add a ```select2_multiple``` field to the Tag upd
 
 ```php
 $this->crud->addField([
-    'label' => "Articles",
     'type' => 'select2_multiple',
     'name' => 'articles', // the relationship name in your Model
     'entity' => 'articles', // the relationship name in your Model
@@ -147,7 +146,7 @@ $this->crud->addField([
 > 
 > (2) delete ```setFromDb()``` and manually define each field and column;
 > 
-> Our recommendation, for anything but the simplest CRUDs, is to manually define each field - much easier to understand and customize, for your future self and any other developer that comes after you.
+> **Our recommendation**, for anything but the simplest CRUDs, **is to manually define each field** - much easier to understand and customize, for your future self and any other developer that comes after you.
 
 <a name="callbacks"></a>
 ### Callbacks
@@ -213,7 +212,7 @@ $this->crud->addColumn('text'); // adds a text column, at the end of the stack
 <a name="filters"></a>
 ### Filters
 
-![Monster CRUD - List Entries Filters](https://backpackforlaravel.com/uploads/docs/getting_started/backpack_filters.png)
+![Monster CRUD - List Entries Filters](https://backpackforlaravel.com/uploads/docs-3-5/getting_started/backpack_filters.png)
 
 Filters provide an easy way for the admin to well… _filter_ the ListEntries table. The syntax is very similar to Fields and Columns and you can use one of the [existing 8 filter types](/docs/{{version}}/crud-filters) or easily [create a custom filter](/docs/{{version}}/crud-filters#creating-custom-filters). 
 
@@ -228,7 +227,7 @@ For more on this, check out the [filters documentation page](/docs/{{version}}/c
 <a name="buttons"></a>
 ### Buttons
 
-![Tag CRUD - List Entries Buttons](https://backpackforlaravel.com/uploads/docs/getting_started/backpack_buttons.png)
+![Tag CRUD - List Entries Buttons](https://backpackforlaravel.com/uploads/docs-3-5/getting_started/backpack_buttons.png)
 
 If you want to add a custom button to an entry, you can do that. If you want to remove a button, you can also do that. Look for the [buttons documentation](/docs/{{version}}/crud-buttons) when you need it.  
 

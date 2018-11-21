@@ -9,13 +9,19 @@ If you can run Laravel 5.6, you can install Backpack. Backpack does _not_ have a
 
 - you have a working [installation of Laravel 5.6](https://laravel.com/docs/5.6#installing-laravel) (an existing project is fine, you don't need a *fresh* Laravel install);
 
-- you can run the ```composer``` command from any directory (you have composer registered as a global command); if you need to run ```php composer.phar``` or reference another directory, please remember to adapt the commands below to your configuration;
+- you can run the ```composer``` command from any directory (you have ```composer``` registered as a global command); if you need to run ```php composer.phar``` or reference another directory, please remember to adapt the commands below to your configuration;
 
 <a name="installation"></a>
 ## Installation
 
 <a name="install-core-packages"></a>
 ### Install Core Packages
+
+0) Open your project folder in your terminal:
+
+```bash
+cd your-laravel-project-name
+```
 
 1) In your project's main directory, install CRUD using composer:
 
@@ -30,7 +36,7 @@ php artisan backpack:base:install
 php artisan backpack:crud:install
 ```
 
-Note: If you'd also like to enable the [file manager functionality](https://backpackforlaravel.com/uploads/home_slider/4.png), reply "yes" when the installer asks you. By default it lets users manage the ```public/uploads``` directory, but you can change that in the ```elfinder.php``` config file.
+Note: If you'd also like to enable the [file manager functionality](https://backpackforlaravel.com/uploads/home_slider/4.png), reply "yes" when the installer asks you. By default it lets users manage the ```public/uploads``` directory, but you can change that in the ```elfinder.php``` config file. Most of the times it is _not_ recommended to give your admins power over file structure - not even their uploads alone. So ```elfinder``` does not come installed by default.
 
 
 3) [Optional] You should now:
@@ -42,7 +48,7 @@ Note: If you'd also like to enable the [file manager functionality](https://back
 rm -rf app/Http/Controllers/Auth #deletes laravel's demo auth controllers
 ```
 
-That's it. If you already know how to use Backpack, next up you'll probably want to [create CRUD Panels](/docs/{{version}}/introduction#creating-crud-panels).
+That's it. If you already know how to use Backpack, next up you'll probably want to [create CRUD Panels](/docs/{{version}}/crud-tutorial#generate-files).
 
 > If it's your first time installing Backpack, it is **highly recommended** that you go through our [Getting Started series](/docs/{{version}}/getting-started-basics), to understand how Backpack works. That's why we created it - to help you learn how to use this admin panel framework. In ~23 minutes we'll teach you 80% of what you can do, and how.
 

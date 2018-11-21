@@ -17,12 +17,12 @@ Take a look at:
 ## License
 
 Backpack is **free for non-commercial use**, but needs a license code in order to prevent “_unlicensed use_” notification bubbles and interruption of service. You can get a license code for your project:
-- ```free```, if you're using it for non-commercial purposes;
-- ```free```, if you've contributed to Backpack on Github;
-- ```$49 EUR/project```, if you're making money using it for a project;
-- ```$299 EUR for unlimited projects```, if you like Backpack and would like to keep using it for a lot of projects;
+- ```free```, if you're using it for non-commercial purposes; [apply here](https://backpackforlaravel.com/pricing);
+- ```free```, if you've contributed to Backpack on Github; [apply here](https://backpackforlaravel.com/pricing);
+- ```$49 EUR/project```, if you're making money using it for a project; [buy here](https://backpackforlaravel.com/pricing);
+- ```$299 EUR for unlimited projects```, if you use Backpack a lot; [buy here](https://backpackforlaravel.com/pricing);
 
-But **developers** or companies **who make money using it** - for themselves, their employers or their clients, **should [purchase a commercial license here](https://backpackforlaravel.com/pricing)**. We do give away free license codes for personal use, non-commercial purposes, non-profits or Backpack contributors, just [let us know](https://backpackforlaravel.com/contact), happy to help.
+**Freelancers** or companies **who make money using Backpack** - for themselves, their employers or their clients, **should [purchase a commercial license here](https://backpackforlaravel.com/pricing)**.
 
 
 >**You don't need a license code on LOCALHOST.** If you’re just trying Backpack on your own machine, you don’t need a license code. You only need a license code when you take your application to production.
