@@ -40,7 +40,7 @@ Backpack\Base pulls in the free [AdminLTE](https://adminlte.io/themes/AdminLTE/i
 
 <a name="backpack-crud"></a>
 ### Backpack\CRUD
-This is where it gets interesting. As soon as you [install Backpack](docs/3.4/installation) in your project, you can create **CRUDs** for your admins to easily manipulate DB information. Let’s browse through a simple example, of creating a CRUD administration panel for a Tag entity:
+This is where it gets interesting. As soon as you [install Backpack](docs/{{version}}/installation) in your project, you can create **CRUDs** for your admins to easily manipulate DB information. Let’s browse through a simple example, of creating a CRUD administration panel for a Tag entity:
 
 ```zsh
 # STEP 1. create migration
