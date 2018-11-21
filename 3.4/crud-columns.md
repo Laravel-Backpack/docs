@@ -487,7 +487,7 @@ Examples:
 - creating a ```resources\views\vendor\backpack\crud\columns\number.blade.php``` file would overwrite the ```number``` column functionality;
 - ```php artisan backpack:crud:publish columns/text``` will take the view from the package and copy it to the directory above, so you can edit it;
 
->Keep in mind that when you're overwriting a default column type, you're forfeiting any for that column. We can't push updates to a file that you're no longer using.
+>Keep in mind that when you're overwriting a default column type, you're forfeiting any future updates for that column. We can't push updates to a file that you're no longer using.
 
 <a name="creating-a-custom-column-type"></a>
 ## Creating a Custom Column Type
@@ -615,3 +615,5 @@ You can make the last column be less important (and hide) by giving it an unreas
 ```php
 $this->crud->setActionsColumnPriority(10000);
 ```
+
+>Note that repsonsive tables adopt special behavior if the table is not able to show all columns. This includes displaying a vertical elipsis to the left of the row, and making the row clickable to reveal more detail. This behavior is automatic and is not manually controllable via a field property.

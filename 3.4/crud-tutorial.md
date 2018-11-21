@@ -315,7 +315,7 @@ class TagRequest extends FormRequest
 
 ```
 
-This file is a 100% pure FormRequest file - all Laravel, nothing particular to Backapack. In generated FormRequest files, no validation rules are imposed by default. But we do want ```name``` to be ```required``` and ```unique```, so let's do that, using the [standard Laravel validation rules](https://laravel.com/docs/master/validation#available-validation-rules):
+This file is a 100% pure FormRequest file - all Laravel, nothing particular to Backpack. In generated FormRequest files, no validation rules are imposed by default. But we do want ```name``` to be ```required``` and ```unique```, so let's do that, using the [standard Laravel validation rules](https://laravel.com/docs/master/validation#available-validation-rules):
 
 ```diff
     /**

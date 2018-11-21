@@ -42,11 +42,12 @@ There are a few optional attributes on all default field types, that you can use
     'attributes' => [
        'placeholder' => 'Some text when empty',
        'class' => 'form-control some-class'
+       'readonly'=>'readonly',
+       'disabled'=>'disabled',
      ], // change the HTML attributes of your input
      'wrapperAttributes' => [
        'class' => 'form-group col-md-12'
      ], // change the HTML attributes for the field wrapper - mostly for resizing fields 
-     'readonly'=>'readonly',
 ]
 ```
 
@@ -347,6 +348,11 @@ Show a wysiwyg CKEditor to the user.
     'type' => 'ckeditor',
     // optional:
     'extra_plugins' => ['oembed', 'widget', 'justify']
+    'options' => [
+	'autoGrow_minHeight' => 200,
+	'autoGrow_bottomSpace' => 50,
+	'removePlugins' => 'resize,maximize',
+    ]
 ],
 ```
 
@@ -613,7 +619,7 @@ $this->crud->addField([ // image
     'crop' => true, // set to true to allow cropping, false to disable
     'aspect_ratio' => 1, // ommit or set to 0 to allow any aspect ratio
     // 'disk' => 's3_bucket', // in case you need to show images from a different disk
-    // 'prefix' => 'uploads/images/profile_pictures/' // in case you only store the filename in the database, this text will be prepended to the database value
+    // 'prefix' => 'uploads/images/profile_pictures/' // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
 ]);
 ```
 
@@ -639,7 +645,7 @@ public function setImageAttribute($value)
     	if (starts_with($value, 'data:image'))
     	{
     		// 0. Make the image
-    		$image = \Image::make($value);
+    		$image = \Image::make($value)->encode('jpg', 90);
     		// 1. Generate a filename.
 	    	$filename = md5($value.time()).'.jpg';
 	    	// 2. Store the image on disk.

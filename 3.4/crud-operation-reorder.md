@@ -12,7 +12,9 @@ This operation allows your admins to reoder & nest entries.
 <a name="requirements"></a>
 ## Requirements
 
-Your model should have the following fields: ```parent_id```, ```lft```, ```rgt```, ```depth```
+Your model should have the following integer fields, with a default value of 0: ```parent_id```, ```lft```, ```rgt```, ```depth```.
+
+Additionnaly, the `parent_id` field has to be nullable.
 
 <a name="how-to-use"></a>
 ## How to Use

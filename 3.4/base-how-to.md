@@ -23,11 +23,11 @@ public function index() {
     $someVar = 'Some text';
     return view('vendor.backpack.base.dashboard', compact('someVar'));
 }
-
+```
 Update the dashboard view located at: ```resources/view/vendor/backpack/base/dashboard.blade.php```
 
 NOTE: if you don't have this folder you need to publish vendor assets
-php artisan vendor:publish --provider="Backpack\Base\BaseServiceProvider" 
+```php artisan vendor:publish --provider="Backpack\Base\BaseServiceProvider" ```
 
 ## Customizing the general layout/design
 
@@ -87,6 +87,24 @@ Route::group(['middleware' => 'web', 'prefix' => config('backpack.base.route_pre
 ```
 
 Additionally, you can place a new routes file in your ```app/routes/backpack/base.php```. If a file is present there, no default Backpack\Base routes will be loaded, only what's present in that file.
+
+<a name="customize-overlays-css"></a>
+## Customize the look and feel of AdminLTE (using CSS Overlays)
+
+In ```config/app.php``` you should have a config option that looks like this:
+
+```php
+    // Overlays - CSS files that change the look and feel of the admin panel
+    'overlays' => [
+        'vendor/backpack/overlays/backpack.bold.css',
+    ],
+```
+
+If you don't (it was added in Base 0.9.9), you can create it.
+
+This config option allows you to add CSS files that add style _on top_ of AdminLTE, to make it look different. Our ```backpack.bold.css``` file is included by default, which makes AdminLTE look more modern. But if you want your backend to match your front-end, you can create a CSS file anywhere inside your ```public``` folder, and add it here.
+
+For example, if you're using the [Stack HTML template](https://themeforest.net/item/stack-multipurpose-html-with-page-builder/19337626?ref=medium_rare) on your front-end, you can just [add this overlay](https://gist.github.com/tabacitu/4f7eae0519e37aef46cbb959b8ab01a9) to make AdminLTE look very similar.
 
 <a name="use-sparate-login-for-users-and-admins"></a>
 ## Use separate login/register forms for users and admins
@@ -179,6 +197,15 @@ That's it. This will:
 - use ```username``` for registration;
 - use ```username``` in My Account, when a user wants to change his info;
 - completely disable the password recovery (if you've deleted the ```email``` db column);
+
+
+<a name="use-your-own-user-model-instead-of-backpack-user"></a>
+## Use your own User model instead of BackpackUser
+
+By default, authentication and everything else inside Backpack is done using the ```Backpack\Base\app\Models\BackpackUser``` model, which extends Laravel's default ```App\User``` model. If you change the location of ```App\User```, or want to use a different User model for whatever other reason, you can do so by
+- changing ```user_model_fqn``` in ```config/backpack/base.php``` to your new class;
+- making sure everything inside ```BackpackUser``` is also inside your new model (this is important for recovering password, etc);
+
 
 <a name="manually-install-backpack-base"></a>
 ## Manually install Base

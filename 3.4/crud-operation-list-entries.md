@@ -127,6 +127,20 @@ $this->crud->orderBy();
 // please note it's generally a good idea to use crud->orderBy() inside "if (!$this->request->has('order')) {}"; that way, your custom order is applied ONLY IF the user hasn't forced another order (by clicking a column heading)
 ```
 
+<a name="custom-query"></a>
+#### Responsive Table
+
+If you CRUD table has more columns than can fit inside the viewport (on mobile / tablet or smaller desktop screens), unimportant columns will start hiding and an expansion icon (three dots) will appear to the left of each row. We call this behaviour "_responsive table_", and consider this to be the best UX. By behaviour we consider the 1st column the most important, than 2nd, than 3rd, etc; the "actions" column is considered as important as the 1st column. You can of course [change the importance of columns](/docs/{{version}}/crud-columns#define-which-columns-to-hide-in-responsive-table).
+
+If you do not like this, you can **toggle off the responsive behaviour for all CRUD tables** by changing this config value in your ```config/backpack/crud.php``` to ```false```:
+```php
+    // enable the datatables-responsive plugin, which hides columns if they don't fit?
+    // if not, a horizontal scrollbar will be shown instead
+    'responsive_table' => true
+```
+
+To turn off the responsive table behaviour for _just one CRUD panel_, you can use ```$this->crud->disableResponsiveTable()``` in your ```setup()``` method.
+
 <a name="how-to-overwrite"></a>
 ## How to Overwrite
 
