@@ -196,7 +196,7 @@ By default, authentication and everything else inside Backpack is done using the
 
 If for any reason the Backpack/Base installation process fails for you, you can manually run all the commands in the installer, which are listed below. Failure to install can happens sometimes if the user does not have enough permissions (sudo access is needed) or if the composer command is not registered (and ```php composer``` needs to be run instead).
 
-```zsh
+```bash
 # Install backpack/generators
 composer require backpack/generators --dev
 
@@ -211,4 +211,10 @@ php artisan vendor:publish --provider="Prologue\Alerts\AlertsServiceProvider"
 
 # Generate users table (using Laravel's default migrations)
 php artisan migrate
+
+# Publish the BackpackUser model inside your app/Models directory
+php artisan backpack:base:publish-user-model
+
+# Publish the CheckIfAdmin middleware inside your app/Http/Middleware directory
+php artisan backpack:base:publish-middleware
 ```
