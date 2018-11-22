@@ -7,7 +7,7 @@
 
 If you can run Laravel 5.6, you can install Backpack. Backpack does _not_ have additional requirements. For the following process, we assume:
 
-- you have a working [installation of Laravel 5.6](https://laravel.com/docs/5.6#installing-laravel) (an existing project is fine, you don't need a *fresh* Laravel install);
+- you have a working installation of [Laravel 5.7](https://laravel.com/docs/5.7#installing-laravel) or [Laravel 5.6](https://laravel.com/docs/5.6#installing-laravel) (an existing project is fine, you don't need a *fresh* Laravel install);
 
 - you can run the ```composer``` command from any directory (you have ```composer``` registered as a global command); if you need to run ```php composer.phar``` or reference another directory, please remember to adapt the commands below to your configuration;
 
