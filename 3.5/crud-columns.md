@@ -237,6 +237,7 @@ The model_function column will output a function on your main model. Its definit
    'label' => "URL", // Table column heading
    'type' => "model_function",
    'function_name' => 'getSlugWithLink', // the method in your Model
+   // 'function_parameters' => [$one, $two], // pass one/more parameters to that method
    // 'limit' => 100, // Limit the number of characters shown
 ],
 ```
@@ -260,6 +261,7 @@ If the function you're trying to use returns an object, not a string, you can us
    'label' => "URL", // Table column heading
    'type' => "model_function_attribute",
    'function_name' => 'getSlugWithLink', // the method in your Model
+   // 'function_parameters' => [$one, $two], // pass one/more parameters to that method
    'attribute' => 'route',
    // 'limit' => 100, // Limit the number of characters shown
 ],

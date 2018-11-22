@@ -189,3 +189,97 @@ $this->crud->addFilter([ // add a "simple" filter called Draft
         });
 ```
 This will make Backpack look for the ```resources/views/custom_filters/complex.blade.php```, and pick that up before anything else.
+
+<a name="add-a-select-that-depends-on-another-field"></a>
+## Add a select2 field that depends on another field
+
+The ```select2_from_ajax``` and ```select2_from_ajax_multiple``` fields allow you to filter the results of a select2, depending on what has already been selected in a form. Say you have to select2 fields. When the AJAX call is made to the second field, all other variables in the page also get passed - that means you can filter the results of the second select2.
+
+Say you want to show two selects:
+- the first one shows Categories
+- the second one shows Articles, but only from the category above
+
+1. In you CrudController you would do:
+
+```php
+
+        $this->crud->addField([    // SELECT2
+            'label'         => ‘Category',
+            'type'          => 'select',
+            'name'          => ‘category',
+            'entity'        => 'category',
+            'attribute'     => 'name',
+        ]);
+
+        $this->crud->addField([ // select2_from_ajax: 1-n relationship
+            'label'                => "Article", // Table column heading
+            'type'                 => 'select2_from_ajax_multiple',
+            'name'                 => 'articles', // the column that contains the ID of that connected entity;
+            'entity'               => 'article', // the method that defines the relationship in your Model
+            'attribute'            => 'title', // foreign key attribute that is shown to user
+            'data_source'          => url('api/article'), // url to controller search function (with /{id} should return model)
+            'placeholder'          => 'Select an article', // placeholder for the select
+            'minimum_input_length' => 0, // minimum characters to type before querying results
+            'dependencies'         => [‘category’], // when a dependency changes, this select2 is reset to null
+            // ‘method'                    => ‘GET’, // optional - HTTP method to use for the AJAX call (GET, POST)
+        ]);
+```
+
+**DIFFERENT HERE**: ```minimum_input_length``` and ```dependencies```.
+
+2. That second select points to routes that need to be registered:
+
+```php
+Route::get('api/article', 'App\Http\Controllers\Api\ArticleController@index');
+Route::get('api/article/{id}', 'App\Http\Controllers\Api\ArticleController@show’);
+```
+
+**DIFFERENT HERE**: Nothing.
+
+3. Then that controller would look something like this:
+
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use Backpack\NewsCRUD\app\Models\Article;
+use Illuminate\Http\Request;
+
+class ArticleController extends Controller
+{
+    public function index(Request $request)
+    {
+        $search_term = $request->input('q');
+        $form = collect($request->input('form'))->pluck('value', 'name');
+
+        $options = Article::query();
+
+        // if no category has been selected, show no options
+        if (! $form['category']) {
+            return [];
+        }
+
+        // if a category has been selected, only show articles in that category
+        if ($form['category']) {
+            $options = $options->where('category_id', $form['category']);
+        }
+
+        if ($search_term) {
+            $results = $options->where('title', 'LIKE', '%'.$search_term.'%')->paginate(10);
+        } else {
+            $results = $options->paginate(10);
+        }
+
+        return $options->paginate(10);
+    }
+
+    public function show($id)
+    {
+        return Article::find($id);
+    }
+}
+```
+
+**DIFFERENT HERE**: We use ```$form``` to determine what other variables have been selected in the form, and modify the result accordingly.

@@ -163,7 +163,7 @@ $this->crud->addField([ // select_from_array
     'options' => ['one' => 'One', 'two' => 'Two', 'three' => 'Three'],
     'allows_null' => false,
     'allows_multiple' => true,
-    'tab' => 'Tab name here'
+    'tab' => 'Tab name here',
 ]);
 ```
 
@@ -173,8 +173,8 @@ If you forget to specify a tab name for a field, Backpack will place it above al
 <a name="default-field-types"></a>
 ## Default Field Types
 
-<a name="address"></a>
-### address
+<a name="address_algolia"></a>
+### address_algolia
 
 Use [Algolia Places autocomplete](https://community.algolia.com/places/) to help users type their address faster. With the ```store_as_json``` option, it will store the address, postcode, city, country, latitude and longitude in a JSON in the database. Without it, it will just store the address string.
 
@@ -182,7 +182,7 @@ Use [Algolia Places autocomplete](https://community.algolia.com/places/) to help
 [   // Address
     'name' => 'address',
     'label' => 'Address',
-    'type' => 'address',
+    'type' => 'address_algolia',
     // optional
     'store_as_json' => true
 ],
@@ -193,7 +193,36 @@ Use [Algolia Places autocomplete](https://community.algolia.com/places/) to help
 
 Input preview: 
 
-![CRUD Field - address](https://backpackforlaravel.com/uploads/docs/fields/address.png)
+![CRUD Field - address](https://backpackforlaravel.com/uploads/docs-3-5/fields/address.png)
+
+<a name="address_google"></a>
+### address_google
+
+Use [Google Places Search](https://developers.google.com/places/web-service/search) to help users type their address faster. With the ```store_as_json``` option, it will store the address, postcode, city, country, latitude and longitude in a JSON in the database. Without it, it will just store the complete address string.
+
+```php
+[   // Address
+    'name' => 'address',
+    'label' => 'Address',
+    'type' => 'address_google',
+    // optional
+    'store_as_json' => true
+],
+```
+
+Using Google Places API is dependant on using an API Key. Please [get an API key](https://console.cloud.google.com/apis/credentials) - you do have to configure billing, but you qualify for $200/mo free usage, which covers most use cases. Then copy-paste that key as your ```services.google_places.key``` value. So inside your ```config/services.php``` please add the items below:
+
+```php
+    'google_places' => [
+        'key' => ’the-key-you-got-from-google-places'
+    ],
+```
+
+> **Use attribute casting.** For information stored as JSON in the database, it's recommended that you use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) to ```array``` or ```object```. That way, every time you get the info from the database you'd get it in a usable format.
+
+Input preview: 
+
+![CRUD Field - address](https://backpackforlaravel.com/uploads/docs-3-5/fields/address_google.png)
 
 <a name="browse"></a>
 ### browse
@@ -211,11 +240,11 @@ If you've chosen to use [elFinder](http://elfinder.org/) upon Backpack installat
 
 Input preview: 
 
-![CRUD Field - browse](https://backpackforlaravel.com/uploads/docs/fields/browse.png)
+![CRUD Field - browse](https://backpackforlaravel.com/uploads/docs-3-5/fields/browse.png)
 
 Onclick preview:
 
-![CRUD Field - browse popup](https://backpackforlaravel.com/uploads/docs/fields/browse_popup.png)
+![CRUD Field - browse popup](https://backpackforlaravel.com/uploads/docs-3-5/fields/browse_popup.png)
 
 <a name="browse-multiple"></a>
 ### browse_multiple
@@ -236,7 +265,7 @@ We recommend you cast your attribute as ```array``` on your model.  That way, wh
 
 Input preview: 
 
-![CRUD Field - browse_multiple](https://backpackforlaravel.com/uploads/docs/fields/browse_multiple.png)
+![CRUD Field - browse_multiple](https://backpackforlaravel.com/uploads/docs-3-5/fields/browse_multiple.png)
 
 <a name="base64-image"></a>
 ### base64_image
@@ -259,7 +288,7 @@ $this->crud->addField([ // base64_image
 
 Input preview: 
 
-![CRUD Field - base64_image](https://backpackforlaravel.com/uploads/docs/fields/base64_image.png)
+![CRUD Field - base64_image](https://backpackforlaravel.com/uploads/docs-3-5/fields/base64_image.png)
 
 <a name="checkbox"></a>
 ### checkbox
@@ -276,7 +305,7 @@ Checkbox for true/false.
 
 Input preview: 
 
-![CRUD Field - checkbox](https://backpackforlaravel.com/uploads/docs/fields/checkbox.png)
+![CRUD Field - checkbox](https://backpackforlaravel.com/uploads/docs-3-5/fields/checkbox.png)
 
 <a name="checklist"></a>
 ### checklist
@@ -295,7 +324,7 @@ Input preview:
 
 Input preview: 
 
-![CRUD Field - checklist](https://backpackforlaravel.com/uploads/docs/fields/checklist.png)
+![CRUD Field - checklist](https://backpackforlaravel.com/uploads/docs-3-5/fields/checklist.png)
 
 <a name="checklist-dependency"></a>
 ### checklist_dependency
@@ -334,7 +363,7 @@ Input preview:
 
 Input preview: 
 
-![CRUD Field - checklist_dependency](https://backpackforlaravel.com/uploads/docs/fields/checklist_dependency.png)
+![CRUD Field - checklist_dependency](https://backpackforlaravel.com/uploads/docs-3-5/fields/checklist_dependency.png)
 
 <a name="ckeditor"></a>
 ### ckeditor
@@ -358,7 +387,7 @@ Show a wysiwyg CKEditor to the user.
 
 Input preview: 
 
-![CRUD Field - ckeditor](https://backpackforlaravel.com/uploads/docs/fields/ckeditor.png)
+![CRUD Field - ckeditor](https://backpackforlaravel.com/uploads/docs-3-5/fields/ckeditor.png)
 
 <a name="color"></a>
 ### color
@@ -373,7 +402,7 @@ Input preview:
 
 Input preview: 
 
-![CRUD Field - color](https://backpackforlaravel.com/uploads/docs/fields/color.png)
+![CRUD Field - color](https://backpackforlaravel.com/uploads/docs-3-5/fields/color.png)
 
 <a name="color-picker"></a>
 ### color_picker
@@ -391,7 +420,7 @@ Show a pretty colour picker using [Bootstrap Colorpicker](https://itsjavi.com/bo
 
 Input preview: 
 
-![CRUD Field - color_picker](https://backpackforlaravel.com/uploads/docs/fields/color_picker.png)
+![CRUD Field - color_picker](https://backpackforlaravel.com/uploads/docs-3-5/fields/color_picker.png)
 
 <a name="custom-html"></a>
 ### custom_html
@@ -419,7 +448,7 @@ Allows you to insert custom HTML in the create/update forms. Usually used in for
 
 Input preview: 
 
-![CRUD Field - date](https://backpackforlaravel.com/uploads/docs/fields/date.png)
+![CRUD Field - date](https://backpackforlaravel.com/uploads/docs-3-5/fields/date.png)
 
 <a name="date-picker"></a>
 ### date_picker
@@ -445,7 +474,7 @@ Please note it is recommended that you use [attribute casting](https://laravel.c
 
 Input preview: 
 
-![CRUD Field - date_picker](https://backpackforlaravel.com/uploads/docs/fields/date_picker.png)
+![CRUD Field - date_picker](https://backpackforlaravel.com/uploads/docs-3-5/fields/date_picker.png)
 
 <a name="date-range"></a>
 ### date_range
@@ -477,7 +506,7 @@ Your end result will look like this:
 
 Input preview: 
 
-![CRUD Field - date_range](https://backpackforlaravel.com/uploads/docs/fields/date_range.png)
+![CRUD Field - date_range](https://backpackforlaravel.com/uploads/docs-3-5/fields/date_range.png)
 
 <a name="datetime"></a>
 ### datetime
@@ -500,7 +529,7 @@ Otherwise the input's datetime-local formal will cause some errors.
 
 Input preview: 
 
-![CRUD Field - datetime](https://backpackforlaravel.com/uploads/docs/fields/datetime.png)
+![CRUD Field - datetime](https://backpackforlaravel.com/uploads/docs-3-5/fields/datetime.png)
 
 <a name="datetime-picker"></a>
 ### datetime_picker
@@ -532,7 +561,7 @@ Otherwise the input's datetime-local formal will cause some errors. Remeber to c
 
 Input preview: 
 
-![CRUD Field - datetime_picker](https://backpackforlaravel.com/uploads/docs/fields/datetime_picker.png)
+![CRUD Field - datetime_picker](https://backpackforlaravel.com/uploads/docs-3-5/fields/datetime_picker.png)
 
 <a name="email"></a>
 ### email
@@ -547,7 +576,7 @@ Input preview:
 
 Input preview: 
 
-![CRUD Field - email](https://backpackforlaravel.com/uploads/docs/fields/email.png)
+![CRUD Field - email](https://backpackforlaravel.com/uploads/docs-3-5/fields/email.png)
 
 
 <a name="enum"></a>
@@ -567,7 +596,7 @@ PLEASE NOTE the enum field only works for MySQL databases.
 
 Input preview: 
 
-![CRUD Field - enum](https://backpackforlaravel.com/uploads/docs/fields/enum.png)
+![CRUD Field - enum](https://backpackforlaravel.com/uploads/docs-3-5/fields/enum.png)
 
 <a name="hidden"></a>
 ### hidden
@@ -602,7 +631,7 @@ Your input will look like button, with a dropdown where the user can search or p
 
 Input preview: 
 
-![CRUD Field - icon_picker](https://backpackforlaravel.com/uploads/docs/fields/icon_picker.png)
+![CRUD Field - icon_picker](https://backpackforlaravel.com/uploads/docs-3-5/fields/icon_picker.png)
 
 <a name="image"></a>
 ### image
@@ -678,7 +707,7 @@ And you can, of course, use any value for more extreme rectangles.
 
 Input preview: 
 
-![CRUD Field - image](https://backpackforlaravel.com/uploads/docs/fields/image.png)
+![CRUD Field - image](https://backpackforlaravel.com/uploads/docs-3-5/fields/image.png)
 
 
 <a name="month"></a>
@@ -694,7 +723,7 @@ Input preview:
 
 Input preview: 
 
-![CRUD Field - month](https://backpackforlaravel.com/uploads/docs/fields/month.png)
+![CRUD Field - month](https://backpackforlaravel.com/uploads/docs-3-5/fields/month.png)
 
 <a name="number"></a>
 ### number
@@ -715,7 +744,7 @@ Shows an input type=number to the user, with optional prefix and suffix:
 
 Input preview: 
 
-![CRUD Field - number](https://backpackforlaravel.com/uploads/docs/fields/number.png)
+![CRUD Field - number](https://backpackforlaravel.com/uploads/docs-3-5/fields/number.png)
 
 <a name="page-or-link"></a>
 ### page_or_link
@@ -732,7 +761,7 @@ Select an existing page from PageManager or an internal or external link. It’s
 
 Input preview: 
 
-![CRUD Field - page_or_link](https://backpackforlaravel.com/uploads/docs/fields/page_or_link.png)
+![CRUD Field - page_or_link](https://backpackforlaravel.com/uploads/docs-3-5/fields/page_or_link.png)
 
 <a name="password"></a>
 ### password
@@ -747,7 +776,7 @@ Input preview:
 
 Input preview: 
 
-![CRUD Field - password](https://backpackforlaravel.com/uploads/docs/fields/password.png)
+![CRUD Field - password](https://backpackforlaravel.com/uploads/docs-3-5/fields/password.png)
 
 <a name="radio"></a>
 ### radio
@@ -770,7 +799,7 @@ Show radios according to an associative array you give the input and let the use
 
 Input preview: 
 
-![CRUD Field - radio](https://backpackforlaravel.com/uploads/docs/fields/radio.png)
+![CRUD Field - radio](https://backpackforlaravel.com/uploads/docs-3-5/fields/radio.png)
 
 <a name="range"></a>
 ### range
@@ -785,7 +814,7 @@ Input preview:
 
 Input preview: 
 
-![CRUD Field - range](https://backpackforlaravel.com/uploads/docs/fields/range.png)
+![CRUD Field - range](https://backpackforlaravel.com/uploads/docs-3-5/fields/range.png)
 
 <a name="select"></a>
 ### select (1-n relationship)
@@ -800,13 +829,18 @@ Your relationships should already be defined on your models.
    'name' => 'category_id', // the db column for the foreign key
    'entity' => 'category', // the method that defines the relationship in your Model
    'attribute' => 'name', // foreign key attribute that is shown to user
-   'model' => "App\Models\Tag" // foreign key model
+   'model' => "App\Models\Tag",
+
+   // optional
+   'options'   => (function ($query) {
+        return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
+    }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
 ]
 ```
 
 Input preview: 
 
-![CRUD Field - select](https://backpackforlaravel.com/uploads/docs/fields/select.png)
+![CRUD Field - select](https://backpackforlaravel.com/uploads/docs-3-5/fields/select.png)
 
 <a name="select2"></a>
 ### select2 (1-n relationship)
@@ -821,13 +855,18 @@ Your relationships should already be defined on your models.
    'name' => 'category_id', // the db column for the foreign key
    'entity' => 'category', // the method that defines the relationship in your Model
    'attribute' => 'name', // foreign key attribute that is shown to user
-   'model' => "App\Models\Tag" // foreign key model
+   'model' => "App\Models\Tag", // foreign key model
+
+   // optional
+   'options'   => (function ($query) {
+        return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
+    }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
 ]
 ```
 
 Input preview: 
 
-![CRUD Field - select2](https://backpackforlaravel.com/uploads/docs/fields/select2.png)
+![CRUD Field - select2](https://backpackforlaravel.com/uploads/docs-3-5/fields/select2_nested.png)
 
 <a name="select-multiple"></a>
 ### select_multiple (n-n relationship)
@@ -844,12 +883,17 @@ Your relationships should already be defined on your models.
 	'attribute' => 'name', // foreign key attribute that is shown to user
 	'model' => "App\Models\Tag", // foreign key model
 	'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
+
+   // optional
+   'options'   => (function ($query) {
+        return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
+    }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
 ]
 ```
 
 Input preview: 
 
-![CRUD Field - select_multiple](https://backpackforlaravel.com/uploads/docs/fields/select_multiple.png)
+![CRUD Field - select_multiple](https://backpackforlaravel.com/uploads/docs-3-5/fields/select_multiple.png)
 
 <a name="select2-multiple"></a>
 ### select2_multiple (n-n relationship)
@@ -869,12 +913,82 @@ Your relationships should already be defined on your models.
 	'model' => "App\Models\Tag", // foreign key model
 	'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
 	// 'select_all' => true, // show Select All and Clear buttons?
+
+   // optional
+   'options'   => (function ($query) {
+        return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
+    }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
 ]
 ```
 
 Input preview: 
 
-![CRUD Field - select2_multiple](https://backpackforlaravel.com/uploads/docs/fields/select2_multiple.png)
+![CRUD Field - select2_multiple](https://backpackforlaravel.com/uploads/docs-3-5/fields/select2_multiple.png)
+
+<a name="select2-nested"></a>
+### select2_nested
+
+Display a select2 with the values ordered hierarchically and indented, for an entity where you use Reorder. Please mind that the connected model needs:
+- a ```children()``` relationship pointing to itself;
+- the usual ```lft```, ```rgt```, ```depth``` attributes;
+
+```php
+[ // select2_nested
+    'name' => 'category_id',
+    'label' => "Category",
+    'type' => 'select2_nested',
+    'entity' => 'category', // the method that defines the relationship in your Model
+    'attribute' => 'name', // foreign key attribute that is shown to user
+    // 'model' => "App\Models\Category", // force foreign key model
+],
+```
+
+Input preview:
+
+![CRUD Field - select2_from_array](https://backpackforlaravel.com/uploads/docs-3-5/fields/select2_from_array.png)
+
+<a name="select_and_order"></a>
+### select_and_order
+
+Display items on two columns and let the user drag&drop between them to choose which items are selected an which are not, and reorder the selected items with drag&drop.
+
+Its definition is exactly as ```select_from_array```, but the value will be stored as JSON in the database: ```["3","5","7","6"]```, so it needs the attribute to be cast to array on the Model:
+
+```php
+protected $casts = [
+    'featured' => 'array'
+];
+```
+
+Definition:
+
+```php
+[ // select_and_order
+    'name' => 'featured',
+    'label' => "Featured",
+    'type' => 'select_and_order',
+    'options' => [
+        1 => "Option 1",
+        2 => "Option 2"
+    ]
+],
+```
+
+Also possible:
+
+```php
+[
+    'name' => 'featured',
+    'label' => 'Featured',
+    'type' => 'select_and_order',
+    'options' => Product::get()->pluck('title','id')->toArray(),
+]
+```
+
+Input preview: 
+
+![CRUD Field - select_and_order](https://backpackforlaravel.com/uploads/docs-3-5/fields/select_and_order.png)
+
 
 <a name="select-from-array"></a>
 ### select_from_array
@@ -895,7 +1009,7 @@ Display a select with the values you want:
 
 Input preview: 
 
-![CRUD Field - select_from_array](https://backpackforlaravel.com/uploads/docs/fields/select_from_array.png)
+![CRUD Field - select_from_array](https://backpackforlaravel.com/uploads/docs-3-5/fields/select_from_array.png)
 
 <a name="select2-from-array"></a>
 ### select2_from_array
@@ -916,7 +1030,7 @@ Display a select2 with the values you want:
 
 Input preview: 
 
-![CRUD Field - select2_from_array](https://backpackforlaravel.com/uploads/docs/fields/select2_from_array.png)
+![CRUD Field - select2_from_array](https://backpackforlaravel.com/uploads/docs-3-5/fields/select2_from_array.png)
 
 <a name="select2-from-ajax"></a>
 ### select2_from_ajax
@@ -935,6 +1049,8 @@ Display a select2 that takes its values from an AJAX call.
             'data_source' => url("api/category"), // url to controller search function (with /{id} should return model)
             'placeholder' => "Select a category", // placeholder for the select
             'minimum_input_length' => 2, // minimum characters to type before querying results
+            // 'dependencies'         => [‘category’], // when a dependency changes, this select2 is reset to null
+            // ‘method'                    => ‘GET’, // optional - HTTP method to use for the AJAX call (GET, POST)
  ]
 ```
 
@@ -982,7 +1098,7 @@ class CategoryController extends Controller
 
 Input preview: 
 
-![CRUD Field - select2_from_array](https://backpackforlaravel.com/uploads/docs/fields/select2_from_array.png)
+![CRUD Field - select2_from_array](https://backpackforlaravel.com/uploads/docs-3-5/fields/select2_from_array.png)
 
 <a name="select2-from-ajax-multiple"></a>
 ### select2_from_ajax_multiple
@@ -1049,7 +1165,7 @@ class CategoryController extends Controller
 
 Input preview: 
 
-![CRUD Field - select2_from_ajax_multiple](https://backpackforlaravel.com/uploads/docs/fields/select2_from_ajax_multiple.png)
+![CRUD Field - select2_from_ajax_multiple](https://backpackforlaravel.com/uploads/docs-3-5/fields/select2_from_ajax_multiple.png)
 
 <a name="simplemde"></a>
 ### simplemde
@@ -1074,7 +1190,7 @@ Show a [SimpleMDE markdown editor](https://simplemde.com/) to the user.
 
 Input preview: 
 
-![CRUD Field - simplemde](https://backpackforlaravel.com/uploads/docs/fields/simplemde.png)
+![CRUD Field - simplemde](https://backpackforlaravel.com/uploads/docs-3-5/fields/simplemde.png)
 
 <a name="summernote"></a>
 ### summernote
@@ -1092,7 +1208,7 @@ Show a [Summernote wysiwyg editor](http://summernote.org/) to the user.
 
 Input preview: 
 
-![CRUD Field - summernote](https://backpackforlaravel.com/uploads/docs/fields/summernote.png)
+![CRUD Field - summernote](https://backpackforlaravel.com/uploads/docs-3-5/fields/summernote.png)
 
 <a name="table"></a>
 ### table
@@ -1119,7 +1235,7 @@ Show a table with multiple inputs per row and store the values as JSON in the da
 
 Input preview: 
 
-![CRUD Field - table](https://backpackforlaravel.com/uploads/docs/fields/table.png)
+![CRUD Field - table](https://backpackforlaravel.com/uploads/docs-3-5/fields/table.png)
 
 <a name="text"></a>
 ### text
@@ -1152,7 +1268,7 @@ You can use the optional 'prefix' and 'suffix' attributes to display something b
 
 Input preview: 
 
-![CRUD Field - text](https://backpackforlaravel.com/uploads/docs/fields/text.png)
+![CRUD Field - text](https://backpackforlaravel.com/uploads/docs-3-5/fields/text.png)
 
 <a name="textarea"></a>
 ### textarea
@@ -1169,7 +1285,7 @@ Show a textarea to the user.
 
 Input preview: 
 
-![CRUD Field - textarea](https://backpackforlaravel.com/uploads/docs/fields/textarea.png)
+![CRUD Field - textarea](https://backpackforlaravel.com/uploads/docs-3-5/fields/textarea.png)
 
 <a name="time"></a>
 ### time
@@ -1197,7 +1313,7 @@ Show a wysiwyg (TinyMCE) to the user.
 
 Input preview: 
 
-![CRUD Field - tinymce](https://backpackforlaravel.com/uploads/docs/fields/tinymce.png)
+![CRUD Field - tinymce](https://backpackforlaravel.com/uploads/docs-3-5/fields/tinymce.png)
 
 <a name="upload"></a>
 ### upload
@@ -1262,7 +1378,7 @@ If you're NOT using soft deletes on that Model and want the file to be deleted a
 
 Input preview: 
 
-![CRUD Field - upload](https://backpackforlaravel.com/uploads/docs/fields/upload.png)
+![CRUD Field - upload](https://backpackforlaravel.com/uploads/docs-3-5/fields/upload.png)
 
 <a name="upload-multiple"></a>
 ### upload_multiple
@@ -1342,7 +1458,7 @@ You might notice the field is using a ```clear_photos``` variable. Don't worry, 
 
 Input preview: 
 
-![CRUD Field - upload_multiple](https://backpackforlaravel.com/uploads/docs/fields/upload_multiple.png)
+![CRUD Field - upload_multiple](https://backpackforlaravel.com/uploads/docs-3-5/fields/upload_multiple.png)
 
 
 ### url
@@ -1412,7 +1528,7 @@ Load a custom view in the form.
 
 Input preview: 
 
-![CRUD Field - week](https://backpackforlaravel.com/uploads/docs/fields/week.png)
+![CRUD Field - week](https://backpackforlaravel.com/uploads/docs-3-5/fields/week.png)
 
 <a name="wysiwyg"></a>
 ### wysiwyg

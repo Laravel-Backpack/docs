@@ -52,17 +52,17 @@ Here are the main differences between [Backpack 3.4](https://backpackforlaravel.
 - [#1703](https://github.com/Laravel-Backpack/CRUD/issues/1703) - added ```visibleInExport``` attribute to columns; [documentation here](/docs/3.5/crud-columns#choose-where-columns-are-visible);
 - [#1706](https://github.com/Laravel-Backpack/CRUD/issues/1706) - **added ```visibleInShow``` attribute to columns**; [documentation here](/docs/3.5/crud-columns#choose-where-columns-are-visible);
 - [#1704](https://github.com/Laravel-Backpack/CRUD/issues/1704) - added ```orderLogic``` attribute to columns; [documentation here](/docs/{{version}}/crud-columns#custom-order-logic-for-columns);
+- [#1674](https://github.com/Laravel-Backpack/CRUD/issues/1674) - you can now pass parameters to ```model_function``` and ```model_function_attribute``` column types; added to [documentation here](/docs/3.5/crud-columns#model_function);
 
 #### Fields
 
-- [#1694](https://github.com/Laravel-Backpack/CRUD/issues/1694) - ```options``` option to ```select```, ```select2```, ```select_multiple```, ```select2_multiple```, that allows developers to filter or order the options shown, using a scope or custom query;
-- [#1687](https://github.com/Laravel-Backpack/CRUD/issues/1687) - ```select2_nested``` field type;
-- [#1695](https://github.com/Laravel-Backpack/CRUD/issues/1695) - added ```select_and_order``` field type;
-- [#1712](https://github.com/Laravel-Backpack/CRUD/issues/1712) - added ```address_google``` field type;
-- [#1674](https://github.com/Laravel-Backpack/CRUD/issues/1674) - you can now pass parameters to ```model_function``` and ```model_function_attribute``` column types;
-- [#1484](https://github.com/Laravel-Backpack/CRUD/issues/1484) - added dependant select2s with ajax;
-- [#1484](https://github.com/Laravel-Backpack/CRUD/issues/1484) - added ```method``` attribute to ajax select2s;
-- [#1484](https://github.com/Laravel-Backpack/CRUD/issues/1484) - added ```dependencies``` attribute to ajax select2s;
+- [#1694](https://github.com/Laravel-Backpack/CRUD/issues/1694) - you can now further filter the results shown in a ```select```, ```select2```, ```select_multiple```, ```select2_multiple``` field, buy specifying a custom query or scope; adds a new ```options``` attribute to the mentioned field types, so that they behave similarly to ```select_from_array```; [documentation here](/docs/3.5/crud-fields#select-1-n-relationship);
+- [#1687](https://github.com/Laravel-Backpack/CRUD/issues/1687) - ```select2_nested``` field type; [documentation here](/docs/3.5/crud-fields#select2_nested);
+- [#1695](https://github.com/Laravel-Backpack/CRUD/issues/1695) - added ```select_and_order``` field type; [documentation here](/docs/3.5/crud-fields#select_and_order);
+- [#1712](https://github.com/Laravel-Backpack/CRUD/issues/1712) - added ```address_google``` field type; [documentation here](/docs/3.5/crud-fields#address_google);
+- [#1484](https://github.com/Laravel-Backpack/CRUD/issues/1484) - **the ```select2_from_ajax``` field allows you to filter the results of a select2, depending on what has already been selected in a form** - this means we can now have a select2 that depends on another select2, or a checkbox, or a radio, or whatever; [documentation here](/docs/3.5/crud-how-to#add-a-select2-field-that-depends-on-another-field);
+- [#1484](https://github.com/Laravel-Backpack/CRUD/issues/1484) - added ```method``` attribute to ajax select2s; [documentation here](/docs/3.5/crud-fields#select2_from_ajax);
+- [#1484](https://github.com/Laravel-Backpack/CRUD/issues/1484) - added ```dependencies``` attribute to ajax select2s; [documentation here](/docs/3.5/crud-fields#select2_from_ajax);
 
 #### Operations
 
