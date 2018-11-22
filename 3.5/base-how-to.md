@@ -5,20 +5,23 @@
 <a name="customize-menu-or-sidebar"></a>
 ## Customize the menu or sidebar
 
-During installation, Backpack publishes a few files in you ```resources/views/vendor/backpack/base``` folder. In there, you'll also find ```inc/sidebar_content.php``` and ```inc/menu.php```. Change those files as you please.
+During installation, Backpack publishes a few files in you ```resources/views/vendor/backpack/base/inc``` folder. In there, you'll also find:
+- ```sidebar_content.php```
+- ```topbar_left_content.php```
+- ```topbar_right_content.php```
+
+Change those files as you please.
 
 <a name="customize-dashboard"></a>
 ## Customize the dashboard
 
-In ```config/app.php```, Make sure the "RouteServiceProvider" is set **after** "BaseServiceProvider". 
-
 Add a route, so that the standard route will take the user to a controller you want:
-```
+```php
 Route::get('dashboard', 'DashboardController@index');
 ```
 
 Inside DashboardController on index method return dashboard view.
-```
+```php
 public function index() {
     $someVar = 'Some text';
     return view('vendor.backpack.base.dashboard', compact('someVar'));
@@ -27,11 +30,13 @@ public function index() {
 Update the dashboard view located at: ```resources/view/vendor/backpack/base/dashboard.blade.php```
 
 NOTE: if you don't have this folder you need to publish vendor assets
-```php artisan vendor:publish --provider="Backpack\Base\BaseServiceProvider" ```
+```bash
+php artisan vendor:publish --provider="Backpack\Base\BaseServiceProvider"
+```
 
 ## Customizing the general layout/design
 
-// TODO - use explanation in github issue to write steps
+See [the docs](/docs/{{version}}/base-about#layout-design).
 
 ## Customizing the Auth controllers
 
@@ -53,6 +58,12 @@ Route::group(['middleware' => 'web', 'prefix' => config('backpack.base.route_pre
 
 <a name="customize-routes"></a>
 ## Customize the routes
+
+### Custom routes - option 1
+
+You can place a new routes file in your ```app/routes/backpack/base.php```. If a file is present there, no default Backpack\Base routes will be loaded, only what's present in that file. You can use the routes file ```vendor/backpack/base/src/resources/views/base.php``` as an example, and customize whatever you want.
+
+### Custom routes - option 2
 
 In ```config/backpack/base.php``` you'll find these configuration options:
 
@@ -86,10 +97,8 @@ Route::group(['middleware' => 'web', 'prefix' => config('backpack.base.route_pre
 });
 ```
 
-Additionally, you can place a new routes file in your ```app/routes/backpack/base.php```. If a file is present there, no default Backpack\Base routes will be loaded, only what's present in that file.
-
 <a name="customize-overlays-css"></a>
-## Customize the look and feel of AdminLTE (using CSS Overlays)
+## Customize the look and feel of AdminLTE (using CSS)
 
 In ```config/app.php``` you should have a config option that looks like this:
 
