@@ -1,13 +1,12 @@
 #### About
 
-- [Introduction](/docs/{{version}}/introduction)
-- [Demo](/docs/{{version}}/demo)
-- [Installation](/docs/{{version}}/installation)
-- Getting Started
+- [Getting Started](/docs/{{version}}/introduction)
     - [1. Basics](/docs/{{version}}/getting-started-basics)
     - [2. CRUD Operations](/docs/{{version}}/getting-started-crud-operations)
     - [3. Advanced Features](/docs/{{version}}/getting-started-advanced-features)
     - [4. Add-ons, License & Support](/docs/{{version}}/getting-started-license-and-support)
+- [Demo](/docs/{{version}}/demo)
+- [Installation](/docs/{{version}}/installation)
 - [Release Notes](/docs/{{version}}/release-notes)
 - [Upgrade Guide](/docs/{{version}}/upgrade-guide)
 
