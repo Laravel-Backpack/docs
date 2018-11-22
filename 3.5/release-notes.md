@@ -14,6 +14,9 @@ Here are the main differences between [Backpack 3.4](https://backpackforlaravel.
 - added a ```layout_guest``` template which has no sidebar and no top menu;
 - **login, register, reset password views look much better**, because they're using this new layout with no sidebar; [details and screenshots here](https://github.com/Laravel-Backpack/Base/pull/330);
 - **Backpack authentication is now completely separate** from the scaffolded Laravel authentication; Backpack uses its own auth provider, guard and password broker, that developers can overwrite by adding one with the same name (_backpack_) to their ```config/auth.php``` file; [details here](https://github.com/Laravel-Backpack/Base/pull/293);
+- added ```php artisan backpack:base:publish-user-model``` command; [details here](https://github.com/Laravel-Backpack/Base/pull/334);
+- added ```php artisan backpack:base:publish-middleware``` command; [details here](https://github.com/Laravel-Backpack/Base/pull/334);
+- upon installation, ```BackpackUser``` model and ```CheckIfAdmin``` middleware are published by default - so they can EASILY be customized; [details here](https://github.com/Laravel-Backpack/Base/pull/334);
 - two separate files: ```inc/topbar_left_content.blade.php``` and ```inc/topbar_right_content.blade.php``` where the user can specify additional content for the top menu; [details here](https://github.com/Laravel-Backpack/Base/pull/302); [documentation here](docs/{{version}}/base-how-to#use-separate-login-register-forms-for-users-and-admins);
 - error views now use a layout file, so it’s easier to customize how all error pages look; defaut error view design is now consistent with default AdminLTE design;
 - split ```layout``` into multiple views (```head```, ```scripts```), so it’s easier to customize just one part of it;

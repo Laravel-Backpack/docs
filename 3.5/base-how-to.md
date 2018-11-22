@@ -15,24 +15,44 @@ Change those files as you please.
 <a name="customize-dashboard"></a>
 ## Customize the dashboard
 
-Add a route, so that the standard route will take the user to a controller you want:
-```php
-Route::get('dashboard', 'DashboardController@index');
+The dashboard is shown from ```Backpack\Base\app\Http\Controller\AdminController.php::dashboard()```. If you take a look at that method, you'll see that the only thing it does is to set a title from the language file, and return a view: ```backpack::dashboard```.
+
+In order to place something else inside that view, simply publish that view in your project, and Backpack will pick it up, instead of the one in the package. Create a ```resources/views/backpack/base/dashboard.blade.php``` file:
+
+```html
+@extends('backpack::layout')
+
+@section('header')
+    <section class="content-header">
+      <h1>
+        {{ trans('backpack::base.dashboard') }}<small>{{ trans('backpack::base.first_page_you_see') }}</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="{{ backpack_url() }}">{{ config('backpack.base.project_name') }}</a></li>
+        <li class="active">{{ trans('backpack::base.dashboard') }}</li>
+      </ol>
+    </section>
+@endsection
+
+
+@section('content')
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <div class="box-title">{{ trans('backpack::base.login_status') }}</div>
+                </div>
+
+                <div class="box-body">{{ trans('backpack::base.logged_in') }}</div>
+            </div>
+        </div>
+    </div>
+@endsection
 ```
 
-Inside DashboardController on index method return dashboard view.
-```php
-public function index() {
-    $someVar = 'Some text';
-    return view('vendor.backpack.base.dashboard', compact('someVar'));
-}
-```
-Update the dashboard view located at: ```resources/view/vendor/backpack/base/dashboard.blade.php```
+To use information from the database, [use view composers](https://laravel.com/docs/5.7/views#view-composers) to push variables inside this view, when it's loaded. Or better yet, load all your dashboard information using AJAX calls, if you're loading charts, reports, etc, and the DB queries might take a long time.
 
-NOTE: if you don't have this folder you need to publish vendor assets
-```bash
-php artisan vendor:publish --provider="Backpack\Base\BaseServiceProvider"
-```
+Take a look at the [AdminLTE dashboards](https://adminlte.io/themes/AdminLTE/index.html) - you can easily use whatever content block you want from there.
 
 ## Customizing the general layout/design
 
