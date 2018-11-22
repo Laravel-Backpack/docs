@@ -5,7 +5,7 @@
 When creating a CRUD Panel, your ```EntityCrudController``` (where Entity = your model name) is extending ```CrudController```. Inside it, we've already provided the logic for [the most important operations](/#supported-operations), you just need to enable or configure them. Also, you can easily [add custom operations](/#creating-a-custom-operation).
 
 <a name="supported-operations"></a>
-## Supported Operations
+## Standard Operations
 
 Operations enabled by default:
 - [ListEntries](/docs/{{version}}/crud-operation-list-entries) - allows the admin to see all entries for an Eloquent model, with pagination, search, filters;
@@ -18,8 +18,88 @@ Operations disabled by default:
 - [Reorder](/docs/{{version}}/crud-operation-reorder) - allows the admin to reorder all entries of a model;
 - [Revisions](/docs/{{version}}/crud-operation-revisions) - shows an audit log of all changes to an entry, and allows the admin to undo modifications;
 
+
+<a name="operation-actions"></a>
+### Operation Actions
+
+Each Operation is actually _a trait_, which can be used on CrudControllers. This trait can contain one or more methods (or functions). Since Laravel calls each Controller method an _action_, that means each _Operation_ can have one or many _actions_. For example, we have the ```clone``` operation and two actions: ```clone``` and ```bulkClone```.
+
+```php
+trait CloneOperation
+{
+    public function clone($id)
+    {
+        // ...
+    }
+
+    public function bulkClone()
+    {
+        // ...
+    }
+}
+```
+
+An action can do something with AJAX and return true/false, it can return an AJAX, or it can return a view - or whatever else you can do inside a controller method.
+
+You can check which action is currently being performed using the [standard Laravel Route API](https://laravel.com/api/5.7/Illuminate/Routing/Route.html):
+
+- ```\Route::getCurrentRoute()->getAction()``` or ```$this->request->route()->getAction()```:
+```
+array:7 [▼
+  "middleware" => array:2 [▼
+    0 => "web"
+    1 => "admin"
+  ]
+  "as" => "crud.monster.index"
+  "uses" => "App\Http\Controllers\Admin\MonsterCrudController@index"
+  "controller" => "App\Http\Controllers\Admin\MonsterCrudController@index"
+  "namespace" => "App\Http\Controllers\Admin"
+  "prefix" => "admin"
+  "where" => []
+]
+```
+- ```\Route::getCurrentRoute()->getActionName()``` or ```$this->request->route()->getActionName()```:
+```
+App\Http\Controllers\Admin\MonsterCrudController@index
+```
+- ```\Route::getCurrentRoute()->getActionMethod()``` or ```$this->request->route()->getActionMethod()```:
+```
+index
+```
+
+You can also use the shortcuts on the CrudPanel object:
+```php
+$this->crud->getActionMethod(); // returns the method on the controller that was called by the route; ex: create(), update(), edit() etc;
+$this->crud->actionIs('create'); // checks if the controller method given is the one called by the route
+```
+
+<a name="titles-heading-and-subheadings"></a>
+### Titles, Headings and Subheadings
+
+For standard CRUD operations, each _action_ that shows an interface uses some texts to show the user what page, operation or action he is currently performing:
+- **Title** - page title, shown in the browser's title bar;
+- **Heading** - biggest heading on page;
+- **Subheading** - short description of the current page, sits beside the heading;
+
+![CRUD Operation Headings](https://backpackforlaravel.com/uploads/docs-3-5/operations/headings.png)
+
+You can get and set the above using:
+```php
+// Getters
+$this->crud->getTitle('create'); // get the Title for the create action
+$this->crud->getHeading('create'); // get the Heading for the create action
+$this->crud->getSubheading('create'); // get the Subheading for the create action
+
+// Setters
+$this->crud->setTitle('some string', 'create'); // set the Title for the create action
+$this->crud->setHeading('some string', 'create'); // set the Heading for the create action
+$this->crud->setSubheading('some string', 'create'); // set the Subheading for the create action
+```
+
+There methods are usually useful inside actions, not in ```setup()```. Since action methods are called _after_ ```setup()```, any call to these getters and setters in ```setup()``` would get overwritten by the call in the action.
+
 <a name="access-to-operations"></a>
-## Handling Access to Operations
+### Handling Access to Operations
 
 Admins are allowed to do an operation or not using a very simple system: ```$crud``` holds an array with all operations they can perform. By default it will look like this:
 
@@ -29,7 +109,7 @@ public $access = [
     'create', 
     'update', 
     'delete'
-    /* 'revisions', reorder', 'show', 'details_row' */
+    /* 'revisions', reorder', 'show', 'clone' */
 ];
 ```
 
@@ -48,12 +128,58 @@ $this->crud->hasAccessToAny(['create', 'update']); // returns true/false
 
 
 <a name="getting-and-setting-operation"></a>
-## Getting and Setting an Operation Name
+### Getting and Setting an Operation Name
 
-Inside a CrudController method all default operations use ```$this->crud->setOperation('Show')``` to define which operation is currently being performed. So you can do ```$crud->getOperation()``` inside your views and do things according to this.
+Inside a CrudController method all default operations use ```$this->crud->setOperation('show')``` to define which operation is currently being performed. So you can do ```$crud->getOperation()``` inside your views and do things according to this.
 
-When you create custom operation, it's recommended that you also do ```$this->crud->setOperation('Show')``` in each custom method, so that have the ability to check later on.
+When you create custom operation, it's recommended that you also do ```$this->crud->setOperation('show')``` in each custom method, so that have the ability to check later on.
 
+<a name="adding-methods-to-the-crud-panel-object"></a>
+### Adding Methods to the CrudPanel Object
+
+Every time you call ```$this->crud```, you're referring to a ```CrudPanel``` object, where we store all information about the current CRUD and perform all computation.
+
+Starting with CRUD 3.5 you can add static methods to this ```CrudPanel``` object with ```$this->crud->macro()```, because the object is [macroable](https://unnikked.ga/understanding-the-laravel-macroable-trait-dab051f09172). So you can do:
+
+```php
+class MonsterCrudController extends CrudController 
+{
+   public function setup() 
+   {
+       $this->crud->macro('doStuff', function($something) {
+            echo '<pre>'; var_dump($something); echo '</pre>';
+            dd($this);
+        });
+       $this->crud->macro('getColumnsInTheFormatIWant', function() {
+            $columns = $this->columns;
+            // ... do something to $columns;
+            return $columns;
+        });
+
+       // bla-bla-bla the actual setup code
+   }
+   public function sendEmail() 
+   {
+      // ...
+      $this->crud->doStuff();
+      dd($this->crud->getColumnsInTheFormatIWant());
+      // ...
+   }
+   public function markPending() 
+   {
+      // ...
+      $this->crud->doStuff();
+      dd($this->crud->getColumnsInTheFormatIWant());
+      // ...
+   }
+}
+```
+
+So if you define a custom operation that needs some static methods, you can add them. You can also use the ```$this->crud->settings``` object, to store various settings. Use it as an associative array, with the operation as key:
+
+```php
+$this->crud->settings['moderate']['show_title'] = false;
+```
 
 <a name="creating-a-custom-operation"></a>
 ## Creating a Custom Operation

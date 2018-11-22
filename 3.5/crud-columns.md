@@ -28,7 +28,14 @@ When passing a column array, you need to specify at least these attributes:
 <a name="optional-attributes"></a>
 ### Optional Attributes
 
-- searchLogic
+- [```searchLogic```](#custom-search-logic)
+- [```orderLogic```](#custom-order-logic)
+- [```orderable```](#custom-order-logic)
+- [```visibleInTable```](#choose-where-columns-are-visible)
+- [```visibleInModal```](#choose-where-columns-are-visible)
+- [```visibleInExport```](#choose-where-columns-are-visible)
+- [```visibleInShow```](#choose-where-columns-are-visible)
+- [```priority```](#define-which-columns-to-hide-in-responsive-table)
 
 <a name="columns-api"></a>
 ### Columns API
@@ -556,6 +563,49 @@ $this->crud->addColumn([
     'searchLogic' => 'text'
 ]);
 ```
+
+<a name="custom-order-logic"></a>
+### Custom Order Logic for Columns
+
+If your column points to something atypical (not a value that is stored as plain text in the database column, maybe a model function, or a JSON, or something else), you might find that the ordering doesn't work for that column. You can choose which columns are orderable, and how those columns actually get ordered, by using the column's ```orderLogic``` attribute.
+
+For example, to order Articles not by its Category ID (as default, but by the Category Name), you can do:
+
+```php
+$this->crud->addColumn([  // Select
+   'label' => "Category",
+   'type' => 'select',
+   'name' => 'category_id', // the db column for the foreign key
+   'entity' => 'category', // the method that defines the relationship in your Model
+   'attribute' => 'name', // foreign key attribute that is shown to user
+   'orderable' => true,
+   'orderLogic' => function ($query, $column, $columnDirection) {
+        return $query->leftJoin('categories', 'categories.id', '=', 'articles.select')
+            ->orderBy('categories.name', $columnDirection)->select('articles.*');
+    }
+]);
+```
+
+If you want a column to not be orderable at all, just pass ```'orderable' => false```
+
+<a name="choose-where-columns-are-visible"></a>
+### Choose Where Columns are Visible
+
+Starting with Backpack\CRUD 3.5.0, you can choose to show/hide column in different contexts. You can pass ```true``` / ```false``` to the column attributes below, and Backpack will know to show the column or not, in different contexts:
+
+```php
+$this->crud->addColumn([
+   'name' => 'description',
+   'visibleInTable' => false, // no point, since it's a large text
+   'visibleInModal' => false, // would make the modal too big
+   'visibleInExport' => false, // not important enough
+   'visibleInShow' => true, // sure, why not
+]);
+```
+
+This also allows you to do tricky things like:
+- add a column that's hidden from the table view, but WILL get exported;
+- adding a column that's hidden everywhere, but searchable (even with a custom ```searchLogic```);
 
 <a name="multiple-columns-with-the-same-name"></a>
 ### Multiple Columns With the Same Name

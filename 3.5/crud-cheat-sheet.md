@@ -238,11 +238,26 @@ $this->crud->getFields('create/update/both');
 $this->crud->getCurrentEntry();
 
 // -------
+// OPERATIONS
+// -------
+
+$this->crud->setOperation('ListEntries');
+$this->crud->getOperation();
+
+// -------
 // ACTIONS
 // -------
 
 $this->crud->getActionMethod(); // returns the method on the controller that was called by the route; ex: create(), update(), edit() etc;
 $this->crud->actionIs('create'); // checks if the controller method given is the one called by the route
+
+$this->crud->getTitle('create'); // get the Title for the create action
+$this->crud->getHeading('create'); // get the Heading for the create action
+$this->crud->getSubheading('create'); // get the Subheading for the create action
+
+$this->crud->setTitle('some string', 'create'); // set the Title for the create action
+$this->crud->setHeading('some string', 'create'); // set the Heading for the create action
+$this->crud->setSubheading('some string', 'create'); // set the Subheading for the create action
 
 // ---------------------------
 // CrudPanel Basic Information
