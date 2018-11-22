@@ -127,7 +127,7 @@ $this->crud->orderBy();
 // please note it's generally a good idea to use crud->orderBy() inside "if (!$this->request->has('order')) {}"; that way, your custom order is applied ONLY IF the user hasn't forced another order (by clicking a column heading)
 ```
 
-<a name="custom-query"></a>
+<a name="responsive-table"></a>
 #### Responsive Table
 
 If you CRUD table has more columns than can fit inside the viewport (on mobile / tablet or smaller desktop screens), unimportant columns will start hiding and an expansion icon (three dots) will appear to the left of each row. We call this behaviour "_responsive table_", and consider this to be the best UX. By behaviour we consider the 1st column the most important, than 2nd, than 3rd, etc; the "actions" column is considered as important as the 1st column. You can of course [change the importance of columns](/docs/{{version}}/crud-columns#define-which-columns-to-hide-in-responsive-table).
@@ -140,6 +140,19 @@ If you do not like this, you can **toggle off the responsive behaviour for all C
 ```
 
 To turn off the responsive table behaviour for _just one CRUD panel_, you can use ```$this->crud->disableResponsiveTable()``` in your ```setup()``` method.
+
+<a name="persistent-query"></a>
+#### Persistent Table
+
+By default, ListEntries will NOT remember your filtering, search and pagination when you leave the page. If you want ListEntries to do that, you can enable a ListEntries feature we call ```persistent_table```. 
+
+**This will take the user back to the _filtered table_ after adding an item, previewing an item, creating an item or just browsing around**, preserving the table just like he/she left it - with the same filtering, pagination and search applied. It does so by saving the pagination, search and filtering for 2 hours in local storage.
+
+To use ```persistent_table``` you can:
+- enable it for all CRUDs with the config option ```'persistent_table' => true``` in your ```config/backpack/crud.php```;
+- enable it inside a particular crud controller with ```$this->crud->enablePersistentTable();```
+- disable it inside a particular crud controller with ```$this->crud->disablePersistentTable();```
+
 
 <a name="how-to-overwrite"></a>
 ## How to Overwrite

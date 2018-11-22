@@ -28,6 +28,7 @@
     + [Create](/docs/{{version}}/crud-operation-create) & [Update](/docs/{{version}}/crud-operation-update)
         + [Fields](/docs/{{version}}/crud-fields)
     + [Delete](/docs/{{version}}/crud-operation-delete)
+    + [Clone](/docs/{{version}}/crud-operation-clone)
     + [Show](/docs/{{version}}/crud-operation-show)
         + [Columns](/docs/{{version}}/crud-columns)
     + [Reorder](/docs/{{version}}/crud-operation-reorder)

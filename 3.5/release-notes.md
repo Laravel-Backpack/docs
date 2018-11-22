@@ -42,14 +42,15 @@ Here are the main differences between [Backpack 3.4](https://backpackforlaravel.
 
 #### List Entries
 
-- [#1675](https://github.com/Laravel-Backpack/CRUD/issues/1675) - design facelift for the list view - a lot cleaner; [before & after photo here](https://user-images.githubusercontent.com/1032474/47909985-1dbc2700-de9a-11e8-9f8a-2b1c797e37a4.png);
-- [#1702](https://github.com/Laravel-Backpack/CRUD/issues/1702) - added ```persistent_table``` functionality, and save state datatables;
+- [#1675](https://github.com/Laravel-Backpack/CRUD/issues/1675) - **design facelift** for the list view - a lot cleaner; [before & after photo here](https://user-images.githubusercontent.com/1032474/47909985-1dbc2700-de9a-11e8-9f8a-2b1c797e37a4.png);
+- [#1702](https://github.com/Laravel-Backpack/CRUD/issues/1702) - **added ```persistent_table``` functionality**, and save state datatables; [documentation here](/docs/3.5/crud-operation-list-entries#persistent-table);
+- [#1702](https://github.com/Laravel-Backpack/CRUD/issues/1702) - **sharable links for ListEntries** - filters now add their GET parameters to the current page, so that you can share the URL and the person that gets it will see exactly what you saw;
 
 #### Columns
 
-- [#1703](https://github.com/Laravel-Backpack/CRUD/issues/1703) - added ```visibleInTable``` attribute to columns; [documentation here](/docs/3.5/crud-columns#choose-where-columns-are-visible);
+- [#1703](https://github.com/Laravel-Backpack/CRUD/issues/1703) - **added ```visibleInTable``` attribute to columns**; [documentation here](/docs/3.5/crud-columns#choose-where-columns-are-visible);
 - [#1703](https://github.com/Laravel-Backpack/CRUD/issues/1703) - added ```visibleInExport``` attribute to columns; [documentation here](/docs/3.5/crud-columns#choose-where-columns-are-visible);
-- [#1706](https://github.com/Laravel-Backpack/CRUD/issues/1706) - added ```visibleInShow``` attribute to columns; [documentation here](/docs/3.5/crud-columns#choose-where-columns-are-visible);
+- [#1706](https://github.com/Laravel-Backpack/CRUD/issues/1706) - **added ```visibleInShow``` attribute to columns**; [documentation here](/docs/3.5/crud-columns#choose-where-columns-are-visible);
 - [#1704](https://github.com/Laravel-Backpack/CRUD/issues/1704) - added ```orderLogic``` attribute to columns; [documentation here](/docs/{{version}}/crud-columns#custom-order-logic-for-columns);
 
 #### Fields
@@ -57,7 +58,6 @@ Here are the main differences between [Backpack 3.4](https://backpackforlaravel.
 - [#1694](https://github.com/Laravel-Backpack/CRUD/issues/1694) - ```options``` option to ```select```, ```select2```, ```select_multiple```, ```select2_multiple```, that allows developers to filter or order the options shown, using a scope or custom query;
 - [#1687](https://github.com/Laravel-Backpack/CRUD/issues/1687) - ```select2_nested``` field type;
 - [#1695](https://github.com/Laravel-Backpack/CRUD/issues/1695) - added ```select_and_order``` field type;
-- [#1708](https://github.com/Laravel-Backpack/CRUD/issues/1708) - added ```Clone``` operation;
 - [#1712](https://github.com/Laravel-Backpack/CRUD/issues/1712) - added ```address_google``` field type;
 - [#1674](https://github.com/Laravel-Backpack/CRUD/issues/1674) - you can now pass parameters to ```model_function``` and ```model_function_attribute``` column types;
 - [#1484](https://github.com/Laravel-Backpack/CRUD/issues/1484) - added dependant select2s with ajax;
@@ -66,16 +66,17 @@ Here are the main differences between [Backpack 3.4](https://backpackforlaravel.
 
 #### Operations
 
+- [#1708](https://github.com/Laravel-Backpack/CRUD/issues/1708) - **added ```Clone``` operation**; [documentation here](/docs/{{version}}/crud-operation-clone);
 - [#1516](https://github.com/Laravel-Backpack/CRUD/issues/1516) - setters and getters for the current operation; [documentation here](/docs/{{version}}/crud-operations#getting-and-setting-an-operation-name);
 - [#1527](https://github.com/Laravel-Backpack/CRUD/issues/1527) - custom titles, headings and subheadings; [documentation here](/docs/3.5/crud-operations#titles-headings-and-subheadings);
-- [#1518](https://github.com/Laravel-Backpack/CRUD/issues/1518) - CrudPanel class is now macroable; [documentation here](/docs/3.5/crud-operations#adding-methods-to-the-crudpanel-object);
+- [#1518](https://github.com/Laravel-Backpack/CRUD/issues/1518) - **CrudPanel class is now Macroable**; [documentation here](/docs/3.5/crud-operations#adding-methods-to-the-crudpanel-object);
 
 ### Fixed
 
 - [#1658](https://github.com/Laravel-Backpack/CRUD/issues/1658) - model function button did not pass ```$crud``` to button;
 - [#1680](https://github.com/Laravel-Backpack/CRUD/issues/1680) - Backpack checks that ```CrudTrait``` is used on the Model; otherwise it throws a 500 error with a clear message; you can no longer create CRUD panels for Models that do not use CrudTrait;
-- [#1535](https://github.com/Laravel-Backpack/CRUD/issues/1535) - orderBy got ignored when the user clicked on a column heading to reoder the datatable; now it doesn't; would only _maybe_ be a breaking change for entities that have an field named ```order```;
+- [#1535](https://github.com/Laravel-Backpack/CRUD/issues/1535) - **orderBy got ignored when the user clicked on a column heading to reoder the datatable**; now it doesn't; would only _maybe_ be a breaking change for entities that have an field named ```order```;
 - [#1390](https://github.com/Laravel-Backpack/CRUD/issues/1390) - using our own helper ```mb_ucfirst()``` instead of ```ucfirst()```;
 - [#791](https://github.com/Laravel-Backpack/CRUD/issues/791) - could not revert changes made in fake field holders; now we can;
 - [#1712](https://github.com/Laravel-Backpack/CRUD/issues/1712) - renamed ```address``` field type to ```address_algolia```; alias keeps backwards-compatibility;
-- [#1692](https://github.com/Laravel-Backpack/CRUD/issues/1692) - we can now use arrays for field names, like ```category[0][name]```, the only thing that needed to be fixed was the ```old()``` value which did not work;
+- [#1692](https://github.com/Laravel-Backpack/CRUD/issues/1692) - **we can now use arrays for field names**, like ```category[0][name]```;

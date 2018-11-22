@@ -21,7 +21,9 @@ The ```/entity-name/{id}``` route points to the ```show()``` method in your Enti
 
 The ```ListEntries``` operations is **disabled by default**. To enable it, you should use ```$this->crud->allowAccess('show');``` inside your ```setup()``` method.This will make a Preview button appear in the table view, and allow access to the show view. 
 
-This view uses the same column types you've defined in ```setup()``` and adds all other fillable attributes. You will most likely need to add/change/remove columns, so also check out [How to Overwrite](#how-to-overwrite).
+This view uses the same column types you've defined in ```setup()``` and adds all other **fillable** attributes on the model. If you need to hide a ListEntries column from the Show operation, you can specify ```'visibleInShow' => false,``` to the column in ```setup()```, and it will be hidden from the preview page.
+
+If you need more customization (add/change/remove columns), check out [How to Overwrite](#how-to-overwrite).
 
 <a href="how-to-overwrite"></a>
 ## How to Overwrite
