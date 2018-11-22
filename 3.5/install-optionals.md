@@ -21,7 +21,7 @@ composer require backpack/backupmanager
 php artisan vendor:publish --provider="Backpack\BackupManager\BackupManagerServiceProvider"
 
 # [optional] Add a sidebar_content item for it
-php artisan backpack:base:add-sidebar-content "<li><a href='{{ url(config('backpack.base.route_prefix', 'admin').'/backup') }}'><i class='fa fa-hdd-o'></i> <span>Backups</span></a></li>"
+php artisan backpack:base:add-sidebar-content "<li><a href='{{ backpack_url('backup') }}'><i class='fa fa-hdd-o'></i> <span>Backups</span></a></li>"
 ```
 
 2) Add a new "disk" to config/filesystems.php:
@@ -91,8 +91,8 @@ or directly in your config/app.php file:
 
 4) [optional] Add a menu item for it in resources/views/vendor/backpack/base/inc/sidebar_content.blade.php or menu.blade.php:
 
-```html
-<li><a href="{{ backpack_url('log') }}"><i class="fa fa-terminal"></i> <span>Logs</span></a></li>
+```bash
+php artisan backpack:base:add-sidebar-content "<li><a href='{{ backpack_url('log') }}'><i class='fa fa-terminal'></i> <span>Logs</span></a></li>"
 ```
 <a name="settings-manager"></a>
 ## Settings
@@ -112,7 +112,7 @@ php artisan vendor:publish --provider="Backpack\Settings\SettingsServiceProvider
 php artisan migrate
 
 # [optional] add a menu item for it to the sidebar_content file
-php artisan backpack:base:add-sidebar-content "<li><a href='{{ url(config('backpack.base.route_prefix', 'admin') . '/setting') }}'><i class='fa fa-cog'></i> <span>Settings</span></a></li>"
+php artisan backpack:base:add-sidebar-content "<li><a href='{{ backpack_url('setting') }}'><i class='fa fa-cog'></i> <span>Settings</span></a></li>"
 
 # [optional] insert some example dummy data to the database
 php artisan db:seed --class="Backpack\Settings\database\seeds\SettingsTableSeeder"
@@ -138,8 +138,8 @@ php artisan migrate
 
 3) [optional] Add a menu item for it in resources/views/vendor/backpack/base/inc/sidebar_content.blade.php or menu.blade.php:
 
-```html
-<li><a href="{{backpack_url('page') }}"><i class="fa fa-file-o"></i> <span>Pages</span></a></li>
+```bash
+php artisan backpack:base:add-sidebar-content "<li><a href='{{ backpack_url('page') }}'><i class='fa fa-file-o'></i> <span>Pages</span></a></li>"
 ```
 
 <a name="permission-manager"></a>
