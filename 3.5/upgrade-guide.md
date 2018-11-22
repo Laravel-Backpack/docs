@@ -11,7 +11,7 @@ This will guide you through upgrading from Backpack 3.4 to 3.5. For upgrading fr
 - Backpack\CRUD 3.4.x installed
 - Laravel 5.6+
 - PHP 7.1.3+
-- 20-30 minutes
+- 1/2 hour to 2 hours (depending on how much you've overwritten operations and views)
 
 <a name="upgraade-steps"></a>
 ## Upgrade Steps
@@ -198,8 +198,75 @@ Before this version, you could create CRUD panels form models without CrudTrait,
 <a name="step-13"></a>
 #### Step 13
 
-Republish the CRUD CSS.
+There have been CSS changes in a lot of CRUD operation CSS files (ex: ```public/vendor/backpack/crud/css/list.css```. If you haven't changed them, please force republish all assets, and you'll get the new CSS:
+
+```bash
+php artisan vendor:publish --provider="Backpack\CRUD\CrudServiceProvider" --tag=public --force
+```
+
+If you _have_ changed them, please [take a look at the CSS changes](https://github.com/Laravel-Backpack/CRUD/pull/1647/files#diff-ddb73afc9335db6196a3718e74137def) and implement them to your code.
 
 <a name="step-14"></a>
 #### Step 14
 
+If you've overwritten a default operation, please consider updating your code to also include a few new featurs:
+- ability to set a custom Title, Heading or Subheading
+- ability to know which operation is currently being performed (using ```$this->crud->setOperation()```);
+
+Take a look at [the changes that have happened in the operation](https://github.com/Laravel-Backpack/CRUD/pull/1647/files#diff-6b339fbea17903d0ec0681c64f0cb038) and reproduce them in your overwritten method. They're trivial.
+
+<a name="step-15"></a>
+#### Step 15
+
+Add the following new items to your ```config/backpack/crud.php``` file, and configure them to your liking:
+
+```php
+    // stores pagination and filters in localStorage for two hours
+    // whenever the user tries to see that page, backpack loads the previous pagination and filtration
+    'persistent_table' => false,
+
+    // Here you may override the css-classes for the content section of the create view globally
+    // To override per view use $this->crud->setCreateContentClass('class-string')
+    'create_content_class' => 'col-md-8 col-md-offset-2',
+
+    // Here you may override the css-classes for the content section of the edit view globally
+    // To override per view use $this->crud->setEditContentClass('class-string')
+    'edit_content_class'   => 'col-md-8 col-md-offset-2',
+
+    // Here you may override the css-classes for the content section of the revisions timeline view globally
+    // To override per view use $this->crud->setRevisionsTimelineContentClass('class-string')
+    'revisions_timeline_content_class'   => 'col-md-10 col-md-offset-1',
+
+    // Here you may override the css-class for the content section of the list view globally
+    // To override per view use $this->crud->setListContentClass('class-string')
+    'list_content_class' => 'col-md-12',
+
+    // Here you may override the css-classes for the content section of the show view globally
+    // To override per view use $this->crud->setShowContentClass('class-string')
+    'show_content_class'   => 'col-md-8 col-md-offset-2',
+
+    // Here you may override the css-classes for the content section of the reorder view globally
+    // To override per view use $this->crud->setReorderContentClass('class-string')
+    'reorder_content_class'   => 'col-md-8 col-md-offset-2',
+```
+
+<a name="step-16"></a>
+#### Step 16
+
+**Most views have suffered changes**. That includes:
+- ALL operations
+- ALL field types 
+- SOME column types
+- SOME filter types
+
+If you have files inside your ```resources/views/vendor/backpack/crud``` directory, please [take a look at the changes for that particular file](https://github.com/Laravel-Backpack/CRUD/pull/1647/files#diff-ce09571f6ca3089be4eb2daec3cf3e48), and consider doing the changes in your own view file. If you can't do them all:
+- Operations - MUST DO
+- Filters - MUST DO
+- Columns - SHOULD DO (they're just a few)
+- Field types - COULD DO
+
+Keep in mind that by NOT implementing these changes you won't benefit from some of the new features.
+
+---
+
+**That's it**. Thank you for taking the time to upgrade. Now time to use some of the shiny new features. Take a look at [this version's release notes](/docs/3.5/release-notes) and click on their respective documentation links.

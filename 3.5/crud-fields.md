@@ -842,6 +842,29 @@ Input preview:
 
 ![CRUD Field - select](https://backpackforlaravel.com/uploads/docs-3-5/fields/select.png)
 
+
+<a name="select-grouped"></a>
+### select_grouped
+
+Display a select where the options are grouped by a second entity (like Categories).
+
+```php
+[ // select_grouped
+    'label' => 'Articles grouped by categories',
+    'type' => 'select_grouped', //https://github.com/Laravel-Backpack/CRUD/issues/502
+    'name' => 'article_id',
+    'entity' => 'article',
+    'attribute' => 'title',
+    'group_by' => 'category', // the relationship to entity you want to use for grouping
+    'group_by_attribute' => 'name', // the attribute on related model, that you want shown
+    'group_by_relationship_back' => 'articles', // relationship from related model back to this model
+],
+```
+
+Input preview:
+
+![CRUD Field - select_grouped](https://backpackforlaravel.com/uploads/docs-3-5/fields/select_grouped.png)
+
 <a name="select2"></a>
 ### select2 (1-n relationship)
 
@@ -895,6 +918,8 @@ Input preview:
 
 ![CRUD Field - select_multiple](https://backpackforlaravel.com/uploads/docs-3-5/fields/select_multiple.png)
 
+
+
 <a name="select2-multiple"></a>
 ### select2_multiple (n-n relationship)
 
@@ -945,7 +970,31 @@ Display a select2 with the values ordered hierarchically and indented, for an en
 
 Input preview:
 
-![CRUD Field - select2_from_array](https://backpackforlaravel.com/uploads/docs-3-5/fields/select2_from_array.png)
+![CRUD Field - select2_nested](https://backpackforlaravel.com/uploads/docs-3-5/fields/select2_nested.png)
+
+
+<a name="select2-grouped"></a>
+### select2_grouped
+
+Display a select2 where the options are grouped by a second entity (like Categories).
+
+```php
+[ // select2_grouped
+    'label' => 'Articles grouped by categories',
+    'type' => 'select2_grouped', //https://github.com/Laravel-Backpack/CRUD/issues/502
+    'name' => 'article_id',
+    'entity' => 'article',
+    'attribute' => 'title',
+    'group_by' => 'category', // the relationship to entity you want to use for grouping
+    'group_by_attribute' => 'name', // the attribute on related model, that you want shown
+    'group_by_relationship_back' => 'articles', // relationship from related model back to this model
+],
+```
+
+Input preview:
+
+![CRUD Field - select2_grouped](https://backpackforlaravel.com/uploads/docs-3-5/fields/select2_grouped.png)
+
 
 <a name="select_and_order"></a>
 ### select_and_order
