@@ -96,7 +96,8 @@ In ```config/app.php``` you should have a config option that looks like this:
 ```php
     // Overlays - CSS files that change the look and feel of the admin panel
     'overlays' => [
-        'vendor/backpack/overlays/backpack.bold.css',
+        'vendor/backpack/base/backpack.bold.css',
+        // 'vendor/backpack/base/backpack.content.is.king.css', // opinionized borderless alternative
     ],
 ```
 
@@ -109,75 +110,29 @@ For example, if you're using the [Stack HTML template](https://themeforest.net/i
 <a name="use-sparate-login-for-users-and-admins"></a>
 ## Use separate login/register forms for users and admins
 
-If you need separate login for user and admin, probably the fastest way would be to use:
-- the backpack login for the admins
-- the default Laravel login for the users
+This is a default in Backpack\Base 1.0.0.
 
-That way, you have both AND you have most of your code already written - Backpack comes with its own Authentication controllers, Laravel too. 
+Backpack's authentication uses a completely separate authentication driver, provider, guard and password broker. They're all named ```backpack```, and registered in the vendor folder, invisible to you. 
 
-For this to happen, keep the ```setup_auth_routes``` and ```setup_dashboard_routes``` variables ```true``` in your ```config/backpack/base.php``` file. You'll be using the Backpack authentication, after all, for admins. Just [add the Laravel authentication, like instructed in the Laravel documentation](https://laravel.com/docs/5.6/authentication#authentication-quickstart): ```php artisan make:auth```. You'll then have:
+If you need a separate login for user, just go ahead and create it. [Add the Laravel authentication, like instructed in the Laravel documentation](https://laravel.com/docs/5.7/authentication#authentication-quickstart): ```php artisan make:auth```. You'll then have:
 - the user login at ```/login``` -> using the AuthenticationController Laravel provides
 - the admin login at ```/admin/login``` -> using the AuthenticationControllers Backpack provides
+
+The user login will be using Laravel's default authentication driver, provider, guard and password broker, from ```config/auth.php```.
+
+Backpack's authentication driver, provider, guard and password broker can easily be overwritten by creating a driver/provider/guard/broker with the ```backpack``` name inside your ```config/auth.php```. If one named ```backpack``` exists there, Backpack will use that instead.
+
+<a name="overwrite-authentication-driver-provider-guard-or-password-broker"></a>
+## Overwrite Backpack authentication driver, provider, guard or password broker
+
+Backpack's authentication uses a completely separate authentication driver, provider, guard and password broker. Backpack adds them to what's defined in ```config/auth.php``` on runtime, and they're all named ```backpack```.
+
+To change a setting in how Backpack's driver/provider/guard or password broker works, create a driver/provider/guard/broker with the ```backpack``` name inside your ```config/auth.php```. If one named ```backpack``` exists there, Backpack will use that instead.
 
 <a name="use-separate-sessions-for-admins-and-users"></a>
 ## Use separate sessions for admin&user authentication
 
-You might want your admins to be logged in as *Admin X* and *User Z* at the same time (for user impersonation, for example). If so, you will need to use different guards for those two authentications. The easiest way would be to use the default Laravel guard for the user authentication and just create a new guard for the Admin authentication. You'll notice in all Backpack views we've used ```backpack_auth()->user()``` instead of ```Auth::user()```. It's for this exact purpose. If you specify a guard, all Backpack views will impose that guard.
-
-**Step 1.** Follow [the section above](#use-sparate-login-for-users-and-admins) in order to have two different login screens, one for admin and one for the user.
-
-**Step 2.** In your ```config/auth.php```:
-
-2.1. Add a new guard:
-```php
-    'guards' => [
-        // ...
-
-        'admin' => [
-            'driver' => 'session',
-            'provider' => 'admins',
-        ],
-
-    ],
-```
-2.2. Add a provider:
-```php
-    'providers' => [
-       // ...
-
-        'admins' => [
-            'driver' => 'eloquent',
-            'model' => Backpack\Base\app\Models\BackpackUser::class,
-        ],
-
-    ],
-```
-2.3. Add a password reset configuration:
-```php
-    'passwords' => [
-       // ...
-
-        'admin' => [
-            'provider' => 'admins',
-            'table' => 'password_resets',
-            'expire' => 60,
-        ],
-
-    ],
-```
-
-**Step 3.** In your ```config/backpack/base.php``` tell Backpack to use these new guards for the admin authentication, instead of the default:
-```php
-    // The guard that protects the Backpack admin panel.
-    // If null, the config.auth.defaults.guard value will be used.
-    'guard' => 'admin',
-
-    // The password reset configuration for Backpack.
-    // If null, the config.auth.defaults.passwords value will be used.
-    'passwords' => 'admin',
-```
-
-That's it. Backpack will now use a separate session for the admin login. You can be logged in with ```Admin X``` and ```User Z``` at the same time, and log out ```Admin X``` without logging out the user too.
+This is a default in Backpack\Base 1.0.0.
 
 <a name="login-with-username-instead-of-email"></a>
 ## Login with username instead of email
