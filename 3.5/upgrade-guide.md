@@ -172,11 +172,30 @@ If you use the Backpack authentication for your users to login as well, nothing 
 <a name="step-10"></a>
 #### Step 10
 
+If you have used ```addButtonFromModelFunction()``` to add custom buttons to your CRUDs  inside the ```line``` stack, **please make sure that your method has ```$crud``` as parameter, not ```$entry```**. All in all the changes might look like this:
+
+```diff
+-    public function openGoogle($entry)
++    public function openGoogle($crud)
+    {
+-        return '<a class="btn btn-xs btn-default" target="_blank" href="http://google.com?q='.urlencode($entry->text).'"><i class="fa fa-search"></i> Google it</a>';
++        return '<a class="btn btn-xs btn-default" target="_blank" href="http://google.com?q='.urlencode($this->text).'"><i class="fa fa-search"></i> Google it</a>';
+    }
+```
+
+So if your method is called ```goToPage``` it should be ```public function goToPage($crud)```, NOT ```public function goToPage($entry)```. If you used ```$entry``` inside that method, just replace it with ```$this``` - so ```$this->attribute``` instead of ```$entry->attribute```. There is little chance for you to be using it this way since ```$crud``` was documented, but please make sure - otherwise the update will break your app. [Details here](https://github.com/Laravel-Backpack/CRUD/pull/1658).
+
 <a name="step-11"></a>
 #### Step 11
 
+If you have used ```$this->crud->orderBy()``` in your controllers, there was a bug - when the user clicked the table headings, what you specified in ```orderBy()``` kept being applied, instead of the table being ordered by the column that the user chose. We've fixed this in [#1535](https://github.com/Laravel-Backpack/CRUD/issues/1535), but the fix does check for the ```order``` variable. So if you have CRUDs where you have an attribute called ```order``` and have a field for it, or you waybe pass ```order``` as a GET parameter, please check that everything's still working - depends on your code.
+
 <a name="step-12"></a>
 #### Step 12
+
+Make sure all the models you have CRUD panels for have the CrudTrait (```use Backpack\CRUD\CrudTrait;```).
+
+Before this version, you could create CRUD panels form models without CrudTrait, but some things worked, some didn't. Now if your model doesn't have CrudTrait, an explicit 500 error will be thrown on all operations. You can no longer create CRUD panels for Models that do not use CrudTrait. See [#1680](https://github.com/Laravel-Backpack/CRUD/issues/1680) for more details.
 
 <a name="step-13"></a>
 #### Step 13

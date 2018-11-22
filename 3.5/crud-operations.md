@@ -46,6 +46,15 @@ $this->crud->hasAccessToAll(['create', 'update']); // returns true/false
 $this->crud->hasAccessToAny(['create', 'update']); // returns true/false
 ```
 
+
+<a name="getting-and-setting-operation"></a>
+## Getting and Setting an Operation Name
+
+Inside a CrudController method all default operations use ```$this->crud->setOperation('Show')``` to define which operation is currently being performed. So you can do ```$crud->getOperation()``` inside your views and do things according to this.
+
+When you create custom operation, it's recommended that you also do ```$this->crud->setOperation('Show')``` in each custom method, so that have the ability to check later on.
+
+
 <a name="creating-a-custom-operation"></a>
 ## Creating a Custom Operation
 
@@ -85,6 +94,7 @@ Route::post('user/{id}/clone', 'UserCrudController@clone');
 public function clone($id) 
 {
     $this->crud->hasAccessOrFail('create');
+    $this->crud->setOperation('Clone');
 
     $clonedEntry = $this->crud->model->findOrFail($id)->replicate();
 
@@ -170,6 +180,7 @@ Route::post('user/{id}/moderate', 'UserCrudController@postModerateForm');
 public function getModerateForm($id) 
 {
     $this->crud->hasAccessOrFail('update');
+    $this->crud->setOperation('Moderate');
 
     // get the info for that entry
     $this->data['entry'] = $this->crud->getEntry($id);
