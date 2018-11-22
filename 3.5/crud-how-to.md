@@ -283,3 +283,48 @@ class ArticleController extends Controller
 ```
 
 **DIFFERENT HERE**: We use ```$form``` to determine what other variables have been selected in the form, and modify the result accordingly.
+
+
+<a name="resize-the-content-wrapper-for-an-operation"></a>
+## Change the content class for an operation
+
+If you want to make the contents of an operation take more / less space from the window, you can do that:
+
+(A) for all CRUDs by specifying the custom content class in your ```config/backpack/crud.php```:
+
+```php
+    // Here you may override the css-classes for the content section of the create view globally
+    // To override per view use $this->crud->setCreateContentClass('class-string')
+    'create_content_class' => 'col-md-8 col-md-offset-2',
+
+    // Here you may override the css-classes for the content section of the edit view globally
+    // To override per view use $this->crud->setEditContentClass('class-string')
+    'edit_content_class'   => 'col-md-8 col-md-offset-2',
+
+    // Here you may override the css-classes for the content section of the revisions timeline view globally
+    // To override per view use $this->crud->setRevisionsTimelineContentClass('class-string')
+    'revisions_timeline_content_class'   => 'col-md-10 col-md-offset-1',
+
+    // Here you may override the css-class for the content section of the list view globally
+    // To override per view use $this->crud->setListContentClass('class-string')
+    'list_content_class' => 'col-md-12',
+
+    // Here you may override the css-classes for the content section of the show view globally
+    // To override per view use $this->crud->setShowContentClass('class-string')
+    'show_content_class'   => 'col-md-8 col-md-offset-2',
+
+    // Here you may override the css-classes for the content section of the reorder view globally
+    // To override per view use $this->crud->setReorderContentClass('class-string')
+    'reorder_content_class'   => 'col-md-8 col-md-offset-2',
+```
+
+(B) for a single CRUD, by using:
+
+```php
+$this->crud->setCreateContentClass('col-md-8 col-md-offset-2');
+$this->crud->setUpdateContentClass('col-md-8 col-md-offset-2');
+$this->crud->setListContentClass('col-md-8 col-md-offset-2');
+$this->crud->setShowContentClass('col-md-8 col-md-offset-2');
+$this->crud->setReorderContentClass('col-md-8 col-md-offset-2');
+$this->crud->setRevisionsTimelineContentClass('col-md-8 col-md-offset-2');
+```

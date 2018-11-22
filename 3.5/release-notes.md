@@ -70,6 +70,7 @@ Here are the main differences between [Backpack 3.4](https://backpackforlaravel.
 - [#1516](https://github.com/Laravel-Backpack/CRUD/issues/1516) - setters and getters for the current operation; [documentation here](/docs/{{version}}/crud-operations#getting-and-setting-an-operation-name);
 - [#1527](https://github.com/Laravel-Backpack/CRUD/issues/1527) - custom titles, headings and subheadings; [documentation here](/docs/3.5/crud-operations#titles-headings-and-subheadings);
 - [#1518](https://github.com/Laravel-Backpack/CRUD/issues/1518) - **CrudPanel class is now Macroable**; [documentation here](/docs/3.5/crud-operations#adding-methods-to-the-crudpanel-object);
+- [#1659](https://github.com/Laravel-Backpack/CRUD/pull/1659) - you can now easily change the content class for each operation, so that the content is larger / smaller; [documentation her](/docs/3.5/crud-how-to#change-the-content-class-for-an-operation)
 
 ### Fixed
 

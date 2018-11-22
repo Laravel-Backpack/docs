@@ -6,14 +6,12 @@ This will guide you through upgrading from Backpack 3.4 to 3.5. For upgrading fr
 
 <a name="requirements"></a>
 ## Requirements
+
+- Backpack\Base 0.9.x installed
+- Backpack\CRUD 3.4.x installed
 - Laravel 5.6+
 - PHP 7.1.3+
-- 10-30 minutes
-
-<a name="breaking-changes"></a>
-## Breaking Changes
-
-// TODO
+- 20-30 minutes
 
 <a name="upgraade-steps"></a>
 ## Upgrade Steps
@@ -199,6 +197,8 @@ Before this version, you could create CRUD panels form models without CrudTrait,
 
 <a name="step-13"></a>
 #### Step 13
+
+Republish the CRUD CSS.
 
 <a name="step-14"></a>
 #### Step 14
