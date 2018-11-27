@@ -21,7 +21,7 @@ This CRUD operation allows your admins to duplicate one or more entries from the
 <a href="how-it-works"></a>
 ### How it Works
 
-Using AJAX, a POST request is performed towards ```/entity-name/{id}```, which points to the ```destroy()``` method in your EntityCrudController.
+Using AJAX, a POST request is performed towards ```/entity-name/{id}```, which points to the ```clone()``` method in your EntityCrudController.
 
 <a href="enabling"></a>
 ### How to Use
@@ -31,7 +31,7 @@ The ```clone()``` action is **disabled by default**. To enable it, you should us
 <a href="how-to-overwrite"></a>
 ### How to Overwrite
 
-In case you need to change how this operation works, just create a ```destroy()``` method in your EntityCrudController:
+In case you need to change how this operation works, just create a ```clone()``` method in your EntityCrudController:
 
 ```php
 public function clone($id)

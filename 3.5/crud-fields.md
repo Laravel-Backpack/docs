@@ -376,7 +376,7 @@ Show a wysiwyg CKEditor to the user.
     'label' => 'Description',
     'type' => 'ckeditor',
     // optional:
-    'extra_plugins' => ['oembed', 'widget', 'justify']
+    'extra_plugins' => ['oembed', 'widget']
     'options' => [
 	'autoGrow_minHeight' => 200,
 	'autoGrow_bottomSpace' => 50,

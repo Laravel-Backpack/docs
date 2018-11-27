@@ -267,6 +267,16 @@ If you have files inside your ```resources/views/vendor/backpack/crud``` directo
 
 Keep in mind that by NOT implementing these changes you won't benefit from some of the new features.
 
+
+<a name="step-17"></a>
+#### Step 17
+
+Clear the views cache:
+
+```bash
+php artisan view:clear
+```
+
 ---
 
 **That's it**. Thank you for taking the time to upgrade. Now time to use some of the shiny new features. Take a look at [this version's release notes](/docs/3.5/release-notes) and click on their respective documentation links.
