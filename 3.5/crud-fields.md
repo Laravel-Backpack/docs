@@ -1637,7 +1637,7 @@ And your blade file something like:
 </div>
 
 
-@if ($crud->checkIfFieldIsFirstOfItsType($field, $fields))
+@if ($crud->checkIfFieldIsFirstOfItsType($field))
   {{-- FIELD EXTRA CSS  --}}
   {{-- push things in the after_styles section --}}
 
