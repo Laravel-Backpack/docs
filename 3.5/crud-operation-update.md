@@ -76,7 +76,7 @@ You can let your admins edit multi-lingual entries. Only translations stored the
 
 In order to make one of your Models translatable, you need to:
 0. Be running MySQL 5.7+ (or a PosgreSQL with JSON column support);
-1. [Install spatie/laravel-translatable](https://github.com/spatie/laravel-translatable#installation);
+1. [Install spatie/laravel-translatable](https://github.com/spatie/laravel-translatable#installation); use version ```2.*```
 2. In your database, make all translatable columns either JSON or TEXT.
 3. Use Backpack's ```HasTranslations``` trait on your model (instead of using spatie's ```HasTranslations```) and define what fields are translatable, inside the ```$translatable``` property. For example:
 
