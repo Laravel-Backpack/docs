@@ -157,7 +157,27 @@ The non-trivial changes in views are that:
 <a name="step-8"></a>
 #### Step 8
 
-If you've had workarounds in place to use separate sessions for Users and Admins, that's no longer needed - **separate sessions are a default in Base 1.0.0**.
+If you've had workarounds in place to use separate sessions for Users and Admins, that's no longer needed - **separate sessions are a default in Base 1.0.0**. 
+
+If you use ```@can``` statements inside Backpack routes, please note they will not work, since that uses the ```Auth``` facade, and ```Auth``` uses the default auth guard configured in ```config/auth.php```, not the backpack guard. Laravel provides no way to customize the guard that is used. There are two solutions to this:
+
+A) Replace ```@can('read')``` statements with ```@if(backpack_user()->can('read'))``` inside your custom backpack pages. This allows you to use both helpers, across your entire application:
+- ```auth()``` - returns the authenticated User;
+- ```backpack_auth()``` - returns the authenticated Admin;
+
+B) If you ABSOLUTELY need to use ```@can``` statements for the logged in Admin, we've provided a middleware you can add to all Backpack routes in your ```config/backpack/base.php``` file:
+
+```diff
+    // The classes for the middleware to check if the visitor is an admin
+    // Can be a single class or an array of clases
+    'middleware_class' => [
+        App\Http\Middleware\CheckIfAdmin::class,
+        \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
++       Backpack\Base\app\Http\Middleware\UseBackpackAuthGuardInsteadOfDefaultAuthGuard::class,
+    ],
+```
+
+This will force the ```Auth``` facade to use the backpack guard, inside Backpack routes. Please note that **this will make ```auth()``` and ```backpack_auth()``` return the exact same thing INSIDE Backpack routes. But they will NOT return the same thing OUTSIDE Backpack routes**. So inside your backpack routes you can use them interchangeably, but outside the backpack routes they return different things - the logged in user, or the logged in admin. This possible confusion makes us NOT recommend this method, but if you absolutely need to use ```@can```... you do you, girl. You do you.
 
 <a name="step-9"></a>
 #### Step 9
