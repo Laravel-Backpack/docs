@@ -27,7 +27,7 @@ composer require backpack/base:"^1.0.0"
 composer require backpack/crud:"^3.5.0"
 ```
 
-Alternative: make the version changes above in your ```composer.json```, then run ```composer install```.
+Alternative: make the version changes above in your ```composer.json```, then run ```composer update```.
 
 <a name="upgrade-backpack-base-to-1-0-x"></a>
 ### Upgrade Backpack\Base to 1.0.x
