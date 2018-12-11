@@ -28,7 +28,7 @@ Requirements:
 - a working installation of the [Backpack demo](https://github.com/laravel-backpack/demo)
 - 1-2 hours
 
-<a href="create-a-package"></a>
+<a name="create-a-package"></a>
 ## Step 1. Create a package
 
 ### Install Backpack Demo
@@ -138,6 +138,7 @@ Now test it. Start by doing a ```dd('testing)``` in your service provider's ```b
 
 ---
 
+<a name="step-2-put-it-on-github"></a>
 ## Step 2. Put it on GitHub
 
 ```
@@ -160,6 +161,7 @@ Tags are the way you will version your package, so it's important you do it. Peo
 
 ---
 
+<a name="step-3-put-it-on-packagist"></a>
 ## Step 3. Put it on Packagist
 
 On [Packagist.org](http://packagist.org), submit a new package. Enter you package's GitHub URL and click Check. If any errors occur, follow the onscreen instructions.
@@ -175,6 +177,7 @@ Congrats! You now have a working package online. You can now require it with com
 
 ---
 
+<a name="step-4-install-in-a-real-project"></a>
 ## Step 4. Install in a Real Project
 
 We've instructed you to create the package in a disposable backpack-demo install. If you've done so, you can now install your package **in your _real_ project**:

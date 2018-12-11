@@ -2,7 +2,7 @@
 
 --
 
-<a href="about"></a>
+<a name="about"></a>
 ## About
 
 This CRUD operation allows your admins to preview an entry. When enabled, it will add a "Preview" button in the ListEntries view, that points to a show page:
@@ -11,12 +11,12 @@ This CRUD operation allows your admins to preview an entry. When enabled, it wil
 
 In case your entity is translatable, it will show a multi-language dropdown, just like Edit.
 
-<a href="how-it-works"></a>
+<a name="how-it-works"></a>
 ## How it Works
 
 The ```/entity-name/{id}``` route points to the ```show()``` method in your EntityCrudController. Inside this method, it uses ```setFromDb()``` to try to magically figure out all attributes you would like shown for this Model, and shows them using [Column types](/docs/{{version}}/crud-columns) inside ```show.blade.php```.
 
-<a href="enabling"></a>
+<a name="enabling"></a>
 ## How to Use
 
 The ```ListEntries``` operations is **disabled by default**. To enable it, you should use ```$this->crud->allowAccess('show');``` inside your ```setup()``` method.This will make a Preview button appear in the table view, and allow access to the show view. 
@@ -25,7 +25,7 @@ This view uses the same column types you've defined in ```setup()``` and adds al
 
 If you need more customization (add/change/remove columns), check out [How to Overwrite](#how-to-overwrite).
 
-<a href="how-to-overwrite"></a>
+<a name="how-to-overwrite"></a>
 ## How to Overwrite
 
 In case you need to add/change/remove any columns, create a ```show()``` method in your EntityCrudController. Using the ```addColumn()``` you're already familiar with, you can change how those attributes are shown to the admin. For example:
