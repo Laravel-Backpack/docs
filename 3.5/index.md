@@ -19,6 +19,7 @@
 
 - [Basics](/docs/{{version}}/crud-basics)
 - [Tutorial](/docs/{{version}}/crud-tutorial)
+- [API](/docs/{{version}}/crud-api)
 - [Cheat Sheet](/docs/{{version}}/crud-cheat-sheet)
 - [Operations](/docs/{{version}}/crud-operations)
     + [ListEntries](/docs/{{version}}/crud-operation-list-entries)

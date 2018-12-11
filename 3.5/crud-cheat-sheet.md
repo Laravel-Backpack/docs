@@ -1,4 +1,4 @@
-# API Cheat Sheet
+# Crud API Cheat Sheet
 
 ---
 
@@ -85,6 +85,14 @@ $this->crud->enableExportButtons();
 ```php
 $this->crud->disableResponsiveTable();
 $this->crud->enableResponsiveTable();
+```
+
+<a name="persistent-table-api"></a>
+#### Persistent Table
+
+```php
+$this->crud->disablePersistentTable();
+$this->crud->enablePersistentTable();
 ```
 
 <a name="page-length"></a>
