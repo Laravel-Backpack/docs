@@ -51,6 +51,11 @@ You can easily [install a demo Laravel project with Backpack installed](/docs/{{
 
 Backpack has never had a critical vulnerability/hack. But there _have_ been important security updates for dependencies (including Laravel). Please [login with Github](/auth/github) or  [subscribe to our monthly newsletter](https://backpackforlaravel.com/newsletter), so we can reach you in case anything bad happens. No spam, no marketing emails, we promise. We only send one email per month, with Backpack updates.
 
+<a name="maintenance"></a>
+### Maintenance
+
+Backpack 3.4 is NOT the current version, so it is NOT actively maintained. But we will push security fixes anything major is discovered. All new features and bug fixes are introduced on the current version - please upgrade to that one.
+
 <a name="license"></a>
 ### License
 

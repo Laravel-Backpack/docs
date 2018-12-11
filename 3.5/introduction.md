@@ -51,6 +51,11 @@ You can easily [install a demo Laravel project with Backpack installed](/docs/{{
 
 Backpack has never had a critical vulnerability/hack. But there _have_ been important security updates for dependencies (including Laravel). Please [login with Github](/auth/github) or  [subscribe to our monthly newsletter](https://backpackforlaravel.com/newsletter), so we can reach you in case anything bad happens. No spam, no marketing emails, we promise. We only send one email per month, with Backpack updates.
 
+<a name="maintenance"></a>
+### Maintenance
+
+Backpack 3.5 is the current version, and is being actively maintained by Backpack's creator, [Cristian Tabacitu](http://tabacitu.ro), with the help of a wonderful community of Backpack veterans. [See all contributors](https://github.com/Laravel-Backpack/CRUD/graphs/contributors).
+
 <a name="license"></a>
 ### License
 

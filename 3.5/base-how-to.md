@@ -191,6 +191,23 @@ By default, authentication and everything else inside Backpack is done using the
 - making sure everything inside ```BackpackUser``` is also inside your new model (this is important for recovering password, etc);
 
 
+<a name="use-your-own-profile-image-avatar"></a>
+## Use your own profile image (avatar)
+
+By default, Backpack will use Gravatar to show the profile image for the currently logged in backpack user. In order to change this, you can use the option in ```config/backpack/base.php```:
+```php
+// What kind of avatar will you like to show to the user?
+// Default: gravatar (automatically use the gravatar for his email)
+//
+// Other options:
+// - placehold (generic image with his first letter)
+// - example_method_name (specify the method on the User model that returns the URL)
+'avatar_type' => 'gravatar',
+```
+
+Please note that this does not allow the user to change his profile image.
+
+
 <a name="manually-install-backpack-base"></a>
 ## Manually install Base
 

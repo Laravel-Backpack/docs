@@ -370,8 +370,7 @@ The text column will just output the text value of a db column (or model attribu
 <a name="select"></a>
 ### select
 
-
-The select column will output its connected entity. Its name and definition is the same as for the select *field type*:
+The select column will output its connected entity. Used for relationships like hasOne() and belongsTo(). Its name and definition is the same as for the select *field type*:
 ```php
 [
    // 1-n relationship
@@ -389,7 +388,6 @@ The select column will output its connected entity. Its name and definition is t
 <a name="select_from_array"></a>
 ### select_from_array
 
-
 Show a particular text depending on the value of the attribute.
 
 ```php
@@ -404,8 +402,7 @@ Show a particular text depending on the value of the attribute.
 <a name="select_multiple"></a>
 ### select_multiple
 
-
-The select_multiple column will output a comma separated list of its connected entities. Its name and definition is the same as the select_multiple field:
+The select_multiple column will output a comma separated list of its connected entities. Used for relationships like hasMany() and belongsToMany(). Its name and definition is the same as the select_multiple field:
 ```php
 [
    // n-n relationship (with pivot table)

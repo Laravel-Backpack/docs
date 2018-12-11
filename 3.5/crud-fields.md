@@ -51,6 +51,15 @@ There are a few optional attributes on all default field types, that you can use
 ]
 ```
 
+These will help you:
+
+- **prefix** - add a text or icon _before_ the actual input;
+- **suffix** - add a text or icon _after_ the actual input;
+- **default** - specify a default value for the input, on create;
+- **hint** - add descriptive text for this input;
+- **attributes** - change or add actual HTML attributes of the input (ex: readonly, disabled, class, placeholder, etc);
+- **wrapperAttributes** - change or add actual HTML attributes to the div that contains the input;
+
 <a name="fields-api"></a>
 ### Fields API
 
@@ -820,7 +829,7 @@ Input preview:
 ### select (1-n relationship)
 
 Show a Select with the names of the connected entity and let the user select one of them.
-Your relationships should already be defined on your models.
+Your relationships should already be defined on your models as hasOne() or belongsTo().
 
 ```php
 [  // Select
@@ -869,7 +878,7 @@ Input preview:
 ### select2 (1-n relationship)
 
 Works just like the SELECT field, but prettier. Shows a Select2 with the names of the connected entity and let the user select one of them. 
-Your relationships should already be defined on your models.
+Your relationships should already be defined on your models as hasOne() or belongsTo().
 
 ```php
 [  // Select2
@@ -895,7 +904,7 @@ Input preview:
 ### select_multiple (n-n relationship)
 
 Show a Select with the names of the connected entity and let the user select any number of them.
-Your relationships should already be defined on your models.
+Your relationships should already be defined on your models as hasMany() or belongsToMany().
 
 ```php
 [       // SelectMultiple = n-n relationship (with pivot table)
@@ -926,7 +935,7 @@ Input preview:
 [Works just like the SELECT field, but prettier]
 
 Show a Select2 with the names of the connected entity and let the user select any number of them.
-Your relationships should already be defined on your models.
+Your relationships should already be defined on your models as hasMany() or belongsToMany().
 
 ```php
 [       // Select2Multiple = n-n relationship (with pivot table)

@@ -72,9 +72,9 @@ public function update(UpdateRequest $request)
 
 ![CRUD Update Operation](https://backpackforlaravel.com/uploads/docs/operations/update_translatable.png)
 
-You can let your admins edit multi-lingual entries. Only translations stored the [spatie/laravel-translatable](https://github.com/spatie/laravel-translatable) way are supported right now, but more options will be coming soon.
+For localized apps, you can let your admins edit multi-lingual entries. Only translations stored the [spatie/laravel-translatable](https://github.com/spatie/laravel-translatable) way are supported right now, but more options will be coming soon.
 
-In order to make one of your Models translatable, you need to:
+In order to make one of your Models translatable (localization), you need to:
 0. Be running MySQL 5.7+ (or a PosgreSQL with JSON column support);
 1. [Install spatie/laravel-translatable](https://github.com/spatie/laravel-translatable#installation);
 2. In your database, make all translatable columns either JSON or TEXT.
