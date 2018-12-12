@@ -22,7 +22,7 @@ When adding a button to the stack, you can choose whether to insert it at the ``
 
 Backpack adds a few buttons by default: 
 - ```add``` to the ```top``` stack;
-- ```edit``` and ```delete``` to the ```line``` stack;
+- ```update``` and ```delete``` to the ```line``` stack;
 
 Default buttons are invisible if an operation has been disabled. For example, you can: 
 - hide the "delete" button using ```$this->crud->denyAccess('delete')```;
