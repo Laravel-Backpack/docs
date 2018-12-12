@@ -41,7 +41,7 @@ There are a few optional attributes on all default field types, that you can use
     'hint'       => 'Some hint text', // helpful text, shows up after the input
     'attributes' => [
        'placeholder' => 'Some text when empty',
-       'class' => 'form-control some-class'
+       'class' => 'form-control some-class',
        'readonly'=>'readonly',
        'disabled'=>'disabled',
      ], // change the HTML attributes of your input
