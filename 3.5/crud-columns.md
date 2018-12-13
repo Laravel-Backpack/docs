@@ -383,8 +383,6 @@ The select column will output its connected entity. Used for relationships like 
 ],
 ```
 
-**Note:** When displaying this column's value, the text is not escaped. That is intentional. This way, you can use it to show labels, color text, italic, bold, links, etc. If you might have malicious JS or CSS in your values, you can create a new escaped field yourself. But it's probably better to treat the problem at the source, and prevent that JS and CSS from reaching your DB in the first place.
-
 <a name="select_from_array"></a>
 ### select_from_array
 
@@ -414,8 +412,6 @@ The select_multiple column will output a comma separated list of its connected e
    'model' => "App\Models\Tag", // foreign key model
 ],
 ```
-
-**Note:** When displaying this column's value, the text is not escaped. That is intentional. This way, you can use it to show labels, color text, italic, bold, links, etc. If you might have malicious JS or CSS in your values, you can create a new escaped field yourself. But it's probably better to treat the problem at the source, and prevent that JS and CSS from reaching your DB in the first place.
 
 <a name="table"></a>
 ### table
