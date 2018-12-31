@@ -207,6 +207,17 @@ The date column will show a localized datetime in the default datetime format (a
 ],
 ```
 
+<a name="email"></a>
+### email
+
+The text column will just output the text value of a db column (or model attribute). Its definition is:
+```php
+[
+   'name' => 'email', // The db column name
+   'label' => "Email Address", // Table column heading
+],
+```
+
 <a name="image"></a>
 ### image
 
