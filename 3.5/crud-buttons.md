@@ -81,7 +81,7 @@ Let's say we want to create a simple ```moderate.blade.php``` button. This butto
 - Create the ```resources\views\vendor\backpack\crud\buttons\moderate.blade.php``` file:
 ```php
 @if ($crud->hasAccess('update'))
-  <a href="{{ Request::url().'/'.$entry->getKey() }}/moderate" class="btn btn-xs btn-default"><i class="fa fa-ban"></i> Moderate</a>
+  <a href="{{ url($crud->route.'/'.$entry->getKey().'/moderate') }} " class="btn btn-xs btn-default"><i class="fa fa-ban"></i> Moderate</a>
 @endif
 ```
 - Add the new route, next to ```UserCrudController```'s route (most likely inside ```routes/backpack/custom.php```):
