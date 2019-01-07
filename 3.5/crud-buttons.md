@@ -21,7 +21,7 @@ When adding a button to the stack, you can choose whether to insert it at the ``
 ### Default Buttons
 
 Backpack adds a few buttons by default: 
-- ```add``` to the ```top``` stack;
+- ```create``` to the ```top``` stack;
 - ```update``` and ```delete``` to the ```line``` stack;
 
 Default buttons are invisible if an operation has been disabled. For example, you can: 
