@@ -18,7 +18,7 @@ When enabled, ```Revisions``` will show another button in the table view, betwee
 <a name="how-to-use"></a>
 ## How to Use
 
-The ```Reorder``` operation is **disabled by default**. In order to enable this functionality for a CRUD panel, you need to:
+The ```Revision``` operation is **disabled by default**. In order to enable this functionality for a CRUD panel, you need to:
 
 1. Create the revisions table:
 
