@@ -20,6 +20,7 @@ $this->crud->setRevisionsView('your-view');
 $this->crud->setRevisionsTimelineView('your-view');
 $this->crud->setDetailsRowView('your-view');
 ```
+Backpack will check ```resources/views/vendor/backpack/crud``` folder to see if you specify any custom views in your ```setup()```. Else, it will just load the default views in ```vendor/backpack/crud/src/resources/views```.
 
 <a name="customize-css-and-js-for-default-crud-operations"></a>
 ## Customize CSS and JS for Default CRUD Operations
