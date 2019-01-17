@@ -199,7 +199,7 @@ class TagCrudController extends CrudController
 ```
 
 What we should notice inside this TagCrudController is that:
-- ```TagCrudController extends CrudController```, which, if we drill down, is a RESTful controller that already has a few methods we will be using  - ```create()```, ```edit()```, ```show()```, ```destory()```, etc.;
+- ```TagCrudController extends CrudController```, which, if we drill down, is a RESTful controller that already has a few methods we will be using  - ```create()```, ```edit()```, ```show()```, ```destroy()```, etc.;
 - ```TagCrudController``` has a ```setup()``` method, where can configure how the CRUD panel works;
 - ```TagCrudController``` has its ```store()``` and ```update()``` methods with ```StoreRequest``` and ```UpdateRequest``` typehinted; which means those classes will be used for form validation; if we take a look at the top of the file, those Requests both lead to our newly generated ```app/Http/Requests/TagRequest.php```;
 
