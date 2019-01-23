@@ -7,10 +7,11 @@ In addition the usual CRUD functionality, Backpack also allows you to do a few m
 <a name="customize-views-for-each-crud-panel"></a>
 ## Customize Views for each CRUD Panel
 
-Previously, if you wanted to create a custom ```create.blade.php``` view for just one CRUD Panel, you needed to overwrite the create() method. The same for edit, list, revisions, reorder, etc.
-
-Now you can specify custom views in your ```setup()``` method:
-```
+Backpack loads its views through a double-fallback mechanism:
+- by default, it will load the views in the vendor folder (the package views);
+- if you've included views with the exact same name in your ```resources/views/vendor/backpack/crud``` folder, it will pick up those instead; you can use this method to overwrite a blade file for all CRUDs;
+- alternatively, if you only want to change a blade file for one CRUD, you can use the methods below in your ```setup()``` method, to change a particular view:
+```php
 $this->crud->setShowView('your-view');
 $this->crud->setEditView('your-view');
 $this->crud->setCreateView('your-view');
@@ -20,7 +21,6 @@ $this->crud->setRevisionsView('your-view');
 $this->crud->setRevisionsTimelineView('your-view');
 $this->crud->setDetailsRowView('your-view');
 ```
-Backpack will check ```resources/views/vendor/backpack/crud``` folder to see if you specify any custom views in your ```setup()```. Else, it will just load the default views in ```vendor/backpack/crud/src/resources/views```.
 
 <a name="customize-css-and-js-for-default-crud-operations"></a>
 ## Customize CSS and JS for Default CRUD Operations
