@@ -5,7 +5,7 @@
 <a name="customize-menu-or-sidebar"></a>
 ## Customize the menu or sidebar
 
-During installation, Backpack publishes a few files in you ```resources/views/vendor/backpack/base``` folder. In there, you'll also find ```inc/sidebar_content.php``` and ```inc/menu.php```. Change those files as you please.
+During installation, Backpack publishes a few files in your ```resources/views/vendor/backpack/base``` folder. In there, you'll also find ```inc/sidebar_content.php``` and ```inc/menu.php```. Change those files as you please.
 
 <a name="customize-dashboard"></a>
 ## Customize the dashboard
