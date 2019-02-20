@@ -471,7 +471,7 @@ Show a pretty [Bootstrap Datepicker](http://bootstrap-datepicker.readthedocs.io/
    'label' => 'Date',
    // optional:
    'date_picker_options' => [
-      'todayBtn' => true,
+      'todayBtn' => 'linked',
       'format' => 'dd-mm-yyyy',
       'language' => 'fr'
    ],
