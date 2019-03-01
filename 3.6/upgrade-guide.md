@@ -16,7 +16,7 @@ This will guide you through upgrading from Backpack 3.5 to 3.6. For upgrading fr
 <a name="upgraade-steps"></a>
 ## Upgrade Steps
 
-1. Update your ```composer.json``` file to require ```"backpack/crud": "3.6.*"``` along with ```"laravel/framework": "5.8.*"```. Remove any requirements of ```backpack/base``` as that's taken care of by backpack/crud. Then run ```composer update```.
+1. Update your ```composer.json``` file to require ```"backpack/crud": "3.6.*"``` along with ```"laravel/framework": "5.8.*"```. Remove ```backpack/base``` from your requirements - backpack/crud will take care of that. Then run ```composer update```.
 
 2. In your ```App\Models\BackpackUser``` instead of ```Tightenco\Parental\HasParent```, please use ```Backpack\Base\app\Models\Traits\InheritsRelationsFromParentModel```; [here's the diff](https://github.com/Laravel-Backpack/Base/pull/362/files#diff-f075b83ebb2b1ef3ba84dec14b395607);
 
