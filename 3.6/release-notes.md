@@ -2,7 +2,7 @@
 
 ---
 
-**Launch date:** March 1st 2018
+**Launch date:** March 1st 2019
 
 **Backpack 3.6 has no new features**. It is just a maintenance upgrade, which adds support for Laravel 5.8 and removes support for Laravel 5.7 and 5.6.
 
