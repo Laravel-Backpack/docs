@@ -7,7 +7,7 @@
 
 If you can run Laravel 5.6, you can install Backpack. Backpack does _not_ have additional requirements. For the following process, we assume:
 
-- you have a working installation of [Laravel 5.7](https://laravel.com/docs/5.7#installing-laravel) or [Laravel 5.6](https://laravel.com/docs/5.6#installing-laravel) (an existing project is fine, you don't need a *fresh* Laravel install);
+- you have a working installation of [Laravel 5.8](https://laravel.com/docs/5.8#installing-laravel), [5.7](https://laravel.com/docs/5.7#installing-laravel) or [5.6](https://laravel.com/docs/5.6#installing-laravel) (an existing project is fine, you don't need a *fresh* Laravel install);
 
 - you have put your database and email credentials in your .ENV file;
 
