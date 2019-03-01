@@ -9,7 +9,7 @@ This will guide you through upgrading from Backpack 3.5 to 3.6. For upgrading fr
 
 - Backpack\Base 1.0.x installed
 - Backpack\CRUD 3.5.x installed
-- Laravel 5.7+ installed
+- Laravel 5.7 installed
 - PHP 7.1.3+
 - 5 minutes on top of your normal [Laravel 5.8 upgrade](https://laravel.com/docs/5.8/upgrade)
 
