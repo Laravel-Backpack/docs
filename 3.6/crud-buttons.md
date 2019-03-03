@@ -86,7 +86,7 @@ Let's say we want to create a simple ```moderate.blade.php``` button. This butto
 ```
 - Add the new route, next to ```UserCrudController```'s route (most likely inside ```routes/backpack/custom.php```):
 ```php
-Route::get('user/{id}/moderate', 'UserCrudController@ban');
+Route::get('user/{id}/moderate', 'UserCrudController@moderate');
 ```
 
 - We can now create add a ```moderate()``` method to our ```UserCrudController```, which would moderate the user, and redirect back.
