@@ -10,12 +10,12 @@
 - [Release Notes](/docs/{{version}}/release-notes)
 - [Upgrade Guide](/docs/{{version}}/upgrade-guide)
 
-#### Backpack\Base 1.0.x
+#### Backpack\Base 1.1.x
 
 - [About](/docs/{{version}}/base-about)
 - [How To](/docs/{{version}}/base-how-to)
 
-#### Backpack\CRUD 3.5.x
+#### Backpack\CRUD 3.6.x
 
 - [Basics](/docs/{{version}}/crud-basics)
 - [Tutorial](/docs/{{version}}/crud-tutorial)
