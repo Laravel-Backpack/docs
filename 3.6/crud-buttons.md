@@ -121,3 +121,81 @@ In your ```Article``` model:
         return '<a class="btn btn-xs btn-default" target="_blank" href="http://google.com?q='.urlencode($this->text).'" data-toggle="tooltip" title="Just a demo custom button."><i class="fa fa-search"></i> Google it</a>';
     }
 ```
+
+
+<a name="adding-a-custom-button-with-a-blade-file"></a>
+### Adding a Custom Button with Javascript to the "top" stack
+
+Let's say we want to create an ```import.blade.php``` button. For simplicity, this button would just run an AJAX call which handles everything, and shows a status report to the user through notification bubbles. 
+
+The "top" buttons are not bound to any certain entry, like buttons from the "list" stack. They can only do general things. And if they do general things, it's _generally_ recommended that you move their javascript to the bottom of the page. You can easily do that with ```@push('after_javascript')```, because the Backpack default layout has an ```after_javascript``` stack. This way, you can make sure your Javascript is moved at the bottom of the page, after all other Javascript has been loaded (jQuery, DataTables, etc). Check out the example below.
+
+The steps would be:
+
+- Create the ```resources\views\vendor\backpack\crud\buttons\import.blade.php``` file:
+```php
+@if ($crud->hasAccess('create'))
+    <a href="javascript:void(0)" onclick="importTransaction(this)" data-route="{{ url($crud->route.'/import') }}" class="btn btn-primary ladda-button" data-button-type="import">
+<span class="ladda-label"><i class="fa fa-plus"></i> Import {{ $crud->entity_name }}</span>
+</a>
+@endif
+
+@push('after_scripts')
+<script>
+    if (typeof importTransaction != 'function') {
+      $("[data-button-type=import]").unbind('click');
+
+      function importTransaction(button) {
+          // ask for confirmation before deleting an item
+          // e.preventDefault();
+          var button = $(button);
+          var route = button.attr('data-route');
+
+          $.ajax({
+              url: route,
+              type: 'POST',
+              success: function(result) {
+                  // Show an alert with the result
+                  console.log(result,route);
+                  new PNotify({
+                      title: "Import done", // add extra info how many
+                      text: "Some Tx had been imported",
+                      type: "success"
+                  });
+
+                  // Hide the modal, if any
+                  $('.modal').modal('hide');
+
+                  crud.table.ajax.reload();
+              },
+              error: function(result) {
+                  // Show an alert with the result
+                  new PNotify({
+                      title: "Import failed",
+                      text: "The new entry could not be created. Please try again.",
+                      type: "warning"
+                  });
+              }
+          });
+      }
+    }
+</script>
+@endpush
+```
+- Add the new route, next to ```UserCrudController```'s route (most likely inside ```routes/backpack/custom.php```):
+```php
+Route::get('user/import', 'UserCrudController@import');
+```
+
+- We can now create add a ```import()``` method to our ```UserCrudController```, which would import the users.
+```php
+public function import() 
+{
+    // whatever you decide to do
+}
+```
+
+- Now we can actually add this button to any of ```UserCrudController::setup()```:
+```php
+$this->crud->addButtonFromView('top', 'import', 'view', 'crud::buttons.import', 'end');
+```
