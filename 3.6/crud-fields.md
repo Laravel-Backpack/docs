@@ -678,7 +678,7 @@ Class Product extends Model
     {
         $attribute_name = "image";
         $disk = config('backpack.base.root_disk_name'); // or use your own disk, defined in config/filesystems.php
-        $destination_path = "public/uploads/folder_1/folder_2/"; // path relative to the disk above
+        $destination_path = "public/uploads/folder_1/folder_2"; // path relative to the disk above
 
         // if the image was erased
         if ($value==null) {
