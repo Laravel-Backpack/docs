@@ -12,6 +12,8 @@ Here are all the functions you will be using **inside your EntityCrudController'
 <a name="columns-api"></a>
 #### Columns
 
+<small>Methods: addColumn(), addColumns(), modifyColumn(), removeColumn(), removeColumns(), setColumnDetails(), setColumnsDetails(), setColumns(), beforeColumn(), afterColumn(), makeFirstColumn()</small>
+
 ```php
 // Manipulate what columns are shown in the table view.
 $this->crud->addColumn($column_definition_array); // add a column, at the end of the stack
@@ -36,6 +38,8 @@ $this->crud->addColumn()->makeFirstColumn();
 <a name="buttons-api"></a>
 #### Buttons
 
+<small>Methods: addButton(), addButtonFromModelFunction(), addButtonFromView(), removeButton(), removeButtonFromStack()</small>
+
 ```php
 // possible positions: 'beginning' and 'end'; defaults to 'beginning' for the 'line' stack, 'end' for the others;
 $this->crud->addButton($stack, $name, $type, $content, $position); // add a button; possible types are: view, model_function
@@ -47,6 +51,8 @@ $this->crud->removeButtonFromStack($name, $stack);
 
 <a name="filters-api"></a>
 #### Filters
+
+<small>Methods: addFilter(), modifyFilter(), removeFilter(), removeAllFilters(), filters()</small>
 
 ```php
 // Manipulate what filters are shown in the table view.
@@ -62,6 +68,8 @@ $this->crud->filters(); // gets all the filters
 <a name="details-row-api"></a>
 #### Details Row
 
+<small>Methods: enableDetailsRow(), disableDetailsRow()</small>
+
 ```php
 // Shows a + sign next to each table row, so that the user can expand that row and reveal details. You are responsible for creting the view with those details.
 $this->crud->enableDetailsRow();
@@ -74,6 +82,8 @@ $this->crud->disableDetailsRow();
 <a name="export-buttons-api"></a>
 #### Export Buttons
 
+<small>Methods: enableExportButtons()</small>
+
 ```php
 // Show export to PDF, CSV, XLS and Print buttons on the table view. Please note it will only export the current _page_ of results. So in order to export all entries the user needs to make the current page show "All" entries from the top-left picker.
 $this->crud->enableExportButtons();
@@ -81,6 +91,8 @@ $this->crud->enableExportButtons();
 
 <a name="responsive-table-api"></a>
 #### Responsive Table
+
+<small>Methods: enableResponsiveTable(), disableResponsiveTable()</small>
 
 ```php
 $this->crud->disableResponsiveTable();
@@ -90,6 +102,8 @@ $this->crud->enableResponsiveTable();
 <a name="persistent-table-api"></a>
 #### Persistent Table
 
+<small>Methods: enablePersistenTable(), disablePersistenTable()</small>
+
 ```php
 $this->crud->disablePersistentTable();
 $this->crud->enablePersistentTable();
@@ -97,6 +111,8 @@ $this->crud->enablePersistentTable();
 
 <a name="page-length"></a>
 #### Page Length
+
+<small>Methods: setDetaultPageLength(), setPageLengthMenu()</small>
 
 ```php
 $this->crud->setDefaultPageLength(10); // number of rows shown in list view
@@ -106,6 +122,8 @@ $this->crud->setPageLengthMenu([100, 200, 300]); // page length menu to show in 
 <a name="action-column-api"></a>
 #### Actions Column
 
+<small>Methods: setActionColumnPriority()</small>
+
 ```php
 // make the actions column (in the table view) hide when not enough space is available, by giving it an unreasonable priority
 $this->crud->setActionsColumnPriority(10000);
@@ -113,6 +131,8 @@ $this->crud->setActionsColumnPriority(10000);
 
 <a name="custom-queries-api"></a>
 #### Custom / Advanced Queries
+
+<small>Methods: addClause(), groupBy(), limit(), orderBy()</small>
 
 ```php
 // Change what entries are show in the table view.
@@ -140,6 +160,8 @@ Use the same Columns API as for the ListEntries operation, but inside your ```sh
 <a name="create-and-update-api"></a>
 ### Create & Update Operations
 
+<small>Methods: addField(), addFields(), modifyField(), modifyFields(), removeField(), removeFields(), removeAllFields(), beforeField(), afterField() </small>
+
 ```php
 // ------
 // FIELDS
@@ -166,6 +188,8 @@ $this->crud->addField()->afterField('name'); // will show this after the given f
 
 <a name="reorder-api"></a>
 ### Reorder
+
+<small>Methods: enableReorder(), disableReorder(), isReorderEnabled()</small>
 
 ```php
 // Show a reorder button in the table view, next to Add
@@ -195,6 +219,8 @@ $this->crud->allowAccess('revisions');
 
 <a name="all-operations-api"></a>
 ## All Operations
+
+<small>Methods: allowAccess(), denyAccess(), hasAccess(), hasAccessOrFail(), hasAccessToAll(), hasAccessToAny(), setShowView(), setEditView(), setCreateView(), setListView(), setReorderView(), setRevisionsView, setRevisionsTimelineView(), setDetailsRowView(), getEntry(), getFields(), getColumns(), getCurrentEntry(), getTitle(), setTitle(), getHeading(), setHeading(), getSubheading(), setSubheading(), </small>
 
 ```php
 // ------ 
