@@ -903,6 +903,7 @@ Your relationships should already be defined on your models as hasOne() or belon
    'entity' => 'category', // the method that defines the relationship in your Model
    'attribute' => 'name', // foreign key attribute that is shown to user
    'model' => "App\Models\Tag", // foreign key model
+   'value' => 2 // set category with category_id 2 as a selected option by default
 
    // optional
    'options'   => (function ($query) {
