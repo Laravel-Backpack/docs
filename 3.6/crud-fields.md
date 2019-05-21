@@ -905,6 +905,7 @@ Your relationships should already be defined on your models as hasOne() or belon
    'model' => "App\Models\Tag", // foreign key model
 
    // optional
+   'default' => 2, // set the default value of the select2
    'options'   => (function ($query) {
         return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
     }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
