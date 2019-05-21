@@ -903,9 +903,9 @@ Your relationships should already be defined on your models as hasOne() or belon
    'entity' => 'category', // the method that defines the relationship in your Model
    'attribute' => 'name', // foreign key attribute that is shown to user
    'model' => "App\Models\Tag", // foreign key model
-   'value' => 2 // set category with category_id 2 as a selected option by default
 
    // optional
+   'default' => 2, // set the default value of the select2
    'options'   => (function ($query) {
         return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
     }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
