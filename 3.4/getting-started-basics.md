@@ -9,7 +9,7 @@
 
 <a name="what-is-backpack"></a>
 ## What is Backpack?
-A software that helps Laravel professionals build administration panels - secure areas where administrators login and create, read, update and delete application information. It is *not* a CMS, it is more a framework that lets you *build your own* CMS. You can install it in your existing project or in a totally new project. 
+A software that helps Laravel professionals build administration panels - secure areas where administrators login and create, read, update and delete application information. It is *not* a [CMS](https://hosting.review/web-hosting-glossary/#5), it is more a framework that lets you *build your own* CMS. You can install it in your existing project or in a totally new project. 
 
 It’s designed to be flexible enough to allow you to **build admin panels for everything from simple presentation websites to CRMs, ERPs, eCommerce, eLearning, etc**. We can vouch for that, because we have built all that stuff using Backpack already.
 
