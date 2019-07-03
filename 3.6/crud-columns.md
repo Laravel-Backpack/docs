@@ -238,6 +238,20 @@ Show a thumbnail image.
 ],
 ```
 
+<a name="markdown"></a>
+### markdown
+
+
+Convert a markdown string to HTML, using ```Illuminate\Mail\Markdown```.
+
+```php
+[
+   'name' => 'text', // The db column name
+   'label' => "Text", // Table column heading
+   'type' => 'markdown',
+],
+```
+
 <a name="model_function"></a>
 ### model_function
 
