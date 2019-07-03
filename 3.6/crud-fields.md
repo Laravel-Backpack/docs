@@ -1383,7 +1383,9 @@ Show a wysiwyg (TinyMCE) to the user.
 [   // TinyMCE
     'name' => 'description',
     'label' => 'Description',
-    'type' => 'tinymce'
+    'type' => 'tinymce',
+    // optional overwrite of the configuration array
+    // 'options' => [ 'selector' => 'textarea.tinymce',  'skin' => 'dick-light', 'plugins' => 'image,link,media,anchor' ],
 ],
 ```
 
