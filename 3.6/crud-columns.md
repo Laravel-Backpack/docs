@@ -242,7 +242,7 @@ Show a thumbnail image.
 ### markdown
 
 
-Convert a markdown string to HTML, using ```Illuminate\Mail\Markdown```.
+Convert a markdown string to HTML, using ```Illuminate\Mail\Markdown```. Since Markdown is usually used for long texts, this column is most helpful in the "Show" operation - not so much in the "ListEntries" operation, where only short snippets make sense.
 
 ```php
 [
