@@ -235,3 +235,73 @@ php artisan backpack:base:publish-user-model
 # Publish the CheckIfAdmin middleware inside your app/Http/Middleware directory
 php artisan backpack:base:publish-middleware
 ```
+
+
+<a name="use-breadcrumbs"></a>
+## Use Breadcrumbs
+
+You can hide or show breadcrumbs on ALL of your admin panel pages by changing a boolean variable in your ```config/backpack/base.php```:
+
+```php
+    // Show / hide breadcrumbs on admin panel pages.
+    'breadcrumbs' => true,
+```
+
+Breadcrumbs are loaded in the default layout _before_ the ```header``` section. 
+
+You can define your breadcrumbs:
+1) In the controller, by making sure a ```$breadcrumbs``` variable is present inside your views:
+```php
+    /**
+     * Show the admin dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function dashboard()
+    {
+        $this->data['title'] = trans('backpack::base.dashboard'); // set the page title
+        $this->data['breadcrumbs'] = [
+            trans('backpack::crud.admin') => url(config('backpack.base.route_prefix'), 'dashboard'),
+            trans('backpack::base.dashboard') => false,
+        ];
+
+        return view('backpack::dashboard', $this->data);
+    }
+```
+2) In the view, by making sure a ```$breadcrumbs``` variable is present:
+
+```php
+@extends('backpack::layout')
+
+@php
+  $breadcrumbs = [
+      'Admin' => backpack_url('dashboard'),
+      'Dashboard' => false,
+  ];
+@endphp
+
+@section('content')
+    some other content here
+@endsection
+```
+
+The ```inc.breadcrumbs``` view will show all breadcrumbs from the ```$breadcrumbs``` variable, if it's present on the page. The ```$breadcrumbs``` variable should be a simple associative array ```[ $label1 => $link1, $label2 => $link2 ]```. Examples:
+
+```php
+  $breadcrumbs = [
+      trans('backpack::crud.admin') => url(config('backpack.base.route_prefix'), 'dashboard'),
+      trans('backpack::base.dashboard') => false,
+  ];
+  
+  $breadcrumbs = [
+      trans('backpack::crud.admin') => backpack_url('dashboard'),
+      trans('backpack::base.dashboard') => false,
+  ];
+  
+  $breadcrumbs = [
+      'Admin' => route('dashboard'),
+      'Dashboard' => false,
+  ];
+```
+
+Notice the last item should NOT have a link, it should be ```false```.
