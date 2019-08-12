@@ -1,11 +1,11 @@
-# Widgets (aka cards, aka charts, aka graphs)
+# Widgets
 
 ---
 
 <a name="about"></a>
 ## About
 
-Widgets provide a simple way to insert blade files into admin panel pages. You can use them to insert cards, charts, notices or custom content into pages.
+Widgets (aka cards, aka charts, aka graphs) provide a simple way to insert blade files into admin panel pages. You can use them to insert cards, charts, notices or custom content into pages.
 
 
 <a name="how-to-use-widgets"></a>
@@ -88,17 +88,17 @@ Most widget types also have these attributes present, which you can use to tweak
 ## Default Widget Types
 
 <a name="alert"></a>
-## Alert
+### Alert
 
 Shows a notification bubble, with the heading and text you specify:
 
 ```php
 [
-    'type'         => 'alert',
-    'class'        => 'alert alert-danger mb-2',
-    'heading'      => 'Important information!',
-    'content'      => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti nulla quas distinctio veritatis provident mollitia error fuga quis repellat, modi minima corporis similique, quaerat minus rerum dolorem asperiores, odit magnam.',
-    'close_button' => true, // show close button or not
+  'type'         => 'alert',
+  'class'        => 'alert alert-danger mb-2',
+  'heading'      => 'Important information!',
+  'content'      => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti nulla quas distinctio veritatis provident mollitia error fuga quis repellat, modi minima corporis similique, quaerat minus rerum dolorem asperiores, odit magnam.',
+  'close_button' => true, // show close button or not
 ]
 ```
 
@@ -108,6 +108,116 @@ Widget Preview:
 
 ![Backpack alert widget](https://backpackforlaravel.com/uploads/v4/widgets/alert.png)
 
+<a name="card"></a>
+### Card
+
+Shows a Bootstrap card, with the heading and body you specify. You can customize the class name to get cards of different color, size, etc.
+
+```php
+[
+  'type' => 'card',
+  // 'wrapperClass' => 'col-sm-6 col-md-4', // optional
+  // 'class' => 'card bg-dark text-white', // optional
+  'content' => [
+      'header' => 'Some card title', // optional
+      'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non mi nec orci euismod venenatis. Integer quis sapien et diam facilisis facilisis ultricies quis justo. Phasellus sem <b>turpis</b>, ornare quis aliquet ut, volutpat et lectus. Aliquam a egestas elit. <i>Nulla posuere</i>, sem et porttitor mollis, massa nibh sagittis nibh, id porttitor nibh turpis sed arcu.',
+  ]
+]
+```
+
+For different background colors, you can use the following classes: ```bg-success```, ```bg-warning```, ```bg-info```, ```bg-danger``` ```bg-primary```, ```bg-secondary```, ```bg-light```, ```bg-dark```.
+
+Other useful helper classes: ```text-center```, ```text-white```.
+
+Widget Preview:
+
+![Backpack card widget](https://backpackforlaravel.com/uploads/v4/widgets/card.png)
+
+<a name="div"></a>
+### Div
+
+Allows you to include multiple widgets in a div attributes of your choosing. For example, you can include multiple widgets in a ```<div class="row"></div>``` with the code below:
+
+```php
+[
+  'type' => 'div',
+  'class' => 'row',
+  'content' => [ // widgets 
+      [ 'type' => 'card', 'content' => ['body' => 'One'] ],
+      [ 'type' => 'card', 'content' => ['body' => 'Two'] ],
+      [ 'type' => 'card', 'content' => ['body' => 'Three'] ],
+  ]
+]
+```
+
+Anything you specify on this widget, other than ```type``` and ```content```, has to be a string, and will be considered an attribute of the "div" element.
+
+<a name="jumbotron"></a>
+### Jumbotron
+
+Shows a Boostrap jumbotron component, with the heading and body you specify.
+
+```php
+[
+  'type'        => 'jumbotron',
+  'wrapperClass'=> '',
+  'heading'     => 'Welcome!',
+  'content'     => 'Use the sidebar to the left to create, edit or delete content.',
+  'button_link' => backpack_url('logout'),
+  'button_text' => 'Logout',
+]
+```
+
+Widget Preview:
+
+![Backpack card widget](https://backpackforlaravel.com/uploads/v4/widgets/jumbotron.png)
+
+<a name="progress"></a>
+### Progress
+
+Shows a colorful card to signify the progress towards a goal. You can customize the class name to get cards of different color, size, etc.
+
+```php
+[
+    'type'        => 'progress',
+    'class'       => 'card text-white bg-primary mb-2',
+    'value'       => '11.456',
+    'description' => 'Registered users.',
+    'progress'    => 57, // integer
+    'hint'        => '8544 more until next milestone.',
+]
+```
+
+For different background colors, you can use the following classes: ```bg-success```, ```bg-warning```, ```bg-info```, ```bg-danger``` ```bg-primary```, ```bg-secondary```, ```bg-light```, ```bg-dark```.
+
+Other useful helper classes: ```text-center```, ```text-white```.
+
+Widget Preview:
+
+![Backpack card widget](https://backpackforlaravel.com/uploads/v4/widgets/progress.png)
+
+<a name="progress-white"></a>
+### Progress White
+
+Shows a white card to signify the progress towards a goal. You can customize the class name to get progress bars of different color.
+
+```php
+[
+    'type'        => 'progress_white',
+    'class'       => 'card mb-2',
+    'value'       => '11.456',
+    'description' => 'Registered users.',
+    'progress'    => 57, // integer
+    'progressClass' => 'progress-bar bg-primary',
+    'hint'        => '8544 more until next milestone.',
+]
+```
+
+For different progress bar colors, you can use the following classes: ```bg-success```, ```bg-warning```, ```bg-info```, ```bg-danger``` ```bg-primary```, ```bg-secondary```, ```bg-light```, ```bg-dark```.
+
+Widget Preview:
+
+![Backpack card widget](https://backpackforlaravel.com/uploads/v4/widgets/progress_white.png)
 
 <a name="overwriting-default-widget-types"></a>
 ## Overwriting Default Widget Types

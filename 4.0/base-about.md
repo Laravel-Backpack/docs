@@ -148,7 +148,7 @@ public function foo()
   \Alert::add('info', 'This is a blue bubble.');
   \Alert::add('warning', 'This is a yellow/orange bubble.');
   \Alert::add('error', 'This is a red bubble.');
-  \Alert::add('success', '<strong>Got it</strong><br>This is an HTML message in a green bubble.');
+  \Alert::add('success', '<strong>Got it</strong><br>This is HTML in a green bubble.');
   \Alert::add('primary', 'This is a dark blue bubble.');
   \Alert::add('secondary', 'This is a grey bubble.');
   \Alert::add('light', 'This is a light grey bubble.');
