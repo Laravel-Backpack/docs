@@ -15,49 +15,51 @@ Change those files as you please.
 <a name="customize-dashboard"></a>
 ## Customize the dashboard
 
-The dashboard is shown from ```Backpack\Base\app\Http\Controller\AdminController.php::dashboard()```. If you take a look at that method, you'll see that the only thing it does is to set a title from the language file, and return a view: ```backpack::dashboard```.
+The dashboard is shown from ```Backpack\Base\app\Http\Controller\AdminController.php::dashboard()```. If you take a look at that method, you'll see that the only thing it does is to set a title, breadcrumbs, and return a view: ```backpack::dashboard```.
 
-In order to place something else inside that view, simply publish that view in your project, and Backpack will pick it up, instead of the one in the package. Create a ```resources/views/vendor/backpack/base/dashboard.blade.php``` file:
+In order to place something else inside that view, like [widgets](/docs/{{version}}/base-widgets), simply publish that view in your project, and Backpack will pick it up, instead of the one in the package. Create a ```resources/views/vendor/backpack/base/dashboard.blade.php``` file:
 
 ```html
-@extends('backpack::layout')
+@extends(backpack_view('blank'))
 
-@section('header')
-    <section class="content-header">
-      <h1>
-        {{ trans('backpack::base.dashboard') }}<small>{{ trans('backpack::base.first_page_you_see') }}</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="{{ backpack_url() }}">{{ config('backpack.base.project_name') }}</a></li>
-        <li class="active">{{ trans('backpack::base.dashboard') }}</li>
-      </ol>
-    </section>
-@endsection
-
+@php
+    $widgets['before_content'][] = [
+        'type'        => 'jumbotron',
+        'heading'     => trans('backpack::base.welcome'),
+        'content'     => trans('backpack::base.use_sidebar'),
+        'button_link' => backpack_url('logout'),
+        'button_text' => trans('backpack::base.logout'),
+    ];
+@endphp
 
 @section('content')
-    <div class="row">
-        <div class="col-md-12">
-            <div class="box">
-                <div class="box-header with-border">
-                    <div class="box-title">{{ trans('backpack::base.login_status') }}</div>
-                </div>
-
-                <div class="box-body">{{ trans('backpack::base.logged_in') }}</div>
-            </div>
-        </div>
-    </div>
+  <p>Your custom HTML can live here</p>
 @endsection
 ```
 
-To use information from the database, [use view composers](https://laravel.com/docs/5.7/views#view-composers) to push variables inside this view, when it's loaded. Or better yet, load all your dashboard information using AJAX calls, if you're loading charts, reports, etc, and the DB queries might take a long time.
+To use information from the database, you can:
+- [use view composers](https://laravel.com/docs/5.7/views#view-composers) to push variables inside this view, when it's loaded;
+- load all your dashboard information using AJAX calls, if you're loading charts, reports, etc, and the DB queries might take a long time;
+- use the full namespace for your models, like ```\App\Models\Product::count()```;
 
-Take a look at the [AdminLTE dashboards](https://adminlte.io/themes/AdminLTE/index.html) - you can easily use whatever content block you want from there.
+Take a look at the [widgets](/docs/{{version}}/base-widgets) we have - you can easily use those in your dashboard. You can also add whatever HTML you want inside the content block - check the [Backstrap HTML Template](https://backstrap.net/widgets.html) for design components you can copy-paste to speed up your custom HTML.
 
+<a name="customize-general-layout-design"></a>
 ## Customizing the general layout/design
 
 See [the docs](/docs/{{version}}/base-about#layout-design).
 
+<a name="create-a-new-theme"></a>
+## Create a new theme / child theme
+
+You can create a theme with your own HTML. Create a folder with all the views you want to overwrite, then change ```view_namespace``` inside your ```config/backpack/base.php``` to point to that folder. All views will be loaded from _that_ folder if they exist, then from ```resources/views/vendor/backpack/base```, then from the Base package.
+
+You can use child themes to:
+- create packages for your Backpack admin panels to look different (and re-use across projects)
+- use a different CSS framework (ex: Tailwind, Bulma)
+
+
+<a name="customize-auth-controllers"></a>
 ## Customizing the Auth controllers
 
 In ```config/backpack/base.php``` you'll find these configuration options:
@@ -117,29 +119,75 @@ Route::group(['middleware' => 'web', 'prefix' => config('backpack.base.route_pre
 });
 ```
 
-<a name="customize-overlays-css"></a>
-## Customize the look and feel of AdminLTE (using CSS)
+<a name="add-custom-javascript"></a>
+## Add custom Javascript to all admin panel pages
 
-In ```config/app.php``` you should have a config option that looks like this:
+In ```config/backpack/base.php``` you'll notice this config option:
 
 ```php
-    // Overlays - CSS files that change the look and feel of the admin panel
-    'overlays' => [
-        'vendor/backpack/base/backpack.bold.css',
-        // 'vendor/backpack/base/backpack.content.is.king.css', // opinionized borderless alternative
+    // JS files that are loaded in all pages, using Laravel's asset() helper
+    'scripts' => [
+        // Backstrap includes jQuery, Bootstrap, CoreUI, PNotify, Popper
+        'packages/backpack/base/js/bundle.js?v='.\PackageVersions\Versions::getVersion('backpack/base'),
+
+        // examples (everything inside the bundle, loaded from CDN)
+        // 'https://code.jquery.com/jquery-3.4.1.min.js',
+        // 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js',
+        // 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js',
+        // 'https://unpkg.com/@coreui/coreui/dist/js/coreui.min.js',
+        // 'https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
+        // 'https://unpkg.com/sweetalert/dist/sweetalert.min.js',
+        // 'https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js'
+
+        // examples (VueJS or React)
+        // 'https://unpkg.com/vue@2.4.4/dist/vue.min.js',
+        // 'https://unpkg.com/react@16/umd/react.production.min.js',
+        // 'https://unpkg.com/react-dom@16/umd/react-dom.production.min.js',
     ],
 ```
 
-If you don't (it was added in Base 0.9.9), you can create it.
+You can add files to this array, and they'll be loaded in all admin panels pages.
 
-This config option allows you to add CSS files that add style _on top_ of AdminLTE, to make it look different. Our ```backpack.bold.css``` file is included by default, which makes AdminLTE look more modern. But if you want your backend to match your front-end, you can create a CSS file anywhere inside your ```public``` folder, and add it here.
+<a name="add-custom-css"></a>
+## Add custom CSS to all admin panel pages
 
-For example, if you're using the [Stack HTML template](https://themeforest.net/item/stack-multipurpose-html-with-page-builder/19337626?ref=medium_rare) on your front-end, you can just [add this overlay](https://gist.github.com/tabacitu/4f7eae0519e37aef46cbb959b8ab01a9) to make AdminLTE look very similar.
+In ```config/backpack/base.php``` you'll notice this config option:
+
+```php
+    // CSS files that are loaded in all pages, using Laravel's asset() helper
+    'styles' => [
+        'packages/@digitallyhappy/backstrap/css/style.min.css',
+
+        // Examples (the fonts above, loaded from CDN instead)
+        // 'https://maxcdn.icons8.com/fonts/line-awesome/1.1/css/line-awesome-font-awesome.min.css',
+        // 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic',
+    ],
+```
+
+You can add files to this array, and they'll be loaded in all admin panels pages.
+
+<a name="customize-overlays-css"></a>
+## Customize the look and feel of the admin panel (using CSS)
+
+If you want to change the look&feel of the admin panel, you can create a custom CSS file wherever you want. We recommend you do it inside ```public/packages/myname/mycustomthemename/css/style.css``` folder so that it's easier to turn into a theme, if you decide later to share or re-use your CSS in other projects.
+
+In ```config/backpack/base.php``` add your file to this config option:
+
+```php
+    // CSS files that are loaded in all pages, using Laravel's asset() helper
+    'styles' => [
+        'packages/@digitallyhappy/backstrap/css/style.min.css',
+         // ...
+        'packages/myname/mycustomthemename/css/style.css',
+    ],
+```
+
+This config option allows you to add CSS files that add style _on top_ of Backstrap, to make it look different. You can create a CSS file anywhere inside your ```public``` folder, and add it here.
 
 <a name="use-sparate-login-for-users-and-admins"></a>
 ## Use separate login/register forms for users and admins
 
-This is a default in Backpack\Base 1.0.0.
+This is a default in Backpack\Base 2.0.0.
 
 Backpack's authentication uses a completely separate authentication driver, provider, guard and password broker. They're all named ```backpack```, and registered in the vendor folder, invisible to you. 
 
@@ -161,7 +209,7 @@ To change a setting in how Backpack's driver/provider/guard or password broker w
 <a name="use-separate-sessions-for-admins-and-users"></a>
 ## Use separate sessions for admin&user authentication
 
-This is a default in Backpack\Base 1.0.0.
+This is a default in Backpack\Base 2.0.0.
 
 <a name="login-with-username-instead-of-email"></a>
 ## Login with username instead of email

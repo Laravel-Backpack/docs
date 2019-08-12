@@ -13,6 +13,7 @@
 #### Backpack\Base 1.1.x
 
 - [About](/docs/{{version}}/base-about)
+- [Widgets](/docs/{{version}}/base-widgets)
 - [How To](/docs/{{version}}/base-how-to)
 
 #### Backpack\CRUD 3.6.x
