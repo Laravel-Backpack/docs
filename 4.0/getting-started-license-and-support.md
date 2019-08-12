@@ -19,8 +19,8 @@ Take a look at:
 Backpack is **free for non-commercial use**, but needs a license code in order to prevent “_unlicensed use_” notification bubbles and interruption of service. You can get a license code for your project:
 - ```free```, if you're using it for non-commercial purposes; [apply here](https://backpackforlaravel.com/pricing);
 - ```free```, if you've contributed to Backpack on Github; [apply here](https://backpackforlaravel.com/pricing);
-- ```$49 EUR/project```, if you're making money using it for a project; [buy here](https://backpackforlaravel.com/pricing);
-- ```$299 EUR for unlimited projects```, if you use Backpack a lot; [buy here](https://backpackforlaravel.com/pricing);
+- ```€49 EUR/project```, if you're making money using it for a project; [buy here](https://backpackforlaravel.com/pricing);
+- ```€299 EUR for unlimited projects```, if you use Backpack a lot; [buy here](https://backpackforlaravel.com/pricing);
 
 **Freelancers** or companies **who make money using Backpack** - for themselves, their employers or their clients, **should [purchase a commercial license here](https://backpackforlaravel.com/pricing)**.
 
