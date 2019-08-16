@@ -26,13 +26,18 @@ The ```Revision``` operation is **disabled by default**. In order to enable this
 cp vendor/venturecraft/revisionable/src/migrations/2013_04_09_062329_create_revisions_table.php database/migrations/ && php artisan migrate
 ```
 
-2. Use [venturecraft/revisionable](https://github.com/VentureCraft/revisionable#implementation) on your model. If you are using another bootable trait be sure to override the boot method in your model.
+2. Use [venturecraft/revisionable](https://github.com/VentureCraft/revisionable#implementation) on your model, and an ```identifiableName()``` method that returns an attribute on the model that the admin can use to distiguish between entries (ex: name, title, etc). If you are using another bootable trait be sure to override the boot method in your model.
 
 ```php
 namespace MyApp\Models;
 
 class Article extends Eloquent {
     use \Backpack\CRUD\CrudTrait, \Venturecraft\Revisionable\RevisionableTrait;
+    
+    public function identifiableName()
+    {
+        return $this->name;
+    }
 
     // If you are using another bootable trait
     // be sure to override the boot method in your model
