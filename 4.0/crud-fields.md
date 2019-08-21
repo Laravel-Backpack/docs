@@ -405,7 +405,8 @@ Input preview:
 [   // Color
     'name' => 'background_color',
     'label' => 'Background Color',
-    'type' => 'color'
+    'type' => 'color',
+    'default' => '#000000',
 ],
 ```
 
@@ -423,6 +424,7 @@ Show a pretty colour picker using [Bootstrap Colorpicker](https://itsjavi.com/bo
     'label' => 'Background Color',
     'name' => 'background_color',
     'type' => 'color_picker',
+    'default' => '#000000',
     'color_picker_options' => ['customClass' => 'custom-class']
 ]
 ```
