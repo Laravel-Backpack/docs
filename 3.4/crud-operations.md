@@ -400,7 +400,7 @@ The button makes one call for all entries, and only triggers one notification. I
             crud.checkedItems.forEach(function(item) {
               var clone_route = "{{ url($crud->route) }}/"+item+"/clone";
 
-              // submit an AJAX delete call
+              // submit an AJAX clone call
               ajax_calls.push($.ajax({
                   url: clone_route,
                   type: 'POST',
