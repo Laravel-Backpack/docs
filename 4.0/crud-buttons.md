@@ -31,7 +31,7 @@ Default buttons are invisible if an operation has been disabled. For example, yo
 <a name="buttons-api"></a>
 ### Buttons API
 
-Here are a few things you can call in your EntityCrudController's ```setup()``` method, to manipulate buttons:
+Here are a few things you can call in your EntityCrudController's ```setupListOperation()``` method, to manipulate buttons:
 
 ```php
 // possible positions: 'beginning' and 'end'; defaults to 'beginning' for the 'line' stack, 'end' for the others;
@@ -63,7 +63,7 @@ That means **you can overwrite an existing button simply by creating a blade fil
 
 To create a custom button:
 - create a new blade file in ```resources\views\vendor\backpack\crud\buttons```;
-- add that button using the ```addButton()``` syntax above, in the EntityCrudControllers you want, inside the ```setup()``` method;
+- add that button using the ```addButton()``` syntax above, in the EntityCrudControllers you want, inside the ```setupListOperation()``` method;
 
 In this blade file, you can use:
 - ```$entry``` - the database entry you're showing (only inside the ```line``` stack);

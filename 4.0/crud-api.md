@@ -2,9 +2,19 @@
 
 ---
 
-Here are all the functions you will be using **inside your EntityCrudController's ```setup()``` method**, grouped by the operation you will most likely use them for.
+Here are all the features you will be using **inside your EntityCrudController**, grouped by the operation you will most likely use them for.
 
 ## Operations
+
+- **operation()** - allows you to add a set of instructions inside ```setup()```, that only only get called when a certain operation is being performed; 
+```php
+public function setup() {
+	// ...
+	$this->crud->operation('list', function() {
+		$this->crud->addColumn('name');
+	});
+}
+```
 
 <a name="list-entries-api"></a>
 ### ListEntries
@@ -248,35 +258,35 @@ Use [the same Columns API as for the ListEntries operation](#columns-api), but i
 
 Manipulate what fields are shown in the create / update forms. Check out [CRUD > Operations > Create & Update > Fields](/docs/{{version}}/crud-fields) in the docs to see examples of ```$field_definition_array```.
 
-**Note:** The last parameter is always the form - ```create``` or ```update```. If missing, it's assumed ```both```.
+**Note:** The call is being performed for the current operation. So it's important to pay attention _where_ you're calling fields. Most likely, you'll want to do this inside ```setupCreateOperation()``` or ```setupUpdateOperation()```.
 
-- **addField()** - add one field to the create / update or both forms
+- **addField()** - add one field
 ```php
-$this->crud->addField($field_definition_array, 'update/create/both');
-$this->crud->addField('db_column_name', 'update/create/both'); // a lazy way to add fields: let the CRUD decide what field type it is and set it automatically, along with the field label
+$this->crud->addField($field_definition_array);
+$this->crud->addField('db_column_name'); // a lazy way to add fields: let the CRUD decide what field type it is and set it automatically, along with the field label
 ```
 
-- **addFields()** - add multiple fields to the create / update or both forms
+- **addFields()** - add multiple fields
 ```php
-$this->crud->addFields($array_of_fields_definition_arrays, 'update/create/both');
+$this->crud->addFields($array_of_fields_definition_arrays);
 ```
 
 - **modifyField()** - change the attributes of an existing field
 ```php
-$this->crud->modifyField($name, $modifs_array, 'update/create/both');
+$this->crud->modifyField($name, $modifs_array);
 ```
 
-- **removeField()** - remove a given field from a given operation
+- **removeField()** - remove a given field from the current operation
 ```php
-$this->crud->removeField('name', 'update/create/both');
+$this->crud->removeField('name');
 ```
 
-- **removeFields()** - remove multiple fields from a given operation
+- **removeFields()** - remove multiple fields from the current operation
 ```php
-$this->crud->removeFields($array_of_names, 'update/create/both');
+$this->crud->removeFields($array_of_names);
 ```
 
-- **removeAllFields()** - remove all registered fields from both create and update operations
+- **removeAllFields()** - remove all registered fields
 ```php
 $this->crud->removeAllFields();
 ```
@@ -292,8 +302,12 @@ $this->crud->addField()->afterField('name');
 
 - **setRequiredFields()** - check the FormRequests used in this EntityCrudController for required fields, and add an asterisk to them in the create or edit forms
 ```php
-$this->crud->setRequiredFields(StoreRequest::class, 'create');
-$this->crud->setRequiredFields(UpdateRequest::class, 'edit');
+$this->crud->setRequiredFields(StoreRequest::class);
+```
+
+- **setValidation()** - makes sure validation and authorization in the FormRequest you've passed is being performed; also uses that file to figure out asterisk to show in the forms (calls ```setRequiredFields()``` above):
+```php
+$this->crud->setValidation(ArticleRequest::class);
 ```
 
 <a name="reorder-api"></a>
@@ -301,12 +315,9 @@ $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
 
 Show a reorder button in the table view, next to Add. Provides an interface to reorder & nest elements, provided the ```parent_id```, ```lft```, ```rgt```, ```depth``` columns are in the database, and ```$fillable``` on the model.
 
-- **enableReorder()** - enable the Reorder functionality
 ```php
-$this->crud->enableReorder('label_name', 3);
-// NOTE: the second parameter is the maximum nesting depth; this example will prevent the user from creating trees deeper than 3 levels;
-// NOTE: you also need to do allow access to the right users:
-$this->crud->allowAccess('reorder');
+$this->crud->set('reorder.label', 'name'); // which model attribute to use for labels
+$this->crud->set('reorder.max_level', 3); // maximum nesting depth; this example will prevent the user from creating trees deeper than 3 levels;
 ```
 
 - **disableReorder()** - disable the Reorder functionality
@@ -323,10 +334,6 @@ $this->crud->isReorderEnabled();
 ### Revisions 
 
 A.k.a. Audit Trail. Tracks all changes to an entry and provides an interface to revert to a previous state. In order to use this, you also need to ```use \Venturecraft\Revisionable\RevisionableTrait;```. Please check out the [Revision Operation](/docs/{{version}}/crud-operation-revisions) for more info.
-
-```php
-$this->crud->allowAccess('revisions');
-```
 
 <a name="all-operations-api"></a>
 ## All Operations
@@ -349,8 +356,8 @@ $this->crud->denyAccess(['list', 'create', 'delete']);
 
 - **hasAccess()** - check if the current user has access to one or multiple operations
 ```php
-$this->crud->hasAccess('add'); // returns true/false
-$this->crud->hasAccessOrFail('add'); // throws 403 error
+$this->crud->hasAccess('something'); // returns true/false
+$this->crud->hasAccessOrFail('something'); // throws 403 error
 $this->crud->hasAccessToAll(['create', 'update']); // returns true/false
 $this->crud->hasAccessToAny(['create', 'update']); // returns true/false
 ```
@@ -375,6 +382,26 @@ $this->crud->setReorderView('your-view');
 $this->crud->setRevisionsView('your-view');
 $this->crud->setRevisionsTimelineView('your-view');
 $this->crud->setDetailsRowView('your-view');
+
+// more generally, you can use the Settings API:
+$this->crud->set('create.view', 'your-view');
+```
+
+### Content Class
+
+- **setShowContentClass()**, **setEditContentClass()**, **setCreateContentClass()**, **setListContentClass()**, **setReorderContentClass()**, **setRevisionsContentClass()**, **setRevisionsTimelineContentClass()** - set the CSS class for an operation view, to make the main area bigger or smaller:
+```php
+// use a custom view for a CRUD operation
+$this->crud->setShowContentClass('col-md-8');
+$this->crud->setEditContentClass('col-md-8');
+$this->crud->setCreateContentClass('col-md-8');
+$this->crud->setListContentClass('col-md-8');
+$this->crud->setReorderContentClass('col-md-8');
+$this->crud->setRevisionsContentClass('col-md-8');
+$this->crud->setRevisionsTimelineContentClass('col-md-8');
+
+// more generally, you can use the Settings API:
+$this->crud->set('create.contentClass', 'col-md-12');
 ```
 
 ### Getters
@@ -426,6 +453,10 @@ $this->crud->actionIs('create');
 ```
 
 ### Title, Heading, Subheading
+
+Legend:
+- _operation_ - a collection of functions in a CrudController, that together allow the admin to perform something on the current model;
+- _action_ - a method (aka function) of an operation; it is the actual PHP function's name;
 
 - **getTitle()** -  get the Title for the create action
 ```php

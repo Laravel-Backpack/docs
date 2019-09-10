@@ -4,7 +4,7 @@
 
 **Duration:** 5 minutes
 
-> **Are you already comfortable with Laravel?** In order to understand this series and make use of Backpack, you’ll need to have a decent understanding of the Laravel framework. If you don’t, please go ahead and [watch this excellent intro series on Laracasts](https://laracasts.com/series/laravel-from-scratch-2017) and accomodate yourself with Laravel first.
+> **Are you already comfortable with Laravel?** In order to understand this series and make use of Backpack, you’ll need to have a decent understanding of the Laravel framework. If you don’t, please go ahead and [watch this excellent intro series on Laracasts](https://laracasts.com/series/laravel-from-scratch-2018) and accomodate yourself with Laravel first.
 
 
 <a name="what-is-backpack"></a>
@@ -14,11 +14,7 @@ A software that helps Laravel professionals build administration panels - secure
 It’s designed to be flexible enough to allow you to **build admin panels for everything from simple presentation websites to CRMs, ERPs, eCommerce, eLearning, etc**. We can vouch for that, because we have built all that stuff using Backpack already.
 
 <a name="how-to-use-backpack"></a>
-## How to use?
-
-Backpack consists of two **core packages**:
-- **Backpack\Base** - provides the design of the admin area (based on [AdminLTE](https://adminlte.io/themes/AdminLTE/index2.html))
-- **Backpack\CRUD** - empowers you to create **CRUDs**, really fast
+## What's a CRUD?
 
 A **CRUD** is what we call a section of your admin panel that lets the admin _Create, Read, Update or Delete_ entries of a certain entity (or Model). So you can have a CRUD for Products, a CRUD for Articles, a CRUD for Categories, or whatever else you might want to create, read, update or delete.
 
@@ -26,28 +22,36 @@ For the purpose of this series, we’ll show examples on the ```Tag``` entity. T
 
 ![Tag CRUD - List Entries Operation](https://backpackforlaravel.com/uploads/docs-3-5/getting_started/tag_crud_list_entries.png)
 
-But Backpack is fully prepared for feature-packed CRUDs - since it's a good tool for very complex projects too. Here's what a CRUD that uses all of Backpack's features could look like:
+But Backpack is prepared for feature-packed CRUDs - since it's a good tool for very complex projects too. Here's what a CRUD that uses all of Backpack's features could look like:
 
 ![Monsters CRUD - List Entries Operation](https://backpackforlaravel.com/uploads/docs-3-5/getting_started/monster_crud_list_entries.png)
 
 Mind that you will _almost never_ use all of Backpack's features in one CRUD. But if you do... it still looks good, and it'll be intuitive to use.
 
 <a name="core-packages"></a>
-## Core Packages
+## Main Features
 
-<a name="backpack-base"></a>
-### Backpack\Base
+<a name="backpack-design"></a>
+### Front-End Design
 
-**Backpack/Base** is the package that **will handle the authentication** and provide you with minimal admin area functionality. **Your admin will be able to login and change his password or email.** And that’s pretty much it. 
+Backpack installs the [CoreUI](https://coreui.io) HTML theme, and our own design on top - [Backstrap](http://backstrap.net). It uses Boostrap 4, and has many HTML blocks ready for you to use. When you're building a custom page in your admin panel, it's easy to just copy-paste the HTML from our [Backstrap demo](http://backstrap.net), or from the [CoreUI documentation](https://coreui.io/docs/getting-started/introduction/), and it look good, without you having to design anything.
+
+It also installs Noty for triggering JS notification bubbles, and SweetAlerts. So you can easily use these across your admin panel. You can [trigger notification bubbles in PHP](/docs/{{version}}/base-about#triggering-notification-bubbles-in-php) or [trigger notification bubbles in JavaScript](/docs/{{version}}/base-about#triggering-notification-bubbles-in-javascript).
+
+
+<a name="backpack-authentication"></a>
+### Authentication
+
+Backpack comes with a basic authentication system, that's separate from Laravel's. This way, you can have different login screens for users & admins, if you need. If not, you can choose to use only one authentication - either Laravel's, or Backpack's.
 
 ![Backpack 3.5 Authentication Screens](https://backpackforlaravel.com/uploads/docs-3-5/getting_started/auth_screens.png)
 
-Thanks to Base, after you [install Backpack](/docs/{{version}}/installation) (don't do it now), you’ll be able to log into your admin panel at ```http://yourapp/admin```. You can change the URL prefix from ```admin``` to something else in your ```config/backpack/base.php``` file, along with a bunch of other configuration options. [Click here](https://github.com/Laravel-Backpack/Base/blob/master/src/config/backpack/base.php) to browse the configuration file and see what it can do for you.
+After you [install Backpack](/docs/{{version}}/installation) (don't do it now), you’ll be able to log into your admin panel at ```http://yourapp/admin```. You can change the URL prefix from ```admin``` to something else in your ```config/backpack/base.php``` file, along with a bunch of other configuration options. [Click here](https://github.com/Laravel-Backpack/CRUD/blob/master/src/config/backpack/base.php) to browse the configuration file and see what it can do for you.
 
-Backpack\Base pulls in the free [AdminLTE](https://adminlte.io/themes/AdminLTE/index2.html) theme and enhances the design a little bit. So any front-end block that AdminLTE has, you'll also be able to use in your custom pages. It also includes a system for bubble notifications, which you can use across the admin panel. You can easily [trigger notification bubbles in PHP](/docs/{{version}}/base-about#triggering-notification-bubbles-in-php) or [trigger notification bubbles in JavaScript](/docs/{{version}}/base-about#triggering-notification-bubbles-in-javascript).
 
 <a name="backpack-crud"></a>
-### Backpack\CRUD
+### CRUDs
+
 This is where it gets interesting. As soon as you [install Backpack](/docs/{{version}}/installation) in your project, you can create **CRUDs** for your admins to easily manipulate DB information. Let’s browse through a simple example, of creating a CRUD administration panel for a Tag entity:
 
 ```zsh
@@ -59,10 +63,10 @@ php artisan migrate
 php artisan backpack:crud tag #use singular, not plural
 
 # STEP 3. add a route to routes/backpack/custom.php (under the admin prefix and auth middleware): 
-php artisan backpack:base:add-custom-route "CRUD::resource('tag', 'TagCrudController');"
+php artisan backpack:add-custom-route "Route::crud('tag', 'TagCrudController');"
 
 # STEP 4. add a sidebar item
-php artisan backpack:base:add-sidebar-content "<li><a href='{{ backpack_url('tag') }}'><i class='fa fa-tag'></i> <span>Tags</span></a></li>"
+php artisan backpack:add-sidebar-content "<li class='nav-item'><a class='nav-link' href='{{ backpack_url('tag') }}'><i class='nav-icon fa fa-tag'></i> Tags</a></li>"
 ```
 
 This will create a simple CRUD panel, which you should now be able to see in the Sidebar.
@@ -82,20 +86,32 @@ We won’t be covering the **migration**, **model** and **request** files here, 
 <?php namespace App\Http\Controllers\Admin;
 
 use Backpack\CRUD\app\Http\Controllers\CrudController;
-
-// VALIDATION: change the requests to match your own file names if you need form validation
-use App\Http\Requests\TagCrudRequest as StoreRequest;
-use App\Http\Requests\TagCrudRequest as UpdateRequest;
+use App\Http\Requests\TagCrudRequest;
 
 class TagCrudController extends CrudController {
+
+  use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+  use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+  use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+  use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+  use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
 
   public function setup() 
   {
       $this->crud->setModel("App\Models\Tag");
       $this->crud->setRoute("admin/tag");
       $this->crud->setEntityNameStrings('tag', 'tags');
+  }
 
+  public function setupListOperation()
+  {
       $this->crud->setColumns(['name', 'slug']);
+  }
+
+  public function setupCreateOperation()
+  {
+      $this->crud->setValidation(TagCrudRequest::class);
+
       $this->crud->addField([
         'name' => 'name',
         'type' => 'text',
@@ -108,21 +124,17 @@ class TagCrudController extends CrudController {
       ]);
   }
 
-  public function store(StoreRequest $request)
+  public function setupUpdateOperation()
   {
-    return parent::storeCrud();
-  }
-
-  public function update(UpdateRequest $request)
-  {
-    return parent::updateCrud();
+      $this->setupCreateOperation();
   }
 }
 ```
 
 You should notice:
 - It uses basic inheritance (```TagCrudController extends CrudController```); so if you want to modify a behaviour (save, update, reorder, etc), you can easily do that by overwriting the corresponding method in your ```TagCrudController```;
-- The request file is typehinted in the ```store()``` and ```update()``` methods; Since in case form validation fails, the information won’t even reach these methods;
-- All the CRUD setup is usually done in the ```setup()``` method;
+- All operations are enabled by using that operation's trait on the controller;
+- The ```setup()``` method defines the basics of the CRUD panel;
+- Each operation is set up inside a ```setupXxxOperation()``` method;
 
 **That’s all for today! **If you want to learn more, go ahead and [read the next lesson](/docs/{{version}}/getting-started-crud-operations) of this series.

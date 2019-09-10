@@ -2,44 +2,71 @@
 
 ---
 
-When creating a CRUD Panel, your ```EntityCrudController``` (where Entity = your model name) is extending ```CrudController```. Inside it, we've already provided the logic for [the most important operations](/#supported-operations), you just need to enable or configure them. Also, you can easily [add custom operations](/#creating-a-custom-operation).
+When creating a CRUD Panel, your ```EntityCrudController``` (where Entity = your model name) is extending ```CrudController```. **By default, no operations are enabled.** No routes are registered.
+
+To use an operation, you need to use the operation trait on your controller. For example, to enable the List operation:
+
+```php
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use Backpack\CRUD\app\Http\Controllers\CrudController;
+
+class ProductCrudController extends CrudController
+{
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+}
+```
+
+**Operations are traits that add functionality to that controller**. Most operations will have:
+- routes inside a ```setupOperationNameRoutes()```; this gets called in your ```routes/backpack/custom.php``` by the ```Route::crud('product', 'ProductCrudController``` macro, which determines which routes to register for that CrudController;
+- default setup inside a ```setupOperationNameDefaults()``` method, that gets called automatically by CrudController when you use that operation on a controller;
+- methods that return views, or perform certain operations;
+
+Of course, you can easily [add custom operations](/#creating-a-custom-operation).
 
 <a name="supported-operations"></a>
 ## Standard Operations
 
-Operations enabled by default:
-- [ListEntries](/docs/{{version}}/crud-operation-list-entries) - allows the admin to see all entries for an Eloquent model, with pagination, search, filters;
+No operations are enabled by default.
+
+But Backpack does provide the logic for the most common operations admins perform on Eloquent modesl. You just need to use it (and maybe configure it) in your controller.
+
+Operations provided by Backpack:
+- [List](/docs/{{version}}/crud-operation-list-entries) - allows the admin to see all entries for an Eloquent model, with pagination, search, filters;
 - [Create](/docs/{{version}}/crud-operation-create) - allows the admin to add a new entry;
 - [Update](/docs/{{version}}/crud-operation-update) - allows the admin to edit an existing entry;
-- [Delete](/docs/{{version}}/crud-operation-delete) - allows the admin to remove and entry;
-
-Operations disabled by default:
 - [Show](/docs/{{version}}/crud-operation-show) - allows the admin to preview an entry;
-- [Reorder](/docs/{{version}}/crud-operation-reorder) - allows the admin to reorder all entries of a model;
+- [Delete](/docs/{{version}}/crud-operation-delete) - allows the admin to remove and entry;
+- [BulkDelete](/docs/{{version}}/crud-operation-delete) - allows the admin to remove multiple entries in one go;
+- [Clone](/docs/{{version}}/crud-operation-clone) - allows the admin to make a copy of a database entry;
+- [BulkClone](/docs/{{version}}/crud-operation-clone) - allows the admin to make a copy of multiple database entries in one go;
+- [Reorder](/docs/{{version}}/crud-operation-reorder) - allows the admin to reorder & nest all entries of a model, in a hierarchy tree;
 - [Revisions](/docs/{{version}}/crud-operation-revisions) - shows an audit log of all changes to an entry, and allows the admin to undo modifications;
 
 
 <a name="operation-actions"></a>
 ### Operation Actions
 
-Each Operation is actually _a trait_, which can be used on CrudControllers. This trait can contain one or more methods (or functions). Since Laravel calls each Controller method an _action_, that means each _Operation_ can have one or many _actions_. For example, we have the ```clone``` operation and two actions: ```clone``` and ```bulkClone```.
+Each Operation is actually _a trait_, which can be used on CrudControllers. This trait can contain one or more methods (or functions). Since Laravel calls each Controller method an _action_, that means each _Operation_ can have one or many _actions_. For example, we have the ```create``` operation and two actions: ```create()``` and ```store()```.
 
 ```php
-trait CloneOperation
+trait CreateOperation
 {
-    public function clone($id)
+    public function create()
     {
         // ...
     }
 
-    public function bulkClone()
+    public function store()
     {
         // ...
     }
 }
 ```
 
-An action can do something with AJAX and return true/false, it can return an AJAX, or it can return a view - or whatever else you can do inside a controller method.
+An action can do something with AJAX and return true/false, it can return a view, or whatever else you can do inside a controller method. Notice that it's a ```public``` method - which is a Laravel requirement, in order to point a route to it.
 
 You can check which action is currently being performed using the [standard Laravel Route API](https://laravel.com/api/5.7/Illuminate/Routing/Route.html):
 
@@ -101,38 +128,47 @@ There methods are usually useful inside actions, not in ```setup()```. Since act
 <a name="access-to-operations"></a>
 ### Handling Access to Operations
 
-Admins are allowed to do an operation or not using a very simple system: ```$crud``` holds an array with all operations they can perform. By default it will look like this:
-
-```php
-public $access = [
-    'list', 
-    'create', 
-    'update', 
-    'delete'
-    /* 'revisions', reorder', 'show', 'clone' */
-];
-```
+Admins are allowed to do an operation or not using a very simple system: ```$crud->settings['operation_name']['access']``` will either be ```true``` or ```false```. When you enable a stock Backpack operation by doing ```use SomeOperation;``` on your controller, all operations will run ```$this->crud->allowAccess('operation_name');```, which will toggle that variable to ```true```.
 
 You can easily add or remove elements to this access array in your ```setup()``` method, or your custom methods, using:
 ```php
-$this->crud->allowAccess('operation');
+$this->crud->allowAccess('operation_name');
 $this->crud->allowAccess(['list', 'update', 'delete']);
 $this->crud->denyAccess('operation');
 $this->crud->denyAccess(['update', 'create', 'delete']);
 
-$this->crud->hasAccess('operation'); // returns true/false
+$this->crud->hasAccess('operation_name'); // returns true/false
 $this->crud->hasAccessOrFail('create'); // throws 403 error
 $this->crud->hasAccessToAll(['create', 'update']); // returns true/false
 $this->crud->hasAccessToAny(['create', 'update']); // returns true/false
 ```
 
+<a name="operation-routes"></a>
+### Operation Routes
+
+Starting with Backpack 4.0, routes can be defined in the CrudController. Your ```routes/backpack/custom.php``` file will have calls like ```Route::crud('product', 'ProductCrudController');```. This ```Route::crud()``` is a macro that will go to that controller and run all the methods that look like ```setupXxxRoutes()```. That means each operation can have its own method to define the routes it needs. And they do - if you check out the code of any operation, you'll see every one of them has a ```setupOperationNameRoutes()``` method. 
+
+If you want to add a new route to your controller, there are two ways to do it:
+1. Add a route in your ```routes/backpack/custom.php```;
+2. Add a method following the ```setupXxxRoutes()``` convention to your controller;
+
+Inside a ```setupOperationNameRoutes()```, you'll notice that's also where we define the operation name:
+
+```php
+    protected function setupShowRoutes($segment, $routeName, $controller)
+    {
+        Route::get($segment.'/{id}/show', [
+            'as'        => $routeName.'.show',
+            'uses'      => $controller.'@show',
+            'operation' => 'show',
+        ]);
+    }
+```
 
 <a name="getting-and-setting-operation"></a>
-### Getting and Setting an Operation Name
+### Getting an Operation Name
 
-Inside a CrudController method all default operations use ```$this->crud->setOperation('show')``` to define which operation is currently being performed. So you can do ```$crud->getOperation()``` inside your views and do things according to this.
-
-When you create custom operation, it's recommended that you also do ```$this->crud->setOperation('show')``` in each custom method, so that have the ability to check later on.
+Once an operation name has been set using that route, you can do ```$crud->getOperation()``` inside your views and do things according to this.
 
 <a name="adding-methods-to-the-crud-panel-object"></a>
 ### Adding Methods to the CrudPanel Object
@@ -175,10 +211,17 @@ class MonsterCrudController extends CrudController
 }
 ```
 
-So if you define a custom operation that needs some static methods, you can add them. You can also use the ```$this->crud->settings``` object, to store various settings. Use it as an associative array, with the operation as key:
+So if you define a custom operation that needs some static methods added to the ```CrudPanel``` object, you can add them. You can also use the ```$this->crud->settings``` object, to store various settings. Use it as an associative array, with the operation as key:
 
 ```php
-$this->crud->settings['moderate']['show_title'] = false;
+// general setting methods
+$this->crud->set('create.show_title', false);
+$this->crud->get('create.show_title');
+$this->crud->has('create.show_title');
+// get/set the setting for the operation that is currently being performed
+$this->crud->setOperationSetting('show_title', true);
+$this->crud->getOperationSetting('show_title');
+$this->crud->hasOperationSetting('show_title');
 ```
 
 <a name="creating-a-custom-operation"></a>
@@ -186,19 +229,86 @@ $this->crud->settings['moderate']['show_title'] = false;
 
 Thanks to [Backpack's simple architecture](/docs/{{version}}/crud-basics#architecture), each CRUD panel uses a controller and a route, that are placed inside your project. That means you hold the keys to how this controller works.
 
-To add an operation to an ```EntityCrudController```, you can just:
-- create a new route in ```routes/backpack/custom.php``` that points to a new method in that controller;
-- create that method inside your ```EntityCrudController```;
-- [add a new button for this operation to the ListEntries view](/docs/{{version}}/crud-buttons#creating-a-custom-button);
+To add an operation to an ```EntityCrudController```, you can:
+- decide on your operation name; for example... "publish";
+- create a method that loads the routes inside your controller:
+```php
+    protected function setupPublishRoutes($segment, $routeName, $controller)
+    {
+        Route::get($segment.'/{id}/publish', [
+            'as'        => $routeName.'.publish',
+            'uses'      => $controller.'@publish',
+            'operation' => 'publish',
+        ]);
+    }
+```
+- create a method that performs the operation you want:
+```php
+    public function publish()
+    {
+        // do something
+        // return something
+    }
+```
+- [add a new button for this operation to the List view](/docs/{{version}}/crud-buttons#creating-a-custom-button), or enable access to it, inside a ```setupPublishDefaults()``` method:
+```php
+    protected function setupPublishDefaults()
+    {
+        $this->crud->allowAccess('publish');
+
+        $this->crud->operation('list', function () {
+            $this->crud->addButton('line', 'publish', 'view', 'buttons.publish', 'beginning');
+        });
+    }
+```
 
 Take a look at the examples below for a better picture and code examples.
+
+If you intend to reuse this operation across multiple controllers, you can group all the methods above in a trait, say ```PublishOperation.php``` and then just use that trait on the controllers where you need the operation:
+
+```php
+<?php
+
+namespace App\Http\Controllers\Admin\CustomOperations;
+
+use Illuminate\Support\Facades\Route;
+
+trait PublishOperation
+{
+    protected function setupPublishRoutes($segment, $routeName, $controller)
+    {
+        Route::get($segment.'/{id}/publish', [
+            'as'        => $routeName.'.publish',
+            'uses'      => $controller.'@publish',
+            'operation' => 'publish',
+        ]);
+    }
+
+    protected function setupPublishDefaults()
+    {
+        $this->crud->allowAccess('publish');
+
+        $this->crud->operation('list', function () {
+            $this->crud->addButton('line', 'publish', 'view', 'buttons.publish', 'beginning');
+        });
+    }
+
+    public function publish()
+    {
+        // do something
+        // return something
+    }
+}
+```
+
+In the example above, you could just do ```use \App\Http\Controllers\Admin\CustomOperations\PublishOperation;``` on any EntityCrudController, and your operation will be added - complete with routes, buttons, access, actions, everything.
 
 <a name="access-to-custom-operations"></a>
 ### Access to Custom Operations
 
 Since you're creating a new operation, in terms of restricting access you can:
 1. allow access to this new operation depending on access to a default operation (usually if the admin can ```update```, he's ok to perform custom operations);
-2. customize access to this particular operation, by just using a different key than the default ones; for example, you can allow access by using ```$this->crud->allowAccess('moderate')``` in your ```setup()``` method, then check for access to that operation using ```$this->crud->hasAccess('moderate')```;
+2. customize access to this particular operation, by just using a different key than the default ones; for example, you can allow access by using ```$this->crud->allowAccess('publish')``` in your ```setup()``` method, then check for access to that operation using ```$this->crud->hasAccess('publish')```;
 
 <a name="examples"></a>
 ### Examples
@@ -208,10 +318,17 @@ Since you're creating a new operation, in terms of restricting access you can:
 
 Let's say we have a ```UserCrudController``` and we want to create a simple ```Clone``` operation, which would create another entry with the same info. So very similar to ```Delete```. What we need to do is:
 
-1. Create a route for this operation - we can add it anywhere, but it's recommended we keep all admin routes within ```routes/backpack/custom.php```:
+1. Create a route for this operation - as we've learned above we can do that in a ```setupXxxRoutes()``` method:
 
 ```php
-Route::post('user/{id}/clone', 'UserCrudController@clone');
+    protected function setupPublishRoutes($segment, $routeName, $controller)
+    {
+        Route::get($segment.'/{id}/clone', [
+            'as'        => $routeName.'.clone',
+            'uses'      => $controller.'@clone',
+            'operation' => 'clone',
+        ]);
+    }
 ```
 
 2. Add the method inside ```UserCrudController```:
@@ -235,6 +352,10 @@ public function clone($id)
 	<a href="javascript:void(0)" onclick="cloneEntry(this)" data-route="{{ url($crud->route.'/'.$entry->getKey().'/clone') }}" class="btn btn-xs btn-default" data-button-type="clone"><i class="fa fa-clone"></i> Clone</a>
 @endif
 
+{{-- Button Javascript --}}
+{{-- - used right away in AJAX operations (ex: List) --}}
+{{-- - pushed to the end of the page, after jQuery is loaded, for non-AJAX operations (ex: Show) --}}
+@push('after_scripts') @if ($crud->request->ajax()) @endpush @endif
 <script>
 	if (typeof cloneEntry != 'function') {
 	  $("[data-button-type=clone]").unbind('click');
@@ -250,24 +371,24 @@ public function clone($id)
               type: 'POST',
               success: function(result) {
                   // Show an alert with the result
-                  new PNotify({
-                      title: "Entry cloned",
-                      text: "A new entry has been added, with the same information as this one.",
-                      type: "success"
-                  });
+                  new Noty({
+                    type: "success",
+                    text: "<strong>Entry cloned</strong><br>A new entry has been added, with the same information as this one."
+                  }).show();
 
                   // Hide the modal, if any
                   $('.modal').modal('hide');
 
-                  crud.table.ajax.reload();
+                  if (typeof crud !== 'undefined') {
+                    crud.table.ajax.reload();
+                  }
               },
               error: function(result) {
                   // Show an alert with the result
-                  new PNotify({
-                      title: "Cloning failed",
-                      text: "The new entry could not be created. Please try again.",
-                      type: "warning"
-                  });
+                  new Noty({
+                    type: "warning",
+                    text: "<strong>Cloning failed</strong><br>The new entry could not be created. Please try again."
+                  }).show();
               }
           });
       }
@@ -276,12 +397,19 @@ public function clone($id)
 	// make it so that the function above is run after each DataTable draw event
 	// crud.addFunctionToDataTablesDrawEventQueue('cloneEntry');
 </script>
+@if (!$crud->request->ajax()) @endpush @endif
 ```
 
-4. We can now actually add this button to our ```UserCrudController::setup()```:
+4. We can now actually add this button to our ```UserCrudController::setupCloneOperation()``` method, or our ```setupCloneDefaults()``` method:
 
 ```php
-$this->crud->addButtonFromView('line', 'clone', 'clone', 'beginning');
+protected setupCloneDefaults() {
+  $this->crud->allowAccess('clone');
+
+  $this->crud->operation(['list', 'show'], function () {
+    $this->crud->addButtonFromView('line', 'clone', 'clone', 'beginning');
+  });
+}
 ```
 
 >Of course, **if you plan to re-use this operation on another EntityCrudController**, it's a good idea to isolate the method inside a trait, then use that trait on each EntityCrudController where you want the operation to work.
@@ -293,11 +421,22 @@ Let's say we have a ```UserCrudController``` and we want to create a simple ```M
 
 What we need to do is:
 
-1. Create a route for this operation - we can add it anywhere, but it's recommended we keep all admin routes within ```routes/backpack/custom.php```:
+1. Create routes for this operation - we can do that using the ```setupOperationNameRoutes()``` convention inside a ```UserCrudController```:
 
 ```php
-Route::get('user/{id}/moderate', 'UserCrudController@getModerateForm');
-Route::post('user/{id}/moderate', 'UserCrudController@postModerateForm');
+    protected function setupModerateRoutes($segment, $routeName, $controller)
+    {
+        Route::get($segment.'/{id}/moderate', [
+            'as'        => $routeName.'.getModerate',
+            'uses'      => $controller.'@getModerateForm',
+            'operation' => 'moderate',
+        ]);
+        Route::post($segment.'/{id}/moderate', [
+            'as'        => $routeName.'.postModerate',
+            'uses'      => $controller.'@postModerateForm',
+            'operation' => 'moderate',
+        ]);
+    }
 ```
 
 2. Add the methods inside ```UserCrudController```:
@@ -338,42 +477,47 @@ public function postModerateForm(Request $request = null)
 3. Create the ```/resources/views/vendor/backpack/crud/moderate.php``` blade file, which shows the moderate form and what not. Best to start from the ```edit.blade.php``` file and customize:
 
 ```html
-@extends('backpack::layout')
+@extends(backpack_view('layouts.top_left'))
+
+@php
+  $defaultBreadcrumbs = [
+    trans('backpack::crud.admin') => backpack_url('dashboard'),
+    $crud->entity_name_plural => url($crud->route),
+    'Moderate' => false,
+  ];
+
+  // if breadcrumbs aren't defined in the CrudController, use the default breadcrumbs
+  $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
+@endphp
 
 @section('header')
-    <section class="content-header">
-      <h1>
-        <span class="text-capitalize">{{ $crud->entity_name_plural }}</span>
-        <small>{{ trans('backpack::crud.edit').' '.$crud->entity_name }}.</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="{{ url(config('backpack.base.route_prefix'),'dashboard') }}">{{ trans('backpack::crud.admin') }}</a></li>
-        <li><a href="{{ url($crud->route) }}" class="text-capitalize">{{ $crud->entity_name_plural }}</a></li>
-        <li class="active">Moderate</li>
-      </ol>
-    </section>
+  <section class="container-fluid">
+    <h2>
+        <span class="text-capitalize">{!! $crud->getHeading() ?? $crud->entity_name_plural !!}</span>
+        <small>{!! $crud->getSubheading() ?? 'Moderate '.$crud->entity_name !!}.</small>
+
+        @if ($crud->hasAccess('list'))
+          <small><a href="{{ url($crud->route) }}" class="hidden-print font-sm"><i class="fa fa-angle-double-left"></i> {{ trans('backpack::crud.back_to_all') }} <span>{{ $crud->entity_name_plural }}</span></a></small>
+        @endif
+    </h2>
+  </section>
 @endsection
 
 @section('content')
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
-        <!-- Default box -->
-        @if ($crud->hasAccess('list'))
-            <a href="{{ url($crud->route) }}"><i class="fa fa-angle-double-left"></i> {{ trans('backpack::crud.back_to_all') }} <span>{{ $crud->entity_name_plural }}</span></a><br><br>
-        @endif
-
-          <div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title">Moderate</h3>
+          <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Moderate</h3>
             </div>
-            <div class="box-body row display-flex-wrap" style="display: flex;flex-wrap: wrap;">
-              Something in the box body
-            </div><!-- /.box-body -->
+            <div class="card-body row">
+              Something in the card body
+            </div><!-- /.card-body -->
 
-            <div class="box-footer">
+            <div class="card-footer">
                 Something in the box footer
-            </div><!-- /.box-footer-->
-          </div><!-- /.box -->
+            </div><!-- /.card-footer-->
+          </div><!-- /.card -->
           </form>
     </div>
 </div>
@@ -384,31 +528,109 @@ public function postModerateForm(Request $request = null)
 4. Create a button for this operation. Since our operation is similar to "Update", lets start from that one and customize what we need. The button should just take the admin to the route that shows the Moderate form. Nothing fancy. We'll create a ```resources\views\vendor\backpack\crud\buttons\moderate.blade.php``` file:
 
 ```php
-@if ($crud->hasAccess('update'))
-    <a href="{{ url($crud->route.'/'.$entry->getKey().'/moderate') }}" class="btn btn-xs btn-default"><i class="fa fa-list"></i> Moderate</a>
+@if ($crud->hasAccess('moderate'))
+    <a href="{{ url($crud->route.'/'.$entry->getKey().'/moderate') }}" class="btn btn-sm btn-link"><i class="fa fa-list"></i> Moderate</a>
 @endif
 ```
 
-4. We can now actually add this button to our ```UserCrudController::setup()```:
+4. We can now actually add this button to our ```UserCrudController::setup()```, to register that button inside the List operation:
 
 ```php
-$this->crud->addButtonFromView('line', 'moderate', 'moderate', 'beginning');
+$this->crud->operation('list', function() {
+  $this->crud->addButtonFromView('line', 'moderate', 'moderate', 'beginning');  
+});
 ```
 
->Of course, **if you plan to re-use this operation on another EntityCrudController**, it's a good idea to isolate the method inside a trait, then use that trait on each EntityCrudController where you want the operation to work.
+Or better yet, we can do this inside a ```setupModerateDefaults()``` method, which gets called automatically by CrudController when the ```moderate``` operation is being performed (thanks to the operation name set on the routes):
+
+```php
+protected function setupModerateDefaults()
+{
+  $this->crud->allowAccess('moderate');
+
+  $this->crud->operation('list', function() {
+    $this->crud->addButtonFromView('line', 'moderate', 'moderate', 'beginning');  
+  });
+}
+```
+
+>Of course, **if you plan to re-use this operation on another EntityCrudController**, it's a good idea to isolate the method inside a trait, then use that trait on each EntityCrudController where you want the operation to be enabled.
+
+```php
+<?php
+
+namespace App\Http\Controllers\Admin\CustomOperations;
+
+use Illuminate\Support\Facades\Route;
+
+trait ModerateOperation
+{
+    protected function setupModerateRoutes($segment, $routeName, $controller)
+    {
+        Route::get($segment.'/{id}/moderate', [
+            'as'        => $routeName.'.getModerate',
+            'uses'      => $controller.'@getModerateForm',
+            'operation' => 'moderate',
+        ]);
+        Route::post($segment.'/{id}/moderate', [
+            'as'        => $routeName.'.postModerate',
+            'uses'      => $controller.'@postModerateForm',
+            'operation' => 'moderate',
+        ]);
+    }
+
+    protected function setupmoderateDefaults()
+    {
+        $this->crud->allowAccess('moderate');
+
+        $this->crud->operation('list', function() {
+          $this->crud->addButtonFromView('line', 'moderate', 'moderate', 'beginning');  
+        });
+    }
+
+    public function getModerateForm($id) 
+    {
+        $this->crud->hasAccessOrFail('update');
+        $this->crud->setOperation('Moderate');
+
+        // get the info for that entry
+        $this->data['entry'] = $this->crud->getEntry($id);
+        $this->data['crud'] = $this->crud;
+        $this->data['title'] = 'Moderate '.$this->crud->entity_name;
+
+        return view('vendor.backpack.crud.moderate', $this->data);
+    }
+
+    public function postModerateForm(Request $request = null)
+    {
+        $this->crud->hasAccessOrFail('update');
+
+        // TODO: do whatever logic you need here
+        // ...
+        // You can use 
+        // - $this->crud
+        // - $this->crud->getEntry($id)
+        // - $request
+        // ...
+
+        // show a success message
+        \Alert::success('Moderation saved for this entry.')->flash();
+
+        return \Redirect::to($this->crud->route);
+    }
+}
+```
 
 <a name="creating-a-new-operation-with-bulk-action"></a>
 #### Creating a New Operation With a Bulk Action (No Interface)
 
-Say we want to create a ```Clone``` button which clones multiple entries at the same time. So very similar to our ```Bulk Delete```. What we need to do is:
+Say we want to create a ```BulkClone``` operation, with a button which clones multiple entries at the same time. So very similar to our ```BulkDelete```. What we need to do is:
 
-1. ```$this->crud->enableBulkActions()``` to make the checkboxes show up;
-
-2. Create a new button and add it to our buttom stack:
+1. Create a new button:
 
 ```html
-@if ($crud->hasAccess('create') && $crud->bulk_actions)
-  <a href="javascript:void(0)" onclick="bulkCloneEntries(this)" class="btn btn-default bulk-button"><i class="fa fa-clone"></i> Clone</a>
+@if ($crud->hasAccess('bulkClone') && $crud->get('list.bulkActions'))
+  <a href="javascript:void(0)" onclick="bulkCloneEntries(this)" class="btn btn-sm btn-secondary bulk-button"><i class="fa fa-clone"></i> Clone</a>
 @endif
 
 @push('after_scripts')
@@ -418,11 +640,10 @@ Say we want to create a ```Clone``` button which clones multiple entries at the 
 
         if (typeof crud.checkedItems === 'undefined' || crud.checkedItems.length == 0)
         {
-          new PNotify({
-                title: "{{ trans('backpack::crud.bulk_no_entries_selected_title') }}",
-                text: "{{ trans('backpack::crud.bulk_no_entries_selected_message') }}",
-                type: "warning"
-            });
+            new Noty({
+            type: "warning",
+            text: "<strong>{{ trans('backpack::crud.bulk_no_entries_selected_title') }}</strong><br>{{ trans('backpack::crud.bulk_no_entries_selected_message') }}"
+          }).show();
 
           return;
         }
@@ -431,49 +652,62 @@ Say we want to create a ```Clone``` button which clones multiple entries at the 
         message = message.replace(":number", crud.checkedItems.length);
 
         // show confirm message
-        if (confirm(message) == true) {
-            var ajax_calls = [];
-            var clone_route = "{{ url($crud->route) }}/bulk-clone";
-
-        // submit an AJAX delete call
-        $.ajax({
-          url: clone_route,
-          type: 'POST',
-          data: { entries: crud.checkedItems },
-          success: function(result) {
-            // Show an alert with the result
-            new PNotify({
-                title: "Entries cloned",
-                text: crud.checkedItems.length+" new entries have been added.",
-                type: "success"
-            });
-
-            crud.checkedItems = [];
-            crud.table.ajax.reload();
-          },
-          error: function(result) {
-            // Show an alert with the result
-            new PNotify({
-                title: "Cloning failed",
-                text: "One or more entries could not be created. Please try again.",
-                type: "warning"
-            });
-          }
-        });
+        swal({
+        title: "{{ trans('backpack::base.warning') }}",
+        text: message,
+        icon: "warning",
+        buttons: {
+          cancel: {
+          text: "{{ trans('backpack::crud.cancel') }}",
+          value: null,
+          visible: true,
+          className: "bg-secondary",
+          closeModal: true,
+        },
+          delete: {
+          text: "Clone",
+          value: true,
+          visible: true,
+          className: "bg-primary",
         }
+        },
+      }).then((value) => {
+        if (value) {
+          var ajax_calls = [];
+              var clone_route = "{{ url($crud->route) }}/bulk-clone";
+
+          // submit an AJAX delete call
+          $.ajax({
+            url: clone_route,
+            type: 'POST',
+            data: { entries: crud.checkedItems },
+            success: function(result) {
+              // Show an alert with the result
+                    new Noty({
+                    type: "success",
+                    text: "<strong>Entries cloned</strong><br>"+crud.checkedItems.length+" new entries have been added."
+                  }).show();
+
+              crud.checkedItems = [];
+              crud.table.ajax.reload();
+            },
+            error: function(result) {
+              // Show an alert with the result
+                    new Noty({
+                    type: "danger",
+                    text: "<strong>Cloning failed</strong><br>One or more entries could not be created. Please try again."
+                  }).show();
+            }
+          });
+        }
+      });
       }
   }
 </script>
 @endpush
 ```
 
-3. In our ```setup()``` method, add this button to the bottom stack:
-
-```php
-$this->crud->addButtonFromView('bottom', 'bulk_clone', 'bulk_clone', 'end');
-```
-
-4. Create a method in your EntityCrudController (or in a trait, if you want to re-use it for multiple CRUDs):
+2. Create a method in your EntityCrudController (or in a trait, if you want to re-use it for multiple CRUDs):
 
 ```php
     public function bulkClone()
@@ -493,21 +727,40 @@ $this->crud->addButtonFromView('bottom', 'bulk_clone', 'bulk_clone', 'end');
     }
 ```
 
-5. Add a route to point to this new method:
+3. Add a route to point to this new method:
 
 ```php
-CRUD::resource('monster', 'MonsterCrudController')->with(function() {
-  Route::post('monster/bulk-clone', 'MonsterCrudController@bulkClone');
-});
+protected function setupBulkCloneRoutes($segment, $routeName, $controller)
+{
+    Route::post($segment.'/bulk-clone', [
+        'as'        => $routeName.'.bulkClone',
+        'uses'      => $controller.'@bulkClone',
+        'operation' => 'bulkClone',
+    ]);
+}
 ```
 
-Now there's a Clone button on our bottom stack, that works as expected for multiple entries.
+4. Setup the default features we need for the operation to work:
+```php
+protected function setupBulkCloneDefaults()
+{
+    $this->crud->allowAccess('bulkClone');
+
+    $this->crud->operation('list', function () {
+        $this->crud->enableBulkActions();
+        $this->crud->addButton('bottom', 'bulk_clone', 'view', 'bulk_clone', 'beginning');
+    });
+}
+```
+
+
+Now there's a Clone button on our List bottom stack, that works as expected for multiple entries.
 
 The button makes one call for all entries, and only triggers one notification. If you would rather make a call for each entry, you can use something like below:
 
 ```html
 @if ($crud->hasAccess('create') && $crud->bulk_actions)
-  <a href="javascript:void(0)" onclick="bulkCloneEntries(this)" class="btn btn-default"><i class="fa fa-clone"></i> Clone</a>
+  <a href="javascript:void(0)" onclick="bulkCloneEntries(this)" class="btn btn-sm btn-secondary bulk-button"><i class="fa fa-clone"></i> Clone</a>
 @endif
 
 @push('after_scripts')
@@ -543,19 +796,17 @@ The button makes one call for all entries, and only triggers one notification. I
                   type: 'POST',
                   success: function(result) {
                       // Show an alert with the result
-                      new PNotify({
-                          title: "Entry cloned",
-                          text: "A new entry has been added, with the same information as this one.",
-                          type: "success"
-                      });
+                      new Noty({
+                        type: "success",
+                        text: "<strong>Entries cloned</strong><br>"+crud.checkedItems.length+" new entries have been added."
+                      }).show();
                   },
                   error: function(result) {
                       // Show an alert with the result
-                      new PNotify({
-                          title: "Cloning failed",
-                          text: "The new entry could not be created. Please try again.",
-                          type: "warning"
-                      });
+                      new Noty({
+                        type: "danger",
+                        text: "<strong>Cloning failed</strong><br>One or more entries could not be created. Please try again."
+                      }).show();
                   }
               }));
 

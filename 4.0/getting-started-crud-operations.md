@@ -14,20 +14,32 @@ With its ```TagCrudController```:
 <?php namespace App\Http\Controllers\Admin;
 
 use Backpack\CRUD\app\Http\Controllers\CrudController;
-
-// VALIDATION: change the requests to match your own file names if you need form validation
-use App\Http\Requests\TagCrudRequest as StoreRequest;
-use App\Http\Requests\TagCrudRequest as UpdateRequest;
+use App\Http\Requests\TagCrudRequest;
 
 class TagCrudController extends CrudController {
+
+  use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+  use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+  use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+  use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+  use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
 
   public function setup() 
   {
       $this->crud->setModel("App\Models\Tag");
       $this->crud->setRoute("admin/tag");
       $this->crud->setEntityNameStrings('tag', 'tags');
+  }
 
+  public function setupListOperation()
+  {
       $this->crud->setColumns(['name', 'slug']);
+  }
+
+  public function setupCreateOperation()
+  {
+      $this->crud->setValidation(TagCrudRequest::class);
+
       $this->crud->addField([
         'name' => 'name',
         'type' => 'text',
@@ -40,25 +52,21 @@ class TagCrudController extends CrudController {
       ]);
   }
 
-  public function store(StoreRequest $request)
+  public function setupUpdateOperation()
   {
-    return parent::storeCrud();
-  }
-
-  public function update(UpdateRequest $request)
-  {
-    return parent::updateCrud();
+      $this->setupCreateOperation();
   }
 }
 ```
 
-By default, CRUDs have these operations already enabled:
+In the example above, we've enabled the most common operations:
 - **Create** - using a create form (aka “*add form*”)
-- **ListEntries** - using AJAX DataTables (aka “*list view*”, aka “*table view*”)
+- **List** - using AJAX DataTables (aka “*list view*”, aka “*table view*”)
 - **Update** - using an update form (aka “*edit form*”)
 - **Delete** - using a *button* in the *list view* 
+- **Show** - using a *button* in the *list view* 
 
-These are the basic operations an admin can execute on an Eloquent model, thanks to Backpack. We do have additional operations (Preview, Reorder, Revisions), and you can easily _create a custom operation_, but let’s not get ahead of ourselves. Baby steps. **Let's go through the most important features of the operations you'll be using _all the time_: ListEntries, Create and Update**.
+These are the basic operations an admin can execute on an Eloquent model, thanks to Backpack. We do have additional operations (Reorder, Revisions, Clone, BulkDelete, BulkClone), and you can easily _create a custom operation_, but let’s not get ahead of ourselves. Baby steps. **Let's go through the most important features of the operations you'll be using _all the time_: ListEntries, Create and Update**.
 
 <a name="create-and-update-operations"></a>
 ## Create & Update Operations
@@ -68,17 +76,12 @@ These are the basic operations an admin can execute on an Eloquent model, thanks
 <a name="fields"></a>
 ### Fields
 
-Inside your Controller's ```setup()``` method, you'll be able to define what fields you want the admin to see, when creating/updating entries. In the example above, we only have two fields, both using the ```text``` field type. So that's what's shown to the admin. When the admin presses _Save_, assuming your model has those two attributes as ```$fillable```, Backpack will save the entry and take you back to the ListEntries view. Keep in mind we're using a _pure_ Eloquent model. So of course, inside the model you could use accessors, mutators, events, etc.
+Inside your Controller's ```setupCreateOperation()``` or ```setupUpdateOperation()``` method, you'll be able to define what fields you want the admin to see, when creating/updating entries. In the example above, we only have two fields, both using the ```text``` field type. So that's what's shown to the admin. When the admin presses _Save_, assuming your model has those two attributes as ```$fillable```, Backpack will save the entry and take you back to the ListEntries view. Keep in mind we're using a _pure_ Eloquent model. So of course, inside the model you could use accessors, mutators, events, etc.
 
 
-But a lot of times, you won't just need text inputs. You'll need datepickers, upload buttons, 1-n relationship, n-n relationships, textareas, etc. For each field, you only need to define it properly in the Controller's ```setup()``` method. Here are the most used methods to manipulate fields:
+But a lot of times, you won't just need text inputs. You'll need datepickers, upload buttons, 1-n relationship, n-n relationships, textareas, etc. For each field, you only need to define it properly in the Controller. Here are the most used methods to manipulate fields:
 
 ```php
-// You can pass a second parameter with the operation:
-// - "create" for Create
-// - "update" for Update
-// - nothing (missing) for both Create and Update
-
 $this->crud->addField($field_definition_array);
 $this->crud->addFields([$field_definition_array_1, $field_definition_array_2]);
 $this->crud->removeField('name');
@@ -115,11 +118,11 @@ $this->crud->addField([
     'entity' => 'articles', // the relationship name in your Model
     'attribute' => 'title', // attribute on Article that is shown to admin
     'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
-], ‘update’);
+]);
 ```
 
 **Notes:**
-- Because of the last parameter ("_update_"), the field will only be added on the Update form (not on the Create);
+- If we call this inside ```setupUpdateOperation()``` it will only be added on that operation;
 - Because we haven't specified a ```label```, Backpack will take the "_articles_" name and turn it into a label: "_Articles_";
 
 If we had an Articles CRUD, and the reverse relationship defined on the ```Article``` model too, we could also add a ```select2_multiple``` field in the Article CRUD, to allow the admin to choose which tags apply to each article. This actually makes more sense than the above :-)
@@ -135,10 +138,7 @@ $this->crud->addField([
 ]);
 ```
 
-**Note: **Because the last parameter is missing, the field will be added to both Create and Update forms.
-
-
-> When generating a CrudController, you’ll be using the ```$this->crud->setFromDb();``` method by default, which tries to figure out what fields you might need in your create/update forms and in your list view, but - as you'd expect - only works for the simple field types. You can:
+> When generating a CrudController, you might be using the ```$this->crud->setFromDb();``` method by default, which tries to figure out what fields you might need in your create/update forms and what columns in your list view, but - as you'd expect - it only works for the simple field types. You can:
 > 
 > (1) choose to keep using ```setFromDb()``` and add/remove/change additional fields
 > 
@@ -151,39 +151,44 @@ $this->crud->addField([
 <a name="callbacks"></a>
 ### Callbacks
 
-Developers coming from GroceryCRUD on CodeIgniter or other CRUD systems will be looking for callbacks to run ```before_insert```, ```before_update```, ```after_insert```, ```after_update```.
-
-**There are no callbacks in Backpack**, because there's no need. The code for the create & update operations is out in the open for you to customize. Notice your EntityCrudController already has the following methods, which you can modify as you wish: 
+Developers coming from GroceryCRUD on CodeIgniter or other CRUD systems will be looking for callbacks to run ```before_insert```, ```before_update```, ```after_insert```, ```after_update```. **There are no callbacks in Backpack**. The ```store()``` and ```update()``` code is inside a trait, so you can easily overwrite that method, and call it inside your new method. For example, here's how we can do things before/after an item is saved in the Create operation:
 
 ```php
-public function store(StoreRequest $request)
-{
-    // <---------  here is where a before_insert callback logic would be
-    $response = parent::storeCrud();
-    // <---------  here is where a after_insert callback logic would be
-    return $response;
-}
+<?php
 
-public function update(UpdateRequest $request)
+namespace App\Http\Controllers\Admin;
+
+use Backpack\CRUD\app\Http\Controllers\CrudController;
+
+class ProductCrudController extends CrudController
 {
-    // <---------  here is where a before_update callback logic would be
-    $response = parent::updateCrud();
-    // <---------  here is where a after_update callback logic would be
-    return $response;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as traitStore; }
+
+    // ...
+    
+    public function store()
+    {
+      // do something before validation, before save, before everything
+      $response = $this->traitStore();
+      // do something after save
+      return $response;
+    }
 }
 ```
 
-But before you do that, ask yourself - *is this something that should be done when an entry is added/updated/deleted from the application, too*? Not just the admin admin? If so, a better place for it would be the Model. Remember your Model is a pure Eloquent Model, so the cleanest way might be to use [Eloquent Event Observers](https://laravel.com/docs/5.5/eloquent#events) or [accessors and mutators](https://laravel.com/docs/master/eloquent-mutators#accessors-and-mutators).
+>But before you do that, ask yourself - **_is this something that should be done when an entry is added/updated/deleted from the application, too_**? Not just the admin panel? If so, a better place for it would be the Model. Remember your Model is a pure Eloquent Model, so the cleanest way might be to use [Eloquent Event Observers](https://laravel.com/docs/6.0/eloquent#events) or [accessors and mutators](https://laravel.com/docs/master/eloquent-mutators#accessors-and-mutators).
 
 <a name="list-entries-operation"></a>
-## ListEntries Operation
+## List Operation
 
-ListEntries shows the admin a table with all entries. On the front-end, the information is pulled using AJAX calls, and shown using DataTables. It's the most feature-packed operation in Backpack, but right now we're just going through the most important features you need to know about: columns, filters and buttons.
+List shows the admin a table with all entries. On the front-end, the information is pulled using AJAX calls, and shown using DataTables. It's the most feature-packed operation in Backpack, but right now we're just going through the most important features you need to know about: columns, filters and buttons. 
+
+You should configure the List operation inside the ```setupListOperation()``` method.
 
 <a name="columns"></a>
 ### Columns
 
-Columns help you specify *which* attributes are shown in the table and *in which order*. **They’re defined in the ```setup()``` method, the same as fields, and their syntax is super-similar to fields too**:
+Columns help you specify *which* attributes are shown in the table and *in which order*. **Their syntax is super-similar to fields**:
 
 ```php
 $this->crud->addColumn($column_definition_array); // add a single column, at the end of the table
@@ -200,10 +205,10 @@ You can use one of the [14+ column types](/docs/{{version}}/crud-columns#default
 
 ```php
 $this->crud->addColumn([
-            'name' => 'published_at',
-            'type' => 'date',
-            'label' => 'Publish_date',
- ]);
+    'name' => 'published_at',
+    'type' => 'date',
+    'label' => 'Publish_date',
+]);
 
 // PRO TIP: to quickly add a text column, just pass the name string instead of an array
 $this->crud->addColumn('text'); // adds a text column, at the end of the stack

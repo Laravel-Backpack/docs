@@ -5,7 +5,7 @@
 <a name="about"></a>
 ## About
 
-This operation allows your admins to add new entries to a database table.
+This operation allows your admins to edit entries from the database.
 
 ![CRUD Update Operation](https://backpackforlaravel.com/uploads/screenshots/news_add.png)
 
@@ -17,20 +17,48 @@ All editable attributes should be ```$fillable``` on your Model.
 <a name="how-to-use"></a>
 ## How to Use
 
-The ```Update``` operation is **enabled by default**. To disable it, you should use ```$this->crud->denyAccess('update');``` inside your ```setup()``` method. This will make the Update button disappear in ListEntries, in the ```line``` stack.
+**Step 0. Use the operation trait on your controller**:
+
+```php
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use Backpack\CRUD\app\Http\Controllers\CrudController;
+
+class ProductCrudController extends CrudController
+{
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+
+    protected function setupUpdateOperation()
+    {
+        // $this->crud->setValidation(StoreRequest::class);
+        // $this->crud->addField()
+        // or just do everything you've done for the Create Operation
+        // $this->crud->setupCreateOperation();
+    }
+}
+```
+
+This will:
+- allow access to this operation;
+- make an Edit button appear in the ```line``` stack, next to each entry, in the List operation view;
 
 To use the Update operation, you must:
 
-**Step 1. Specify what field types** you'd like to show for each attribute, in your EntityCrudController's ```setup()``` method. You can do that using the [Fields API](/docs/{{version}}/crud-fields#fields-api). In short you can:
+**Step 1. Specify what field types** you'd like to show for each attribute, in your controller's ```setupUpdateOperation()``` method. You can do that using the [Fields API](/docs/{{version}}/crud-fields#fields-api). In short you can:
 
 ```php
 // add a field only to the Update operation
-$this->crud->addField($field_definition_array, 'update');
+$this->crud->addField($field_definition_array);
 // add a field to both the Update and Update operations
 $this->crud->addField($field_definition_array);
 ```
 
-**Step 2. Specify validation rules, in your the EntityCrudRequest file** that you are typehinting on your ```EntityCrudController::update()``` method. If you need separate validation for Create and Update [look here](#separate-validation).
+**Step 2. Specify which FormRequest file to use for validation and authorization**, inside your ```setupUpdateOperation()``` method. You can pass the same FormRequest as you did for the Create operation if there are no differences. If you need separate validation for Create and Update [look here](#separate-validation).
+```php
+$this->crud->setValidation(StoreRequest::class);
+```
 
 For more on how to manipulate fields, please read the [Fields documentation page](/docs/{{version}}/crud-fields). For more on validation rules, check out [Laravel's validation docs](https://laravel.com/docs/master/validation#available-validation-rules).
 
@@ -41,27 +69,33 @@ CrudController is a RESTful controller, so the ```Update``` operation uses two r
 - GET to ```/entity-name/{id}/edit``` - points to ```edit()``` which shows the Edit form (```edit.blade.php```);
 - POST to ```/entity-name/{id}/edit``` - points to ```store()``` which uses Eloquent to update the entry in the database;
 
-The ```edit()``` method will show all the fields you've defined for this operation using the [Fields API](/docs/{{version}}/crud-fields#fields-api), then upon Save the ```update()``` method will first check the validation from the typehinted FormRequest, then create the entry using the Eloquent model. Only attributes that are ```$fillable``` on the model will actually be updated in the database.
+The ```edit()``` method will show all the fields you've defined for this operation using the [Fields API](/docs/{{version}}/crud-fields#fields-api), then upon Save the ```update()``` method will first check the validation from the typehinted FormRequest, then create the entry using the Eloquent model. Only attributes that have a field type added and are ```$fillable``` on the model will actually be updated in the database.
 
 <a name="callbacks"></a>
 ## Callbacks
 
-Developers coming from GroceryCRUD or other CRUD systems will be looking for callbacks to run before_insert, before_update, after_insert, after_update. **There are no callbacks in Backpack**, because there's no need. The code for the insert&update operations is out in the open for you to customize. Notice your ```EntityCrudController``` **already** has the following methods, which you can modify as you wish:
-```php
-public function store(StoreRequest $request)
-{
-    // <---------  here is where a before_insert callback logic would be
-    $response = parent::storeCrud();
-    // <---------  here is where a after_insert callback logic would be
-    return $response;
-}
+Developers coming from GroceryCRUD or other CRUD systems will be looking for callbacks to run before_insert, before_update, after_insert, after_update. **There are no callbacks in Backpack**. The store code is inside a trait, so you can easily overwrite it:
 
-public function update(UpdateRequest $request)
+```php
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use Backpack\CRUD\app\Http\Controllers\CrudController;
+
+class ProductCrudController extends CrudController
 {
-    // <---------  here is where a before_update callback logic would be
-    $response = parent::updateCrud();
-    // <---------  here is where a after_update callback logic would be
-    return $response;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation { update as traitUpdate; }
+
+    // ...
+    
+    public function update()
+    {
+        // do something before validation, before save, before everything
+        $response = $this->traitUpdate();
+        // do something after save
+        return $response;
+    }
 }
 ```
 
@@ -72,7 +106,7 @@ public function update(UpdateRequest $request)
 
 ![CRUD Update Operation](https://backpackforlaravel.com/uploads/docs/operations/update_translatable.png)
 
-For localized apps, you can let your admins edit multi-lingual entries. Only translations stored the [spatie/laravel-translatable](https://github.com/spatie/laravel-translatable) way are supported right now, but more options will be coming soon.
+For localized apps, you can let your admins edit multi-lingual entries. Translations are stored using [spatie/laravel-translatable](https://github.com/spatie/laravel-translatable).
 
 In order to make one of your Models translatable (localization), you need to:
 0. Be running MySQL 5.7+ (or a PosgreSQL with JSON column support);
@@ -85,9 +119,9 @@ In order to make one of your Models translatable (localization), you need to:
 
 namespace App\Models;
 
-use Backpack\CRUD\CrudTrait;
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
-use Backpack\CRUD\ModelTraits\SpatieTranslatable\HasTranslations;
+use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
 
 class Product extends Model
 {
@@ -120,10 +154,10 @@ Additionally, if you have slugs, you'll need to use backpack's classes instead o
 namespace Backpack\NewsCRUD\app\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Backpack\CRUD\CrudTrait;
-use Backpack\CRUD\ModelTraits\SpatieTranslatable\Sluggable;
-use Backpack\CRUD\ModelTraits\SpatieTranslatable\SluggableScopeHelpers;
-use Backpack\CRUD\ModelTraits\SpatieTranslatable\HasTranslations;
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\Sluggable;
+use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\SluggableScopeHelpers;
+use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
 
 class Category extends Model
 {

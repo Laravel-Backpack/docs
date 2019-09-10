@@ -34,15 +34,25 @@ If you don't find one there, you can create one, and Backpack will pick it up in
 <a name="add-extra-crud-routes"></a>
 ## Add Extra CRUD Routes
 
-Starting with Backpack\CRUD 3.2, you can use the ```with()``` method on ```CRUD::resource``` to better organize your routes. Something like this:
+Starting with Backpack\CRUD 4.0, routes are defined inside the Controller, in methods that look like ```setupOperationNameRoutes()```; you can use this naming convention to setup extra routes, for your custom operations:
 
 ```php
-CRUD::resource(‘teams’, ‘Admin\TeamCrudController’)->with(function(){
-    // add extra routes to this resource
-    Route::get('teams/ajax-name-options', 'Admin\TeamCrudController@nameOptions');
-    Route::get('teams/ajax-category-options', 'Admin\TeamCrudController@categoryOptions');
-});
+protected function setupModerateRoutes($segment, $routeName, $controller) {
+  Route::get($segment.'/{id}/moderate', [
+      'as'        => $routeName.'.moderate',
+      'uses'      => $controller.'@moderate',
+      'operation' => 'moderate',
+  ]);
+
+  Route::post($segment.'/{id}/moderate', [
+      'as'        => $routeName.'.saveModeration',
+      'uses'      => $controller.'@saveModeration',
+      'operation' => 'moderate',
+  ]);
+}
 ```
+
+If you want the route to point to a different controller, you can add the route in ```routes/backpack/custom.php``` instead.
 
 <a name="publish-a-column-field-filter-button-to-modify"></a>
 ## Publish a column / field / filter / button and modify it
@@ -144,7 +154,7 @@ For the integration, barryvdh's [laravel-elfinder](https://github.com/barryvdh/l
 ![Backpack CRUD ListEntries](https://backpackforlaravel.com/uploads/docs/media_library.png)
 
 <a name="manually-install-backpack-crud"></a>
-## Manually install Backpack/CRUD
+## Manually install Backpack
 
 If the automatic installation doesn't work for you and you need to manually install CRUD, here are all the commands it is running:
 
@@ -163,11 +173,13 @@ php artisan vendor:publish --provider="Backpack\CRUD\CrudServiceProvider" --tag=
 php artisan backpack:base:add-sidebar-content '<li><a href=\"{{  backpack_url(\"elfinder\") }}\"><i class=\"fa fa-files-o\"></i> <span>File manager</span></a></li>'
 ```
 
-3) Actually install CRUD:
+3) Actually install Backpack:
 ```bash
-php artisan vendor:publish --provider="Backpack\CRUD\CrudServiceProvider" --tag="public"
-php artisan vendor:publish --provider="Backpack\CRUD\CrudServiceProvider" --tag="lang"
-php artisan vendor:publish --provider="Backpack\CRUD\CrudServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag=minimum
+php artisan vendor:publish --provider="Prologue\Alerts\AlertsServiceProvider"
+php artisan migrate
+php artisan backpack:publish-user-model
+php artisan backpack:publish-middleware
 ```
 
 <a name="load-fields-from-a-different-folder"></a>
@@ -179,15 +191,15 @@ Fields, Columns and Filters all have a ```view_namespace``` parameter you can us
 
 ```php
 $this->crud->addFilter([ // add a "simple" filter called Draft
-          'type'  => 'complex',
-          'name'  => 'checkbox',
-          'label' => 'Checked',
-          'view_namespace' => 'custom_filters'
-        ],
-        false, // the simple filter has no values, just the "Draft" label specified above
-        function () { // if the filter is active (the GET parameter "draft" exits)
-            $this->crud->addClause('where', 'checkbox', '1');
-        });
+  'type'  => 'complex',
+  'name'  => 'checkbox',
+  'label' => 'Checked',
+  'view_namespace' => 'custom_filters'
+],
+false, // the simple filter has no values, just the "Draft" label specified above
+function () { // if the filter is active (the GET parameter "draft" exits)
+    $this->crud->addClause('where', 'checkbox', '1');
+});
 ```
 This will make Backpack look for the ```resources/views/custom_filters/complex.blade.php```, and pick that up before anything else.
 
@@ -203,27 +215,26 @@ Say you want to show two selects:
 1. In you CrudController you would do:
 
 ```php
+$this->crud->addField([    // SELECT2
+    'label'         => ‘Category',
+    'type'          => 'select',
+    'name'          => ‘category',
+    'entity'        => 'category',
+    'attribute'     => 'name',
+]);
 
-        $this->crud->addField([    // SELECT2
-            'label'         => ‘Category',
-            'type'          => 'select',
-            'name'          => ‘category',
-            'entity'        => 'category',
-            'attribute'     => 'name',
-        ]);
-
-        $this->crud->addField([ // select2_from_ajax: 1-n relationship
-            'label'                => "Article", // Table column heading
-            'type'                 => 'select2_from_ajax_multiple',
-            'name'                 => 'articles', // the column that contains the ID of that connected entity;
-            'entity'               => 'article', // the method that defines the relationship in your Model
-            'attribute'            => 'title', // foreign key attribute that is shown to user
-            'data_source'          => url('api/article'), // url to controller search function (with /{id} should return model)
-            'placeholder'          => 'Select an article', // placeholder for the select
-            'minimum_input_length' => 0, // minimum characters to type before querying results
-            'dependencies'         => [‘category’], // when a dependency changes, this select2 is reset to null
-            // ‘method'                    => ‘GET’, // optional - HTTP method to use for the AJAX call (GET, POST)
-        ]);
+$this->crud->addField([ // select2_from_ajax: 1-n relationship
+    'label'                => "Article", // Table column heading
+    'type'                 => 'select2_from_ajax_multiple',
+    'name'                 => 'articles', // the column that contains the ID of that connected entity;
+    'entity'               => 'article', // the method that defines the relationship in your Model
+    'attribute'            => 'title', // foreign key attribute that is shown to user
+    'data_source'          => url('api/article'), // url to controller search function (with /{id} should return model)
+    'placeholder'          => 'Select an article', // placeholder for the select
+    'minimum_input_length' => 0, // minimum characters to type before querying results
+    'dependencies'         => [‘category’], // when a dependency changes, this select2 is reset to null
+    // ‘method'                    => ‘GET’, // optional - HTTP method to use for the AJAX call (GET, POST)
+]);
 ```
 
 **DIFFERENT HERE**: ```minimum_input_length``` and ```dependencies```.

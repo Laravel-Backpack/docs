@@ -17,20 +17,42 @@ All editable attributes should be ```$fillable``` on your Model.
 <a name="how-to-use"></a>
 ## How to Use
 
-The ```Create``` operation is **enabled by default**. To disable it, you should use ```$this->crud->denyAccess('create');``` inside your ```setup()``` method. This will make the Add button disappear in ListEntries, in the ```top``` button stack.
-
 To use the Create operation, you must:
 
-**Step 1. Specify what field types** you'd like to show for each editable attribute, in your EntityCrudController's ```setup()``` method. You can do that using the [Fields API](/docs/{{version}}/crud-fields#fields-api). In short you can:
+**Step 0. Use the operation trait on your EntityCrudController**. This should be as simple as this:
 
 ```php
-// add a field only to the Create operation
-$this->crud->addField($field_definition_array, 'create');
-// add a field to both the Create and Update operations
-$this->crud->addField($field_definition_array);
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use Backpack\CRUD\app\Http\Controllers\CrudController;
+
+class ProductCrudController extends CrudController
+{
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+    
+    protected function setupCreateOperation()
+	{
+		// $this->crud->setValidation(StoreRequest::class);
+		// $this->crud->addField($field_definition_array);
+	}
+}
 ```
 
-**Step 2. Specify validation rules, in your the EntityCrudRequest file** that you are typehinting on your ```EntityCrudController::store()``` method. If you need separate validation for Create and Update [look here](#separate-validation).
+**Step 1. Specify what field types** you'd like to show for each editable attribute, in your EntityCrudController's ```setupCreateOperation()``` method. You can do that using the [Fields API](/docs/{{version}}/crud-fields#fields-api). In short you can:
+
+```php
+protected function setupCreateOperation()
+{
+	$this->crud->addField($field_definition_array);
+}
+```
+
+**Step 2. Specify validation rules, in your the EntityCrudRequest file**. Then make sure that file is used for validation, by telling the CRUD to validate that request file in ```setupCreateOperation()```:
+```php
+$this->crud->setValidation(StoreRequest::class);
+```
 
 For more on how to manipulate fields, please read the [Fields documentation page](/docs/{{version}}/crud-fields). For more on validation rules, check out [Laravel's validation docs](https://laravel.com/docs/master/validation#available-validation-rules).
 
@@ -41,31 +63,37 @@ CrudController is a RESTful controller, so the ```Create``` operation uses two r
 - GET to ```/entity-name/create``` - points to ```create()``` which shows the Add New Entry form (```create.blade.php```);
 - POST to ```/entity-name``` - points to ```store()``` which does the actual storing operation;
 
-The ```create()``` method will show all the fields you've defined for this operation using the [Fields API](/docs/{{version}}/crud-fields#fields-api), then upon Save the ```store()``` method will first check the validation from the typehinted FormRequest, then create the entry using the Eloquent model. Only attributes that are ```$fillable``` on the model will actually be stored in the database.
+The ```create()``` method will show all the fields you've defined for this operation using the [Fields API](/docs/{{version}}/crud-fields#fields-api), then upon Save the ```store()``` method will first check the validation from the FormRequest you've specified, then create the entry using the Eloquent model. Only attributes that specified as fields, and are ```$fillable``` on the model will actually be stored in the database.
 
 <a name="callbacks"></a>
 ## Callbacks
 
-Developers coming from GroceryCRUD or other CRUD systems will be looking for callbacks to run before_insert, before_update, after_insert, after_update. **There are no callbacks in Backpack**, because there's no need. The code for the insert&update operations is out in the open for you to customize. Notice your ```EntityCrudController``` **already** has the following methods, which you can modify as you wish:
-```php
-public function store(StoreRequest $request)
-{
-    // <---------  here is where a before_insert callback logic would be
-    $response = parent::storeCrud();
-    // <---------  here is where a after_insert callback logic would be
-    return $response;
-}
+Developers coming from GroceryCRUD or other CRUD systems will be looking for callbacks to run before_insert, before_update, after_insert, after_update. **There are no callbacks in Backpack**. The store code is inside a trait, so you can easily overwrite it:
 
-public function update(UpdateRequest $request)
+```php
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use Backpack\CRUD\app\Http\Controllers\CrudController;
+
+class ProductCrudController extends CrudController
 {
-    // <---------  here is where a before_update callback logic would be
-    $response = parent::updateCrud();
-    // <---------  here is where a after_update callback logic would be
-    return $response;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as traitStore; }
+
+    // ...
+    
+    public function store()
+    {
+    	// do something before validation, before save, before everything
+    	$response = $this->traitStore();
+    	// do something after save
+    	return $response;
+    }
 }
 ```
 
->But before you do that, ask yourself - **_is this something that should be done when an entry is added/updated/deleted from the application, too_**? Not just the admin admin? If so, a better place for it would be the Model. Remember your Model is a pure Eloquent Model, so the cleanest way might be to use [Eloquent Event Observers](https://laravel.com/docs/5.5/eloquent#events) or [accessors and mutators](https://laravel.com/docs/master/eloquent-mutators#accessors-and-mutators).
+>But before you do that, ask yourself - **_is this something that should be done when an entry is added/updated/deleted from the application, too_**? Not just the admin panel? If so, a better place for it would be the Model. Remember your Model is a pure Eloquent Model, so the cleanest way might be to use [Eloquent Event Observers](https://laravel.com/docs/5.5/eloquent#events) or [accessors and mutators](https://laravel.com/docs/master/eloquent-mutators#accessors-and-mutators).
 
 <a name="translatable-models"></a>
 ## Translatable models and multi-language CRUDs

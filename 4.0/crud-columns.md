@@ -40,7 +40,7 @@ When passing a column array, you need to specify at least these attributes:
 <a name="columns-api"></a>
 ### Columns API
 
-Inside your ```setup()``` method there are a few calls you can make to configure or manipulate columns:
+Inside your ```setupListOperation()``` or ```setupShowOperation()``` method, there are a few calls you can make to configure or manipulate columns:
 
 ```php
 // add a column, at the end of the stack
@@ -673,17 +673,17 @@ When giving priorities, lower is better. So a column with priority 4 will be hid
 
 ```php
 $this->crud->addColumn([
-                'name' => 'details',
-                'type' => 'text',
-                'label' => 'Details',
-                'priority' => 2,
-            ]);
+    'name' => 'details',
+    'type' => 'text',
+    'label' => 'Details',
+    'priority' => 2,
+]);
 $this->crud->addColumn([
-                'name' => 'obs',
-                'type' => 'text',
-                'label' => 'Observations',
-                'priority' => 3,
-            ]);
+    'name' => 'obs',
+    'type' => 'text',
+    'label' => 'Observations',
+    'priority' => 3,
+]);
 ```
 In the example above, depending on how much space it's got in the viewport, DataTables will first hide the ```obs``` column, then ```details```, then the last column, then the first column.
 

@@ -18,7 +18,7 @@ When enabled, ```Revisions``` will show another button in the table view, betwee
 <a name="how-to-use"></a>
 ## How to Use
 
-The ```Revision``` operation is **disabled by default**. In order to enable this functionality for a CRUD panel, you need to:
+In order to enable this operation for a CrudController, you need to:
 
 1. Create the revisions table:
 
@@ -48,16 +48,18 @@ class Article extends Eloquent {
 }
 ```
 
-3. In your EntityCrudController's ```setup()``` method, enable access to the Revisions operation: 
+3. In your CrudController, add the Revisions trait:
 
 ```php
-$this->crud->allowAccess('revisions');
-```
+<?php
 
-4. [optional] If you want the table view to load faster (and why wouldn't you?), you should eager-load the revisions, so there won't be any extra DB queries for the revisions:
+namespace App\Http\Controllers\Admin;
 
-```php
-$this->crud->with('revisionHistory');
+use Backpack\CRUD\app\Http\Controllers\CrudController;
+
+class CategoryCrudController extends CrudController
+{
+    use \Backpack\CRUD\app\Http\Controllers\Operations\RevisionsOperation;
 ```
 
 For complex usage, head on over to [VentureCraft/revisionable](https://github.com/VentureCraft/revisionable) to see the full documentation and extra configuration options.
