@@ -15,17 +15,17 @@ This will guide you through upgrading from Backpack 3.6 to 4.0. For upgrading fr
 <a name="upgraade-steps"></a>
 ## Upgrade Steps
 
-0. Update your ```composer.json``` file to require ```"backpack/crud": "4.*"``` along with ```"laravel/framework": "6.*"```. Then run ```composer update```.
+**Step 0.** Update your ```composer.json``` file to require ```"backpack/crud": "4.*"``` along with ```"laravel/framework": "6.*"```. Then run ```composer update```.
 
 ### Models
 
-We've moved the model traits, so please do a search-and-replace in your ```app``` or ```Models``` folder:
+**Step 1.** We've moved the model traits, so please do a search-and-replace in your ```app``` or ```Models``` folder:
 - replace ```Backpack\CRUD\CrudTrait``` with ```Backpack\CRUD\app\Models\Traits\CrudTrait```
 - replace ```Backpack\CRUD\ModelTraits\SpatieTranslatable``` with ```Backpack\CRUD\app\Models\Traits\SpatieTranslatable```
 
 ### Routes
 
-Developers should change all their routes as shown below:
+**Step 2.** Developers should change all their routes as shown below:
 ```diff
 Route::group([
     'prefix' => config('backpack.base.route_prefix'),
@@ -39,9 +39,9 @@ Route::group([
 
 ### CrudControllers
 
-**Step 1.** Make sure your ```$crud``` object is configured inside the ```setup()``` method, not ``__construct()```, especially if you've generated your cruds using old versions of Backpack v3 (from 2016-2017). In most cases you can just rename ```__construct()``` to ```setup()```, since ```setup()``` is called inside ```__construct()``` anyway.
+**Step 3.** Make sure your ```$crud``` object is configured inside the ```setup()``` method, not ```__construct()```, especially if you've generated your cruds using old versions of Backpack v3 (from 2016-2017). In most cases you can just rename ```__construct()``` to ```setup()```, since ```setup()``` is called inside ```__construct()``` anyway.
 
-**Step 2.** ZERO operations and routes are loaded by default by CrudController. Every EntityCrudController needs the following changes to be able to have all operations that were previously loaded by default:
+**Step 4.** ZERO operations and routes are loaded by default by CrudController. Every EntityCrudController needs the following changes to be able to have all operations that were previously loaded by default:
 
 ```diff
 
@@ -58,9 +58,9 @@ class SettingCrudController extends CrudController
         // ...
 ```
 
-**Step 3.** This is a great time to think about which operations you're NOT using with each CrudController. If you're actually not using an operation, just commend or delete the ```use``` statement for that operation. This will also prevent the routes for that operation from being registered, so your ```php artisan route:list``` will be cleaner.
+**Step 5.** This is a great time to think about which operations you're NOT using with each CrudController. If you're actually not using an operation, just commend or delete the ```use``` statement for that operation. This will also prevent the routes for that operation from being registered, so your ```php artisan route:list``` will be cleaner.
 
-**Step 4.** If you're calling a method using ```parent::action()``` anywhere inside your EntityCrudController, it will not work anymore. To be able to call the same method, but from the trait (not the parent), please rename the method from the trait, and call that name instead:
+**Step 6.** If you're calling a method using ```parent::action()``` anywhere inside your EntityCrudController, it will not work anymore. To be able to call the same method, but from the trait (not the parent), please rename the method from the trait, and call that name instead:
 
 ```diff
 use Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
@@ -88,7 +88,7 @@ This is inconvenient, but I think it's a small price to pay for having the conve
 You do NOT need to do this for every method in your EntityCrudController that you've overwritten completely. Only for the methods that have a ```parent::smth()``` call inside them.
 
 
-**Step 5.** The Create and Update operations used to store all inputs the form sent, _except for_ special inputs (like ```_token```, ```_method```, ```current_tab``` etc.). This process has now been changed: they now store _only_ the inputs that the fields specify as names. So:
+**Step 7.** The Create and Update operations used to store all inputs the form sent, _except for_ special inputs (like ```_token```, ```_method```, ```current_tab``` etc.). This process has now been changed: they now store _only_ the inputs that the fields specify as names. So:
 - if you've used the ```checklist_dependency``` field type, its definition has changed - it should now have an array for name, instead of a string:
 ```diff
 $this->crud->addField([
@@ -126,9 +126,9 @@ $this->crud->addField([
 
 Most views have suffered big changes, since we've moved from Bootstrap 3 to Bootstrap 4, and from AdminLTE to CoreUI. If you've overwritten many Backpack views, the upgrade process will be more difficult for you: you have to start from our new views and make the changes again.
 
-Step 1. Check your ```resources/views/vendor/backpack``` folder for any views. If you find anything there beside ```base/inc/sidebar_content.blade.php```, you'll need to take a look at that file in the package - it most likely has changed. We recommend you use a diff tool - should save some time. Kaleidoscope is our preffered diff tool, on Mac OS.
+**Step 8.** Check your ```resources/views/vendor/backpack``` folder for any views. If you find anything there beside ```base/inc/sidebar_content.blade.php```, you'll need to take a look at that file in the package - it most likely has changed. We recommend you use a diff tool - should save some time. Kaleidoscope is our preffered diff tool, on Mac OS.
 
-Step 2. In your ```resources/views/vendor/backpack/base/inc/sidebar_content.blade.php```, apply the new classes to your sidebar elements (notice ```nav-item```, ```nav-link``` and ```nav-icon```):
+**Step 9.** In your ```resources/views/vendor/backpack/base/inc/sidebar_content.blade.php```, apply the new classes to your sidebar elements (notice ```nav-item```, ```nav-link``` and ```nav-icon```):
 
 ```html
 <!-- This file is used to store sidebar items, starting with Backpack\Base 0.9.0 -->
