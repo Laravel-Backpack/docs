@@ -170,16 +170,13 @@ Use the same Columns API as for the ListEntries operation, but inside your ```sh
 // 
 // Note: check out CRUD > Features > Field Types in the docs to see examples of $field_definition_array
 
-$this->crud->addField($field_definition_array, 'update/create/both');
-$this->crud->addField('db_column_name', 'update/create/both'); // a lazy way to add fields: let the CRUD decide what field type it is and set it automatically, along with the field label
-$this->crud->addFields($array_of_fields_definition_arrays, 'update/create/both');
-$this->crud->modifyField($name, $modifs_array, 'update/create/both');
-$this->crud->removeField('name', 'update/create/both');
-$this->crud->removeFields($array_of_names, 'update/create/both');
+$this->crud->addField($field_definition_array);
+$this->crud->addField('db_column_name'); // a lazy way to add fields: let the CRUD decide what field type it is and set it automatically, along with the field label
+$this->crud->addFields($array_of_fields_definition_arrays);
+$this->crud->modifyField($name, $modifs_array);
+$this->crud->removeField('name');
+$this->crud->removeFields($array_of_names);
 $this->crud->removeAllFields();
-
-// Note: the last parameter is always the form - create or update; if missing, it's assumed 'both';
-
 
 // ------ REORDER FIELDS
 $this->crud->addField()->beforeField('name'); // will show this before the given field
@@ -192,15 +189,17 @@ $this->crud->addField()->afterField('name'); // will show this after the given f
 <small>Methods: enableReorder(), disableReorder(), isReorderEnabled()</small>
 
 ```php
-// Show a reorder button in the table view, next to Add
-// Provide an interface to reorder & nest elements, provided the parent_id, lft, rgt, depth columns are in the database, and fillable on the model.
-$this->crud->enableReorder('label_name', 3);
-// NOTE: the second parameter is the maximum nesting depth; this example will prevent the user from creating trees deeper than 3 levels;
-// NOTE: you also need to do allow access to the right users: $this->crud->allowAccess('reorder');
+    protected function setupReorderOperation()
+    {
+    	// model attribute to be shown on draggable items
+        $this->crud->set('reorder.label', 'name'); 
+        // maximum number of nesting allowed
+        $this->crud->set('reorder.max_level', 2);
 
-$this->crud->disableReorder();
-$this->crud->isReorderEnabled(); // return true/false
-
+        // extras:
+		// $this->crud->disableReorder();
+		// $this->crud->isReorderEnabled();
+    }
 ```
 
 <a name="revisions-api"></a>
@@ -259,6 +258,19 @@ $this->crud->setRevisionsView('your-view');
 $this->crud->setRevisionsTimelineView('your-view');
 $this->crud->setDetailsRowView('your-view');
 
+// -------------
+// CONTENT CLASS
+// -------------
+
+// use a custom CSS class for the content of a CRUD operation
+$this->crud->setShowContentClass('col-md-12');
+$this->crud->setEditContentClass('col-md-12');
+$this->crud->setCreateContentClass('col-md-12');
+$this->crud->setListContentClass('col-md-12');
+$this->crud->setReorderContentClass('col-md-12');
+$this->crud->setRevisionsContentClass('col-md-12');
+$this->crud->setRevisionsTimelineContentClass('col-md-12');
+
 // -------
 // GETTERS
 // -------
@@ -275,7 +287,7 @@ $this->crud->getCurrentEntry();
 // OPERATIONS
 // -------
 
-$this->crud->setOperation('ListEntries');
+$this->crud->setOperation('list');
 $this->crud->getOperation();
 
 // -------

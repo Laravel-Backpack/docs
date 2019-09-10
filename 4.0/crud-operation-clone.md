@@ -26,20 +26,47 @@ Using AJAX, a POST request is performed towards ```/entity-name/{id}```, which p
 <a name="enabling"></a>
 ### How to Use
 
-The ```clone()``` action is **disabled by default**. To enable it, you should use ```$this->crud->allowAccess('clone');``` inside your ```setup()``` method. This will make the Clone button appear in the table view, and will allow access to the controller method if manually accessed.
+To enable it, you need to ```use \Backpack\CRUD\app\Http\Controllers\Operations\CloneOperation;``` on your EntityCrudController. For example:
+
+```php
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use Backpack\CRUD\app\Http\Controllers\CrudController;
+
+class ProductCrudController extends CrudController
+{
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CloneOperation;
+
+    public function setup() 
+    {
+        $this->crud->setModel(\App\Models\Product::class);
+        $this->crud->setRoute(backpack_url('product'));
+        $this->crud->setEntityNameStrings('product', 'products');
+    }
+}
+```
+
+This will make the Clone button appear in the table view, and will allow access to the controller method if manually accessed.
 
 <a name="how-to-overwrite"></a>
 ### How to Overwrite
 
-In case you need to change how this operation works, just create a ```clone()``` method in your EntityCrudController:
+In case you need to change how this operation works, overwrite the ```clone()``` trait method in your EntityCrudController; make sure you give the method in the trait a different name, so that there are no conflicts:
 
 ```php
+use \Backpack\CRUD\app\Http\Controllers\Operations\CloneOperation { clone as traitClone; }
+
 public function clone($id)
 {
     $this->crud->hasAccessOrFail('clone');
     $this->crud->setOperation('clone');
 
     // whatever you want
+    
+    // if you still want to call the old clone method
+    $this->traitClone($id);
 }
 ```
 
@@ -63,14 +90,7 @@ Using AJAX, a POST request is performed towards ```/entity-name/bulk-clone```, w
 <a name="enabling"></a>
 ### How to Use
 
-The ```bulkClone()``` action is **disabled by default**, and there are no buttons using it. To make the buttons show up, inside your ```setup()``` method you should:
-
-```php
-$this->crud->enableBulkActions(); // if you haven't already
-
-$this->crud->allowAccess('clone');
-$this->crud->addButton('bottom', 'bulk_clone', 'view', 'crud::buttons.bulk_clone', 'beginning');
-```
+To enable it, you need to ```use \Backpack\CRUD\app\Http\Controllers\Operations\BulkCloneOperation;``` on your EntityCrudController.
 
 <a name="how-to-overwrite"></a>
 ### How to Overwrite
@@ -78,9 +98,14 @@ $this->crud->addButton('bottom', 'bulk_clone', 'view', 'crud::buttons.bulk_clone
 In case you need to change how this operation works, just create a ```bulkClone()``` method in your EntityCrudController:
 
 ```php
+use \Backpack\CRUD\app\Http\Controllers\Operations\BulkCloneOperation { bulkClone as traitBulkClone; }
+
 public function bulkClone($id)
 {
     // your custom code here
+    // 
+    // then you can call the old bulk clone if you want
+    $this->traitBulkClone($id);
 }
 ```
 

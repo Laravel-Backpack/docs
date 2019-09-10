@@ -1,4 +1,4 @@
-# ListEntries
+# List
 
 ---
 
@@ -7,7 +7,7 @@
 
 This operation shows a table with all database entries. It's the first page the admin lands on (for an entity), and it's usually the gateway to all other operations, because it holds all the buttons.
 
-A simple ListEntries view might look like this:
+A simple List view might look like this:
 
 ![Backpack CRUD ListEntries](https://backpackforlaravel.com/uploads/docs/operations/listEntries.png)
 
@@ -34,23 +34,38 @@ For views, it uses:
 <a name="how-to-use"></a>
 ## How to Use
 
-The ```ListEntries``` operation is **enabled by default**. To disable it, you can use ```$this->crud->denyAccess('list');``` inside your ```setup()``` method.
+Use the operation trait on your controller:
+```php
+<?php
 
-Configuration for this operation is usually done inside your ```setup()``` method. That's recommended, because the columns you define here are used by a few actions (```index()```, ```search()```, ```show()```).
+namespace App\Http\Controllers\Admin;
 
-**For a minimum setup, you only need to define the columns you need to show in the table.**
+use Backpack\CRUD\app\Http\Controllers\CrudController;
+
+class ProductCrudController extends CrudController
+{
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+
+    protected setupListOperation()
+    {
+       // $this->crud->addColumn();
+    }
+}
+```
+
+Configuration for this operation should be done inside your ```setupListOperation()``` method. **For a minimum setup, you only need to define the columns you need to show in the table.** 
 
 <a name="columns"></a>
 ### Columns
 
-Columns represent the way your information is shown in the table view. All column types must have their ```name```, ```label``` and ```type``` specified, but some could require some other attributes too.
+The List operation uses "columns" to determine how to show the attributes of an entry to the user. All column types must have their ```name```, ```label``` and ```type``` specified, but some could require some additional attributes.
 
 ```php
 $this->crud->addColumn([
-         'name' => 'name', // The db column name
-         'label' => "Tag Name", // Table column heading
-         'type' => 'Text'
-         ]);
+  'name' => 'name', // The db column name
+  'label' => "Tag Name", // Table column heading
+  'type' => 'Text'
+]);
 ```
 
 Backpack has 22+ [column types](/docs/{{version}}/crud-columns) you can use. Plus, you can easily [create your own type of column](/docs/{{version}}/crud-columns##creating-a-custom-column-type). **Check out the [Columns](/docs/{{version}}/crud-columns##creating-a-custom-column-type) documentation page** for a detailed look at column types, API and usage.
@@ -90,10 +105,9 @@ On click, an AJAX request is sent to the ```entity/{id}/details``` route, which 
 
 To use, inside your ```EntityCrudController```:
 1. Enable the functionality: ```$this->crud->enableDetailsRow();```
-2. Allow access to all admins: ```$this->crud->allowAccess('details_row');```; Wrap an "if" statement around this if you don't want everybody to be able to see it.
-3. Overwrite the ```showDetailsRow($id)``` method;
+2. Overwrite the ```showDetailsRow($id)``` method;
 
-Alternative for the 3rd step: overwrite ```views/backpack/crud/details_row.blade.php``` which is called by the default ```showDetailsRow($id)``` functionality.
+Alternative for the 2nd step: overwrite ```views/backpack/crud/details_row.blade.php``` which is called by the default ```showDetailsRow($id)``` functionality.
 
 <a name="export-buttons"></a>
 #### Export Buttons
@@ -107,7 +121,7 @@ Exporting the DataTable to PDF, CSV, XLS is as easy as typing ```$this->crud->en
 <a name="custom-query"></a>
 #### Custom Query
 
-By default, all entries are shown in the ListEntries table, before filtering. If you want to restrict the entries to a subset, you can use the methods below in your EntityCrudController's ```setup()``` method:
+By default, all entries are shown in the ListEntries table, before filtering. If you want to restrict the entries to a subset, you can use the methods below in your EntityCrudController's ```setupListOperation()``` method:
 
 ```php
 // Change what entries are show in the table view.
@@ -139,7 +153,7 @@ If you do not like this, you can **toggle off the responsive behaviour for all C
     'responsive_table' => true
 ```
 
-To turn off the responsive table behaviour for _just one CRUD panel_, you can use ```$this->crud->disableResponsiveTable()``` in your ```setup()``` method.
+To turn off the responsive table behaviour for _just one CRUD panel_, you can use ```$this->crud->disableResponsiveTable()``` in your ```setupListOperation()``` method.
 
 <a name="persistent-query"></a>
 #### Persistent Table

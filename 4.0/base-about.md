@@ -1,13 +1,13 @@
-# About Backpack\Base
+# About Backpack's User Interface
 
 ---
 
-Backpack/Base kickstarts your admin panel building by:
+Backpack helps you build admin panels faster by:
 - installing our custom HTML theme, [Backstrap](https://backstrap.net), based on Bootstrap 4 and [CoreUI](https://coreui.io);
 - installing [sweetalert](https://sweetalert.js.org/) for triggering pretty Confirm modals;
 - installing [noty](https://ned.im/noty/#/) to show notification bubbles upon error/success/warning/info - triggered from Javascript;
 - installing [prologue/alerts](https://github.com/prologuephp/alerts) for triggering notification bubbles from PHP (both on the same page and using flashdata);
-- providing separate authentication for your admins;
+- providing a separate authentication system for your admins;
 - providing pretty error pages for most common errors;
 - providing a horizontal menu and a side menu you can customize;
 - providing a place for your admin to to change his email/name/password;
@@ -21,7 +21,7 @@ For the simplest projects, you will never need to know how it works, never need 
 <a name="general"></a>
 ### General
 
-Backpack\Base pulls in our custom HTML template, [Backstrap](https://www.npmjs.com/package/@digitallyhappy/backstrap), and adds our own CSS file on top, for a few cosmetic improvements. We've chosen to base Backstrap on [CoreUI](https://coreui.io), because it provides design blocks for all common features of an administration panel. When you decide to build custom pages for your Admin Panel, you can just use Backstrap's HTML blocks - no designer needed. You can see all the HTML components Backstrap provides on [backstrap.net](https://backstrap.net).
+Backpack pulls in our custom HTML template, [Backstrap](https://www.npmjs.com/package/@digitallyhappy/backstrap), and adds our own CSS file on top, for a few cosmetic improvements. We've chosen to base Backstrap on [CoreUI](https://coreui.io), because it provides design blocks for all common features of an administration panel. When you decide to build custom pages for your Admin Panel, you can just use Backstrap's HTML blocks - no designer needed. You can see all the HTML components Backstrap provides on [backstrap.net](https://backstrap.net), and copy-paste HTML from there, or use [CoreUI](https://coreui.io)'s documentation for details.
 
 <a name="published-views"></a>
 ### New Files in Your App

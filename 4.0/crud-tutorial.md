@@ -11,7 +11,7 @@ We assume:
 <a name="generate-files"></a>
 ## Generate Files
 
-Since we don't have an Eloquent model for it already, we're going to use [Jeffrey Way's Generators](https://github.com/laracasts/Laravel-5-Generators-Extended) package, which is installed along with Backpack, to generate the migration. 
+Since we don't have an Eloquent model for it already, we're going to use [Jeffrey Way's Generators](https://github.com/laracasts/Laravel-5-Generators-Extended) package, which you've most likely installed along with Backpack, to generate the migration. 
 
 ```zsh
 # STEP 0. create migration
@@ -26,10 +26,10 @@ Now that we have the ```tags``` table in the database, let's generate the actual
 php artisan backpack:crud tag #use singular, not plural
 
 # STEP 2. add a route for the crud panel (under the admin prefix and auth middleware): 
-php artisan backpack:base:add-custom-route "CRUD::resource('tag', 'TagCrudController');"
+php artisan backpack:add-custom-route "Route::crud('tag', 'TagCrudController');"
 
 # STEP 3. add an item to the sidebar menu
-php artisan backpack:base:add-sidebar-content "<li><a href='{{ backpack_url('tag') }}'><i class='fa fa-tag'></i> <span>Tags</span></a></li>"
+php artisan backpack:add-sidebar-content "<li class='nav-item'><a class='nav-link' href='{{ backpack_url('tag') }}'><i class='nav-icon fa fa-tag'></i> Tags</a></li>"
 ```
 
 The code above will have generated:
@@ -144,103 +144,66 @@ We're now done configuring the model - because we didn't already have a valid El
 Let's take a look at ```app/Http/Controllers/Admin/TagCrudController.php```. It should look something like this:
 
 ```php
-<?php
-
-namespace App\Http\Controllers\Admin;
+<?php namespace App\Http\Controllers\Admin;
 
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use App\Http\Requests\TagCrudRequest;
 
-// VALIDATION: change the requests to match your own file names if you need form validation
-use App\Http\Requests\TagRequest as StoreRequest;
-use App\Http\Requests\TagRequest as UpdateRequest;
+class TagCrudController extends CrudController {
 
-class TagCrudController extends CrudController
-{
-    public function setup()
-    {
-        /*
-        |--------------------------------------------------------------------------
-        | CrudPanel Basic Information
-        |--------------------------------------------------------------------------
-        */
-        $this->crud->setModel('App\Models\Tag');
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/tag');
-        $this->crud->setEntityNameStrings('tag', 'tags');
+  use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+  use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+  use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+  use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+  use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
 
-        /*
-        |--------------------------------------------------------------------------
-        | CrudPanel Configuration
-        |--------------------------------------------------------------------------
-        */
+  public function setup() 
+  {
+      $this->crud->setModel("App\Models\Tag");
+      $this->crud->setRoute("admin/tag");
+      $this->crud->setEntityNameStrings('tag', 'tags');
 
-        // TODO: remove setFromDb() and manually define Fields and Columns
-        $this->crud->setFromDb();
-    }
-
-    public function store(StoreRequest $request)
-    {
-        // your additional operations before save here
-        $redirect_location = parent::storeCrud($request);
-        // your additional operations after save here
-        // use $this->data['entry'] or $this->crud->entry
-        return $redirect_location;
-    }
-
-    public function update(UpdateRequest $request)
-    {
-        // your additional operations before save here
-        $redirect_location = parent::updateCrud($request);
-        // your additional operations after save here
-        // use $this->data['entry'] or $this->crud->entry
-        return $redirect_location;
-    }
+      // auto-magically guess fields & columns
+      // it's heavily recommended that you replace this with actual addField and addColumn statements
+      // inside either $this->crud->operation() closures, or inside setupXxxxOperation() methods
+      $this->crud->setFromDb();
+  }
 }
-
 ```
 
 What we should notice inside this TagCrudController is that:
-- ```TagCrudController extends CrudController```, which, if we drill down, is a RESTful controller that already has a few methods we will be using  - ```create()```, ```edit()```, ```show()```, ```destroy()```, etc.;
+- ```TagCrudController extends CrudController```;
 - ```TagCrudController``` has a ```setup()``` method, where can configure how the CRUD panel works;
-- ```TagCrudController``` has its ```store()``` and ```update()``` methods with ```StoreRequest``` and ```UpdateRequest``` typehinted; which means those classes will be used for form validation; if we take a look at the top of the file, those Requests both lead to our newly generated ```app/Http/Requests/TagRequest.php```;
+- All operations are enabled by using that operation's trait on the controller;
+- Each operation is set up inside a ```setupXxxOperation()``` method;
 
-Let's move our attention to the ```setup()``` method, which is the gateway to configuring our CRUD Panel. 
+Let's move our attention to the ```setup()``` method, which is the gateway to configuring our CRUD Panel.
 
 As we can tell from the comments there, in most cases we _shouldn't_ use ```$this->crud->setFromDb()```, which automagically figures out which columns and fields to show. That's because for real models, in real projects, it would _never_ be able to 100% figure out which field types to use. Real projects are very custom - that's a fact. In real projects, models are complicated, use a bunch of fields types and you'll want to customize things. Instead of using ```setFromDb()``` then gradually changing what you don't like, **we heavily recommend you manually define all fields and columns you need**.
 
 Since our ```Tag``` model is so simple, we _can_ leave it like this - it will work perfectly, since we only need a ```text``` field and a ```text``` column. But let's not do that. Let's define our fields and columns manually, like big boys:
 
-```diff
+```php
     public function setup()
     {
-        /*
-        |--------------------------------------------------------------------------
-        | CrudPanel Basic Information
-        |--------------------------------------------------------------------------
-        */
         $this->crud->setModel('App\Models\Tag');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/tag');
         $this->crud->setEntityNameStrings('tag', 'tags');
 
-        /*
-        |--------------------------------------------------------------------------
-        | CrudPanel Configuration
-        |--------------------------------------------------------------------------
-        */
+        $this->crud->operation('list', function() {
+          $this->crud->addColumn(['name' => 'name', 'type' => 'text', 'label' => 'Name']);
+        });
 
--       // TODO: remove setFromDb() and manually define Fields and Columns
--       $this->crud->setFromDb();
-
-+        // Columns
-+        $this->crud->addColumn(['name' => 'name', 'type' => 'text', 'label' => 'Name']);
-+
-+        // Fields
-+        $this->crud->addField(['name' => 'name', 'type' => 'text', 'label' => 'Name']);
+        $this->crud->operation(['create', 'update'], function() {
+          $this->crud->addValidation(TagCrudRequest::class);
+          $this->crud->addField(['name' => 'name', 'type' => 'text', 'label' => 'Name']);
+        });
     }
 }
 ```
 
 This will:
-- disable the ```setFromDb()``` functionality;
+- disable the ```setFromDb()``` functionality (since we deleted that line);
 - add a simple ```text``` column for our ```name``` attribute to the ListEntries operation (the table view);
 - add a simple ```text``` field for our ```name``` attribute to the Create and Update forms;
 
@@ -248,7 +211,36 @@ It the exact same thing ```setFromDb()``` would have figured out, but done manua
 
 Here, in the ```setup()``` method, is where you can also do a lot of other things, like enabling other operations, adding buttons, adding filters, customizing your query, etc. For a full list of the things you can do inside ```setup()``` check out our [cheat sheet](/docs/{{version}}/crud-cheat-sheet). 
 
-But for now, let's continue to our next generated file.
+But we can make this even better. For large CRUDs, you ```setup()``` method will quickly become very big. A different way to configure your operations is by creating methods that follow our ```setupXxxxOperation()``` naming convention. Similar to Laravel accessors and mutators, if you have a method with a name that looks like that in your Controller, we'll know that what you actually want is to define how that Xxxx operation works. So let's rewrite the above, using ```setupXxxxOperation()``` methods:
+```php
+    public function setup()
+    {
+        $this->crud->setModel('App\Models\Tag');
+        $this->crud->setRoute(config('backpack.base.route_prefix') . '/tag');
+        $this->crud->setEntityNameStrings('tag', 'tags');
+    }
+
+    protected function setupListOperation()
+    {
+        $this->crud->addColumn(['name' => 'name', 'type' => 'text', 'label' => 'Name']);
+    }
+
+    protected function setupCreateOperation()
+    {
+        $this->crud->addValidation(TagCrudRequest::class);
+        $this->crud->addField(['name' => 'name', 'type' => 'text', 'label' => 'Name']);
+    }
+
+    protected function setupUpdateOperation()
+    {
+        $this->setupCreateOperation(); // if it's the same, why repeat it
+    }
+}
+```
+
+Much cleaner, don't you think? You can use both syntaxes, but for big CRUDs the second way of configuring operations will be more useful.
+
+Next, let's continue to another generated file.
 
 <a name="the-request"></a>
 ### The Request
@@ -273,7 +265,7 @@ class TagRequest extends FormRequest
     public function authorize()
     {
         // only allow updates if the user is logged in
-        return \Auth::check();
+        return backpack_auth()->check();
     }
 
     /**
@@ -332,7 +324,7 @@ This file is a 100% pure FormRequest file - all Laravel, nothing particular to B
     }
 ```
 
-> If your validation needs to be different between the Create and Update operations, [you can easily do that too](/docs/{{version}}/crud-operation-create#separate-requests-for-create-and-update).
+> If your validation needs to be different between the Create and Update operations, [you can easily do that too](/docs/{{version}}/crud-operation-create#separate-requests-for-create-and-update), by specifying different FormRequest files for each operation.
 
 <a name="the-route"></a>
 ### The Route
@@ -354,7 +346,7 @@ Route::group([
     'namespace'  => 'App\Http\Controllers\Admin',
 ], function () { // custom admin routes
     // CRUD resources and other admin routes
-    CRUD::resource('tag', 'Admin\TagCrudController');
+    Route::crud('tag', 'Admin\TagCrudController');
 }); // this should be the absolute last line of this file
 ```
 
@@ -376,7 +368,7 @@ We've previously generated a menu item in the ```views/vendor/backpack/base/inc/
 This is the bit that has been generated for you:
 
 ```php
-<li><a href="{{ backpack_url('tag') }}"><i class="fa fa-tag"></i> <span>Manage Tags</span></a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('tag') }}'><i class='nav-icon fa fa-tag'></i> Tags</a></li>
 ```
 
 You can of course change anything here, if you want.

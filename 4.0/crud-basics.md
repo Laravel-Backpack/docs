@@ -22,12 +22,12 @@ A Backpack CRUD Panel uses _the same elements_ you would have created for an adm
 - a resource **route** - points to the controller above; will be generated in ```routes/backpack/custom.php```;
 
 **The only difference** between building it from scratch and using Backpack\CRUD** is that:
-- your controller will be extending ```Backpack\CRUD\app\Http\Controllers\CrudController```**, which already has the  logic for a few operations: Create, Update, Delete, ListEntries, Show,  Reorder, Revisions. 
+- your controller will be extending ```Backpack\CRUD\app\Http\Controllers\CrudController```**, which allow you to easily add traits that handle the most common operations: Create, Update, Delete, List, Show,  Reorder, Revisions. 
 - your model will ```use \Backpack\CRUD\CrudTrait```;
 
 This simple architecture (```ProductCrudController extends CrudController```) means:
-- **your CRUD Panel will not be a _black box_**; you can easily see the logic for each operation, by checking the methods on this controller;
-- **you can _easily_ overwrite what happens inside each default operation**; 
+- **your CRUD Panel will not be a _black box_**; you can easily see the logic for each operation, by checking the methods on this controller, or the traits you'll be using;
+- **you can _easily_ overwrite what happens inside each operation**; 
 - **you can _easily_ add custom operations**;
 
 For example:

@@ -40,7 +40,7 @@ When passing a column array, you need to specify at least these attributes:
 <a name="columns-api"></a>
 ### Columns API
 
-Inside your ```setup()``` method there are a few calls you can make to configure or manipulate columns:
+Inside your ```setupListOperation()``` or ```setupShowOperation()``` method, there are a few calls you can make to configure or manipulate columns:
 
 ```php
 // add a column, at the end of the stack
@@ -329,6 +329,19 @@ The text column will just output the number value of a db column (or model attri
    // decimals, dec_point and thousands_sep are used to format the number;
    // for details on how they work check out PHP's number_format() method, they're passed directly to it;
    // https://www.php.net/manual/en/function.number-format.php
+],
+```
+
+<a name="phone"></a>
+### phone
+
+The phone column will output the phone number from the database (truncated to 254 characters if needed), with a ```tel:``` link so that users on mobile can click them to call (or with Skype or similar browser extensions). Its definition is:
+```php
+[
+   'name' => 'phone', // The db column name
+   'label' => "Phone number", // Table column heading
+   'type' => 'phone',
+   // 'limit' => 10, // if you want to truncate the phone number to a different number of characters
 ],
 ```
 
@@ -673,17 +686,17 @@ When giving priorities, lower is better. So a column with priority 4 will be hid
 
 ```php
 $this->crud->addColumn([
-                'name' => 'details',
-                'type' => 'text',
-                'label' => 'Details',
-                'priority' => 2,
-            ]);
+    'name' => 'details',
+    'type' => 'text',
+    'label' => 'Details',
+    'priority' => 2,
+]);
 $this->crud->addColumn([
-                'name' => 'obs',
-                'type' => 'text',
-                'label' => 'Observations',
-                'priority' => 3,
-            ]);
+    'name' => 'obs',
+    'type' => 'text',
+    'label' => 'Observations',
+    'priority' => 3,
+]);
 ```
 In the example above, depending on how much space it's got in the viewport, DataTables will first hide the ```obs``` column, then ```details```, then the last column, then the first column.
 

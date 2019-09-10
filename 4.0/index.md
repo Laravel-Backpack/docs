@@ -10,13 +10,13 @@
 - [Release Notes](/docs/{{version}}/release-notes)
 - [Upgrade Guide](/docs/{{version}}/upgrade-guide)
 
-#### Backpack\Base 2.0.x
+#### Admin UI
 
 - [About](/docs/{{version}}/base-about)
 - [Widgets](/docs/{{version}}/base-widgets)
 - [How To](/docs/{{version}}/base-how-to)
 
-#### Backpack\CRUD 4.0.x
+#### CRUD Panels
 
 - [Basics](/docs/{{version}}/crud-basics)
 - [Tutorial](/docs/{{version}}/crud-tutorial)

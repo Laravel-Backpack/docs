@@ -63,14 +63,14 @@ These will help you:
 <a name="fields-api"></a>
 ### Fields API
 
-To manipulate fields, you can use the methods below. As a second parameter, you can specify the operation you want that to work for (```create``` or ```update```). If you want it to work for both, don't use the second parameter.
+To manipulate fields, you can use the methods below. The action will be performed on the currently running operation. So make sure you run these methods inside ```setupCreateOperation()```, ```setupUpdateOperation()``` or in ```setup()``` inside operation blocks:
 
 ```php
 // add a field to both Create and Update operation
 $this->crud->addField($field_definition_array);
 
 // add a field only to the Update operation
-$this->crud->addField($field_definition_array, 'update');
+$this->crud->addField($field_definition_array);
 
 // shorthand: add a text field to both Create and Update operations
 $this->crud->addField('db_column_name');
@@ -344,7 +344,7 @@ Input preview:
 'label'             => 'User Role Permissions',
 'field_unique_name' => 'user_role_permission',
 'type'              => 'checklist_dependency',
-'name'              => 'roles_and_permissions', // the methods that defines the relationship in your Model
+'name'              => ['roles', 'permissions'], // the methods that define the relationship in your Models
 'subfields'         => [
         'primary' => [
             'label'            => 'Roles',
@@ -495,20 +495,17 @@ Starting with Backpack\CRUD 3.1.59
 Show a DateRangePicker and let the user choose a start date and end date.
 
 ```php
-        [
-            'name' => 'event_date_range', // a unique name for this field
-            'start_name' => 'start_date', // the db column that holds the start_date
-            'end_name' => 'end_date', // the db column that holds the end_date
-            'label' => 'Event Date Range',
-            'type' => 'date_range',
-            // OPTIONALS
-            'start_default' => '1991-03-28 01:01', // default value for start_date
-            'end_default' => '1991-04-05 02:00', // default value for end_date
-            'date_range_options' => [ // options sent to daterangepicker.js
-                'timePicker' => true,
-                'locale' => ['format' => 'DD/MM/YYYY HH:mm']
-            ]
-        ]
+[
+    'name' => ['start_date', 'end_date'], // db columns for start_date & end_date
+    'label' => 'Event Date Range',
+    'type' => 'date_range',
+    // OPTIONALS
+    'default' => ['2019-03-28 01:01', '2019-04-05 02:00'], // default values for start_date & end_date
+    'date_range_options' => [ // options sent to daterangepicker.js
+        'timePicker' => true,
+        'locale' => ['format' => 'DD/MM/YYYY HH:mm']
+    ]
+]
 ```
 
 Please note it is recommended that you use [attribute casting](https://laravel.com/docs/5.3/eloquent-mutators#attribute-casting) on your model (cast to date).
@@ -1670,27 +1667,31 @@ And your blade file something like:
 </div>
 
 
-@if ($crud->checkIfFieldIsFirstOfItsType($field))
-  {{-- FIELD EXTRA CSS  --}}
-  {{-- push things in the after_styles section --}}
+@if ($crud->fieldTypeNotLoaded($field))
+    @php
+        $crud->markFieldTypeAsLoaded($field);
+    @endphp
 
-      @push('crud_fields_styles')
-          <!-- no styles -->
-      @endpush
+    {{-- FIELD EXTRA CSS  --}}
+    {{-- push things in the after_styles section --}}
+    @push('crud_fields_styles')
+        <!-- no styles -->
+    @endpush
 
 
-  {{-- FIELD EXTRA JS --}}
-  {{-- push things in the after_scripts section --}}
-
-      @push('crud_fields_scripts')
-          <!-- no scripts -->
-      @endpush
+    {{-- FIELD EXTRA JS --}}
+    {{-- push things in the after_scripts section --}}
+    @push('crud_fields_scripts')
+        <!-- no scripts -->
+    @endpush
 @endif
-
-// Note: most of the times you'll want to use @if ($crud->checkIfFieldIsFirstOfItsType($field, $fields)) to only load CSS/JS once, even though there are multiple instances of it.
 ```
 
 Inside your custom field type, you can use these variables:
 - ```$crud``` - all the CRUD Panel settings, options and variables;
 - ```$entry``` - in the Update operation, the current entry being modified (the actual values);
 - ```$field``` - all attributes that have been passed for this field;
+
+If your field type uses javascript, we recommend you:
+- put a ```data-init-function="bpFieldInitMyCustomField"``` attribute on your input;
+- place your logic inside the scripts section mentioned above, inside ```function bpFieldInitMyCustomField(element) {}```; of course, you choose the name of the function but it has to match whatever you specified as data attribute on the input, and it has to be pretty unique; inside this method, you'll find that ```element``` is jQuery-wrapped object of the element where you specified ```data-init-function```; this should be enough for you to not have to use IDs, or any other tricks, to determine other elements inside the DOM - determine them in relation to the main element; if you want, you can choose to put the ```data-init-function``` attribute on a different element, like the wrapping div;

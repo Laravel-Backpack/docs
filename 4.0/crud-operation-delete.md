@@ -20,7 +20,22 @@ Using AJAX, a DELETE request is performed towards ```/entity-name/{id}```, which
 <a name="enabling"></a>
 ### How to Use
 
-The ```Delete``` action is **enabled by default**. To disable it, you should use ```$this->crud->denyAccess('delete');``` inside your ```setup()``` method. This will prevent the Delete button from appearing in the table view, and will deny access to the controller method if manually accessed. 
+To enable it, you need to ```use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;``` on your EntityCrudController. For example:
+
+```php
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use Backpack\CRUD\app\Http\Controllers\CrudController;
+
+class ProductCrudController extends CrudController
+{
+    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+}
+```
+
+This will make a Delete button show up in the list view, and will enable the routes and functionality needed for the operation.
 
 <a name="how-to-overwrite"></a>
 ### How to Overwrite
@@ -28,6 +43,8 @@ The ```Delete``` action is **enabled by default**. To disable it, you should use
 In case you need to change how this operation works, just create a ```destroy()``` method in your EntityCrudController:
 
 ```php
+use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation { destroy as traitDestroy; }
+
 public function destroy($id)
 {
     $this->crud->hasAccessOrFail('delete');
@@ -56,12 +73,7 @@ Using AJAX, a DELETE request is performed towards ```/entity-name/bulk-delete```
 <a name="enabling"></a>
 ### How to Use
 
-The ```bulkDelete()``` action is **enabled by default**, but there are no buttons using it. To make the buttons show up, inside your ```setup()``` method you should:
-
-```php
-$this->crud->enableBulkActions();
-$this->crud->addBulkDeleteButton();
-```
+You need to ```use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;``` on your EntityCrudController.
 
 <a name="how-to-overwrite"></a>
 ### How to Overwrite
@@ -69,6 +81,8 @@ $this->crud->addBulkDeleteButton();
 In case you need to change how this operation works, just create a ```bulkDelete()``` method in your EntityCrudController:
 
 ```php
+use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation { bulkDelete as traitBulkDelete; }
+
 public function bulkDelete($id)
 {
     // your custom code here

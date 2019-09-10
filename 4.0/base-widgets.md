@@ -219,6 +219,21 @@ Widget Preview:
 
 ![Backpack card widget](https://backpackforlaravel.com/uploads/v4/widgets/progress_white.png)
 
+<a name="view"></a>
+### View
+
+Loads a blade view from a location you specify. Any attributes your give it will be available in the ```$widget``` variable inside that view. 
+
+```php
+[
+    'type'        => 'view',
+    'view'        => 'path.to.custom.view',
+    'someAttr'    => 'some value',
+]
+```
+
+It helps load blade files that are not specifically created to be widgets, that live in a different path than ```resources/views/vendor/backpack/base/widgets```, as if they were widgets.
+
 <a name="overwriting-default-widget-types"></a>
 ## Overwriting Default Widget Types
 
