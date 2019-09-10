@@ -32,7 +32,7 @@ php artisan backpack:add-sidebar-content "<li class='nav-item'><a class='nav-lin
 <a name="requirements"></a>
 ### Requirements
 
-  - Laravel 5.8
+  - Laravel 5.8 or Laravel 6.x
   - PHP 7.2+
   - MySQL (recommended) / PosgreSQL / SQLite / SQL Server
 
