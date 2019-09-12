@@ -52,12 +52,14 @@ Depending on _when_ you've purchased your Backpack v3 Project license, you'll qu
 - bought in 2016 - 10 EUR discount (aprox 14%);
 - bought in 2017 - 15 EUR discount (aprox 21%);
 - bought in 2018 - 20 EUR discount (aprox 28%);
-- bought in January-July 2019 - 25 EUR discount (aprox 36%);
-- bought in August-September 2019 - 40 EUR discount (aprox 57%);
+- bought in January-June 2019 - 25 EUR discount (aprox 36%);
+- bought in July-August 2019 - 30 EUR discount (aprox 43%);
+- bought in September 2019 - 40 EUR discount (aprox 58%);
+
+If you're an EU resident/company, VAT may be added to your invoice.
 
 There's only one catch: **To receive the discount, you have to purchase the upgrade before October 1st 2019**. You can purchase the upgrade in your Backpack account - you'll notice a new button has shown up next to your v3 license "_Buy v4 Upgrade_". That button will disappear on October 1st 2019, 00:01 GMT. You will not be able to purchase with a discount after that.
 
-If you're an European resident/company, VAT may be added to your invoice.
 
 ### Unlimited License
 
@@ -67,11 +69,12 @@ Depending on _when_ you've purchased your Backpack v3 Unlimited license, you'll 
 - bought in 2016 - 20 EUR discount (aprox 5%);
 - bought in 2017 - 40 EUR discount (aprox 10%);
 - bought in 2018 - 80 EUR discount (aprox 20%);
-- bought in January-July 2019 - 120 EUR discount (aprox 30%);
-- bought in August-September 2019 - 200 EUR discount (aprox 51%);
+- bought in January-June 2019 - 120 EUR discount (aprox 30%);
+- bought in July-August 2019 - 200 EUR discount (aprox 51%);
+- bought in September 2019 - 299 EUR discount (aprox 75%);
+
+If you're an EU resident/company, VAT may be added to your invoice.
 
 There's only one catch: **To receive the discount, you have to purchase the upgrade before October 1st 2019**. You can purchase the upgrade in your Backpack account - you'll notice a new button has shown up next to your v3 license "_Buy v4 Upgrade_". That button will disappear on October 1st 2019, 00:01 GMT. You will not be able to purchase with a discount after that.
-
-If you're an European resident/company, VAT may be added to your invoice.
 
 If you've bought the Unlimited License very recently, and haven't launched any projects using Backpack v3, we don't want you to feel cheated. We can make a special discount for you - we'll discount the entire v3 Unlimited cost from your v4 Unlimited License. You'd only pay the price difference from v3 to v4 (100 EUR), and you'd be licensed to use both v3 and v4 in production. [Contact us](http://backpackforlaravel.com/contact).
