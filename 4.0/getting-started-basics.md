@@ -59,14 +59,8 @@ This is where it gets interesting. As soon as you [install Backpack](/docs/{{ver
 php artisan make:migration:schema create_tags_table --model=0 --schema="name:string:unique"
 php artisan migrate
 
-# STEP 2. create a model, a request and a controller for the admin panel
+# STEP 2. create crud
 php artisan backpack:crud tag #use singular, not plural
-
-# STEP 3. add a route to routes/backpack/custom.php (under the admin prefix and auth middleware): 
-php artisan backpack:add-custom-route "Route::crud('tag', 'TagCrudController');"
-
-# STEP 4. add a sidebar item
-php artisan backpack:add-sidebar-content "<li class='nav-item'><a class='nav-link' href='{{ backpack_url('tag') }}'><i class='nav-icon fa fa-tag'></i> Tags</a></li>"
 ```
 
 This will create a simple CRUD panel, which you should now be able to see in the Sidebar.
@@ -79,6 +73,10 @@ The code above would generate:
 - a **request** file, for form validation (```app\Http\Requests\TagCrudRequest.php```)
 - a **controller** file, where you can customize how the CrudPanel looks and feels (```app\Http\Controllers\Admin\TagCrudController.php```)
 - a **route**, as a line inside ```routes/backpack/custom.php```
+
+It will also add:
+- a route inside ```routes/backpack/custom.php```, pointing to that controller;
+- a sidebar item inside ```resources/views/vendor/backpack/base/inc/sidebar_content.blade.php```;
 
 We won’t be covering the **migration**, **model** and **request** files here, as they are in no way custom. The only thing you need to make sure is that the Model is properly configured (db table, relationships, ```$fillable``` or ```$guarded``` properties, etc) and that it uses our ```CrudTrait```. What we _will_ be covering is ```TagCrudController``` - which is where most of your logic will reside. Here’s a copy of a simple one you might use to achieve the above:
 
