@@ -29,6 +29,9 @@ cd your-laravel-project-name
 
 ``` bash
 composer require backpack/crud:"v4.x-dev as 4.0.0"
+
+# you might also want to install these tools that help during development
+# Note during v4 beta - not all of these tools might have v4 support until v4 is officially launched
 composer require webfactor/laravel-generators --dev
 composer require backpack/generators --dev
 composer require laracasts/generators --dev
