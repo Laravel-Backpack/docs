@@ -22,14 +22,7 @@ php artisan migrate
 Now that we have the ```tags``` table in the database, let's generate the actual files we'll be using:
 
 ```zsh
-# STEP 1. create a model, a request and a controller for the admin panel
 php artisan backpack:crud tag #use singular, not plural
-
-# STEP 2. add a route for the crud panel (under the admin prefix and auth middleware): 
-php artisan backpack:add-custom-route "Route::crud('tag', 'TagCrudController');"
-
-# STEP 3. add an item to the sidebar menu
-php artisan backpack:add-sidebar-content "<li class='nav-item'><a class='nav-link' href='{{ backpack_url('tag') }}'><i class='nav-icon fa fa-tag'></i> Tags</a></li>"
 ```
 
 The code above will have generated:
@@ -39,6 +32,7 @@ The code above will have generated:
 - a controller (```app/Http/Controllers/Admin/TagCrudController.php```);
 - a request (```app/Http/Requests/TagCrudRequest.php```);
 - a resource route, as a line inside ```routes/backpack/custom.php```;
+- a new item in the sidebar menu, in ```resources/views/vendor/backpack/base/inc/sidebar_content.blade.php```;
 
 **Next up:** we'll need to go through the generated files, and customize for our needs.
 
