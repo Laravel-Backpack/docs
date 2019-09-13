@@ -238,11 +238,11 @@ $this->crud->addField([
 
 **(7.4)** If you have custom field types, where there are other inputs that you want stored in the database in addition to ```$field['name']```, you can use ```$field['name']``` as an array. Make sure you pass an array when you call addField(), then use that array in the blade file. Take a look at how the ```date_range``` field does it, you can do the same.
 
-**Step 8.** In Backpack v4, it is recommended you split the calls in your ```setup()``` method by operation, to avoid conflicts between operations that use the same features (fields, columns, filters, buttons, etc).
+**Step 8.** In Backpack v4, you can no longer specify which form to add a field to, as a second parameter to ```addField()```. Doing ```$this->crud->addField('smth', 'create');``` inside ```setup()``` won't add it to Create, it will add it to whatever operation is currently being performed. Which sometimes is the Update operation. The way to define which fields show up in Create and which in Update has become the same as ANY feature, for ANY operation - you place the calls inside the closure/method for that operation.
 
-You can split the addField, addFilter, addColum calls in your ```setup()``` method using two methods. Take a look at both and decide which one you like better:
+It is recommended you split all the feature calls (fields, columns, filters, buttons) in your ```setup()``` method by operation, to avoid conflicts between operations that use the same features. We've provided two methods. Take a look at both, and decide which one you like better:
 
-**Option 8.A. Operation Closures**. If you move your calls to an operation closure, that code will be run ONLY when that operation is being performed.
+**Option 8.A. Operation Closures**. Move your calls to an operation closure, and that code will be run ONLY when that operation is being performed.
 
 ```php
 public function setup() 
@@ -263,7 +263,7 @@ public function setup()
 }
 ```
 
-**Option 8.B. setupXxxOperation methods**. If you move your calls to a method that follows the ```setupXxxOperation()``` naming convention, where ```Xxx``` is the operation name, that code will only be run when operation ```Xxx``` is being performed.
+**Option 8.B. setupXxxOperation methods**. Move your calls to a method that follows the ```setupXxxOperation()``` naming convention, where ```Xxx``` is the operation name, and that code will only be run when operation ```Xxx``` is being performed.
 
 ```php
 public function setupListOperation()
