@@ -372,7 +372,17 @@ rmdir public/vendor
 
 **Step 15.** If you have custom buttons in your ```resources/views/vendor/backpack/crud/buttons```, or added through a model function, consider using the ```btn btn-sm btn-link``` classes on the anchor, so that they match the rest of the buttons.
 
-**Step 16.** Clear your app's cache:
+
+**Step 16.** If you've installed and used the File Manager (elFinder), please:
+```php
+# delete its published views
+rm -rf resources/views/vendor/elfinder
+
+# re-publish them
+php artisan backpack:install
+```
+
+**Step 17.** Clear your app's cache:
 ```bash
 php artisan cache:clear
 php artisan view:clear
