@@ -89,7 +89,9 @@ You do NOT need to do this for every method in your EntityCrudController that yo
 
 
 **Step 7.** The Create and Update operations used to store all inputs the form sent, _except for_ special inputs (like ```_token```, ```_method```, ```current_tab``` etc.). This process has now been changed: they now store _only_ the inputs that the fields specify as names. So:
-- if you've used the ```checklist_dependency``` field type, its definition has changed - it should now have an array for name, instead of a string:
+
+**(7.1)** If you've used the ```checklist_dependency``` field type, its definition has changed - it should now have an array for name, instead of a string:
+
 ```diff
 $this->crud->addField([
     'label'             => 'Roles and Permissions',
@@ -100,7 +102,9 @@ $this->crud->addField([
     'subfields'         => [...] 
 ]);
 ```
-- if you've used the ```date_range``` field type, it's definition has changed - its ```start_name``` and ```end_name``` have been merged into ```name``` (an array), and its ```default_start``` and ```default_end``` have been merged into ```default``` (an array);
+
+**(7.2)** If you've used the ```date_range``` field type, it's definition has changed - its ```start_name``` and ```end_name``` have been merged into ```name``` (an array), and its ```default_start``` and ```default_end``` have been merged into ```default``` (an array);
+
 ```diff
 $this->crud->addField([
 -    'name' => 'date_range', // a unique name for this field
@@ -119,8 +123,10 @@ $this->crud->addField([
     ],
 ]);
 ```
-- if you have custom field types, where the input name that you want saved differs from ```$field['name']```, you need to modify your field type so that it takes that name;
-- if you have custom field types, where there are other inputs that you want stored in the db, in addition to ```$field['name']```, you can pass an array in the field definition, for a name; see examples above;
+
+**(7.3)** If you have custom field types, where the input name that you want saved differs from ```$field['name']```, you need to modify your field type so that it takes that name;
+
+**(7.4)** If you have custom field types, where there are other inputs that you want stored in the db, in addition to ```$field['name']```, you can pass an array in the field definition, for a name; see examples above;
 
 ### Views
 
