@@ -20,11 +20,11 @@ A **CRUD** is what we call a section of your admin panel that lets the admin _Cr
 
 For the purpose of this series, we’ll show examples on the ```Tag``` entity. This is what a Tag CRUD could look like:
 
-![Tag CRUD - List Entries Operation](https://backpackforlaravel.com/uploads/docs-3-5/getting_started/tag_crud_list_entries.png)
+![Tag CRUD - List Entries Operation](https://backpackforlaravel.com/uploads/docs-4-0/getting_started/tag_crud_list_entries.png)
 
 But Backpack is prepared for feature-packed CRUDs - since it's a good tool for very complex projects too. Here's what a CRUD that uses all of Backpack's features could look like:
 
-![Monsters CRUD - List Entries Operation](https://backpackforlaravel.com/uploads/docs-3-5/getting_started/monster_crud_list_entries.png)
+![Monsters CRUD - List Entries Operation](https://backpackforlaravel.com/uploads/docs-4-0/getting_started/monster_crud_list_entries.png)
 
 Mind that you will _almost never_ use all of Backpack's features in one CRUD. But if you do... it still looks good, and it'll be intuitive to use.
 
@@ -44,7 +44,7 @@ It also installs Noty for triggering JS notification bubbles, and SweetAlerts. S
 
 Backpack comes with a basic authentication system, that's separate from Laravel's. This way, you can have different login screens for users & admins, if you need. If not, you can choose to use only one authentication - either Laravel's, or Backpack's.
 
-![Backpack 3.5 Authentication Screens](https://backpackforlaravel.com/uploads/docs-3-5/getting_started/auth_screens.png)
+![Backpack 3.5 Authentication Screens](https://backpackforlaravel.com/uploads/docs-4-0/getting_started/auth_screens.png)
 
 After you [install Backpack](/docs/{{version}}/installation) (don't do it now), you’ll be able to log into your admin panel at ```http://yourapp/admin```. You can change the URL prefix from ```admin``` to something else in your ```config/backpack/base.php``` file, along with a bunch of other configuration options. [Click here](https://github.com/Laravel-Backpack/CRUD/blob/master/src/config/backpack/base.php) to browse the configuration file and see what it can do for you.
 

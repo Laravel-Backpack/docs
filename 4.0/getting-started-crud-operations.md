@@ -6,7 +6,7 @@
 
 Let’s bring back the example in our first lesson. The Tags CRUD:
 
-![Tag CRUD - List Entries Operation](https://backpackforlaravel.com/uploads/docs-3-5/getting_started/tag_crud_list_entries.png)
+![Tag CRUD - List Entries Operation](https://backpackforlaravel.com/uploads/docs-4-0/getting_started/tag_crud_list_entries.png)
 
 With its ```TagCrudController```:
 
@@ -71,7 +71,7 @@ These are the basic operations an admin can execute on an Eloquent model, thanks
 <a name="create-and-update-operations"></a>
 ## Create & Update Operations
 
-![Tag CRUD - Edit Operation](https://backpackforlaravel.com/uploads/docs-3-5/getting_started/tag_crud_edit.png)
+![Tag CRUD - Edit Operation](https://backpackforlaravel.com/uploads/docs-4-0/getting_started/tag_crud_edit.png)
 
 <a name="fields"></a>
 ### Fields
@@ -217,7 +217,7 @@ $this->crud->addColumn('text'); // adds a text column, at the end of the stack
 <a name="filters"></a>
 ### Filters
 
-![Monster CRUD - List Entries Filters](https://backpackforlaravel.com/uploads/docs-3-5/getting_started/backpack_filters.png)
+![Monster CRUD - List Entries Filters](https://backpackforlaravel.com/uploads/docs-4-0/getting_started/backpack_filters.png)
 
 Filters provide an easy way for the admin to well… _filter_ the ListEntries table. The syntax is very similar to Fields and Columns and you can use one of the [existing 8 filter types](/docs/{{version}}/crud-filters) or easily [create a custom filter](/docs/{{version}}/crud-filters#creating-custom-filters). 
 
@@ -232,7 +232,7 @@ For more on this, check out the [filters documentation page](/docs/{{version}}/c
 <a name="buttons"></a>
 ### Buttons
 
-![Tag CRUD - List Entries Buttons](https://backpackforlaravel.com/uploads/docs-3-5/getting_started/backpack_buttons.png)
+![Tag CRUD - List Entries Buttons](https://backpackforlaravel.com/uploads/docs-4-0/getting_started/backpack_buttons.png)
 
 If you want to add a custom button to an entry, you can do that. If you want to remove a button, you can also do that. Look for the [buttons documentation](/docs/{{version}}/crud-buttons) when you need it.  
 

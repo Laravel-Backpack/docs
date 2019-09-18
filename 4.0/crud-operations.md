@@ -108,7 +108,7 @@ For standard CRUD operations, each _action_ that shows an interface uses some te
 - **Heading** - biggest heading on page;
 - **Subheading** - short description of the current page, sits beside the heading;
 
-![CRUD Operation Headings](https://backpackforlaravel.com/uploads/docs-3-5/operations/headings.png)
+![CRUD Operation Headings](https://backpackforlaravel.com/uploads/docs-4-0/operations/headings.png)
 
 You can get and set the above using:
 ```php
