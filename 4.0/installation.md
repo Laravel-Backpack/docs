@@ -60,7 +60,7 @@ Note: If you'd also like to enable the [file manager functionality](https://back
             "@php artisan key:generate --ansi"
         ],
 +        "post-update-cmd": [
-+            "@php artisan vendor:publish --provider='Backpack\\Base\\BaseServiceProvider' --tag=public --force"
++            "@php artisan vendor:publish --provider='Backpack\\CRUD\\BackpackServiceProvider' --tag=public --force"
 +        ]
     }
 ```
