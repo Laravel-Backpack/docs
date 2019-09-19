@@ -7,7 +7,7 @@
 
 This CRUD operation allows your admins to preview an entry. When enabled, it will add a "Preview" button in the ListEntries view, that points to a show page:
 
-![Backpack CRUD Show Operation](https://backpackforlaravel.com/uploads/docs/operations/show.png)
+![Backpack CRUD Show Operation](https://backpackforlaravel.com/uploads/docs-4-0/operations/show.png)
 
 In case your entity is translatable, it will show a multi-language dropdown, just like Edit.
 
@@ -38,11 +38,13 @@ This will:
 - make a Preview button appear inside the List view; 
 - allow access to the show view;
 
-The operation uses ```setFromDb()``` to try to determine how each attribute should be shown to the user. Most likely this won't be enough, and you'll need to manually define the more complicated column types. You should do this inside the ```setupShowOperation()``` method, which gets called automatically when the Show operation is being performed.
+By default, the operation tries to guess what column types to show for each column in the database, using ```setFromDb()```. But it only works for simple column types. Most likely, you'll need to manually define the more complicated column types. You should manually define columns inside the ```setupShowOperation()``` method - which gets called automatically when the Show operation is being performed. For example:
 
 ```php
     protected setupShowOperation()
     {
+        $this->crud->set('show.setFromDb', false);
+
         // example logic
         $this->crud->addColumn([
             'name' => 'table',
@@ -65,12 +67,10 @@ The operation uses ```setFromDb()``` to try to determine how each attribute shou
             ],
         ]);
         $this->crud->addColumn('text');
-        $this->crud->removeColumn('date');
-        $this->crud->removeColumn('extras');
+        // $this->crud->removeColumn('date');
+        // $this->crud->removeColumn('extras');
     }
 ```
-
-This view uses the same column types you've defined in ```setup()``` and adds all other **fillable** attributes on the model. If you need to hide a ListEntries column from the Show operation, you can specify ```'visibleInShow' => false,``` to the column in ```setup()```, and it will be hidden from the preview page.
 
 <a name="how-to-overwrite"></a>
 ## How to Overwrite
