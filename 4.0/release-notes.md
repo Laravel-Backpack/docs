@@ -19,6 +19,7 @@ Here are the main differences between [Backpack 3.6](https://backpackforlaravel.
 - SweetAlerts - instead of showing the default browser alert(), Backpack now uses much prettier SweetAlert pop-ups;
 - API to [change breadcrumb links from controllers or from views](/docs/{{version}}/base-how-to#use-breadcrumbs);
 - [Widgets](/docs/{{version}}/base-widgets) - easily add stats, pie charts, line charts and other quick stats to a dashboard or CRUD (or any part of your admin panel);
+- support for Right-to-Left (RTL) languages; just change ```html_direction``` to ```rtl``` inside ```config/backpack/base.php```;
 
 <a name="removed"></a>
 # Removed
