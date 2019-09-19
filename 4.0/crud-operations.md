@@ -227,6 +227,89 @@ $this->crud->hasOperationSetting('show_title');
 <a name="creating-a-custom-operation"></a>
 ## Creating a Custom Operation
 
+<a name="create-operation-command"></a>
+## Command-line Tool
+
+If you've installed ```backpack/generators```, you can do ```php artisan backpack:crud-operation {OperationName}``` to generate an empty operation trait, that you can edit and use on your CrudControllers. For example:
+
+```bash
+php artisan backpack:crud-operation Comment
+```
+
+Will generate ```app/Http/Controllers/Admin/Operations/CommentOperation``` with the following contents:
+
+```php
+<?php
+
+namespace App\Http\Controllers\Admin\Operations;
+
+use Illuminate\Support\Facades\Route;
+
+trait CommentOperation
+{
+    /**
+     * Define which routes are needed for this operation.
+     *
+     * @param string $segment    Name of the current entity (singular). Used as first URL segment.
+     * @param string $routeName  Prefix of the route name.
+     * @param string $controller Name of the current CrudController.
+     */
+    protected function setupCommentRoutes($segment, $routeName, $controller)
+    {
+        Route::get($segment.'/comment', [
+            'as'        => $routeName.'.comment',
+            'uses'      => $controller.'@comment',
+            'operation' => 'comment',
+        ]);
+    }
+
+    /**
+     * Add the default settings, buttons, etc that this operation needs.
+     */
+    protected function setupCommentDefaults()
+    {
+        $this->crud->allowAccess('comment');
+
+        $this->crud->operation('comment', function () {
+            $this->crud->loadDefaultOperationSettingsFromConfig();
+        });
+
+        $this->crud->operation('list', function () {
+            // $this->crud->addButton('top', 'comment', 'view', 'crud::buttons.comment');
+            // $this->crud->addButton('line', 'comment', 'view', 'crud::buttons.comment');
+        });
+    }
+
+    /**
+     * Show the view for performing the operation.
+     *
+     * @return Response
+     */
+    public function comment()
+    {
+        $this->crud->applyConfigurationFromSettings('comment');
+        $this->crud->hasAccessOrFail('comment');
+
+        // prepare the fields you need to show
+        $this->data['crud'] = $this->crud;
+        $this->data['title'] = $this->crud->getTitle() ?? 'comment '.$this->crud->entity_name;
+
+        // load the view
+        return view("crud::operations.comment", $this->data);
+    }
+}
+```
+
+You'll notice the generated operation has:
+- a GET route (inside ```setupCommentRoutes()```);
+- a method that sets the defaults for this operation (```setupCommentDefaults()```);
+- a method to perform the operation, or show an interface (```comment()```);
+
+You can customize these to fit the operation you have in mind, then ```use \App\Http\Controllers\Admin\Operations\CommentOperation;``` inside the CrudControllers where you want the operation.
+
+<a name="contents-of-a-custom-operation"></a>
+## Contents of a Custom Operation
+
 Thanks to [Backpack's simple architecture](/docs/{{version}}/crud-basics#architecture), each CRUD panel uses a controller and a route, that are placed inside your project. That means you hold the keys to how this controller works.
 
 To add an operation to an ```EntityCrudController```, you can:
