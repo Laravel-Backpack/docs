@@ -7,7 +7,7 @@
 
 Backpack CRUD allows you to show a filters bar right above the entries table. When selected or modified, they reload the DataTables results. The search will then search within the filtered elements.
 
-![Backpack CRUD Filters](https://backpackforlaravel.com/uploads/docs/filters/filters.png)
+![Backpack CRUD Filters](https://backpackforlaravel.com/uploads/docs-4-0/filters/filters.png)
 
 Just like with fields, columns or buttons, you can add existing filters or create a custom filter that fits to your particular needs. Everything's done inside your ```EntityCrudController::setupListOperation()```. 
 
@@ -82,7 +82,7 @@ function() { // if the filter is active
 
 Shows a text input. Most useful for letting the user filter through information that not shown as a column in the CRUD table - otherwise they could just use the DataTables search field.
 
-![Backpack CRUD Text Filter](https://backpackforlaravel.com/uploads/docs/filters/text.png)
+![Backpack CRUD Text Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/text.png)
 
 ```php
 $this->crud->addFilter([ // simple filter
@@ -101,7 +101,7 @@ function($value) { // if the filter is active
 
 Show a datepicker. The user can select one day.
 
-![Backpack CRUD Date Filter](https://backpackforlaravel.com/uploads/docs/filters/date.png)
+![Backpack CRUD Date Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/date.png)
 
 ```php
         $this->crud->addFilter([ // date filter
@@ -120,7 +120,7 @@ Show a datepicker. The user can select one day.
 
 Show a daterange picker. The user can select a start date and an end date.
 
-![Backpack CRUD Date Range Filter](https://backpackforlaravel.com/uploads/docs/filters/date_range.png)
+![Backpack CRUD Date Range Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/date_range.png)
 
 ```php
         $this->crud->addFilter([ // daterange filter
@@ -141,7 +141,7 @@ Show a daterange picker. The user can select a start date and an end date.
 
 Shows a list of elements (that you provide) in a dropdown. The user can only select one of these elements.
 
-![Backpack CRUD Dropdown Filter](https://backpackforlaravel.com/uploads/docs/filters/dropdown.png)
+![Backpack CRUD Dropdown Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/dropdown.png)
 
 ```php
 $this->crud->addFilter([ // dropdown filter
@@ -163,7 +163,7 @@ $this->crud->addFilter([ // dropdown filter
 
 Shows a select2 and allows the user to select one item from the list or search for an item. Useful when the values list is long (over 10 elements).
 
-![Backpack CRUD Select2 Filter](https://backpackforlaravel.com/uploads/docs/filters/select2.png)
+![Backpack CRUD Select2 Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/select2.png)
 
 ```php
 $this->crud->addFilter([ // select2 filter
@@ -189,7 +189,7 @@ $this->crud->addFilter([ // select2 filter
 
 Shows a select2 and allows the user to select one or more items from the list or search for an item. Useful when the values list is long (over 10 elements) and your user should be able to select multiple elements. You can decide yourself if the query for each element should use 'where' or 'orWhere', in the third parameter of the ```addFilter()``` method.
 
-![Backpack CRUD Select2_multiple Filter](https://backpackforlaravel.com/uploads/docs/filters/select2_multiple.png)
+![Backpack CRUD Select2_multiple Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/select2_multiple.png)
 
 ```php
 $this->crud->addFilter([ // select2_multiple filter
@@ -215,7 +215,7 @@ $this->crud->addFilter([ // select2_multiple filter
 
 Shows a select2 and allows the user to select one item from the list or search for an item. This list is fetched through an AJAX call by the select2. Useful when the values list is long (over 1000 elements).
 
-![Backpack CRUD Select2_ajax Filter](https://backpackforlaravel.com/uploads/docs/filters/select2_ajax.png)
+![Backpack CRUD Select2_ajax Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/select2_ajax.png)
 
 1. Add a route for the ajax search, right above your usual ```CRUD::resource()``` route. Example:
 
@@ -254,7 +254,7 @@ function($value) { // if the filter is active
 
 Shows two number inputs, for min and max.
 
-![Backpack CRUD Range Filter](https://backpackforlaravel.com/uploads/docs/filters/range.png)
+![Backpack CRUD Range Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/range.png)
 
 ```php
 $this->crud->addFilter([

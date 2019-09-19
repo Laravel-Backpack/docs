@@ -160,7 +160,7 @@ If the ```store_in``` attribute wasn't used, they would have been stored in the 
 
 You can now split your create/edit inputs into multiple tabs.
 
-![CRUD Fields Tabs](https://backpackforlaravel.com/uploads/docs/operations/create_tabs.png)
+![CRUD Fields Tabs](https://backpackforlaravel.com/uploads/docs-4-0/operations/create_tabs.png)
 
 In order to use this feature, you just need to specify the tab name for each of your fields. Example:
 

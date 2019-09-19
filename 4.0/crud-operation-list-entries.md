@@ -9,11 +9,11 @@ This operation shows a table with all database entries. It's the first page the 
 
 A simple List view might look like this:
 
-![Backpack CRUD ListEntries](https://backpackforlaravel.com/uploads/docs/operations/listEntries.png)
+![Backpack CRUD ListEntries](https://backpackforlaravel.com/uploads/docs-4-0/operations/listEntries.png)
 
 But a complex implementation of the ListEntries operation, using Columns, Filters, custom Buttons, custom Operations, responsive table, Details Row, Export Buttons will still look pretty good:
 
-![Backpack CRUD ListEntries](https://backpackforlaravel.com/uploads/docs/operations/listEntries_full.png)
+![Backpack CRUD ListEntries](https://backpackforlaravel.com/uploads/docs-4-0/operations/listEntries_full.png)
 
 You can easily customize [columns](#columns), [buttons](#buttons), [filters](#filters), [enable/disable additional features we've built](#other-features), or [overwrite the view and build your own features](#how-to-overwrite).
 
@@ -99,7 +99,7 @@ Filters show up right before the actual table, and provide a way for the admin t
 
 The details row functionality allows you to present more information in the table view of a CRUD. When enabled, a "+" button will show up next to every row, which on click will expand a "details row" below it, showing additional information.
 
-![Backpack CRUD ListEntries Details Row](https://backpackforlaravel.com/uploads/docs/operations/listEntries_details_row.png)
+![Backpack CRUD ListEntries Details Row](https://backpackforlaravel.com/uploads/docs-4-0/operations/listEntries_details_row.png)
 
 On click, an AJAX request is sent to the ```entity/{id}/details``` route, which calls the ```showDetailsRow()``` method on your EntityCrudController. Everything returned by that method is then shown in the details row. You'll want to overwrite that method to show anything you'd like in the details row.
 
@@ -114,7 +114,7 @@ Alternative for the 2nd step: overwrite ```views/backpack/crud/details_row.blade
 
 Exporting the DataTable to PDF, CSV, XLS is as easy as typing ```$this->crud->enableExportButtons();``` in your constructor. 
 
-![Backpack CRUD ListEntries Details Row](https://backpackforlaravel.com/uploads/docs/operations/listEntries_export_buttons.png)
+![Backpack CRUD ListEntries Details Row](https://backpackforlaravel.com/uploads/docs-4-0/operations/listEntries_export_buttons.png)
 
 >**Please note that when clicked, each button will export the _currently visible_ table.** You can use the "visibility" button, and the "Items per page" dropdown to manipulate what is inside the export.
 

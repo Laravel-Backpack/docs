@@ -151,7 +151,7 @@ If you've chosen to install [elFinder](http://elfinder.org/) when installing Bac
 
 For the integration, barryvdh's [laravel-elfinder](https://github.com/barryvdh/laravel-elfinder) package is used.
 
-![Backpack CRUD ListEntries](https://backpackforlaravel.com/uploads/docs/media_library.png)
+![Backpack CRUD ListEntries](https://backpackforlaravel.com/uploads/docs-4-0/media_library.png)
 
 <a name="manually-install-backpack-crud"></a>
 ## Manually install Backpack

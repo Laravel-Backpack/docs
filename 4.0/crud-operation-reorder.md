@@ -7,7 +7,7 @@
 
 This operation allows your admins to reoder & nest entries.
 
-![CRUD Reorder Operation](https://backpackforlaravel.com/uploads/docs/operations/reorder.png)
+![CRUD Reorder Operation](https://backpackforlaravel.com/uploads/docs-4-0/operations/reorder.png)
 
 <a name="requirements"></a>
 ## Requirements

@@ -12,7 +12,7 @@ The operation provides you with a simple interface to work with [venturecraft/re
 When enabled, ```Revisions``` will show another button in the table view, between _Edit_ and _Delete_. On click, that button opens another page which will allow an admin to see all changes and who made them:
 
 
-![CRUD Revision Operation](https://backpackforlaravel.com/uploads/docs/operations/revisions.png)
+![CRUD Revision Operation](https://backpackforlaravel.com/uploads/docs-4-0/operations/revisions.png)
 
 
 <a name="how-to-use"></a>

@@ -104,7 +104,7 @@ class ProductCrudController extends CrudController
 <a name="translatable-models"></a>
 ## Translatable models and multi-language CRUDs
 
-![CRUD Update Operation](https://backpackforlaravel.com/uploads/docs/operations/update_translatable.png)
+![CRUD Update Operation](https://backpackforlaravel.com/uploads/docs-4-0/operations/update_translatable.png)
 
 For localized apps, you can let your admins edit multi-lingual entries. Translations are stored using [spatie/laravel-translatable](https://github.com/spatie/laravel-translatable).
 
