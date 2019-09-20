@@ -19,7 +19,12 @@ This will guide you through upgrading from Backpack 3.6 to 4.0. For upgrading fr
 
 **Step 0.** 
 
-Update your ```composer.json``` file to require ```"backpack/crud": "v4.x-dev"``` along with ```"laravel/framework": "^6.0"```. Then run ```composer update```.
+Update your ```composer.json``` file to require:
+- ```"backpack/crud": "v4.x-dev"```
+- ```"laravel/framework": "^6.0"```
+- ```"backpack/generators": "^2.0"``` (in require-dev)
+
+Then run ```composer update```.
 
 Also, to make sure that after every ```composer update``` you have the latest Backpack CSS & JS, please add this to your composer.json's scripts, under ```post-update-cmd```:
 
@@ -51,6 +56,7 @@ Also, to make sure that after every ```composer update``` you have the latest Ba
         "backpack/newscrud": "v4.x-dev as 4.0.0",
         "backpack/permissionmanager": "v4.x-dev as 4.0.0",
         "backpack/backupmanager": "v4.x-dev as 4.0.0",
+        "backpack/generators": "^2.0",
         "spatie/laravel-translatable": "^4.0",
         "barryvdh/laravel-elfinder": "^0.4.2",
         "spatie/laravel-backup": "^6.1"
