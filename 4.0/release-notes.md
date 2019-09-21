@@ -54,12 +54,12 @@ Depending on _when_ you've purchased your Backpack v3 Project license, you'll qu
 - bought in 2017 - 15 EUR discount (aprox 21%);
 - bought in 2018 - 20 EUR discount (aprox 28%);
 - bought in January-June 2019 - 25 EUR discount (aprox 36%);
-- bought in July-August 2019 - 30 EUR discount (aprox 43%);
-- bought in September 2019 - 40 EUR discount (aprox 58%);
+- bought in July-August 2019 - 39 EUR discount (aprox 56%);
+- bought in September 2019 - 49 EUR discount (aprox 71%);
 
 If you're an EU resident/company, VAT may be added to your invoice.
 
-There's only one catch: **To receive the discount, you have to purchase the upgrade before October 1st 2019**. You can purchase the upgrade in your Backpack account - you'll notice a new button has shown up next to your v3 license "_Buy v4 Upgrade_". That button will disappear on October 1st 2019, 00:01 GMT. You will not be able to purchase with a discount after that.
+There's only one catch: **To receive the discount, you have to purchase the upgrade before October 7th 2019**. You can purchase the upgrade in your Backpack account - you'll notice a new button has shown up next to your v3 license "_Upgrade for xxx EUR_". That button will disappear on October 7th 2019, 00:01 GMT. You will not be able to purchase with a discount after that.
 
 
 ### Unlimited License
@@ -76,6 +76,6 @@ Depending on _when_ you've purchased your Backpack v3 Unlimited license, you'll 
 
 If you're an EU resident/company, VAT may be added to your invoice.
 
-There's only one catch: **To receive the discount, you have to purchase the upgrade before October 1st 2019**. You can purchase the upgrade in your Backpack account - you'll notice a new button has shown up next to your v3 license "_Buy v4 Upgrade_". That button will disappear on October 1st 2019, 00:01 GMT. You will not be able to purchase with a discount after that.
+There's only one catch: **To receive the discount, you have to purchase the upgrade before October 7th 2019**. You can purchase the upgrade in your Backpack account - you'll notice a new button has shown up next to your v3 license "_Upgrade for xxx EUR_". That button will disappear on October 7th 2019, 00:01 GMT. You will not be able to purchase with a discount after that.
 
 If you've bought the Unlimited License very recently, and haven't launched any projects using Backpack v3, we don't want you to feel cheated. We can make a special discount for you - we'll discount the entire v3 Unlimited cost from your v4 Unlimited License. You'd only pay the price difference from v3 to v4 (100 EUR), and you'd be licensed to use both v3 and v4 in production. [Contact us](http://backpackforlaravel.com/contact).
