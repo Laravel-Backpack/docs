@@ -422,7 +422,7 @@ php artisan backpack:install
 
 ** Step 17. ```config/backpack/crud.php```**
 
-Most variables have been renamed and reordered - they're now sorted by operation name. Please manually insert take [the contents of the new file](https://github.com/Laravel-Backpack/CRUD/blob/v4/src/config/backpack/crud.php). Change the values to match your old config file.
+Most variables have been renamed and reordered - they're now sorted by operation name. Please manually insert take [the contents of the new file](https://github.com/Laravel-Backpack/CRUD/blob/v4/src/config/backpack/crud.php). Change the values to match your old config file. [Diff here](https://github.com/Laravel-Backpack/CRUD/pull/2064/files#diff-d548ca942f541d9c99eaf64f83e92bf9).
 
 
 ** Step 18. ```config/backpack/base.php```**
