@@ -14,6 +14,7 @@
 
 - [About](/docs/{{version}}/base-about)
 - [Widgets](/docs/{{version}}/base-widgets)
+- [Breadcrumbs](/docs/{{version}}/base-breadcrumbs)
 - [How To](/docs/{{version}}/base-how-to)
 
 #### CRUD Panels

@@ -1,9 +1,13 @@
-# How To for Backpack\Base
+# How To Customize the UI
 
 ---
 
+
+<a name="look-and-feel"></a>
+## Look and feel
+
 <a name="customize-menu-or-sidebar"></a>
-## Customize the menu or sidebar
+### Customize the menu or sidebar
 
 During installation, Backpack publishes a few files in you ```resources/views/vendor/backpack/base/inc``` folder. In there, you'll also find:
 - ```sidebar_content.php```
@@ -13,7 +17,7 @@ During installation, Backpack publishes a few files in you ```resources/views/ve
 Change those files as you please.
 
 <a name="customize-dashboard"></a>
-## Customize the dashboard
+### Customize the dashboard
 
 The dashboard is shown from ```Backpack\Base\app\Http\Controller\AdminController.php::dashboard()```. If you take a look at that method, you'll see that the only thing it does is to set a title, breadcrumbs, and return a view: ```backpack::dashboard```.
 
@@ -45,12 +49,151 @@ To use information from the database, you can:
 Take a look at the [widgets](/docs/{{version}}/base-widgets) we have - you can easily use those in your dashboard. You can also add whatever HTML you want inside the content block - check the [Backstrap HTML Template](https://backstrap.net/widgets.html) for design components you can copy-paste to speed up your custom HTML.
 
 <a name="customize-general-layout-design"></a>
-## Customizing the general layout/design
+### Customizing the design of the menu / sidebar / footer
 
-See [the docs](/docs/{{version}}/base-about#layout-design).
+In ```config/backpack/base.php``` you'll notice there are variables where you can change exactly what CSS classes are placed on the HTML elements that represent the header, body, sidebar and footer:
+
+```php
+    // Horizontal navbar classes. Helps make the admin panel look similar to your project's design.
+    'header_class' => 'app-header bg-transparent border-0 navbar position-relative',
+        // Try adding bg-dark, bg-primary, bg-secondary, bg-danger, bg-warning, bg-success, bg-info, bg-blue, bg-light-blue, bg-indigo, bg-purple, bg-pink, bg-red, bg-orange, bg-yellow, bg-green, bg-teal, bg-cyan
+        // You might need to add "navbar-dark" too if the background color is a dark one.
+        // Add header-fixed if you want the header menu to be sticky
+    
+    // Body element classes.
+    'body_class' => 'app aside-menu-fixed sidebar-lg-show',
+        // Try sidebar-hidden, sidebar-fixed, sidebar-compact, sidebar-lg-show
+    
+
+    // Sidebar element classes.
+    'sidebar_class' => 'sidebar sidebar-transparent',
+        // Instead of sidebar-transparent, try sidebar-light
+        // You can also add a background class like bg-dark, bg-primary, bg-secondary, bg-danger, bg-warning, bg-success, bg-info, bg-blue, bg-light-blue, bg-indigo, bg-purple, bg-pink, bg-red, bg-orange, bg-yellow, bg-green, bg-teal, bg-cyan
+
+    // Footer element classes.
+    'footer_class' => 'app-footer',
+```
+
+Our default design might not be pleasant for your, or you might need to make the UI integrate better into your project. We totally understand. You can use the classes above to make it look considerably different.
+
+You'll find a few examples below - but you should use which classes you want to get the result you need.
+
+<a href="ui-with-dark-sidebar"></a>
+#### Backstrap
+
+Transparent top menu, transparet sidebar, transparent footer. This is the default. This is what _we_ think is best for most users, from our 8+ years of experience building admin panels. Prioritising _content_ over _menus_.
+
+![Backstrap design](https://backpackforlaravel.com/uploads/docs-4-0/ui/examples/default.png)
+
+```php
+    'header_class' => 'app-header bg-transparent border-0 navbar position-relative',
+    'body_class' => 'app aside-menu-fixed sidebar-lg-show',
+    'sidebar_class' => 'sidebar sidebar-pills sidebar-bg-transparent',
+    'footer_class' => 'app-footer',
+```
+
+<a href="inspired-by-coreui"></a>
+#### Inpired by CoreUI
+
+White top menu, dark sidebar.
+
+![CoreUI design](https://backpackforlaravel.com/uploads/docs-4-0/ui/examples/coreui.png)
+
+```php
+    'header_class' => 'app-header navbar position-relative',
+    'body_class' => 'app aside-menu-fixed sidebar-lg-show',
+    'sidebar_class' => 'sidebar',
+    'footer_class' => 'app-footer d-none',
+```
+
+<a href="inspired-by-github"></a>
+#### Inspired by Github
+
+Black top menu, white sidebar.
+
+![CoreUI design](https://backpackforlaravel.com/uploads/docs-4-0/ui/examples/github.png)
+
+```php
+    'header_class' => 'app-header bg-dark navbar position-relative',
+    'body_class' => 'app aside-menu-fixed sidebar-lg-show',
+    'sidebar_class' => 'sidebar sidebar-light',
+    'footer_class' => 'app-footer d-none',
+```
+
+<a href="blue-top-menu"></a>
+#### Blue Top Menu
+
+Blue top menu, dark sidebar.
+
+![Construction or warning design](https://backpackforlaravel.com/uploads/docs-4-0/ui/examples/blue.png)
+
+```php
+    'header_class' => 'app-header navbar navbar-color bg-primary border-0 position-relative',
+    'body_class' => 'app aside-menu-fixed sidebar-lg-show',
+    'sidebar_class' => 'sidebar', // add "sidebar-light" for light sidebar
+    'footer_class' => 'app-footer d-none',
+```
+
+
+<a href="inspired-by-contruction"></a>
+#### Construction / Warning
+
+Yellow top menu, dark sidebar.
+
+![Construction or warning design](https://backpackforlaravel.com/uploads/docs-4-0/ui/examples/construction.png)
+
+```php
+    'header_class' => 'app-header navbar navbar-light bg-warning position-relative',
+    'body_class' => 'app aside-menu-fixed sidebar-lg-show',
+    'sidebar_class' => 'sidebar', // add "sidebar-light" for light sidebar
+    'footer_class' => 'app-footer d-none',
+```
+
+<a href="red-top-menu"></a>
+#### Red Top Menu
+
+Red top menu, dark sidebar.
+
+![Construction or warning design](https://backpackforlaravel.com/uploads/docs-4-0/ui/examples/red.png)
+
+```php
+    'header_class' => 'app-header navbar navbar-color bg-error border-0 position-relative',
+    'body_class' => 'app aside-menu-fixed sidebar-lg-show',
+    'sidebar_class' => 'sidebar', // add "sidebar-light" for light sidebar
+    'footer_class' => 'app-footer d-none',
+```
+
+<a href="pink-top-menu"></a>
+#### Pink Top Menu
+
+Pink top menu, transparent sidebar.
+
+![Construction or warning design](https://backpackforlaravel.com/uploads/docs-4-0/ui/examples/pink.png)
+
+```php
+    'header_class' => 'app-header navbar navbar-color bg-error border-0 position-relative',
+    'body_class' => 'app aside-menu-fixed sidebar-lg-show',
+    'sidebar_class' => 'sidebar sidebar-transparent',
+    'footer_class' => 'app-footer d-none',
+```
+
+
+<a href="green-top-menu"></a>
+#### Green Top Menu
+
+Green top menu, white sidebar.
+
+![Construction or warning design](https://backpackforlaravel.com/uploads/docs-4-0/ui/examples/green.png)
+
+```php
+    'header_class' => 'app-header navbar navbar-color bg-green border-0 position-relative',
+    'body_class' => 'app aside-menu-fixed sidebar-lg-show',
+    'sidebar_class' => 'sidebar sidebar-light',
+    'footer_class' => 'app-footer d-none',
+```
 
 <a name="create-a-new-theme"></a>
-## Create a new theme / child theme
+### Create a new theme / child theme
 
 You can create a theme with your own HTML. Create a folder with all the views you want to overwrite, then change ```view_namespace``` inside your ```config/backpack/base.php``` to point to that folder. All views will be loaded from _that_ folder if they exist, then from ```resources/views/vendor/backpack/base```, then from the Base package.
 
@@ -59,8 +202,76 @@ You can use child themes to:
 - use a different CSS framework (ex: Tailwind, Bulma)
 
 
+<a name="add-custom-javascript"></a>
+### Add custom Javascript to all admin panel pages
+
+In ```config/backpack/base.php``` you'll notice this config option:
+
+```php
+    // JS files that are loaded in all pages, using Laravel's asset() helper
+    'scripts' => [
+        // Backstrap includes jQuery, Bootstrap, CoreUI, PNotify, Popper
+        'packages/backpack/base/js/bundle.js?v='.\PackageVersions\Versions::getVersion('backpack/base'),
+
+        // examples (everything inside the bundle, loaded from CDN)
+        // 'https://code.jquery.com/jquery-3.4.1.min.js',
+        // 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js',
+        // 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js',
+        // 'https://unpkg.com/@coreui/coreui/dist/js/coreui.min.js',
+        // 'https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
+        // 'https://unpkg.com/sweetalert/dist/sweetalert.min.js',
+        // 'https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js'
+
+        // examples (VueJS or React)
+        // 'https://unpkg.com/vue@2.4.4/dist/vue.min.js',
+        // 'https://unpkg.com/react@16/umd/react.production.min.js',
+        // 'https://unpkg.com/react-dom@16/umd/react-dom.production.min.js',
+    ],
+```
+
+You can add files to this array, and they'll be loaded in all admin panels pages.
+
+<a name="add-custom-css"></a>
+### Add custom CSS to all admin panel pages
+
+In ```config/backpack/base.php``` you'll notice this config option:
+
+```php
+    // CSS files that are loaded in all pages, using Laravel's asset() helper
+    'styles' => [
+        'packages/@digitallyhappy/backstrap/css/style.min.css',
+
+        // Examples (the fonts above, loaded from CDN instead)
+        // 'https://maxcdn.icons8.com/fonts/line-awesome/1.1/css/line-awesome-font-awesome.min.css',
+        // 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic',
+    ],
+```
+
+You can add files to this array, and they'll be loaded in all admin panels pages.
+
+<a name="customize-overlays-css"></a>
+### Customize the look and feel of the admin panel (using CSS)
+
+If you want to change the look&feel of the admin panel, you can create a custom CSS file wherever you want. We recommend you do it inside ```public/packages/myname/mycustomthemename/css/style.css``` folder so that it's easier to turn into a theme, if you decide later to share or re-use your CSS in other projects.
+
+In ```config/backpack/base.php``` add your file to this config option:
+
+```php
+    // CSS files that are loaded in all pages, using Laravel's asset() helper
+    'styles' => [
+        'packages/@digitallyhappy/backstrap/css/style.min.css',
+         // ...
+        'packages/myname/mycustomthemename/css/style.css',
+    ],
+```
+
+This config option allows you to add CSS files that add style _on top_ of Backstrap, to make it look different. You can create a CSS file anywhere inside your ```public``` folder, and add it here.
+
+<a name="authentication"></a>
+## Authentication
+
 <a name="customize-auth-controllers"></a>
-## Customizing the Auth controllers
+### Customizing the Auth controllers
 
 In ```config/backpack/base.php``` you'll find these configuration options:
 
@@ -79,13 +290,13 @@ Route::group(['middleware' => 'web', 'prefix' => config('backpack.base.route_pre
 ```
 
 <a name="customize-routes"></a>
-## Customize the routes
+### Customize the routes
 
-### Custom routes - option 1
+#### Custom routes - option 1
 
 You can place a new routes file in your ```app/routes/backpack/base.php```. If a file is present there, no default Backpack\Base routes will be loaded, only what's present in that file. You can use the routes file ```vendor/backpack/base/src/resources/views/base.php``` as an example, and customize whatever you want.
 
-### Custom routes - option 2
+#### Custom routes - option 2
 
 In ```config/backpack/base.php``` you'll find these configuration options:
 
@@ -119,75 +330,10 @@ Route::group(['middleware' => 'web', 'prefix' => config('backpack.base.route_pre
 });
 ```
 
-<a name="add-custom-javascript"></a>
-## Add custom Javascript to all admin panel pages
-
-In ```config/backpack/base.php``` you'll notice this config option:
-
-```php
-    // JS files that are loaded in all pages, using Laravel's asset() helper
-    'scripts' => [
-        // Backstrap includes jQuery, Bootstrap, CoreUI, PNotify, Popper
-        'packages/backpack/base/js/bundle.js?v='.\PackageVersions\Versions::getVersion('backpack/base'),
-
-        // examples (everything inside the bundle, loaded from CDN)
-        // 'https://code.jquery.com/jquery-3.4.1.min.js',
-        // 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js',
-        // 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js',
-        // 'https://unpkg.com/@coreui/coreui/dist/js/coreui.min.js',
-        // 'https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
-        // 'https://unpkg.com/sweetalert/dist/sweetalert.min.js',
-        // 'https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js'
-
-        // examples (VueJS or React)
-        // 'https://unpkg.com/vue@2.4.4/dist/vue.min.js',
-        // 'https://unpkg.com/react@16/umd/react.production.min.js',
-        // 'https://unpkg.com/react-dom@16/umd/react-dom.production.min.js',
-    ],
-```
-
-You can add files to this array, and they'll be loaded in all admin panels pages.
-
-<a name="add-custom-css"></a>
-## Add custom CSS to all admin panel pages
-
-In ```config/backpack/base.php``` you'll notice this config option:
-
-```php
-    // CSS files that are loaded in all pages, using Laravel's asset() helper
-    'styles' => [
-        'packages/@digitallyhappy/backstrap/css/style.min.css',
-
-        // Examples (the fonts above, loaded from CDN instead)
-        // 'https://maxcdn.icons8.com/fonts/line-awesome/1.1/css/line-awesome-font-awesome.min.css',
-        // 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic',
-    ],
-```
-
-You can add files to this array, and they'll be loaded in all admin panels pages.
-
-<a name="customize-overlays-css"></a>
-## Customize the look and feel of the admin panel (using CSS)
-
-If you want to change the look&feel of the admin panel, you can create a custom CSS file wherever you want. We recommend you do it inside ```public/packages/myname/mycustomthemename/css/style.css``` folder so that it's easier to turn into a theme, if you decide later to share or re-use your CSS in other projects.
-
-In ```config/backpack/base.php``` add your file to this config option:
-
-```php
-    // CSS files that are loaded in all pages, using Laravel's asset() helper
-    'styles' => [
-        'packages/@digitallyhappy/backstrap/css/style.min.css',
-         // ...
-        'packages/myname/mycustomthemename/css/style.css',
-    ],
-```
-
-This config option allows you to add CSS files that add style _on top_ of Backstrap, to make it look different. You can create a CSS file anywhere inside your ```public``` folder, and add it here.
-
 <a name="use-sparate-login-for-users-and-admins"></a>
-## Use separate login/register forms for users and admins
+### Use separate login/register forms for users and admins
 
-This is a default in Backpack\Base 2.0.0.
+This is a default in Backpack v4.
 
 Backpack's authentication uses a completely separate authentication driver, provider, guard and password broker. They're all named ```backpack```, and registered in the vendor folder, invisible to you. 
 
@@ -200,19 +346,19 @@ The user login will be using Laravel's default authentication driver, provider, 
 Backpack's authentication driver, provider, guard and password broker can easily be overwritten by creating a driver/provider/guard/broker with the ```backpack``` name inside your ```config/auth.php```. If one named ```backpack``` exists there, Backpack will use that instead.
 
 <a name="overwrite-authentication-driver-provider-guard-or-password-broker"></a>
-## Overwrite Backpack authentication driver, provider, guard or password broker
+### Overwrite Backpack authentication driver, provider, guard or password broker
 
 Backpack's authentication uses a completely separate authentication driver, provider, guard and password broker. Backpack adds them to what's defined in ```config/auth.php``` on runtime, and they're all named ```backpack```.
 
 To change a setting in how Backpack's driver/provider/guard or password broker works, create a driver/provider/guard/broker with the ```backpack``` name inside your ```config/auth.php```. If one named ```backpack``` exists there, Backpack will use that instead.
 
 <a name="use-separate-sessions-for-admins-and-users"></a>
-## Use separate sessions for admin&user authentication
+### Use separate sessions for admin&user authentication
 
-This is a default in Backpack\Base 2.0.0.
+This is a default in Backpack v4.
 
 <a name="login-with-username-instead-of-email"></a>
-## Login with username instead of email
+### Login with username instead of email
 
 1. Create a ```username``` column in your users table and add it in ```$fillable``` on your ```User``` model. Best to do this with a migration.
 2. Remove tge UNIQUE and NOT NULL constraints from ```email``` on your table. Best to do this with a migration. Alternatively, delete your ```email``` column and remove it from ```$fillable``` on your ```User``` model. If you already have a CRUD for users, you might also need to delete it from the Request, and from your UserCrudController. 
@@ -232,7 +378,7 @@ That's it. This will:
 
 
 <a name="use-your-own-user-model-instead-of-backpack-user"></a>
-## Use your own User model instead of BackpackUser
+### Use your own User model instead of BackpackUser
 
 By default, authentication and everything else inside Backpack is done using the ```Backpack\Base\app\Models\BackpackUser``` model, which extends Laravel's default ```App\User``` model. If you change the location of ```App\User```, or want to use a different User model for whatever other reason, you can do so by
 - changing ```user_model_fqn``` in ```config/backpack/base.php``` to your new class;
@@ -240,7 +386,7 @@ By default, authentication and everything else inside Backpack is done using the
 
 
 <a name="use-your-own-profile-image-avatar"></a>
-## Use your own profile image (avatar)
+### Use your own profile image (avatar)
 
 By default, Backpack will use Gravatar to show the profile image for the currently logged in backpack user. In order to change this, you can use the option in ```config/backpack/base.php```:
 ```php
@@ -254,102 +400,3 @@ By default, Backpack will use Gravatar to show the profile image for the current
 ```
 
 Please note that this does not allow the user to change his profile image.
-
-
-<a name="manually-install-backpack-base"></a>
-## Manually install Base
-
-If for any reason the Backpack/Base installation process fails for you, you can manually run all the commands in the installer, which are listed below. Failure to install can happens sometimes if the user does not have enough permissions (sudo access is needed) or if the composer command is not registered (and ```php composer``` needs to be run instead).
-
-```bash
-# Install backpack/generators
-composer require backpack/generators --dev
-
-# Install laracasts/generators
-composer require laracasts/generators:dev-master --dev
-
-# Publish configs, langs, views and AdminLTE files
-php artisan vendor:publish --provider="Backpack\Base\BaseServiceProvider" --tag="minimum"
-
-# Publish config for notifications - prologue/alerts
-php artisan vendor:publish --provider="Prologue\Alerts\AlertsServiceProvider"
-
-# Generate users table (using Laravel's default migrations)
-php artisan migrate
-
-# Publish the BackpackUser model inside your app/Models directory
-php artisan backpack:base:publish-user-model
-
-# Publish the CheckIfAdmin middleware inside your app/Http/Middleware directory
-php artisan backpack:base:publish-middleware
-```
-
-
-<a name="use-breadcrumbs"></a>
-## Use Breadcrumbs
-
-You can hide or show breadcrumbs on ALL of your admin panel pages by changing a boolean variable in your ```config/backpack/base.php```:
-
-```php
-    // Show / hide breadcrumbs on admin panel pages.
-    'breadcrumbs' => true,
-```
-
-Breadcrumbs are loaded in the default layout _before_ the ```header``` section. 
-
-You can define your breadcrumbs:
-1) In the controller, by making sure a ```$breadcrumbs``` variable is present inside your views:
-```php
-    /**
-     * Show the admin dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function dashboard()
-    {
-        $this->data['title'] = trans('backpack::base.dashboard'); // set the page title
-        $this->data['breadcrumbs'] = [
-            trans('backpack::crud.admin') => url(config('backpack.base.route_prefix'), 'dashboard'),
-            trans('backpack::base.dashboard') => false,
-        ];
-
-        return view('backpack::dashboard', $this->data);
-    }
-```
-2) In the view, by making sure a ```$breadcrumbs``` variable is present:
-
-```php
-@extends('backpack::layout')
-
-@php
-  $breadcrumbs = [
-      'Admin' => backpack_url('dashboard'),
-      'Dashboard' => false,
-  ];
-@endphp
-
-@section('content')
-    some other content here
-@endsection
-```
-
-The ```inc.breadcrumbs``` view will show all breadcrumbs from the ```$breadcrumbs``` variable, if it's present on the page. The ```$breadcrumbs``` variable should be a simple associative array ```[ $label1 => $link1, $label2 => $link2 ]```. Examples:
-
-```php
-  $breadcrumbs = [
-      trans('backpack::crud.admin') => url(config('backpack.base.route_prefix'), 'dashboard'),
-      trans('backpack::base.dashboard') => false,
-  ];
-  
-  $breadcrumbs = [
-      trans('backpack::crud.admin') => backpack_url('dashboard'),
-      trans('backpack::base.dashboard') => false,
-  ];
-  
-  $breadcrumbs = [
-      'Admin' => route('dashboard'),
-      'Dashboard' => false,
-  ];
-```
-
-Notice the last item should NOT have a link, it should be ```false```.
