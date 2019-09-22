@@ -64,8 +64,6 @@ There's only one catch: **To receive the discount, you have to purchase the upgr
 
 ### Unlimited License
 
-I think you'll be glad to know that the Backpack v4 Unlimited License allows you _generate license codes_ now. You can still use one license code across all your projects, but you can _also_ generate a new code for each of your projects.
-
 Depending on _when_ you've purchased your Backpack v3 Unlimited license, you'll qualify for a discount for upgrading all your projects to v4 _and_ creating new projects with Backpack v4:
 - bought in 2016 - 20 EUR discount (aprox 5%);
 - bought in 2017 - 40 EUR discount (aprox 10%);
