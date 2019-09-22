@@ -10,11 +10,12 @@ This will guide you through upgrading from Backpack 3.6 to 4.0. For upgrading fr
 - Backpack\CRUD 3.6.x installed
 - Laravel 5.8 / Laravel 6.0 installed
 - PHP 7.2+
-- 1-2 hours on top of your normal [Laravel 6 upgrade](https://laravel.com/docs/6.0/upgrade)
+- 30-60 minutes for most projects
 
 <a name="upgraade-steps"></a>
 ## Upgrade Steps
 
+<a name="composer"></a>
 ### Composer
 
 **Step 0.** 
@@ -62,6 +63,7 @@ Also, to make sure that after every ```composer update``` you have the latest Ba
         "spatie/laravel-backup": "^6.1"
 ```
 
+<a name="models"></a>
 ### Models
 
 **Step 1.** We've moved the model traits and notifications, so please do a search-and-replace in your ```app``` or ```Models``` folder:
@@ -70,6 +72,7 @@ Also, to make sure that after every ```composer update``` you have the latest Ba
 - replace ```Backpack\Base\app\Notifications\ResetPasswordNotification``` with ```Backpack\CRUD\app\Notifications\ResetPasswordNotification```
 - replace ```Backpack\CRUD\ModelTraits\SpatieTranslatable``` with ```Backpack\CRUD\app\Models\Traits\SpatieTranslatable```
 
+<a name="routes"></a>
 ### Routes
 
 **Step 2.** Change all you CRUD routes as shown below (most developers hold their CRUD routes inside ```routes/backpack/custom.php```):
@@ -87,6 +90,7 @@ Route::group([
 Best to search-and-replace in your entire ```routes``` folder:
 - replace ```CRUD::resource``` with ```Route::crud```
 
+<a name="controllers"></a>
 ### CrudControllers
 
 The steps below should apply for each of your CrudControllers. For each Step, go through every one of your CrudControllers (usually stored in ```app\Http\Controllers\Admin```:
@@ -356,6 +360,7 @@ $this->crud->addBulkDeleteButton();
 You can delete that now, if you've added ```use use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;``` on your EntityCrudController - it's being performed by default by the operation.
 
 
+<a href="views"></a>
 ### Views
 
 Most views have suffered big changes, since we've moved from Bootstrap 3 to Bootstrap 4, and from AdminLTE to CoreUI. If you've overwritten many Backpack views, the upgrade process will be more difficult for you: you have to start from our new views and make the changes again.
@@ -412,12 +417,34 @@ rm -rf resources/views/vendor/elfinder
 php artisan backpack:install
 ```
 
-**Step 17.** Clear your app's cache:
+<a name="config"></a>
+### Config
+
+** Step 17. ```config/backpack/crud.php```**
+
+Most variables have been renamed and reordered - they're now sorted by operation name. Please manually insert take [the contents of the new file](https://github.com/Laravel-Backpack/CRUD/blob/v4/src/config/backpack/crud.php). Change the values to match your old config file.
+
+
+** Step 18. ```config/backpack/base.php```**
+
+Follow the same process as with the config file above, making sure your file will have [the new content](https://github.com/Laravel-Backpack/CRUD/blob/v4/src/config/backpack/base.php). There have been NO changes in the following sections:
+- Registration
+- Routing
+- Authentication
+- File System
+- License Code
+
+
+<a name="cache"></a>
+### Cache
+
+**Step 19.** Clear your app's cache:
 ```bash
+php artisan config:clear
 php artisan cache:clear
 php artisan view:clear
 ```
 
 ---
 
-**That's it**. Thank you for taking the time to upgrade. Keep in mind that Backpack v4 is not a free upgrade. A different license code is required. More details inside this version's [release notes](/docs/{{version}}/release-notes#licensing).
+**You're done! Good job.** Thank you for taking the time to upgrade. Keep in mind that Backpack v4 is not a free upgrade. A different license code is required. More details inside this version's [release notes](/docs/{{version}}/release-notes#licensing).
