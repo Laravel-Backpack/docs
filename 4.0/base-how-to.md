@@ -55,7 +55,7 @@ In ```config/backpack/base.php``` you'll notice there are variables where you ca
 
 ```php
     // Horizontal navbar classes. Helps make the admin panel look similar to your project's design.
-    'header_class' => 'app-header bg-transparent border-0 navbar position-relative',
+    'header_class' => 'app-header bg-light border-0 navbar',
         // Try adding bg-dark, bg-primary, bg-secondary, bg-danger, bg-warning, bg-success, bg-info, bg-blue, bg-light-blue, bg-indigo, bg-purple, bg-pink, bg-red, bg-orange, bg-yellow, bg-green, bg-teal, bg-cyan
         // You might need to add "navbar-dark" too if the background color is a dark one.
         // Add header-fixed if you want the header menu to be sticky
@@ -66,8 +66,9 @@ In ```config/backpack/base.php``` you'll notice there are variables where you ca
     
 
     // Sidebar element classes.
-    'sidebar_class' => 'sidebar sidebar-transparent',
-        // Instead of sidebar-transparent, try sidebar-light
+    'sidebar_class' => 'sidebar sidebar-pills bg-light',
+        // Remove "sidebar-transparent" for standard sidebar look 
+        // Try "sidebar-light" or "sidebar-dark" for dark/light links
         // You can also add a background class like bg-dark, bg-primary, bg-secondary, bg-danger, bg-warning, bg-success, bg-info, bg-blue, bg-light-blue, bg-indigo, bg-purple, bg-pink, bg-red, bg-orange, bg-yellow, bg-green, bg-teal, bg-cyan
 
     // Footer element classes.
@@ -86,9 +87,9 @@ Transparent top menu, transparet sidebar, transparent footer. This is the defaul
 ![Backstrap design](https://backpackforlaravel.com/uploads/docs-4-0/ui/examples/default.png)
 
 ```php
-    'header_class' => 'app-header bg-transparent border-0 navbar position-relative',
+    'header_class' => 'app-header bg-light border-0 navbar',
     'body_class' => 'app aside-menu-fixed sidebar-lg-show',
-    'sidebar_class' => 'sidebar sidebar-pills sidebar-bg-transparent',
+    'sidebar_class' => 'sidebar sidebar-pills bg-light',
     'footer_class' => 'app-footer',
 ```
 
@@ -100,7 +101,7 @@ White top menu, dark sidebar.
 ![CoreUI design](https://backpackforlaravel.com/uploads/docs-4-0/ui/examples/coreui.png)
 
 ```php
-    'header_class' => 'app-header navbar position-relative',
+    'header_class' => 'app-header navbar',
     'body_class' => 'app aside-menu-fixed sidebar-lg-show',
     'sidebar_class' => 'sidebar',
     'footer_class' => 'app-footer d-none',
@@ -114,7 +115,7 @@ Black top menu, white sidebar.
 ![CoreUI design](https://backpackforlaravel.com/uploads/docs-4-0/ui/examples/github.png)
 
 ```php
-    'header_class' => 'app-header bg-dark navbar position-relative',
+    'header_class' => 'app-header bg-dark navbar',
     'body_class' => 'app aside-menu-fixed sidebar-lg-show',
     'sidebar_class' => 'sidebar sidebar-light',
     'footer_class' => 'app-footer d-none',
@@ -128,7 +129,7 @@ Blue top menu, dark sidebar.
 ![Construction or warning design](https://backpackforlaravel.com/uploads/docs-4-0/ui/examples/blue.png)
 
 ```php
-    'header_class' => 'app-header navbar navbar-color bg-primary border-0 position-relative',
+    'header_class' => 'app-header navbar navbar-color bg-primary border-0',
     'body_class' => 'app aside-menu-fixed sidebar-lg-show',
     'sidebar_class' => 'sidebar', // add "sidebar-light" for light sidebar
     'footer_class' => 'app-footer d-none',
@@ -143,7 +144,7 @@ Yellow top menu, dark sidebar.
 ![Construction or warning design](https://backpackforlaravel.com/uploads/docs-4-0/ui/examples/construction.png)
 
 ```php
-    'header_class' => 'app-header navbar navbar-light bg-warning position-relative',
+    'header_class' => 'app-header navbar navbar-light bg-warning',
     'body_class' => 'app aside-menu-fixed sidebar-lg-show',
     'sidebar_class' => 'sidebar', // add "sidebar-light" for light sidebar
     'footer_class' => 'app-footer d-none',
@@ -157,7 +158,7 @@ Red top menu, dark sidebar.
 ![Construction or warning design](https://backpackforlaravel.com/uploads/docs-4-0/ui/examples/red.png)
 
 ```php
-    'header_class' => 'app-header navbar navbar-color bg-error border-0 position-relative',
+    'header_class' => 'app-header navbar navbar-color bg-error border-0',
     'body_class' => 'app aside-menu-fixed sidebar-lg-show',
     'sidebar_class' => 'sidebar', // add "sidebar-light" for light sidebar
     'footer_class' => 'app-footer d-none',
@@ -171,9 +172,9 @@ Pink top menu, transparent sidebar.
 ![Construction or warning design](https://backpackforlaravel.com/uploads/docs-4-0/ui/examples/pink.png)
 
 ```php
-    'header_class' => 'app-header navbar navbar-color bg-error border-0 position-relative',
+    'header_class' => 'app-header navbar navbar-color bg-error border-0',
     'body_class' => 'app aside-menu-fixed sidebar-lg-show',
-    'sidebar_class' => 'sidebar sidebar-transparent',
+    'sidebar_class' => 'sidebar sidebar-pills bg-light',
     'footer_class' => 'app-footer d-none',
 ```
 
@@ -186,9 +187,9 @@ Green top menu, white sidebar.
 ![Construction or warning design](https://backpackforlaravel.com/uploads/docs-4-0/ui/examples/green.png)
 
 ```php
-    'header_class' => 'app-header navbar navbar-color bg-green border-0 position-relative',
+    'header_class' => 'app-header navbar navbar-color bg-green border-0',
     'body_class' => 'app aside-menu-fixed sidebar-lg-show',
-    'sidebar_class' => 'sidebar sidebar-light',
+    'sidebar_class' => 'sidebar sidebar-light bg-white',
     'footer_class' => 'app-footer d-none',
 ```
 
