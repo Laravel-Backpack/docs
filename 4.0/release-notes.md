@@ -2,7 +2,7 @@
 
 ---
 
-**Launch date:** October 2019
+**Launch date:** September 24th, 2019
 
 Here are the main differences between [Backpack 3.6](https://backpackforlaravel.com/docs/3.6) and Backpack 4.0.
 
