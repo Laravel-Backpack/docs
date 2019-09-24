@@ -59,7 +59,7 @@ Depending on _when_ you've purchased your Backpack v3 Project license, you'll qu
 
 If you're an EU resident/company, VAT may be added to your invoice.
 
-There's only one catch: **To receive the discount, you have to purchase the upgrade before October 7th 2019**. You can purchase the upgrade in your Backpack account - you'll notice a new button has shown up next to your v3 license "_Upgrade for xxx EUR_". That button will disappear on October 7th 2019, 00:01 GMT. You will not be able to purchase with a discount after that.
+There's only one catch: **To receive the discount, you have to purchase the upgrade before October 25th 2019**. You can purchase the upgrade in your Backpack account - you'll notice a new button has shown up next to your v3 license "_Upgrade for xxx EUR_". That button will disappear on October 25th 2019, 00:01 GMT. You will not be able to purchase with a discount after that.
 
 
 ### Unlimited License
@@ -74,6 +74,16 @@ Depending on _when_ you've purchased your Backpack v3 Unlimited license, you'll 
 
 If you're an EU resident/company, VAT may be added to your invoice.
 
-There's only one catch: **To receive the discount, you have to purchase the upgrade before October 7th 2019**. You can purchase the upgrade in your Backpack account - you'll notice a new button has shown up next to your v3 license "_Upgrade for xxx EUR_". That button will disappear on October 7th 2019, 00:01 GMT. You will not be able to purchase with a discount after that.
+There's only one catch: **To receive the discount, you have to purchase the upgrade before October 25th 2019**. You can purchase the upgrade in your Backpack account - you'll notice a new button has shown up next to your v3 license "_Upgrade for xxx EUR_". That button will disappear on October 25th 2019, 00:01 GMT. You will not be able to purchase with a discount after that.
 
 If you've bought the Unlimited License very recently, and haven't launched any projects using Backpack v3, we don't want you to feel cheated. We can make a special discount for you - we'll discount the entire v3 Unlimited cost from your v4 Unlimited License. You'd only pay the price difference from v3 to v4 (100 EUR), and you'd be licensed to use both v3 and v4 in production. [Contact us](http://backpackforlaravel.com/contact).
+
+
+<a name="versioning"></a>
+# Versioning
+
+When installing Backpack, require its minor version (currently ```4.0.*```). Backpack follows the same versioning system as Laravel 5.x - minor versions include minor breaking changes. This allows us to push new features without charging our users again. For us, this is what ```major.minor.patch``` means:
+
+- ```major``` - **PAID upgrade; MAJOR breaking changes;** historically every 2-3 years; upgrading may take even 2-3 hours; includes major new features, major changes in how the whole system works, and complete rewrites; it allows us to _considerably_ improve the product, and add features that were previously impossible;
+- ```minor``` - **FREE upgrade; MINOR breaking changes**; historically every 6-12 months; upgrading takes less than 30 minutes; it allows us to add big new features, for free;
+- ```patch``` - **FREE upgrade; NO breaking changes**; historically every week; upgrading can be done automatically with composer; includes bug fixes and non-breaking new features;

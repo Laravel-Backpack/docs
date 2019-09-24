@@ -21,7 +21,7 @@ This will guide you through upgrading from Backpack 3.6 to 4.0. For upgrading fr
 **Step 0.** 
 
 Update your ```composer.json``` file to require:
-- ```"backpack/crud": "v4.x-dev"```
+- ```"backpack/crud": "^4.0.0"```
 - ```"laravel/framework": "^6.0"```
 - ```"backpack/generators": "^2.0"``` (in require-dev)
 
@@ -49,14 +49,14 @@ Also, to make sure that after every ```composer update``` you have the latest Ba
 
 [OPTIONAL] If you have a lot of Backpack add-ons installed (and their dependencies), here are their latest versions, you can copy-paste the versions of the packages you're using:
 ```
-        "backpack/crud": "v4.x-dev as 4.0.0",
-        "backpack/logmanager": "v4.x-dev as 4.0.0",
-        "backpack/settings": "v4.x-dev as 4.0.0",
-        "backpack/pagemanager": "v4.x-dev as 2.0.0",
-        "backpack/menucrud": "v4.x-dev as 4.0.0",
-        "backpack/newscrud": "v4.x-dev as 4.0.0",
-        "backpack/permissionmanager": "v4.x-dev as 4.0.0",
-        "backpack/backupmanager": "v4.x-dev as 4.0.0",
+        "backpack/crud": "^4.0.0",
+        "backpack/logmanager": "^3.0.0",
+        "backpack/settings": "^4.0.0",
+        "backpack/pagemanager": "^2.0.0",
+        "backpack/menucrud": "^2.0.0",
+        "backpack/newscrud": "^3.0.0",
+        "backpack/permissionmanager": "^4.0.0",
+        "backpack/backupmanager": "^2.0.0",
         "backpack/generators": "^2.0",
         "spatie/laravel-translatable": "^4.0",
         "barryvdh/laravel-elfinder": "^0.4.2",
