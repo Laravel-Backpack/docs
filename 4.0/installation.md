@@ -28,7 +28,7 @@ cd your-laravel-project-name
 1) In your project's main directory, install CRUD using composer:
 
 ``` bash
-composer require backpack/crud:"v4.x-dev as 4.0.0"
+composer require backpack/crud:"4.0.*"
 
 # you might also want to install these tools that help during development
 composer require backpack/generators --dev
