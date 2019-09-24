@@ -21,7 +21,7 @@ composer require backpack/backupmanager
 php artisan vendor:publish --provider="Backpack\BackupManager\BackupManagerServiceProvider"
 
 # [optional] Add a sidebar_content item for it
-php artisan backpack:base:add-sidebar-content "<li class='nav-item'><a class='nav-link' href='{{ backpack_url('backup') }}'><i class='nav-icon fa fa-hdd-o'></i> Backups</a></li>"
+php artisan backpack:add-sidebar-content "<li class='nav-item'><a class='nav-link' href='{{ backpack_url('backup') }}'><i class='nav-icon fa fa-hdd-o'></i> Backups</a></li>"
 ```
 
 2) Add a new "disk" to config/filesystems.php:
@@ -92,7 +92,7 @@ or directly in your config/app.php file:
 4) [optional] Add a menu item for it in resources/views/vendor/backpack/base/inc/sidebar_content.blade.php or menu.blade.php:
 
 ```bash
-php artisan backpack:base:add-sidebar-content "<li class='nav-item'><a class='nav-link' href='{{ backpack_url('log') }}'><i class='nav-icon fa fa-terminal'></i> Logs</a></li>"
+php artisan backpack:add-sidebar-content "<li class='nav-item'><a class='nav-link' href='{{ backpack_url('log') }}'><i class='nav-icon fa fa-terminal'></i> Logs</a></li>"
 ```
 <a name="settings-manager"></a>
 ## Settings
@@ -112,7 +112,7 @@ php artisan vendor:publish --provider="Backpack\Settings\SettingsServiceProvider
 php artisan migrate
 
 # [optional] add a menu item for it to the sidebar_content file
-php artisan backpack:base:add-sidebar-content "<li class='nav-item'><a class='nav-link' href='{{ backpack_url('setting') }}'><i class='nav-icon fa fa-cog'></i> Settings</a></li>"
+php artisan backpack:add-sidebar-content "<li class='nav-item'><a class='nav-link' href='{{ backpack_url('setting') }}'><i class='nav-icon fa fa-cog'></i> Settings</a></li>"
 
 # [optional] insert some example dummy data to the database
 php artisan db:seed --class="Backpack\Settings\database\seeds\SettingsTableSeeder"
@@ -139,7 +139,7 @@ php artisan migrate
 3) [optional] Add a menu item for it in resources/views/vendor/backpack/base/inc/sidebar_content.blade.php or menu.blade.php:
 
 ```bash
-php artisan backpack:base:add-sidebar-content "<li class='nav-item'><a class='nav-link' href='{{ backpack_url('page') }}'><i class='nav-icon fa fa-file-o'></i> Pages</a></li>"
+php artisan backpack:add-sidebar-content "<li class='nav-item'><a class='nav-link' href='{{ backpack_url('page') }}'><i class='nav-icon fa fa-file-o'></i> Pages</a></li>"
 ```
 
 <a name="permission-manager"></a>
