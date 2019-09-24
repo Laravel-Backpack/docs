@@ -51,11 +51,11 @@ Also, to make sure that after every ```composer update``` you have the latest Ba
 ```
         "backpack/crud": "^4.0.0",
         "backpack/logmanager": "^3.0.0",
-        "backpack/settings": "^4.0.0",
+        "backpack/settings": "^3.0.0",
         "backpack/pagemanager": "^2.0.0",
         "backpack/menucrud": "^2.0.0",
         "backpack/newscrud": "^3.0.0",
-        "backpack/permissionmanager": "^4.0.0",
+        "backpack/permissionmanager": "^5.0",
         "backpack/backupmanager": "^2.0.0",
         "backpack/generators": "^2.0",
         "spatie/laravel-translatable": "^4.0",
