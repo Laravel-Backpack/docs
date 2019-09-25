@@ -46,26 +46,7 @@ php artisan backpack:install
 
 Note: If you'd also like to enable the [file manager functionality](https://backpackforlaravel.com/uploads/home_slider/4.png), reply "yes" when the installer asks you. By default it lets users manage the ```public/uploads``` directory, but you can change that in the ```elfinder.php``` config file. Most of the times it is _not_ recommended to give your admins power over file structure - not even their uploads alone. So ```elfinder``` does not come installed by default.
 
-3) To make sure that after every ```composer update``` you have the latest Backpack CSS&JS, please add this to your ```composer.json```'s scripts, under ```post-update-cmd```:
-```diff
-    "scripts": {
-        "post-autoload-dump": [
-            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
-        ],
-        "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ],
-        "post-create-project-cmd": [
-            "@php artisan key:generate --ansi"
-        ],
-+        "post-update-cmd": [
-+            "@php artisan vendor:publish --provider='Backpack\\CRUD\\BackpackServiceProvider' --tag=public --force"
-+        ]
-    }
-```
-
-4) [Optional] You should now:
+3) [Optional] You should now:
 - Change configuration values in ```config/backpack/base.php``` to make the admin panel your own. Backpack is white label, so you can change everything: menu color, project name, developer name etc.
 - If your User model has been moved (it is not ```App\User.php```, please go change ```App\Models\BackpackUser.php``` and make sure it extends the correct user model;
 - If you have separate admin panels for Users and Administrators, and already have a way to differentiate between the two, please change ```app/Http/Middleware/CheckIfAdmin.php```, particularly ```checkIfUserIsAdmin($user)```, to make sure all users who get log into the admin panel have a right to do that; 
