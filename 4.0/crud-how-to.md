@@ -169,13 +169,13 @@ composer require backpack/crud
 composer require barryvdh/laravel-elfinder
 mkdir -p public/uploads
 php artisan elfinder:publish
-php artisan vendor:publish --provider="Backpack\CRUD\CrudServiceProvider" --tag="elfinder"
+php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag="elfinder"
 php artisan backpack:base:add-sidebar-content '<li><a href=\"{{  backpack_url(\"elfinder\") }}\"><i class=\"fa fa-files-o\"></i> <span>File manager</span></a></li>'
 ```
 
 3) Actually install Backpack:
 ```bash
-php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag=minimum
+php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag="minimum"
 php artisan vendor:publish --provider="Prologue\Alerts\AlertsServiceProvider"
 php artisan migrate
 php artisan backpack:publish-user-model
