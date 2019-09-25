@@ -27,26 +27,6 @@ Update your ```composer.json``` file to require:
 
 Then run ```composer update```.
 
-Also, to make sure that after every ```composer update``` you have the latest Backpack CSS & JS, please add this to your composer.json's scripts, under ```post-update-cmd```:
-
-```diff
-    "scripts": {
-        "post-autoload-dump": [
-            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
-        ],
-        "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ],
-        "post-create-project-cmd": [
-            "@php artisan key:generate --ansi"
-        ],
-+        "post-update-cmd": [
-+            "@php artisan vendor:publish --provider='Backpack\\CRUD\\BackpackServiceProvider' --tag=public --force"
-+        ]
-    }
-```
-
 [OPTIONAL] If you have a lot of Backpack add-ons installed (and their dependencies), here are their latest versions, you can copy-paste the versions of the packages you're using:
 ```
         "backpack/crud": "^4.0.0",
