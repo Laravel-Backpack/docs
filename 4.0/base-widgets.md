@@ -318,7 +318,7 @@ Inside the widget blade files, you include custom CSS and JS, by pushing to the 
 
 
 <a name="using-widget-types-from-packages"></a>
-## Using a Widget Type from a Pacakge
+## Using a Widget Type from a Package
 
 You can choose the view namespace when loading a widget:
 
