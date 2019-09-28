@@ -75,6 +75,13 @@ Best to search-and-replace in your entire ```routes``` folder:
 
 The steps below should apply for each of your CrudControllers. For each Step, go through every one of your CrudControllers (usually stored in ```app\Http\Controllers\Admin```:
 
+**Step 2.1** Change your Extra CRUD Routes to use `setupOperationNameRoutes` or in `custom.php` instead of using `with()`:
+Backpack no longer provides a `->with()` function for adding extra routes on your controllers.
+
+Instead use methods which look like setupOperationNameRoutes() or add them as regular routes in `routes/backpack/custom.php`
+
+See the latest docs for more details [Add Extra CRUD Routes](https://backpackforlaravel.com/docs/4.0/crud-how-to#add-extra-crud-routes)
+
 **Step 3.** Make sure the method where you set up your CrudPanel is called ```setup()```, not ```__construct()```. Especially if you've generated your CRUDs using versions of Backpack v3 from 2016-2017. In most cases you can just rename ```__construct()``` to ```setup()```, since ```setup()``` is called inside ```CrudController::__construct()``` anyway.
 
 **Step 4.** In v4, CrudController comes with ZERO operations loaded by default (instead of create, read, update, delete). You need to use a few operation traits in each of you EntityCrudControllers, to enable the previously-default operations:
