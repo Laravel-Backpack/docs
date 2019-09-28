@@ -134,29 +134,7 @@ This is a great time to think about which default operations you're NOT using wi
 
 **Step 6.** If in any of your EntityCrudControllers, you're using ```parent::``` to call a method from Backpack's CrudController, it will not work anymore. Since the methods are now applied using a trait, not by extending a CrudController. 
 
-**(6.1)** To be able to call the same method, but from the trait (not the parent), please rename the method from the trait, and call that name instead:
-
-```diff
-use Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
-
-class MonsterCrudController extends CrudController
-{
--    use ShowOperation;
-+    use ShowOperation {
-+          show as traitShow;
-+       }
-
-    public function show()
-    {
-        // do sth custom here
--        return parent::show();
-+        return $this->traitShow();
-    }
-```
-
-Notice it's now ```$this->```, not ```parent::```. You do NOT need to do this for every method in your EntityCrudController that you've overwritten completely. Only for the methods that have a ```parent::smth()``` call inside them.
-
-**(6.2)** If your ```store()``` and ```update()``` methods don't have any custom logic apart than calling the parent method, you can delete them. We no longer need the Request type-hinted. So if they look like this, you can delete them:
+**(6.1)** If your ```store()``` and ```update()``` methods don't have any custom logic apart than calling the parent method, you can delete them. We no longer need the Request type-hinted. So if they look like this, you can delete them:
 ```php
     public function store(StoreRequest $request)
     {
@@ -191,7 +169,7 @@ Notice it's now ```$this->```, not ```parent::```. You do NOT need to do this fo
     }
 ```
 
-**(6.3)** If you have custom logic inside your ```store()``` and ```update()``` methods, note that we've changed the parent method names:
+**(6.2)** If you have custom logic inside your ```store()``` and ```update()``` methods, note that we've changed the parent method names:
 - from ```updateCrud()``` to ```update()```
 - from ```storeCrud()``` to ```store()```
 
@@ -218,6 +196,29 @@ Follow step 6.1 with this in mind. The end result should be something like this:
     }
 
 ```
+
+**(6.3)** To be able to call the same method, but from the trait (not the parent), please rename the method from the trait, and call that name instead:
+
+```diff
+use Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+
+class MonsterCrudController extends CrudController
+{
+-    use ShowOperation;
++    use ShowOperation {
++          show as traitShow;
++       }
+
+    public function show()
+    {
+        // do sth custom here
+-        return parent::show();
++        return $this->traitShow();
+    }
+```
+
+Notice it's now ```$this->```, not ```parent::```. You do NOT need to do this for every method in your EntityCrudController that you've overwritten completely. Only for the methods that have a ```parent::smth()``` call inside them.
+
 
 **Step 7.** The ```store()``` and ```update()``` methods previously stored all inputs the form, _except for_ special inputs (like ```_token```, ```_method```, ```current_tab``` etc.). This process has now been changed: they now store _only_ the inputs defined by the fields.
 
