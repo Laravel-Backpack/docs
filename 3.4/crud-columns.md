@@ -128,6 +128,31 @@ Show a favicon with a checked or unchecked box, depending on the given boolean.
 ],
 ```
 
+
+<a name="checkbox"></a>
+### checkbox
+
+Shows a checkbox (the form element), and inserts the js logic needed to select/deselect multiple entries. It is mostly used for [the Bulk Delete action](/docs/{{version}}/crud-operation-delete#delete-multiple-items-bulk-delete), and [custom bulk actions](/docs/{{version}}/crud-operations#creating-a-new-operation-with-a-bulk-action-no-interface).
+
+Shorthand:
+```php
+$this->crud->enableBulkActions();
+```
+(will also add an empty custom_html column)
+
+Verbose:
+```php
+$this->crud->addColumn([
+    'type' => 'checkbox',
+    'name' => 'bulk_actions',
+    'label' => ' <input type="checkbox" class="crud_bulk_actions_main_checkbox" style="width: 16px; height: 16px;" />',
+    'priority' => 1,
+    'searchLogic' => false,
+    'orderable' => false,
+    'visibleInModal' => false,
+])->makeFirstColumn();
+```
+
 <a name="closure"></a>
 ### closure
 
@@ -462,7 +487,7 @@ Examples:
 - creating a ```resources\views\vendor\backpack\crud\columns\number.blade.php``` file would overwrite the ```number``` column functionality;
 - ```php artisan backpack:crud:publish columns/text``` will take the view from the package and copy it to the directory above, so you can edit it;
 
->Keep in mind that when you're overwriting a default column type, you're forfeiting any for that column. We can't push updates to a file that you're no longer using.
+>Keep in mind that when you're overwriting a default column type, you're forfeiting any future updates for that column. We can't push updates to a file that you're no longer using.
 
 <a name="creating-a-custom-column-type"></a>
 ## Creating a Custom Column Type
@@ -590,3 +615,5 @@ You can make the last column be less important (and hide) by giving it an unreas
 ```php
 $this->crud->setActionsColumnPriority(10000);
 ```
+
+>Note that repsonsive tables adopt special behavior if the table is not able to show all columns. This includes displaying a vertical elipsis to the left of the row, and making the row clickable to reveal more detail. This behavior is automatic and is not manually controllable via a field property.
