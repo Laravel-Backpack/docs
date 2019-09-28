@@ -287,7 +287,6 @@ trait CommentOperation
      */
     public function comment()
     {
-        $this->crud->applyConfigurationFromSettings('comment');
         $this->crud->hasAccessOrFail('comment');
 
         // prepare the fields you need to show
