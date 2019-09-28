@@ -67,8 +67,8 @@ class Tag extends Model {
   protected $table = 'tags';
   // protected $primaryKey = 'id';
   // public $timestamps = false;
-  // protected $guarded = ['id'];
-  protected $fillable = [];
+  protected $guarded = ['id'];
+  // protected $fillable = [];
   // protected $hidden = [];
   // protected $dates = [];
 
@@ -108,27 +108,12 @@ As we can see, this is a pretty standard Eloquent model. The only differences:
 - our new model uses a trait Backpack needs, ```CrudTrait```;
 - we have some comments to help us separate Eloquent logic in our Models;
 
-As with all generated classes, we can see it's not exactly ready for use. It needs a little configuration. We should make sure:
+By default, the model uses ```$guarded``` to prevent people from editing certain attributes. But, as with all generated classes, it might not be exactly what you want. We should make sure:
 - ```$table``` contains the right table name (it does);
-- ```$primaryKey``` is correct (we can see it's ```id``` in the database table so let's just uncomment the generated line);
-- ```$fillable``` contains all the attributes we want the admin to be able to change (none are present, let's add ```name```);
-- ```$timestamps``` is configured, so that Eloquent can take care of them automatically (since we do have those columns in the database table, let's uncomment it and set it to ```true```);
+- ```$guarded``` contains all the attributes we want the admin to NOT be able to change; alternatively, specify which fields the admin is _allowed_ to edit using ```$fillable```; 
 - relationships to other models are properly defined (no need for our ```Tag``` model);
 
-This is all _standard procedure_ for new Laravel models - nothing Backpack-specific here. Here are all the changes we would make to this specific ```Tag``` model:
-
-```diff
-    protected $table = 'tags';
--   // protected $primaryKey = 'id';
-+   protected $primaryKey = 'id';
--   // public $timestamps = false;
-+   public $timestamps = true;
-    // protected $guarded = ['id'];
--   protected $fillable = [];
-+   protected $fillable = ['name'];
-    // protected $hidden = [];
-    // protected $dates = [];
-```
+This is all _standard procedure_ for new Laravel models - nothing Backpack-specific here. In this particular case, where the entity is so simple and has no relationships, we don't need to make any changes to the generated model.
 
 We're now done configuring the model - because we didn't already have a valid Eloquent model to use for our CRUD Panel. If we _did have_ a working Eloquent model, we only needed to add ```use \Backpack\CRUD\CrudTrait;```
 
@@ -141,41 +126,88 @@ Let's take a look at ```app/Http/Controllers/Admin/TagCrudController.php```. It 
 <?php namespace App\Http\Controllers\Admin;
 
 use Backpack\CRUD\app\Http\Controllers\CrudController;
-use App\Http\Requests\TagCrudRequest;
+use App\Http\Requests\TagRequest;
 
 class TagCrudController extends CrudController {
 
   use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-  use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
   use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
   use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
   use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+  use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
   public function setup() 
   {
       $this->crud->setModel("App\Models\Tag");
       $this->crud->setRoute("admin/tag");
       $this->crud->setEntityNameStrings('tag', 'tags');
-
-      // auto-magically guess fields & columns
-      // it's heavily recommended that you replace this with actual addField and addColumn statements
-      // inside either $this->crud->operation() closures, or inside setupXxxxOperation() methods
+  }
+  
+  protected function setupListOperation()
+  {
+      // TODO: remove setFromDb() and manually define Columns, maybe Filters
       $this->crud->setFromDb();
+  }
+
+  protected function setupCreateOperation()
+  {
+      $this->crud->setValidation(TagRequest::class);
+
+      // TODO: remove setFromDb() and manually define Fields
+      $this->crud->setFromDb();
+  }
+
+  protected function setupUpdateOperation()
+  {
+      $this->setupCreateOperation();
   }
 }
 ```
 
+#### The Basics
+
 What we should notice inside this TagCrudController is that:
 - ```TagCrudController extends CrudController```;
-- ```TagCrudController``` has a ```setup()``` method, where can configure how the CRUD panel works;
+- ```TagCrudController``` has a ```setup()``` method, where can plug in the basics of our CRUD panel; everything we write here is applied on ALL operations;
 - All operations are enabled by using that operation's trait on the controller;
 - Each operation is set up inside a ```setupXxxOperation()``` method;
 
-Let's move our attention to the ```setup()``` method, which is the gateway to configuring our CRUD Panel.
+As we can tell from the comments in our ```setupXxxOperation()``` methods, in most cases we _shouldn't_ use ```$this->crud->setFromDb()```, which automagically figures out which columns and fields to show. That's because for real models, in real projects, it would _never_ be able to 100% figure out which field types to use. Real projects are very custom - that's a fact. In real projects, models are complicated, use a bunch of fields types and you'll want to customize things. Instead of using ```setFromDb()``` then gradually changing what you don't like, **we heavily recommend you manually define all fields and columns you need**.
 
-As we can tell from the comments there, in most cases we _shouldn't_ use ```$this->crud->setFromDb()```, which automagically figures out which columns and fields to show. That's because for real models, in real projects, it would _never_ be able to 100% figure out which field types to use. Real projects are very custom - that's a fact. In real projects, models are complicated, use a bunch of fields types and you'll want to customize things. Instead of using ```setFromDb()``` then gradually changing what you don't like, **we heavily recommend you manually define all fields and columns you need**.
+That being said, since our ```Tag``` model is so simple, we _can_ leave it like this - it will work perfectly, since we only need a ```text``` field and a ```text``` column. But let's not do that. Let's define our fields and columns manually, like big boys & girls. 
 
-Since our ```Tag``` model is so simple, we _can_ leave it like this - it will work perfectly, since we only need a ```text``` field and a ```text``` column. But let's not do that. Let's define our fields and columns manually, like big boys:
+#### Option 1. SetupXxxOperation Methods
+
+We can either define each operations inside its ```setupXxxOperation()``` method:
+
+```php
+  protected function setupListOperation()
+  {
+      $this->crud->addColumn(['name' => 'name', 'type' => 'text', 'label' => 'Name']);
+  }
+
+  protected function setupCreateOperation()
+  {
+      $this->crud->setValidation(TagRequest::class);
+      $this->crud->addField(['name' => 'name', 'type' => 'text', 'label' => 'Name']);
+  }
+
+  protected function setupUpdateOperation()
+  {
+      $this->setupCreateOperation(); // since this calls the methods above, no need to do anything here
+  }
+```
+
+This will:
+- disable the ```setFromDb()``` functionality (since we deleted that line);
+- add a simple ```text``` column for our ```name``` attribute for the List operation (the table view);
+- add a simple ```text``` field for our ```name``` attribute to the Create and Update forms;
+
+It the exact same thing ```setFromDb()``` would have figured out, but done manually. This way, if we want to add [other columns](/docs/{{version}}/crud-columns)) or [other fields](/docs/{{version}}/crud-fields), we can easily do that. If we want to change the label of the ```name``` field from ```Name``` to ```Tag name```, we just make that small change. The benefits of _not_ using ```setFromDb()``` will be more obvious once you use Backpack on real models, we promise.
+
+#### Option 2. Operation Closures
+
+An alternative to defining operation inside ```setupXxxOperation()``` methods is to do it inside the ```setup()``` method. However, as we've mentioned before, everything you run in your ```setup()``` method is run for ALL operations. So you can easily end up bloating your operation with unnecessary operations. If you don't like having a method to configure each operation, and would like to define everything in ```setup()```, you should do so inside an ```operation()``` closure. Whatever's inside that closure will only be run for that operation. For example, everything we've done above would look like this if done inside operation closures:
 
 ```php
     public function setup()
@@ -193,53 +225,21 @@ Since our ```Tag``` model is so simple, we _can_ leave it like this - it will wo
           $this->crud->addField(['name' => 'name', 'type' => 'text', 'label' => 'Name']);
         });
     }
+    
+    
 }
 ```
 
-This will:
-- disable the ```setFromDb()``` functionality (since we deleted that line);
-- add a simple ```text``` column for our ```name``` attribute to the ListEntries operation (the table view);
-- add a simple ```text``` field for our ```name``` attribute to the Create and Update forms;
+#### Other Calls
 
-It the exact same thing ```setFromDb()``` would have figured out, but done manually. This way, if we want to add [other columns](/docs/{{version}}/crud-columns)) or [other fields](/docs/{{version}}/crud-fields), we can easily do that. If we want to change the label of the ```name``` field from ```Name``` to ```Tag name```, we just make that small change. The benefits of _not_ using ```setFromDb()``` will be more obvious once you use Backpack on real models, we promise.
-
-Here, in the ```setup()``` method, is where you can also do a lot of other things, like enabling other operations, adding buttons, adding filters, customizing your query, etc. For a full list of the things you can do inside ```setup()``` check out our [cheat sheet](/docs/{{version}}/crud-cheat-sheet). 
-
-But we can make this even better. For large CRUDs, you ```setup()``` method will quickly become very big. A different way to configure your operations is by creating methods that follow our ```setupXxxxOperation()``` naming convention. Similar to Laravel accessors and mutators, if you have a method with a name that looks like that in your Controller, we'll know that what you actually want is to define how that Xxxx operation works. So let's rewrite the above, using ```setupXxxxOperation()``` methods:
-```php
-    public function setup()
-    {
-        $this->crud->setModel('App\Models\Tag');
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/tag');
-        $this->crud->setEntityNameStrings('tag', 'tags');
-    }
-
-    protected function setupListOperation()
-    {
-        $this->crud->addColumn(['name' => 'name', 'type' => 'text', 'label' => 'Name']);
-    }
-
-    protected function setupCreateOperation()
-    {
-        $this->crud->addValidation(TagCrudRequest::class);
-        $this->crud->addField(['name' => 'name', 'type' => 'text', 'label' => 'Name']);
-    }
-
-    protected function setupUpdateOperation()
-    {
-        $this->setupCreateOperation(); // if it's the same, why repeat it
-    }
-}
-```
-
-Much cleaner, don't you think? You can use both syntaxes, but for big CRUDs the second way of configuring operations will be more useful.
+Here, inside your ```setup()``` or ```setupXxxOperation``` methods, you can also do a lot of other things, like adding buttons, adding filters, customizing your query, etc. For a full list of the things you can do inside ```setup()``` check out our [cheat sheet](/docs/{{version}}/crud-cheat-sheet). 
 
 Next, let's continue to another generated file.
 
 <a name="the-request"></a>
 ### The Request
 
-Backpack will also generate a [standard FormRequest file](https://laravel.com/docs/master/validation#form-request-validation), that you can use for validation of the Create and Update forms. There is nothing Backpack-specific in here, but let's take a look at the generated ```app/Http/Requests/TagCrudRequest.php``` file:
+Backpack will also generate a [standard FormRequest file](https://laravel.com/docs/master/validation#form-request-validation), that you can use for validation of the Create and Update forms. There is nothing Backpack-specific in here, but let's take a look at the generated ```app/Http/Requests/TagRequest.php``` file:
 
 ```php
 <?php
