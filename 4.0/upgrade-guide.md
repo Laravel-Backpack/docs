@@ -345,7 +345,7 @@ You can delete that now, if you've added ```use use \Backpack\CRUD\app\Http\Cont
 
 Most views have suffered big changes, since we've moved from Bootstrap 3 to Bootstrap 4, and from AdminLTE to CoreUI. If you've overwritten many Backpack views, the upgrade process will be more difficult for you: you have to start from our new views and make the changes again.
 
-**Step 11.** Check your ```resources/views/vendor/backpack``` folder for any views. If you find anything there beside ```base/inc/sidebar_content.blade.php```, you'll need to take a look at that file in our package - it most likely has changed, and you may need to make changes to your file too. We recommend you use a diff tool - should save some time. Kaleidoscope is our preffered diff tool, on Mac OS. 
+**Step 11.** Check your ```resources/views/vendor/backpack``` folder for any views. If you find anything there beside ```base/inc/sidebar_content.blade.php```, you'll need to take a look at that file in our package - it most likely has changed, and you may need to make changes to your file too. We recommend you use a diff tool - should save some time. [Kaleidoscope](https://www.kaleidoscopeapp.com) is our preffered diff tool, on Mac OS. [WinMerge](https://winmerge.org) is a good option for Windows.
 
 If you've overwritten a lot of blade files, you may hate us for this, we know :-) But keep in mind that we've moved from Bootstrap 3 to Boostrap 4. And from AdminLTE to CoreUI. We tried to keep the changes to a minimum. But this major change was _impossible_ to do without changing a lot of blade files.
 
