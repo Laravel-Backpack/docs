@@ -214,7 +214,7 @@ class MonsterCrudController extends CrudController
 So if you define a custom operation that needs some static methods added to the ```CrudPanel``` object, you can add them. 
 
 <a name="operation-features"></a>
-### Adding Settings/Features to the CrudPanel object (using the Settings API)
+### Adding Settings to the CrudPanel object (using the Settings API)
 
 Anything an operation does to configure itself, or process information, should be stored inside ```$this->crud->settings``` . It's an associative array, and you can add/change things using the Settings API:
 
