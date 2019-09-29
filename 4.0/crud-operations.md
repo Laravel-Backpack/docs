@@ -170,97 +170,6 @@ Inside a ```setupOperationNameRoutes()```, you'll notice that's also where we de
 
 Once an operation name has been set using that route, you can do ```$crud->getOperation()``` inside your views and do things according to this.
 
-<a name="adding-methods-to-the-crud-panel-object"></a>
-### Adding Methods to the CrudPanel Object
-
-Every time you call ```$this->crud```, you're referring to a ```CrudPanel``` object, where we store all information about the current CRUD and perform all computation.
-
-Starting with CRUD 3.5 you can add static methods to this ```CrudPanel``` object with ```$this->crud->macro()```, because the object is [macroable](https://unnikked.ga/understanding-the-laravel-macroable-trait-dab051f09172). So you can do:
-
-```php
-class MonsterCrudController extends CrudController 
-{
-   public function setup() 
-   {
-       $this->crud->macro('doStuff', function($something) {
-            echo '<pre>'; var_dump($something); echo '</pre>';
-            dd($this);
-        });
-       $this->crud->macro('getColumnsInTheFormatIWant', function() {
-            $columns = $this->columns;
-            // ... do something to $columns;
-            return $columns;
-        });
-
-       // bla-bla-bla the actual setup code
-   }
-   public function sendEmail() 
-   {
-      // ...
-      $this->crud->doStuff();
-      dd($this->crud->getColumnsInTheFormatIWant());
-      // ...
-   }
-   public function markPending() 
-   {
-      // ...
-      $this->crud->doStuff();
-      dd($this->crud->getColumnsInTheFormatIWant());
-      // ...
-   }
-}
-```
-
-So if you define a custom operation that needs some static methods added to the ```CrudPanel``` object, you can add them. 
-
-<a name="operation-features"></a>
-### Adding Settings to the CrudPanel object (using the Settings API)
-
-Anything an operation does to configure itself, or process information, should be stored inside ```$this->crud->settings``` . It's an associative array, and you can add/change things using the Settings API:
-
-```php
-// for the operation that is currently being performed
-$this->crud->setOperationSetting('show_title', true);
-$this->crud->getOperationSetting('show_title');
-$this->crud->hasOperationSetting('show_title');
-
-// for a particular operation, pass the operation name as a last parameter 
-$this->crud->setOperationSetting('show_title', true, 'create');
-$this->crud->getOperationSetting('show_title', 'create');
-$this->crud->hasOperationSetting('show_title', 'create');
-
-// alternatively, you could use the direct methods with no fallback to the current operation
-$this->crud->set('create.show_title', false);
-$this->crud->get('create.show_title');
-$this->crud->has('create.show_title');
-```
-
-Additionally, operations can load default settings from the config file. You'll notice the ```config/backpack/crud.php``` file contains an array of operations, each with various settings. Those settings there are loaded by the operation as defaults, to allow users to change one setting in the config, and have that default changed across ALL of their CRUDs. If you take a look at the List operation you'll notice this:
-
-```php
-    /**
-     * Add the default settings, buttons, etc that this operation needs.
-     */
-    protected function setupListDefaults()
-    {
-        $this->crud->allowAccess('list');
-
-        $this->crud->operation('list', function () {
-            $this->crud->loadDefaultOperationSettingsFromConfig();
-        });
-    }
-```
-
-You can do the same in custom operations. Because this call happens in setupListDefaults(), inside an operation closure, the settings will only be added when that operation is being performed.
-
-
-<a name="using-a-feature-from-another-operation"></a>
-### Using a feature from another operation
-
-Anything an operation does to configure itself, or process information, is stored on the ```$this->crud->settings``` property. Operation features (ex: fields, columns, buttons, filters, etc) are created in such a way that all they do is add an entry in settings, for an operation, and manipulate it. That means there is nothing stopping you from using a feature from one operation in a different operation.
-
-If you create a Print operation, and want to use the ```columns``` feature that List and Show use, you can just go ahead and do ```$this->crud->addColumn()``` calls inside your operation. You'll notice the columns are stored inside ```$this->crud->settings['print.columns']```, so they're completely different from the ones in the List or Show operation. You'll need to actually do something with the columns you added, inside your operation methods or views - of course.
-
 
 <a name="creating-a-custom-operation"></a>
 ## Creating a Custom Operation
@@ -429,6 +338,117 @@ In the example above, you could just do ```use \App\Http\Controllers\Admin\Custo
 Since you're creating a new operation, in terms of restricting access you can:
 1. allow access to this new operation depending on access to a default operation (usually if the admin can ```update```, he's ok to perform custom operations);
 2. customize access to this particular operation, by just using a different key than the default ones; for example, you can allow access by using ```$this->crud->allowAccess('publish')``` in your ```setup()``` method, then check for access to that operation using ```$this->crud->hasAccess('publish')```;
+
+<a name="operation-features"></a>
+### Adding Settings to the CrudPanel object
+
+#### Using the Settings API
+
+Anything an operation does to configure itself, or process information, should be stored inside ```$this->crud->settings``` . It's an associative array, and you can add/change things using the Settings API:
+
+```php
+// for the operation that is currently being performed
+$this->crud->setOperationSetting('show_title', true);
+$this->crud->getOperationSetting('show_title');
+$this->crud->hasOperationSetting('show_title');
+
+// for a particular operation, pass the operation name as a last parameter 
+$this->crud->setOperationSetting('show_title', true, 'create');
+$this->crud->getOperationSetting('show_title', 'create');
+$this->crud->hasOperationSetting('show_title', 'create');
+
+// alternatively, you could use the direct methods with no fallback to the current operation
+$this->crud->set('create.show_title', false);
+$this->crud->get('create.show_title');
+$this->crud->has('create.show_title');
+```
+
+#### Using the crud config file
+
+Additionally, operations can load default settings from the config file. You'll notice the ```config/backpack/crud.php``` file contains an array of operations, each with various settings. Those settings there are loaded by the operation as defaults, to allow users to change one setting in the config, and have that default changed across ALL of their CRUDs. If you take a look at the List operation you'll notice this:
+
+```php
+    /**
+     * Add the default settings, buttons, etc that this operation needs.
+     */
+    protected function setupListDefaults()
+    {
+        $this->crud->allowAccess('list');
+
+        $this->crud->operation('list', function () {
+            $this->crud->loadDefaultOperationSettingsFromConfig();
+        });
+    }
+```
+
+You can do the same in custom operations. Because this call happens in setupListDefaults(), inside an operation closure, the settings will only be added when that operation is being performed.
+
+
+<a name="adding-methods-to-the-crud-panel-object"></a>
+### Adding Methods to the CrudPanel Object
+
+You can add static methods to this ```$this->crud``` (which is a CrudPanel object) object with ```$this->crud->macro()```, because the object is [macroable](https://unnikked.ga/understanding-the-laravel-macroable-trait-dab051f09172). So you can do:
+
+```php
+class MonsterCrudController extends CrudController 
+{
+   public function setup() 
+   {
+       $this->crud->macro('doStuff', function($something) {
+            echo '<pre>'; var_dump($something); echo '</pre>';
+            dd($this);
+        });
+       $this->crud->macro('getColumnsInTheFormatIWant', function() {
+            $columns = $this->columns();
+            // ... do something to $columns;
+            return $columns;
+        });
+
+       // bla-bla-bla the actual setup code
+   }
+   public function sendEmail() 
+   {
+      // ...
+      $this->crud->doStuff();
+      dd($this->crud->getColumnsInTheFormatIWant());
+      // ...
+   }
+   public function markPending() 
+   {
+      // ...
+      $this->crud->doStuff();
+      dd($this->crud->getColumnsInTheFormatIWant());
+      // ...
+   }
+}
+```
+
+So if you define a custom operation that needs some static methods added to the ```CrudPanel``` object, you can add them. The best place to register your macros in a custom operation would probably be inside your ```setupXxxDefaults()``` method, inside an operation closure. That way, the static methods you add are only added when that operation is being performed. For example:
+
+```php
+protected function setupPrintDefaults()
+{
+    $this->crud->allowAccess('print');
+    
+    $this->crud->operation('print', function() {
+       $this->crud->macro('getColumnsInTheFormatIWant', function() {
+            $columns = $this->columns();
+            // ... do something to $columns;
+            return $columns;
+        });
+    });
+}
+```
+
+With the example above, you'll be able to use ```$this->crud->getColumnsInTheFormatIWant()``` inside your operation actions.
+
+<a name="using-a-feature-from-another-operation"></a>
+### Using a feature from another operation
+
+Anything an operation does to configure itself, or process information, is stored on the ```$this->crud->settings``` property. Operation features (ex: fields, columns, buttons, filters, etc) are created in such a way that all they do is add an entry in settings, for an operation, and manipulate it. That means there is nothing stopping you from using a feature from one operation in a different operation.
+
+If you create a Print operation, and want to use the ```columns``` feature that List and Show use, you can just go ahead and do ```$this->crud->addColumn()``` calls inside your operation. You'll notice the columns are stored inside ```$this->crud->settings['print.columns']```, so they're completely different from the ones in the List or Show operation. You'll need to actually do something with the columns you added, inside your operation methods or views - of course.
+
 
 <a name="examples"></a>
 ### Examples
