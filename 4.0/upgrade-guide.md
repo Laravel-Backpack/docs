@@ -2,15 +2,22 @@
 
 ---
 
-This will guide you through upgrading from Backpack 3.6 to 4.0. For upgrading from 3.5 to 3.6 [check out the previous upgrade guide](https://backpackforlaravel.com/docs/3.6/upgrade-guide).
+This will guide you through upgrading from Backpack 3.6 to 4.0. 
 
 <a name="requirements"></a>
 ## Requirements
 
-- Backpack\CRUD 3.6.x installed
+Please make sure your project respects the requirements below, before you start the upgrade process. You can check with ```php artisan backpack:base:version```:
+
+- Backpack\CRUD 3.6.x installed; if not, please follow the minor upgrade guides below to get to 3.6;
 - Laravel 5.8 / Laravel 6.0 installed
 - PHP 7.2+
 - 30-60 minutes for most projects
+
+**If you're running Backpack/CRUD version 3.3, 3.4 or 3.5, please follow the minor upgrade guide first, to get to 3.6**. Only _afterwards_ can you upgrade from 3.6 to 4.0. Guides:
+- [upgrade from 3.5 to 3.6](https://backpackforlaravel.com/docs/3.6/upgrade-guide);
+- [upgrade from 3.4 to 3.5](https://backpackforlaravel.com/docs/3.5/upgrade-guide);
+- [upgrade from 3.3 to 3.4](https://backpackforlaravel.com/docs/3.4/upgrade-guide);
 
 <a name="upgraade-steps"></a>
 ## Upgrade Steps
