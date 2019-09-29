@@ -29,7 +29,7 @@ Please make sure your project respects the requirements below, before you start 
 
 Update your ```composer.json``` file to require:
 - ```"backpack/crud": "^4.0.0"```
-- ```"laravel/framework": "^6.0"```
+- ```"laravel/framework": "5.8.*|^6.0"```
 - ```"backpack/generators": "^2.0"``` (in require-dev)
 
 Then run ```composer update```.
