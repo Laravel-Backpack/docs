@@ -332,8 +332,8 @@ _Note: You can keep your calls inside ```setup()``` too, but they will be applie
 ```php
     protected function setupReorderOperation()
     {
-        CRUD::set('reorder.label', 'name'); // the attribute on the Model which will be shown on draggable elements
-        CRUD::set('reorder.max_level', 2); // how deep do you want to allow the nesting
+        $this->crud->set('reorder.label', 'name'); // the attribute on the Model which will be shown on draggable elements
+        $this->crud->set('reorder.max_level', 2); // how deep do you want to allow the nesting
     }
 ```
 
@@ -355,16 +355,51 @@ $this->crud->addBulkDeleteButton();
 You can delete that now, if you've added ```use use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;``` on your EntityCrudController - it's being performed by default by the operation.
 
 
+**Step 11.** If you've used _properties_ to interact with the ```$this->crud``` object, instead of getters & setters, most likely that property no longer exists. So if you've done ```$this->crud->columns```, ```$this->crud->create_fields```, ```$this->crud->update_fields```, ```$this->crud->buttons```, ```$this->crud->access``` or anything like that, to manually overwrite something Backpack did, it will no longer work, and you should use our new Settings API to do the same thing, using setters & getters. Doing things this way was undocumented, but possible. So most people will not be affected by this. But if you have used CrudPanel properties directly, [read this](https://github.com/Laravel-Backpack/CRUD/pull/1997#issuecomment-536255543) and use the new Settings API instead of direct properties.
+
+**Step 12.** [OPTIONAL] If you want your calls to be shorter, you can now do ```CRUD::smth()``` instead of ```$this->crud->smth()```. For this to work, make sure your CrudController uses our new Facade. So it would be:
+
+```php
+
+// ..
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+// ..
+
+public function CategoryCrudController {
+     // .. 
+    public function setup()
+    {
+        CRUD::setModel("App\Models\Category");
+        CRUD::setRoute(config('backpack.base.route_prefix', 'admin').'/category');
+        CRUD::setEntityNameStrings('category', 'categories');
+    }
+}
+```
+
+instead of
+
+```php
+    public function setup()
+    {
+        $this->crud->setModel("App\Models\Category");
+        $this->crud->setRoute(config('backpack.base.route_prefix', 'admin').'/category');
+        $this->crud->setEntityNameStrings('category', 'categories');
+    }
+```
+
+This is completely optional - whatever you prefer.
+
+
 <a href="views"></a>
 ### Views
 
 Most views have suffered big changes, since we've moved from Bootstrap 3 to Bootstrap 4, and from AdminLTE to CoreUI. If you've overwritten many Backpack views, the upgrade process will be more difficult for you: you have to start from our new views and make the changes again.
 
-**Step 11.** Check your ```resources/views/vendor/backpack``` folder for any views. If you find anything there beside ```base/inc/sidebar_content.blade.php```, you'll need to take a look at that file in our package - it most likely has changed, and you may need to make changes to your file too. We recommend you use a diff tool - should save some time. [Kaleidoscope](https://www.kaleidoscopeapp.com) is our preffered diff tool, on Mac OS. [WinMerge](https://winmerge.org) is a good option for Windows.
+**Step 13.** Check your ```resources/views/vendor/backpack``` folder for any views. If you find anything there beside ```base/inc/sidebar_content.blade.php```, you'll need to take a look at that file in our package - it most likely has changed, and you may need to make changes to your file too. We recommend you use a diff tool - should save some time. [Kaleidoscope](https://www.kaleidoscopeapp.com) is our preffered diff tool, on Mac OS. [WinMerge](https://winmerge.org) is a good option for Windows.
 
 If you've overwritten a lot of blade files, you may hate us for this, we know :-) But keep in mind that we've moved from Bootstrap 3 to Boostrap 4. And from AdminLTE to CoreUI. We tried to keep the changes to a minimum. But this major change was _impossible_ to do without changing a lot of blade files.
 
-**Step 12.** Fix you sidebar menu. In your ```resources/views/vendor/backpack/base/inc/sidebar_content.blade.php```, apply the new classes to your sidebar elements (notice ```nav-item```, ```nav-link``` and ```nav-icon```):
+**Step 14.** Fix you sidebar menu. In your ```resources/views/vendor/backpack/base/inc/sidebar_content.blade.php```, apply the new classes to your sidebar elements (notice ```nav-item```, ```nav-link``` and ```nav-icon```):
 
 ```html
 <!-- This file is used to store sidebar items, starting with Backpack\Base 0.9.0 -->
@@ -382,9 +417,9 @@ If you've overwritten a lot of blade files, you may hate us for this, we know :-
 </li>
 ```
 
-**Step 13.** Publish the new CSS&JS, for Backpack v4: ```php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag=minimum```
+**Step 15.** Publish the new CSS&JS, for Backpack v4: ```php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag=minimum```
 
-**Step 14.** Delete the old CSS & JS, for Backpack v3:
+**Step 16.** Delete the old CSS & JS, for Backpack v3:
 ```bash
 # delete the AdminLTE css and js
 rm -rf public/vendor/adminlte
@@ -400,10 +435,10 @@ rm -rf public/vendor/backpack
 rmdir public/vendor
 ```
 
-**Step 15.** If you have custom buttons in your ```resources/views/vendor/backpack/crud/buttons```, or added through a model function, consider using the ```btn btn-sm btn-link``` classes on the anchor, so that they match the rest of the buttons.
+**Step 17.** If you have custom buttons in your ```resources/views/vendor/backpack/crud/buttons```, or added through a model function, consider using the ```btn btn-sm btn-link``` classes on the anchor, so that they match the rest of the buttons.
 
 
-**Step 16.** If you've installed and used the File Manager (elFinder), please:
+**Step 18.** If you've installed and used the File Manager (elFinder), please:
 ```php
 # delete its published views
 rm -rf resources/views/vendor/elfinder
@@ -415,12 +450,12 @@ php artisan backpack:install
 <a name="config"></a>
 ### Config
 
-** Step 17. ```config/backpack/crud.php```**
+** Step 19. ```config/backpack/crud.php```**
 
 Most variables have been renamed and reordered - they're now sorted by operation name. Please manually insert take [the contents of the new file](https://github.com/Laravel-Backpack/CRUD/blob/v4/src/config/backpack/crud.php). Change the values to match your old config file. [Diff here](https://github.com/Laravel-Backpack/CRUD/pull/2064/files#diff-d548ca942f541d9c99eaf64f83e92bf9).
 
 
-** Step 18. ```config/backpack/base.php```**
+** Step 20. ```config/backpack/base.php```**
 
 Follow the same process as with the config file above, making sure your file will have [the new content](https://github.com/Laravel-Backpack/CRUD/blob/v4/src/config/backpack/base.php). There have been NO changes in the following sections:
 - Registration
@@ -433,7 +468,7 @@ Follow the same process as with the config file above, making sure your file wil
 <a name="cache"></a>
 ### Cache
 
-**Step 19.** Clear your app's cache:
+**Step 21.** Clear your app's cache:
 ```bash
 php artisan config:clear
 php artisan cache:clear
