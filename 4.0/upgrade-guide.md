@@ -2,15 +2,22 @@
 
 ---
 
-This will guide you through upgrading from Backpack 3.6 to 4.0. For upgrading from 3.5 to 3.6 [check out the previous upgrade guide](https://backpackforlaravel.com/docs/3.6/upgrade-guide).
+This will guide you through upgrading from Backpack 3.6 to 4.0. 
 
 <a name="requirements"></a>
 ## Requirements
 
-- Backpack\CRUD 3.6.x installed
+Please make sure your project respects the requirements below, before you start the upgrade process. You can check with ```php artisan backpack:base:version```:
+
+- Backpack\CRUD 3.6.x installed; if not, please follow the minor upgrade guides below to get to 3.6;
 - Laravel 5.8 / Laravel 6.0 installed
 - PHP 7.2+
 - 30-60 minutes for most projects
+
+**If you're running Backpack/CRUD version 3.3, 3.4 or 3.5, please follow the minor upgrade guide first, to get to 3.6**. Only _afterwards_ can you upgrade from 3.6 to 4.0. Guides:
+- [upgrade from 3.5 to 3.6](https://backpackforlaravel.com/docs/3.6/upgrade-guide);
+- [upgrade from 3.4 to 3.5](https://backpackforlaravel.com/docs/3.5/upgrade-guide);
+- [upgrade from 3.3 to 3.4](https://backpackforlaravel.com/docs/3.4/upgrade-guide);
 
 <a name="upgraade-steps"></a>
 ## Upgrade Steps
@@ -69,6 +76,13 @@ Route::group([
 
 Best to search-and-replace in your entire ```routes``` folder:
 - replace ```CRUD::resource``` with ```Route::crud```
+
+**Step 2.1** Change your Extra CRUD Routes to use `setupOperationNameRoutes` or in `custom.php` instead of using `with()`:
+Backpack no longer provides a `->with()` function for adding extra routes on your controllers.
+
+Instead use methods which look like setupOperationNameRoutes() or add them as regular routes in `routes/backpack/custom.php`
+
+See the latest docs for more details [Add Extra CRUD Routes](https://backpackforlaravel.com/docs/4.0/crud-how-to#add-extra-crud-routes)
 
 <a name="controllers"></a>
 ### CrudControllers
@@ -134,29 +148,7 @@ This is a great time to think about which default operations you're NOT using wi
 
 **Step 6.** If in any of your EntityCrudControllers, you're using ```parent::``` to call a method from Backpack's CrudController, it will not work anymore. Since the methods are now applied using a trait, not by extending a CrudController. 
 
-**(6.1)** To be able to call the same method, but from the trait (not the parent), please rename the method from the trait, and call that name instead:
-
-```diff
-use Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
-
-class MonsterCrudController extends CrudController
-{
--    use ShowOperation;
-+    use ShowOperation {
-+          show as traitShow;
-+       }
-
-    public function show()
-    {
-        // do sth custom here
--        return parent::show();
-+        return $this->traitShow();
-    }
-```
-
-Notice it's now ```$this->```, not ```parent::```. You do NOT need to do this for every method in your EntityCrudController that you've overwritten completely. Only for the methods that have a ```parent::smth()``` call inside them.
-
-**(6.2)** If your ```store()``` and ```update()``` methods don't have any custom logic apart than calling the parent method, you can delete them. We no longer need the Request type-hinted. So if they look like this, you can delete them:
+**(6.1)** If your ```store()``` and ```update()``` methods don't have any custom logic apart than calling the parent method, you can delete them. We no longer need the Request type-hinted. So if they look like this, you can delete them:
 ```php
     public function store(StoreRequest $request)
     {
@@ -191,7 +183,7 @@ Notice it's now ```$this->```, not ```parent::```. You do NOT need to do this fo
     }
 ```
 
-**(6.3)** If you have custom logic inside your ```store()``` and ```update()``` methods, note that we've changed the parent method names:
+**(6.2)** If you have custom logic inside your ```store()``` and ```update()``` methods, note that we've changed the parent method names:
 - from ```updateCrud()``` to ```update()```
 - from ```storeCrud()``` to ```store()```
 
@@ -218,6 +210,29 @@ Follow step 6.1 with this in mind. The end result should be something like this:
     }
 
 ```
+
+**(6.3)** To be able to call the same method, but from the trait (not the parent), please rename the method from the trait, and call that name instead:
+
+```diff
+use Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+
+class MonsterCrudController extends CrudController
+{
+-    use ShowOperation;
++    use ShowOperation {
++          show as traitShow;
++       }
+
+    public function show()
+    {
+        // do sth custom here
+-        return parent::show();
++        return $this->traitShow();
+    }
+```
+
+Notice it's now ```$this->```, not ```parent::```. You do NOT need to do this for every method in your EntityCrudController that you've overwritten completely. Only for the methods that have a ```parent::smth()``` call inside them.
+
 
 **Step 7.** The ```store()``` and ```update()``` methods previously stored all inputs the form, _except for_ special inputs (like ```_token```, ```_method```, ```current_tab``` etc.). This process has now been changed: they now store _only_ the inputs defined by the fields.
 
@@ -324,8 +339,8 @@ _Note: You can keep your calls inside ```setup()``` too, but they will be applie
 ```php
     protected function setupReorderOperation()
     {
-        CRUD::set('reorder.label', 'name'); // the attribute on the Model which will be shown on draggable elements
-        CRUD::set('reorder.max_level', 2); // how deep do you want to allow the nesting
+        $this->crud->set('reorder.label', 'name'); // the attribute on the Model which will be shown on draggable elements
+        $this->crud->set('reorder.max_level', 2); // how deep do you want to allow the nesting
     }
 ```
 
@@ -347,16 +362,55 @@ $this->crud->addBulkDeleteButton();
 You can delete that now, if you've added ```use use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;``` on your EntityCrudController - it's being performed by default by the operation.
 
 
+**Step 11.** Only affects advanced usage. If you've used _properties_ to interact with operation features on ```$this->crud```, instead of getters & setters, most likely that property no longer exists. So if you've used the undocumented ```$this->crud->columns```, ```$this->crud->create_fields```, ```$this->crud->update_fields```, ```$this->crud->buttons```, ```$this->crud->access``` properties or anything like that, instead of using the methods that were documented, this step is for you. 
+
+All CrudPanel properties that were there only to support a feature for a CRUD Operation have been removed. Instead, all those things are stored in one array, ```$this->crud->settings```, and we've provided an API to easily work with that array. [Read this detailed explanation](https://github.com/Laravel-Backpack/CRUD/pull/1997#issuecomment-536255543) if you're interested in this huge change. An easier way to migrate your usage of properties would be to see how it now works inside that operation trait, and use the new Settings API to interact with operation features, just like the operation does.
+
+Using CrudPanel properties instead of getters & setters was undocumented, but possible. So most people will not be affected by this. But if you have used CrudPanel properties directly, use the new Settings API instead of direct properties. Your old code will not work under v4.
+
+**Step 12.** [OPTIONAL] If you want your calls to be shorter, you can now do ```CRUD::smth()``` instead of ```$this->crud->smth()```. For this to work, make sure your CrudController uses our new Facade. So it would be:
+
+```php
+
+// ..
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+// ..
+
+public function CategoryCrudController {
+     // .. 
+    public function setup()
+    {
+        CRUD::setModel("App\Models\Category");
+        CRUD::setRoute(config('backpack.base.route_prefix', 'admin').'/category');
+        CRUD::setEntityNameStrings('category', 'categories');
+    }
+}
+```
+
+instead of
+
+```php
+    public function setup()
+    {
+        $this->crud->setModel("App\Models\Category");
+        $this->crud->setRoute(config('backpack.base.route_prefix', 'admin').'/category');
+        $this->crud->setEntityNameStrings('category', 'categories');
+    }
+```
+
+This is completely optional - whatever you prefer.
+
+
 <a href="views"></a>
 ### Views
 
 Most views have suffered big changes, since we've moved from Bootstrap 3 to Bootstrap 4, and from AdminLTE to CoreUI. If you've overwritten many Backpack views, the upgrade process will be more difficult for you: you have to start from our new views and make the changes again.
 
-**Step 11.** Check your ```resources/views/vendor/backpack``` folder for any views. If you find anything there beside ```base/inc/sidebar_content.blade.php```, you'll need to take a look at that file in our package - it most likely has changed, and you may need to make changes to your file too. We recommend you use a diff tool - should save some time. Kaleidoscope is our preffered diff tool, on Mac OS. 
+**Step 13.** Check your ```resources/views/vendor/backpack``` folder for any views. If you find anything there beside ```base/inc/sidebar_content.blade.php```, you'll need to take a look at that file in our package - it most likely has changed, and you may need to make changes to your file too. We recommend you use a diff tool - should save some time. [Kaleidoscope](https://www.kaleidoscopeapp.com) is our preffered diff tool, on Mac OS. [WinMerge](https://winmerge.org) is a good option for Windows.
 
 If you've overwritten a lot of blade files, you may hate us for this, we know :-) But keep in mind that we've moved from Bootstrap 3 to Boostrap 4. And from AdminLTE to CoreUI. We tried to keep the changes to a minimum. But this major change was _impossible_ to do without changing a lot of blade files.
 
-**Step 12.** Fix you sidebar menu. In your ```resources/views/vendor/backpack/base/inc/sidebar_content.blade.php```, apply the new classes to your sidebar elements (notice ```nav-item```, ```nav-link``` and ```nav-icon```):
+**Step 14.** Fix you sidebar menu. In your ```resources/views/vendor/backpack/base/inc/sidebar_content.blade.php```, apply the new classes to your sidebar elements (notice ```nav-item```, ```nav-link``` and ```nav-icon```):
 
 ```html
 <!-- This file is used to store sidebar items, starting with Backpack\Base 0.9.0 -->
@@ -374,9 +428,9 @@ If you've overwritten a lot of blade files, you may hate us for this, we know :-
 </li>
 ```
 
-**Step 13.** Publish the new CSS&JS, for Backpack v4: ```php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag=minimum```
+**Step 15.** Publish the new CSS&JS, for Backpack v4: ```php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag=minimum```
 
-**Step 14.** Delete the old CSS & JS, for Backpack v3:
+**Step 16.** Delete the old CSS & JS, for Backpack v3:
 ```bash
 # delete the AdminLTE css and js
 rm -rf public/vendor/adminlte
@@ -392,10 +446,10 @@ rm -rf public/vendor/backpack
 rmdir public/vendor
 ```
 
-**Step 15.** If you have custom buttons in your ```resources/views/vendor/backpack/crud/buttons```, or added through a model function, consider using the ```btn btn-sm btn-link``` classes on the anchor, so that they match the rest of the buttons.
+**Step 17.** If you have custom buttons in your ```resources/views/vendor/backpack/crud/buttons```, or added through a model function, consider using the ```btn btn-sm btn-link``` classes on the anchor, so that they match the rest of the buttons.
 
 
-**Step 16.** If you've installed and used the File Manager (elFinder), please:
+**Step 18.** If you've installed and used the File Manager (elFinder), please:
 ```php
 # delete its published views
 rm -rf resources/views/vendor/elfinder
@@ -407,12 +461,12 @@ php artisan backpack:install
 <a name="config"></a>
 ### Config
 
-** Step 17. ```config/backpack/crud.php```**
+** Step 19. ```config/backpack/crud.php```**
 
 Most variables have been renamed and reordered - they're now sorted by operation name. Please manually insert take [the contents of the new file](https://github.com/Laravel-Backpack/CRUD/blob/v4/src/config/backpack/crud.php). Change the values to match your old config file. [Diff here](https://github.com/Laravel-Backpack/CRUD/pull/2064/files#diff-d548ca942f541d9c99eaf64f83e92bf9).
 
 
-** Step 18. ```config/backpack/base.php```**
+** Step 20. ```config/backpack/base.php```**
 
 Follow the same process as with the config file above, making sure your file will have [the new content](https://github.com/Laravel-Backpack/CRUD/blob/v4/src/config/backpack/base.php). There have been NO changes in the following sections:
 - Registration
@@ -425,7 +479,7 @@ Follow the same process as with the config file above, making sure your file wil
 <a name="cache"></a>
 ### Cache
 
-**Step 19.** Clear your app's cache:
+**Step 21.** Clear your app's cache:
 ```bash
 php artisan config:clear
 php artisan cache:clear
