@@ -55,7 +55,7 @@ Then run ```composer update```.
 <a name="routes"></a>
 ### Routes
 
-**Step 2.** Change all you CRUD routes as shown below (most developers hold their CRUD routes inside ```routes/backpack/custom.php```):
+**Step 2.1** Change all you CRUD routes as shown below (most developers hold their CRUD routes inside ```routes/backpack/custom.php```):
 ```diff
 Route::group([
     'prefix'     => config('backpack.base.route_prefix', 'admin'),
@@ -74,6 +74,13 @@ Best to search-and-replace in your entire ```routes``` folder:
 ### CrudControllers
 
 The steps below should apply for each of your CrudControllers. For each Step, go through every one of your CrudControllers (usually stored in ```app\Http\Controllers\Admin```:
+
+**Step 2.2**
+If you refer to CRUD routes by name - we've dropped the "crud" prefix. You'll need to update any references in your code.
+
+So `crud.model-name.index` is now `model-name.index`.
+
+This Regex search should help you find any calls to `route()` which use the `crud.` prefix: `/route\s*\(\s*['"]crud./`
 
 **Step 3.** Make sure the method where you set up your CrudPanel is called ```setup()```, not ```__construct()```. Especially if you've generated your CRUDs using versions of Backpack v3 from 2016-2017. In most cases you can just rename ```__construct()``` to ```setup()```, since ```setup()``` is called inside ```CrudController::__construct()``` anyway.
 
