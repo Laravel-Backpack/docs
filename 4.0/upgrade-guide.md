@@ -84,17 +84,17 @@ Instead use methods which look like setupOperationNameRoutes() or add them as re
 
 See the latest docs for more details [Add Extra CRUD Routes](https://backpackforlaravel.com/docs/4.0/crud-how-to#add-extra-crud-routes)
 
-<a name="controllers"></a>
-### CrudControllers
-
-The steps below should apply for each of your CrudControllers. For each Step, go through every one of your CrudControllers (usually stored in ```app\Http\Controllers\Admin```:
-
 **Step 2.2**
 If you refer to CRUD routes by name - we've dropped the "crud" prefix. You'll need to update any references in your code.
 
 So `crud.model-name.index` is now `model-name.index`.
 
 This Regex search should help you find any calls to `route()` which use the `crud.` prefix: `/route\s*\(\s*['"]crud./`
+
+<a name="controllers"></a>
+### CrudControllers
+
+The steps below should apply for each of your CrudControllers. For each Step, go through every one of your CrudControllers (usually stored in ```app\Http\Controllers\Admin```:
 
 **Step 3.** Make sure the method where you set up your CrudPanel is called ```setup()```, not ```__construct()```. Especially if you've generated your CRUDs using versions of Backpack v3 from 2016-2017. In most cases you can just rename ```__construct()``` to ```setup()```, since ```setup()``` is called inside ```CrudController::__construct()``` anyway.
 
