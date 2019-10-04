@@ -340,7 +340,7 @@ Route::group([
     'namespace'  => 'App\Http\Controllers\Admin',
 ], function () { // custom admin routes
     // CRUD resources and other admin routes
-    Route::crud('tag', 'Admin\TagCrudController');
+    Route::crud('tag', 'TagCrudController');
 }); // this should be the absolute last line of this file
 ```
 
