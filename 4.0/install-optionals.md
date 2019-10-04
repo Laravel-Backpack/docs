@@ -121,26 +121,9 @@ php artisan db:seed --class="Backpack\Settings\database\seeds\SettingsTableSeede
 <a name="page-manager"></a>
 ## PageManager
 
+An admin panel where you, as a developer, can define templates with different fields, and the admin can choose between those templates to create/edit pages with content.
+
 [>> See screenshots and installation](https://github.com/Laravel-Backpack/pagemanager)
-
-1) In your terminal
-
-``` bash
-composer require backpack/pagemanager
-```
-
-2) Publish the views, migrations and the PageTemplates trait; run the migrations:
-
-```
-php artisan vendor:publish --provider="Backpack\PageManager\PageManagerServiceProvider"
-php artisan migrate
-```
-
-3) [optional] Add a menu item for it in resources/views/vendor/backpack/base/inc/sidebar_content.blade.php or menu.blade.php:
-
-```bash
-php artisan backpack:add-sidebar-content "<li class='nav-item'><a class='nav-link' href='{{ backpack_url('page') }}'><i class='nav-icon fa fa-file-o'></i> Pages</a></li>"
-```
 
 <a name="permission-manager"></a>
 ## PermissionManager
