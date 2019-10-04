@@ -62,7 +62,7 @@ Then run ```composer update```.
 <a name="routes"></a>
 ### Routes
 
-**Step 2.1** Change all you CRUD routes as shown below (most developers hold their CRUD routes inside ```routes/backpack/custom.php```):
+**Step 2.0** Change all you CRUD routes as shown below (most developers hold their CRUD routes inside ```routes/backpack/custom.php```):
 ```diff
 Route::group([
     'prefix'     => config('backpack.base.route_prefix', 'admin'),
@@ -77,19 +77,14 @@ Route::group([
 Best to search-and-replace in your entire ```routes``` folder:
 - replace ```CRUD::resource``` with ```Route::crud```
 
-**Step 2.1** Change your Extra CRUD Routes to use `setupOperationNameRoutes` or in `custom.php` instead of using `with()`:
-Backpack no longer provides a `->with()` function for adding extra routes on your controllers.
-
-Instead use methods which look like setupOperationNameRoutes() or add them as regular routes in `routes/backpack/custom.php`
+**Step 2.1** Backpack no longer provides a `->with()` function for adding extra routes on your controllers. If you've used ```->with()``` on your CRUD routes, please either:
+- (A) move your routes outside the with() closure, as normal routes, in your ```custom.php```;
+- (B) move your routes to the controller, inside a ```setupXxxRoutes()``` method; any method on the controller that looks like that will automatically be called when loading the routes; take a look at [any operation](https://github.com/Laravel-Backpack/CRUD/tree/master/src/app/Http/Controllers/Operations) to see an example;
 
 See the latest docs for more details [Add Extra CRUD Routes](https://backpackforlaravel.com/docs/4.0/crud-how-to#add-extra-crud-routes)
 
 **Step 2.2**
-If you refer to CRUD routes by name - we've dropped the "crud" prefix. You'll need to update any references in your code.
-
-So `crud.model-name.index` is now `model-name.index`.
-
-This Regex search should help you find any calls to `route()` which use the `crud.` prefix: `/route\s*\(\s*['"]crud./`
+If you refer to CRUD routes by name - we've dropped the "crud" prefix. You'll need to update any references in your code. So `crud.model-name.index` is now `model-name.index`. This Regex search should help you find any calls to `route()` which use the `crud.` prefix: `/route\s*\(\s*['"]crud./`
 
 <a name="controllers"></a>
 ### CrudControllers
