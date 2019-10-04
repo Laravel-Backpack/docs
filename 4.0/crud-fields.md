@@ -1402,7 +1402,9 @@ Input preview:
     'label' => 'Image',
     'type' => 'upload',
     'upload' => true,
-    'disk' => 'uploads' // if you store files in the /public folder, please ommit this; if you store them in /storage or S3, please specify it;
+    'disk' => 'uploads', // if you store files in the /public folder, please ommit this; if you store them in /storage or S3, please specify it;
+    // optional:
+    'temporary' => 10 // if using a service, such as S3, that requires you to make temporary URL's this will make a URL that is valid for the number of minutes specified
 ],
 ```
 
@@ -1471,7 +1473,9 @@ Shows a multiple file input to the user and stores the values as a JSON array in
     'label' => 'Photos',
     'type' => 'upload_multiple',
     'upload' => true,
-    'disk' => 'uploads' // if you store files in the /public folder, please ommit this; if you store them in /storage or S3, please specify it;
+    'disk' => 'uploads', // if you store files in the /public folder, please ommit this; if you store them in /storage or S3, please specify it;
+    // optional:
+    'temporary' => 10 // if using a service, such as S3, that requires you to make temporary URL's this will make a URL that is valid for the number of minutes specified
 ],
 ```
 
