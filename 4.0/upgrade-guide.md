@@ -62,7 +62,7 @@ Then run ```composer update```.
 <a name="routes"></a>
 ### Routes
 
-**Step 2.** Change all you CRUD routes as shown below (most developers hold their CRUD routes inside ```routes/backpack/custom.php```):
+**Step 2.1** Change all you CRUD routes as shown below (most developers hold their CRUD routes inside ```routes/backpack/custom.php```):
 ```diff
 Route::group([
     'prefix'     => config('backpack.base.route_prefix', 'admin'),
@@ -83,6 +83,13 @@ Backpack no longer provides a `->with()` function for adding extra routes on you
 Instead use methods which look like setupOperationNameRoutes() or add them as regular routes in `routes/backpack/custom.php`
 
 See the latest docs for more details [Add Extra CRUD Routes](https://backpackforlaravel.com/docs/4.0/crud-how-to#add-extra-crud-routes)
+
+**Step 2.2**
+If you refer to CRUD routes by name - we've dropped the "crud" prefix. You'll need to update any references in your code.
+
+So `crud.model-name.index` is now `model-name.index`.
+
+This Regex search should help you find any calls to `route()` which use the `crud.` prefix: `/route\s*\(\s*['"]crud./`
 
 <a name="controllers"></a>
 ### CrudControllers
