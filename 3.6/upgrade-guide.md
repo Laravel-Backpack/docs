@@ -24,6 +24,8 @@ This will guide you through upgrading from Backpack 3.5 to 3.6. For upgrading fr
 
 4. If you've overwritten ```inc/head.blade.php``` or ```inc/scripts.blade.php```, please make sure you [use the newest version of Bootstrap](https://github.com/Laravel-Backpack/Base/pull/362/files#diff-96ac3ea4d0cb85053acf44e3772eb5f1); they've fixed a security vulnerability (XSS);
 
+5. Run ```php artisan view:clear```
+
 ---
 
 **That's it**. Thank you for taking the time to upgrade.
