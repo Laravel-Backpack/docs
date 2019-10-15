@@ -35,19 +35,20 @@ When adding a filter you need to specify the 3 parameters of the ```addFilter()`
 
 Here's a simple example, with comments that explain what we're doing:
 ```php
-$this->crud->addFilter([ // add a "simple" filter called Draft 
+// add a "simple" filter called Draft
+$this->crud->addFilter([ 
   'type' => 'simple',
   'name' => 'draft',
   'label'=> 'Draft'
 ],
 false, // the simple filter has no values, just the "Draft" label specified above
 function() { // if the filter is active (the GET parameter "draft" exits)
-    $this->crud->addClause('where', 'draft', '1'); 
-    // we've added a clause to the CRUD so that only elements with draft=1 are shown in the table
-    // an alternative syntax to this would have been
-    // $this->crud->query = $this->crud->query->where('draft', '1'); 
-    // another alternative syntax, in case you had a scopeDraft() on your model:
-    // $this->crud->addClause('draft'); 
+  $this->crud->addClause('where', 'draft', '1'); 
+  // we've added a clause to the CRUD so that only elements with draft=1 are shown in the table
+  // an alternative syntax to this would have been
+  // $this->crud->query = $this->crud->query->where('draft', '1'); 
+  // another alternative syntax, in case you had a scopeDraft() on your model:
+  // $this->crud->addClause('draft'); 
 });
 ```
 > Notes about the filter logic closure
@@ -66,14 +67,15 @@ function() { // if the filter is active (the GET parameter "draft" exits)
 Only shows a label and can be toggled on/off. Useful for things like active/inactive and easily paired with [Eloquent Scopes](https://laravel.com/docs/5.3/eloquent#local-scopes). The "Draft" and "Has Video" filters in the screenshot above are simple filters.
 
 ```php
-$this->crud->addFilter([ // simple filter
+// simple filter
+$this->crud->addFilter([
   'type' => 'simple',
   'name' => 'active',
   'label'=> 'Active'
 ], 
 false, 
 function() { // if the filter is active
-    // $this->crud->addClause('active'); // apply the "active" eloquent scope 
+  // $this->crud->addClause('active'); // apply the "active" eloquent scope 
 } );
 ```
 
@@ -85,15 +87,16 @@ Shows a text input. Most useful for letting the user filter through information 
 ![Backpack CRUD Text Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/text.png)
 
 ```php
-$this->crud->addFilter([ // simple filter
+// simple filter
+$this->crud->addFilter([
   'type' => 'text',
   'name' => 'description',
   'label'=> 'Description'
 ], 
 false, 
 function($value) { // if the filter is active
-    // $this->crud->addClause('where', 'description', 'LIKE', "%$value%");
-} );
+  // $this->crud->addClause('where', 'description', 'LIKE', "%$value%");
+});
 ```
 
 <a name="date"></a>
@@ -104,15 +107,16 @@ Show a datepicker. The user can select one day.
 ![Backpack CRUD Date Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/date.png)
 
 ```php
-        $this->crud->addFilter([ // date filter
-          'type' => 'date',
-          'name' => 'date',
-          'label'=> 'Date'
-        ],
-        false,
-        function($value) { // if the filter is active, apply these constraints
-          // $this->crud->addClause('where', 'date', $value);
-        });
+// date filter
+$this->crud->addFilter([
+  'type'  => 'date',
+  'name'  => 'date',
+  'label' => 'Date'
+],
+  false,
+  function ($value) { // if the filter is active, apply these constraints
+      // $this->crud->addClause('where', 'date', $value);
+  });
 ```
 
 <a name="date-range"></a>
@@ -123,17 +127,18 @@ Show a daterange picker. The user can select a start date and an end date.
 ![Backpack CRUD Date Range Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/date_range.png)
 
 ```php
-        $this->crud->addFilter([ // daterange filter
-           'type' => 'date_range',
-           'name' => 'from_to',
-           'label'=> 'Date range'
-         ],
-         false,
-         function($value) { // if the filter is active, apply these constraints
-           // $dates = json_decode($value);
-           // $this->crud->addClause('where', 'date', '>=', $dates->from);
-           // $this->crud->addClause('where', 'date', '<=', $dates->to . ' 23:59:59');
-         });
+// daterange filter
+$this->crud->addFilter([
+  'type'  => 'date_range',
+  'name'  => 'from_to',
+  'label' => 'Date range'
+],
+  false,
+  function ($value) { // if the filter is active, apply these constraints
+      // $dates = json_decode($value);
+      // $this->crud->addClause('where', 'date', '>=', $dates->from);
+      // $this->crud->addClause('where', 'date', '<=', $dates->to . ' 23:59:59');
+  });
 ```
 
 <a name="dropdown"></a>
@@ -144,7 +149,8 @@ Shows a list of elements (that you provide) in a dropdown. The user can only sel
 ![Backpack CRUD Dropdown Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/dropdown.png)
 
 ```php
-$this->crud->addFilter([ // dropdown filter
+// dropdown filter
+$this->crud->addFilter([
   'name' => 'status',
   'type' => 'dropdown',
   'label'=> 'Status'
@@ -154,7 +160,7 @@ $this->crud->addFilter([ // dropdown filter
   3 => 'Available upon ordering',
   4 => 'Not available',
 ], function($value) { // if the filter is active
-    // $this->crud->addClause('where', 'status', $value);
+  // $this->crud->addClause('where', 'status', $value);
 });
 ```
 
@@ -166,19 +172,20 @@ Shows a select2 and allows the user to select one item from the list or search f
 ![Backpack CRUD Select2 Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/select2.png)
 
 ```php
-$this->crud->addFilter([ // select2 filter
-  'name' => 'status',
-  'type' => 'select2',
-  'label'=> 'Status'
-], function() {
-    return [
-            1 => 'In stock',
-            2 => 'In provider stock',
-            3 => 'Available upon ordering',
-            4 => 'Not available',
-            ];
-}, function($value) { // if the filter is active
-    // $this->crud->addClause('where', 'status', $value);
+// select2 filter
+$this->crud->addFilter([
+  'name'  => 'status',
+  'type'  => 'select2',
+  'label' => 'Status'
+], function () {
+  return [
+    1 => 'In stock',
+    2 => 'In provider stock',
+    3 => 'Available upon ordering',
+    4 => 'Not available',
+  ];
+}, function ($value) { // if the filter is active
+  // $this->crud->addClause('where', 'status', $value);
 });
 ```
 
@@ -192,17 +199,18 @@ Shows a select2 and allows the user to select one or more items from the list or
 ![Backpack CRUD Select2_multiple Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/select2_multiple.png)
 
 ```php
-$this->crud->addFilter([ // select2_multiple filter
+// select2_multiple filter
+$this->crud->addFilter([
   'name' => 'status',
   'type' => 'select2_multiple',
   'label'=> 'Status'
 ], function() {
     return [
-            1 => 'In stock',
-            2 => 'In provider stock',
-            3 => 'Available upon ordering',
-            4 => 'Not available',
-            ];
+      1 => 'In stock',
+      2 => 'In provider stock',
+      3 => 'Available upon ordering',
+      4 => 'Not available',
+    ];
 }, function($values) { // if the filter is active
     // foreach (json_decode($values) as $key => $value) {
     //     $this->crud->addClause('where', 'published', $value);
@@ -237,7 +245,8 @@ public function categoryOptions(Request $request) {
 3. Add the select2_ajax filter and for the second parameter ("values") specify the exact route.
 
 ```php
-$this->crud->addFilter([ // select2_ajax filter
+// select2_ajax filter
+$this->crud->addFilter([
   'name' => 'category_id',
   'type' => 'select2_ajax',
   'label'=> 'Category',
@@ -266,13 +275,13 @@ $this->crud->addFilter([
 ],
 false,
 function($value) { // if the filter is active
-            $range = json_decode($value);
-            if ($range->from) {
-                $this->crud->addClause('where', 'number', '>=', (float) $range->from);
-            }
-            if ($range->to) {
-                $this->crud->addClause('where', 'number', '<=', (float) $range->to);
-            }
+    $range = json_decode($value);
+    if ($range->from) {
+        $this->crud->addClause('where', 'number', '>=', (float) $range->from);
+    }
+    if ($range->to) {
+        $this->crud->addClause('where', 'number', '<=', (float) $range->to);
+    }
 });
 ```
 <a name="view"></a>
@@ -281,7 +290,8 @@ function($value) { // if the filter is active
 Display any custom column filter you want. Usually used by Backpack package developers, to use views from within their packages, instead of having to publish them. 
 
 ```php
-$this->crud->addFilter([ // custom filter view
+// custom filter view
+$this->crud->addFilter([
   'name' => 'category_id',
   'type' => 'view',
   'view' => 'package::columns.column_type_name', // or path to blade file
@@ -389,33 +399,36 @@ Inside this file, you'll have:
 Use a dropdown to filter by the values of a MySQL ENUM column:
 
 ```php
-$this->crud->addFilter([ // select2 filter
+// select2 filter
+$this->crud->addFilter([
   'name' => 'published',
   'type' => 'select2',
   'label'=> 'Published'
 ], function() {
     return \App\Models\Test::getEnumValuesAsAssociativeArray('published');
 }, function($value) { // if the filter is active
-        $this->crud->addClause('where', 'published', $value);
+    $this->crud->addClause('where', 'published', $value);
 });
 ```
 
 Use a select2 to filter by a 1-n relationship:
 ```php
-$this->crud->addFilter([ // select2 filter
+// select2 filter
+$this->crud->addFilter([
   'name' => 'category_id',
   'type' => 'select2',
   'label'=> 'Category'
 ], function() {
     return \App\Models\Category::all()->pluck('name', 'id')->toArray();
 }, function($value) { // if the filter is active
-        $this->crud->addClause('where', 'category_id', $value);
+    $this->crud->addClause('where', 'category_id', $value);
 });
 ```
 
 Use a select2_multiple to filter Products by an n-n relationship:
 ```php
-$this->crud->addFilter([ // select2_multiple filter
+// select2_multiple filter
+$this->crud->addFilter([
   'name' => 'tags',
   'type' => 'select2_multiple',
   'label'=> 'Tags'
@@ -432,7 +445,8 @@ $this->crud->addFilter([ // select2_multiple filter
     
 Use a simple filter to add a scope if the filter is active:
 ```php
-$this->crud->addFilter([ // add a "simple" filter called Published 
+// add a "simple" filter called Published 
+$this->crud->addFilter([
   'type' => 'simple',
   'name' => 'published',
   'label'=> 'Published'
@@ -445,13 +459,13 @@ function() { // if the filter is active (the GET parameter "published" exits)
 
 Use a simple filter to show the softDeleted items (trashed):
 ```php
-        $this->crud->addFilter([
-          'type' => 'simple',
-          'name' => 'trashed',
-          'label'=> 'Trashed'
-        ],
-        false,
-        function($values) { // if the filter is active
-            $this->crud->query = $this->crud->query->onlyTrashed();
-        });
+$this->crud->addFilter([
+  'type' => 'simple',
+  'name' => 'trashed',
+  'label'=> 'Trashed'
+],
+false,
+function($values) { // if the filter is active
+    $this->crud->query = $this->crud->query->onlyTrashed();
+});
 ```
