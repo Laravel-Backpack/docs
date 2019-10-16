@@ -118,7 +118,7 @@ In your ```Article``` model:
 ```php
     public function openGoogle($crud = false)
     {
-        return '<a class="btn btn-xs btn-default" target="_blank" href="http://google.com?q='.urlencode($this->text).'" data-toggle="tooltip" title="Just a demo custom button."><i class="fa fa-search"></i> Google it</a>';
+        return '<a class="btn btn-sm btn-link" target="_blank" href="http://google.com?q='.urlencode($this->text).'" data-toggle="tooltip" title="Just a demo custom button."><i class="fa fa-search"></i> Google it</a>';
     }
 ```
 
@@ -135,7 +135,7 @@ The steps would be:
 - Create the ```resources\views\vendor\backpack\crud\buttons\import.blade.php``` file:
 ```php
 @if ($crud->hasAccess('create'))
-    <a href="javascript:void(0)" onclick="importTransaction(this)" data-route="{{ url($crud->route.'/import') }}" class="btn btn-primary ladda-button" data-button-type="import">
+    <a href="javascript:void(0)" onclick="importTransaction(this)" data-route="{{ url($crud->route.'/import') }}" class="btn btn-sm btn-link" data-button-type="import">
 <span class="ladda-label"><i class="fa fa-plus"></i> Import {{ $crud->entity_name }}</span>
 </a>
 @endif
