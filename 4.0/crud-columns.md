@@ -434,7 +434,8 @@ The select column will output its connected entity. Used for relationships like 
 Show a particular text depending on the value of the attribute.
 
 ```php
-[ // select_from_array
+[
+    // select_from_array
     'name' => 'status',
     'label' => "Status",
     'type' => 'select_from_array',
@@ -612,7 +613,8 @@ If your column points to something atypical (not a value that is stored as plain
 For example, to order Articles not by its Category ID (as default, but by the Category Name), you can do:
 
 ```php
-$this->crud->addColumn([  // Select
+$this->crud->addColumn([
+    // Select
    'label' => "Category",
    'type' => 'select',
    'name' => 'category_id', // the db column for the foreign key

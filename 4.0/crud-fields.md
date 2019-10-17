@@ -165,7 +165,8 @@ You can now split your create/edit inputs into multiple tabs.
 In order to use this feature, you just need to specify the tab name for each of your fields. Example:
 
 ```php
-$this->crud->addField([ // select_from_array
+// select_from_array
+$this->crud->addField([
     'name' => 'select_from_array',
     'label' => "Select from array",
     'type' => 'select_from_array',
@@ -284,7 +285,8 @@ Upload an image and store it in the database as Base64. Notes:
 - detailed [instructions and customizations here](https://github.com/Laravel-Backpack/CRUD/pull/56#issue-164712261); 
 
 ```php
-$this->crud->addField([ // base64_image
+// base64_image
+$this->crud->addField([
     'label' => "Profile Image",
     'name' => "image",
     'filename' => "image_filename", // set to null if not needed
@@ -495,17 +497,18 @@ Starting with Backpack\CRUD 3.1.59
 Show a DateRangePicker and let the user choose a start date and end date.
 
 ```php
-[
+[   // date_range
     'name' => ['start_date', 'end_date'], // db columns for start_date & end_date
     'label' => 'Event Date Range',
     'type' => 'date_range',
     // OPTIONALS
     'default' => ['2019-03-28 01:01', '2019-04-05 02:00'], // default values for start_date & end_date
-    'date_range_options' => [ // options sent to daterangepicker.js
+    'date_range_options' => [
+        // options sent to daterangepicker.js
         'timePicker' => true,
         'locale' => ['format' => 'DD/MM/YYYY HH:mm']
     ]
-]
+],
 ```
 
 Please note it is recommended that you use [attribute casting](https://laravel.com/docs/5.3/eloquent-mutators#attribute-casting) on your model (cast to date).
@@ -627,7 +630,7 @@ Show an icon picker. Supported icon sets are fontawesome, glyphicon, ionicon, we
 The stored value will be the class name (ex: fa-home).
 
 ```php
-[
+[   // icon_picker
     'label' => "Icon",
     'name' => 'icon',
     'type' => 'icon_picker',
@@ -648,7 +651,8 @@ Upload an image and store it on the disk.
 
 **Step 1.** Show the field. 
 ```php
-$this->crud->addField([ // image
+// image
+$this->crud->addField([
     'label' => "Profile Image",
     'name' => "image",
     'type' => 'image',
@@ -807,14 +811,15 @@ Input preview:
 Show radios according to an associative array you give the input and let the user pick from them. You can choose for the radio options to be displayed inline or one-per-line.
 
 ```php
-[
+[   // radio
     'name'        => 'status', // the name of the db column
     'label'       => 'Status', // the input label
     'type'        => 'radio',
-    'options'     => [ // the key will be stored in the db, the value will be shown as label; 
-                        0 => "Draft",
-                        1 => "Published"
-                    ],
+    'options'     => [
+        // the key will be stored in the db, the value will be shown as label; 
+        0 => "Draft",
+        1 => "Published"
+    ],
     // optional
     //'inline'      => false, // show the radios all on the same line?
 ]
@@ -872,7 +877,7 @@ Input preview:
 Display a select where the options are grouped by a second entity (like Categories).
 
 ```php
-[ // select_grouped
+[   // select_grouped
     'label' => 'Articles grouped by categories',
     'type' => 'select_grouped', //https://github.com/Laravel-Backpack/CRUD/issues/502
     'name' => 'article_id',
@@ -922,17 +927,17 @@ Show a Select with the names of the connected entity and let the user select any
 Your relationships should already be defined on your models as hasMany() or belongsToMany().
 
 ```php
-[       // SelectMultiple = n-n relationship (with pivot table)
-	'label' => "Tags",
-	'type' => 'select_multiple',
-	'name' => 'tags', // the method that defines the relationship in your Model
-	'entity' => 'tags', // the method that defines the relationship in your Model
-	'attribute' => 'name', // foreign key attribute that is shown to user
-	'model' => "App\Models\Tag", // foreign key model
-	'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
+[   // SelectMultiple = n-n relationship (with pivot table)
+    'label' => "Tags",
+    'type' => 'select_multiple',
+    'name' => 'tags', // the method that defines the relationship in your Model
+    'entity' => 'tags', // the method that defines the relationship in your Model
+    'attribute' => 'name', // foreign key attribute that is shown to user
+    'model' => "App\Models\Tag", // foreign key model
+    'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
 
-   // optional
-   'options'   => (function ($query) {
+    // optional
+    'options'   => (function ($query) {
         return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
     }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
 ]
@@ -953,20 +958,20 @@ Show a Select2 with the names of the connected entity and let the user select an
 Your relationships should already be defined on your models as hasMany() or belongsToMany().
 
 ```php
-[       // Select2Multiple = n-n relationship (with pivot table)
-	'label' => "Tags",
-	'type' => 'select2_multiple',
-	'name' => 'tags', // the method that defines the relationship in your Model
-	'entity' => 'tags', // the method that defines the relationship in your Model
-	'attribute' => 'name', // foreign key attribute that is shown to user
-	'model' => "App\Models\Tag", // foreign key model
-	'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
-	// 'select_all' => true, // show Select All and Clear buttons?
+[    // Select2Multiple = n-n relationship (with pivot table)
+     'label'     => "Tags",
+     'type'      => 'select2_multiple',
+     'name'      => 'tags', // the method that defines the relationship in your Model
+     'entity'    => 'tags', // the method that defines the relationship in your Model
+     'attribute' => 'name', // foreign key attribute that is shown to user
+     'model'     => "App\Models\Tag", // foreign key model
+     'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
+     // 'select_all' => true, // show Select All and Clear buttons?
 
-   // optional
-   'options'   => (function ($query) {
-        return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
-    }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
+     // optional
+     'options'   => (function ($query) {
+         return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
+     }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
 ]
 ```
 
@@ -982,7 +987,7 @@ Display a select2 with the values ordered hierarchically and indented, for an en
 - the usual ```lft```, ```rgt```, ```depth``` attributes;
 
 ```php
-[ // select2_nested
+[   // select2_nested
     'name' => 'category_id',
     'label' => "Category",
     'type' => 'select2_nested',
@@ -1003,7 +1008,7 @@ Input preview:
 Display a select2 where the options are grouped by a second entity (like Categories).
 
 ```php
-[ // select2_grouped
+[   // select2_grouped
     'label' => 'Articles grouped by categories',
     'type' => 'select2_grouped', //https://github.com/Laravel-Backpack/CRUD/issues/502
     'name' => 'article_id',
@@ -1036,7 +1041,7 @@ protected $casts = [
 Definition:
 
 ```php
-[ // select_and_order
+[   // select_and_order
     'name' => 'featured',
     'label' => "Featured",
     'type' => 'select_and_order',
@@ -1050,7 +1055,7 @@ Definition:
 Also possible:
 
 ```php
-[
+[   // select_and_order
     'name' => 'featured',
     'label' => 'Featured',
     'type' => 'select_and_order',
@@ -1069,7 +1074,7 @@ Input preview:
 Display a select with the values you want:
 
 ```php
-[ // select_from_array
+[   // select_from_array
     'name' => 'template',
     'label' => "Template",
     'type' => 'select_from_array',
@@ -1090,7 +1095,7 @@ Input preview:
 Display a select2 with the values you want:
 
 ```php
-[ // select_from_array
+[   // select2_from_array
     'name' => 'template',
     'label' => "Template",
     'type' => 'select2_from_array',
@@ -1112,19 +1117,19 @@ Display a select2 that takes its values from an AJAX call.
 
 ```
 [
-            // 1-n relationship
-            'label' => "End", // Table column heading
-            'type' => "select2_from_ajax",
-            'name' => 'category_id', // the column that contains the ID of that connected entity
-            'entity' => 'city', // the method that defines the relationship in your Model
-            'attribute' => "name", // foreign key attribute that is shown to user
-            'model' => "App\Models\Category", // foreign key model
-            'data_source' => url("api/category"), // url to controller search function (with /{id} should return model)
-            'placeholder' => "Select a category", // placeholder for the select
-            'minimum_input_length' => 2, // minimum characters to type before querying results
-            // 'dependencies'         => [‘category’], // when a dependency changes, this select2 is reset to null
-            // ‘method'                    => ‘GET’, // optional - HTTP method to use for the AJAX call (GET, POST)
-	    // 'include_all_form_fields'  => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
+    // 1-n relationship
+    'label' => "End", // Table column heading
+    'type' => "select2_from_ajax",
+    'name' => 'category_id', // the column that contains the ID of that connected entity
+    'entity' => 'city', // the method that defines the relationship in your Model
+    'attribute' => "name", // foreign key attribute that is shown to user
+    'model' => "App\Models\Category", // foreign key model
+    'data_source' => url("api/category"), // url to controller search function (with /{id} should return model)
+    'placeholder' => "Select a category", // placeholder for the select
+    'minimum_input_length' => 2, // minimum characters to type before querying results
+    // 'dependencies'         => [‘category’], // when a dependency changes, this select2 is reset to null
+    // ‘method'                    => ‘GET’, // optional - HTTP method to use for the AJAX call (GET, POST)
+    // 'include_all_form_fields'  => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
  ]
 ```
 
@@ -1181,18 +1186,18 @@ Display a select2 that takes its values from an AJAX call. Same as [select2_from
 
 ```
 [
-            // n-n relationship
-            'label' => "End", // Table column heading
-            'type' => "select2_from_ajax_multiple",
-            'name' => 'city_id', // the column that contains the ID of that connected entity
-            'entity' => 'city', // the method that defines the relationship in your Model
-            'attribute' => "name", // foreign key attribute that is shown to user
-            'model' => "App\Models\City", // foreign key model
-            'data_source' => url("api/cities"), // url to controller search function (with /{id} should return model)
-            'placeholder' => "Select a city", // placeholder for the select
-            'minimum_input_length' => 2, // minimum characters to type before querying results
-            'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
-	    // 'include_all_form_fields'  => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
+    // n-n relationship
+    'label' => "End", // Table column heading
+    'type' => "select2_from_ajax_multiple",
+    'name' => 'city_id', // the column that contains the ID of that connected entity
+    'entity' => 'city', // the method that defines the relationship in your Model
+    'attribute' => "name", // foreign key attribute that is shown to user
+    'model' => "App\Models\City", // foreign key model
+    'data_source' => url("api/cities"), // url to controller search function (with /{id} should return model)
+    'placeholder' => "Select a city", // placeholder for the select
+    'minimum_input_length' => 2, // minimum characters to type before querying results
+    'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
+    // 'include_all_form_fields'  => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
  ]
 ```
 
@@ -1253,13 +1258,13 @@ Show a [SimpleMDE markdown editor](https://simplemde.com/) to the user.
     'label' => 'Description',
     'type' => 'simplemde',
     // optional
-   // 'simplemdeAttributes' => [
-   //   'promptURLs' => true,
-   //   'status' => false,
-   //   'spellChecker' => false,
-   //   'forceSync' => true,
-   // ],
-   // 'simplemdeAttributesRaw' => $some_json
+    // 'simplemdeAttributes' => [
+    //   'promptURLs' => true,
+    //   'status' => false,
+    //   'spellChecker' => false,
+    //   'forceSync' => true,
+    // ],
+    // 'simplemdeAttributesRaw' => $some_json
 ],
 ```
 
@@ -1291,7 +1296,7 @@ Input preview:
 Show a table with multiple inputs per row and store the values as JSON in the database. The user can add more rows and reorder the rows as they please.
 
 ```php
-[ // Table
+[   // Table
     'name' => 'options',
     'label' => 'Options',
     'type' => 'table',
@@ -1318,7 +1323,7 @@ Input preview:
 The basic field type, all it needs is the two mandatory parameters: name and label.
 
 ```php
-[ // Text
+[   // Text
     'name' => 'title',
     'label' => "Title",
     'type' => 'text',
@@ -1589,10 +1594,10 @@ So you should use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-e
 Load a custom view in the form.
 
 ```php
-[
-        'name' => 'custom-ajax-button',
-        'type' => 'view',
-        'view' => 'partials/custom-ajax-button'
+[   // view
+    'name' => 'custom-ajax-button',
+    'type' => 'view',
+    'view' => 'partials/custom-ajax-button'
 ],
 ```
 
@@ -1643,12 +1648,11 @@ If you need to extend the CRUD with a new field type, you create a new file in y
 Your field definition will be something like:
 
 ```php
-[
-  // Custom Field
-  'name' => 'address',
-  'label' => 'Home address',
-  'type' => 'address'
-  /// 'view_namespace' => 'yourpackage' // use a custom namespace of your package to load views within a custom view folder.
+[   // Custom Field
+    'name' => 'address',
+    'label' => 'Home address',
+    'type' => 'address'
+    /// 'view_namespace' => 'yourpackage' // use a custom namespace of your package to load views within a custom view folder.
 ]);
 ```
 
