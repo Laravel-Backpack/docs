@@ -340,3 +340,19 @@ $this->crud->setShowContentClass('col-md-8 col-md-offset-2');
 $this->crud->setReorderContentClass('col-md-8 col-md-offset-2');
 $this->crud->setRevisionsTimelineContentClass('col-md-8 col-md-offset-2');
 ```
+
+
+<a name="overwrite-a-method-on-the-crud-panel-object"></a>
+## Overwrite a Method on the CrudPanel Object 
+
+Starting with Backpack v4, you can use a custom CrudPanel object instead of the one in the package. In your custom CrudPanel object, you can overwrite any method you want, but please note that this means that you're overwriting core components, and will be making it more difficult to upgrade to newer versions of Backpack.
+
+You can do this in any of your service providers (ex: ```app/Providers/AppServiceProvider.php```) to load your class instead of the one in the package:
+
+```php
+$this->app->extend('crud', function () {
+    return new \App\MyExtendedCrudPanel;
+});
+```
+
+Details and implementation [here](https://github.com/Laravel-Backpack/CRUD/pull/1990).
