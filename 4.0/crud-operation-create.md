@@ -85,7 +85,9 @@ class ProductCrudController extends CrudController
     
     public function store()
     {
-    	// do something before validation, before save, before everything
+    	// do something before validation, before save, before everything; for example:
+	// $this->crud->request->request->remove('password_confirmation');
+        // $this->crud->removeField('password_confirmation');
     	$response = $this->traitStore();
     	// do something after save
     	return $response;
