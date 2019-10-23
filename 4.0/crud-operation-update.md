@@ -92,7 +92,9 @@ class ProductCrudController extends CrudController
     public function update()
     {
         // do something before validation, before save, before everything; for example:
-	    // $this->crud->request->request->remove('password_confirmation');
+	// $this->crud->request->request->add(['author_id'=> backpack_user()->id]);
+        // $this->crud->addField(['type' => 'hidden', 'name' => 'author_id']);
+	// $this->crud->request->request->remove('password_confirmation');
         // $this->crud->removeField('password_confirmation');
         $response = $this->traitUpdate();
         // do something after save
