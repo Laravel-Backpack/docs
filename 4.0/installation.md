@@ -33,9 +33,6 @@ composer require backpack/crud:"4.0.*"
 # you might also want to install these tools that help during development
 composer require backpack/generators --dev
 composer require laracasts/generators --dev
-
-# Note during v4 beta - this might NOT have v4 support yet
-composer require webfactor/laravel-generators --dev
 ```
 
 2) Now run the installation commands for Backpack:
