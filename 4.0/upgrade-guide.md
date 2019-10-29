@@ -50,6 +50,8 @@ Then run ```composer update```.
         "spatie/laravel-backup": "^6.1"
 ```
 
+**Note:** If you're using ```webfactor/laravel-generators```, please remove it for now. It does not support Backpack v4 yet.
+
 <a name="models"></a>
 ### Models
 
