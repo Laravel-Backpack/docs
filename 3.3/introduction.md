@@ -1,3 +1,3 @@
 ### Moved
 
-For Backpack v3.3 documentation, please head over to [our old readme.io documentation](https://laravel-backpack.readme.io/v3.3/docs).
+For Backpack v3.3 documentation, please [download our old documentation](https://drive.google.com/open?id=1f55_5DEHnyGpiRBbCSZzvMTG-X1AG9EV).
