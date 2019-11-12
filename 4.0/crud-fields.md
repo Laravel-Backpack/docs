@@ -1431,6 +1431,8 @@ public function setImageAttribute($value)
 
 The field sends the file, through a Request, to the Controller. The Controller then tries to create/update the Model. That's when the mutator on your model will run. That also means we can do any [file validation](https://laravel.com/docs/5.3/validation#rule-file) (```file```, ```image```, ```mimetypes```, ```mimes```) in the Request, before the file is stored on the disk.
 
+>NOTE: If this field is mandatory (required in validation) please use the [sometimes laravel validation rule](https://laravel.com/docs/5.8/validation#conditionally-adding-rules) together with **required** in your validation. (sometimes|required|file etc... )
+
 [The ```uploadFileToDisk()``` method](https://github.com/Laravel-Backpack/CRUD/blob/master/src/CrudTrait.php#L108-L129) will take care of everything for most use cases:
 
 ```php
