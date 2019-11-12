@@ -401,3 +401,6 @@ By default, Backpack will use Gravatar to show the profile image for the current
 ```
 
 Please note that this does not allow the user to change his profile image.
+
+
+
