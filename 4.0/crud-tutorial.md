@@ -52,7 +52,7 @@ Let's take a look at the generated model:
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Backpack\CRUD\CrudTrait;
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
 
 class Tag extends Model {
 
@@ -115,7 +115,7 @@ By default, the model uses ```$guarded``` to prevent people from editing certain
 
 This is all _standard procedure_ for new Laravel models - nothing Backpack-specific here. In this particular case, where the entity is so simple and has no relationships, we don't need to make any changes to the generated model.
 
-We're now done configuring the model - because we didn't already have a valid Eloquent model to use for our CRUD Panel. If we _did have_ a working Eloquent model, we only needed to add ```use \Backpack\CRUD\CrudTrait;```
+We're now done configuring the model - because we didn't already have a valid Eloquent model to use for our CRUD Panel. If we _did have_ a working Eloquent model, we only needed to add ```use \Backpack\CRUD\app\Models\Traits\CrudTrait;```
 
 <a name="the-controller"></a>
 ### The Controller
