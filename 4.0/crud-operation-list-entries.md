@@ -116,7 +116,28 @@ Exporting the DataTable to PDF, CSV, XLS is as easy as typing ```$this->crud->en
 
 ![Backpack CRUD ListEntries Details Row](https://backpackforlaravel.com/uploads/docs-4-0/operations/listEntries_export_buttons.png)
 
->**Please note that when clicked, each button will export the _currently visible_ table.** You can use the "visibility" button, and the "Items per page" dropdown to manipulate what is inside the export.
+>**Please note that when clicked, each button will export the _currently visible_ table (except fields marked as visibleInExport => false) and the fields that are forced to export with (visibleInExport => true or an exportOnlyField => true) ** You can use the "visibility" button, and the "Items per page" dropdown to manipulate what is inside the export.
+
+#### Export Buttons Rules
+
+Available customization: 
+```
+'visibleInExport' => true/false
+'visibleInTable' => true/false
+'exportOnlyField' => true
+```
+
+By default, field will start visible in table. User can hide it toggling visibility. Will be exported if visible in table.
+
+If you force `visibleInExport => true` you are saying that independent of field visibility in table it will **always** be exported.
+
+Contrary is `visibleInExport => false`, even if visible in table, field will not be exported as per developer instructions.
+
+Setting `visibleInTable => true` will force the field to stay in table no matter what. User can't hide it. (By default all fields visible in table will be exported. If you don't want to export this field use with combination with `visibleInExport => false`)
+
+Using `'visibleInTable' => false` will make the field start hidden in table. But user can toggle it's visibility.
+
+If you want a field that is not on table, user can't show it, but will **ALWAYS** be exported use the `exportOnlyField => true`. If used will ignore any other custom visibility you defined.
 
 <a name="custom-query"></a>
 #### Custom Query
@@ -160,13 +181,14 @@ To turn off the responsive table behaviour for _just one CRUD panel_, you can us
 
 By default, ListEntries will NOT remember your filtering, search and pagination when you leave the page. If you want ListEntries to do that, you can enable a ListEntries feature we call ```persistent_table```. 
 
-**This will take the user back to the _filtered table_ after adding an item, previewing an item, creating an item or just browsing around**, preserving the table just like he/she left it - with the same filtering, pagination and search applied. It does so by saving the pagination, search and filtering for 2 hours in local storage.
+**This will take the user back to the _filtered table_ after adding an item, previewing an item, creating an item or just browsing around**, preserving the table just like he/she left it - with the same filtering, pagination and search applied. It does so by saving the pagination, search and filtering for an arbitrary amout of time (by default: forever).
 
 To use ```persistent_table``` you can:
 - enable it for all CRUDs with the config option ```'persistent_table' => true``` in your ```config/backpack/crud.php```;
 - enable it inside a particular crud controller with ```$this->crud->enablePersistentTable();```
 - disable it inside a particular crud controller with ```$this->crud->disablePersistentTable();```
 
+> You can configure the persistent table duration in ``` config/backpack/crud.php ``` under `operations > list > persistentTableDuration`. False is forever. Set any amout of time you want in minutes. Note: you can configure it's expiring time on a per-crud basis using `$this->crud->setOperationSetting('persistentTableDuration', 120); in your setupListOperation()` for 2 hours persistency. The default is `false` which means forever. 
 
 <a name="how-to-overwrite"></a>
 ## How to Overwrite
