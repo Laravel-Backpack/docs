@@ -116,7 +116,7 @@ Exporting the DataTable to PDF, CSV, XLS is as easy as typing ```$this->crud->en
 
 ![Backpack CRUD ListEntries Details Row](https://backpackforlaravel.com/uploads/docs-4-0/operations/listEntries_export_buttons.png)
 
->**Please note that when clicked, each button will export the _currently visible_ table (except fields marked as visibleInExport => false) and the fields that are forced to export with (visibleInExport => true or an exportOnlyField => true) ** You can use the "visibility" button, and the "Items per page" dropdown to manipulate what is inside the export.
+> **Please note that when clicked, each button will export the _currently visible_ table (except fields marked as visibleInExport => false) and the fields that are forced to export with (visibleInExport => true or an exportOnlyField => true) You can use the "visibility" button, and the "Items per page" dropdown to manipulate what is inside the export.**
 
 #### Export Buttons Rules
 
