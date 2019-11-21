@@ -41,7 +41,7 @@ This will:
 By default, the operation tries to guess what column types to show for each column in the database, using ```setFromDb()```. But it only works for simple column types. Most likely, you'll need to manually define the more complicated column types. You should manually define columns inside the ```setupShowOperation()``` method - which gets called automatically when the Show operation is being performed. For example:
 
 ```php
-    protected setupShowOperation()
+    protected function setupShowOperation()
     {
         $this->crud->set('show.setFromDb', false);
 
