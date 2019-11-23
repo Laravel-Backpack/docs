@@ -1473,6 +1473,8 @@ Input preview:
 
 Shows a multiple file input to the user and stores the values as a JSON array in the database.
 
+**Step 0.** Make sure the db column can hold the amount of text this field will have. For example, for MySQL, VARCHAR(255) might not be enough all the time (for 3+ files), so it's better to go with TEXT. Make sure you're using a big column type in your migration or db.
+
 **Step 1.** Show a multiple file input to the user:
 ```php
 [   // Upload
