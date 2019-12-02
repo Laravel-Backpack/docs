@@ -271,7 +271,7 @@ Open elFinder and select multiple file from there.
 ],
 ```
 
-We recommend you cast your attribute as ```array``` on your model.  That way, when you do ```$entry->files``` you get a nice array. The field will work even if you don't cast.
+The field assumes you've cast your attribute as ```array``` on your model.  That way, when you do ```$entry->files``` you get a nice array.
 
 Input preview: 
 
