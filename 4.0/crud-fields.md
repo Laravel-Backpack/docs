@@ -267,6 +267,7 @@ Open elFinder and select multiple file from there.
     'label' => 'Files',
     'type' => 'browse_multiple',
     // 'multiple' => true, // enable/disable the multiple selection functionality
+    // 'sortable' => false, // enable/disable the reordering of chosen files with drag&drop
     // 'mime_types' => null, // visible mime prefixes; ex. ['image'] or ['application/pdf']
 ],
 ```
