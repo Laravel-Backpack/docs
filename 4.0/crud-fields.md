@@ -625,7 +625,6 @@ Include an <input type="hidden"> in the form.
 <a name="icon-picker"></a>
 ### icon_picker
 
-[/block]
 Show an icon picker. Supported icon sets are fontawesome, glyphicon, ionicon, weathericon, mapicon, octicon, typicon, elusiveicon, materialdesign as per the jQuery plugin, [bootstrap-iconpicker](http://victor-valencia.github.io/bootstrap-iconpicker/).
 
 The stored value will be the class name (ex: fa-home).
@@ -1556,7 +1555,6 @@ Input preview:
 
 ### url
 
-[/block]
 ```php
 [   // URL
     'name' => 'link',
