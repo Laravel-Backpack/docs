@@ -73,7 +73,7 @@ Using AJAX, a DELETE request is performed towards ```/entity-name/bulk-delete```
 <a name="enabling"></a>
 ### How to Use
 
-You need to ```use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;``` on your EntityCrudController.
+You need to ```use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;``` on your EntityCrudController.
 
 <a name="how-to-overwrite"></a>
 ### How to Overwrite
@@ -81,7 +81,7 @@ You need to ```use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperatio
 In case you need to change how this operation works, just create a ```bulkDelete()``` method in your EntityCrudController:
 
 ```php
-use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation { bulkDelete as traitBulkDelete; }
+use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation { bulkDelete as traitBulkDelete; }
 
 public function bulkDelete($id)
 {
