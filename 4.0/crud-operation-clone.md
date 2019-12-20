@@ -21,7 +21,7 @@ This CRUD operation allows your admins to duplicate one or more entries from the
 <a name="how-it-works"></a>
 ### How it Works
 
-Using AJAX, a POST request is performed towards ```/entity-name/{id}```, which points to the ```clone()``` method in your EntityCrudController.
+Using AJAX, a POST request is performed towards ```/entity-name/{id}/clone```, which points to the ```clone()``` method in your EntityCrudController.
 
 <a name="enabling"></a>
 ### How to Use
