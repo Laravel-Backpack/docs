@@ -94,7 +94,7 @@ Transparent top menu, transparet sidebar, transparent footer. This is the defaul
 ```
 
 <a href="inspired-by-coreui"></a>
-#### Inpired by CoreUI
+#### Inspired by CoreUI
 
 White top menu, dark sidebar.
 
