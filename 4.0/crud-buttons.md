@@ -197,5 +197,5 @@ public function import()
 
 - Now we can actually add this button to any of ```UserCrudController::setup()```:
 ```php
-$this->crud->addButtonFromView('top', 'import', 'view', 'crud::buttons.import', 'end');
+$this->crud->addButtonFromView('top', 'import', 'import', 'end');
 ```
