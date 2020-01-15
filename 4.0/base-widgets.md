@@ -278,7 +278,7 @@ You can then use the ```well``` widget in a Controller or View:
 To use information from the database, you can:
 - use the full namespace for your models, like ```\App\Models\Product::count()```;
 - load all your dashboard information using AJAX calls, if you're loading charts, reports, etc, and the DB queries might take a long time;
-- [use view composers](https://laravel.com/docs/5.7/views#view-composers) to push variables inside this view, when it's loaded;
+- [use view composers](https://laravel.com/docs/5.7/views#view-composers) to push variables inside this view when it's loaded, Like. ```View::composer('backpack::widgets.well, 'App\Http\View\Composers\WellComposer');```
 
 Inside the widget blade files, you include custom CSS and JS, by pushing to the stacks in the layout:
 ```php
