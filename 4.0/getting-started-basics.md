@@ -56,7 +56,7 @@ This is where it gets interesting. As soon as you [install Backpack](/docs/{{ver
 
 ```zsh
 # STEP 1. create migration
-php artisan make:migration:schema create_tags_table --model=0 --schema="name:string:unique"
+php artisan make:migration:schema create_tags_table --model=0 --schema="slug:string:unique, name:string"
 php artisan migrate
 
 # STEP 2. create crud
