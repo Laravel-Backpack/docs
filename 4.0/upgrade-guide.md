@@ -192,9 +192,17 @@ Follow step 6.1 with this in mind. The end result should be something like this:
 
     public function store(StoreRequest $request)
     {
-        // ..
+        // do something before validation, before save, before everything; for example:
+        
+        // $this->crud->request->request->add(['author_id'=> backpack_user()->id]);
+        // $this->crud->addField(['type' => 'hidden', 'name' => 'author_id']);
+        // $this->crud->request->request->remove('password_confirmation');
+        // $this->crud->removeField('password_confirmation');
+        
         $redirect_location = $this->traitStore();
-        // ..
+        
+        // do something after save
+        
         return $redirect_location;
     }
 
@@ -207,6 +215,7 @@ Follow step 6.1 with this in mind. The end result should be something like this:
     }
 
 ```
+
 
 **(6.3)** To be able to call the same method, but from the trait (not the parent), please rename the method from the trait, and call that name instead:
 
