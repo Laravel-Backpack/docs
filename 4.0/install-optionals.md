@@ -51,9 +51,11 @@ protected function schedule(Schedule $schedule)
 
 5) [optional] If you need to change the path to the mysql_dump command, you can do that in your config/database.php file. For MAMP on Mac OS, add these to your mysql connection:
 ```
-            'dump_command_path' => '/Applications/MAMP/Library/bin/', // only the path, so without 'mysqldump' or 'pg_dump'
-            'dump_command_timeout' => 60 * 5, // 5 minute timeout
-            'dump_using_single_transaction' => true,
+            'dump' => [
+                'dump_binary_path' => '/Applications/MAMP/Library/bin/', // only the path, so without `mysqldump` or `pg_dump`
+                'use_single_transaction',
+                'timeout' => 60 * 5, // 5 minute timeout
+            ]
 ```
 
 <a name="log-manager"></a>
