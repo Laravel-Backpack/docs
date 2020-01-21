@@ -401,3 +401,70 @@ By default, Backpack will use Gravatar to show the profile image for the current
 ```
 
 Please note that this does not allow the user to change his profile image.
+
+
+<a name="add-one-or-more-fields-to-the-register-form"></a>
+### Add one or more fields to the Register form
+
+To add a new field to the Registration page, you should:
+
+**Step 1.** Overwrite the registration route, so it leads to _your_ controller, instead of the one in the package. We recommend you add it your ```routes/backpack/custom.php```, BEFORE the route group where you define your CRUDs:
+
+```php
+Route::get('admin/register', 'App\Http\Controllers\Admin\Auth\RegisterController')->name('backpack.auth.register');
+```
+
+**Step 2.** Create the new RegisterController somewhere in your project, that extends the RegisterController in the package, and overwrites the validation & user creation methods. For example:
+
+```php
+<?php
+namespace App\Http\Controllers\Admin\Auth;
+
+use Backpack\CRUD\app\Http\Controllers\Auth\RegisterController as BackpackRegisterController;
+
+class RegisterController extends BackpackRegisterController 
+{
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param array $data
+     *
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        $user_model_fqn = config('backpack.base.user_model_fqn');
+        $user = new $user_model_fqn();
+        $users_table = $user->getTable();
+        $email_validation = backpack_authentication_column() == 'email' ? 'email|' : '';
+
+        return Validator::make($data, [
+            'name'                             => 'required|max:255',
+            backpack_authentication_column()   => 'required|'.$email_validation.'max:255|unique:'.$users_table,
+            'password'                         => 'required|min:6|confirmed',
+        ]);
+    }
+
+    /**
+     * Create a new user instance after a valid registration.
+     *
+     * @param array $data
+     *
+     * @return User
+     */
+    protected function create(array $data)
+    {
+        $user_model_fqn = config('backpack.base.user_model_fqn');
+        $user = new $user_model_fqn();
+
+        return $user->create([
+            'name'                             => $data['name'],
+            backpack_authentication_column()   => $data[backpack_authentication_column()],
+            'password'                         => bcrypt($data['password']),
+        ]);
+    }
+}
+```
+Add whatever validation rules & inputs you want, in addition to name and password.
+
+**Step 3.** Add the actual inputs to your HTML. You can easily overwrite any blade file in Backpack by putting a file with the same name & path in your ```resources/views/vendor/backpack``` folder. In this case, if you create ```resources/views/vendor/backpack/base/auth/register.blade.php``` you'll be able to modify that screen however you like. Including adding your own custom inputs.
