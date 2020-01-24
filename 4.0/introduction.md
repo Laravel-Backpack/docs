@@ -20,10 +20,7 @@ php artisan backpack:crud tag #use singular, not plural
 # STEP 2. add a route for this admin panel to routes/backpack/custom.php
 php artisan backpack:add-custom-route "Route::crud('tag', 'TagCrudController');"
 
-# STEP 3. add sidebar item to resources/views/vendor/backpack/base/inc/sidebar_content.blade.php
-php artisan backpack:add-sidebar-content "<li class='nav-item'><a class='nav-link' href='{{ backpack_url('tag') }}'><i class='nav-icon fa fa-tag'></i> Tags</a></li>"
-
-# STEP 4. go through the generated files, customize according to your needs
+# STEP 3. go through the generated files, customize according to your needs
 ```
 
 <a name="need-to-know"></a>
