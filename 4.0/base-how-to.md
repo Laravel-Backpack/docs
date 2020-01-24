@@ -497,4 +497,13 @@ class RegisterController extends BackpackRegisterController
 ```
 Add whatever validation rules & inputs you want, in addition to name and password.
 
-**Step 3.** Add the actual inputs to your HTML. You can easily overwrite any blade file in Backpack by putting a file with the same name & path in your ```resources/views/vendor/backpack``` folder. In this case, if you create ```resources/views/vendor/backpack/base/auth/register.blade.php``` you'll be able to modify that screen however you like. Including adding your own custom inputs.
+**Step 3.** Add the actual inputs to your HTML. You can easily overwrite the register view by adding this method to the same RegisterController:
+
+```php
+    public function showRegistrationForm()
+    {
+
+        return backpack_view('auth.register');
+    }
+```
+This will make the registration process pick up a view you can create, in ```resources/views/vendor/backpack/base/auth/register.blade.php```. You can copy-paste the original view, and modify as you please.Including adding your own custom inputs.
