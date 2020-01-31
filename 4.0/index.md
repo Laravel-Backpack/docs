@@ -17,14 +17,14 @@
 - [Breadcrumbs](/docs/{{version}}/base-breadcrumbs)
 - [How To](/docs/{{version}}/base-how-to)
 
-#### CRUD Panels
+#### CRUD Pages
 
 - [Basics](/docs/{{version}}/crud-basics)
 - [Tutorial](/docs/{{version}}/crud-tutorial)
 - [API](/docs/{{version}}/crud-api)
 - [Cheat Sheet](/docs/{{version}}/crud-cheat-sheet)
 - [Operations](/docs/{{version}}/crud-operations)
-    + [ListEntries](/docs/{{version}}/crud-operation-list-entries)
+    + [List](/docs/{{version}}/crud-operation-list-entries)
         + [Columns](/docs/{{version}}/crud-columns)
         + [Buttons](/docs/{{version}}/crud-buttons)
         + [Filters](/docs/{{version}}/crud-filters)
