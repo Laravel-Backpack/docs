@@ -1574,6 +1574,7 @@ Field definition:
     'name' => 'video',
     'label' => 'Link to video file on Youtube or Vimeo',
     'type' => 'video',
+    'youtube_api_key' => 'AIzaSycLRoVwovRmbIf_BH3X12IcTCudAErRlCE',
 ],
 ```
 
@@ -1589,6 +1590,8 @@ $video = {
 ```
 
 So you should use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) in your model, to cast the video as ```array``` or ```object```.
+
+Vimeo does not require an API key in order to query their DB, but YouTube does, even though their free quota is generous. You can get a free Youtube API Key inside [Google Developers Console](https://console.developers.google.com/) ([video tutorial here](https://www.youtube.com/watch?v=pP4zvduVAqo)). 
 
 
 <a name="view"></a>
