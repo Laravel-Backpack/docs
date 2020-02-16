@@ -78,7 +78,7 @@ It will also add:
 - a route inside ```routes/backpack/custom.php```, pointing to that controller;
 - a sidebar item inside ```resources/views/vendor/backpack/base/inc/sidebar_content.blade.php```;
 
-You might have noticed that **no views** are generated. That's because in most cases you _don't need_ custom views with Backpack. All your custom code is in the controller, model or request, so the default views are loaded, from the pacakge. If you do, however, need to customize a view, it is [ridiculously easy](/docs/{version}/crud-how-to#customize-views-for-each-crud-panel).
+You might have noticed that **no views** are generated. That's because in most cases you _don't need_ custom views with Backpack. All your custom code is in the controller, model or request, so the default views are loaded, from the pacakge. If you do, however, need to customize a view, it is [ridiculously easy](/docs/{{version}}/crud-how-to#customize-views-for-each-crud-panel).
 
 Also, we won’t be covering the **migration**, **model** and **request** files here, as they are in no way custom. The only thing you need to make sure is that the Model is properly configured (db table, relationships, ```$fillable``` or ```$guarded``` properties, etc) and that it uses our ```CrudTrait```. What we _will_ be covering is ```TagCrudController``` - which is where most of your logic will reside. Here’s a copy of a simple one you might use to achieve the above:
 
