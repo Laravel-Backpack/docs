@@ -113,7 +113,7 @@ In case you want to store insignificant information for an entry, that don't nee
     'name' => 'name', // JSON variable name
     'label' => "Tag Name", // human-readable label for the input
 
-    'fake' => true, // show the field, but don’t store it in the database column above
+    'fake' => true, // show the field, but don't store it in the database column above
     'store_in' => 'extras' // [optional] the database column name where you want the fake fields to ACTUALLY be stored as a JSON array 
 ],
 ```
@@ -147,7 +147,7 @@ Example:
 ],
 ```
 
-In this example, these 3 fields will show up in the create & update forms, the CRUD will process as usual, but in the database these values won’t be stored in the ```meta_title```, ```meta_description``` and ```meta_keywords``` columns. They will be stored in the ```metas``` column as a JSON array:
+In this example, these 3 fields will show up in the create & update forms, the CRUD will process as usual, but in the database these values won't be stored in the ```meta_title```, ```meta_description``` and ```meta_keywords``` columns. They will be stored in the ```metas``` column as a JSON array:
 
 ```php
 {"meta_title":"title","meta_description":"desc","meta_keywords":"keywords"}
@@ -224,7 +224,7 @@ Using Google Places API is dependant on using an API Key. Please [get an API key
 
 ```php
     'google_places' => [
-        'key' => ’the-key-you-got-from-google-places'
+        'key' => 'the-key-you-got-from-google-places'
     ],
 ```
 
@@ -776,7 +776,7 @@ Input preview:
 <a name="page-or-link"></a>
 ### page_or_link
 
-Select an existing page from PageManager or an internal or external link. It’s used in the MenuManager package, but can be used in any other model just as well. Its definition looks like this:
+Select an existing page from PageManager or an internal or external link. It's used in the MenuManager package, but can be used in any other model just as well. Its definition looks like this:
 ```php
 [   // PageOrLink
     'name' => 'type',
@@ -1078,7 +1078,7 @@ Display a select with the values you want:
     'name' => 'template',
     'label' => "Template",
     'type' => 'select_from_array',
-    'options' => [‘one’ => ‘One’, ‘two’ => ‘Two’],
+    'options' => ['one' => 'One', 'two' => 'Two'],
     'allows_null' => false,
     'default' => 'one',
     // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
@@ -1099,7 +1099,7 @@ Display a select2 with the values you want:
     'name' => 'template',
     'label' => "Template",
     'type' => 'select2_from_array',
-    'options' => [‘one’ => ‘One’, ‘two’ => ‘Two’],
+    'options' => ['one' => 'One', 'two' => 'Two'],
     'allows_null' => false,
     'default' => 'one',
     // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
@@ -1121,14 +1121,14 @@ Display a select2 that takes its values from an AJAX call.
     'label' => "End", // Table column heading
     'type' => "select2_from_ajax",
     'name' => 'category_id', // the column that contains the ID of that connected entity
-    'entity' => 'city', // the method that defines the relationship in your Model
+    'entity' => 'category', // the method that defines the relationship in your Model
     'attribute' => "name", // foreign key attribute that is shown to user
     'model' => "App\Models\Category", // foreign key model
     'data_source' => url("api/category"), // url to controller search function (with /{id} should return model)
     'placeholder' => "Select a category", // placeholder for the select
     'minimum_input_length' => 2, // minimum characters to type before querying results
-    // 'dependencies'         => [‘category’], // when a dependency changes, this select2 is reset to null
-    // ‘method'                    => ‘GET’, // optional - HTTP method to use for the AJAX call (GET, POST)
+    // 'dependencies'         => ['category'], // when a dependency changes, this select2 is reset to null
+    // 'method'                    => 'GET', // optional - HTTP method to use for the AJAX call (GET, POST)
     // 'include_all_form_fields'  => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
  ]
 ```
@@ -1582,10 +1582,10 @@ An entry stored in the database will look like this:
 ```
 $video = {
     id: 234324,
-    title: ‘my video title’,
-    image: ‘https://provider.com/image.jpg',
-    url: ‘http://provider.com/video',
-    provider: ‘youtube’
+    title: 'my video title',
+    image: 'https://provider.com/image.jpg',
+    url: 'http://provider.com/video',
+    provider: 'youtube'
 }
 ```
 
@@ -1640,7 +1640,7 @@ Show a wysiwyg (CKEditor) to the user.
 <a name="overwriting-default-field-types"></a>
 ## Overwriting Default Field Types
 
-The actual field types are stored in the Backpack/CRUD package in ```/resources/views/fields```. If you need to change an existing field, you don’t need to modify the package, you just need to add a blade file in your application in ```/resources/views/vendor/backpack/crud/fields```, with the same name. The package checks there first, and only if there's no file there, will it load it from the package.
+The actual field types are stored in the Backpack/CRUD package in ```/resources/views/fields```. If you need to change an existing field, you don't need to modify the package, you just need to add a blade file in your application in ```/resources/views/vendor/backpack/crud/fields```, with the same name. The package checks there first, and only if there's no file there, will it load it from the package.
 
 To quickly publish a field blade file in your project, you can use ```php artisan backpack:crud:publish fields/field_name```. For example, to publish the number field type, you'd type ```php artisan backpack:crud:publish fields/number```
 
