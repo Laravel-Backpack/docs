@@ -117,7 +117,7 @@ Black top menu, white sidebar.
 ```php
     'header_class' => 'app-header bg-dark navbar',
     'body_class' => 'app aside-menu-fixed sidebar-lg-show',
-    'sidebar_class' => 'sidebar sidebar-light',
+    'sidebar_class' => 'sidebar bg-white sidebar-pills',
     'footer_class' => 'app-footer d-none',
 ```
 
@@ -131,7 +131,7 @@ Blue top menu, dark sidebar.
 ```php
     'header_class' => 'app-header navbar navbar-color bg-primary border-0',
     'body_class' => 'app aside-menu-fixed sidebar-lg-show',
-    'sidebar_class' => 'sidebar', // add "sidebar-light" for light sidebar
+    'sidebar_class' => 'sidebar', // add "bg-white sidebar-pills" for light sidebar
     'footer_class' => 'app-footer d-none',
 ```
 
@@ -146,7 +146,7 @@ Yellow top menu, dark sidebar.
 ```php
     'header_class' => 'app-header navbar navbar-light bg-warning',
     'body_class' => 'app aside-menu-fixed sidebar-lg-show',
-    'sidebar_class' => 'sidebar', // add "sidebar-light" for light sidebar
+    'sidebar_class' => 'sidebar', // add "bg-white sidebar-pills" for light sidebar
     'footer_class' => 'app-footer d-none',
 ```
 
@@ -160,7 +160,7 @@ Red top menu, dark sidebar.
 ```php
     'header_class' => 'app-header navbar navbar-color bg-error border-0',
     'body_class' => 'app aside-menu-fixed sidebar-lg-show',
-    'sidebar_class' => 'sidebar', // add "sidebar-light" for light sidebar
+    'sidebar_class' => 'sidebar', // add "bg-white sidebar-pills" for light sidebar
     'footer_class' => 'app-footer d-none',
 ```
 
@@ -189,7 +189,7 @@ Green top menu, white sidebar.
 ```php
     'header_class' => 'app-header navbar navbar-color bg-green border-0',
     'body_class' => 'app aside-menu-fixed sidebar-lg-show',
-    'sidebar_class' => 'sidebar sidebar-light bg-white',
+    'sidebar_class' => 'sidebar sidebar-pills bg-white',
     'footer_class' => 'app-footer d-none',
 ```
 
