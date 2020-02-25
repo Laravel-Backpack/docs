@@ -857,9 +857,10 @@ Your relationships should already be defined on your models as hasOne() or belon
    'name' => 'category_id', // the db column for the foreign key
    'entity' => 'category', // the method that defines the relationship in your Model
    'attribute' => 'name', // foreign key attribute that is shown to user
-   'model' => "App\Models\Tag",
+
 
    // optional
+   'model' => "App\Models\Category",
    'options'   => (function ($query) {
         return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
     }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
@@ -906,9 +907,9 @@ Your relationships should already be defined on your models as hasOne() or belon
    'name' => 'category_id', // the db column for the foreign key
    'entity' => 'category', // the method that defines the relationship in your Model
    'attribute' => 'name', // foreign key attribute that is shown to user
-   'model' => "App\Models\Tag", // foreign key model
 
    // optional
+   'model' => "App\Models\Category", // foreign key model
    'default' => 2, // set the default value of the select2
    'options'   => (function ($query) {
         return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
@@ -933,10 +934,10 @@ Your relationships should already be defined on your models as hasMany() or belo
     'name' => 'tags', // the method that defines the relationship in your Model
     'entity' => 'tags', // the method that defines the relationship in your Model
     'attribute' => 'name', // foreign key attribute that is shown to user
-    'model' => "App\Models\Tag", // foreign key model
     'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
 
     // optional
+    'model' => "App\Models\Tag", // foreign key model
     'options'   => (function ($query) {
         return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
     }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
@@ -964,11 +965,12 @@ Your relationships should already be defined on your models as hasMany() or belo
      'name'      => 'tags', // the method that defines the relationship in your Model
      'entity'    => 'tags', // the method that defines the relationship in your Model
      'attribute' => 'name', // foreign key attribute that is shown to user
-     'model'     => "App\Models\Tag", // foreign key model
+
      'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
      // 'select_all' => true, // show Select All and Clear buttons?
 
      // optional
+     'model'     => "App\Models\Tag", // foreign key model
      'options'   => (function ($query) {
          return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
      }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
@@ -993,7 +995,9 @@ Display a select2 with the values ordered hierarchically and indented, for an en
     'type' => 'select2_nested',
     'entity' => 'category', // the method that defines the relationship in your Model
     'attribute' => 'name', // foreign key attribute that is shown to user
-    // 'model' => "App\Models\Category", // force foreign key model
+    
+    // optional
+    'model' => "App\Models\Category", // force foreign key model
 ],
 ```
 
@@ -1012,7 +1016,7 @@ Display a select2 where the options are grouped by a second entity (like Categor
     'label' => 'Articles grouped by categories',
     'type' => 'select2_grouped', //https://github.com/Laravel-Backpack/CRUD/issues/502
     'name' => 'article_id',
-    'entity' => 'article',
+    'entity' => 'article', // the method that defines the relationship in your Model
     'attribute' => 'title',
     'group_by' => 'category', // the relationship to entity you want to use for grouping
     'group_by_attribute' => 'name', // the attribute on related model, that you want shown
@@ -1123,10 +1127,12 @@ Display a select2 that takes its values from an AJAX call.
     'name' => 'category_id', // the column that contains the ID of that connected entity
     'entity' => 'category', // the method that defines the relationship in your Model
     'attribute' => "name", // foreign key attribute that is shown to user
-    'model' => "App\Models\Category", // foreign key model
     'data_source' => url("api/category"), // url to controller search function (with /{id} should return model)
-    'placeholder' => "Select a category", // placeholder for the select
-    'minimum_input_length' => 2, // minimum characters to type before querying results
+
+    // OPTIONAL
+    // 'placeholder' => "Select a category", // placeholder for the select
+    // 'minimum_input_length' => 2, // minimum characters to type before querying results
+    // 'model' => "App\Models\Category", // foreign key model
     // 'dependencies'         => ['category'], // when a dependency changes, this select2 is reset to null
     // 'method'                    => 'GET', // optional - HTTP method to use for the AJAX call (GET, POST)
     // 'include_all_form_fields'  => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
@@ -1187,16 +1193,18 @@ Display a select2 that takes its values from an AJAX call. Same as [select2_from
 ```
 [
     // n-n relationship
-    'label' => "End", // Table column heading
+    'label' => "Cities", // Table column heading
     'type' => "select2_from_ajax_multiple",
-    'name' => 'city_id', // the column that contains the ID of that connected entity
-    'entity' => 'city', // the method that defines the relationship in your Model
+    'name' => 'cities', // a unique identifier (usually the method that defines the relationship in your Model) 
+    'entity' => 'cities', // the method that defines the relationship in your Model
     'attribute' => "name", // foreign key attribute that is shown to user
-    'model' => "App\Models\City", // foreign key model
     'data_source' => url("api/cities"), // url to controller search function (with /{id} should return model)
+    'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
+    
+    // OPTIONAL
+    'model' => "App\Models\City", // foreign key model
     'placeholder' => "Select a city", // placeholder for the select
     'minimum_input_length' => 2, // minimum characters to type before querying results
-    'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
     // 'include_all_form_fields'  => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
  ]
 ```
@@ -1204,8 +1212,8 @@ Display a select2 that takes its values from an AJAX call. Same as [select2_from
 Of course, you also need to create a controller and routes for the data_source above. Here's an example:
 
 ```
-Route::get('/api/category', 'Api\CategoryController@index');
-Route::get('/api/category/{id}', 'Api\CategoryController@show');
+Route::get('/api/category', 'Api\CityController@index');
+Route::get('/api/category/{id}', 'Api\CityController@show');
 ```
 
 ```
@@ -1215,9 +1223,9 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Backpack\NewsCRUD\app\Models\Category;
+use App\Models\City;
 
-class CategoryController extends Controller
+class CityController extends Controller
 {
     public function index(Request $request)
     {
@@ -1226,11 +1234,11 @@ class CategoryController extends Controller
 
         if ($search_term)
         {
-            $results = Category::where('name', 'LIKE', '%'.$search_term.'%')->paginate(10);
+            $results = City::where('name', 'LIKE', '%'.$search_term.'%')->paginate(10);
         }
         else
         {
-            $results = Category::paginate(10);
+            $results = City::paginate(10);
         }
 
         return $results;
@@ -1238,7 +1246,7 @@ class CategoryController extends Controller
 
     public function show($id)
     {
-        return Category::find($id);
+        return City::find($id);
     }
 }
 ```
