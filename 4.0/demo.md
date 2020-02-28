@@ -16,6 +16,11 @@ In this [Demo repository](https://github.com/laravel-backpack/demo), we've:
 
 >**Don't use this demo to start your real projects.** Please use [the recommended installation procedure](/docs/{{version}}/installation). You don't want all the bogus entities we've created. You don't want all the packages we've used. And you _definitely_ don't want the default admin user. Start from scratch. 
 
+<a name="preview"></a>
+## Demo Preview
+
+If you just want to take a look at the Backpack interface and click around, you don't need to install the Demo. **Take a look at [demo.backpackforlaravel.com](https://demo.backpackforlaravel.com/admin) - we've installed for you.** The online demo is wiped and reinstalled every hour, on the hour.
+
 <a name="installation"></a>
 ## Demo Installation
 
@@ -42,7 +47,7 @@ php artisan db:seed
 ```
 
 <a name="usage"></a>
-## Usage 
+## Demo Usage 
 
 Once everything's installed, and your database has been set up:
 
