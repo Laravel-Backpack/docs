@@ -8,7 +8,7 @@ We've put toghether a working Laravel app (backend-only), that you can install o
 - change stuff in code, to see how easy it is to customize Backpack; 
 
 In this [Demo repository](https://github.com/laravel-backpack/demo), we've:
-- installed Laravel 5.8 or 6;
+- installed Laravel 6;
 - installed Backpack\CRUD on top;
 - created a few demo models (Monsters, Icons, Products) and admin panels for them, using dozens of field types, column types, filters, etc - to show off most of Backpack's default features;
 - installed a few Backpack extensions: PermissionManager, PageManager, LogManager, BackupManager, Settings, MenuCRUD, NewsCRUD;
