@@ -537,7 +537,7 @@ Input preview:
 		$this->attributes['datetime'] = \Date::parse($value);
 	}
 ```
-Otherwise the input's datetime-local formal will cause some errors.
+Otherwise the input's datetime-local format will cause some errors.
 
 Input preview: 
 
@@ -569,7 +569,7 @@ Show a [Bootstrap Datetime Picker](https://eonasdan.github.io/bootstrap-datetime
 		$this->attributes['datetime'] = \Date::parse($value);
 	}
 ```
-Otherwise the input's datetime-local formal will cause some errors. Remeber to change "datetime" with the name of your attribute (column name).
+Otherwise the input's datetime-local format will cause some errors. Remember to change "datetime" with the name of your attribute (column name).
 
 Input preview: 
 
