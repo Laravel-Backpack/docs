@@ -29,8 +29,8 @@ php artisan backpack:add-custom-route "Route::crud('tag', 'TagCrudController');"
 <a name="requirements"></a>
 ### Requirements
 
-  - Laravel 5.8 or Laravel 6.x
-  - PHP 7.2+
+  - Laravel 7, Laravel 6 or Laravel 5.8
+  - PHP 7.2.5+
   - MySQL (recommended) / PosgreSQL / SQLite / SQL Server
 
 <a name="screenshots"></a>
