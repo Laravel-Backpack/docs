@@ -2,88 +2,100 @@
 
 ---
 
-**Launch date:** September 24th, 2019
+**Launch date:** March 24th, 2020
 
-Here are the main differences between [Backpack 3.6](https://backpackforlaravel.com/docs/3.6) and Backpack 4.0.
+Backpack 4.1 is a FREE upgrade for Backpack 4.0 users. Anybody with a 4.0 license can install and use 4.1, but in order to get the new features you need to [follow the upgrade guide](/docs/{{version}}/upgrade-guide).
+
+Here's what Backpack 4.1 brings to the table, and why you should upgrade from [Backpack 4.0](/docs/4.0) to Backpack 4.1.
+
 
 <a name="added"></a>
 # Added
-- using Bootstrap 4 instead of Bootstrap 3; 
-- new design; we're now using a custom design we made, called [Backstrap](http://backstrap.net), based on [CoreUI](http://coreui.io); (_get it? Backpack... Bootstrap... Backstrap? Pff..._)
-- no CSS and JS assets are loaded from CDNs; everything's inside the Backpack/CRUD package, installed through NPM, and gets published into your ```public``` folder upon installation; you don't need to use NPM yourself to install or update assets - the Backpack maintainers do that for you;
-- offline & intranet support - thanks to our move away from CDNs, Backpack now works without an internet connection;
-- ability to easily add Vue.JS, React, or any other JS file inside all your admin panel pages, by modifying an array in ```config/backpack/base.php```;
-- ability to easily remove the bundled JS and CSS and use CDNs if you want to;
-- ability to toggle breadcrumbs on/off, in the ```config/backpack/base.php``` config file;
-- ability to choose a different theme for Backpack views, in ```config/backpack/base.php```;
-- SweetAlerts - instead of showing the default browser alert(), Backpack now uses much prettier SweetAlert pop-ups;
-- API to [change breadcrumb links from controllers or from views](/docs/{{version}}/base-how-to#use-breadcrumbs);
-- [Widgets](/docs/{{version}}/base-widgets) - easily add stats, pie charts, line charts and other quick stats to a dashboard or CRUD (or any part of your admin panel);
-- support for Right-to-Left (RTL) languages; just change ```html_direction``` to ```rtl``` inside ```config/backpack/base.php```;
+
+TODO: GIF, SCREENSHOT or CODE BLOCK
+
+#### **New field type: ```repeatable```** (aka ```matrix```, aka ```multiply```) 
+
+- group multiple fields into one (ex: Testimonial includes full_name, company_name, position, text)
+- allow the user to add many such groups (ex: Testimonials) to the current entry, stored as JSON
+- see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2266)
+
+TODO: GIF, SCREENSHOT or CODE BLOCK
+
+#### **New field type: ```relationship```** 
+
+- includes the functionality of all select2 fields
+- can replace both AJAX and non-AJAX selects
+- can replace single and multiple selects (1-n and n-n relationships) 
+- finally one relationship field to rule them all
+- see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2311)
+
+TODO: GIF, SCREENSHOT or CODE BLOCK
+
+#### **New operation: ```InlineCreate```** 
+
+- shows an "+ Add" button next to your select field
+- that button shows a modal, that allows the user to Create an item on-the-fly, without leaving the page;
+- see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2311)
+
+TODO: GIF, SCREENSHOT or CODE BLOCK
+
+#### **New operation: ```Fetch```** 
+
+- fields with AJAX selects are now much easier to create & use 
+- see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2308)
+
+
+TODO: GIF, SCREENSHOT or CODE BLOCK
+
+#### **New columns feature: ```wrapper```** 
+
+- you can now easily add links around your column text
+- those links can point to a Preview operation for that entry, or whatever you want
+- the same feature can be used to change the look&feel of columns (ex: add badge-warning, etc)
+- see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2448)
+
+
+TODO: GIF, SCREENSHOT or CODE BLOCK
+
+#### **New widget: ```chart```** 
+
+- easily add a widget with a pie chart, or bar chart, from your Controller
+- see docs, PR
+
+
+TODO: GIF, SCREENSHOT or CODE BLOCK
+
+#### **Fluent syntax for fields & columns (alternative)** 
+
+- create or modify a field/column with one call
+- instead of defining field/column attributes as an array, easily chain the attributes to the first call 
+- comfortably fit most field/column definitions on one line, instead of multiple
+- see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2513)
+
+
+
+
+<a name="changed"></a>
+# Changed
+
+- You can now easily **customize the buttons at the end of the Create/Update forms** - see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2356);
+- You can now make all Backpack routes **use a different web middleware** than ```web``` - see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2408);
+- For the ```List Operation```, you can now easily:
+	- **hide/show the search bar** - see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2479);
+	- **hide/show a "Reset" button** that clears the localStorage to reset the DataTable to its defaults - see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2509);
+	- **extend the ListOperation to show the DataTable from a different perspective** (ex: a monthlyReport page that filters entries, shows different columns, different pagination, different buttons, etc) - see docs , PR;
 
 <a name="removed"></a>
 # Removed
-- AdminLTE design; we're now using Bootstrap 4 + [CoreUI](http://coreui.io), with a custom design we made, called [Backstrap](http://backstrap.net); (_get it? Backpack... Bootstrap... Backstrap?_)
-- Pnotify was removed in favour of Noty to show notificatio bubbles;
-- loading multiple files for CSS and JS, on every page; now Backpack's default is to load one CSS bundle file, and one JS bundle file; CSS and JS for field types is still loaded separately, when needed, of course - you wouldn't want all CSS & JS loaded for all 40+ field types, on every page load;
-- ```backpack/generators``` and ```laracasts/generators``` are no longer installed automatically; however, the official installation process does instruct you to install them;
-- Backpack/Base; All the functionality in Backpack\Base has now been included in the Backpack\CRUD repository; However, we've kept the separate config files (```config/backpack/base.php``` and ```config/backpack/crud.php```) and views are still in the two folders you're used to, ```resources/views/vendor/backpack/base``` and ```resources/views/vendor/backpack/crud```; We've done this so it's easier for you to upgrade, but we _will_ merge the config files and views in the next Backpack 5.0 or 6.0;
 
-<a name="licensing"></a>
-# Licensing
-
-<a name="licensing-new-buyers"></a>
-## New Buyers
-
-All licenses you can purchase now on BackpackForLaravel.com are valid for _both_ v3 and v4. We've bumped the prices a bit, they're now:
-- 0 EUR for non-commercial projects (unlimited developers, one project);
-- 69 EUR for a single commercial project (unlimited developers, one project);
-- 399 EUR for unlimited commercial projects (unlimited developers, unlimited projects);
-
-Check out our [pricing page](https://backpackforlaravel.com/pricing) for more details, 
-
-<a name="licensing-v3-buyers"></a>
-## Backpack v3 Buyers
-
-You can still use Backpack v3.6 for your projects. There's nothing wrong with it, if you don't want the new features in v4. But please know - v3 will only receive _security_ updates in the future: no bug fixes, no new features. We've provided upgrades and new features for Backpack v3 for _more than 3 years_. We hope this means you've already gotten a great bang for your buck out of your Backpack v3 license.
-
-### Single License
-
-Depending on _when_ you've purchased your Backpack v3 Project license, you'll qualify for a discount for upgrading your project to v4:
-- bought in 2016 - 10 EUR discount (aprox 14%);
-- bought in 2017 - 15 EUR discount (aprox 21%);
-- bought in 2018 - 20 EUR discount (aprox 28%);
-- bought in January-June 2019 - 25 EUR discount (aprox 36%);
-- bought in July-August 2019 - 39 EUR discount (aprox 56%);
-- bought in September 2019 - 49 EUR discount (aprox 71%);
-
-If you're an EU resident/company, VAT may be added to your invoice.
-
-There's only one catch: **To receive the discount, you have to purchase the upgrade before October 27th 2019**. You can purchase the upgrade in your Backpack account - you'll notice a new button has shown up next to your v3 license "_Upgrade for xxx EUR_". That button will disappear on October 28th 2019, 00:01 GMT. You will not be able to purchase with a discount after that.
+- Support for PHP 7.1;
+- ```laravel/helpers``` dependency - but you can install it, if you want to use the array and string helpers; see upgrade guide;
+- ```venturecraft/revisionable``` dependency - in order to use the Revisions operation you now have to install a first-party Backpack add-on; see docs, PR or upgrade guide;
+- ```barryvdh/laravel-elfinder``` dependency - in order to use the File Manager screen, or the ```browse``` or ```browse_multiple``` field types, you need to install a first-party Backpack add-on; see docs, PR or upgrade guide;
+- ```intervention/image``` dependency - in order to use the ```image``` field type you need to require the package yourself; see updated docs, PR and upgrade guide; 
 
 
-### Unlimited License
+---
 
-Depending on _when_ you've purchased your Backpack v3 Unlimited license, you'll qualify for a discount for upgrading all your projects to v4 _and_ creating new projects with Backpack v4:
-- bought in 2016 - 20 EUR discount (aprox 5%);
-- bought in 2017 - 40 EUR discount (aprox 10%);
-- bought in 2018 - 80 EUR discount (aprox 20%);
-- bought in January-June 2019 - 120 EUR discount (aprox 30%);
-- bought in July-August 2019 - 200 EUR discount (aprox 51%);
-- bought in September 2019 - 299 EUR discount (aprox 75%);
-
-If you're an EU resident/company, VAT may be added to your invoice.
-
-There's only one catch: **To receive the discount, you have to purchase the upgrade before October 27th 2019**. You can purchase the upgrade in your Backpack account - you'll notice a new button has shown up next to your v3 license "_Upgrade for xxx EUR_". That button will disappear on October 28th 2019, 00:01 GMT. You will not be able to purchase with a discount after that.
-
-If you've bought the Unlimited License very recently, and haven't launched any projects using Backpack v3, we don't want you to feel cheated. We can make a special discount for you - we'll discount the entire v3 Unlimited cost from your v4 Unlimited License. You'd only pay the price difference from v3 to v4 (100 EUR), and you'd be licensed to use both v3 and v4 in production. [Contact us](http://backpackforlaravel.com/contact).
-
-
-<a name="versioning"></a>
-# Versioning
-
-When installing Backpack, require its minor version (currently ```4.0.*```). Backpack follows the same versioning system as Laravel 5.x - minor versions include minor breaking changes. This allows us to push new features without charging our users again. For us, this is what ```major.minor.patch``` means:
-
-- ```major``` - **PAID upgrade; MAJOR breaking changes;** historically every 2-3 years; upgrading may take even 2-3 hours; includes major new features, major changes in how the whole system works, and complete rewrites; it allows us to _considerably_ improve the product, and add features that were previously impossible;
-- ```minor``` - **FREE upgrade; MINOR breaking changes**; historically every 6-12 months; upgrading takes less than 30 minutes; it allows us to add big new features, for free;
-- ```patch``` - **FREE upgrade; NO breaking changes**; historically every week; upgrading can be done automatically with composer; includes bug fixes and non-breaking new features;
+In order to get all of the features above (and a few more hidden gems), please [follow the upgrade guide](/docs/{{version}}/upgrade-guide), to get from Backpack 4.0 to Backpack 4.1.

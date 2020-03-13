@@ -29,7 +29,7 @@ php artisan backpack:add-custom-route "Route::crud('tag', 'TagCrudController');"
 <a name="requirements"></a>
 ### Requirements
 
-  - Laravel 7, Laravel 6 or Laravel 5.8
+  - Laravel 7, 6 or 5.8
   - PHP 7.2.5+
   - MySQL (recommended) / PosgreSQL / SQLite / SQL Server
 
@@ -41,7 +41,8 @@ Take a look at [our homepage](http://www.backpackforlaravel.com/).
 <a name="demo"></a>
 ### Demo
 
-You can easily [install our demo Laravel project with Backpack installed](/docs/{{version}}/demo) and play around.
+- Play around in our [live demo](https://demo.backpackforlaravel.com/admin/login).
+- [Install the demo](/docs/{{version}}/demo) and fiddle with the code.
 
 <a name="security"></a>
 ### Security
@@ -51,12 +52,21 @@ Backpack has never had a critical vulnerability/hack. But there _have_ been impo
 <a name="maintenance"></a>
 ### Maintenance
 
-Backpack 4.0 is the current version, and is being actively maintained by Backpack's creator, [Cristian Tabacitu](http://tabacitu.ro), with the help of a wonderful community of Backpack veterans. [See all contributors](https://github.com/Laravel-Backpack/CRUD/graphs/contributors).
+Backpack 4.1 is the current version, and is being actively maintained by the Backpack team, with the help of a wonderful community of Backpack veterans. [See all contributors](https://github.com/Laravel-Backpack/CRUD/graphs/contributors).
 
 <a name="license"></a>
 ### License
 
 Backpack is under a license we call "_You make money, I make money_" (YummY). Backpack's source is public, and you can use it for free for non-commercial purposes (testing, non-profits, personal use, etc), but if you make money using it, you need to purchase a commercial license. Please see  [the pricing section](https://backpackforlaravel.com/pricing) for more details. In production, you need a license code for both commercial and non-commercial use, to prevent nagging notification bubbles. **On localhost, you don't need a license code.**
+
+<a name="versioning"></a>
+### Versioning
+
+When installing Backpack, require its minor version (currently ```4.1.*```). Backpack follows the same versioning system as Laravel 5.x - minor versions include minor breaking changes. This allows us to push new features without charging our users again. For us, this is what ```major.minor.patch``` means:
+
+- ```major``` - **PAID upgrade; MAJOR breaking changes;** historically every 2-3 years; upgrading may take even 2-3 hours; includes MAJOR new features, MAJOR changes in how the whole system works, and complete rewrites; it allows us to _considerably_ improve the product, and add features that were previously impossible;
+- ```minor``` - **FREE upgrade; MINOR breaking changes**; historically every 6-12 months; upgrading takes less than 30 minutes; it allows us to add big new features, for free;
+- ```patch``` - **FREE upgrade; NO breaking changes**; historically every week; upgrading can be done automatically with composer; includes bug fixes and non-breaking new features;
 
 <a name="add-ons"></a>
 ### Add-ons
