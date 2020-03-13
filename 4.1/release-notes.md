@@ -12,7 +12,7 @@ Here's what Backpack 4.1 brings to the table, and why you should upgrade from [B
 <a name="added"></a>
 # Added
 
-TODO: GIF, SCREENSHOT or CODE BLOCK
+!! ```GIF, SCREENSHOT or CODE BLOCK``` !!
 
 #### **New field type: ```repeatable```** (aka ```matrix```, aka ```multiply```) 
 
@@ -20,7 +20,7 @@ TODO: GIF, SCREENSHOT or CODE BLOCK
 - allow the user to add many such groups (ex: Testimonials) to the current entry, stored as JSON
 - see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2266)
 
-TODO: GIF, SCREENSHOT or CODE BLOCK
+!! ```GIF, SCREENSHOT or CODE BLOCK``` !!
 
 #### **New field type: ```relationship```** 
 
@@ -30,7 +30,7 @@ TODO: GIF, SCREENSHOT or CODE BLOCK
 - finally one relationship field to rule them all
 - see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2311)
 
-TODO: GIF, SCREENSHOT or CODE BLOCK
+!! ```GIF, SCREENSHOT or CODE BLOCK``` !!
 
 #### **New operation: ```InlineCreate```** 
 
@@ -38,7 +38,7 @@ TODO: GIF, SCREENSHOT or CODE BLOCK
 - that button shows a modal, that allows the user to Create an item on-the-fly, without leaving the page;
 - see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2311)
 
-TODO: GIF, SCREENSHOT or CODE BLOCK
+!! ```GIF, SCREENSHOT or CODE BLOCK``` !!
 
 #### **New operation: ```Fetch```** 
 
@@ -46,7 +46,7 @@ TODO: GIF, SCREENSHOT or CODE BLOCK
 - see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2308)
 
 
-TODO: GIF, SCREENSHOT or CODE BLOCK
+!! ```GIF, SCREENSHOT or CODE BLOCK``` !!
 
 #### **New columns feature: ```wrapper```** 
 
@@ -56,7 +56,7 @@ TODO: GIF, SCREENSHOT or CODE BLOCK
 - see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2448)
 
 
-TODO: GIF, SCREENSHOT or CODE BLOCK
+!! ```GIF, SCREENSHOT or CODE BLOCK``` !!
 
 #### **New widget: ```chart```** 
 
@@ -64,7 +64,7 @@ TODO: GIF, SCREENSHOT or CODE BLOCK
 - see docs, PR
 
 
-TODO: GIF, SCREENSHOT or CODE BLOCK
+!! ```GIF, SCREENSHOT or CODE BLOCK``` !!
 
 #### **Fluent syntax for fields & columns (alternative)** 
 
@@ -79,21 +79,30 @@ TODO: GIF, SCREENSHOT or CODE BLOCK
 <a name="changed"></a>
 # Changed
 
-- You can now easily **customize the buttons at the end of the Create/Update forms** - see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2356);
-- You can now make all Backpack routes **use a different web middleware** than ```web``` - see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2408);
 - For the ```List Operation```, you can now easily:
 	- **hide/show the search bar** - see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2479);
-	- **hide/show a "Reset" button** that clears the localStorage to reset the DataTable to its defaults - see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2509);
+	- **hide/show a "Reset" button** that resets the DataTable to its default search, filtering, pagination - see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2509);
 	- **extend the ListOperation to show the DataTable from a different perspective** (ex: a monthlyReport page that filters entries, shows different columns, different pagination, different buttons, etc) - see docs , PR;
+- You can now easily **customize the buttons at the end of the Create/Update forms** - see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2356);
+- You can now make all Backpack routes **use a different web middleware** than ```web``` - see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2408);
+
 
 <a name="removed"></a>
 # Removed
 
 - Support for PHP 7.1;
-- ```laravel/helpers``` dependency - but you can install it, if you want to use the array and string helpers; see upgrade guide;
-- ```venturecraft/revisionable``` dependency - in order to use the Revisions operation you now have to install a first-party Backpack add-on; see docs, PR or upgrade guide;
-- ```barryvdh/laravel-elfinder``` dependency - in order to use the File Manager screen, or the ```browse``` or ```browse_multiple``` field types, you need to install a first-party Backpack add-on; see docs, PR or upgrade guide;
-- ```intervention/image``` dependency - in order to use the ```image``` field type you need to require the package yourself; see updated docs, PR and upgrade guide; 
+- ```laravel/helpers``` dependency 
+	- but you can install it, if you want to use the array and string helpers; 
+	- see upgrade guide;
+- ```venturecraft/revisionable``` dependency 
+	- in order to use the Revisions operation you now have to install a first-party Backpack add-on; 
+	- see docs, PR or upgrade guide;
+- ```barryvdh/laravel-elfinder``` dependency 
+	- in order to use the File Manager screen, the ```browse``` or ```browse_multiple``` field types, you need to install a first-party Backpack add-on; 
+	- see docs, PR or upgrade guide;
+- ```intervention/image``` dependency 
+	- in order to use the ```image``` field type you need to require the package yourself; 
+	- see updated docs, PR and upgrade guide; 
 
 
 ---
