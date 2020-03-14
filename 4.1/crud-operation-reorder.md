@@ -78,5 +78,5 @@ public function reorder()
 You can also overwrite the reorder button by creating a file with the same name inside your ```resources/views/vendor/backpack/crud/buttons/```. You can easily publish the reorder button there to make changes using:
 
 ```zsh
-php artisan backpack:publish buttons/reorder
+php artisan backpack:publish crud/buttons/reorder
 ```

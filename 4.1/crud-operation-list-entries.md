@@ -205,7 +205,7 @@ The main route leads to ```EntityCrudController::index()```, which loads ```list
 You can change how the ```list.blade.php``` file looks and works, by just placing a file with the same name in your ```resources/views/vendor/backpack/crud/list.blade.php```. To quickly do that, run:
 
 ```zsh
-php artisan backpack:publish list
+php artisan backpack:publish crud/list
 ```
 
 Keep in mind that by publishing this file, you won't be getting any updates we'll be pushing to it.

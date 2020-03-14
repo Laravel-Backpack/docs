@@ -56,7 +56,7 @@ public function destroy($id)
 You can also overwrite the delete button by creating a file with the same name inside your ```resources/views/vendor/backpack/crud/buttons/```. You can easily publish the delete button there to make changes using:
 
 ```zsh
-php artisan backpack:publish buttons/delete
+php artisan backpack:publish crud/buttons/delete
 ```
 
 <a name="delete-multiple-items-bulk-delete"></a>
@@ -92,5 +92,5 @@ public function bulkDelete($id)
 You can also overwrite the bulk delete button by creating a file with the same name inside your ```resources/views/vendor/backpack/crud/buttons/```. You can easily publish the delete button there to make changes using:
 
 ```zsh
-php artisan backpack:publish buttons/bulk_delete
+php artisan backpack:publish crud/buttons/bulk_delete
 ```
