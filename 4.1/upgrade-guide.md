@@ -105,9 +105,11 @@ The steps below should apply for each of your CrudControllers. For each Step, go
 
 **Step 10.** Inside CrudControllers, Backpack 4.1:
 - no longer defines ```$this->request```
-- still defines ```$this->crud->request``` (aka ```CRUD::request```)
+- still defines ```$this->crud->request``` (aka ```CRUD::request```) but uses getters and setters to work with it (```$this->crud->getRequest()``` and ```$this->crud->setRequest()```);
 
-Since ```$this->request``` did nothing at all, we've removed it, to avoid any confusion between working with ```$this->request``` and ```$this->crud->request```. **If you have ```$this->request->something()``` anywhere in your CrudControllers custom logic, please replace it with either the global ```request()->something()``` or with ```$this->crud->request->something()```**.
+Why? Since ```$this->request``` did nothing at all, we've removed it, to avoid any confusion between working with ```$this->request``` and ```$this->crud->request```. To do:
+- **If you have ```$this->request``` anywhere in your CrudControllers custom logic**, please replace it with either the global ```request()``` or with ```$this->crud->getRequest()```.
+- **If you have ```$this->crud->request``` anywhere inside your custom CrudController logic**, please replace it with either ```$this->crud->getRequest()``` or ```$this->crud->setRequest()``` depending on what you're doing there.
 
 <a href="assets"></a>
 ### CSS & JS Assets
