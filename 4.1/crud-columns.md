@@ -531,11 +531,11 @@ Display any custom column type you want. Usually used by Backpack package develo
 <a name="overwriting-default-column-types"></a>
 ## Overwriting Default Column Types
 
-You can overwrite a column type by placing a file with the same name in your ```resources\views\vendor\backpack\crud\columns``` directory. When a file is there, Backpack will pick that one up, instead of the one in the package. You can do that from command line using ```php artisan backpack:crud:publish columns/column-file-name```
+You can overwrite a column type by placing a file with the same name in your ```resources\views\vendor\backpack\crud\columns``` directory. When a file is there, Backpack will pick that one up, instead of the one in the package. You can do that from command line using ```php artisan backpack:publish columns/column-file-name```
 
 Examples:
 - creating a ```resources\views\vendor\backpack\crud\columns\number.blade.php``` file would overwrite the ```number``` column functionality;
-- ```php artisan backpack:crud:publish columns/text``` will take the view from the package and copy it to the directory above, so you can edit it;
+- ```php artisan backpack:publish columns/text``` will take the view from the package and copy it to the directory above, so you can edit it;
 
 >Keep in mind that when you're overwriting a default column type, you're forfeiting any future updates for that column. We can't push updates to a file that you're no longer using.
 

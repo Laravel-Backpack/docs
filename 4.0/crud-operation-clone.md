@@ -73,7 +73,7 @@ public function clone($id)
 You can also overwrite the clone button by creating a file with the same name inside your ```resources/views/vendor/backpack/crud/buttons/```. You can easily publish the clone button there to make changes using:
 
 ```zsh
-php artisan backpack:crud:publish buttons/clone
+php artisan backpack:publish buttons/clone
 ```
 
 <a name="clone-multiple-items-bulk-clone"></a>
@@ -112,5 +112,5 @@ public function bulkClone($id)
 You can also overwrite the bulk clone button by creating a file with the same name inside your ```resources/views/vendor/backpack/crud/buttons/```. You can easily publish the clone button there to make changes using:
 
 ```zsh
-php artisan backpack:crud:publish buttons/bulk_clone
+php artisan backpack:publish buttons/bulk_clone
 ```

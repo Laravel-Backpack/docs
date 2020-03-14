@@ -1657,7 +1657,7 @@ Show a wysiwyg (CKEditor) to the user.
 
 The actual field types are stored in the Backpack/CRUD package in ```/resources/views/fields```. If you need to change an existing field, you don't need to modify the package, you just need to add a blade file in your application in ```/resources/views/vendor/backpack/crud/fields```, with the same name. The package checks there first, and only if there's no file there, will it load it from the package.
 
-To quickly publish a field blade file in your project, you can use ```php artisan backpack:crud:publish fields/field_name```. For example, to publish the number field type, you'd type ```php artisan backpack:crud:publish fields/number```
+To quickly publish a field blade file in your project, you can use ```php artisan backpack:publish fields/field_name```. For example, to publish the number field type, you'd type ```php artisan backpack:publish fields/number```
 
 >Please keep in mind that if you're using _your_ file for a field type, you're not using the _package file_. So any updates we push to that file, you're not getting them. In most cases, it's recommended you crate a custom field type for your use case, instead of overwriting default field types.
 

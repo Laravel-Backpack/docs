@@ -59,7 +59,7 @@ If you want the route to point to a different controller, you can add the route 
 
 All Backpack packages allow you to easily overwrite and customize the views. If you want Backpack to pick up _your_ file, instead of the one in the package, you can do that by just placing a file with the same name in your views. So if you want to overwrite the select2 field (```vendor/backpack/crud/src/resources/views/fields/select2.blade.php```) to change some functionality, you need to create ```resources/views/vendor/backpack/crud/fields/select2.blade.php```. You can do that manually, or use this command:
 ```shell
-php artisan backpack:crud:publish fields/select2
+php artisan backpack:publish fields/select2
 ```
 This will look for the blade file and copy it inside the folder, so you can edit it.
 
