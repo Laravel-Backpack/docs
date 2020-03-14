@@ -31,7 +31,7 @@ So at minimum, your field definition array should look like:
 <a name="optional-field-attributes"></a>
 ### Optional Field Attributes
 
-There are a few optional attributes on all default field types, that you can use to easily achieve a few common cutomizations:
+There are a few optional attributes on all default field types, that you can use to easily achieve a few common customizations:
 
 ```php
 [
@@ -220,7 +220,7 @@ Use [Google Places Search](https://developers.google.com/places/web-service/sear
 ],
 ```
 
-Using Google Places API is dependant on using an API Key. Please [get an API key](https://console.cloud.google.com/apis/credentials) - you do have to configure billing, but you qualify for $200/mo free usage, which covers most use cases. Then copy-paste that key as your ```services.google_places.key``` value. So inside your ```config/services.php``` please add the items below:
+Using Google Places API is dependent on using an API Key. Please [get an API key](https://console.cloud.google.com/apis/credentials) - you do have to configure billing, but you qualify for $200/mo free usage, which covers most use cases. Then copy-paste that key as your ```services.google_places.key``` value. So inside your ```config/services.php``` please add the items below:
 
 ```php
     'google_places' => [
@@ -1466,7 +1466,7 @@ public function uploadFileToDisk($value, $attribute_name, $disk, $destination_pa
 
 If you wish to have a different functionality, you can delete the method call from your mutator and do your own thing.
 
->**The uploaded files are not deleted for you.** When you delete an entry (wether through CRUD or the application), the uploaded files will not be deleted.
+>**The uploaded files are not deleted for you.** When you delete an entry (whether through CRUD or the application), the uploaded files will not be deleted.
 
 If you're NOT using soft deletes on that Model and want the file to be deleted at the same time the entry is, just specify that in your Model's ```deleting``` event:
 ```php
@@ -1544,7 +1544,7 @@ public function uploadMultipleFilesToDisk($value, $attribute_name, $disk, $desti
 
 If you wish to have a different functionality, you can delete the method call from your mutator and do your own thing.
 
->**The uploaded files are not deleted for you.** When you delete an entry (wether through CRUD or the application), the uploaded files will not be deleted.
+>**The uploaded files are not deleted for you.** When you delete an entry (whether through CRUD or the application), the uploaded files will not be deleted.
 
 If you're NOT using soft deletes on that Model and want the files to be deleted at the same time the entry is, just specify that in your Model's ```deleting``` event:
 ```php
@@ -1581,13 +1581,13 @@ Input preview:
 <a name="video"></a>
 ### video
 
-Allow the user to paste a Youtube/Vimeo link. That will get the video information with Javascript and store it as a JSON in the database.
+Allow the user to paste a YouTube/Vimeo link. That will get the video information with JavaScript and store it as a JSON in the database.
 
 Field definition:
 ```php
 [   // URL
     'name' => 'video',
-    'label' => 'Link to video file on Youtube or Vimeo',
+    'label' => 'Link to video file on YouTube or Vimeo',
     'type' => 'video',
     'youtube_api_key' => 'AIzaSycLRoVwovRmbIf_BH3X12IcTCudAErRlCE',
 ],
@@ -1606,7 +1606,7 @@ $video = {
 
 So you should use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) in your model, to cast the video as ```array``` or ```object```.
 
-Vimeo does not require an API key in order to query their DB, but YouTube does, even though their free quota is generous. You can get a free Youtube API Key inside [Google Developers Console](https://console.developers.google.com/) ([video tutorial here](https://www.youtube.com/watch?v=pP4zvduVAqo)). 
+Vimeo does not require an API key in order to query their DB, but YouTube does, even though their free quota is generous. You can get a free YouTube API Key inside [Google Developers Console](https://console.developers.google.com/) ([video tutorial here](https://www.youtube.com/watch?v=pP4zvduVAqo)). 
 
 
 <a name="view"></a>
@@ -1721,6 +1721,6 @@ Inside your custom field type, you can use these variables:
 - ```$entry``` - in the Update operation, the current entry being modified (the actual values);
 - ```$field``` - all attributes that have been passed for this field;
 
-If your field type uses javascript, we recommend you:
+If your field type uses JavaScript, we recommend you:
 - put a ```data-init-function="bpFieldInitMyCustomField"``` attribute on your input;
 - place your logic inside the scripts section mentioned above, inside ```function bpFieldInitMyCustomField(element) {}```; of course, you choose the name of the function but it has to match whatever you specified as data attribute on the input, and it has to be pretty unique; inside this method, you'll find that ```element``` is jQuery-wrapped object of the element where you specified ```data-init-function```; this should be enough for you to not have to use IDs, or any other tricks, to determine other elements inside the DOM - determine them in relation to the main element; if you want, you can choose to put the ```data-init-function``` attribute on a different element, like the wrapping div;
