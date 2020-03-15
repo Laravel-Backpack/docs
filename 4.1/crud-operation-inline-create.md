@@ -1,0 +1,96 @@
+# InlineCreate
+
+---
+
+<a name="about"></a>
+## About
+
+This operation allows your admins to add new entries to a database table, from a modal. 
+
+For example:
+- if you have an ```ArticleCrudController``` where your user can also select ```Categories```;
+- this operation adds the ability to create ```Categories``` right inside the ```ArticleCrudController```'s Create form; 
+    - the admin needs to click an Add button
+    - a modal will show the form from ```CategoryCrudController```'s Create operation;
+
+// NEEDS SCREENSHOT
+
+![CRUD Create Operation](https://backpackforlaravel.com/uploads/screenshots/news_add.png)
+
+<a name="requirements"></a>
+## Requirements
+
+- a working Create operation;
+- correctly defined Eloquent relationships on both the primary Model, and the secondary Model; 
+
+<a name="how-to-use"></a>
+## How to Use
+
+To use the Create operation, you must:
+
+**Step 1. Use the operation trait on the EntityCrudController** of the entity you want to gain the ability to be created inline:
+
+```php
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use Backpack\CRUD\app\Http\Controllers\CrudController;
+
+class TagCrudController extends CrudController
+{
+    use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
+    
+    // OPTIONAL
+    // only if you want to make the InlineCreateOperation behave differently 
+    // from the CreateOperation, otherwise you can just skip the setup method entirely
+    // 
+    // protected function setupInlineCreateOperation()
+	// {
+		// $this->crud->setValidation(StoreRequest::class);
+		// $this->crud->addField($field_definition_array);
+	// }
+}
+```
+
+**Step 2. Use [the relationship field](/docs/{{version}}/crud-fields#relationship)** inside the CreateOperation of the primary entity (where you'd like to be ablet to click a button and a modal shows up), and define ```inline_create``` on it:
+
+```php
+// for 1-n relationships (ex: category) - inside ArticleCrudController
+[
+    'type' => "relationship",
+    'name' => 'category', // the method on your model that defines the relationship
+    'ajax' => true,
+    'inline_create' => true, // assumes the URL will be "/admin/category/inline/create"
+]
+
+// for n-n relationships (ex: tags) - inside ArticleCrudController
+[
+    'type' => "relationship",
+    'name' => 'tags', // the method on your model that defines the relationship
+    'ajax' => true,
+    'inline_create' => [ 'entity' => 'tag' ] // specify the entity in singular
+    // that way the assumed URL will be "/admin/tag/inline/create"
+]
+
+// OPTIONALS - to customize behaviour
+    'inline_create' => [ 
+        'entity' => 'tag', // the entity in singular
+        'force_select' => true, // should the inline-created entry be immediately selected?
+        'modal_class' => 'modal-dialog modal-xl', // use modal-sm, modal-lg to change width
+        'modal_route' => route('tag-inline-create'), // InlineCreate::getInlineCreateModal()
+        'create_route' =>  route('tag-inline-create-save'), // InlineCreate::storeInlineCreate()
+    ]
+```
+
+
+**Step 3. OPTIONAL - You can create a ```setupInlineCreateOperation()``` method in the EntityCrudControoler**, to make the InlineCreateOperation behave differently from the regular ClreateOperation. You are able to do whatever you can inside the Create operation, but most likely you'll work with the [Fields API](/docs/{{version}}/crud-fields#fields-api).
+
+<a name="how-it-works"></a>
+## How It Works
+
+The ```CreateInline``` operation uses two routes:
+- POST to ```/entity-name/inline/create/modal``` -  ```getInlineCreateModal()``` which returns the contents of the Create form, according to how it's been defined by the CreateOperation, then overwritten by the InlineCreateOperation;
+- POST to ```/entity-name/inline/create``` - points to ```storeInlineCreate()``` which does the actual saving in the database by calling the ```store()``` method from the CreateOperation;
+
+Since this operation is just a way to allow access to the Create operation from a modal, the ```getInlineCreateModal()``` method will show all the fields you've defined for this operation using the [Fields API](/docs/{{version}}/crud-fields#fields-api), then upon Save the ```store()``` method will first check the validation from the FormRequest you've specified, then create the entry using the Eloquent model. Only attributes that specified as fields, and are ```$fillable``` on the model will actually be stored in the database.

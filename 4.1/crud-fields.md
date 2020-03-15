@@ -205,6 +205,8 @@ Input preview:
 
 ![CRUD Field - address](https://backpackforlaravel.com/uploads/docs-4-0/fields/address.png)
 
+<hr>
+
 <a name="address_google"></a>
 ### address_google
 
@@ -234,6 +236,8 @@ Input preview:
 
 ![CRUD Field - address](https://backpackforlaravel.com/uploads/docs-4-0/fields/address_google.png)
 
+<hr>
+
 <a name="browse"></a>
 ### browse
 
@@ -256,6 +260,8 @@ Onclick preview:
 
 ![CRUD Field - browse popup](https://backpackforlaravel.com/uploads/docs-4-0/fields/browse_popup.png)
 
+<hr>
+
 <a name="browse-multiple"></a>
 ### browse_multiple
 
@@ -277,6 +283,8 @@ The field assumes you've cast your attribute as ```array``` on your model.  That
 Input preview: 
 
 ![CRUD Field - browse_multiple](https://backpackforlaravel.com/uploads/docs-4-0/fields/browse_multiple.png)
+
+<hr>
 
 <a name="base64-image"></a>
 ### base64_image
@@ -302,6 +310,8 @@ Input preview:
 
 ![CRUD Field - base64_image](https://backpackforlaravel.com/uploads/docs-4-0/fields/base64_image.png)
 
+<hr>
+
 <a name="checkbox"></a>
 ### checkbox
 
@@ -318,6 +328,8 @@ Checkbox for true/false.
 Input preview: 
 
 ![CRUD Field - checkbox](https://backpackforlaravel.com/uploads/docs-4-0/fields/checkbox.png)
+
+<hr>
 
 <a name="checklist"></a>
 ### checklist
@@ -337,6 +349,8 @@ Input preview:
 Input preview: 
 
 ![CRUD Field - checklist](https://backpackforlaravel.com/uploads/docs-4-0/fields/checklist.png)
+
+<hr>
 
 <a name="checklist-dependency"></a>
 ### checklist_dependency
@@ -377,6 +391,8 @@ Input preview:
 
 ![CRUD Field - checklist_dependency](https://backpackforlaravel.com/uploads/docs-4-0/fields/checklist_dependency.png)
 
+<hr>
+
 <a name="ckeditor"></a>
 ### ckeditor
 
@@ -401,6 +417,8 @@ Input preview:
 
 ![CRUD Field - ckeditor](https://backpackforlaravel.com/uploads/docs-4-0/fields/ckeditor.png)
 
+<hr>
+
 <a name="color"></a>
 ### color
 
@@ -416,6 +434,8 @@ Input preview:
 Input preview: 
 
 ![CRUD Field - color](https://backpackforlaravel.com/uploads/docs-4-0/fields/color.png)
+
+<hr>
 
 <a name="color-picker"></a>
 ### color_picker
@@ -435,6 +455,8 @@ Show a pretty colour picker using [Bootstrap Colorpicker](https://itsjavi.com/bo
 Input preview: 
 
 ![CRUD Field - color_picker](https://backpackforlaravel.com/uploads/docs-4-0/fields/color_picker.png)
+
+<hr>
 
 <a name="custom-html"></a>
 ### custom_html
@@ -464,6 +486,8 @@ Input preview:
 
 ![CRUD Field - date](https://backpackforlaravel.com/uploads/docs-4-0/fields/date.png)
 
+<hr>
+
 <a name="date-picker"></a>
 ### date_picker
 
@@ -489,6 +513,8 @@ Please note it is recommended that you use [attribute casting](https://laravel.c
 Input preview: 
 
 ![CRUD Field - date_picker](https://backpackforlaravel.com/uploads/docs-4-0/fields/date_picker.png)
+
+<hr>
 
 <a name="date-range"></a>
 ### date_range
@@ -520,6 +546,8 @@ Input preview:
 
 ![CRUD Field - date_range](https://backpackforlaravel.com/uploads/docs-4-0/fields/date_range.png)
 
+<hr>
+
 <a name="datetime"></a>
 ### datetime
 
@@ -542,6 +570,8 @@ Otherwise the input's datetime-local format will cause some errors.
 Input preview: 
 
 ![CRUD Field - datetime](https://backpackforlaravel.com/uploads/docs-4-0/fields/datetime.png)
+
+<hr>
 
 <a name="datetime-picker"></a>
 ### datetime_picker
@@ -575,6 +605,8 @@ Input preview:
 
 ![CRUD Field - datetime_picker](https://backpackforlaravel.com/uploads/docs-4-0/fields/datetime_picker.png)
 
+<hr>
+
 <a name="email"></a>
 ### email
 
@@ -590,6 +622,8 @@ Input preview:
 
 ![CRUD Field - email](https://backpackforlaravel.com/uploads/docs-4-0/fields/email.png)
 
+
+<hr>
 
 <a name="enum"></a>
 ### enum
@@ -610,6 +644,8 @@ Input preview:
 
 ![CRUD Field - enum](https://backpackforlaravel.com/uploads/docs-4-0/fields/enum.png)
 
+<hr>
+
 <a name="hidden"></a>
 ### hidden
 
@@ -621,6 +657,8 @@ Include an <input type="hidden"> in the form.
     'type' => 'hidden'
 ],
 ```
+
+<hr>
 
 <a name="icon-picker"></a>
 ### icon_picker
@@ -643,6 +681,8 @@ Your input will look like button, with a dropdown where the user can search or p
 Input preview: 
 
 ![CRUD Field - icon_picker](https://backpackforlaravel.com/uploads/docs-4-0/fields/icon_picker.png)
+
+<hr>
 
 <a name="image"></a>
 ### image
@@ -743,6 +783,7 @@ Input preview:
 
 ![CRUD Field - image](https://backpackforlaravel.com/uploads/docs-4-0/fields/image.png)
 
+<hr>
 
 <a name="month"></a>
 ### month
@@ -758,6 +799,8 @@ Input preview:
 Input preview: 
 
 ![CRUD Field - month](https://backpackforlaravel.com/uploads/docs-4-0/fields/month.png)
+
+<hr>
 
 <a name="number"></a>
 ### number
@@ -780,6 +823,8 @@ Input preview:
 
 ![CRUD Field - number](https://backpackforlaravel.com/uploads/docs-4-0/fields/number.png)
 
+<hr>
+
 <a name="page-or-link"></a>
 ### page_or_link
 
@@ -797,6 +842,8 @@ Input preview:
 
 ![CRUD Field - page_or_link](https://backpackforlaravel.com/uploads/docs-4-0/fields/page_or_link.png)
 
+<hr>
+
 <a name="password"></a>
 ### password
 
@@ -811,6 +858,8 @@ Input preview:
 Input preview: 
 
 ![CRUD Field - password](https://backpackforlaravel.com/uploads/docs-4-0/fields/password.png)
+
+<hr>
 
 <a name="radio"></a>
 ### radio
@@ -836,6 +885,8 @@ Input preview:
 
 ![CRUD Field - radio](https://backpackforlaravel.com/uploads/docs-4-0/fields/radio.png)
 
+<hr>
+
 <a name="range"></a>
 ### range
 
@@ -850,6 +901,111 @@ Input preview:
 Input preview: 
 
 ![CRUD Field - range](https://backpackforlaravel.com/uploads/docs-4-0/fields/range.png)
+
+<hr>
+
+<a name="relationship"></a>
+### relationship
+
+Allows the user to choose one/more entries of an Eloquent Model that has a relationship with the current model, using a ```select2``` input. In order to work, this field needs the relationships to be properly defined on the Eloquent models (```hasOne```, ```hasMany```, ```belongsToOne```, ```belongsToMany``` etc).
+
+Its syntax and functionality is similar to the ```select2```, ```select2_multiple```, ```select2_from_ajax```, ```select2_from_ajax_multiple``` fields. That's because it's an evolution of those fields, and includes all their functionality, in this one ```relationship``` field. What's different is that:
+- ```relationship``` handles both single and multiple relationships (1-n and n-n). That's detected automatically depending on your relationship. No need to define "multiple". No need to define "pivot".
+- ```relationship``` will load the entries using both AJAX and no-AJAX, depending on the definition;
+
+Take a look at the examples below to understand the correct syntax for your use case.
+
+**Example 1. Few options (0-100). Entries are loaded onpage, using a simple Eloquent query. No AJAX.**
+```php
+[
+    'type' => "relationship",
+    'name' => 'category', // the method on your model that defines the relationship
+
+    // OPTIONALS:
+    // 'label' => "Category",
+    // 'attribute' => "name", // foreign key attribute that is shown to user (identifiable attribute)
+    // 'entity' => 'category', // the method that defines the relationship in your Model
+    // 'model' => "App\Models\Category", // foreign key Eloquent model
+    // 'placeholder' => "Select a category", // placeholder for the select2 input
+ ]
+```
+
+**Example 2. Many options. Entries are loaded using AJAX.**
+
+If your related entry can have hundreds, thousands or millions of entries, it's not practical to load the options using an Eloquent query onpage, because the Create/Update page would be very slow to load. In this case, you should instruct ```select2``` to fetch the entries using AJAX calls. To do that, in your ```relationship``` field definition you should add ```'ajax' => true```:
+
+```php
+[
+    'type' => "relationship",
+    'name' => 'category', // the method on your model that defines the relationship
+    'ajax' => true,
+
+    // OPTIONALS:
+    // 'label' => "Category",
+    // 'attribute' => "name", // foreign key attribute that is shown to user (identifiable attribute)
+    // 'entity' => 'category', // the method that defines the relationship in your Model
+    // 'model' => "App\Models\Category", // foreign key Eloquent model
+    // 'placeholder' => "Select a category", // placeholder for the select2 input
+
+    // AJAX OPTIONALS:
+    // 'data_source' => url("fetch/category"), // url to controller search function (with /{id} should return model)
+    // 'minimum_input_length' => 2, // minimum characters to type before querying results
+    // 'dependencies'         => [‘category’], // when a dependency changes, this select2 is reset to null
+    // 'include_all_form_fields'  => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
+ ]
+```
+
+Then, you need to create the route and method that allows ```select2``` to search and fetch the results of that search. Fortunately, the ```FetchOperation``` allows you to easily do just that. Inside the CrudController where you've defined the ```relationship``` field, use the ```FetchOperation``` trait, and define a new method that will respond to AJAX queries:
+
+```php
+    use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
+
+    public function fetchCategory()
+    {
+        return $this->fetch(App\Models\Category::class);
+    }
+```
+
+This will set up a ```/fetch/category``` route, which points to ```fetchCategory()```, which returns the search results in a format ```select2``` likes. For more on how this operation works, and how you can customize it, check out the [FetchOperation docs](/docs/{{version}}/crud-operation-fetch).
+
+**Additional operation. InlineCreate - lets the user create a related entry in a modal.**
+
+Searching with AJAX provides a great UX. But what if the user doesn't find what they're looking for? In that case, it would be useful to add a related entry on-the-fly, without leaving the form. If you are using the Fetch operation to get the entries, you're already halfway there. In addition, you only need two additional steps:
+
+```php
+// Inside ArticleCrudController
+// for 1-n relationships (ex: category)
+[
+    'type' => "relationship",
+    'name' => 'category', // the method on your model that defines the relationship
+    'ajax' => true,
+    'inline_create' => true,
+ ]
+// Inside ArticleCrudController
+// for n-n relationships (ex: tags)
+[
+    'type' => "relationship",
+    'name' => 'tags', // the method on your model that defines the relationship
+    'ajax' => true,
+    'inline_create' => [ 'entity' => 'tag' ] // you need to specify the entity in singular
+ ]
+```
+
+Now, on the CrudController of that secondary entity the user will be able to create on-the-fly (ex: ```CategoryCrudController``` or ```TagCrudController```, you'll need to enable the InlineCreate operation:
+```php
+class CategoryCrudController extends CrudController
+{
+    use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
+
+   // ...
+}
+```
+
+This ```InlineCreateOperation``` will allow us to show _the same fields that are inside the Create operation_, inside a new operation _InlineCreate_, that is available in a modal. For more information, check out the [InlineCreate Operation docs](/docs/{{version}}/crud-operation-inline-create).
+
+Remember, ```FetchOperation``` is still needed on the main crud (ex: ```ArticleCrudController```) so that the entries are fetched by ```select2``` using AJAX.
+
+<hr>
 
 <a name="select"></a>
 ### select (1-n relationship)
@@ -879,6 +1035,8 @@ Input preview:
 ![CRUD Field - select](https://backpackforlaravel.com/uploads/docs-4-0/fields/select.png)
 
 
+<hr>
+
 <a name="select-grouped"></a>
 ### select_grouped
 
@@ -900,6 +1058,8 @@ Display a select where the options are grouped by a second entity (like Categori
 Input preview:
 
 ![CRUD Field - select_grouped](https://backpackforlaravel.com/uploads/docs-4-0/fields/select_grouped.png)
+
+<hr>
 
 <a name="select2"></a>
 ### select2 (1-n relationship)
@@ -927,6 +1087,8 @@ Your relationships should already be defined on your models as hasOne() or belon
 Input preview: 
 
 ![CRUD Field - select2](https://backpackforlaravel.com/uploads/docs-4-0/fields/select2_nested.png)
+
+<hr>
 
 <a name="select-multiple"></a>
 ### select_multiple (n-n relationship)
@@ -956,6 +1118,7 @@ Input preview:
 ![CRUD Field - select_multiple](https://backpackforlaravel.com/uploads/docs-4-0/fields/select_multiple.png)
 
 
+<hr>
 
 <a name="select2-multiple"></a>
 ### select2_multiple (n-n relationship)
@@ -988,6 +1151,8 @@ Input preview:
 
 ![CRUD Field - select2_multiple](https://backpackforlaravel.com/uploads/docs-4-0/fields/select2_multiple.png)
 
+<hr>
+
 <a name="select2-nested"></a>
 ### select2_nested
 
@@ -1012,6 +1177,7 @@ Input preview:
 
 ![CRUD Field - select2_nested](https://backpackforlaravel.com/uploads/docs-4-0/fields/select2_nested.png)
 
+<hr>
 
 <a name="select2-grouped"></a>
 ### select2_grouped
@@ -1035,6 +1201,8 @@ Input preview:
 
 ![CRUD Field - select2_grouped](https://backpackforlaravel.com/uploads/docs-4-0/fields/select2_grouped.png)
 
+
+<hr>
 
 <a name="select_and_order"></a>
 ### select_and_order
@@ -1079,6 +1247,8 @@ Input preview:
 ![CRUD Field - select_and_order](https://backpackforlaravel.com/uploads/docs-4-0/fields/select_and_order.png)
 
 
+<hr>
+
 <a name="select-from-array"></a>
 ### select_from_array
 
@@ -1100,6 +1270,8 @@ Input preview:
 
 ![CRUD Field - select_from_array](https://backpackforlaravel.com/uploads/docs-4-0/fields/select_from_array.png)
 
+<hr>
+
 <a name="select2-from-array"></a>
 ### select2_from_array
 
@@ -1120,6 +1292,8 @@ Display a select2 with the values you want:
 Input preview: 
 
 ![CRUD Field - select2_from_array](https://backpackforlaravel.com/uploads/docs-4-0/fields/select2_from_array.png)
+
+<hr>
 
 <a name="select2-from-ajax"></a>
 ### select2_from_ajax
@@ -1192,6 +1366,8 @@ Input preview:
 
 ![CRUD Field - select2_from_array](https://backpackforlaravel.com/uploads/docs-4-0/fields/select2_from_array.png)
 
+<hr>
+
 <a name="select2-from-ajax-multiple"></a>
 ### select2_from_ajax_multiple
 
@@ -1262,6 +1438,8 @@ Input preview:
 
 ![CRUD Field - select2_from_ajax_multiple](https://backpackforlaravel.com/uploads/docs-4-0/fields/select2_from_ajax_multiple.png)
 
+<hr>
+
 <a name="simplemde"></a>
 ### simplemde
 
@@ -1287,6 +1465,8 @@ Input preview:
 
 ![CRUD Field - simplemde](https://backpackforlaravel.com/uploads/docs-4-0/fields/simplemde.png)
 
+<hr>
+
 <a name="summernote"></a>
 ### summernote
 
@@ -1304,6 +1484,8 @@ Show a [Summernote wysiwyg editor](http://summernote.org/) to the user.
 Input preview: 
 
 ![CRUD Field - summernote](https://backpackforlaravel.com/uploads/docs-4-0/fields/summernote.png)
+
+<hr>
 
 <a name="table"></a>
 ### table
@@ -1331,6 +1513,8 @@ Show a table with multiple inputs per row and store the values as JSON in the da
 Input preview: 
 
 ![CRUD Field - table](https://backpackforlaravel.com/uploads/docs-4-0/fields/table.png)
+
+<hr>
 
 <a name="text"></a>
 ### text
@@ -1365,6 +1549,8 @@ Input preview:
 
 ![CRUD Field - text](https://backpackforlaravel.com/uploads/docs-4-0/fields/text.png)
 
+<hr>
+
 <a name="textarea"></a>
 ### textarea
 
@@ -1382,6 +1568,8 @@ Input preview:
 
 ![CRUD Field - textarea](https://backpackforlaravel.com/uploads/docs-4-0/fields/textarea.png)
 
+<hr>
+
 <a name="time"></a>
 ### time
 
@@ -1392,6 +1580,8 @@ Input preview:
     'type' => 'time'
 ],
 ```
+
+<hr>
 
 <a name="tinymce"></a>
 ### tinymce
@@ -1411,6 +1601,8 @@ Show a wysiwyg (TinyMCE) to the user.
 Input preview: 
 
 ![CRUD Field - tinymce](https://backpackforlaravel.com/uploads/docs-4-0/fields/tinymce.png)
+
+<hr>
 
 <a name="upload"></a>
 ### upload
@@ -1482,6 +1674,8 @@ If you're NOT using soft deletes on that Model and want the file to be deleted a
 Input preview: 
 
 ![CRUD Field - upload](https://backpackforlaravel.com/uploads/docs-4-0/fields/upload.png)
+
+<hr>
 
 <a name="upload-multiple"></a>
 ### upload_multiple
@@ -1578,6 +1772,8 @@ Input preview:
 ],
 ```
 
+<hr>
+
 <a name="video"></a>
 ### video
 
@@ -1609,6 +1805,8 @@ So you should use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-e
 Vimeo does not require an API key in order to query their DB, but YouTube does, even though their free quota is generous. You can get a free YouTube API Key inside [Google Developers Console](https://console.developers.google.com/) ([video tutorial here](https://www.youtube.com/watch?v=pP4zvduVAqo)). 
 
 
+<hr>
+
 <a name="view"></a>
 ### view
 
@@ -1624,6 +1822,8 @@ Load a custom view in the form.
 
 **Note:** the same functionality can be achieved using a [custom field type](/docs/{{version}}/crud-fields#creating-a-custom-field-type), or using the [custom_html field type](/docs/{{version}}/crud-fields#custom-html) (if the content is really simple).
 
+<hr>
+
 <a name="week"></a>
 ### week
 
@@ -1638,6 +1838,8 @@ Load a custom view in the form.
 Input preview: 
 
 ![CRUD Field - week](https://backpackforlaravel.com/uploads/docs-4-0/fields/week.png)
+
+<hr>
 
 <a name="wysiwyg"></a>
 ### wysiwyg

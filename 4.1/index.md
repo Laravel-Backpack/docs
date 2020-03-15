@@ -31,11 +31,14 @@
     + [Create](/docs/{{version}}/crud-operation-create) & [Update](/docs/{{version}}/crud-operation-update)
         + [Fields](/docs/{{version}}/crud-fields)
     + [Delete](/docs/{{version}}/crud-operation-delete)
-    + [Clone](/docs/{{version}}/crud-operation-clone)
     + [Show](/docs/{{version}}/crud-operation-show)
         + [Columns](/docs/{{version}}/crud-columns)
+- [Additional Operations](/docs/{{version}}/crud-operations)
+    + [Clone](/docs/{{version}}/crud-operation-clone)
     + [Reorder](/docs/{{version}}/crud-operation-reorder)
     + [Revisions](/docs/{{version}}/crud-operation-revisions)
+    + [Fetch](/docs/{{version}}/crud-operation-fetch)
+    + [InlineCreate](/docs/{{version}}/crud-operation-inline-create)
 - [How To](/docs/{{version}}/crud-how-to)
 
 
