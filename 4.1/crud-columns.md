@@ -31,6 +31,7 @@ When passing a column array, you need to specify at least these attributes:
 - [```searchLogic```](#custom-search-logic)
 - [```orderLogic```](#custom-order-logic)
 - [```orderable```](#custom-order-logic)
+- [```wrapper```](#custom-wrapper-for-columns)
 - [```visibleInTable```](#choose-where-columns-are-visible)
 - [```visibleInModal```](#choose-where-columns-are-visible)
 - [```visibleInExport```](#choose-where-columns-are-visible)
@@ -630,7 +631,60 @@ $this->crud->addColumn([
 ]);
 ```
 
-If you want a column to not be orderable at all, just pass ```'orderable' => false```
+
+<a name="custom-wrapper-for-columns"></a>
+### Wrap Column Text in an HTML Element 
+
+Sometimes the text that the column echoes is not enough. You want to add interactivity to it, by adding a link to what's written there. Or you want to show the value in a green/yellow/red badge so it stands out. You can do both of that with the wrapper attribute, which most columns support.
+
+For example, to add a link that points to that Article's Show operation, you can do:
+
+```php
+$this->crud->addColumn([
+  // Select
+  'label' => "Category",
+  'type' => 'select',
+  'name' => 'category_id', // the db column for the foreign key
+  'entity' => 'category', // the method that defines the relationship in your Model
+  'attribute' => 'name', // foreign key attribute that is shown to user
+  'wrapper'   => [
+      // 'element' => 'a', // the element will default to "a" so you can skip it here
+      'href' => function ($crud, $column, $entry, $related_key) {
+          return backpack_url('article/'.$related_key.'/show');
+      },
+      // 'target' => '_blank',
+      // 'class' => 'some-class',
+  ],
+]);
+```
+
+If you specify ```wrapper``` to a column, the entries in that column will be wrapped in the element you specify. Note that: 
+- To get HTML anchor (a link), you specify ```a``` for the element. 
+- To get a paragraph you'd specify ```p``` for the element. 
+- Anything you declare in the ```wrapper``` array, other than ```element``` will be used as HTML attributes for that element (ex: ```class```, ```style```, etc);
+- Each wrapper attribute can be declared as a string OR as a callback;
+
+Let's take another example, and wrap a boolean column into a green/red span:
+
+```php
+$this->crud->addColumn([
+    'name'  => 'published',
+    'label' => 'Published',
+    'type'  => 'boolean',
+    'options' => [0 => 'No', 1 => 'Yes'], // optional
+    'wrapper' => [
+        'element' => 'span',
+        'class' => function ($crud, $column, $entry, $related_key) {
+            if ($column['text'] == 'Yes') {
+                return 'badge badge-success';
+            }
+
+            return 'badge badge-default';
+        },
+    ],
+]);
+```
+
 
 <a name="choose-where-columns-are-visible"></a>
 ### Choose Where Columns are Visible

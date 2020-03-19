@@ -53,7 +53,7 @@ Here's what Backpack 4.1 brings to the table, and why you should upgrade from [B
 - you can now easily add links around your column text
 - those links can point to a Preview operation for that entry, or whatever you want
 - the same feature can be used to change the look&feel of columns (ex: add badge-warning, etc)
-- see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2448)
+- see [docs](/docs/{{version}}/crud-columns#wrap-column-text-in-an-html-element), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2448)
 
 
 !! ```GIF, SCREENSHOT or CODE BLOCK``` !!
