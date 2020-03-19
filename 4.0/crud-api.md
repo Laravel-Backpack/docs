@@ -372,24 +372,31 @@ $this->crud->with('relationship_name');
 ### Custom Views
 
 - **setShowView()**, **setEditView()**, **setCreateView()**, **setListView()**, **setReorderView()**, **setRevisionsView()**, **setRevisionsTimelineView()**, **setDetailsRowView()** - set the view for a certain CRUD operation or feature
+
 ```php
 // use a custom view for a CRUD operation
-$this->crud->setShowView('your-view');
-$this->crud->setEditView('your-view');
-$this->crud->setCreateView('your-view');
-$this->crud->setListView('your-view');
-$this->crud->setReorderView('your-view');
-$this->crud->setRevisionsView('your-view');
-$this->crud->setRevisionsTimelineView('your-view');
-$this->crud->setDetailsRowView('your-view');
+$this->crud->setShowView('path.to.your.view');
+$this->crud->setEditView('path.to.your.view');
+$this->crud->setCreateView('path.to.your.view');
+$this->crud->setListView('path.to.your.view');
+$this->crud->setReorderView('path.to.your.view');
+$this->crud->setRevisionsView('path.to.your.view');
+$this->crud->setRevisionsTimelineView('path.to.your.view');
+$this->crud->setDetailsRowView('path.to.your.view');
 
 // more generally, you can use the Settings API:
-$this->crud->set('create.view', 'your-view');
+$this->crud->set('create.view', 'path.to.your.view');
+
+// if you want to load something from the /resources/vendor/backpack/crud directory, you can do
+$this->crud->set('create.view', 'create::yourfolder.yourview');
+// or
+$this->crud->set('create.view', 'resources.vendor.backpack.crud.yourfolder.yourview');
 ```
 
 ### Content Class
 
 - **setShowContentClass()**, **setEditContentClass()**, **setCreateContentClass()**, **setListContentClass()**, **setReorderContentClass()**, **setRevisionsContentClass()**, **setRevisionsTimelineContentClass()** - set the CSS class for an operation view, to make the main area bigger or smaller:
+
 ```php
 // use a custom view for a CRUD operation
 $this->crud->setShowContentClass('col-md-8');
