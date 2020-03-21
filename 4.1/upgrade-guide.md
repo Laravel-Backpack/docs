@@ -33,11 +33,10 @@ Backpack 4.0 (that you should already be running) supports Laravel 5.8, 6 and 7.
 <a name="composer"></a>
 ### Composer
 
-**Step 1.** Update your ```composer.json``` file to require ```"backpack/crud": "4.1@dev"``` _NOTE - THIS IS THE DEV VERSION; WHEN 4.1 IS LAUNCHED THE OFFICIAL STABLE REQUIRED VERSION WILL BE ^4.1.0_
+**Step 1.** Update your ```composer.json``` file to require ```"backpack/crud": "4.1.x-dev as 4.0.99"``` _NOTE - THIS IS THE DEV VERSION; WHEN 4.1 IS LAUNCHED THE OFFICIAL STABLE REQUIRED VERSION WILL BE ^4.1.0_
 
 **Step 2.** [OPTIONAL] If you have a lot of Backpack add-ons installed (and their dependencies), here are their latest versions, that support Backpack 4.1, you can copy-paste the versions of the packages you're using:
 ```
-        "backpack/crud": "^4.0.0",
         "backpack/logmanager": "^3.0.0",
         "backpack/settings": "^3.0.0",
         "backpack/pagemanager": "^2.0.0",
