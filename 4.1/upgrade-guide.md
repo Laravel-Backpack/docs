@@ -59,6 +59,14 @@ Backpack 4.0 (that you should already be running) supports Laravel 5.8, 6 and 7.
 **Step 3.** If you're using the Revisions operation, it has now been split into a separate package. So please:
 - add ```"backpack/revise-operation": "^1.0",``` to your composer's require section
 - inside your CrudControllers, search for ```Backpack\CRUD\app\Http\Controllers\Operations\RevisionsOperation``` and replace with ```Backpack\ReviseOperation\ReviseOperation```
+- inside your CrudController, if you've used the specialty methods to set a Revisions view, they no longer exist; please use the normal ```get()```/```set()```, but please note that he operation is now called "_revise_" (verb) not "_revisions_" (noun), so your changes should be:
+    - from ```$this->crud->setRevisionsView()``` to ```$this->crud->set('revise.view')```
+    - from ```$this->crud->getRevisionsView()``` to ```$this->crud->get('revise.view')```
+    - from ```$this->crud->setRevisionsTimelineView()``` to ```$this->crud->set('revise.timelineView')```
+    - from ```$this->crud->getRevisionsTimelineView()``` to ```$this->crud->set('revise.timelineView')```
+    - from ```$this->crud->setRevisionsTimelineContentClass()``` to ```$this->crud->set('revise.timelineContentClass')```
+    - from ```$this->crud->getRevisionsTimelineContentClass()``` to ```$this->crud->set('revise.timelineContentClass')```
+- if you've defined settings for the "_revisions_" operation for all CRUDs, inside your ```config/backpack/crud.php```, please note that the operation name has changed, so inside ```operations``` you should change ```revisions``` to ```revise```;
 
 **Step 4.** Backpack itself is no longer using ```laravel/helpers```. Instead of using helpers like ```str_slug()``` we're now doing ```Str::slug()``` everywhere. We recommend you do the same. But if you want to keep using string and array helpers, please add ```"laravel/helpers": "^1.1",``` to your composer's require section.
 
