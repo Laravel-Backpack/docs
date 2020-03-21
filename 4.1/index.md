@@ -36,7 +36,7 @@
 - [Additional Operations](/docs/{{version}}/crud-operations)
     + [Clone](/docs/{{version}}/crud-operation-clone)
     + [Reorder](/docs/{{version}}/crud-operation-reorder)
-    + [Revisions](/docs/{{version}}/crud-operation-revisions)
+    + [Revise](/docs/{{version}}/crud-operation-revisions)
     + [Fetch](/docs/{{version}}/crud-operation-fetch)
     + [InlineCreate](/docs/{{version}}/crud-operation-inline-create)
 - [How To](/docs/{{version}}/crud-how-to)
