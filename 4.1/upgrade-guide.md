@@ -57,8 +57,8 @@ Backpack 4.0 (that you should already be running) supports Laravel 5.8, 6 and 7.
 ```
 
 **Step 3.** If you're using the Revisions operation, it has now been split into a separate package. So please:
-- add ```"backpack/revisions-operation": "^1.0",``` to your composer's require section
-- inside your CrudControllers, replace ```TodoOldRevisionsTraitNamespace``` with ```TodoNewRevisionsTraitNamespace```
+- add ```"backpack/revise-operation": "^1.0",``` to your composer's require section
+- inside your CrudControllers, search for ```Backpack\CRUD\app\Http\Controllers\Operations\RevisionsOperation``` and replace with ```Backpack\ReviseOperation\ReviseOperation```
 
 **Step 4.** Backpack itself is no longer using ```laravel/helpers```. Instead of using helpers like ```str_slug()``` we're now doing ```Str::slug()``` everywhere. We recommend you do the same. But if you want to keep using string and array helpers, please add ```"laravel/helpers": "^1.1",``` to your composer's require section.
 
