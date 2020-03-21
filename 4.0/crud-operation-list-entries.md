@@ -46,7 +46,7 @@ class ProductCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
 
-    protected setupListOperation()
+    protected function setupListOperation()
     {
        // $this->crud->addColumn();
     }
