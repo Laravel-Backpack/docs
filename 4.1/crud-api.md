@@ -388,7 +388,7 @@ $this->crud->setDetailsRowView('path.to.your.view');
 $this->crud->set('create.view', 'path.to.your.view');
 
 // if you want to load something from the /resources/vendor/backpack/crud directory, you can do
-$this->crud->set('create.view', 'create::yourfolder.yourview');
+$this->crud->set('create.view', 'crud::yourfolder.yourview');
 // or
 $this->crud->set('create.view', 'resources.vendor.backpack.crud.yourfolder.yourview');
 ```
