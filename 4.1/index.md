@@ -47,3 +47,4 @@
 - [Official Add-ons](/docs/{{version}}/add-ons-official)
 - [Community Add-ons](/docs/{{version}}/add-ons-community)
 - [How to Create an Add-on](/docs/{{version}}/add-ons-tutorial)
+    + [Operation Add-on](/docs/{{version}}/add-ons-custom-operation)

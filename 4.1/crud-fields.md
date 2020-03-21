@@ -704,12 +704,13 @@ $this->crud->addField([
 ]);
 ```
 
-**Step 2.** Set a mutator on your Model, so that the file can be stored. You can use this boilerplate code and modify it to match your use case:
+**Step 2.** Add a [mutator](https://laravel.com/docs/7.x/eloquent-mutators#defining-a-mutator) to your Model, where you pick up the uploaded file and store it wherever you want. You can use this boilerplate code and modify it to match your use case. The code below requires that you have ```intervention/image``` installed. If you don't, please do ```composer require intervention/image``` first.
 
 ```php
 // ..
 
 use Illuminate\Support\Str;
+use Intervention\Image\ImageManagerStatic as Image;
 
 // ..
 
@@ -720,8 +721,10 @@ Class Product extends Model
     public function setImageAttribute($value)
     {
         $attribute_name = "image";
-        $disk = config('backpack.base.root_disk_name'); // or use your own disk, defined in config/filesystems.php
-        $destination_path = "public/uploads/folder_1/folder_2"; // path relative to the disk above
+        // or use your own disk, defined in config/filesystems.php
+        $disk = config('backpack.base.root_disk_name'); 
+        // destination path relative to the disk above
+        $destination_path = "public/uploads/folder_1/folder_2"; 
 
         // if the image was erased
         if ($value==null) {
@@ -738,21 +741,21 @@ Class Product extends Model
             // 0. Make the image
             $image = \Image::make($value)->encode('jpg', 90);
             
-	    // 1. Generate a filename.
+	        // 1. Generate a filename.
             $filename = md5($value.time()).'.jpg';
             
-	    // 2. Store the image on disk.
+	        // 2. Store the image on disk.
             \Storage::disk($disk)->put($destination_path.'/'.$filename, $image->stream());
 	    
-	    // 3. Delete the previous image, if there was one.
+	        // 3. Delete the previous image, if there was one.
             \Storage::disk($disk)->delete($this->{$attribute_name});
 		
             // 4. Save the public path to the database
-	    // but first, remove "public/" from the path, since we're pointing to it from the root folder
-	    // that way, what gets saved in the database is the user-accesible URL
+	        // but first, remove "public/" from the path, since we're pointing to it 
+            // from the root folder; that way, what gets saved in the db
+	        // is the public URL (everything that comes after the domain name)
             $public_destination_path = Str::replaceFirst('public/', '', $destination_path);
             $this->attributes[$attribute_name] = $public_destination_path.'/'.$filename;
-	    
         }
     }
     
@@ -761,14 +764,14 @@ Class Product extends Model
 > **The uploaded images are not deleted for you.** If you delete an entry (using the CRUD or anywhere inside your app), the image file won't be deleted from the disk.
 > If you're NOT using soft deletes on that Model and want the image to be deleted at the same time the entry is, just specify that in your Model's ```deleting``` event:
 > ```php
-	public static function boot()
-	{
-		parent::boot();
-		static::deleting(function($obj) {
-			\Storage::disk('public_folder')->delete($obj->image);
-		});
-	}
-  ```
+>	public static function boot()
+>	{
+>		parent::boot();
+>		static::deleting(function($obj) {
+>			\Storage::disk('public_folder')->delete($obj->image);
+>		});
+>	}
+> ```
 
 **A note about aspect_ratio**
 The value for aspect ratio is a float that represents the ratio of the cropping rectangle height and width. By way of example,
