@@ -241,7 +241,7 @@ Input preview:
 <a name="browse"></a>
 ### browse
 
-If you've chosen to use [elFinder](http://elfinder.org/) upon Backpack installation, this button allows the admin to open [elFinder](http://elfinder.org/) and select a file from there.
+This button allows the admin to open [elFinder](http://elfinder.org/) and select a file from there. Run ```composer require backpack/filemanager``` to install elFinder, then you can use the field:
 
 ```php
 [   // Browse
@@ -265,7 +265,7 @@ Onclick preview:
 <a name="browse-multiple"></a>
 ### browse_multiple
 
-Open elFinder and select multiple file from there.
+Open elFinder and select multiple file from there. Run ```composer require backpack/filemanager``` to install elFinder, then you can use the field:
 
 ```php
 [   // Browse multiple
@@ -412,6 +412,8 @@ Show a wysiwyg CKEditor to the user.
     ]
 ],
 ```
+
+If you'd like to be able to select files from elFinder, you need to also run ```composer require backpack/filemanager``` to install elFinder.
 
 Input preview: 
 

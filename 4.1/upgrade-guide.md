@@ -81,7 +81,7 @@ Backpack 4.0 (that you should already be running) supports Laravel 5.8, 6 and 7.
     ],
 ```
 
-**Step 6.** Backpack no longer installs the FileManager by default (elFinder). Since a lot of developers don't need it. If you did use the FileManager, the ```browse``` or the ```browse_multiple``` fields, make sure ```"barryvdh/laravel-elfinder": "^0.4.2",``` is present in your ```composer.json```'s require section. _NOTE TO SELF - THIS STEP MIGHT NOT ACTUALLY BE NEEDED. WE DON'T INSTALL IT BY DEFAULT, BUT WE ALSO DON'T REMOVE IT. IF WE DON'T SEPARATE IT INTO A FIRST-PARTY ADD-ON THE DEVELOPER SHOULD BE FINE._
+**Step 6.** Backpack no longer installs the FileManager by default (elFinder). Since a lot of developers don't need it. If you did use the FileManager, the ```browse``` or the ```browse_multiple``` fields, require ```"backpack/filemanager": "^1.0",``` in your ```composer.json```.
 
 **Step 7.** Backpack no longer installs ```intervention/image``` by default. If you use the ```image``` field type, and you've used our example Mutator in your Model, you might be using ```intervention/image``` - please check. If so, please add ```"intervention/image": "^2.3",``` to your ```composer.json```'s require section.
 

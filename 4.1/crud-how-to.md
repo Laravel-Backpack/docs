@@ -17,8 +17,6 @@ $this->crud->setEditView('your-view');
 $this->crud->setCreateView('your-view');
 $this->crud->setListView('your-view');
 $this->crud->setReorderView('your-view');
-$this->crud->setRevisionsView('your-view');
-$this->crud->setRevisionsTimelineView('your-view');
 $this->crud->setDetailsRowView('your-view');
 ```
 
@@ -143,13 +141,23 @@ In order to insert two column with the same name, use the ```key``` attribute on
 <a name="use-the-media-library"></a>
 ## Use the Media Library (File Manager)
 
-If you've chosen to install [elFinder](http://elfinder.org/) when installing Backpack, you already have a media manager. And it’s integrated into:
-- TinyMCE (as “tinymce” fieldtype)
-- CKEditor (as “ckeditor” fieldtype)
-- CRUD “browse” fieldtype
-- standalone, at the *your-project/admin/elfinder* route;
+The default Backpack installation doesn't come with a file management component. Because most projects don't need it. But we've created a first-party add-on, that brings the power of [elFinder](http://elfinder.org/) to your Laravel projects. To install it, [follow the instructions on the add-on's page](https://github.com/Laravel-Backpack/FileManager). It's as easy as running:
 
-For the integration, barryvdh's [laravel-elfinder](https://github.com/barryvdh/laravel-elfinder) package is used.
+```bash
+# require the package
+composer require backpack/filemanager
+
+# then run the installation process
+php artisan backpack:filemanager:install
+```
+
+If you've chosen to install [backpack/filemanager](https://github.com/Laravel-Backpack/FileManager), you'll have elFinder integrated into:
+- TinyMCE (as “tinymce” field type)
+- CKEditor (as “ckeditor” field type)
+- CRUD (as “browse” and "browse_multiple" field types)
+- stand-alone, at the */admin/elfinder* route;
+
+For the integration, we use [barryvdh/laravel-elfinder](https://github.com/barryvdh/laravel-elfinder).
 
 ![Backpack CRUD ListEntries](https://backpackforlaravel.com/uploads/docs-4-0/media_library.png)
 
