@@ -169,19 +169,10 @@ If the automatic installation doesn't work for you and you need to manually inst
 1) In your terminal:
 
 ``` bash
-composer require backpack/crud
+composer require backpack/crud:"4.1.x-dev as 4.0.99"
 ```
 
-2) If you'd also like a file manager, run: 
-```bash
-composer require barryvdh/laravel-elfinder
-mkdir -p public/uploads
-php artisan elfinder:publish
-php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag="elfinder"
-php artisan backpack:base:add-sidebar-content '<li><a href=\"{{  backpack_url(\"elfinder\") }}\"><i class=\"fa fa-files-o\"></i> <span>File manager</span></a></li>'
-```
-
-3) Actually install Backpack:
+2) Instead of running ```php artisan backpack:install``` you can run:
 ```bash
 php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag="minimum"
 php artisan vendor:publish --provider="Prologue\Alerts\AlertsServiceProvider"

@@ -5,11 +5,11 @@
 <a name="requirements"></a>
 ## Requirements
 
-If you can run Laravel 5.8, Laravel 6 or Laravel 7, you can install Backpack. Backpack does _not_ have additional requirements. For the following process, we assume:
+If you can run Laravel 6 or Laravel 7, you can install Backpack. Backpack does _not_ have additional requirements. For the following process, we assume:
 
 - you have a [working installation of Laravel](https://laravel.com/docs/7.x#installation) (an existing project is fine, you don't need a *fresh* Laravel install);
 
-- you have put your database and email credentials in your .ENV file;
+- you have configured your .ENV file with your database and mail information;
 
 - you can run the ```composer``` command from any directory (you have ```composer``` registered as a global command); if you need to run ```php composer.phar``` or reference another directory, please remember to adapt the commands below to your configuration;
 
@@ -41,18 +41,10 @@ composer require laracasts/generators --dev
 php artisan backpack:install
 ```
 
-Note: If you'd also like to enable the [file manager functionality](https://backpackforlaravel.com/uploads/home_slider/4.png), reply "yes" when the installer asks you. By default it lets users manage the ```public/uploads``` directory, but you can change that in the ```elfinder.php``` config file. Most of the times it is _not_ recommended to give your admins power over file structure - not even their uploads alone. So ```elfinder``` does not come installed by default.
-
-3) [Optional] You should now:
+3) Take note that:
+- By default all users are considered admins; If that's not what you want in your application (you have both users and admins), please change ```app/Http/Middleware/CheckIfAdmin.php```, particularly ```checkIfUserIsAdmin($user)```, to make sure you only allow admins to access the admin panel;
 - Change configuration values in ```config/backpack/base.php``` to make the admin panel your own. Backpack is white label, so you can change everything: menu color, project name, developer name etc.
-- If your User model has been moved (it is not ```App\User.php```, please go change ```App\Models\BackpackUser.php``` and make sure it extends the correct user model;
-- If you have separate admin panels for Users and Administrators, and already have a way to differentiate between the two, please change ```app/Http/Middleware/CheckIfAdmin.php```, particularly ```checkIfUserIsAdmin($user)```, to make sure all users who get log into the admin panel have a right to do that; 
-- If your application has only one login screen (for the admins), that means you're not going to use the auth controllers that Laravel provided by default. You're only going to use Backpack's auth controllers. You can keep the Laravel ones in your project, of course. But some people like to delete them to not get confused later on:   
-
-``` bash
-# OPTIONAL! Please read the notice above.
-rm -rf app/Http/Controllers/Auth #deletes laravel's demo auth controllers
-```
+- If your User model has been moved (it is not ```App\User.php```), please change ```App\Models\BackpackUser.php``` to extend the correct user model;
 
 That's it. If you already know how to use Backpack, next up you'll probably want to [create CRUD Panels](/docs/{{version}}/crud-tutorial#generate-files).
 
@@ -71,4 +63,4 @@ In case you want to add extra functionality that's already been built, check out
 
 - **Error: SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was too long**. Your MySQL version might be a bit old. Please [apply this quick fix](https://laravel-news.com/laravel-5-4-key-too-long-error), then run ```php artisan migrate:fresh```.
 
-- **Any other installation error?** If you can't install Backpack\\Base because of a different error, you can [try the manual installation process](/docs/{{version}}/base-how-to#manually-install-base), which you can tweak to your needs.
+- **Any other installation error?** If you can't install Backpack because of a different error, you can [try the manual installation process](/docs/{{version}}/crud-how-to#manually-install-backpack-crud), which you can tweak to your needs.

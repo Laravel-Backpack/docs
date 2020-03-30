@@ -85,6 +85,7 @@ Here's what Backpack 4.1 brings to the table, and why you should upgrade from [B
 	- **extend the ListOperation to show the DataTable from a different perspective** (ex: a monthlyReport page that filters entries, shows different columns, different pagination, different buttons, etc) - see docs , PR;
 - You can now easily **customize the buttons at the end of the Create/Update forms** - see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2356);
 - You can now make all Backpack routes **use a different web middleware** than ```web``` - see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2408);
+- Field ```wrapperAttributes``` was renamed to ```wrapper```;
 
 
 <a name="removed"></a>
@@ -103,6 +104,7 @@ Here's what Backpack 4.1 brings to the table, and why you should upgrade from [B
 - ```intervention/image``` dependency 
 	- in order to use the ```image``` field type you need to require the package yourself; 
 	- see updated docs, PR and upgrade guide; 
+
 
 
 ---

@@ -45,8 +45,8 @@ There are a few optional attributes on all default field types, that you can use
        'readonly'=>'readonly',
        'disabled'=>'disabled',
      ], // change the HTML attributes of your input
-     'wrapperAttributes' => [
-       'class' => 'form-group col-md-12'
+     'wrapper' => [ 
+        'class' => 'form-group col-md-12'
      ], // change the HTML attributes for the field wrapper - mostly for resizing fields 
 ]
 ```
@@ -58,7 +58,7 @@ These will help you:
 - **default** - specify a default value for the input, on create;
 - **hint** - add descriptive text for this input;
 - **attributes** - change or add actual HTML attributes of the input (ex: readonly, disabled, class, placeholder, etc);
-- **wrapperAttributes** - change or add actual HTML attributes to the div that contains the input;
+- **wrapper** - change or add actual HTML attributes to the div that contains the input; 
 
 <a name="fields-api"></a>
 ### Fields API
@@ -1541,7 +1541,7 @@ The basic field type, all it needs is the two mandatory parameters: name and lab
        //'placeholder' => 'Some text when empty',
        //'class' => 'form-control some-class'
      //], // extra HTML attributes and values your input might need
-     //'wrapperAttributes' => [
+     //'wrapper' => [
        //'class' => 'form-group col-md-12'
      //], // extra HTML attributes for the field wrapper - mostly for resizing fields 
      //'readonly'=>'readonly',

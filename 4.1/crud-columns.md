@@ -659,8 +659,7 @@ $this->crud->addColumn([
 ```
 
 If you specify ```wrapper``` to a column, the entries in that column will be wrapped in the element you specify. Note that: 
-- To get HTML anchor (a link), you specify ```a``` for the element. 
-- To get a paragraph you'd specify ```p``` for the element. 
+- To get an HTML anchor (a link), you can specify ```a``` for the element (but that's also the default); to get a paragraph you'd specify ```p``` for the element; to get an inline element you'd specify ```span``` for the element; etc;
 - Anything you declare in the ```wrapper``` array, other than ```element``` will be used as HTML attributes for that element (ex: ```class```, ```style```, etc);
 - Each wrapper attribute can be declared as a string OR as a callback;
 

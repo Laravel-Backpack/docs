@@ -118,10 +118,12 @@ Why? Since ```$this->request``` did nothing at all, we've removed it, to avoid a
 - **If you have ```$this->request``` anywhere in your CrudControllers custom logic**, please replace it with either the global ```request()``` or with ```$this->crud->getRequest()```.
 - **If you have ```$this->crud->request``` anywhere inside your custom CrudController logic**, please replace it with either ```$this->crud->getRequest()``` or ```$this->crud->setRequest()``` depending on what you're doing there.
 
+**Step 11.** Inside CrudControllers, if you've used ```wrapperAttributes``` on fields, please note that it's now called ```wrapper```. Please search & replace ```wrapperAttributes``` with ```wrapper``` in you CrudControllers.
+
 <a href="assets"></a>
 ### CSS & JS Assets
 
-**Step 11.** We've updated most CSS & JS dependencies to their latest versions. There are two ways to publish the latest styles and scripts for these dependencies:
+**Step 12.** We've updated most CSS & JS dependencies to their latest versions. There are two ways to publish the latest styles and scripts for these dependencies:
 - (A) If you have NOT touched you ```public/packages``` folder, or placed anything custom inside it:
         - delete the ```public/packages``` directory and all its contents;
         - run ```php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag=public```
@@ -135,7 +137,7 @@ Why? Since ```$this->request``` did nothing at all, we've removed it, to avoid a
 <a name="cache"></a>
 ### Cache
 
-**Step 12.** Clear your app's cache:
+**Step 13.** Clear your app's cache:
 ```bash
 php artisan config:clear
 php artisan cache:clear
@@ -145,7 +147,36 @@ php artisan view:clear
 <a href="views"></a>
 ### Views
 
-**Step 13.** Backpack 4.1 uses the same icon set, [Line Awesome](https://icons8.com/line-awesome), but we've upgraded to the latest version. 
+
+**Step 14.** **If you've overwritten default Fields, or have custom Fields**, take note that ALL of them have suffered changes (for the better); as a minimum, if you have any files in ```resources/views/vendor/backpack/crud/fields``` you should:
+- find & replace ```crud::inc.field_attributes``` with ```crud::fields.inc.attributes```
+- find & replace ```crud::inc.field_translatable_icon``` with ```crud::fields.inc.translatable_icon```
+- change the wrapping element; take a look at the diff below or at [the diff for the text field](https://github.com/Laravel-Backpack/CRUD/pull/2601/files#diff-9b83997dcde20848b90e97048aca5485), and do the same for all the fields you've created or overwritten:
+
+```diff
+-   <div @include('crud::inc.field_wrapper_attributes') >
++   @include('crud::fields.inc.wrapper_start')
+
+// Your actual field HTML
+
+-   </div>
++   @include('crud::fields.inc.wrapper_end')
+```
+
+
+**Step 15.** **If you've overwritten Columns, or have custom Columns**, take note that ALL columns have suffered changes (for the better). Most notably:
+- ```wrapper``` allows you to add links to your columns;
+- ```escaped``` allows you to output HTML instead of text; 
+
+If you want your custom/overwritten columns to have these cool new features, they're very easy to implement:
+- [take a look here](https://github.com/Laravel-Backpack/CRUD/pull/2508/files#diff-e82fc7ec56e0617fb83762cc2a9467d4) for a simple column (ex: ```text```);
+- [take a look here](https://github.com/Laravel-Backpack/CRUD/pull/2508/files#diff-ab965b3cd4720c4c2ec4a2423f3ea648) for a column that has multiple entries (ex: ```select```);
+
+
+If you need a difftool, we recommend [Kaleidoscope](https://www.kaleidoscopeapp.com) on Mac OS, [WinMerge](https://winmerge.org) on Windows, or [Fork](https://git-fork.com/) on both Mac OS and Windows.
+
+
+**Step 16.** Backpack 4.1 uses the same icon set, [Line Awesome](https://icons8.com/line-awesome), but we've upgraded to the latest version. 
 - The good news - this new version brings a total of 1000+ icons, and commplete icon-parity with Font Awesome 5.11.2. Any icon Font Awesome has, Line Awesome has too. 
 - The bad news 
     - it's not 100% backwards-compatible. The same icons are there, but a few of them have changed names. For example, there's no more ```newspaper-o``` it's now just ```newspaper```;
@@ -154,11 +185,6 @@ php artisan view:clear
 In order to account for this icon font change please:
 - inside your ```resources/views/vendor/backpack``` folder, search for ```fa fa-``` and replace with ```la la-```;
 - for each icon you fix above, double-check that it shows in the browser; if it doesn't, search for an alternative on the [Line Awesome website](https://icons8.com/line-awesome); usually the syntax change is very _very_ small; and there are a lot more icons now, so you'll definitely find something;
-
-
-**Step 14.** **If you've published and customized Field or Column views**, you might need to take a look at the changes 4.1 brings to those files, and do the changes inside your new files, if you want those columns/fields to support the new 4.1 features. Check your ```resources/views/vendor/backpack/crud/fields``` and ```resources/views/vendor/backpack/crud/columns``` folders for any files - if you have files there, this should concern you. We recommend you use a diff tool - should save some time. [Kaleidoscope](https://www.kaleidoscopeapp.com) is our preffered diff tool on Mac OS. [WinMerge](https://winmerge.org) is a good option on Windows.
-
-Most ```field```views have suffered changes, in order to make the JavaScript work inside modals and ```repeatable``` fields. Most ```columns``` views have suffered changes, in order to make add the ```wrapper``` and ```escaped``` functionality. If you _haven't_ overwritten the fields/columns to customize them, you're ok, changes were made in a backwards-compatible manner.
 
 ---
 

@@ -35,6 +35,7 @@ With thousands of developers using Backpack, a lot of them non-commercial, and s
 - **[StackOverflow tag](https://stackoverflow.com/questions/tagged/backpack-for-laravel) for support requests** (If you need help creating something using Backpack, post your question on StackOverflow using the ```backpack-for-laravel``` tag. We've been blessed with a great community, that is happy to help. Who doesn't like getting StackOverflow points?)
 - **[Gitter Chatroom](https://gitter.im/BackpackForLaravel/Lobby) for quick questions** (If you have an urgent matter that won't take much time to answer, use our 24/7 Gitter chatroom. Be considerate, everyone's probably working on their own project right now.)
 - **[Github Issues](https://github.com/laravel-backpack/) for bugs** (Found a bug? Great! Please search for it on Github first - someone might have already found it. If not, open an issue, we're happy to learn about it and make Backpack better. )
+- **[/r/BackpackForLaravel subreddit](https://www.reddit.com/r/BackpackForLaravel/) for showing off your work, asking for opinions on implementation, sharing tips, packages, etc.**
  
 Thank you for sticking up with us for so long. This is the last Backpack lesson we can give you. **Now you have absolutely no excuse not to start your first Backpack project :-)** Here are a few links for if you still don't think you're ready:
 
