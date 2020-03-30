@@ -899,7 +899,12 @@ Input preview:
 [   // Range
     'name' => 'range',
     'label' => 'Range',
-    'type' => 'range'
+    'type' => 'range',
+    //optional
+    'attributes' => [
+        'min' => 0,
+        'max' => 10,
+    ],
 ],
 ```
 
