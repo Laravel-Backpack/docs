@@ -832,6 +832,37 @@ Show radios according to an associative array you give the input and let the use
 ]
 ```
 
+Please note that this will NOT hash/encrypt the string before it stores it to the database. You need to hash the password manually. The most popular way to do that are:
+
+1. Using [a mutator on your Model](https://laravel.com/docs/7.x/eloquent-mutators#defining-a-mutator). For example:
+
+```php
+public function setPasswordAttribute($value) {
+    $this->attributes['password'] = Hash::make($value);
+}
+```
+
+2. By overwriting the Create/Update operation methods, inside the Controller. For example:
+```php
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as traitStore; }
+    
+    public function store()
+    {
+        $this->crud->request = $this->crud->validateRequest();
+	
+        // Encrypt password if specified.
+        if ($request->input('password')) {
+            $request->request->set('password', Hash::make($request->input('password')));
+        } else {
+            $request->request->remove('password');
+        }
+
+        return $this->traitStore();
+    }
+```
+
+Take a look at [this working code](https://github.com/Laravel-Backpack/PermissionManager/blob/master/src/app/Http/Controllers/UserCrudController.php#L103-L124) for a more accurate example. 
+
 Input preview: 
 
 ![CRUD Field - radio](https://backpackforlaravel.com/uploads/docs-4-0/fields/radio.png)
