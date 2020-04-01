@@ -34,15 +34,11 @@ After installation, you'll notice Backpack has added a few files:
 
 Those files are used to show the contents of the menu to the left (sidebar), and the first page the admin sees when logging in (dashboard). They've been published there so that you can easily modify their contents, by editing their HTML or adding dynamic content through [widgets](/docs/{{version}}/base-widgets).
 
-**2) Model to ```app/Models/BackpackUser.php```**
-
-Notice that ```BackpackUser``` extends your own user model. Backpack will be using ```BackpackUser``` for authentication and management, not your ```User```, so if there's anything that's specific to your admins (accessors, mutators, methods), you can use this model to define them.
-
-**3) Middleware to ```app/Http/Middleware/CheckIfAdmin.php```**
+**2) Middleware to ```app/Http/Middleware/CheckIfAdmin.php```**
 
 This middleware is used to test if users have access to admin panel pages. You can (and should customize it) if you have both users and admins in your app.
 
-**4) Route file to ```routes/backpack/custom.php**```**
+**3) Route file to ```routes/backpack/custom.php```**
     
 This route file is for convenience and convention. We recommend you place all your admin panel routes here.
 
@@ -87,15 +83,12 @@ If you'll take a look inside any Backpack package, you'll notice the ```src``` d
 
 When installed, Backpack provides a way for admins to login, recover password and register (don't worry, register is only enabled on ```localhost```). It does so with its own authentication controllers, models and middleware. If you have regular end-users (not admins), you can keep the _user_ authentication completely separate from _admin_ authentication. You can change which model, middleware classes Backpack uses, inside the ```config/backpack/base.php``` config file.
 
-> **The ```BackpackUser``` model extends Laravel's default ```App\User``` model**. This assumes you weren't already using this model, or the ```users``` table, for anything else. If you were, please read below.
+> **Backpack uses Laravel's default ```App\User``` model**. This assumes you weren't already using this model, or the ```users``` table, for anything else. Or that you plan to use it for both users & admins. Otherwise, please read below.
 
 <a name="using-a-different-user-model"></a>
 ### Using a Different User Model
 
-If you want to use a different User model than ```App\User``` or you've changed its location, please:
-- tell Backpack to use _your_ model in ```config/backpack/base.php``` instead of the ```BackpackUser``` model Backpack has published to your app;
-- take a look at [```\Backpack\Base\app\Models\BackpackUser::class```](https://github.com/Laravel-Backpack/Base/blob/master/src/app/Models/BackpackUser.php);
-- include the methods there in _your_ user model; they're important for password recovery;
+If you want to use a different User model than ```App\User``` or you've changed its location, please, you can tell Backpack to use _a different_ model in ```config/backpack/base.php``` instead of the ```App\User``` model that Laravel apps usually have. Look for ```user_model_fqn```.
 
 
 <a name="having-both-regular-users-and-admins"></a>

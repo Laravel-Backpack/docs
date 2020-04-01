@@ -24,18 +24,19 @@ Please make sure your project respects the requirements below, before you start 
 ## Upgrade Steps
 
 
-**Step 0.** **[Upgrade to Laravel 6](https://laravel.com/docs/6.x/upgrade), then [upgrade to Laravel 7](https://laravel.com/docs/7.x/upgrade), if you can.** This is not _required_, but it's _recommended_. You need to do this _one day_ anyway - might as well do it now. 
+<a name="step-0" href="#step-0" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 0.</a> **[Upgrade to Laravel 6](https://laravel.com/docs/6.x/upgrade). Then [upgrade to Laravel 7](https://laravel.com/docs/7.x/upgrade), if you can.** This is not _required_, but it's _recommended_. You need to do this _one day_ anyway - might as well do it now. Backpack 4.0 (that your project is already running) supports Laravel 5.8, 6 and 7. So you should:
+- **upgrade your project to use Laravel v6 or v7**
+- test your app is working fine with them
+- continue with "Step 1" below, to also upgrade Backpack to 4.1
 
-Our recommendation is to _not_ stick to Laravel 6.0 just because it's a [LTS version](https://en.wikipedia.org/wiki/Laravel#Release_history), but to upgrade to the latest Laravel, once a year or so. All upgrades after Laravel 5.6 have been very _very_ easy, and it's expected for this to continue, since Laravel has reached a pretty stable state. In addition, you can purchase a [Laravel Shift](https://laravelshift.com/) for as low as $9, to automatically upgrade, and make sure you haven't missed a step.
-
-Backpack 4.0 (that you should already be running) supports Laravel 5.8, 6 and 7. So you **can upgrade Laravel to version 6 or 7, test your app, then continue with the Backpack upgrade**. This guide will wait.
+Our recommendation is to _not_ stick to Laravel 6.0 just because it's a [LTS version](https://en.wikipedia.org/wiki/Laravel#Release_history), but to upgrade to the latest Laravel. All upgrades after Laravel 5.6 have been very _very_ easy, and it's expected for this to continue, since Laravel has reached stability for some years now. If you're scared or lazy, for just $9 you can purchase a [Laravel Shift](https://laravelshift.com/), to automatically upgrade, and make sure you haven't missed a step.
 
 <a name="composer"></a>
 ### Composer
 
-**Step 1.** Update your ```composer.json``` file to require ```"backpack/crud": "4.1.x-dev as 4.0.99"``` _NOTE - THIS IS THE DEV VERSION; WHEN 4.1 IS LAUNCHED THE OFFICIAL STABLE REQUIRED VERSION WILL BE ^4.1.0_
+<a name="step-1" href="#step-1" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 1.</a> Update your ```composer.json``` file to require ```"backpack/crud": "4.1.x-dev as 4.0.99"``` _NOTE - THIS IS THE BETA VERSION; WHEN 4.1 IS LAUNCHED THE REQUIRED VERSION WILL BE ^4.1.0_
 
-**Step 2.** [OPTIONAL] If you have a lot of Backpack add-ons installed (and their dependencies), here are their latest versions, that support Backpack 4.1, you can copy-paste the versions of the packages you're using:
+<a name="step-2" href="#step-2" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 2.</a> [OPTIONAL] If you have a lot of Backpack add-ons installed (and their dependencies), here are their latest versions, that support Backpack 4.1, you can copy-paste the versions of the packages you're using:
 ```
         "backpack/logmanager": "^3.0.0",
         "backpack/settings": "^3.0.0",
@@ -55,21 +56,11 @@ Backpack 4.0 (that you should already be running) supports Laravel 5.8, 6 and 7.
         "laracasts/generators": "^2.0"
 ```
 
-**Step 3.** If you're using the Revisions operation, it has now been split into a separate package. So please:
-- add ```"backpack/revise-operation": "^1.0",``` to your composer's require section
-- inside your CrudControllers, search for ```Backpack\CRUD\app\Http\Controllers\Operations\RevisionsOperation``` and replace with ```Backpack\ReviseOperation\ReviseOperation```
-- inside your CrudController, if you've used the specialty methods to set a Revisions view, they no longer exist; please use the normal ```get()```/```set()```, but please note that he operation is now called "_revise_" (verb) not "_revisions_" (noun), so your changes should be:
-    - from ```$this->crud->setRevisionsView()``` to ```$this->crud->set('revise.view')```
-    - from ```$this->crud->getRevisionsView()``` to ```$this->crud->get('revise.view')```
-    - from ```$this->crud->setRevisionsTimelineView()``` to ```$this->crud->set('revise.timelineView')```
-    - from ```$this->crud->getRevisionsTimelineView()``` to ```$this->crud->set('revise.timelineView')```
-    - from ```$this->crud->setRevisionsTimelineContentClass()``` to ```$this->crud->set('revise.timelineContentClass')```
-    - from ```$this->crud->getRevisionsTimelineContentClass()``` to ```$this->crud->set('revise.timelineContentClass')```
-- if you've defined settings for the "_revisions_" operation for all CRUDs, inside your ```config/backpack/crud.php```, please note that the operation name has changed, so inside ```operations``` you should change ```revisions``` to ```revise```;
+<a name="step-3" href="#step-3" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 3.</a> If you're using the Revisions operation, it has now been split into a separate package. So please add ```"backpack/revise-operation": "^1.0",``` to your composer's require section.
 
-**Step 4.** Backpack itself is no longer using ```laravel/helpers```. Instead of using helpers like ```str_slug()``` we're now doing ```Str::slug()``` everywhere. We recommend you do the same. But if you want to keep using string and array helpers, please add ```"laravel/helpers": "^1.1",``` to your composer's require section.
+<a name="step-4" href="#step-4" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 4.</a> Backpack itself is no longer using ```laravel/helpers```. Instead of using helpers like ```str_slug()``` we're now doing ```Str::slug()``` everywhere. We recommend you do the same. But if you want to keep using string and array helpers, please add ```"laravel/helpers": "^1.1",``` to your composer's require section.
 
-**Step 5.** Since we're no longer using ```laravel/helpers```, we need the ```Str``` and ```Arr``` classes to be aliased. You should have already done this when upgrading to Laravel 5.8/6.x/7.x. But please make sure that in your ```config/app.php``` you have these ```Arr``` and ```Str``` aliases. If you don't, please add them:
+<a name="step-5" href="#step-5" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 5.</a> Since we're no longer using ```laravel/helpers```, we need the ```Str``` and ```Arr``` classes to be aliased. You should have already done this when upgrading to Laravel 5.8/6.x/7.x. But please make sure that in your ```config/app.php``` you have these aliases:
 ```php
     'aliases' => [
         // ...
@@ -80,11 +71,11 @@ Backpack 4.0 (that you should already be running) supports Laravel 5.8, 6 and 7.
     ],
 ```
 
-**Step 6.** Backpack no longer installs the FileManager by default (elFinder). Since a lot of developers don't need it. If you did use the FileManager, the ```browse``` or the ```browse_multiple``` fields, require ```"backpack/filemanager": "^1.0",``` in your ```composer.json```.
+<a name="step-6" href="#step-6" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 6.</a> Backpack no longer installs the FileManager by default (elFinder), since most projects don't need it. If you did use the FileManager, or the ```browse``` or ```browse_multiple``` fields, make sure you require ```"backpack/filemanager": "^1.0",``` in your ```composer.json``` - we've separated it into an add-on.
 
-**Step 7.** Backpack no longer installs ```intervention/image``` by default. If you use the ```image``` field type, and you've used our example Mutator in your Model, you might be using ```intervention/image``` - please check. If so, please add ```"intervention/image": "^2.3",``` to your ```composer.json```'s require section.
+<a name="step-7" href="#step-7" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 7.</a> Backpack no longer installs ```intervention/image``` by default. If you use the ```image``` field type and you've used our example Mutator in your Model, you might be using ```intervention/image``` - please check. If so, please add ```"intervention/image": "^2.3",``` to your ```composer.json```'s require section.
 
-**Step 8.** Run ```composer update``` in the command line.
+<a name="step-8" href="#step-8" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 8.</a> Run ```composer update``` in the command line.
 
 <a name="models"></a>
 ### Models
@@ -99,31 +90,90 @@ No changes needed.
 <a name="config"></a>
 ### Config
 
-No changes needed.
+<a name="step-9" href="#step-9" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 9.</a> Backpack no longer provides, needs or uses the ```App\Models\BackpackUser``` model for authentication. New installs default to using ```App\User```. Since that model was only used for authentication & forgotten-password functionality, we recommend you:
+- delete the ```App\Models\BackpackUser.php``` file;
+- change your ```config/backpack/base.php``` file to:
+
+```diff
+-   'user_model_fqn' => App\Models\BackpackUser::class,
++   'user_model_fqn' => App\User::class,
+```
+- if you've used PermissionManager, change your ```config/backpack/permissionmanager.php``` file to:
+
+```diff
+    'models' => [
+-       'user'       => App\Models\BackpackUser::class,
++       'user'       => App\User::class,
+        'permission' => Backpack\PermissionManager\app\Models\Permission::class,
+        'role'       => Backpack\PermissionManager\app\Models\Role::class,
+    ],
+```
+
+Of course, if you actually _liked_ having a separate model for your admins, you can keep it. But we recommend removing it - since it's unnecessary. If you decide to keep the ```BackpackUser``` model, take note that we also removed the ```InheritsRelationsFromParentModel``` trait, that only ```BackpackUser``` was using. To pull that trait in, install [calebporzio/parental](https://github.com/calebporzio/parental) and use ```\Parental\HasParent``` instead of ```InheritsRelationsFromParentModel```.
+
+> **IMPORTANT:** If you use polymorphic relationships, you might have mentions of the ```App\Models\BackpackUser``` model in your BD. You will need to replace all those mentions in the DB with the standard ```App\User``` model.  
+
+**If you've used ```PermissionManager``` or ```spatie/laravel-permission```, please note that you DO use polymorphic relationships.** All permissions and roles that pointed to ```App\Models\BackpackUser``` in the database need to be pointed to ```App\User``` model now:
+
+```bash
+# -------------------
+# ONLY if you've used PermissionManager and/or spatie/laravel=permission
+# -------------------
+
+# Step 9.1.
+# Create a database backup. Please. Pretty please.
+
+# Step 9.2.
+# Publish the migration for the standard configuration.
+# This should work as-is if you haven't changed table names.
+php artisan vendor:publish --provider="Backpack\PermissionManager\PermissionManagerServiceProvider" --tag="migrations"
+
+# Step 9.3.
+# Take a look at the migration and change whatever you need:
+# - are the table names the same in the DB & in the migration?
+# - are the column names the same?
+# - are there entries in the DB with App\Models\BackpackUser?
+# - did you notice there's no down() method for the migration? maybe you'll create a DB backup now, if you haven't?
+
+# Step 9.4.
+# Run the migration.
+php artisan migrate
+
+# Step 9.5.
+# Take another look at your model_has_roles and model_has_permissions tables.
+# Are there any more entries that point to App\Models\BackpackUser?
+```
 
 <a name="controllers"></a>
 ### CrudControllers
 
 The steps below should apply for each of your CrudControllers. For each Step, go through every one of your CrudControllers (usually stored in ```app\Http\Controllers\Admin```:
 
-**Step 9.** If you're using the ```RevisionsOperation``` inside your CrudControllers, that operation has been moved to a separate package (that you've already installed in steps 1-8). You just need to change the class namespace:
-- from ```\Backpack\CRUD\app\Http\Controllers\Operations\RevisionsOperation```
-- to ```\Backpack\RevisionsOperation\RevisionsOperation```
+<a name="step-10" href="#step-10" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 10.</a> If you're using the ```RevisionsOperation``` inside your CrudControllers, that operation has been moved to a separate package (that you've already installed in steps 3 & 8). Now you need to:
+- inside your CrudControllers, search for ```Backpack\CRUD\app\Http\Controllers\Operations\RevisionsOperation``` and replace with ```Backpack\ReviseOperation\ReviseOperation```
+- if you've customized the Revisions operation, take note that the specialty methods to set a Revisions view no longer exist; inside your CrudController, please use the normal ```get()```/```set()```, but please note that the operation is now called "_revise_" (verb) not "_revisions_" (noun), so your changes should be:
+    - from ```$this->crud->setRevisionsView()``` to ```$this->crud->set('revise.view')```
+    - from ```$this->crud->getRevisionsView()``` to ```$this->crud->get('revise.view')```
+    - from ```$this->crud->setRevisionsTimelineView()``` to ```$this->crud->set('revise.timelineView')```
+    - from ```$this->crud->getRevisionsTimelineView()``` to ```$this->crud->set('revise.timelineView')```
+    - from ```$this->crud->setRevisionsTimelineContentClass()``` to ```$this->crud->set('revise.timelineContentClass')```
+    - from ```$this->crud->getRevisionsTimelineContentClass()``` to ```$this->crud->set('revise.timelineContentClass')```
+- if you've defined settings for the "_revisions_" operation for all CRUDs, inside your ```config/backpack/crud.php```, please note that the operation name has changed, so inside ```operations``` you should change ```revisions``` to ```revise```;
 
-**Step 10.** Inside CrudControllers, Backpack 4.1:
+<a name="step-11" href="#step-11" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 11.</a> Inside CrudControllers, Backpack 4.1:
 - no longer defines ```$this->request```
 - still defines ```$this->crud->request``` (aka ```CRUD::request```) but uses getters and setters to work with it (```$this->crud->getRequest()``` and ```$this->crud->setRequest()```);
 
-Why? Since ```$this->request``` did nothing at all, we've removed it, to avoid any confusion between working with ```$this->request``` and ```$this->crud->request```. To do:
-- **If you have ```$this->request``` anywhere in your CrudControllers custom logic**, please replace it with either the global ```request()``` or with ```$this->crud->getRequest()```.
-- **If you have ```$this->crud->request``` anywhere inside your custom CrudController logic**, please replace it with either ```$this->crud->getRequest()``` or ```$this->crud->setRequest()``` depending on what you're doing there.
+Why? Since ```$this->request``` did nothing at all, we've removed it, to avoid any confusion between working with ```$this->request``` and ```$this->crud->request```. Make sure that:
+- **If you have ```$this->request``` anywhere in your CrudControllers custom logic**, please replace it with either Laravel's ```request()``` helper or with ```$this->crud->getRequest()```.
+- **If you have ```$this->crud->request``` anywhere inside your custom CrudController logic**, please replace it with either ```$this->crud->getRequest()``` or ```$this->crud->setRequest()``` depending on what your intention is.
 
-**Step 11.** Inside CrudControllers, if you've used ```wrapperAttributes``` on fields, please note that it's now called ```wrapper```. Please search & replace ```wrapperAttributes``` with ```wrapper``` in you CrudControllers.
+<a name="step-12" href="#step-12" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 12.</a> Inside CrudControllers, if you've used ```wrapperAttributes``` on fields, please note that it's now called ```wrapper```. Please search & replace ```wrapperAttributes``` with ```wrapper``` in your CrudControllers.
 
 <a href="assets"></a>
 ### CSS & JS Assets
 
-**Step 12.** We've updated most CSS & JS dependencies to their latest versions. There are two ways to publish the latest styles and scripts for these dependencies:
+<a name="step-13" href="#step-13" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 13.</a> We've updated most CSS & JS dependencies to their latest versions. There are two ways to publish the latest styles and scripts for these dependencies:
 - (A) If you have NOT touched you ```public/packages``` folder, or placed anything custom inside it:
         - delete the ```public/packages``` directory and all its contents;
         - run ```php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag=public```
@@ -134,21 +184,11 @@ Why? Since ```$this->request``` did nothing at all, we've removed it, to avoid a
 
 
 
-<a name="cache"></a>
-### Cache
-
-**Step 13.** Clear your app's cache:
-```bash
-php artisan config:clear
-php artisan cache:clear
-php artisan view:clear
-```
-
-<a href="views"></a>
+<a name="views"></a>
 ### Views
 
 
-**Step 14.** **If you've overwritten default Fields, or have custom Fields**, take note that ALL of them have suffered changes (for the better); as a minimum, if you have any files in ```resources/views/vendor/backpack/crud/fields``` you should:
+<a name="step-14" href="#step-14" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 14.</a> **If you've overwritten default Fields, or have custom Fields**, take note that ALL of them have suffered changes (for the better); as a minimum, if you have any files in ```resources/views/vendor/backpack/crud/fields``` you should:
 - find & replace ```crud::inc.field_attributes``` with ```crud::fields.inc.attributes```
 - find & replace ```crud::inc.field_translatable_icon``` with ```crud::fields.inc.translatable_icon```
 - change the wrapping element; take a look at the diff below or at [the diff for the text field](https://github.com/Laravel-Backpack/CRUD/pull/2601/files#diff-9b83997dcde20848b90e97048aca5485), and do the same for all the fields you've created or overwritten:
@@ -164,7 +204,7 @@ php artisan view:clear
 ```
 
 
-**Step 15.** **If you've overwritten Columns, or have custom Columns**, take note that ALL columns have suffered changes (for the better). Most notably:
+<a name="step-15" href="#step-15" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 15.</a> **If you've overwritten Columns, or have custom Columns**, take note that ALL columns have suffered changes (for the better). Most notably:
 - ```wrapper``` allows you to add links to your columns;
 - ```escaped``` allows you to output HTML instead of text; 
 
@@ -176,15 +216,25 @@ If you want your custom/overwritten columns to have these cool new features, the
 If you need a difftool, we recommend [Kaleidoscope](https://www.kaleidoscopeapp.com) on Mac OS, [WinMerge](https://winmerge.org) on Windows, or [Fork](https://git-fork.com/) on both Mac OS and Windows.
 
 
-**Step 16.** Backpack 4.1 uses the same icon set, [Line Awesome](https://icons8.com/line-awesome), but we've upgraded to the latest version. 
-- The good news - this new version brings a total of 1000+ icons, and commplete icon-parity with Font Awesome 5.11.2. Any icon Font Awesome has, Line Awesome has too. 
-- The bad news 
+<a name="step-16" href="#step-16" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 16.</a> Backpack 4.1 uses the same icon set, [Line Awesome](https://icons8.com/line-awesome), but we've upgraded to the latest version. 
+- The good news - this new version brings a total of 1000+ icons, and complete icon-parity with Font Awesome 5.11.2. Any icon Font Awesome 5 has, Line Awesome has it too. 
+- The bad news:
     - it's not 100% backwards-compatible. The same icons are there, but a few of them have changed names. For example, there's no more ```newspaper-o``` it's now just ```newspaper```;
     - additionally, we're no longer using the "_font awesome compatible syntax_" to load Line Awesome Icons (```fa fa-home```), we're now using the "_line awesome syntax_" (```la la-home```), to prevent conflicts when both fonts are used at the same time;
 
 In order to account for this icon font change please:
-- inside your ```resources/views/vendor/backpack``` folder, search for ```fa fa-``` and replace with ```la la-```;
+- inside your ```resources/views/vendor/backpack``` folder, search & replace ```fa fa-``` with ```la la-```;
 - for each icon you fix above, double-check that it shows in the browser; if it doesn't, search for an alternative on the [Line Awesome website](https://icons8.com/line-awesome); usually the syntax change is very _very_ small; and there are a lot more icons now, so you'll definitely find something;
+
+<a name="cache"></a>
+### Cache
+
+<a name="step-17" href="#step-17" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 17.</a> Clear your app's cache:
+```bash
+php artisan config:clear
+php artisan cache:clear
+php artisan view:clear
+```
 
 ---
 

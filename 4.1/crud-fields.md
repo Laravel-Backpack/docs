@@ -1052,6 +1052,54 @@ Remember, ```FetchOperation``` is still needed on the main crud (ex: ```ArticleC
 
 <hr>
 
+<a name="repeatable"></a>
+### repeatable
+
+Shows a Group of inputs to the user, and allows the user to add more Groups of the same kind, or remove Groups:
+
+![CRUD Field - repeatable](https://backpackforlaravel.com/uploads/docs-4-1/fields/repeatable.png)
+
+Clicking on the Add button will add another group with the same fields (in the example, a Testimonial). The end result is a JSON with the values for those fields, grouped. 
+
+You can use any field type you want inside the field groups, and as many fields you need. But please take note that **all fields defined inside a field group need to have their definition valid and complete**. For fields inside a field group you can't use shorthands and you shouldn't assume fields will guess attributes for you. 
+
+
+```php
+[   // repeatable
+    'name' => 'testimonials',
+    'label' => 'Testimonials',
+    'type' => 'repeatable',
+    'fields' => [
+        [
+            'name' => 'name',
+            'type' => 'text',
+            'label' => 'Name',
+            'wrapperAttributes' => ['class' => 'form-group col-md-4'],
+        ],
+        [
+            'name' => 'position',
+            'type' => 'text',
+            'label' => 'Position',
+            'wrapperAttributes' => ['class' => 'form-group col-md-4'],
+        ],
+        [
+            'name' => 'company',
+            'type' => 'text',
+            'label' => 'Company',
+            'wrapperAttributes' => ['class' => 'form-group col-md-4'],
+        ],
+        [
+            'name' => 'quote',
+            'type' => 'ckeditor',
+            'label' => 'Quote',
+        ],
+    ],
+],
+```
+
+
+<hr>
+
 <a name="select"></a>
 ### select (1-n relationship)
 
@@ -1081,6 +1129,7 @@ Input preview:
 
 
 <hr>
+
 
 <a name="select-grouped"></a>
 ### select_grouped

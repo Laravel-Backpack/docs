@@ -17,8 +17,8 @@ Here's what Backpack 4.1 brings to the table, and why you should upgrade from [B
 #### **New operation: ```InlineCreate```** 
 
 - allows admins to create related items on-the-fly, without leaving the current form;
-- shows a new button next to your relationship fields; when clicking [+ Add], a modal is shown with all the fields needed to create a related item on-the-fly, without leaving the page; it brings that entire entry's Create form on this page;
-- it's excellent for entities with a few inputs; but it also works well for huge entities with dozens of inputs, tabs, etc;
+- shows a new button next to your relationship fields; when you click [+ Add], a modal is shown with all the fields needed to create a related item on-the-fly; it basically brings that entry's Create form on this page;
+- it works well for entities with a few inputs, but it also works well for huge entities with dozens of inputs, tabs, etc;
 - see [docs](http://backpackforlaravel.test/docs/4.1/crud-operation-inline-create), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2311), [demo](http://demo-beta.backpackforlaravel.com/admin/monster)
 
 ![Backpack InlineCreate Operation](https://backpackforlaravel.com/uploads/docs-4-1/release_notes/inline_create_small.gif)
@@ -39,19 +39,20 @@ Here's what Backpack 4.1 brings to the table, and why you should upgrade from [B
 
 #### **New field type: ```relationship```** 
 
-- **one relationship field to rule them all**; instead of thinking whether you need ```select2```, ```select2_multiple```, ```select2_from_ajax``` or ```select2_from_ajax_multiple``` you can now just use the ```relationship``` field, that includes the functionality of all of them, and more;
+- **one relationship field to rule them all**; instead of thinking whether you need ```select2```, ```select2_multiple```, ```select2_from_ajax``` or ```select2_from_ajax_multiple``` you can now just use the ```relationship``` field, that includes the functionality of all of them... and more;
 - **intelligent defaults**; it automatically figures out the ```entity```, ```model```, ```attribute```, ```multiple```, ```pivot``` and  ```label```, so most of the time you'll just need to define two things for it to work - ```name``` and ```type```;
-- **supports both non-AJAX and AJAX**; for the dropdown options, it defaults to immediate querying; if you want to load the options using AJAX, you just have to point it to the correct route, using ```data_source```;
+- **supports both non-AJAX and AJAX**; for the dropdown options, it defaults to immediate querying; if you want to load the options using AJAX, you just have to point it to the correct route, using ```data_source```; which is super-easy to do using the new Fetch operation detailed above;
 - see [docs](/docs/4.1/crud-fields#relationship), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2311), [demo](http://demo-beta.backpackforlaravel.com/admin/monster)
 
 ![Backpack Relationship Field](https://backpackforlaravel.com/uploads/docs-4-1/release_notes/relationship.png)
 
 <hr>
 
-#### **New field type: ```repeatable```** (aka ```matrix```, aka ```multiply```, aka ```groups```) 
+#### **New field type: ```repeatable```** (aka ```matrix```, aka ```groups```, aka ```multiply```) 
 
-- group multiple fields into one (ex: Testimonial includes full_name, company_name, position, text)
-- allow the user to add many such groups (ex: Testimonials) to the current entry, stored as JSON
+- **lets your admin define one or multiple "_somethings_" right inside their create/update form**, when a "_something_" includes more than one input (ex: Testimonial can require ```name```, ```position```, ```company``` and ```quote```);
+- the end result is stored as JSON by default, but you can intercept the saving and store it any way you like;
+- makes it dead-simple to allow your admins to add/edit/delete multiple "things" inside an entry, when that "thing" is not important enough to have its own database table and Model;
 - see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2266)
 
 ![Backpack InlineCreate Operation](https://backpackforlaravel.com/uploads/docs-4-1/release_notes/repeatable_small.gif)
@@ -62,9 +63,9 @@ Here's what Backpack 4.1 brings to the table, and why you should upgrade from [B
 
 #### **New columns feature: ```wrapper```** 
 
-- you can now easily add links around your column text
-- those links can point to a Preview operation for that entry, or whatever you want
-- the same feature can be used to change the look&feel of columns (ex: add badge-warning, etc)
+- allows you to **change how columns look&feel, by wrapping the text into a custom HTML element**; similarly to how we've been able to do for years with Fields, you can now specify a wrapper for columns, and change that wrapper's ```class```, ```style```, etc.
+- you can now **easily add links to your columns**; make it easy for admins to jump from one CRUD to another, by making relationship columns point to that Model's CRUD; but they can also point to whatever else you want;
+- you can now **easily make your column text a different color depending on its content**, just by adding a Bootstrap class (ex: add ```badge badge-warning``` or ```text-success```);
 - see [docs](/docs/{{version}}/crud-columns#wrap-column-text-in-an-html-element), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2448), [demo](http://demo-beta.backpackforlaravel.com/admin/article)
 
 
@@ -106,7 +107,9 @@ Here's what Backpack 4.1 brings to the table, and why you should upgrade from [B
 
 #### **New ```Widgets``` class** 
 
-- a global object that allows you to more easily add/edit widgets in your admin panel pages
+- a global object that allows you to more easily add/edit Widgets to your admin panel pages;
+- you can still manipulate the ```$data['widgets']``` directly, but you can also use this new class;
+- you can pass the entire widget definition array to ```Widget::add()``` or you can use a its new fluent syntax;
 - see docs, PR, [demo](http://demo-beta.backpackforlaravel.com/admin/)
 
 
@@ -158,7 +161,7 @@ Here's what Backpack 4.1 brings to the table, and why you should upgrade from [B
 - ```intervention/image``` dependency 
 	- in order to use the ```image``` field type you need to [install the package](http://image.intervention.io/getting_started/installation); 
 	- see updated docs, PR and upgrade guide; 
-
+- ```App\Models\BackpackUser``` is no longer needer, recommended or published when installing Backpack; authentication now works with your default ```App\User``` model (or whatever it is); this eliminates a bit of unneeded complexity, and fixes a bunch of problems when there are morph relationships towards the User model; but you can still keep it if you like to have a separate model for you admins;
 
 
 ---

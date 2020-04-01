@@ -409,11 +409,9 @@ That's it. This will:
 
 
 <a name="use-your-own-user-model-instead-of-backpack-user"></a>
-### Use your own User model instead of BackpackUser
+### Use your own User model instead of App\User
 
-By default, authentication and everything else inside Backpack is done using the ```Backpack\Base\app\Models\BackpackUser``` model, which extends Laravel's default ```App\User``` model. If you change the location of ```App\User```, or want to use a different User model for whatever other reason, you can do so by
-- changing ```user_model_fqn``` in ```config/backpack/base.php``` to your new class;
-- making sure everything inside ```BackpackUser``` is also inside your new model (this is important for recovering password, etc);
+By default, authentication and everything else inside Backpack is done using the ```App\User``` model. If you change the location of ```App\User```, or want to use a different User model for whatever other reason, you can do so by changing ```user_model_fqn``` in ```config/backpack/base.php``` to your new class.
 
 
 <a name="use-your-own-profile-image-avatar"></a>
