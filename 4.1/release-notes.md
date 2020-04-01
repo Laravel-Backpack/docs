@@ -2,7 +2,7 @@
 
 ---
 
-**Launch date:** March 24th, 2020
+**Launch date:** Probably April 10th, 2020 - currently in ```public beta```
 
 Backpack 4.1 is a FREE upgrade for Backpack 4.0 users. Anybody with a 4.0 license can install and use 4.1, but in order to get the new features you need to [follow the upgrade guide](/docs/{{version}}/upgrade-guide).
 
@@ -10,74 +10,127 @@ Here's what Backpack 4.1 brings to the table, and why you should upgrade from [B
 
 
 <a name="added"></a>
-# Added
+## Added
 
-!! ```GIF, SCREENSHOT or CODE BLOCK``` !!
+### Operations
 
-#### **New field type: ```repeatable```** (aka ```matrix```, aka ```multiply```) 
+#### **New operation: ```InlineCreate```** 
+
+- allows admins to create related items on-the-fly, without leaving the current form;
+- shows a new button next to your relationship fields; when clicking [+ Add], a modal is shown with all the fields needed to create a related item on-the-fly, without leaving the page; it brings that entire entry's Create form on this page;
+- it's excellent for entities with a few inputs; but it also works well for huge entities with dozens of inputs, tabs, etc;
+- see [docs](http://backpackforlaravel.test/docs/4.1/crud-operation-inline-create), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2311), [demo](http://demo-beta.backpackforlaravel.com/admin/monster)
+
+![Backpack InlineCreate Operation](https://backpackforlaravel.com/uploads/docs-4-1/release_notes/inline_create_small.gif)
+
+<hr>
+
+#### **New operation: ```Fetch```** 
+
+- responds to AJAX requests and returns the results in a format the Select2 likes;
+- this operation makes adding AJAX selects much MUCH easier; you don't even have to leave the controller;
+- see [docs](/docs/4.1/crud-operation-fetch), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2308)
+
+![Backpack Fetch Operation](https://backpackforlaravel.com/uploads/docs-4-1/release_notes/fetch.png)
+
+<hr>
+
+### Fields
+
+#### **New field type: ```relationship```** 
+
+- **one relationship field to rule them all**; instead of thinking whether you need ```select2```, ```select2_multiple```, ```select2_from_ajax``` or ```select2_from_ajax_multiple``` you can now just use the ```relationship``` field, that includes the functionality of all of them, and more;
+- **intelligent defaults**; it automatically figures out the ```entity```, ```model```, ```attribute```, ```multiple```, ```pivot``` and  ```label```, so most of the time you'll just need to define two things for it to work - ```name``` and ```type```;
+- **supports both non-AJAX and AJAX**; for the dropdown options, it defaults to immediate querying; if you want to load the options using AJAX, you just have to point it to the correct route, using ```data_source```;
+- see [docs](/docs/4.1/crud-fields#relationship), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2311), [demo](http://demo-beta.backpackforlaravel.com/admin/monster)
+
+![Backpack Relationship Field](https://backpackforlaravel.com/uploads/docs-4-1/release_notes/relationship.png)
+
+<hr>
+
+#### **New field type: ```repeatable```** (aka ```matrix```, aka ```multiply```, aka ```groups```) 
 
 - group multiple fields into one (ex: Testimonial includes full_name, company_name, position, text)
 - allow the user to add many such groups (ex: Testimonials) to the current entry, stored as JSON
 - see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2266)
 
-!! ```GIF, SCREENSHOT or CODE BLOCK``` !!
+![Backpack InlineCreate Operation](https://backpackforlaravel.com/uploads/docs-4-1/release_notes/repeatable_small.gif)
 
-#### **New field type: ```relationship```** 
+<hr>
 
-- includes the functionality of all select2 fields
-- can replace both AJAX and non-AJAX selects
-- can replace single and multiple selects (1-n and n-n relationships) 
-- finally one relationship field to rule them all
-- see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2311)
-
-!! ```GIF, SCREENSHOT or CODE BLOCK``` !!
-
-#### **New operation: ```InlineCreate```** 
-
-- shows an "+ Add" button next to your select field
-- that button shows a modal, that allows the user to Create an item on-the-fly, without leaving the page;
-- see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2311)
-
-!! ```GIF, SCREENSHOT or CODE BLOCK``` !!
-
-#### **New operation: ```Fetch```** 
-
-- fields with AJAX selects are now much easier to create & use 
-- see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2308)
-
-
-!! ```GIF, SCREENSHOT or CODE BLOCK``` !!
+### Columns
 
 #### **New columns feature: ```wrapper```** 
 
 - you can now easily add links around your column text
 - those links can point to a Preview operation for that entry, or whatever you want
 - the same feature can be used to change the look&feel of columns (ex: add badge-warning, etc)
-- see [docs](/docs/{{version}}/crud-columns#wrap-column-text-in-an-html-element), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2448)
+- see [docs](/docs/{{version}}/crud-columns#wrap-column-text-in-an-html-element), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2448), [demo](http://demo-beta.backpackforlaravel.com/admin/article)
 
 
-!! ```GIF, SCREENSHOT or CODE BLOCK``` !!
+![Backpack Column Wrapper](https://backpackforlaravel.com/uploads/docs-4-1/release_notes/column_wrapper_small.gif)
+
+<hr> 
+
+#### **New column: ```relationship```** 
+
+- the perfect companion to the new ```relationship``` field;
+- **intelligent defaults**; it automatically figures out the ```entity```, ```model```, ```attribute```, ```multiple```, ```pivot``` and  ```label```, so most of the time you'll just need to define two things for it to work - ```name``` and ```type```;
+- see [docs](/docs/{{version}}/crud-columns#relationship), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2615), [demo](http://demo-beta.backpackforlaravel.com/admin/monster)
+
+
+<hr> 
+
+#### **New column: ```relationship_count```** 
+
+- shows the number of items related to the current entry, on that relationship, for example "413 items";
+- perfect for when your entity points to A LOT of other entries;
+- see [docs](/docs/{{version}}/crud-columns#relationship_count), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2615), [demo](http://demo-beta.backpackforlaravel.com/admin/monster)
+
+
+<hr> 
+
+### Widgets
 
 #### **New widget: ```chart```** 
 
-- easily add a widget with a pie chart, or bar chart, from your Controller
-- see docs, PR
+- easily add a widget with a chart, on any admin panel page, directly from your Controller or blade file;
+- the same/similar syntax for multiple chart libraries: ChartJS, Highcharts, Fusioncharts, Echarts, Frappe, C3, thanks to [Laravel Charts](https://charts.erik.cat/); easily switch between charting libraries;
+- to populate charts with data, you can make DB queries using AJAX (recommended) or on pageload;   
+- see docs, PR, [demo](http://demo-beta.backpackforlaravel.com/admin/)
 
 
-!! ```GIF, SCREENSHOT or CODE BLOCK``` !!
+![Backpack Chart Widget](https://backpackforlaravel.com/uploads/docs-4-1/release_notes/chart_widget_small.gif)
 
-#### **Fluent syntax for fields & columns (alternative)** 
+<hr>
 
-- create or modify a field/column with one call
-- instead of defining field/column attributes as an array, easily chain the attributes to the first call 
-- comfortably fit most field/column definitions on one line, instead of multiple
+#### **New ```Widgets``` class** 
+
+- a global object that allows you to more easily add/edit widgets in your admin panel pages
+- see docs, PR, [demo](http://demo-beta.backpackforlaravel.com/admin/)
+
+
+![Backpack Widget Class](https://backpackforlaravel.com/uploads/docs-4-1/release_notes/widget_class.png)
+
+<hr>
+
+### One more thing
+
+#### **Alternative fluent syntax for fields, columns, filters, buttons** 
+
+- An optional new way of interacting with Fields, Columns, Filters, Buttons;
+- **Add or modify. It's the same method.** Create or modify a field/column/filter/button/widget with one call - think of ```CRUD::field()``` as a new ```$this->crud->addOrModifyField()```;
+- **Reduce your CrudController length by 20-60%.** Most field&column definitions will fit on just one line.
 - see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2513)
 
 
+![Backpack Chart Widget](https://backpackforlaravel.com/uploads/docs-4-1/release_notes/before_after_maybe_fluent_syntax.png)
+
+<hr>
 
 
 <a name="changed"></a>
-# Changed
+## Changed
 
 - For the ```List Operation```, you can now easily:
 	- **hide/show the search bar** - see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2479);
@@ -89,20 +142,21 @@ Here's what Backpack 4.1 brings to the table, and why you should upgrade from [B
 
 
 <a name="removed"></a>
-# Removed
+## Removed
 
-- Support for PHP 7.1;
+- Support for Laravel 5.8;
+- Support for PHP lower than 7.2.5;
 - ```laravel/helpers``` dependency 
-	- but you can install it, if you want to use the array and string helpers; 
+	- but you can still install it, if you want to use the array and string helpers; 
 	- see upgrade guide;
 - ```venturecraft/revisionable``` dependency 
-	- in order to use the Revisions operation you now have to install a first-party Backpack add-on; 
+	- in order to use the Revisions operation you now have to install [the backpack/revise-operation add-on](https://github.com/laravel-backpack/revise-operation); 
 	- see docs, PR or upgrade guide;
 - ```barryvdh/laravel-elfinder``` dependency 
-	- in order to use the File Manager screen, the ```browse``` or ```browse_multiple``` field types, you need to install a first-party Backpack add-on; 
+	- in order to use the File Manager screen, the ```browse``` or ```browse_multiple``` field types, you now need to install the [backpack/filemanager add-on](https://github.com/Laravel-Backpack/FileManager) that we created; 
 	- see docs, PR or upgrade guide;
 - ```intervention/image``` dependency 
-	- in order to use the ```image``` field type you need to require the package yourself; 
+	- in order to use the ```image``` field type you need to [install the package](http://image.intervention.io/getting_started/installation); 
 	- see updated docs, PR and upgrade guide; 
 
 

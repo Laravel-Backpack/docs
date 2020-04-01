@@ -95,6 +95,8 @@ Enumerate an array stored in the db column as JSON.
 ],
 ```
 
+<hr>
+
 <a name="array_count"></a>
 ### array_count
 
@@ -108,6 +110,8 @@ Count the items in an array stored in the db column as JSON.
    // 'suffix' => 'options', // if you want it to show "2 options" instead of "2 items"
 ],
 ```
+
+<hr>
 
 <a name="boolean"></a>
 ### boolean
@@ -124,6 +128,8 @@ Show Yes/No (or custom text) instead of 1/0.
 ],
 ```
 
+<hr>
+
 <a name="check"></a>
 ### check
 
@@ -136,6 +142,7 @@ Show a favicon with a checked or unchecked box, depending on the given boolean.
 ],
 ```
 
+<hr>
 
 <a name="checkbox"></a>
 ### checkbox
@@ -161,6 +168,8 @@ $this->crud->addColumn([
 ])->makeFirstColumn();
 ```
 
+<hr>
+
 <a name="closure"></a>
 ### closure
 
@@ -178,6 +187,8 @@ Show custom HTML based on a closure you specify in your EntityCrudController. Pl
 ],
 ```
 
+<hr>
+
 <a name="date"></a>
 ### date
 
@@ -192,6 +203,8 @@ The date column will show a localized date in the default date format (as specif
     // 'format' => 'l j F Y', // use something else than the base.default_date_format config value
 ],
 ```
+
+<hr>
 
 <a name="datetime"></a>
 ### datetime
@@ -208,6 +221,8 @@ The date column will show a localized datetime in the default datetime format (a
 ],
 ```
 
+<hr>
+
 <a name="email"></a>
 ### email
 
@@ -220,6 +235,8 @@ The email column will output the email address in the database (truncated to 254
    // 'limit' => 500, // if you want to truncate the text to a different number of characters
 ],
 ```
+
+<hr>
 
 <a name="image"></a>
 ### image
@@ -241,6 +258,8 @@ Show a thumbnail image.
 ],
 ```
 
+<hr>
+
 <a name="markdown"></a>
 ### markdown
 
@@ -254,6 +273,8 @@ Convert a markdown string to HTML, using ```Illuminate\Mail\Markdown```. Since M
    'type' => 'markdown',
 ],
 ```
+
+<hr>
 
 <a name="model_function"></a>
 ### model_function
@@ -280,6 +301,8 @@ public function getSlugWithLink() {
 
 **Note:** When displaying this column's value, the text is not escaped. That is intentional. This way, you can use it to show labels, color text, italic, bold, links, etc. If you might have malicious JS or CSS in your values, you can create a new escaped field yourself. But it's probably better to treat the problem at the source, and prevent that JS and CSS from reaching your DB in the first place.
 
+<hr>
+
 <a name="model_function_attribute"></a>
 ### model_function_attribute
 
@@ -299,6 +322,8 @@ If the function you're trying to use returns an object, not a string, you can us
 
 **Note:** When displaying this column's value, the text is not escaped. That is intentional. This way, you can use it to show labels, color text, italic, bold, links, etc. If you might have malicious JS or CSS in your values, you can create a new escaped field yourself. But it's probably better to treat the problem at the source, and prevent that JS and CSS from reaching your DB in the first place.
 
+<hr>
+
 <a name="multidimensional_array"></a>
 ### multidimensional_array
 
@@ -313,6 +338,8 @@ Enumerate the values in a multidimensional array, stored in the db as JSON.
    'visible_key' => 'name' // The key to the attribute you would like shown in the enumeration
 ],
 ```
+
+<hr>
 
 <a name="number"></a>
 ### number
@@ -335,6 +362,8 @@ The text column will just output the number value of a db column (or model attri
 ],
 ```
 
+<hr>
+
 <a name="phone"></a>
 ### phone
 
@@ -347,6 +376,8 @@ The phone column will output the phone number from the database (truncated to 25
    // 'limit' => 10, // if you want to truncate the phone number to a different number of characters
 ],
 ```
+
+<hr>
 
 <a name="radio"></a>
 ### radio
@@ -370,6 +401,49 @@ This example will show:
 - "Draft" when the value stored in the db is 0;
 - "Published" when the value stored in the db is 1;  
 
+<hr>
+
+<a name="relationship"></a>
+### relationship
+
+Output the related entries, no matter the relationship:
+- 1-n relationships - outputs the name of its one connected entity;
+- n-n relationships - enumerates the names of all its connected entities;
+
+Its name and definition is the same as for the relationship *field type*:
+```php
+[  // any type of relationship
+   'name' => 'tags', // name of relationship method in the model
+   'type' => "relationship",
+   'label' => "Tags", // Table column heading
+   // OPTIONAL
+   // 'entity' => 'tags', // the method that defines the relationship in your Model
+   // 'attribute' => "name", // foreign key attribute that is shown to user
+   // 'model' => App\Models\Category::class, // foreign key model
+],
+```
+
+Backpack tries to guess which attribute to show for the related item. Something that the end-user will recognize as unique. If it's something common like "name" or "title" it will guess it. If not, you can manually specify the ```attribute``` inside the column definition, or you can add ```public $identifiableAttribute = 'column_name';``` to your model, and Backpack will use that column as the one the user finds identifiable. It will use it here, and it will use it everywhere you haven't explicitly asked for a different attribute.
+
+<hr>
+
+<a name="relationship_count"></a>
+### relationship_count
+
+Shows the number of items that are related to the current entry, for a particular relationship.
+
+```php
+[  // non-relationship count
+   'name' => 'tags', // name of relationship method in the model
+   'type' => "relationship_count", 
+   'label' => "Tags", // Table column heading
+   // OPTIONAL
+   // 'suffix' => ' tags', // to show "123 tags" instead of "123 items"
+],
+```
+
+<hr>
+
 <a name="row_number"></a>
 ### row_number
 
@@ -391,6 +465,8 @@ Notes:
 - you can place the column as second / third / etc if you remove ```makeFirstColumn()```;
 - this column type allows the use of suffix/prefix just like the text column type;
 - if upon placement you notice it always shows ```false``` then please note there have been changes in the ```search()``` method - you need to add another parameter to your ```getEntriesAsJsonForDatatables()``` call;
+
+<hr>
 
 <a name="text"></a>
 ### text
@@ -415,6 +491,8 @@ The text column will just output the text value of a db column (or model attribu
 ],
 ```
 
+<hr>
+
 <a name="select"></a>
 ### select
 
@@ -431,6 +509,8 @@ The select column will output its connected entity. Used for relationships like 
 ],
 ```
 
+<hr>
+
 <a name="select_from_array"></a>
 ### select_from_array
 
@@ -445,6 +525,8 @@ Show a particular text depending on the value of the attribute.
     'options' => [‘draft’ => ‘Draft (invisible)’, ‘published’ => ‘Published (visible)’],
 ],
 ```
+
+<hr>
 
 <a name="select_multiple"></a>
 ### select_multiple
@@ -461,6 +543,8 @@ The select_multiple column will output a comma separated list of its connected e
    'model' => "App\Models\Tag", // foreign key model
 ],
 ```
+
+<hr>
 
 <a name="table"></a>
 ### table
@@ -484,6 +568,8 @@ Its definition is very similar to the [table *field type*](/docs/{{version}}/cru
 ],
 ```
 
+<hr>
+
 <a name="upload_multiple"></a>
 ### upload_multiple
 
@@ -501,6 +587,8 @@ Its definition is very similar to the [upload_multiple *field type*](/docs/{{ver
 ],
 ```
 
+<hr>
+
 <a name="video"></a>
 ### video
 
@@ -514,6 +602,8 @@ Display a small screenshot for a Youtube or Vimeo video, stored in the database 
    'type' => 'video',
 ],
 ```
+
+<hr>
 
 <a name="view"></a>
 ### view
@@ -529,6 +619,8 @@ Display any custom column type you want. Usually used by Backpack package develo
 ],
 ```
 
+<hr>
+
 <a name="overwriting-default-column-types"></a>
 ## Overwriting Default Column Types
 
@@ -539,6 +631,8 @@ Examples:
 - ```php artisan backpack:publish crud/columns/text``` will take the view from the package and copy it to the directory above, so you can edit it;
 
 >Keep in mind that when you're overwriting a default column type, you're forfeiting any future updates for that column. We can't push updates to a file that you're no longer using.
+
+<hr>
 
 <a name="creating-a-custom-column-type"></a>
 ## Creating a Custom Column Type
@@ -556,6 +650,8 @@ The most useful variables you'll have in this file here are:
 
 By default, custom columns are not searchable. In order to make your column searchable you need to [specify a custom ```searchLogic``` in your declaration](#custom-search-logic).
 
+
+<hr>
 
 <a name="advanced-columns-use"></a>
 ## Advanced Columns Use
@@ -635,9 +731,9 @@ $this->crud->addColumn([
 <a name="custom-wrapper-for-columns"></a>
 ### Wrap Column Text in an HTML Element 
 
-Sometimes the text that the column echoes is not enough. You want to add interactivity to it, by adding a link to what's written there. Or you want to show the value in a green/yellow/red badge so it stands out. You can do both of that with the wrapper attribute, which most columns support.
+Sometimes the text that the column echoes is not enough. You want to add interactivity to it, by adding a link to that column. Or you want to show the value in a green/yellow/red badge so it stands out. You can do both of that - with the ```wrapper``` attribute, which most columns support.
 
-For example, to add a link that points to that Article's Show operation, you can do:
+For example, you can wrap the text in an anchor element, to point to that Article's Show operation:
 
 ```php
 $this->crud->addColumn([
@@ -660,7 +756,7 @@ $this->crud->addColumn([
 
 If you specify ```wrapper``` to a column, the entries in that column will be wrapped in the element you specify. Note that: 
 - To get an HTML anchor (a link), you can specify ```a``` for the element (but that's also the default); to get a paragraph you'd specify ```p``` for the element; to get an inline element you'd specify ```span``` for the element; etc;
-- Anything you declare in the ```wrapper``` array, other than ```element``` will be used as HTML attributes for that element (ex: ```class```, ```style```, etc);
+- Anything you declare in the ```wrapper``` array (other than ```element```) will be used as HTML attributes for that element (ex: ```class```, ```style```, ```target``` etc);
 - Each wrapper attribute can be declared as a string OR as a callback;
 
 Let's take another example, and wrap a boolean column into a green/red span:

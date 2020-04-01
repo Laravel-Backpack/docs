@@ -5,7 +5,8 @@
 <a name="about"></a>
 ## About
 
-This operation allows an EntityCrudController to respond to AJAX requests for entries in the database for a different entity, in a format that can be used by the ```relationship```, ```select2_from_ajax``` and ```select2_from_ajax_multiple``` fields.
+This operation allows an EntityCrudController to respond to AJAX requests with entries in the database for _a different entity_, in a format that can be used by the ```relationship```, ```select2_from_ajax``` and ```select2_from_ajax_multiple``` fields.
+
 
 <a name="requirements"></a>
 ## Requirements
@@ -54,6 +55,8 @@ class ProductCrudController extends CrudController
     }
 }
 ```
+
+3. A route following has been created automatically to point to the ```fetchTag``` method you created. You now point your AJAX select to this route, using ```backpack_url('your-main-entity/fetch/tag')``` .
 
 
 <a name="how-it-works"></a>

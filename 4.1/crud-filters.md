@@ -79,6 +79,8 @@ function() { // if the filter is active
 } );
 ```
 
+<hr>
+
 <a name="text"></a>
 ### Text
 
@@ -99,6 +101,8 @@ function($value) { // if the filter is active
 });
 ```
 
+<hr>
+
 <a name="date"></a>
 ### Date
 
@@ -118,6 +122,8 @@ $this->crud->addFilter([
       // $this->crud->addClause('where', 'date', $value);
   });
 ```
+
+<hr>
 
 <a name="date-range"></a>
 ### Date range
@@ -141,6 +147,8 @@ $this->crud->addFilter([
   });
 ```
 
+<hr>
+
 <a name="dropdown"></a>
 ### Dropdown
 
@@ -163,6 +171,8 @@ $this->crud->addFilter([
   // $this->crud->addClause('where', 'status', $value);
 });
 ```
+
+<hr>
 
 <a name="select2"></a>
 ### Select2
@@ -191,6 +201,8 @@ $this->crud->addFilter([
 
 **Note:** If you want to pass all entries of a Laravel model to your filter, you can do it in the second parameter (the closure), with something like ```return \Backpack\NewsCRUD\app\Models\Category::all()->keyBy('id')->pluck('name', 'id')->toArray();```;
 
+<hr>
+
 <a name="select2_multiple"></a>
 ### Select2_multiple
 
@@ -217,6 +229,8 @@ $this->crud->addFilter([
     // }
 });
 ```
+
+<hr>
 
 <a name="select2_ajax"></a>
 ### Select2_ajax
@@ -258,6 +272,8 @@ function($value) { // if the filter is active
 });
 ```
 
+<hr>
+
 <a name="range"></a>
 ### Range
 
@@ -284,6 +300,9 @@ function($value) { // if the filter is active
     }
 });
 ```
+
+<hr>
+
 <a name="view"></a>
 ### View
 
@@ -303,6 +322,8 @@ function($value) { // if the filter is active
     // $this->crud->addClause('where', 'category_id', $value);
 });
 ```
+
+<hr>
 
 <a name="creating-a-custom-filter-type"></a>
 ## Creating custom filters
@@ -333,7 +354,7 @@ Inside this file, you'll have:
             @endif
                 >
             <div class="input-group-addon">
-              <a class="text-filter-{{ str_slug($filter->name) }}-clear-button" href=""><i class="fa fa-times"></i></a>
+              <a class="text-filter-{{ str_slug($filter->name) }}-clear-button" href="#"><i class="fa fa-times"></i></a>
             </div>
         </div>
     </div>
@@ -392,6 +413,8 @@ Inside this file, you'll have:
 {{-- End of Extra CSS and JS --}}
 {{-- ########################################## --}}
 ```
+
+<hr>
 
 <a name="examples"></a>
 ## Examples
