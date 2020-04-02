@@ -45,7 +45,7 @@ Our recommendation is to _not_ stick to Laravel 6.0 just because it's a [LTS ver
         "backpack/newscrud": "4.1.x-dev as 3.0.99|^4.0.0",
         "backpack/permissionmanager": "4.1.x-dev as 5.0.99|^6.0.0",
         "backpack/backupmanager": "^2.0.0",
-        "backpack/generators": "^2.0",
+        "backpack/generators": "4.1.x-dev as 3.0.0|^3.0",
         "spatie/laravel-translatable": "^4.0",
         "barryvdh/laravel-elfinder": "^0.4.2",
         "spatie/laravel-backup": "^6.1"
