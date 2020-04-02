@@ -97,8 +97,8 @@ Here's what Backpack 4.1 brings to the table, and why you should upgrade from [B
 
 - easily add a widget with a chart, on any admin panel page, directly from your Controller or blade file;
 - the same/similar syntax for multiple chart libraries: ChartJS, Highcharts, Fusioncharts, Echarts, Frappe, C3, thanks to [Laravel Charts](https://charts.erik.cat/); easily switch between charting libraries;
-- to populate charts with data, you can make DB queries using AJAX (recommended) or on pageload;   
-- see docs, PR, [demo](http://demo-beta.backpackforlaravel.com/admin/)
+- easily defer DB queries to an AJAX call (recommended) or make them upon pageload;   
+- see [docs](/docs/4.1/base-widgets#chart), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2596), [demo](http://demo-beta.backpackforlaravel.com/admin/)
 
 
 ![Backpack Chart Widget](https://backpackforlaravel.com/uploads/docs-4-1/release_notes/chart_widget_small.gif)
@@ -110,7 +110,7 @@ Here's what Backpack 4.1 brings to the table, and why you should upgrade from [B
 - a global object that allows you to more easily add/edit Widgets to your admin panel pages;
 - you can still manipulate the ```$data['widgets']``` directly, but you can also use this new class;
 - you can pass the entire widget definition array to ```Widget::add()``` or you can use a its new fluent syntax;
-- see docs, PR, [demo](http://demo-beta.backpackforlaravel.com/admin/)
+- see [docs](/docs/4.1/base-widgets#widgets-api), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2599), [demo](http://demo-beta.backpackforlaravel.com/admin/)
 
 
 ![Backpack Widget Class](https://backpackforlaravel.com/uploads/docs-4-1/release_notes/widget_class.png)
