@@ -226,10 +226,24 @@ In order to account for this icon font change please:
 - inside your ```resources/views/vendor/backpack``` folder, search & replace ```fa fa-``` with ```la la-```;
 - for each icon you fix above, double-check that it shows in the browser; if it doesn't, search for an alternative on the [Line Awesome website](https://icons8.com/line-awesome); usually the syntax change is very _very_ small; and there are a lot more icons now, so you'll definitely find something;
 
+<a name="step-17" href="#step-17" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 17.</a> In order to be able to use the new fluent syntax for Widgets, you should make sure all main admin panel views (ex: dashboard, create, update, etc) extend the ```blank``` template:
+
+```diff
+//from 
+- @extends('backpack::layouts.top_left')
+- @extends(backpack_view('layouts.top_left'))
+
+// to
++ @extends(backpack_view('blank'))
+// or
++ @extends('backpack::blank')
+
+```
+
 <a name="cache"></a>
 ### Cache
 
-<a name="step-17" href="#step-17" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 17.</a> Clear your app's cache:
+<a name="step-18" href="#step-18" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 18.</a> Clear your app's cache:
 ```bash
 php artisan config:clear
 php artisan cache:clear

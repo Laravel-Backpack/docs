@@ -8,60 +8,28 @@
 Widgets (aka cards, aka charts, aka graphs) provide a simple way to insert blade files into admin panel pages. You can use them to insert cards, charts, notices or custom content into pages.
 
 
-<a name="how-to-use-widgets"></a>
-### How to Use
+<a name="requirements"></a>
+### Requirements
 
-The default layout that Backpack uses has two widget sections:
+In order to use the ```Widget``` class, you should make sure your main views (for new admin panel pages) extend the ```backpack::blank``` or ```backpack_view('blank')``` blade template. This template includes two sections where you can push widgets:
 - ```before_content```
 - ```after_content```
 
-You can easily push widgets to these sections, by making sure a ```$widgets['before_content']``` or ```$widgets['after_content']``` variable will be present in the main view.
 
-1) From the controller:
+<a name="how-to-use-widgets"></a>
+### How to Use
+
+You can easily push widgets to these sections, by using the autoloaded ```Widget``` class. You can think of the ```Widget``` class as a global container for widgets, for the current page being rendered. That means you can call the ```Widget``` container inside a ```Controller```, inside a ```view```, or inside a service provider you create - wherever you want.
+
 ```php
-     /**
-     * Show the admin dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function dashboard()
-    {
-        $this->data['title'] = trans('backpack::base.dashboard'); // set the page title
-        $this->data['widgets']['before_content'] = [
-            [
-                'type' => 'card',
-                'wrapperClass' => 'col-sm-6 col-md-4',
-                'content' => [
-                    'header' => 'Some card title',
-                    'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non mi nec orci euismod venenatis. Integer quis sapien et diam facilisis facilisis ultricies quis justo. Phasellus sem <b>turpis</b>.',
-                ]
-            ],
-        ];
-
-        return view(backpack_view('dashboard'), $this->data);
-    }
+    Widget::add($widget_definition_array)->to('before_content');
+    
+    // alternatively, use a fluent syntax to define each widget attribute
+    Widget::add()
+            ->to('before_content')
+            ->type('card')
+            ->content(null);
 ```
-
-2) From the view:
-```php
-@extends(backpack_view('blank'))
-
-@php
-    $widgets['before_content'][] = [
-        'type' => 'card',
-        'wrapperClass' => 'col-sm-6 col-md-4',
-        'content' => [
-            'header' => 'Some card title',
-            'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non mi nec orci euismod venenatis. Integer quis sapien et diam facilisis facilisis ultricies quis justo. Phasellus sem <b>turpis</b>.',
-        ]
-    ];
-@endphp
-
-@section('content')
-@endsection
-```
-
-Both of the options above will produce the same result. You can use both options above together, pushing some widgets from the controller, and some from the view.
 
 
 <a name="mandatory-attributes"></a>
@@ -80,8 +48,46 @@ When passing a widget array, you need to specify at least these attributes:
 
 Most widget types also have these attributes present, which you can use to tweak how the widget looks inside the page:
 ```php
-        'wrapperClass' => 'col-sm-6 col-md-4', // customize the class on the parent element (wrapper)
+    'wrapper' => [
+        'class' => 'col-sm-6 col-md-4', // customize the class on the parent element (wrapper)
+        'style' => 'border-radius: 10px;',
+    ]
 ```
+
+<a name="widgets-api"></a>
+### Widgets API
+
+To manipulate widgets, you can use the methods below. The action will be performed on the page being constructed for the current request. And the ```Widget``` class is a global container, so you can add widgets to it both from the Controller, and from the view.
+
+```php
+// to add a widget to a different section than the default 'before_content' section:
+Widget::add($widget_definition_array)->to('after_content');
+Widget::add($widget_definition_array)->section('after_content');
+Widget::add($widget_definition_array)->group('after_content');
+
+// to create a widget, WITHOUT adding it to a section
+Widget::make($widget_definition_array);
+
+// to define the contents of a widget, pass the definition array to the make()/add() methods
+Widget::add($widget_definition_array);
+Widget::make($widget_definition_array);
+// alternatively, define each widget attribute one by one, using a fluent syntax
+Widget::add()
+        ->to('after_content')
+        ->type('card')
+        ->content('something');
+
+// to reference a widget later on, give it a unique 'name'
+Widget::add($widget_definition_array)->name('my_widget');
+
+// you can then easily modify it
+Widget::name('my_widget')->content('some other content'); // change the 'content' attribute
+Widget::name('my_widget')->forget('attribute_name'); // unset a widget attribute
+Widget::name('my_widget')->makeFirst(); // make a widget the first one in its section
+Widget::name('my_widget')->makeLast(); // to make a widget the last one in its section
+Widget::name('my_widget')->remove(); // remove the widget from its section
+```
+
 
 
 <a name="widget-types"></a>
@@ -116,7 +122,7 @@ Shows a Bootstrap card, with the heading and body you specify. You can customize
 ```php
 [
   'type' => 'card',
-  // 'wrapperClass' => 'col-sm-6 col-md-4', // optional
+  // 'wrapper' => ['class' => 'col-sm-6 col-md-4'], // optional
   // 'class' => 'card bg-dark text-white', // optional
   'content' => [
       'header' => 'Some card title', // optional
@@ -160,7 +166,6 @@ Shows a Boostrap jumbotron component, with the heading and body you specify.
 ```php
 [
   'type'        => 'jumbotron',
-  'wrapperClass'=> '',
   'heading'     => 'Welcome!',
   'content'     => 'Use the sidebar to the left to create, edit or delete content.',
   'button_link' => backpack_url('logout'),
@@ -237,11 +242,11 @@ It helps load blade files that are not specifically created to be widgets, that 
 <a name="overwriting-default-widget-types"></a>
 ## Overwriting Default Widget Types
 
-You can overwrite a widget type by placing a file with the same name in your ```resources\views\vendor\backpack\base\widgets``` directory. When a file is there, Backpack will pick that one up, instead of the one in the package. You can do that from command line using ```php artisan backpack:base:publish widgets/widget-name```
+You can overwrite a widget type by placing a file with the same name in your ```resources\views\vendor\backpack\base\widgets``` directory. When a file is there, Backpack will pick that one up, instead of the one in the package. You can do that from command line using ```php artisan backpack:publish base/widgets/widget-name```
 
 Examples:
 - creating a ```resources\views\vendor\backpack\base\widgets\card.blade.php``` file would overwrite the ```card``` widget functionality;
-- ```php artisan backpack:base:publish widgets/card``` will take the view from the package and copy it to the directory above, so you can edit it;
+- ```php artisan backpack:publish base/widgets/card``` will take the view from the package and copy it to the directory above, so you can edit it;
 
 >Keep in mind that when you're overwriting a default widget type, you're forfeiting any future updates for that widget. We can't push updates to a file that you're no longer using.
 
@@ -252,11 +257,11 @@ Widgets consist of only one file - a blade file with the same name as the widget
 
 For example, you can create a ```well.blade.php```:
 ```php
-<div class="{{ $widget['wrapperClass'] ?? 'col-sm-6 col-md-4' }}">
+@includeWhen(!empty($widget['wrapper']), 'backpack::widgets.inc.wrapper_start')
   <div class="{{ $widget['class'] ?? 'well mb-2' }}">
     {!! $widget['content'] !!}
   </div>
-</div>
+@includeWhen(!empty($widget['wrapper']), 'backpack::widgets.inc.wrapper_end')
 ```
 
 You can then use the ```well``` widget in a Controller or View:
@@ -264,11 +269,11 @@ You can then use the ```well``` widget in a Controller or View:
 @extends(backpack_view('blank'))
 
 @php
-    $widgets['before_content'][] = [
+    Widget::add([
         'type' => 'well',
-        'wrapperClass' => 'col-sm-12',
+        'wrapper' => ['class' => 'col-sm-12'],
         'content' => 'This text will be in a div with the class "<i>well</i>".',
-    ];
+    ]);
 @endphp
 
 @section('content')
@@ -282,11 +287,11 @@ To use information from the database, you can:
 
 Inside the widget blade files, you include custom CSS and JS, by pushing to the stacks in the layout:
 ```php
-<div class="{{ $widget['wrapperClass'] ?? 'col-sm-6 col-md-4' }}">
+@includeWhen(!empty($widget['wrapper']), 'backpack::widgets.inc.wrapper_start')
   <div class="{{ $widget['class'] ?? 'well mb-2' }}">
     {!! $widget['content'] !!}
   </div>
-</div>
+@includeWhen(!empty($widget['wrapper']), 'backpack::widgets.inc.wrapper_end')
 
 @push('after_styles')
   <link href="{{ asset('packages/select2/dist/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
@@ -322,20 +327,23 @@ Inside the widget blade files, you include custom CSS and JS, by pushing to the 
 
 You can choose the view namespace when loading a widget:
 
-```diff
-        $this->data['widgets']['after_content'] = [
-            [
-                'type' => 'card',
-+               'viewNamespace' => 'package::widgets',
-                'wrapperClass' => 'col-sm-6 col-md-4',
-                'class' => 'card text-white bg-primary text-center',
+```php
 
-                'content' => [
-                    // 'header' => 'Another card title',
-                    'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non mi nec orci euismod venenatis. Integer quis sapien et diam facilisis facilisis ultricies quis justo. Phasellus sem <b>turpis</b>, ornare quis aliquet ut, volutpat et lectus. Aliquam a egestas elit.',
-                ]
-            ],
-        ];
+// using the fluent syntax, use the 'from' alias
+Widget::add($widget_definition_array)->from('package::widgets');
+
+// using the widget definition array, specify its 'viewNamespace'
+Widget::add([
+  'type' => 'card',
+  'viewNamespace' => 'package::widgets',
+  'wrapper' => ['class' => 'col-sm-6 col-md-4'],
+  'class' => 'card text-white bg-primary text-center',
+  'content' => [
+    // 'header' => 'Another card title',
+    'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non mi nec orci euismod venenatis. Integer quis sapien et diam facilisis facilisis ultricies quis justo. Phasellus sem <b>turpis</b>, ornare quis aliquet ut, volutpat et lectus. Aliquam a egestas elit.',
+  ],
+]);
+
 ```
 
 Similarly, if you want to create widgets somewhere else than in ```resources/views/vendor/backpack/base/widgets```, you can pass that directory as the namespace of your widget. For example, ```resources/views/admin/widgets``` would have ```admin.widgets``` as the namespace.
