@@ -175,7 +175,7 @@ Once an operation name has been set using that route, you can do ```$crud->getOp
 ## Creating a Custom Operation
 
 <a name="create-operation-command"></a>
-## Command-line Tool
+### Command-line Tool
 
 If you've installed ```backpack/generators```, you can do ```php artisan backpack:crud-operation {OperationName}``` to generate an empty operation trait, that you can edit and use on your CrudControllers. For example:
 
@@ -254,7 +254,7 @@ You'll notice the generated operation has:
 You can customize these to fit the operation you have in mind, then ```use \App\Http\Controllers\Admin\Operations\CommentOperation;``` inside the CrudControllers where you want the operation.
 
 <a name="contents-of-a-custom-operation"></a>
-## Contents of a Custom Operation
+### Contents of a Custom Operation
 
 Thanks to [Backpack's simple architecture](/docs/{{version}}/crud-basics#architecture), each CRUD panel uses a controller and a route, that are placed inside your project. That means you hold the keys to how this controller works.
 

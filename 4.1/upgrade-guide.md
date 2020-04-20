@@ -9,8 +9,8 @@ This will guide you to upgrade from Backpack 4.0 to 4.1.
 
 Please make sure your project respects the requirements below, before you start the upgrade process. You can check with ```php artisan backpack:version```:
 
-- PHP 7.2.5+
-- Laravel 7, Laravel 6 or Laravel 5.8
+- PHP 7.4.x, 7.3.x or 7.2.5+ 
+- Laravel 7.x or 6.x
 - Backpack\CRUD 4.0.x
 - 5-10 minutes for most projects, on top of the Laravel upgrade
 
@@ -24,7 +24,7 @@ Please make sure your project respects the requirements below, before you start 
 ## Upgrade Steps
 
 
-<a name="step-0" href="#step-0" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 0.</a> **[Upgrade to Laravel 6](https://laravel.com/docs/6.x/upgrade). Then [upgrade to Laravel 7](https://laravel.com/docs/7.x/upgrade), if you can.** This is not _required_, but it's _recommended_. You need to do this _one day_ anyway - might as well do it now. Backpack 4.0 (that your project is already running) supports Laravel 5.8, 6 and 7. So you should:
+<a name="step-0" href="#step-0" class="badge badge-warning text-white" style="text-decoration: none;">Step 0.</a> **[Upgrade to Laravel 6](https://laravel.com/docs/6.x/upgrade). Then [upgrade to Laravel 7](https://laravel.com/docs/7.x/upgrade), if you can.** This is not _required_, but it's _recommended_. You need to do this _one day_ anyway - might as well do it now. Backpack 4.0 (that your project is already running) supports Laravel 5.8, 6 and 7. So you should:
 - **upgrade your project to use Laravel v6 or v7**
 - test your app is working fine with them
 - continue with "Step 1" below, to also upgrade Backpack to 4.1
@@ -34,9 +34,9 @@ Our recommendation is to _not_ stick to Laravel 6.0 just because it's a [LTS ver
 <a name="composer"></a>
 ### Composer
 
-<a name="step-1" href="#step-1" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 1.</a> Update your ```composer.json``` file to require ```"backpack/crud": "4.1.x-dev as 4.0.99"``` _NOTE - THIS IS THE BETA VERSION; WHEN 4.1 IS LAUNCHED THE REQUIRED VERSION WILL BE ^4.1.0_
+<a name="step-1" href="#step-1" class="badge badge-info text-white" style="text-decoration: none;">Step 1.</a> Update your ```composer.json``` file to require ```"backpack/crud": "4.1.x-dev as 4.0.99"``` _NOTE - THIS IS THE BETA VERSION; WHEN 4.1 IS LAUNCHED THE REQUIRED VERSION WILL BE ^4.1.0_
 
-<a name="step-2" href="#step-2" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 2.</a> [OPTIONAL] If you have a lot of Backpack add-ons installed (and their dependencies), here are their latest versions, that support Backpack 4.1, you can copy-paste the versions of the packages you're using:
+<a name="step-2" href="#step-2" class="badge badge-warning text-white" style="text-decoration: none;">Step 2.</a> If you have a lot of Backpack add-ons installed (and their dependencies), here are their latest versions, that support Backpack 4.1, you can copy-paste the versions of the packages you're using:
 ```
         "backpack/logmanager": "^3.0.0",
         "backpack/settings": "^3.0.0",
@@ -55,11 +55,11 @@ Our recommendation is to _not_ stick to Laravel 6.0 just because it's a [LTS ver
         "laracasts/generators": "^2.0"
 ```
 
-<a name="step-3" href="#step-3" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 3.</a> If you're using the Revisions operation, it has now been split into a separate package. So please add ```"backpack/revise-operation": "^1.0",``` to your composer's require section.
+<a name="step-3" href="#step-3" class="badge badge-warning text-white" style="text-decoration: none;">Step 3.</a> If you're using the Revisions operation, it has now been split into a separate package. So please add ```"backpack/revise-operation": "^1.0",``` to your composer's require section.
 
-<a name="step-4" href="#step-4" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 4.</a> Backpack itself is no longer using ```laravel/helpers```. Instead of using helpers like ```str_slug()``` we're now doing ```Str::slug()``` everywhere. We recommend you do the same. But if you want to keep using string and array helpers, please add ```"laravel/helpers": "^1.1",``` to your composer's require section.
+<a name="step-4" href="#step-4" class="badge badge-warning text-white" style="text-decoration: none;">Step 4.</a> Backpack itself is no longer using ```laravel/helpers```. Instead of using helpers like ```str_slug()``` we're now doing ```Str::slug()``` everywhere. We recommend you do the same. But if you want to keep using string and array helpers, please add ```"laravel/helpers": "^1.1",``` to your composer's require section.
 
-<a name="step-5" href="#step-5" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 5.</a> Since we're no longer using ```laravel/helpers```, we need the ```Str``` and ```Arr``` classes to be aliased. You should have already done this when upgrading to Laravel 5.8/6.x/7.x. But please make sure that in your ```config/app.php``` you have these aliases:
+<a name="step-5" href="#step-5" class="badge badge-warning text-white" style="text-decoration: none;">Step 5.</a> Since we're no longer using ```laravel/helpers```, we need the ```Str``` and ```Arr``` classes to be aliased. You should have already done this when upgrading to Laravel 5.8/6.x/7.x. But please make sure that in your ```config/app.php``` you have these aliases:
 ```php
     'aliases' => [
         // ...
@@ -70,11 +70,11 @@ Our recommendation is to _not_ stick to Laravel 6.0 just because it's a [LTS ver
     ],
 ```
 
-<a name="step-6" href="#step-6" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 6.</a> Backpack no longer installs the FileManager by default (elFinder), since most projects don't need it. If you did use the FileManager, or the ```browse``` or ```browse_multiple``` fields, make sure you require ```"backpack/filemanager": "^1.0",``` in your ```composer.json``` - we've separated it into an add-on.
+<a name="step-6" href="#step-6" class="badge badge-warning text-white" style="text-decoration: none;">Step 6.</a> Backpack no longer installs the FileManager by default (elFinder), since most projects don't need it. If you did use the FileManager, or the ```browse``` or ```browse_multiple``` fields, make sure you require ```"backpack/filemanager": "^1.0",``` in your ```composer.json``` - we've separated it into an add-on.
 
-<a name="step-7" href="#step-7" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 7.</a> Backpack no longer installs ```intervention/image``` by default. If you use the ```image``` field type and you've used our example Mutator in your Model, you might be using ```intervention/image``` - please check. If so, please add ```"intervention/image": "^2.3",``` to your ```composer.json```'s require section.
+<a name="step-7" href="#step-7" class="badge badge-warning text-white" style="text-decoration: none;">Step 7.</a> Backpack no longer installs ```intervention/image``` by default. If you use the ```image``` field type and you've used our example Mutator in your Model, you might be using ```intervention/image``` - please check. If so, please add ```"intervention/image": "^2.3",``` to your ```composer.json```'s require section.
 
-<a name="step-8" href="#step-8" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 8.</a> Run ```composer update``` in the command line.
+<a name="step-8" href="#step-8" class="badge badge-info text-white" style="text-decoration: none;">Step 8.</a> Run ```composer update``` in the command line.
 
 <a name="models"></a>
 ### Models
@@ -89,7 +89,7 @@ No changes needed.
 <a name="config"></a>
 ### Config
 
-<a name="step-9" href="#step-9" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 9.</a> Backpack no longer provides, needs or uses the ```App\Models\BackpackUser``` model for authentication. New installs default to using ```App\User```. Since that model was only used for authentication & forgotten-password functionality, we recommend you:
+<a name="step-9" href="#step-9" class="badge badge-info text-white" style="text-decoration: none;">Step 9.</a> Backpack no longer provides, needs or uses the ```App\Models\BackpackUser``` model for authentication. New installs default to using ```App\User```. Since that model was only used for authentication & forgotten-password functionality, we recommend you:
 - delete the ```App\Models\BackpackUser.php``` file;
 - change your ```config/backpack/base.php``` file to:
 
@@ -148,7 +148,7 @@ php artisan migrate
 
 The steps below should apply for each of your CrudControllers. For each Step, go through every one of your CrudControllers (usually stored in ```app\Http\Controllers\Admin```:
 
-<a name="step-10" href="#step-10" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 10.</a> If you're using the ```RevisionsOperation``` inside your CrudControllers, that operation has been moved to a separate package (that you've already installed in steps 3 & 8). Now you need to:
+<a name="step-10" href="#step-10" class="badge badge-warning text-white" style="text-decoration: none;">Step 10.</a> If you're using the ```RevisionsOperation``` inside your CrudControllers, that operation has been moved to a separate package (that you've already installed in steps 3 & 8). Now you need to:
 - inside your CrudControllers, search for ```Backpack\CRUD\app\Http\Controllers\Operations\RevisionsOperation``` and replace with ```Backpack\ReviseOperation\ReviseOperation```
 - if you've customized the Revisions operation, take note that the specialty methods to set a Revisions view no longer exist; inside your CrudController, please use the normal ```get()```/```set()```, but please note that the operation is now called "_revise_" (verb) not "_revisions_" (noun), so your changes should be:
     - from ```$this->crud->setRevisionsView()``` to ```$this->crud->set('revise.view')```
@@ -159,7 +159,7 @@ The steps below should apply for each of your CrudControllers. For each Step, go
     - from ```$this->crud->getRevisionsTimelineContentClass()``` to ```$this->crud->set('revise.timelineContentClass')```
 - if you've defined settings for the "_revisions_" operation for all CRUDs, inside your ```config/backpack/crud.php```, please note that the operation name has changed, so inside ```operations``` you should change ```revisions``` to ```revise```;
 
-<a name="step-11" href="#step-11" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 11.</a> Inside CrudControllers, Backpack 4.1:
+<a name="step-11" href="#step-11" class="badge badge-warning text-white" style="text-decoration: none;">Step 11.</a> Inside CrudControllers, Backpack 4.1:
 - no longer defines ```$this->request```
 - still defines ```$this->crud->request``` (aka ```CRUD::request```) but uses getters and setters to work with it (```$this->crud->getRequest()``` and ```$this->crud->setRequest()```);
 
@@ -167,18 +167,16 @@ Why? Since ```$this->request``` did nothing at all, we've removed it, to avoid a
 - **If you have ```$this->request``` anywhere in your CrudControllers custom logic**, please replace it with either Laravel's ```request()``` helper or with ```$this->crud->getRequest()```.
 - **If you have ```$this->crud->request``` anywhere inside your custom CrudController logic**, please replace it with either ```$this->crud->getRequest()``` or ```$this->crud->setRequest()``` depending on what your intention is.
 
-<a name="step-12" href="#step-12" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 12.</a> Inside CrudControllers, if you've used ```wrapperAttributes``` on fields, please note that it's now called ```wrapper```. Please search & replace ```wrapperAttributes``` with ```wrapper``` in your CrudControllers.
+<a name="step-12" href="#step-12" class="badge badge-info text-white" style="text-decoration: none;">Step 12.</a> Inside CrudControllers, if you've used ```wrapperAttributes``` on fields, please note that it's now called ```wrapper```. Please search & replace ```wrapperAttributes``` with ```wrapper``` in your CrudControllers.
 
 <a href="assets"></a>
 ### CSS & JS Assets
 
-<a name="step-13" href="#step-13" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 13.</a> We've updated most CSS & JS dependencies to their latest versions. There are two ways to publish the latest styles and scripts for these dependencies:
+<a name="step-13" href="#step-13" class="badge badge-info text-white" style="text-decoration: none;">Step 13.</a> We've updated most CSS & JS dependencies to their latest versions. There are two ways to publish the latest styles and scripts for these dependencies:
 - (A) If you have NOT touched you ```public/packages``` folder, or placed anything custom inside it:
         - delete the ```public/packages``` directory and all its contents;
         - run ```php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag=public```
-        - additionally, if you use elFinder:
-            - ```php artisan elfinder:publish```
-            - ```php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag=elfinder```
+        - if you use elFinder, run ```php artisan backpack:filemanager:install```
 - (B) Run ```php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag=public --force```. Please note this will overwrite anything that's already there. This B solution has a downside: unused files are not removed. A few files Backpack no longer uses will still be in your ```public/packages``` folder, even though they're no longer used.
 
 
@@ -187,7 +185,7 @@ Why? Since ```$this->request``` did nothing at all, we've removed it, to avoid a
 ### Views
 
 
-<a name="step-14" href="#step-14" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 14.</a> **If you've overwritten default Fields, or have custom Fields**, take note that ALL of them have suffered changes (for the better); as a minimum, if you have any files in ```resources/views/vendor/backpack/crud/fields``` you should:
+<a name="step-14" href="#step-14" class="badge badge-info text-white" style="text-decoration: none;">Step 14.</a> **If you've overwritten default Fields, or have custom Fields**, take note that ALL of them have suffered changes (for the better); as a minimum, if you have any files in ```resources/views/vendor/backpack/crud/fields``` you should:
 - find & replace ```crud::inc.field_attributes``` with ```crud::fields.inc.attributes```
 - find & replace ```crud::inc.field_translatable_icon``` with ```crud::fields.inc.translatable_icon```
 - change the wrapping element; take a look at the diff below or at [the diff for the text field](https://github.com/Laravel-Backpack/CRUD/pull/2601/files#diff-9b83997dcde20848b90e97048aca5485), and do the same for all the fields you've created or overwritten:
@@ -203,7 +201,7 @@ Why? Since ```$this->request``` did nothing at all, we've removed it, to avoid a
 ```
 
 
-<a name="step-15" href="#step-15" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 15.</a> **If you've overwritten Columns, or have custom Columns**, take note that ALL columns have suffered changes (for the better). Most notably:
+<a name="step-15" href="#step-15" class="badge badge-warning text-white" style="text-decoration: none;">Step 15.</a> **If you've overwritten Columns, or have custom Columns**, take note that ALL columns have suffered changes (for the better). Most notably:
 - ```wrapper``` allows you to add links to your columns;
 - ```escaped``` allows you to output HTML instead of text; 
 
@@ -215,7 +213,7 @@ If you want your custom/overwritten columns to have these cool new features, the
 If you need a difftool, we recommend [Kaleidoscope](https://www.kaleidoscopeapp.com) on Mac OS, [WinMerge](https://winmerge.org) on Windows, or [Fork](https://git-fork.com/) on both Mac OS and Windows.
 
 
-<a name="step-16" href="#step-16" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 16.</a> Backpack 4.1 uses the same icon set, [Line Awesome](https://icons8.com/line-awesome), but we've upgraded to the latest version. 
+<a name="step-16" href="#step-16" class="badge badge-info text-white" style="text-decoration: none;">Step 16.</a> Backpack 4.1 uses the same icon set, [Line Awesome](https://icons8.com/line-awesome), but we've upgraded to the latest version. 
 - The good news - this new version brings a total of 1000+ icons, and complete icon-parity with Font Awesome 5.11.2. Any icon Font Awesome 5 has, Line Awesome has it too. 
 - The bad news:
     - it's not 100% backwards-compatible. The same icons are there, but a few of them have changed names. For example, there's no more ```newspaper-o``` it's now just ```newspaper```;
@@ -225,7 +223,7 @@ In order to account for this icon font change please:
 - inside your ```resources/views/vendor/backpack``` folder, search & replace ```fa fa-``` with ```la la-```;
 - for each icon you fix above, double-check that it shows in the browser; if it doesn't, search for an alternative on the [Line Awesome website](https://icons8.com/line-awesome); usually the syntax change is very _very_ small; and there are a lot more icons now, so you'll definitely find something;
 
-<a name="step-17" href="#step-17" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 17.</a> In order to be able to use the new fluent syntax for Widgets, you should make sure all main admin panel views (ex: dashboard, create, update, etc) extend the ```blank``` template:
+<a name="step-17" href="#step-17" class="badge badge-info text-white" style="text-decoration: none;">Step 17.</a> In order to be able to use the new fluent syntax for Widgets, you should make sure all main admin panel views (ex: dashboard, create, update, etc) extend the ```blank``` template:
 
 ```diff
 //from 
@@ -242,8 +240,8 @@ In order to account for this icon font change please:
 <a name="cache"></a>
 ### Cache
 
-<a name="step-18" href="#step-18" class="badge" style="text-decoration: none; background-color: #605ca8;">Step 18.</a> Clear your app's cache:
-```bash
+<a name="step-18" href="#step-18" class="badge badge-warning text-white" style="text-decoration: none;">Step 18.</a> Clear your app's cache:
+```
 php artisan config:clear
 php artisan cache:clear
 php artisan view:clear
