@@ -671,7 +671,6 @@ CRUD::filter('select_from_array')
         'three' => 'Three'
     ])
     ->whenActive(function($value) {
-        // dd('select_from_array filter is active'); // TODO: why the FUCK does this not dump?!
         $this->crud->addClause('where', 'select_from_array', $value);
     })
     ->apply();
