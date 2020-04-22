@@ -179,6 +179,28 @@ $this->crud->addField([
 
 If you forget to specify a tab name for a field, Backpack will place it above all tabs.
 
+<a name="identifiable-attribute"></a>
+#### Identifiable Attribute for Relationship Fields
+
+Fields that work with relationships will allow you to select which ```attribute``` on the related entry you want to show to the user. All relationship fields (relationship, select, select2, select_multiple, select2_multiple, select2_from_ajax, select2_from_ajax_multiple) let you define the ```attribute``` for this specific purpose.
+
+For example, when the admin creates an ```Article``` they'll have to select a ```Category``` from a dropdown. It's important to show an attribute for ```Category``` that will help the admin easily identify the category, even if it's not the ID. In this example, it would probably be the category name - that's what you'd like the dropdown to show.
+
+In Backpack, you can explicitly define this, by giving the field an ```attribute```. But you can also NOT explicitly define this - Backpack will try to guess it. If you don't like what Backpack guessed would be a good identifiable attribute, you can either:
+- (A) explicitly define an ```attribute``` for that field, or
+- (B) you can specify the identifiable attribute in your model, and all fields will pick this up:
+
+```php
+// you can define
+protected $identifiableAttribute = 'title';
+
+// or for more complicated use cases you can do
+public function identifiableAttribute() {
+    // process stuff here
+    return 'whatever_you_want_even_an_accessor';
+}
+```
+
 
 <a name="default-field-types"></a>
 ## Default Field Types
