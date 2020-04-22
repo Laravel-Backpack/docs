@@ -1,4 +1,4 @@
-# API
+# CRUD API
 
 ---
 
@@ -6,7 +6,7 @@ Here are all the features you will be using **inside your EntityCrudController**
 
 ## Operations
 
-- **operation()** - allows you to add a set of instructions inside ```setup()```, that only only get called when a certain operation is being performed; 
+- **operation()** - allows you to add a set of instructions inside ```setup()```, that only gets called when a certain operation is being performed; 
 ```php
 public function setup() {
 	// ...
@@ -17,7 +17,7 @@ public function setup() {
 ```
 
 <a name="list-entries-api"></a>
-### ListEntries
+### List Operation
 
 <a name="columns-api"></a>
 #### Columns
@@ -249,7 +249,7 @@ $this->crud->orderBy();
 ```
 
 <a name="show-api"></a>
-### Show
+### Show Operation
 
 Use [the same Columns API as for the ListEntries operation](#columns-api), but inside your ```show()``` method.
 
@@ -311,7 +311,7 @@ $this->crud->setValidation(ArticleRequest::class);
 ```
 
 <a name="reorder-api"></a>
-### Reorder
+### Reorder Operation
 
 Show a reorder button in the table view, next to Add. Provides an interface to reorder & nest elements, provided the ```parent_id```, ```lft```, ```rgt```, ```depth``` columns are in the database, and ```$fillable``` on the model.
 
@@ -331,9 +331,9 @@ $this->crud->isReorderEnabled();
 ```
 
 <a name="revisions-api"></a>
-### Revisions 
+### Revise Operation
 
-A.k.a. Audit Trail. Tracks all changes to an entry and provides an interface to revert to a previous state. In order to use this, you also need to ```use \Venturecraft\Revisionable\RevisionableTrait;```. Please check out the [Revision Operation](/docs/{{version}}/crud-operation-revisions) for more info.
+A.k.a. Audit Trail. Tracks all changes to an entry and provides an interface to revert to a previous state. This operation is not installed by default - please check out [Revise Operation](/docs/{{version}}/crud-operation-revisions) for the installation & usage steps.
 
 <a name="all-operations-api"></a>
 ## All Operations

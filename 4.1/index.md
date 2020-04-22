@@ -17,12 +17,10 @@
 - [Breadcrumbs](/docs/{{version}}/base-breadcrumbs)
 - [How To](/docs/{{version}}/base-how-to)
 
-#### CRUD Pages
+#### CRUD Panels
 
 - [Basics](/docs/{{version}}/crud-basics)
-- [Tutorial](/docs/{{version}}/crud-tutorial)
-- [API](/docs/{{version}}/crud-api)
-- [Cheat Sheet](/docs/{{version}}/crud-cheat-sheet)
+- [Crash Course](/docs/{{version}}/crud-tutorial)
 - [Operations](/docs/{{version}}/crud-operations)
     + [List](/docs/{{version}}/crud-operation-list-entries)
         + [Columns](/docs/{{version}}/crud-columns)
@@ -39,6 +37,10 @@
     + [Revise](/docs/{{version}}/crud-operation-revisions)
     + [Fetch](/docs/{{version}}/crud-operation-fetch)
     + [InlineCreate](/docs/{{version}}/crud-operation-inline-create)
+- [API](/docs/{{version}}/crud-cheat-sheet)
+    + [Cheat Sheet](/docs/{{version}}/crud-cheat-sheet)
+    + [Crud API](/docs/{{version}}/crud-api)
+    + [Fluent API](/docs/{{version}}/crud-fluent-syntax)
 - [How To](/docs/{{version}}/crud-how-to)
 
 

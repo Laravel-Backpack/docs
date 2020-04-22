@@ -124,7 +124,7 @@ Here's what Backpack 4.1 brings to the table, and why you should upgrade from [B
 - An optional new way of interacting with Fields, Columns, Filters, Buttons;
 - **Add or modify. It's the same method.** Create or modify a field/column/filter/button/widget with one call - think of ```CRUD::field()``` as a new ```$this->crud->addOrModifyField()```;
 - **Reduce your CrudController length by 20-60%.** Most field&column definitions will fit on just one line.
-- see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2513)
+- see [docs](/docs/4.1/crud-fluent-syntax), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2513)
 
 
 ![Backpack Chart Widget](https://backpackforlaravel.com/uploads/docs-4-1/release_notes/before_after_maybe_fluent_syntax.png)

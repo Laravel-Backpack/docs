@@ -1,4 +1,4 @@
-# Crud API Cheat Sheet
+# CRUD API Cheat Sheet
 
 ---
 

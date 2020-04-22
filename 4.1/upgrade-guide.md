@@ -2,7 +2,7 @@
 
 ---
 
-This will guide you to upgrade from Backpack 4.0 to 4.1. 
+This will guide you to upgrade from Backpack 4.0 to 4.1. The steps are color-coded by the probablility that you will need it for your application: <span class="badge badge-info text-white" style="text-decoration: none;">High</span>, <span class="badge badge-warning text-white" style="text-decoration: none;">Medium</span> and <span class="badge badge-secondary-soft" style="text-decoration: none;">Low</span>.
 
 <a name="requirements"></a>
 ## Requirements
@@ -12,7 +12,7 @@ Please make sure your project respects the requirements below, before you start 
 - PHP 7.4.x, 7.3.x or 7.2.5+ 
 - Laravel 7.x or 6.x
 - Backpack\CRUD 4.0.x
-- 5-10 minutes for most projects, on top of the Laravel upgrade
+- 10-30 minutes for most projects, on top of the Laravel upgrade
 
 **If you're running Backpack version 3.x, please follow ALL the minor upgrade guides first, to incrementally get to use Backpack 4.0**. Test that your app works well with each version, after each upgrade. Only _afterwards_ can you follow this guide, to upgrade from 4.0 to 4.1. Previous upgrade guides:
 - [upgrade from 3.6 to 4.0](https://backpackforlaravel.com/docs/4.0/upgrade-guide); this is a major upgrade, and requires a v4 license code; if you've purchased a Backpack v3 license, but don't have a Backpack v4 license yet, [read the 4.0 Release Notes here](/docs/4.0/release-notes#backpack-v3-buyers).
@@ -24,7 +24,7 @@ Please make sure your project respects the requirements below, before you start 
 ## Upgrade Steps
 
 
-<a name="step-0" href="#step-0" class="badge badge-warning text-white" style="text-decoration: none;">Step 0.</a> **[Upgrade to Laravel 6](https://laravel.com/docs/6.x/upgrade). Then [upgrade to Laravel 7](https://laravel.com/docs/7.x/upgrade), if you can.** This is not _required_, but it's _recommended_. You need to do this _one day_ anyway - might as well do it now. Backpack 4.0 (that your project is already running) supports Laravel 5.8, 6 and 7. So you should:
+<a name="step-0" href="#step-0" class="badge badge-info" style="text-decoration: none;">Step 0.</a> **[Upgrade to Laravel 6](https://laravel.com/docs/6.x/upgrade). Then [upgrade to Laravel 7](https://laravel.com/docs/7.x/upgrade), if you can.** This is not _required_, but it's _recommended_. You need to do this _one day_ anyway - might as well do it now. Backpack 4.0 (that your project is already running) supports Laravel 5.8, 6 and 7. So you should:
 - **upgrade your project to use Laravel v6 or v7**
 - test your app is working fine with them
 - continue with "Step 1" below, to also upgrade Backpack to 4.1
@@ -52,7 +52,7 @@ Our recommendation is to _not_ stick to Laravel 6.0 just because it's a [LTS ver
         /* and in require-dev */
 
         "backpack/generators": "^3.0|4.1.x-dev as 3.0.0",
-        "laracasts/generators": "^2.0"
+        "laracasts/generators": "^2.0|v2.x-dev as 1.1.99"
 ```
 
 <a name="step-3" href="#step-3" class="badge badge-warning text-white" style="text-decoration: none;">Step 3.</a> If you're using the Revisions operation, it has now been split into a separate package. So please add ```"backpack/revise-operation": "^1.0",``` to your composer's require section.
@@ -159,7 +159,7 @@ The steps below should apply for each of your CrudControllers. For each Step, go
     - from ```$this->crud->getRevisionsTimelineContentClass()``` to ```$this->crud->set('revise.timelineContentClass')```
 - if you've defined settings for the "_revisions_" operation for all CRUDs, inside your ```config/backpack/crud.php```, please note that the operation name has changed, so inside ```operations``` you should change ```revisions``` to ```revise```;
 
-<a name="step-11" href="#step-11" class="badge badge-warning text-white" style="text-decoration: none;">Step 11.</a> Inside CrudControllers, Backpack 4.1:
+<a name="step-11" href="#step-11" class="badge badge-secondary-soft" style="text-decoration: none;">Step 11.</a> Inside CrudControllers, Backpack 4.1:
 - no longer defines ```$this->request```
 - still defines ```$this->crud->request``` (aka ```CRUD::request```) but uses getters and setters to work with it (```$this->crud->getRequest()``` and ```$this->crud->setRequest()```);
 
@@ -167,7 +167,7 @@ Why? Since ```$this->request``` did nothing at all, we've removed it, to avoid a
 - **If you have ```$this->request``` anywhere in your CrudControllers custom logic**, please replace it with either Laravel's ```request()``` helper or with ```$this->crud->getRequest()```.
 - **If you have ```$this->crud->request``` anywhere inside your custom CrudController logic**, please replace it with either ```$this->crud->getRequest()``` or ```$this->crud->setRequest()``` depending on what your intention is.
 
-<a name="step-12" href="#step-12" class="badge badge-info text-white" style="text-decoration: none;">Step 12.</a> Inside CrudControllers, if you've used ```wrapperAttributes``` on fields, please note that it's now called ```wrapper```. Please search & replace ```wrapperAttributes``` with ```wrapper``` in your CrudControllers.
+<a name="step-12" href="#step-12" class="badge badge-warning text-white" style="text-decoration: none;">Step 12.</a> Inside CrudControllers, if you've used ```wrapperAttributes``` on fields, please note that it's now called ```wrapper```. Please search & replace ```wrapperAttributes``` with ```wrapper``` in your CrudControllers.
 
 <a href="assets"></a>
 ### CSS & JS Assets

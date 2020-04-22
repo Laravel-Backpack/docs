@@ -246,3 +246,9 @@ $this->crud->removeButtonFromStack($name, $stack);
 ```
 
 **That’s it for today!** Thanks for sticking with us this long. This has been the most important and longest lesson. You can go ahead and [install Backpack](/docs/{{version}}/installation) now, as you’ve already gone through the most important features. Or [read the next lesson](/docs/{{version}}/getting-started-advanced-features), about advanced features.
+
+
+<br>
+<a href="/docs/{{version}}/getting-started-advanced-features" class="btn btn-outline-info shadow">
+  Next  &#xFFEB;
+</a>

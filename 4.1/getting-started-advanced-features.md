@@ -41,3 +41,9 @@ Additionally, here are a few more ways you can customize your CRUDs:
 - [Custom CSS or JS](/docs/{{version}}/crud-how-to#customize-css-and-js-for-default-crud-operations) for each CRUD Operation
 
 **That’s it for today!** Told you we’re done with long lessons :-) Hopefully some of the above have peaked your interest and you’ve clicked to see what Backpack can do. In the [next lesson](/docs/{{version}}/getting-started-license-and-support) we’ll go through a few other Backpack packages, that cover some recurring use cases.
+
+
+<br>
+<a href="/docs/{{version}}/getting-started-license-and-support" class="btn btn-outline-info shadow">
+  Next  &#xFFEB;
+</a>

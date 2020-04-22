@@ -40,5 +40,17 @@ With thousands of developers using Backpack, a lot of them non-commercial, and s
 Thank you for sticking up with us for so long. This is the last Backpack lesson we can give you. **Now you have absolutely no excuse not to start your first Backpack project :-)** Here are a few links for if you still don't think you're ready:
 
 - [Go through the demo](/docs/{{version}}/demo) and play around
-- Read this [CRUD Tutorial](/docs/{{version}}/crud-tutorial)
+- Read this [CRUD Crash Course](/docs/{{version}}/crud-tutorial) and do the steps yourself
 - Take a look at the [CrudController API Cheat Sheet](/docs/{{version}}/crud-cheat-sheet)
+
+
+<br>
+<a href="/docs/{{version}}/crud-tutorial" class="btn btn-info shadow">
+  CRUD Crash Course
+</a>
+<a href="/docs/{{version}}/demo" class="btn btn-outline-info shadow">
+  Demo
+</a>
+<a href="/docs/{{version}}/crud-cheat-sheet" class="btn btn-outline-info shadow">
+  Cheat Sheet
+</a>
