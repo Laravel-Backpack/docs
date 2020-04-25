@@ -858,7 +858,7 @@ Input preview:
 Select an existing page from PageManager or an internal or external link. It's used in the MenuManager package, but can be used in any other model just as well. Its definition looks like this:
 ```php
 [   // PageOrLink
-    'name' => 'type',
+    'name' => ['type', 'link', 'page_id'],
     'label' => "Type",
     'type' => 'page_or_link',
     'page_model' => '\Backpack\PageManager\app\Models\Page'
