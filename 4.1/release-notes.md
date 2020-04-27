@@ -138,7 +138,6 @@ Here's what Backpack 4.1 brings to the table, and why you should upgrade from [B
 - For the ```List Operation```, you can now easily:
 	- **hide/show the search bar** - see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2479);
 	- **hide/show a "Reset" button** that resets the DataTable to its default search, filtering, pagination - see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2509);
-	- **extend the ListOperation to show the DataTable from a different perspective** (ex: a monthlyReport page that filters entries, shows different columns, different pagination, different buttons, etc) - see docs , PR;
 - You can now easily **customize the buttons at the end of the Create/Update forms** - see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2356);
 - You can now make all Backpack routes **use a different web middleware** than ```web``` - see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2408);
 - Field ```wrapperAttributes``` was renamed to ```wrapper```;
