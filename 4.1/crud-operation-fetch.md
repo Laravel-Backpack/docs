@@ -46,7 +46,7 @@ class ProductCrudController extends CrudController
     {
         return $this->fetch([
             'model' => App\Models\Tag::class, // required
-            'searchableAttributes' => ['name'],
+            'searchable_attributes' => ['name', 'description'],
             'paginate' => 10, // items to show per page
             'query' => function($model) {
                 return $model->active();
