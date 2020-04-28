@@ -160,7 +160,7 @@ composer require consoletvs/charts:"6.*"
 **Step 2.** Create a new ChartController:
 
 ```
-php artisan backpack:chart WeeklyUsers
+php artisan make:chart WeeklyUsers
 
 ```
 
