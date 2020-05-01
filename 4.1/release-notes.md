@@ -53,12 +53,23 @@ Here's what Backpack 4.1 brings to the table, and why you should upgrade from [B
 - **lets your admin define one or multiple "_somethings_" right inside their create/update form**, when a "_something_" includes more than one input (ex: Testimonial can require ```name```, ```position```, ```company``` and ```quote```);
 - the end result is stored as JSON by default, but you can intercept the saving and store it any way you like;
 - makes it dead-simple to allow your admins to add/edit/delete multiple "things" inside an entry, when that "thing" is not important enough to have its own database table and Model;
-- see docs, [PR](https://github.com/Laravel-Backpack/CRUD/pull/2266)
+- see [docs](/docs/4.1/crud-fields#repeatable), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2266)
 
 ![Backpack InlineCreate Operation](https://backpackforlaravel.com/uploads/docs-4-1/release_notes/repeatable_small.gif)
 
 <hr>
 
+#### **New field type: ```easymde```** (alternative to ```simplemde```) 
+
+- SimpleMDE (the JS library) still works, but has not received any updates in 4 years; that's why we recommend using a different markdown editor - one that is maintained;
+- fortunately, EasyMDE is a SimpleMDE fork that looks and works the same, and it is well looked after;
+- we recommend replacing all your SimpleMDE fields with EasyMDE - the change couldn't be simpler;
+- see [docs](/docs/4.1/crud-fields#easymde), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2737)
+
+
+![Backpack InlineCreate Operation](https://backpackforlaravel.com/uploads/docs-4-1/fields/easymde.png)
+
+<hr>
 ### Columns
 
 #### **New columns feature: ```wrapper```** 
