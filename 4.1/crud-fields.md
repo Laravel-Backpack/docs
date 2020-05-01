@@ -631,6 +631,33 @@ Input preview:
 
 <hr>
 
+<a name="easymde"></a>
+### easymde
+
+Show an [EasyMDE markdown editor](https://easymde.com/) to the user. EasyMDE is a well-maintained fork of SimpleMDE.
+
+```php
+[   // easymde
+    'name' => 'description',
+    'label' => 'Description',
+    'type' => 'easymde',
+    // optional
+    // 'easymdeAttributes' => [
+    //   'promptURLs' => true,
+    //   'status' => false,
+    //   'spellChecker' => false,
+    //   'forceSync' => true,
+    // ],
+    // 'easymdeAttributesRaw' => $some_json
+],
+```
+
+Input preview: 
+
+![CRUD Field - easymde](https://backpackforlaravel.com/uploads/docs-4-1/fields/easymde.png)
+
+<hr>
+
 <a name="email"></a>
 ### email
 
@@ -1560,6 +1587,8 @@ Input preview:
 ### simplemde
 
 Show a [SimpleMDE markdown editor](https://simplemde.com/) to the user.
+
+> **NOTE:** SimpleMDE works, but it has not received any updates in 4 years. We recommend you use EasyMDE instead, a fork of SimpleMDE that seems to be well looked after. Check out the [```easymde``` field type](#easymde) for Backpack - it works exactly the same as this one.
 
 ```php
 [   // SimpleMDE
