@@ -365,7 +365,7 @@ Input preview:
     'attribute' => 'name',
     'model'     => "Backpack\PermissionManager\app\Models\Role",
     'pivot'     => true,
-]);
+],
 ```
 
 Input preview: 
@@ -1104,13 +1104,16 @@ Remember, ```FetchOperation``` is still needed on the main crud (ex: ```ArticleC
 <a name="repeatable"></a>
 ### repeatable
 
-Shows a Group of inputs to the user, and allows the user to add more Groups of the same kind, or remove Groups:
+Shows a group of inputs to the user, and allows the user to add ore remove groups of that kind:
 
 ![CRUD Field - repeatable](https://backpackforlaravel.com/uploads/docs-4-1/fields/repeatable.png)
 
-Clicking on the Add button will add another group with the same fields (in the example, a Testimonial). The end result is a JSON with the values for those fields, grouped. 
+Clicking on the "New Item" button will add another group with the same fields (in the example, another Testimonial). The end result is a JSON with the values for those fields, nicely grouped. 
 
-You can use any field type you want inside the field groups, and as many fields you need. But please take note that **all fields defined inside a field group need to have their definition valid and complete**. For fields inside a field group you can't use shorthands and you shouldn't assume fields will guess attributes for you. 
+You can use most field types inside the field groups, add as many fields you need, and change their width using ```wrapperAttributes``` like you would do outside the repeatable field. But please note that:
+- **all fields defined inside a field group need to have their definition valid and complete**; you can't use shorthands, you shouldn't assume fields will guess attributes for you;
+- some field types do not make sense to be included inside a field group (for example, relationship fields might not make sense; they will work if the relationship is defined on the main model, but upon save the selected entries will NOT be saved as usual, they will be saved as JSON; you can intercept the saving if you want and do whatever you want); 
+- a few fields _make sense_, but _cannot_ work inside a repeatable group (ex: upload, upload_multiple); [see the notes inside the PR](https://github.com/Laravel-Backpack/CRUD/pull/2266#issuecomment-559436214) for more details, and a complete list of the fields; the few fields that do not work inside repeatable have sensible alternatives;
 
 
 ```php
