@@ -787,7 +787,7 @@ Class Product extends Model
         }
 
         // if a base64 was sent, store it in the db
-        if (starts_with($value, 'data:image'))
+        if (Str::startsWith($value, 'data:image'))
         {
             // 0. Make the image
             $image = \Image::make($value)->encode('jpg', 90);
