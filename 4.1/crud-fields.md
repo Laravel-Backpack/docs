@@ -1470,7 +1470,6 @@ Of course, you also need to create a controller and routes for the data_source a
 
 ```
 Route::get('/api/category', 'Api\CategoryController@index');
-Route::get('/api/category/{id}', 'Api\CategoryController@show');
 ```
 
 ```
@@ -1487,7 +1486,6 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $search_term = $request->input('q');
-        $page = $request->input('page');
 
         if ($search_term)
         {
@@ -1500,12 +1498,15 @@ class CategoryController extends Controller
 
         return $results;
     }
-
-    public function show($id)
-    {
-        return Category::find($id);
-    }
 }
+```
+
+**Note:** If you want to also make this field work inside `repeatable` too, your API endpoint will also need to respond to the `keys` parameter, with the actual items that have those keys. For example:
+
+```php
+        if ($request->has('keys')) { 
+            return Category::findMany($request->input('keys'));
+        }
 ```
 
 Input preview: 
@@ -1583,6 +1584,15 @@ class CityController extends Controller
 Input preview: 
 
 ![CRUD Field - select2_from_ajax_multiple](https://backpackforlaravel.com/uploads/docs-4-1/fields/select2_from_ajax_multiple.png)
+
+**Note:** If you want to also make this field work inside `repeatable` too, your API endpoint will also need to respond to the `keys` parameter, with the actual items that have those keys. For example:
+
+```php
+        if ($request->has('keys')) { 
+            return City::findMany($request->input('keys'));
+        }
+```
+
 
 <hr>
 
