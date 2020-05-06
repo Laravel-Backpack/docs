@@ -365,7 +365,7 @@ Input preview:
     'attribute' => 'name',
     'model'     => "Backpack\PermissionManager\app\Models\Role",
     'pivot'     => true,
-]);
+],
 ```
 
 Input preview: 
@@ -631,6 +631,33 @@ Input preview:
 
 <hr>
 
+<a name="easymde"></a>
+### easymde
+
+Show an [EasyMDE markdown editor](https://easymde.com/) to the user. EasyMDE is a well-maintained fork of SimpleMDE.
+
+```php
+[   // easymde
+    'name' => 'description',
+    'label' => 'Description',
+    'type' => 'easymde',
+    // optional
+    // 'easymdeAttributes' => [
+    //   'promptURLs' => true,
+    //   'status' => false,
+    //   'spellChecker' => false,
+    //   'forceSync' => true,
+    // ],
+    // 'easymdeAttributesRaw' => $some_json
+],
+```
+
+Input preview: 
+
+![CRUD Field - easymde](https://backpackforlaravel.com/uploads/docs-4-1/fields/easymde.png)
+
+<hr>
+
 <a name="email"></a>
 ### email
 
@@ -760,7 +787,7 @@ Class Product extends Model
         }
 
         // if a base64 was sent, store it in the db
-        if (starts_with($value, 'data:image'))
+        if (Str::startsWith($value, 'data:image'))
         {
             // 0. Make the image
             $image = \Image::make($value)->encode('jpg', 90);
@@ -858,7 +885,7 @@ Input preview:
 Select an existing page from PageManager or an internal or external link. It's used in the MenuManager package, but can be used in any other model just as well. Its definition looks like this:
 ```php
 [   // PageOrLink
-    'name' => 'type',
+    'name' => ['type', 'link', 'page_id'],
     'label' => "Type",
     'type' => 'page_or_link',
     'page_model' => '\Backpack\PageManager\app\Models\Page'
@@ -1077,13 +1104,16 @@ Remember, ```FetchOperation``` is still needed on the main crud (ex: ```ArticleC
 <a name="repeatable"></a>
 ### repeatable
 
-Shows a Group of inputs to the user, and allows the user to add more Groups of the same kind, or remove Groups:
+Shows a group of inputs to the user, and allows the user to add ore remove groups of that kind:
 
 ![CRUD Field - repeatable](https://backpackforlaravel.com/uploads/docs-4-1/fields/repeatable.png)
 
-Clicking on the Add button will add another group with the same fields (in the example, a Testimonial). The end result is a JSON with the values for those fields, grouped. 
+Clicking on the "New Item" button will add another group with the same fields (in the example, another Testimonial). The end result is a JSON with the values for those fields, nicely grouped. 
 
-You can use any field type you want inside the field groups, and as many fields you need. But please take note that **all fields defined inside a field group need to have their definition valid and complete**. For fields inside a field group you can't use shorthands and you shouldn't assume fields will guess attributes for you. 
+You can use most field types inside the field groups, add as many fields you need, and change their width using ```wrapper``` like you would do outside the repeatable field. But please note that:
+- **all fields defined inside a field group need to have their definition valid and complete**; you can't use shorthands, you shouldn't assume fields will guess attributes for you;
+- some field types do not make sense to be included inside a field group (for example, relationship fields might not make sense; they will work if the relationship is defined on the main model, but upon save the selected entries will NOT be saved as usual, they will be saved as JSON; you can intercept the saving if you want and do whatever you want); 
+- a few fields _make sense_, but _cannot_ work inside a repeatable group (ex: upload, upload_multiple); [see the notes inside the PR](https://github.com/Laravel-Backpack/CRUD/pull/2266#issuecomment-559436214) for more details, and a complete list of the fields; the few fields that do not work inside repeatable have sensible alternatives;
 
 
 ```php
@@ -1096,19 +1126,19 @@ You can use any field type you want inside the field groups, and as many fields 
             'name' => 'name',
             'type' => 'text',
             'label' => 'Name',
-            'wrapperAttributes' => ['class' => 'form-group col-md-4'],
+            'wrapper' => ['class' => 'form-group col-md-4'],
         ],
         [
             'name' => 'position',
             'type' => 'text',
             'label' => 'Position',
-            'wrapperAttributes' => ['class' => 'form-group col-md-4'],
+            'wrapper' => ['class' => 'form-group col-md-4'],
         ],
         [
             'name' => 'company',
             'type' => 'text',
             'label' => 'Company',
-            'wrapperAttributes' => ['class' => 'form-group col-md-4'],
+            'wrapper' => ['class' => 'form-group col-md-4'],
         ],
         [
             'name' => 'quote',
@@ -1440,7 +1470,6 @@ Of course, you also need to create a controller and routes for the data_source a
 
 ```
 Route::get('/api/category', 'Api\CategoryController@index');
-Route::get('/api/category/{id}', 'Api\CategoryController@show');
 ```
 
 ```
@@ -1457,7 +1486,6 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $search_term = $request->input('q');
-        $page = $request->input('page');
 
         if ($search_term)
         {
@@ -1470,12 +1498,15 @@ class CategoryController extends Controller
 
         return $results;
     }
-
-    public function show($id)
-    {
-        return Category::find($id);
-    }
 }
+```
+
+**Note:** If you want to also make this field work inside `repeatable` too, your API endpoint will also need to respond to the `keys` parameter, with the actual items that have those keys. For example:
+
+```php
+        if ($request->has('keys')) { 
+            return Category::findMany($request->input('keys'));
+        }
 ```
 
 Input preview: 
@@ -1554,12 +1585,23 @@ Input preview:
 
 ![CRUD Field - select2_from_ajax_multiple](https://backpackforlaravel.com/uploads/docs-4-1/fields/select2_from_ajax_multiple.png)
 
+**Note:** If you want to also make this field work inside `repeatable` too, your API endpoint will also need to respond to the `keys` parameter, with the actual items that have those keys. For example:
+
+```php
+        if ($request->has('keys')) { 
+            return City::findMany($request->input('keys'));
+        }
+```
+
+
 <hr>
 
 <a name="simplemde"></a>
 ### simplemde
 
 Show a [SimpleMDE markdown editor](https://simplemde.com/) to the user.
+
+> **NOTE:** SimpleMDE works, but it has not received any updates in 4 years. We recommend you use EasyMDE instead, a fork of SimpleMDE that seems to be well looked after. Check out the [```easymde``` field type](#easymde) for Backpack - it works exactly the same as this one.
 
 ```php
 [   // SimpleMDE
@@ -1998,7 +2040,7 @@ Your field definition will be something like:
 And your blade file something like:
 ```php
 <!-- field_type_name -->
-<div @include('crud::inc.field_wrapper_attributes') >
+@include('crud::fields.inc.wrapper_start')
     <label>{!! $field['label'] !!}</label>
     <input
         type="text"
@@ -2011,7 +2053,7 @@ And your blade file something like:
     @if (isset($field['hint']))
         <p class="help-block">{!! $field['hint'] !!}</p>
     @endif
-</div>
+@include('crud::fields.inc.wrapper_end')
 
 
 @if ($crud->fieldTypeNotLoaded($field))

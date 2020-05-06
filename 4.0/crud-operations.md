@@ -273,7 +273,7 @@ To add an operation to an ```EntityCrudController```, you can:
 ```
 - create a method that performs the operation you want:
 ```php
-    public function publish()
+    public function publish($id)
     {
         // do something
         // return something
@@ -322,7 +322,7 @@ trait PublishOperation
         });
     }
 
-    public function publish()
+    public function publish($id)
     {
         // do something
         // return something
