@@ -1110,7 +1110,7 @@ Shows a group of inputs to the user, and allows the user to add ore remove group
 
 Clicking on the "New Item" button will add another group with the same fields (in the example, another Testimonial). The end result is a JSON with the values for those fields, nicely grouped. 
 
-You can use most field types inside the field groups, add as many fields you need, and change their width using ```wrapperAttributes``` like you would do outside the repeatable field. But please note that:
+You can use most field types inside the field groups, add as many fields you need, and change their width using ```wrapper``` like you would do outside the repeatable field. But please note that:
 - **all fields defined inside a field group need to have their definition valid and complete**; you can't use shorthands, you shouldn't assume fields will guess attributes for you;
 - some field types do not make sense to be included inside a field group (for example, relationship fields might not make sense; they will work if the relationship is defined on the main model, but upon save the selected entries will NOT be saved as usual, they will be saved as JSON; you can intercept the saving if you want and do whatever you want); 
 - a few fields _make sense_, but _cannot_ work inside a repeatable group (ex: upload, upload_multiple); [see the notes inside the PR](https://github.com/Laravel-Backpack/CRUD/pull/2266#issuecomment-559436214) for more details, and a complete list of the fields; the few fields that do not work inside repeatable have sensible alternatives;
@@ -1126,19 +1126,19 @@ You can use most field types inside the field groups, add as many fields you nee
             'name' => 'name',
             'type' => 'text',
             'label' => 'Name',
-            'wrapperAttributes' => ['class' => 'form-group col-md-4'],
+            'wrapper' => ['class' => 'form-group col-md-4'],
         ],
         [
             'name' => 'position',
             'type' => 'text',
             'label' => 'Position',
-            'wrapperAttributes' => ['class' => 'form-group col-md-4'],
+            'wrapper' => ['class' => 'form-group col-md-4'],
         ],
         [
             'name' => 'company',
             'type' => 'text',
             'label' => 'Company',
-            'wrapperAttributes' => ['class' => 'form-group col-md-4'],
+            'wrapper' => ['class' => 'form-group col-md-4'],
         ],
         [
             'name' => 'quote',
@@ -2040,7 +2040,7 @@ Your field definition will be something like:
 And your blade file something like:
 ```php
 <!-- field_type_name -->
-<div @include('crud::inc.field_wrapper_attributes') >
+@include('crud::fields.inc.wrapper_start')
     <label>{!! $field['label'] !!}</label>
     <input
         type="text"
@@ -2053,7 +2053,7 @@ And your blade file something like:
     @if (isset($field['hint']))
         <p class="help-block">{!! $field['hint'] !!}</p>
     @endif
-</div>
+@include('crud::fields.inc.wrapper_end')
 
 
 @if ($crud->fieldTypeNotLoaded($field))
