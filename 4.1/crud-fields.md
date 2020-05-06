@@ -2040,7 +2040,7 @@ Your field definition will be something like:
 And your blade file something like:
 ```php
 <!-- field_type_name -->
-<div @include('crud::inc.field_wrapper_attributes') >
+@include('crud::fields.inc.wrapper_start')
     <label>{!! $field['label'] !!}</label>
     <input
         type="text"
@@ -2053,7 +2053,7 @@ And your blade file something like:
     @if (isset($field['hint']))
         <p class="help-block">{!! $field['hint'] !!}</p>
     @endif
-</div>
+@include('crud::fields.inc.wrapper_end')
 
 
 @if ($crud->fieldTypeNotLoaded($field))
