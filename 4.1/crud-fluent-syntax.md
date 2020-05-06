@@ -447,33 +447,6 @@ CRUD::buton('create')->section('top')->view('crud::butons.create');
 <a name="fluent-filters-api"></a>
 ## Fluent Filters
 
-Manipulate what filters are shown in the table view. Check out [CRUD > Operations > ListEntries > Filters](/docs/{{version}}/crud-filters) to see examples of ```$filter_definition_array```
-
-- **addFilter()** - add a filter to the list view
-```php
-$this->crud->addFilter($filter_definition_array, $values, $filter_logic);
-```
-
-- **modifyFilter()** - change the attributes of a filter
-```php
-$this->crud->modifyFilter($name, $modifs_array);
-```
-
-- **removeFilter()** - remove a certain filter from the list view
-```php
-$this->crud->removeFilter($name);
-```
-
-- **removeAllFilters()** - remove all filters from the list view
-```php
-$this->crud->removeAllFilters();
-```
-
-- **filters()** - get all the registered filters for the list view
-```php
-$this->crud->filters();
-```
-
 
 These methods should be used inside your CrudController for operations that use Filters, most likely inside ```setupListOperation()```.
 

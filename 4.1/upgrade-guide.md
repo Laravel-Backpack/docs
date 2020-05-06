@@ -34,24 +34,24 @@ Our recommendation is to _not_ stick to Laravel 6.0 just because it's a [LTS ver
 <a name="composer"></a>
 ### Composer
 
-<a name="step-1" href="#step-1" class="badge badge-info text-white" style="text-decoration: none;">Step 1.</a> Update your ```composer.json``` file to require ```"backpack/crud": "4.1.x-dev as 4.0.99"``` _NOTE - THIS IS THE BETA VERSION; WHEN 4.1 IS LAUNCHED THE REQUIRED VERSION WILL BE ^4.1.0_
+<a name="step-1" href="#step-1" class="badge badge-info text-white" style="text-decoration: none;">Step 1.</a> Update your ```composer.json``` file to require ```"backpack/crud": "4.1*"```
 
 <a name="step-2" href="#step-2" class="badge badge-warning text-white" style="text-decoration: none;">Step 2.</a> If you have a lot of Backpack add-ons installed (and their dependencies), here are their latest versions, that support Backpack 4.1, you can copy-paste the versions of the packages you're using:
 ```
-        "backpack/logmanager": "^4.0.0|4.1.x-dev as 4.0.0",
+        "backpack/logmanager": "^4.0.0",
         "backpack/settings": "^3.0.0",
-        "backpack/pagemanager": "^3.0.0|4.1.x-dev as 3.0.0",
+        "backpack/pagemanager": "^3.0.0",
         "backpack/menucrud": "^2.0.0",
-        "backpack/newscrud": "^4.0.0|4.1.x-dev as 4.0.0",
-        "backpack/permissionmanager": "^6.0.0|4.1.x-dev as 6.0.0",
+        "backpack/newscrud": "^4.0.0",
+        "backpack/permissionmanager": "^6.0.0",
         "backpack/backupmanager": "^2.0.0",
         "spatie/laravel-translatable": "^4.0",
-        "backpack/langfilemanager": "^3.0.0|4.1.x-dev as 3.0.0",
+        "backpack/langfilemanager": "^3.0.0",
 
         /* and in require-dev */
 
-        "backpack/generators": "^3.0|4.1.x-dev as 3.0.0",
-        "laracasts/generators": "^2.0|v2.x-dev as 1.1.99"
+        "backpack/generators": "^3.0",
+        "laracasts/generators": "^1.0"
 ```
 
 <a name="step-3" href="#step-3" class="badge badge-warning text-white" style="text-decoration: none;">Step 3.</a> If you're using the Revisions operation, it has now been split into a separate package. So please add ```"backpack/revise-operation": "^1.0",``` to your composer's require section.
