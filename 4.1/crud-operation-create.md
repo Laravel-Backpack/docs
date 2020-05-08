@@ -7,7 +7,7 @@
 
 This operation allows your admins to add new entries to a database table.
 
-![CRUD Create Operation](https://backpackforlaravel.com/uploads/screenshots/news_add.png)
+![CRUD Create Operation](https://backpackforlaravel.com/uploads/docs-4-1/operations/create.png)
 
 <a name="requirements"></a>
 ## Requirements
