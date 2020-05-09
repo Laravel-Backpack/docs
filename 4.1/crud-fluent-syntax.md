@@ -154,7 +154,7 @@ CRUD::field('category_id')
         ->type('select')
         ->label('Category')
         ->entity('category')
-        // ->attribute('name') // optional;
+        ->attribute('name')
         // ->model('Backpack\NewsCRUD\app\Models\Category') // optional; guessed from entity;
         // ->wrapper(['class' => 'form-group col-md-6']) // possible, but easier with size below;
         ->size(6);
