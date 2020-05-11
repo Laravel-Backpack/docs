@@ -35,9 +35,9 @@ $this->crud->addSaveAction([
     'visible' => function($crud) {
         return true;
     }, // customize when this save action is visible for the current operation
-    'refeerer' => function($crud, $request, $itemId) {
+    'referrer' => function($crud, $request, $itemId) {
         return $crud->route;
-    }, // override http_refereer_url
+    }, // override http_referrer_url
     'order' => 1, // change the order save actions are in
 ]);
 ```
