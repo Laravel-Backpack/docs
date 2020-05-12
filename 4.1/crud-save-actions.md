@@ -26,7 +26,6 @@ Adds a new SaveAction to the "Save" button/dropdown.
 
 ```php
 $this->crud->addSaveAction([
-    // add 'save_action_one' to the backpack/crud lang files for translatable button text
     'name' => 'save_action_one',
     'redirect' => function($crud, $request, $itemId) {
         return $crud->route;
@@ -34,6 +33,8 @@ $this->crud->addSaveAction([
 
     // OPTIONAL:
     'button_text' => 'Custom save message', // override text appearing on the button
+    // You can also provide translatable texts, for example:
+    // 'button_text' => 'trans('backpack::crud.save_action_one')'
     'visible' => function($crud) {
         return true;
     }, // customize when this save action is visible for the current operation
