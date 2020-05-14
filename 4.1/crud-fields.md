@@ -263,48 +263,28 @@ Input preview:
 <a name="browse"></a>
 ### browse
 
-This button allows the admin to open [elFinder](http://elfinder.org/) and select a file from there. Run ```composer require backpack/filemanager``` to install elFinder, then you can use the field:
+This button allows the admin to open [elFinder](http://elfinder.org/) and select one or more files from there. Run ```composer require backpack/filemanager``` and ```php artisan backpack:filemanager:install``` to install elFinder, then you can use the field:
 
 ```php
 [   // Browse
     'name' => 'image',
     'label' => 'Image',
     'type' => 'browse'
-],
-```
-
-
-Input preview: 
-
-![CRUD Field - browse](https://backpackforlaravel.com/uploads/docs-4-1/fields/browse.png)
-
-Onclick preview:
-
-![CRUD Field - browse popup](https://backpackforlaravel.com/uploads/docs-4-1/fields/browse_popup.png)
-
-<hr>
-
-<a name="browse-multiple"></a>
-### browse_multiple
-
-Open elFinder and select multiple file from there. Run ```composer require backpack/filemanager``` to install elFinder, then you can use the field:
-
-```php
-[   // Browse multiple
-    'name' => 'files',
-    'label' => 'Files',
-    'type' => 'browse_multiple',
     // 'multiple' => true, // enable/disable the multiple selection functionality
     // 'sortable' => false, // enable/disable the reordering of chosen files with drag&drop
     // 'mime_types' => null, // visible mime prefixes; ex. ['image'] or ['application/pdf']
 ],
 ```
 
-The field assumes you've cast your attribute as ```array``` on your model.  That way, when you do ```$entry->files``` you get a nice array.
+- The field assumes you've cast your attribute as ```array``` on your model if you use the ```multiple``` flag. That way, when you do ```$entry->files``` you get a nice array.
 
-Input preview: 
+Input preview:
 
-![CRUD Field - browse_multiple](https://backpackforlaravel.com/uploads/docs-4-1/fields/browse_multiple.png)
+![CRUD Field - browse](https://backpackforlaravel.com/uploads/docs-4-1/fields/browse_multiple.png)
+
+Onclick preview:
+
+![CRUD Field - browse popup](https://backpackforlaravel.com/uploads/docs-4-1/fields/browse_popup.png)
 
 <hr>
 
