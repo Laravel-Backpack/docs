@@ -19,7 +19,7 @@ But here's the big stuff Backpack 4.1 brings to the table, and why you should up
 - allows admins to create related items on-the-fly, without leaving the current form;
 - shows a new button next to your relationship fields; when you click [+ Add], a modal is shown with all the fields needed to create a related item on-the-fly; it basically brings that entry's Create form on this page;
 - it works well for entities with a few inputs, but it also works well for huge entities with dozens of inputs, tabs, etc;
-- see [docs](http://backpackforlaravel.test/docs/4.1/crud-operation-inline-create), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2311), [demo](http://demo.backpackforlaravel.com/admin/monster)
+- see [docs](https://backpackforlaravel.com/docs/4.1/crud-operation-inline-create), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2311), [demo](http://demo.backpackforlaravel.com/admin/monster)
 
 ![Backpack InlineCreate Operation](https://backpackforlaravel.com/uploads/docs-4-1/release_notes/inline_create_small.gif)
 
