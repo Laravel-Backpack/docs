@@ -705,7 +705,8 @@ Include an <input type="hidden"> in the form.
 ```php
 [   // Hidden
     'name' => 'status',
-    'type' => 'hidden'
+    'type' => 'hidden',
+    'value' => 'active',
 ],
 ```
 
