@@ -175,7 +175,7 @@ Why? Since ```$this->request``` did nothing at all, we've removed it, to avoid a
 - (A) If you have NOT touched you ```public/packages``` folder, or placed anything custom inside it:
         - delete the ```public/packages``` directory and all its contents;
         - run ```php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag=public```
-        - if you use elFinder, also delete ```resources/views/public/vendor/elfinder``` and run ```php artisan backpack:filemanager:install```
+        - if you use elFinder, also delete ```resources/views/vendor/elfinder``` and run ```php artisan backpack:filemanager:install```
 - (B) Run ```php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag=public --force```. Please note this will overwrite anything that's already there. This B solution has a downside: unused files are not removed. A few files Backpack no longer uses will still be in your ```public/packages``` folder, even though they're no longer used.
 
 
