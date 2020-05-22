@@ -90,7 +90,7 @@ Enumerate an array stored in the db column as JSON.
 ```php
 [
    'name' => 'options', // The db column name
-   'label' => "Options", // Table column heading
+   'label' => 'Options', // Table column heading
    'type' => 'array'
 ],
 ```
@@ -105,7 +105,7 @@ Count the items in an array stored in the db column as JSON.
 ```php
 [
    'name' => 'options', // The db column name
-   'label' => "Options", // Table column heading
+   'label' => 'Options', // Table column heading
    'type' => 'array_count',
    // 'suffix' => 'options', // if you want it to show "2 options" instead of "2 items"
 ],
@@ -137,7 +137,7 @@ Show a favicon with a checked or unchecked box, depending on the given boolean.
 ```php
 [
    'name' => 'featured', // The db column name
-   'label' => "Featured", // Table column heading
+   'label' => 'Featured', // Table column heading
    'type' => 'check'
 ],
 ```
@@ -197,9 +197,9 @@ The date column will show a localized date in the default date format (as specif
 
 ```php
 [
-   'name' => "name", // The db column name
-   'label' => "Tag Name", // Table column heading
-   'type' => "date",
+   'name' => 'name', // The db column name
+   'label' => 'Tag Name', // Table column heading
+   'type' => 'date',
     // 'format' => 'l j F Y', // use something else than the base.default_date_format config value
 ],
 ```
@@ -214,9 +214,9 @@ The date column will show a localized datetime in the default datetime format (a
 
 ```php
 [
-   'name' => "name", // The db column name
-   'label' => "Tag Name", // Table column heading
-   'type' => "datetime",
+   'name' => 'name', // The db column name
+   'label' => 'Tag Name', // Table column heading
+   'type' => 'datetime',
     // 'format' => 'l j F Y H:i:s', // use something else than the base.default_datetime_format config value
 ],
 ```
@@ -230,7 +230,7 @@ The email column will output the email address in the database (truncated to 254
 ```php
 [
    'name' => 'email', // The db column name
-   'label' => "Email Address", // Table column heading
+   'label' => 'Email Address', // Table column heading
    'type' => 'email',
    // 'limit' => 500, // if you want to truncate the text to a different number of characters
 ],
@@ -247,7 +247,7 @@ Show a thumbnail image.
 ```php
 [
    'name' => 'profile_image', // The db column name
-   'label' => "Profile image", // Table column heading
+   'label' => 'Profile image', // Table column heading
    'type' => 'image',
     // 'prefix' => 'folder/subfolder/',
     // image from a different disk (like s3 bucket)
@@ -269,7 +269,7 @@ Convert a markdown string to HTML, using ```Illuminate\Mail\Markdown```. Since M
 ```php
 [
    'name' => 'text', // The db column name
-   'label' => "Text", // Table column heading
+   'label' => 'Text', // Table column heading
    'type' => 'markdown',
 ],
 ```
@@ -284,9 +284,9 @@ The model_function column will output a function on your main model. Its definit
 ```php
 [
    // run a function on the CRUD model and show its return value
-   'name' => "url",
-   'label' => "URL", // Table column heading
-   'type' => "model_function",
+   'name' => 'url',
+   'label' => 'URL', // Table column heading
+   'type' => 'model_function',
    'function_name' => 'getSlugWithLink', // the method in your Model
    // 'function_parameters' => [$one, $two], // pass one/more parameters to that method
    // 'limit' => 100, // Limit the number of characters shown
@@ -310,9 +310,9 @@ public function getSlugWithLink() {
 If the function you're trying to use returns an object, not a string, you can use the model_function_attribute column, which will output the attribute on the function result. Its definition is:
 ```php
 [
-   'name' => "url",
-   'label' => "URL", // Table column heading
-   'type' => "model_function_attribute",
+   'name' => 'url',
+   'label' => 'URL', // Table column heading
+   'type' => 'model_function_attribute',
    'function_name' => 'getSlugWithLink', // the method in your Model
    // 'function_parameters' => [$one, $two], // pass one/more parameters to that method
    'attribute' => 'route',
@@ -333,7 +333,7 @@ Enumerate the values in a multidimensional array, stored in the db as JSON.
 ```php
 [
    'name' => 'options', // The db column name
-   'label' => "Options", // Table column heading
+   'label' => 'Options', // Table column heading
    'type' => 'multidimensional_array',
    'visible_key' => 'name' // The key to the attribute you would like shown in the enumeration
 ],
@@ -349,10 +349,10 @@ The text column will just output the number value of a db column (or model attri
 ```php
 [
    'name' => 'name', // The db column name
-   'label' => "Tag Name", // Table column heading
-   'type' => "number",
-   // 'prefix' => "$",
-   // 'suffix' => " EUR",
+   'label' => 'Tag Name', // Table column heading
+   'type' => 'number',
+   // 'prefix' => '$',
+   // 'suffix' => ' EUR',
    // 'decimals' => 2,
    // 'dec_point' => ',',
    // 'thousands_sep' => '.',
@@ -371,7 +371,7 @@ The phone column will output the phone number from the database (truncated to 25
 ```php
 [
    'name' => 'phone', // The db column name
-   'label' => "Phone number", // Table column heading
+   'label' => 'Phone number', // Table column heading
    'type' => 'phone',
    // 'limit' => 10, // if you want to truncate the phone number to a different number of characters
 ],
@@ -391,8 +391,8 @@ Show a pretty text instead of the database value, according to an associative ar
     'label'       => 'Status',
     'type'        => 'radio',
     'options'     => [
-                        0 => "Draft",
-                        1 => "Published"
+                        0 => 'Draft',
+                        1 => 'Published'
                     ]
 ],
 ```
@@ -414,11 +414,11 @@ Its name and definition is the same as for the relationship *field type*:
 ```php
 [  // any type of relationship
    'name' => 'tags', // name of relationship method in the model
-   'type' => "relationship",
-   'label' => "Tags", // Table column heading
+   'type' => 'relationship',
+   'label' => 'Tags', // Table column heading
    // OPTIONAL
    // 'entity' => 'tags', // the method that defines the relationship in your Model
-   // 'attribute' => "name", // foreign key attribute that is shown to user
+   // 'attribute' => 'name', // foreign key attribute that is shown to user
    // 'model' => App\Models\Category::class, // foreign key model
 ],
 ```
@@ -435,8 +435,8 @@ Shows the number of items that are related to the current entry, for a particula
 ```php
 [  // non-relationship count
    'name' => 'tags', // name of relationship method in the model
-   'type' => "relationship_count", 
-   'label' => "Tags", // Table column heading
+   'type' => 'relationship_count', 
+   'label' => 'Tags', // Table column heading
    // OPTIONAL
    // 'suffix' => ' tags', // to show "123 tags" instead of "123 items"
 ],
@@ -475,9 +475,9 @@ The text column will just output the text value of a db column (or model attribu
 ```php
 [
    'name' => 'name', // The db column name
-   'label' => "Tag Name", // Table column heading
-   // 'prefix' => "Name: ",
-   // 'suffix' => "(user)",
+   'label' => 'Tag Name', // Table column heading
+   // 'prefix' => 'Name: ',
+   // 'suffix' => '(user)',
    // 'limit' => 120, // character limit; default is 50;
 ],
 ```
@@ -500,11 +500,11 @@ The select column will output its connected entity. Used for relationships like 
 ```php
 [
    // 1-n relationship
-   'label' => "Parent", // Table column heading
-   'type' => "select",
+   'label' => 'Parent', // Table column heading
+   'type' => 'select',
    'name' => 'parent_id', // the column that contains the ID of that connected entity;
    'entity' => 'parent', // the method that defines the relationship in your Model
-   'attribute' => "name", // foreign key attribute that is shown to user
+   'attribute' => 'name', // foreign key attribute that is shown to user
    'model' => "App\Models\Category", // foreign key model
 ],
 ```
@@ -520,7 +520,7 @@ Show a particular text depending on the value of the attribute.
 [
     // select_from_array
     'name' => 'status',
-    'label' => "Status",
+    'label' => 'Status',
     'type' => 'select_from_array',
     'options' => [‘draft’ => ‘Draft (invisible)’, ‘published’ => ‘Published (visible)’],
 ],
@@ -535,12 +535,12 @@ The select_multiple column will output a comma separated list of its connected e
 ```php
 [
    // n-n relationship (with pivot table)
-   'label' => "Tags", // Table column heading
-   'type' => "select_multiple",
+   'label' => 'Tags', // Table column heading
+   'type' => 'select_multiple',
    'name' => 'tags', // the method that defines the relationship in your Model
    'entity' => 'tags', // the method that defines the relationship in your Model
-   'attribute' => "name", // foreign key attribute that is shown to user
-   'model' => "App\Models\Tag", // foreign key model
+   'attribute' => 'name', // foreign key attribute that is shown to user
+   'model' => 'App\Models\Tag', // foreign key model
 ],
 ```
 
@@ -598,7 +598,7 @@ Display a small screenshot for a Youtube or Vimeo video, stored in the database 
 ```php
 [
    'name' => 'name', // The db column name
-   'label' => "Tag Name", // Table column heading
+   'label' => 'Tag Name', // Table column heading
    'type' => 'video',
 ],
 ```
@@ -613,7 +613,7 @@ Display any custom column type you want. Usually used by Backpack package develo
 ```php
 [
    'name' => 'name', // The db column name
-   'label' => "Tag Name", // Table column heading
+   'label' => 'Tag Name', // Table column heading
    'type' => 'view',
    'view' => 'package::columns.column_type_name', // or path to blade file
 ],
@@ -674,12 +674,12 @@ $this->crud->addColumn([
 
 // 1-n relationship column with custom search logic
 $this->crud->addColumn([
-    'label' => "Cruise Ship",
-    'type' => "select",
+    'label' => 'Cruise Ship',
+    'type' => 'select',
     'name' => 'cruise_ship_id',
     'entity' => 'cruise_ship',
-    'attribute' => "cruise_ship_name_date", // combined name & date column
-    'model' => "App\Models\CruiseShip",
+    'attribute' => 'cruise_ship_name_date', // combined name & date column
+    'model' => 'App\Models\CruiseShip',
     'searchLogic' => function ($query, $column, $searchTerm) {
         $query->orWhereHas('cruise_ship', function ($q) use ($column, $searchTerm) {
             $q->where('name', 'like', '%'.$searchTerm.'%')
@@ -714,7 +714,7 @@ For example, to order Articles not by its Category ID (as default, but by the Ca
 ```php
 $this->crud->addColumn([
     // Select
-   'label' => "Category",
+   'label' => 'Category',
    'type' => 'select',
    'name' => 'category_id', // the db column for the foreign key
    'entity' => 'category', // the method that defines the relationship in your Model
@@ -738,7 +738,7 @@ For example, you can wrap the text in an anchor element, to point to that Articl
 ```php
 $this->crud->addColumn([
   // Select
-  'label' => "Category",
+  'label' => 'Category',
   'type' => 'select',
   'name' => 'category_id', // the db column for the foreign key
   'entity' => 'category', // the method that defines the relationship in your Model
@@ -808,23 +808,23 @@ Starting with Backpack\CRUD 3.3 (Nov 2017), you can have multiple columns with t
 ```php
 // column that shows the parent's first name
 $this->crud->addColumn([
-   'label' => "Parent First Name", // Table column heading
-   'type' => "select",
+   'label' => 'Parent First Name', // Table column heading
+   'type' => 'select',
    'name' => 'parent_id', // the column that contains the ID of that connected entity;
    'entity' => 'parent', // the method that defines the relationship in your Model
-   'attribute' => "first_name", // foreign key attribute that is shown to user
-   'model' => "App\Models\User", // foreign key model
+   'attribute' => 'first_name', // foreign key attribute that is shown to user
+   'model' => 'App\Models\User', // foreign key model
 ]);
 
 // column that shows the parent's last name
 $this->crud->addColumn([
-   'label' => "Parent Last Name", // Table column heading
-   'type' => "select",
+   'label' => 'Parent Last Name', // Table column heading
+   'type' => 'select',
    'name' => 'parent_id', // the column that contains the ID of that connected entity;
    'key' => 'parent_last_name', // the column that contains the ID of that connected entity;
    'entity' => 'parent', // the method that defines the relationship in your Model
-   'attribute' => "last_name", // foreign key attribute that is shown to user
-   'model' => "App\Models\User", // foreign key model
+   'attribute' => 'last_name', // foreign key attribute that is shown to user
+   'model' => 'App\Models\User', // foreign key model
 ]);
 ```
 
