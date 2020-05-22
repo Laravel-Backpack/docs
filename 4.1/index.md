@@ -13,8 +13,9 @@
 #### Admin UI
 
 - [About](/docs/{{version}}/base-about)
-- [Widgets](/docs/{{version}}/base-widgets)
+- [Alerts](/docs/{{version}}/base-alerts)
 - [Breadcrumbs](/docs/{{version}}/base-breadcrumbs)
+- [Widgets](/docs/{{version}}/base-widgets)
 - [How To](/docs/{{version}}/base-how-to)
 
 #### CRUD Panels
