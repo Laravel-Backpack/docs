@@ -2,11 +2,11 @@
 
 ---
 
-**Launch date:** Probably April 10th, 2020 - currently in ```public beta```
+**Launch date:** May 5th, 2020
 
-Backpack 4.1 is a FREE upgrade for Backpack 4.0 users. Anybody with a 4.0 license can install and use 4.1, but in order to get the new features you need to [follow the upgrade guide](/docs/{{version}}/upgrade-guide).
+Anybody with a 4.0 license can install and use 4.1, but in order to get the new features in a project that currently runs 4.0, you need to [follow the upgrade guide](/docs/{{version}}/upgrade-guide). Don't get fooled by the fact that we kept the 4.x.x prefix - that's just to show that **Backpack 4.1 is a FREE upgrade from 4.0**. But **Backpack 4.1 is a MAJOR new version**, with over 6 months of work put into it, and major improvements under-the-hood too. It is the current and recommended version of Backpack and it's got so many cool new things that we couldn't fit them all inside this page.
 
-Here's what Backpack 4.1 brings to the table, and why you should upgrade from [Backpack 4.0](/docs/4.0) to Backpack 4.1.
+But here's the big stuff Backpack 4.1 brings to the table, and why you should upgrade from [Backpack 4.0](/docs/4.0) to 4.1.
 
 
 <a name="added"></a>
@@ -19,7 +19,7 @@ Here's what Backpack 4.1 brings to the table, and why you should upgrade from [B
 - allows admins to create related items on-the-fly, without leaving the current form;
 - shows a new button next to your relationship fields; when you click [+ Add], a modal is shown with all the fields needed to create a related item on-the-fly; it basically brings that entry's Create form on this page;
 - it works well for entities with a few inputs, but it also works well for huge entities with dozens of inputs, tabs, etc;
-- see [docs](http://backpackforlaravel.test/docs/4.1/crud-operation-inline-create), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2311), [demo](http://demo-beta.backpackforlaravel.com/admin/monster)
+- see [docs](https://backpackforlaravel.com/docs/4.1/crud-operation-inline-create), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2311), [demo](http://demo.backpackforlaravel.com/admin/monster)
 
 ![Backpack InlineCreate Operation](https://backpackforlaravel.com/uploads/docs-4-1/release_notes/inline_create_small.gif)
 
@@ -42,7 +42,7 @@ Here's what Backpack 4.1 brings to the table, and why you should upgrade from [B
 - **one relationship field to rule them all**; instead of thinking whether you need ```select2```, ```select2_multiple```, ```select2_from_ajax``` or ```select2_from_ajax_multiple``` you can now just use the ```relationship``` field, that includes the functionality of all of them... and more;
 - **intelligent defaults**; it automatically figures out the ```entity```, ```model```, ```attribute```, ```multiple```, ```pivot``` and  ```label```, so most of the time you'll just need to define two things for it to work - ```name``` and ```type```;
 - **supports both non-AJAX and AJAX**; for the dropdown options, it defaults to immediate querying; if you want to load the options using AJAX, you just have to point it to the correct route, using ```data_source```; which is super-easy to do using the new Fetch operation detailed above;
-- see [docs](/docs/4.1/crud-fields#relationship), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2311), [demo](http://demo-beta.backpackforlaravel.com/admin/monster)
+- see [docs](/docs/4.1/crud-fields#relationship), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2311), [demo](http://demo.backpackforlaravel.com/admin/monster)
 
 ![Backpack Relationship Field](https://backpackforlaravel.com/uploads/docs-4-1/release_notes/relationship.png)
 
@@ -77,7 +77,7 @@ Here's what Backpack 4.1 brings to the table, and why you should upgrade from [B
 - allows you to **change how columns look&feel, by wrapping the text into a custom HTML element**; similarly to how we've been able to do for years with Fields, you can now specify a wrapper for columns, and change that wrapper's ```class```, ```style```, etc.
 - you can now **easily add links to your columns**; make it easy for admins to jump from one CRUD to another, by making relationship columns point to that Model's CRUD; but they can also point to whatever else you want;
 - you can now **easily make your column text a different color depending on its content**, just by adding a Bootstrap class (ex: add ```badge badge-warning``` or ```text-success```);
-- see [docs](/docs/{{version}}/crud-columns#wrap-column-text-in-an-html-element), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2448), [demo](http://demo-beta.backpackforlaravel.com/admin/article)
+- see [docs](/docs/{{version}}/crud-columns#wrap-column-text-in-an-html-element), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2448), [demo](http://demo.backpackforlaravel.com/admin/article)
 
 
 ![Backpack Column Wrapper](https://backpackforlaravel.com/uploads/docs-4-1/release_notes/column_wrapper_small.gif)
@@ -88,7 +88,7 @@ Here's what Backpack 4.1 brings to the table, and why you should upgrade from [B
 
 - the perfect companion to the new ```relationship``` field;
 - **intelligent defaults**; it automatically figures out the ```entity```, ```model```, ```attribute```, ```multiple```, ```pivot``` and  ```label```, so most of the time you'll just need to define two things for it to work - ```name``` and ```type```;
-- see [docs](/docs/{{version}}/crud-columns#relationship), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2615), [demo](http://demo-beta.backpackforlaravel.com/admin/monster)
+- see [docs](/docs/{{version}}/crud-columns#relationship), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2615), [demo](http://demo.backpackforlaravel.com/admin/monster)
 
 
 <hr> 
@@ -97,7 +97,8 @@ Here's what Backpack 4.1 brings to the table, and why you should upgrade from [B
 
 - shows the number of items related to the current entry, on that relationship, for example "413 items";
 - perfect for when your entity points to A LOT of other entries;
-- see [docs](/docs/{{version}}/crud-columns#relationship_count), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2615), [demo](http://demo-beta.backpackforlaravel.com/admin/monster)
+- if you have a CRUD with Filters for that related Model, you can add the `wrapper` attribute mentioned above to this column, to turn it into a link that points to a filtered view of that related CRUD; that way the admin can click this column and see those 413 items;
+- see [docs](/docs/{{version}}/crud-columns#relationship_count), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2615), [demo](http://demo.backpackforlaravel.com/admin/monster)
 
 
 <hr> 
@@ -109,7 +110,7 @@ Here's what Backpack 4.1 brings to the table, and why you should upgrade from [B
 - easily add a widget with a chart, on any admin panel page, directly from your Controller or blade file;
 - the same/similar syntax for multiple chart libraries: ChartJS, Highcharts, Fusioncharts, Echarts, Frappe, C3, thanks to [Laravel Charts](https://charts.erik.cat/); easily switch between charting libraries;
 - easily defer DB queries to an AJAX call (recommended) or make them upon pageload;   
-- see [docs](/docs/4.1/base-widgets#chart), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2596), [demo](http://demo-beta.backpackforlaravel.com/admin/)
+- see [docs](/docs/4.1/base-widgets#chart), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2596), [demo](http://demo.backpackforlaravel.com/admin/)
 
 
 ![Backpack Chart Widget](https://backpackforlaravel.com/uploads/docs-4-1/release_notes/chart_widget_small.gif)
@@ -120,8 +121,8 @@ Here's what Backpack 4.1 brings to the table, and why you should upgrade from [B
 
 - a global object that allows you to more easily add/edit Widgets to your admin panel pages;
 - you can still manipulate the ```$data['widgets']``` directly, but you can also use this new class;
-- you can pass the entire widget definition array to ```Widget::add()``` or you can use a its new fluent syntax;
-- see [docs](/docs/4.1/base-widgets#widgets-api), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2599), [demo](http://demo-beta.backpackforlaravel.com/admin/)
+- you can pass the entire widget definition array to ```Widget::add()``` or you can use the new fluent syntax;
+- see [docs](/docs/4.1/base-widgets#widgets-api), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2599), [demo](http://demo.backpackforlaravel.com/admin/)
 
 
 ![Backpack Widget Class](https://backpackforlaravel.com/uploads/docs-4-1/release_notes/widget_class.png)
@@ -135,6 +136,8 @@ Here's what Backpack 4.1 brings to the table, and why you should upgrade from [B
 - An optional new way of interacting with Fields, Columns, Filters, Buttons;
 - **Add or modify. It's the same method.** Create or modify a field/column/filter/button/widget with one call - think of ```CRUD::field()``` as a new ```$this->crud->addOrModifyField()```;
 - **Reduce your CrudController length by 20-60%.** Most field&column definitions will fit on just one line.
+- **Better syntax highlighting. Better auto-completion.** For most IDEs at least.
+- **Intelligent defaults.** Most fields only actually need the `name` from you - Backpack will try to guess everything else. Even the `type`. Even the relationship.
 - see [docs](/docs/4.1/crud-fluent-syntax), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2513)
 
 
@@ -159,18 +162,10 @@ Here's what Backpack 4.1 brings to the table, and why you should upgrade from [B
 
 - Support for Laravel 5.8;
 - Support for PHP lower than 7.2.5;
-- ```laravel/helpers``` dependency 
-	- but you can still install it, if you want to use the array and string helpers; 
-	- see upgrade guide;
-- ```venturecraft/revisionable``` dependency 
-	- in order to use the Revisions operation you now have to install [the backpack/revise-operation add-on](https://github.com/laravel-backpack/revise-operation); 
-	- see docs, PR or upgrade guide;
-- ```barryvdh/laravel-elfinder``` dependency 
-	- in order to use the File Manager screen, the ```browse``` or ```browse_multiple``` field types, you now need to install the [backpack/filemanager add-on](https://github.com/Laravel-Backpack/FileManager) that we created; 
-	- see docs, PR or upgrade guide;
-- ```intervention/image``` dependency 
-	- in order to use the ```image``` field type you need to [install the package](http://image.intervention.io/getting_started/installation); 
-	- see updated docs, PR and upgrade guide; 
+- ```laravel/helpers``` dependency, but you can still install it yourself, if you want to use the array and string helpers; 
+- ```venturecraft/revisionable``` dependency; in order to use the Revisions operation you now have to install [the backpack/revise-operation add-on](https://github.com/laravel-backpack/revise-operation);
+- ```barryvdh/laravel-elfinder``` dependency; in order to use the File Manager screen, the ```browse``` or ```browse_multiple``` field types, you now need to install the [backpack/filemanager add-on](https://github.com/Laravel-Backpack/FileManager) that we created;
+- ```intervention/image``` dependency; in order to use the ```image``` field type you might need to [install the package](http://image.intervention.io/getting_started/installation), if you've copy-pasted our example mutator in your Model; 
 - ```App\Models\BackpackUser``` is no longer needer, recommended or published when installing Backpack; authentication now works with your default ```App\User``` model (or whatever it is); this eliminates a bit of unneeded complexity, and fixes a bunch of problems when there are morph relationships towards the User model; but you can still keep it if you like to have a separate model for you admins;
 
 

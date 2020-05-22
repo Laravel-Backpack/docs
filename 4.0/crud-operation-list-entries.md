@@ -81,8 +81,8 @@ The ShowList operation has 3 places where buttons can be placed:
   - ```bottom``` (after the table)
 
 Backpack adds a few buttons by default: 
-- ```add``` to the ```top``` stack;
-- ```edit``` and ```delete``` to the ```line``` stack;
+- ```create``` to the ```top``` stack;
+- ```update``` and ```delete``` to the ```line``` stack;
 
 To learn more about buttons, **check out the [Buttons](/docs/{{version}}/crud-buttons) documentation page**.
 

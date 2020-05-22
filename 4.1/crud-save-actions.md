@@ -32,12 +32,15 @@ $this->crud->addSaveAction([
     }, // what's the redirect URL, where the user will be taken after saving?
 
     // OPTIONAL:
+    'button_text' => 'Custom save message', // override text appearing on the button
+    // You can also provide translatable texts, for example:
+    // 'button_text' => trans('backpack::crud.save_action_one'),
     'visible' => function($crud) {
         return true;
     }, // customize when this save action is visible for the current operation
-    'refeerer' => function($crud, $request, $itemId) {
+    'referrer' => function($crud, $request, $itemId) {
         return $crud->route;
-    }, // override http_refereer_url
+    }, // override http_referrer_url
     'order' => 1, // change the order save actions are in
 ]);
 ```
