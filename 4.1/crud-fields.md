@@ -22,8 +22,8 @@ For each of them, you only need to define it properly in the Controller. All fie
 So at minimum, your field definition array should look like:
 ```php
 [
-    'name' => 'description',
-    'type' => 'textarea',
+    'name'  => 'description',
+    'type'  => 'textarea',
     'label' => 'Article Description',
 ]
 ```
@@ -35,18 +35,18 @@ There are a few optional attributes on all default field types, that you can use
 
 ```php
 [
-    'prefix' => '',
-    'suffix' => '',
+    'prefix'     => '',
+    'suffix'     => '',
     'default'    => 'some value', // set a default value
     'hint'       => 'Some hint text', // helpful text, shows up after the input
     'attributes' => [
        'placeholder' => 'Some text when empty',
-       'class' => 'form-control some-class',
-       'readonly'=>'readonly',
-       'disabled'=>'disabled',
+       'class'       => 'form-control some-class',
+       'readonly'    => 'readonly',
+       'disabled'    => 'disabled',
      ], // change the HTML attributes of your input
-     'wrapper' => [ 
-        'class' => 'form-group col-md-12'
+     'wrapper'   => [ 
+        'class'      => 'form-group col-md-12'
      ], // change the HTML attributes for the field wrapper - mostly for resizing fields 
 ]
 ```
@@ -110,10 +110,10 @@ In case you want to store insignificant information for an entry, that don't nee
 **Step 1.** Use the fake attribute on your field:
 ```php
 [
-    'name' => 'name', // JSON variable name
-    'label' => "Tag Name", // human-readable label for the input
-
-    'fake' => true, // show the field, but don't store it in the database column above
+    'name'     => 'name', // JSON variable name
+    'label'    => "Tag Name", // human-readable label for the input
+    
+    'fake'     => true, // show the field, but don't store it in the database column above
     'store_in' => 'extras' // [optional] the database column name where you want the fake fields to ACTUALLY be stored as a JSON array 
 ],
 ```
@@ -128,21 +128,21 @@ In case you want to store insignificant information for an entry, that don't nee
 Example:
 ```php
 [
-    'name' => 'meta_title',
-    'label' => "Meta Title", 
-    'fake' => true, 
+    'name'     => 'meta_title',
+    'label'    => "Meta Title", 
+    'fake'     => true, 
     'store_in' => 'metas' // [optional]
 ],
 [
-    'name' => 'meta_description',
-    'label' => "Meta Description", 
-    'fake' => true, 
+    'name'     => 'meta_description',
+    'label'    => "Meta Description", 
+    'fake'     => true, 
     'store_in' => 'metas' // [optional]
 ],
 [
-    'name' => 'meta_keywords',
-    'label' => "Meta Keywords", 
-    'fake' => true, 
+    'name'     => 'meta_keywords',
+    'label'    => "Meta Keywords", 
+    'fake'     => true, 
     'store_in' => 'metas' // [optional]
 ],
 ```
@@ -167,13 +167,13 @@ In order to use this feature, you just need to specify the tab name for each of 
 ```php
 // select_from_array
 $this->crud->addField([
-    'name' => 'select_from_array',
-    'label' => "Select from array",
-    'type' => 'select_from_array',
-    'options' => ['one' => 'One', 'two' => 'Two', 'three' => 'Three'],
-    'allows_null' => false,
+    'name'            => 'select_from_array',
+    'label'           => "Select from array",
+    'type'            => 'select_from_array',
+    'options'         => ['one' => 'One', 'two' => 'Two', 'three' => 'Three'],
+    'allows_null'     => false,
     'allows_multiple' => true,
-    'tab' => 'Tab name here',
+    'tab'             => 'Tab name here',
 ]);
 ```
 
@@ -212,9 +212,9 @@ Use [Algolia Places autocomplete](https://community.algolia.com/places/) to help
 
 ```php
 [   // Address
-    'name' => 'address',
-    'label' => 'Address',
-    'type' => 'address_algolia',
+    'name'          => 'address',
+    'label'         => 'Address',
+    'type'          => 'address_algolia',
     // optional
     'store_as_json' => true
 ],
@@ -236,9 +236,9 @@ Use [Google Places Search](https://developers.google.com/places/web-service/sear
 
 ```php
 [   // Address
-    'name' => 'address',
-    'label' => 'Address',
-    'type' => 'address_google',
+    'name'          => 'address',
+    'label'         => 'Address',
+    'type'          => 'address_google',
     // optional
     'store_as_json' => true
 ],
@@ -267,9 +267,9 @@ This button allows the admin to open [elFinder](http://elfinder.org/) and select
 
 ```php
 [   // Browse
-    'name' => 'image',
+    'name'  => 'image',
     'label' => 'Image',
-    'type' => 'browse'
+    'type'  => 'browse'
 ],
 ```
 
@@ -291,11 +291,11 @@ Open elFinder and select multiple file from there. Run ```composer require backp
 
 ```php
 [   // Browse multiple
-    'name' => 'files',
-    'label' => 'Files',
-    'type' => 'browse_multiple',
-    // 'multiple' => true, // enable/disable the multiple selection functionality
-    // 'sortable' => false, // enable/disable the reordering of chosen files with drag&drop
+    'name'          => 'files',
+    'label'         => 'Files',
+    'type'          => 'browse_multiple',
+    // 'multiple'   => true, // enable/disable the multiple selection functionality
+    // 'sortable'   => false, // enable/disable the reordering with drag&drop
     // 'mime_types' => null, // visible mime prefixes; ex. ['image'] or ['application/pdf']
 ],
 ```
@@ -318,13 +318,13 @@ Upload an image and store it in the database as Base64. Notes:
 ```php
 // base64_image
 $this->crud->addField([
-    'label' => "Profile Image",
-    'name' => "image",
-    'filename' => "image_filename", // set to null if not needed
-    'type' => 'base64_image',
+    'label'        => "Profile Image",
+    'name'         => "image",
+    'filename'     => "image_filename", // set to null if not needed
+    'type'         => 'base64_image',
     'aspect_ratio' => 1, // set to 0 to allow any aspect ratio
-    'crop' => true, // set to true to allow cropping, false to disable
-    'src' => NULL, // null to read straight from DB, otherwise set to model accessor function
+    'crop'         => true, // set to true to allow cropping, false to disable
+    'src'          => NULL, // null to read straight from DB, otherwise set to model accessor function
 ]);
 ```
 
@@ -341,9 +341,9 @@ Checkbox for true/false.
 
 ```php
 [   // Checkbox
-    'name' => 'active',
+    'name'  => 'active',
     'label' => 'Active',
-    'type' => 'checkbox'
+    'type'  => 'checkbox'
 ],
 ```
 
@@ -422,15 +422,16 @@ Show a wysiwyg CKEditor to the user.
 
 ```php
 [   // CKEditor
-    'name' => 'description',
-    'label' => 'Description',
-    'type' => 'ckeditor',
+    'name'          => 'description',
+    'label'         => 'Description',
+    'type'          => 'ckeditor',
+
     // optional:
     'extra_plugins' => ['oembed', 'widget']
-    'options' => [
-	'autoGrow_minHeight' => 200,
-	'autoGrow_bottomSpace' => 50,
-	'removePlugins' => 'resize,maximize',
+    'options'       => [
+        'autoGrow_minHeight'   => 200,
+        'autoGrow_bottomSpace' => 50,
+        'removePlugins'        => 'resize,maximize',
     ]
 ],
 ```
@@ -448,9 +449,9 @@ Input preview:
 
 ```php
 [   // Color
-    'name' => 'background_color',
-    'label' => 'Background Color',
-    'type' => 'color',
+    'name'    => 'background_color',
+    'label'   => 'Background Color',
+    'type'    => 'color',
     'default' => '#000000',
 ],
 ```
@@ -468,10 +469,12 @@ Show a pretty colour picker using [Bootstrap Colorpicker](https://itsjavi.com/bo
 
 ```php
 [   // color_picker
-    'label' => 'Background Color',
-    'name' => 'background_color',
-    'type' => 'color_picker',
-    'default' => '#000000',
+    'label'                => 'Background Color',
+    'name'                 => 'background_color',
+    'type'                 => 'color_picker',
+    'default'              => '#000000',
+
+    // optional
     'color_picker_options' => ['customClass' => 'custom-class']
 ]
 ```
@@ -489,8 +492,8 @@ Allows you to insert custom HTML in the create/update forms. Usually used in for
 
 ```php
 [   // CustomHTML
-    'name' => 'separator',
-    'type' => 'custom_html',
+    'name'  => 'separator',
+    'type'  => 'custom_html',
     'value' => '<hr>'
 ],
 ```
@@ -500,9 +503,9 @@ Allows you to insert custom HTML in the create/update forms. Usually used in for
 
 ```php
 [   // Date
-    'name' => 'birthday',
+    'name'  => 'birthday',
     'label' => 'Birthday',
-    'type' => 'date'
+    'type'  => 'date'
 ],
 ```
 
@@ -519,13 +522,14 @@ Show a pretty [Bootstrap Datepicker](http://bootstrap-datepicker.readthedocs.io/
 
 ```php
 [   // date_picker
-   'name' => 'date',
-   'type' => 'date_picker',
+   'name'  => 'date',
+   'type'  => 'date_picker',
    'label' => 'Date',
+
    // optional:
    'date_picker_options' => [
       'todayBtn' => 'linked',
-      'format' => 'dd-mm-yyyy',
+      'format'   => 'dd-mm-yyyy',
       'language' => 'fr'
    ],
 ],
@@ -549,13 +553,15 @@ Show a DateRangePicker and let the user choose a start date and end date.
 
 ```php
 [   // date_range
-    'name' => ['start_date', 'end_date'], // db columns for start_date & end_date
+    'name'  => ['start_date', 'end_date'], // db columns for start_date & end_date
     'label' => 'Event Date Range',
-    'type' => 'date_range',
+    'type'  => 'date_range',
+
     // OPTIONALS
-    'default' => ['2019-03-28 01:01', '2019-04-05 02:00'], // default values for start_date & end_date
+    // default values for start_date & end_date
+    'default'            => ['2019-03-28 01:01', '2019-04-05 02:00'], 
+    // options sent to daterangepicker.js
     'date_range_options' => [
-        // options sent to daterangepicker.js
         'timePicker' => true,
         'locale' => ['format' => 'DD/MM/YYYY HH:mm']
     ]
@@ -577,9 +583,9 @@ Input preview:
 
 ```php
 [   // DateTime
-    'name' => 'start',
+    'name'  => 'start',
     'label' => 'Event start',
-    'type' => 'datetime'
+    'type'  => 'datetime'
 ],
 ```
 
@@ -604,9 +610,10 @@ Show a [Bootstrap Datetime Picker](https://eonasdan.github.io/bootstrap-datetime
 
 ```php
 [   // DateTime
-    'name' => 'start',
+    'name'  => 'start',
     'label' => 'Event start',
-    'type' => 'datetime_picker',
+    'type'  => 'datetime_picker',
+
     // optional:
     'datetime_picker_options' => [
         'format' => 'DD/MM/YYYY HH:mm',
@@ -638,15 +645,15 @@ Show an [EasyMDE markdown editor](https://easymde.com/) to the user. EasyMDE is 
 
 ```php
 [   // easymde
-    'name' => 'description',
+    'name'  => 'description',
     'label' => 'Description',
-    'type' => 'easymde',
+    'type'  => 'easymde',
     // optional
     // 'easymdeAttributes' => [
-    //   'promptURLs' => true,
-    //   'status' => false,
+    //   'promptURLs'   => true,
+    //   'status'       => false,
     //   'spellChecker' => false,
-    //   'forceSync' => true,
+    //   'forceSync'    => true,
     // ],
     // 'easymdeAttributesRaw' => $some_json
 ],
@@ -663,9 +670,9 @@ Input preview:
 
 ```php
 [   // Email
-    'name' => 'email',
+    'name'  => 'email',
     'label' => 'Email Address',
-    'type' => 'email'
+    'type'  => 'email'
 ],
 ```
 
@@ -683,9 +690,9 @@ Show a select with the values in the database for that ENUM field. Requires that
 
 ```php
 [   // Enum
-    'name' => 'status',
+    'name'  => 'status',
     'label' => 'Status',
-    'type' => 'enum'
+    'type'  => 'enum'
 ],
 ```
 
@@ -704,8 +711,8 @@ Include an <input type="hidden"> in the form.
 
 ```php
 [   // Hidden
-    'name' => 'status',
-    'type' => 'hidden',
+    'name'  => 'status',
+    'type'  => 'hidden',
     'value' => 'active',
 ],
 ```
@@ -721,9 +728,9 @@ The stored value will be the class name (ex: fa-home).
 
 ```php
 [   // icon_picker
-    'label' => "Icon",
-    'name' => 'icon',
-    'type' => 'icon_picker',
+    'label'   => "Icon",
+    'name'    => 'icon',
+    'type'    => 'icon_picker',
     'iconset' => 'fontawesome' // options: fontawesome, glyphicon, ionicon, weathericon, mapicon, octicon, typicon, elusiveicon, materialdesign
 ],
 ```
@@ -745,14 +752,14 @@ Upload an image and store it on the disk.
 ```php
 // image
 $this->crud->addField([
-    'label' => "Profile Image",
-    'name' => "image",
-    'type' => 'image',
-    'upload' => true,
-    'crop' => true, // set to true to allow cropping, false to disable
+    'label'        => "Profile Image",
+    'name'         => "image",
+    'type'         => 'image',
+    'upload'       => true,
+    'crop'         => true, // set to true to allow cropping, false to disable
     'aspect_ratio' => 1, // ommit or set to 0 to allow any aspect ratio
-    // 'disk' => 's3_bucket', // in case you need to show images from a different disk
-    // 'prefix' => 'uploads/images/profile_pictures/' // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
+    // 'disk'      => 's3_bucket', // in case you need to show images from a different disk
+    // 'prefix'    => 'uploads/images/profile_pictures/' // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
 ]);
 ```
 
@@ -845,9 +852,9 @@ Input preview:
 
 ```php
 [   // Month
-    'name' => 'month',
+    'name'  => 'month',
     'label' => 'Month',
-    'type' => 'month'
+    'type'  => 'month'
 ],
 ```
 
@@ -867,10 +874,11 @@ Shows an input type=number to the user, with optional prefix and suffix:
     'name' => 'number',
     'label' => 'Number',
     'type' => 'number',
+
     // optionals
     // 'attributes' => ["step" => "any"], // allow decimals
-    // 'prefix' => "$",
-    // 'suffix' => ".00",
+    // 'prefix'     => "$",
+    // 'suffix'     => ".00",
 ],
 ```
 
@@ -886,9 +894,9 @@ Input preview:
 Select an existing page from PageManager or an internal or external link. It's used in the MenuManager package, but can be used in any other model just as well. Its definition looks like this:
 ```php
 [   // PageOrLink
-    'name' => ['type', 'link', 'page_id'],
-    'label' => "Type",
-    'type' => 'page_or_link',
+    'name'       => ['type', 'link', 'page_id'],
+    'label'      => "Type",
+    'type'       => 'page_or_link',
     'page_model' => '\Backpack\PageManager\app\Models\Page'
 ]
 ```
@@ -904,9 +912,9 @@ Input preview:
 
 ```php
 [   // Password
-    'name' => 'password',
+    'name'  => 'password',
     'label' => 'Password',
-    'type' => 'password'
+    'type'  => 'password'
 ],
 ```
 
@@ -981,9 +989,9 @@ Shows an HTML5 range element, allowing the user to drag a cursor left-right, to 
 
 ```php
 [   // Range
-    'name' => 'range',
+    'name'  => 'range',
     'label' => 'Range',
-    'type' => 'range',
+    'type'  => 'range',
     //optional
     'attributes' => [
         'min' => 0,
@@ -1071,17 +1079,17 @@ Searching with AJAX provides a great UX. But what if the user doesn't find what 
 // Inside ArticleCrudController
 // for 1-n relationships (ex: category)
 [
-    'type' => "relationship",
-    'name' => 'category', // the method on your model that defines the relationship
-    'ajax' => true,
+    'type'          => "relationship",
+    'name'          => 'category', // the method on your model that defines the relationship
+    'ajax'          => true,
     'inline_create' => true,
- ]
+]
 // Inside ArticleCrudController
 // for n-n relationships (ex: tags)
 [
-    'type' => "relationship",
-    'name' => 'tags', // the method on your model that defines the relationship
-    'ajax' => true,
+    'type'          => "relationship",
+    'name'          => 'tags', // the method on your model that defines the relationship
+    'ajax'          => true,
     'inline_create' => [ 'entity' => 'tag' ] // you need to specify the entity in singular
  ]
 ```
@@ -1119,31 +1127,31 @@ You can use most field types inside the field groups, add as many fields you nee
 
 ```php
 [   // repeatable
-    'name' => 'testimonials',
+    'name'  => 'testimonials',
     'label' => 'Testimonials',
-    'type' => 'repeatable',
+    'type'  => 'repeatable',
     'fields' => [
         [
-            'name' => 'name',
-            'type' => 'text',
-            'label' => 'Name',
+            'name'    => 'name',
+            'type'    => 'text',
+            'label'   => 'Name',
             'wrapper' => ['class' => 'form-group col-md-4'],
         ],
         [
-            'name' => 'position',
-            'type' => 'text',
-            'label' => 'Position',
+            'name'    => 'position',
+            'type'    => 'text',
+            'label'   => 'Position',
             'wrapper' => ['class' => 'form-group col-md-4'],
         ],
         [
-            'name' => 'company',
-            'type' => 'text',
-            'label' => 'Company',
+            'name'    => 'company',
+            'type'    => 'text',
+            'label'   => 'Company',
             'wrapper' => ['class' => 'form-group col-md-4'],
         ],
         [
-            'name' => 'quote',
-            'type' => 'ckeditor',
+            'name'  => 'quote',
+            'type'  => 'ckeditor',
             'label' => 'Quote',
         ],
     ],
@@ -1161,15 +1169,15 @@ Your relationships should already be defined on your models as hasOne() or belon
 
 ```php
 [  // Select
-   'label' => "Category",
-   'type' => 'select',
-   'name' => 'category_id', // the db column for the foreign key
-   'entity' => 'category', // the method that defines the relationship in your Model
+   'label'     => "Category",
+   'type'      => 'select',
+   'name'      => 'category_id', // the db column for the foreign key
+   'entity'    => 'category', // the method that defines the relationship in your Model
    'attribute' => 'name', // foreign key attribute that is shown to user
 
 
    // optional
-   'model' => "App\Models\Category",
+   'model'     => "App\Models\Category",
    'options'   => (function ($query) {
         return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
     }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
@@ -1191,12 +1199,12 @@ Display a select where the options are grouped by a second entity (like Categori
 
 ```php
 [   // select_grouped
-    'label' => 'Articles grouped by categories',
-    'type' => 'select_grouped', //https://github.com/Laravel-Backpack/CRUD/issues/502
-    'name' => 'article_id',
-    'entity' => 'article',
+    'label'     => 'Articles grouped by categories',
+    'type'      => 'select_grouped', //https://github.com/Laravel-Backpack/CRUD/issues/502
+    'name'      => 'article_id',
+    'entity'    => 'article',
     'attribute' => 'title',
-    'group_by' => 'category', // the relationship to entity you want to use for grouping
+    'group_by'  => 'category', // the relationship to entity you want to use for grouping
     'group_by_attribute' => 'name', // the attribute on related model, that you want shown
     'group_by_relationship_back' => 'articles', // relationship from related model back to this model
 ],
@@ -1216,15 +1224,15 @@ Your relationships should already be defined on your models as hasOne() or belon
 
 ```php
 [  // Select2
-   'label' => "Category",
-   'type' => 'select2',
-   'name' => 'category_id', // the db column for the foreign key
-   'entity' => 'category', // the method that defines the relationship in your Model
+   'label'     => "Category",
+   'type'      => 'select2',
+   'name'      => 'category_id', // the db column for the foreign key
+   'entity'    => 'category', // the method that defines the relationship in your Model
    'attribute' => 'name', // foreign key attribute that is shown to user
 
    // optional
-   'model' => "App\Models\Category", // foreign key model
-   'default' => 2, // set the default value of the select2
+   'model'     => "App\Models\Category", // foreign key model
+   'default'   => 2, // set the default value of the select2
    'options'   => (function ($query) {
         return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
     }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
@@ -1245,15 +1253,15 @@ Your relationships should already be defined on your models as hasMany() or belo
 
 ```php
 [   // SelectMultiple = n-n relationship (with pivot table)
-    'label' => "Tags",
-    'type' => 'select_multiple',
-    'name' => 'tags', // the method that defines the relationship in your Model
-    'entity' => 'tags', // the method that defines the relationship in your Model
+    'label'     => "Tags",
+    'type'      => 'select_multiple',
+    'name'      => 'tags', // the method that defines the relationship in your Model
+    'entity'    => 'tags', // the method that defines the relationship in your Model
     'attribute' => 'name', // foreign key attribute that is shown to user
-    'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
+    'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
 
     // optional
-    'model' => "App\Models\Tag", // foreign key model
+    'model'     => "App\Models\Tag", // foreign key model
     'options'   => (function ($query) {
         return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
     }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
@@ -1309,14 +1317,14 @@ Display a select2 with the values ordered hierarchically and indented, for an en
 
 ```php
 [   // select2_nested
-    'name' => 'category_id',
-    'label' => "Category",
-    'type' => 'select2_nested',
-    'entity' => 'category', // the method that defines the relationship in your Model
+    'name'      => 'category_id',
+    'label'     => "Category",
+    'type'      => 'select2_nested',
+    'entity'    => 'category', // the method that defines the relationship in your Model
     'attribute' => 'name', // foreign key attribute that is shown to user
     
     // optional
-    'model' => "App\Models\Category", // force foreign key model
+    'model'     => "App\Models\Category", // force foreign key model
 ],
 ```
 
@@ -1333,12 +1341,12 @@ Display a select2 where the options are grouped by a second entity (like Categor
 
 ```php
 [   // select2_grouped
-    'label' => 'Articles grouped by categories',
-    'type' => 'select2_grouped', //https://github.com/Laravel-Backpack/CRUD/issues/502
-    'name' => 'article_id',
-    'entity' => 'article', // the method that defines the relationship in your Model
+    'label'     => 'Articles grouped by categories',
+    'type'      => 'select2_grouped', //https://github.com/Laravel-Backpack/CRUD/issues/502
+    'name'      => 'article_id',
+    'entity'    => 'article', // the method that defines the relationship in your Model
     'attribute' => 'title',
-    'group_by' => 'category', // the relationship to entity you want to use for grouping
+    'group_by'  => 'category', // the relationship to entity you want to use for grouping
     'group_by_attribute' => 'name', // the attribute on related model, that you want shown
     'group_by_relationship_back' => 'articles', // relationship from related model back to this model
 ],
@@ -1368,9 +1376,9 @@ Definition:
 
 ```php
 [   // select_and_order
-    'name' => 'featured',
+    'name'  => 'featured',
     'label' => "Featured",
-    'type' => 'select_and_order',
+    'type'  => 'select_and_order',
     'options' => [
         1 => "Option 1",
         2 => "Option 2"
@@ -1382,9 +1390,9 @@ Also possible:
 
 ```php
 [   // select_and_order
-    'name' => 'featured',
-    'label' => 'Featured',
-    'type' => 'select_and_order',
+    'name'    => 'featured',
+    'label'   => 'Featured',
+    'type'    => 'select_and_order',
     'options' => Product::get()->pluck('title','id')->toArray(),
 ]
 ```
@@ -1403,12 +1411,12 @@ Display a select with the values you want:
 
 ```php
 [   // select_from_array
-    'name' => 'template',
-    'label' => "Template",
-    'type' => 'select_from_array',
-    'options' => ['one' => 'One', 'two' => 'Two'],
+    'name'        => 'template',
+    'label'       => "Template",
+    'type'        => 'select_from_array',
+    'options'     => ['one' => 'One', 'two' => 'Two'],
     'allows_null' => false,
-    'default' => 'one',
+    'default'     => 'one',
     // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
 ],
 ```
@@ -1426,12 +1434,12 @@ Display a select2 with the values you want:
 
 ```php
 [   // select2_from_array
-    'name' => 'template',
-    'label' => "Template",
-    'type' => 'select2_from_array',
-    'options' => ['one' => 'One', 'two' => 'Two'],
+    'name'        => 'template',
+    'label'       => "Template",
+    'type'        => 'select2_from_array',
+    'options'     => ['one' => 'One', 'two' => 'Two'],
     'allows_null' => false,
-    'default' => 'one',
+    'default'     => 'one',
     // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
 ],
 ```
@@ -1447,33 +1455,33 @@ Input preview:
 
 Display a select2 that takes its values from an AJAX call.
 
-```
+```php
 [
     // 1-n relationship
-    'label' => "End", // Table column heading
-    'type' => "select2_from_ajax",
-    'name' => 'category_id', // the column that contains the ID of that connected entity
-    'entity' => 'category', // the method that defines the relationship in your Model
-    'attribute' => "name", // foreign key attribute that is shown to user
+    'label'       => "End", // Table column heading
+    'type'        => "select2_from_ajax",
+    'name'        => 'category_id', // the column that contains the ID of that connected entity
+    'entity'      => 'category', // the method that defines the relationship in your Model
+    'attribute'   => "name", // foreign key attribute that is shown to user
     'data_source' => url("api/category"), // url to controller search function (with /{id} should return model)
 
     // OPTIONAL
-    // 'placeholder' => "Select a category", // placeholder for the select
-    // 'minimum_input_length' => 2, // minimum characters to type before querying results
-    // 'model' => "App\Models\Category", // foreign key model
-    // 'dependencies'         => ['category'], // when a dependency changes, this select2 is reset to null
-    // 'method'                    => 'GET', // optional - HTTP method to use for the AJAX call (GET, POST)
-    // 'include_all_form_fields'  => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
+    // 'placeholder'             => "Select a category", // placeholder for the select
+    // 'minimum_input_length'    => 2, // minimum characters to type before querying results
+    // 'model'                   => "App\Models\Category", // foreign key model
+    // 'dependencies'            => ['category'], // when a dependency changes, this select2 is reset to null
+    // 'method'                  => 'GET', // optional - HTTP method to use for the AJAX call (GET, POST)
+    // 'include_all_form_fields' => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
  ]
 ```
 
 Of course, you also need to create a controller and routes for the data_source above. Here's an example:
 
-```
+```php
 Route::get('/api/category', 'Api\CategoryController@index');
 ```
 
-```
+```php
 <?php
 
 namespace App\Http\Controllers\Api;
@@ -1521,20 +1529,20 @@ Input preview:
 
 Display a select2 that takes its values from an AJAX call. Same as [select2_from_ajax](#section-select2_from_ajax) above, but allows for multiple items to be selected. The only difference in the field definition is the "pivot" attribute.
 
-```
+```php
 [
     // n-n relationship
-    'label' => "Cities", // Table column heading
-    'type' => "select2_from_ajax_multiple",
-    'name' => 'cities', // a unique identifier (usually the method that defines the relationship in your Model) 
-    'entity' => 'cities', // the method that defines the relationship in your Model
-    'attribute' => "name", // foreign key attribute that is shown to user
+    'label'       => "Cities", // Table column heading
+    'type'        => "select2_from_ajax_multiple",
+    'name'        => 'cities', // a unique identifier (usually the method that defines the relationship in your Model) 
+    'entity'      => 'cities', // the method that defines the relationship in your Model
+    'attribute'   => "name", // foreign key attribute that is shown to user
     'data_source' => url("api/cities"), // url to controller search function (with /{id} should return model)
-    'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
+    'pivot'       => true, // on create&update, do you need to add/delete pivot table entries?
     
     // OPTIONAL
-    'model' => "App\Models\City", // foreign key model
-    'placeholder' => "Select a city", // placeholder for the select
+    'model'                => "App\Models\City", // foreign key model
+    'placeholder'          => "Select a city", // placeholder for the select
     'minimum_input_length' => 2, // minimum characters to type before querying results
     // 'include_all_form_fields'  => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
  ]
@@ -1542,12 +1550,12 @@ Display a select2 that takes its values from an AJAX call. Same as [select2_from
 
 Of course, you also need to create a controller and routes for the data_source above. Here's an example:
 
-```
+```php
 Route::get('/api/category', 'Api\CityController@index');
 Route::get('/api/category/{id}', 'Api\CityController@show');
 ```
 
-```
+```php
 <?php
 
 namespace App\Http\Controllers\Api;
@@ -1606,15 +1614,15 @@ Show a [SimpleMDE markdown editor](https://simplemde.com/) to the user.
 
 ```php
 [   // SimpleMDE
-    'name' => 'description',
+    'name'  => 'description',
     'label' => 'Description',
-    'type' => 'simplemde',
+    'type'  => 'simplemde',
     // optional
     // 'simplemdeAttributes' => [
-    //   'promptURLs' => true,
-    //   'status' => false,
+    //   'promptURLs'   => true,
+    //   'status'       => false,
     //   'spellChecker' => false,
-    //   'forceSync' => true,
+    //   'forceSync'    => true,
     // ],
     // 'simplemdeAttributesRaw' => $some_json
 ],
@@ -1633,9 +1641,9 @@ Show a [Summernote wysiwyg editor](http://summernote.org/) to the user.
 
 ```php
 [   // Summernote
-    'name' => 'description',
+    'name'  => 'description',
     'label' => 'Description',
-    'type' => 'summernote',
+    'type'  => 'summernote',
     // 'options' => [], // easily pass parameters to the summernote JS initialization 
 ],
 ```
@@ -1653,13 +1661,13 @@ Show a table with multiple inputs per row and store the values as JSON in the da
 
 ```php
 [   // Table
-    'name' => 'options',
-    'label' => 'Options',
-    'type' => 'table',
+    'name'            => 'options',
+    'label'           => 'Options',
+    'type'            => 'table',
     'entity_singular' => 'option', // used on the "Add X" button
-    'columns' => [
-        'name' => 'Name',
-        'desc' => 'Description',
+    'columns'         => [
+        'name'  => 'Name',
+        'desc'  => 'Description',
         'price' => 'Price'
     ],
     'max' => 5, // maximum rows allowed in the table
@@ -1682,23 +1690,23 @@ The basic field type, all it needs is the two mandatory parameters: name and lab
 
 ```php
 [   // Text
-    'name' => 'title',
+    'name'  => 'title',
     'label' => "Title",
-    'type' => 'text',
+    'type'  => 'text',
 
     // optional
-    //'prefix' => '',
-    //'suffix' => '',
+    //'prefix'     => '',
+    //'suffix'     => '',
     //'default'    => 'some value', // default value
     //'hint'       => 'Some hint text', // helpful text, show up after input
     //'attributes' => [
        //'placeholder' => 'Some text when empty',
        //'class' => 'form-control some-class'
      //], // extra HTML attributes and values your input might need
-     //'wrapper' => [
+     //'wrapper'   => [
        //'class' => 'form-group col-md-12'
      //], // extra HTML attributes for the field wrapper - mostly for resizing fields 
-     //'readonly'=>'readonly',
+     //'readonly'  => 'readonly',
 ],
 ```
 
@@ -1717,9 +1725,9 @@ Show a textarea to the user.
 
 ```php
 [   // Textarea
-    'name' => 'description',
+    'name'  => 'description',
     'label' => 'Description',
-    'type' => 'textarea'
+    'type'  => 'textarea'
 ],
 ```
 
@@ -1734,9 +1742,9 @@ Input preview:
 
 ```php
 [   // Time
-    'name' => 'start',
+    'name'  => 'start',
     'label' => 'Start time',
-    'type' => 'time'
+    'type'  => 'time'
 ],
 ```
 
@@ -1749,9 +1757,9 @@ Show a wysiwyg (TinyMCE) to the user.
 
 ```php
 [   // TinyMCE
-    'name' => 'description',
+    'name'  => 'description',
     'label' => 'Description',
-    'type' => 'tinymce',
+    'type'  => 'tinymce',
     // optional overwrite of the configuration array
     // 'options' => [ 'selector' => 'textarea.tinymce',  'skin' => 'dick-light', 'plugins' => 'image,link,media,anchor' ],
 ],
@@ -1769,11 +1777,11 @@ Input preview:
 **Step 1.** Show a file input to the user:
 ```php
 [   // Upload
-    'name' => 'image',
-    'label' => 'Image',
-    'type' => 'upload',
-    'upload' => true,
-    'disk' => 'uploads', // if you store files in the /public folder, please ommit this; if you store them in /storage or S3, please specify it;
+    'name'      => 'image',
+    'label'     => 'Image',
+    'type'      => 'upload',
+    'upload'    => true,
+    'disk'      => 'uploads', // if you store files in the /public folder, please ommit this; if you store them in /storage or S3, please specify it;
     // optional:
     'temporary' => 10 // if using a service, such as S3, that requires you to make temporary URL's this will make a URL that is valid for the number of minutes specified
 ],
@@ -1846,11 +1854,11 @@ Shows a multiple file input to the user and stores the values as a JSON array in
 **Step 1.** Show a multiple file input to the user:
 ```php
 [   // Upload
-    'name' => 'photos',
-    'label' => 'Photos',
-    'type' => 'upload_multiple',
-    'upload' => true,
-    'disk' => 'uploads', // if you store files in the /public folder, please ommit this; if you store them in /storage or S3, please specify it;
+    'name'      => 'photos',
+    'label'     => 'Photos',
+    'type'      => 'upload_multiple',
+    'upload'    => true,
+    'disk'      => 'uploads', // if you store files in the /public folder, please ommit this; if you store them in /storage or S3, please specify it;
     // optional:
     'temporary' => 10 // if using a service, such as S3, that requires you to make temporary URL's this will make a URL that is valid for the number of minutes specified
 ],
@@ -1925,9 +1933,9 @@ Input preview:
 
 ```php
 [   // URL
-    'name' => 'link',
+    'name'  => 'link',
     'label' => 'Link to video file',
-    'type' => 'url'
+    'type'  => 'url'
 ],
 ```
 
@@ -1941,9 +1949,9 @@ Allow the user to paste a YouTube/Vimeo link. That will get the video informatio
 Field definition:
 ```php
 [   // URL
-    'name' => 'video',
-    'label' => 'Link to video file on YouTube or Vimeo',
-    'type' => 'video',
+    'name'            => 'video',
+    'label'           => 'Link to video file on YouTube or Vimeo',
+    'type'            => 'video',
     'youtube_api_key' => 'AIzaSycLRoVwovRmbIf_BH3X12IcTCudAErRlCE',
 ],
 ```
@@ -1988,9 +1996,9 @@ Load a custom view in the form.
 
 ```php
 [   // Week
-    'name' => 'first_week',
+    'name'  => 'first_week',
     'label' => 'First week',
-    'type' => 'week'
+    'type'  => 'week'
 ],
 ```
 
@@ -2007,9 +2015,9 @@ Show a wysiwyg (CKEditor) to the user.
 
 ```php
 [   // WYSIWYG Editor
-    'name' => 'description',
+    'name'  => 'description',
     'label' => 'Description',
-    'type' => 'wysiwyg'
+    'type'  => 'wysiwyg'
 ],
 ```
 
@@ -2031,9 +2039,9 @@ Your field definition will be something like:
 
 ```php
 [   // Custom Field
-    'name' => 'address',
+    'name'  => 'address',
     'label' => 'Home address',
-    'type' => 'address'
+    'type'  => 'address'
     /// 'view_namespace' => 'yourpackage' // use a custom namespace of your package to load views within a custom view folder.
 ]);
 ```

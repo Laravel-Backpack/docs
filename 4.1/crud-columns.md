@@ -89,9 +89,9 @@ $this->crud->addColumn()->makeFirstColumn();
 Enumerate an array stored in the db column as JSON.
 ```php
 [
-   'name' => 'options', // The db column name
+   'name'  => 'options', // The db column name
    'label' => 'Options', // Table column heading
-   'type' => 'array'
+   'type'  => 'array'
 ],
 ```
 
@@ -104,9 +104,9 @@ Count the items in an array stored in the db column as JSON.
 
 ```php
 [
-   'name' => 'options', // The db column name
+   'name'  => 'options', // The db column name
    'label' => 'Options', // Table column heading
-   'type' => 'array_count',
+   'type'  => 'array_count',
    // 'suffix' => 'options', // if you want it to show "2 options" instead of "2 items"
 ],
 ```
@@ -120,9 +120,9 @@ Show Yes/No (or custom text) instead of 1/0.
 
 ```php
 [
-    'name' => 'name',
+    'name'  => 'name',
     'label' => 'Status',
-    'type' => 'boolean',
+    'type'  => 'boolean',
     // optionally override the Yes/No texts
     // 'options' => [0 => 'Active', 1 => 'Inactive']
 ],
@@ -136,9 +136,9 @@ Show Yes/No (or custom text) instead of 1/0.
 Show a favicon with a checked or unchecked box, depending on the given boolean.
 ```php
 [
-   'name' => 'featured', // The db column name
+   'name'  => 'featured', // The db column name
    'label' => 'Featured', // Table column heading
-   'type' => 'check'
+   'type'  => 'check'
 ],
 ```
 
@@ -158,12 +158,12 @@ $this->crud->enableBulkActions();
 Verbose:
 ```php
 $this->crud->addColumn([
-    'type' => 'checkbox',
-    'name' => 'bulk_actions',
-    'label' => ' <input type="checkbox" class="crud_bulk_actions_main_checkbox" style="width: 16px; height: 16px;" />',
-    'priority' => 1,
-    'searchLogic' => false,
-    'orderable' => false,
+    'type'           => 'checkbox',
+    'name'           => 'bulk_actions',
+    'label'          => ' <input type="checkbox" class="crud_bulk_actions_main_checkbox" style="width: 16px; height: 16px;" />',
+    'priority'       => 1,
+    'searchLogic'    => false,
+    'orderable'      => false,
     'visibleInModal' => false,
 ])->makeFirstColumn();
 ```
@@ -178,9 +178,9 @@ Show custom HTML based on a closure you specify in your EntityCrudController. Pl
 
 ```php
 [
-    'name' => 'created_at',
-    'label' => 'Created At',
-    'type' => 'closure',
+    'name'     => 'created_at',
+    'label'    => 'Created At',
+    'type'     => 'closure',
     'function' => function($entry) {
         return 'Created on '.$entry->created_at;
     }
@@ -197,9 +197,9 @@ The date column will show a localized date in the default date format (as specif
 
 ```php
 [
-   'name' => 'name', // The db column name
-   'label' => 'Tag Name', // Table column heading
-   'type' => 'date',
+    'name'  => 'name', // The db column name
+    'label' => 'Tag Name', // Table column heading
+    'type'  => 'date',
     // 'format' => 'l j F Y', // use something else than the base.default_date_format config value
 ],
 ```
@@ -214,9 +214,9 @@ The date column will show a localized datetime in the default datetime format (a
 
 ```php
 [
-   'name' => 'name', // The db column name
-   'label' => 'Tag Name', // Table column heading
-   'type' => 'datetime',
+    'name'  => 'name', // The db column name
+    'label' => 'Tag Name', // Table column heading
+    'type'  => 'datetime',
     // 'format' => 'l j F Y H:i:s', // use something else than the base.default_datetime_format config value
 ],
 ```
@@ -229,9 +229,9 @@ The date column will show a localized datetime in the default datetime format (a
 The email column will output the email address in the database (truncated to 254 characters if needed), with a ```mailto:``` link towards the full email. Its definition is:
 ```php
 [
-   'name' => 'email', // The db column name
+   'name'  => 'email', // The db column name
    'label' => 'Email Address', // Table column heading
-   'type' => 'email',
+   'type'  => 'email',
    // 'limit' => 500, // if you want to truncate the text to a different number of characters
 ],
 ```
@@ -246,15 +246,15 @@ Show a thumbnail image.
 
 ```php
 [
-   'name' => 'profile_image', // The db column name
-   'label' => 'Profile image', // Table column heading
-   'type' => 'image',
+    'name'      => 'profile_image', // The db column name
+    'label'     => 'Profile image', // Table column heading
+    'type'      => 'image',
     // 'prefix' => 'folder/subfolder/',
     // image from a different disk (like s3 bucket)
-    // 'disk' => 'disk-name', 
+    // 'disk'   => 'disk-name', 
     // optional width/height if 25px is not ok with you
     // 'height' => '30px',
-    // 'width' => '30px',
+    // 'width'  => '30px',
 ],
 ```
 
@@ -268,9 +268,9 @@ Convert a markdown string to HTML, using ```Illuminate\Mail\Markdown```. Since M
 
 ```php
 [
-   'name' => 'text', // The db column name
+   'name'  => 'text', // The db column name
    'label' => 'Text', // Table column heading
-   'type' => 'markdown',
+   'type'  => 'markdown',
 ],
 ```
 
@@ -284,9 +284,9 @@ The model_function column will output a function on your main model. Its definit
 ```php
 [
    // run a function on the CRUD model and show its return value
-   'name' => 'url',
+   'name'  => 'url',
    'label' => 'URL', // Table column heading
-   'type' => 'model_function',
+   'type'  => 'model_function',
    'function_name' => 'getSlugWithLink', // the method in your Model
    // 'function_parameters' => [$one, $two], // pass one/more parameters to that method
    // 'limit' => 100, // Limit the number of characters shown
@@ -310,9 +310,9 @@ public function getSlugWithLink() {
 If the function you're trying to use returns an object, not a string, you can use the model_function_attribute column, which will output the attribute on the function result. Its definition is:
 ```php
 [
-   'name' => 'url',
+   'name'  => 'url',
    'label' => 'URL', // Table column heading
-   'type' => 'model_function_attribute',
+   'type'  => 'model_function_attribute',
    'function_name' => 'getSlugWithLink', // the method in your Model
    // 'function_parameters' => [$one, $two], // pass one/more parameters to that method
    'attribute' => 'route',
@@ -332,9 +332,9 @@ Enumerate the values in a multidimensional array, stored in the db as JSON.
 
 ```php
 [
-   'name' => 'options', // The db column name
-   'label' => 'Options', // Table column heading
-   'type' => 'multidimensional_array',
+   'name'        => 'options', // The db column name
+   'label'       => 'Options', // Table column heading
+   'type'        => 'multidimensional_array',
    'visible_key' => 'name' // The key to the attribute you would like shown in the enumeration
 ],
 ```
@@ -348,13 +348,13 @@ Enumerate the values in a multidimensional array, stored in the db as JSON.
 The text column will just output the number value of a db column (or model attribute). Its definition is:
 ```php
 [
-   'name' => 'name', // The db column name
+   'name'  => 'name', // The db column name
    'label' => 'Tag Name', // Table column heading
-   'type' => 'number',
-   // 'prefix' => '$',
-   // 'suffix' => ' EUR',
-   // 'decimals' => 2,
-   // 'dec_point' => ',',
+   'type'  => 'number',
+   // 'prefix'        => '$',
+   // 'suffix'        => ' EUR',
+   // 'decimals'      => 2,
+   // 'dec_point'     => ',',
    // 'thousands_sep' => '.',
    // decimals, dec_point and thousands_sep are used to format the number;
    // for details on how they work check out PHP's number_format() method, they're passed directly to it;
@@ -370,9 +370,9 @@ The text column will just output the number value of a db column (or model attri
 The phone column will output the phone number from the database (truncated to 254 characters if needed), with a ```tel:``` link so that users on mobile can click them to call (or with Skype or similar browser extensions). Its definition is:
 ```php
 [
-   'name' => 'phone', // The db column name
-   'label' => 'Phone number', // Table column heading
-   'type' => 'phone',
+   'name'     => 'phone', // The db column name
+   'label'    => 'Phone number', // Table column heading
+   'type'     => 'phone',
    // 'limit' => 10, // if you want to truncate the phone number to a different number of characters
 ],
 ```
@@ -391,9 +391,9 @@ Show a pretty text instead of the database value, according to an associative ar
     'label'       => 'Status',
     'type'        => 'radio',
     'options'     => [
-                        0 => 'Draft',
-                        1 => 'Published'
-                    ]
+        0 => 'Draft',
+        1 => 'Published'
+    ]
 ],
 ```
 
@@ -413,13 +413,13 @@ Output the related entries, no matter the relationship:
 Its name and definition is the same as for the relationship *field type*:
 ```php
 [  // any type of relationship
-   'name' => 'tags', // name of relationship method in the model
-   'type' => 'relationship',
-   'label' => 'Tags', // Table column heading
+   'name'         => 'tags', // name of relationship method in the model
+   'type'         => 'relationship',
+   'label'        => 'Tags', // Table column heading
    // OPTIONAL
-   // 'entity' => 'tags', // the method that defines the relationship in your Model
+   // 'entity'    => 'tags', // the method that defines the relationship in your Model
    // 'attribute' => 'name', // foreign key attribute that is shown to user
-   // 'model' => App\Models\Category::class, // foreign key model
+   // 'model'     => App\Models\Category::class, // foreign key model
 ],
 ```
 
@@ -434,9 +434,9 @@ Shows the number of items that are related to the current entry, for a particula
 
 ```php
 [  // non-relationship count
-   'name' => 'tags', // name of relationship method in the model
-   'type' => 'relationship_count', 
-   'label' => 'Tags', // Table column heading
+   'name'      => 'tags', // name of relationship method in the model
+   'type'      => 'relationship_count', 
+   'label'     => 'Tags', // Table column heading
    // OPTIONAL
    // 'suffix' => ' tags', // to show "123 tags" instead of "123 items"
 ],
@@ -450,11 +450,11 @@ Shows the number of items that are related to the current entry, for a particula
 
 Show the row number (index). The number depends strictly on the result set (x records per page, pagination, search, filters, etc). It does not get any information from the database. It is not searchable. It is only useful to show the current row number.
 
-```
+```php
 $this->crud->addColumn([
-    'name' => 'row_number',
-    'type' => 'row_number',
-    'label' => '#',
+    'name'      => 'row_number',
+    'type'      => 'row_number',
+    'label'     => '#',
     'orderable' => false,
 ])->makeFirstColumn();
 ```
@@ -474,20 +474,20 @@ Notes:
 The text column will just output the text value of a db column (or model attribute). Its definition is:
 ```php
 [
-   'name' => 'name', // The db column name
-   'label' => 'Tag Name', // Table column heading
+   'name'      => 'name', // The db column name
+   'label'     => 'Tag Name', // Table column heading
    // 'prefix' => 'Name: ',
    // 'suffix' => '(user)',
-   // 'limit' => 120, // character limit; default is 50;
+   // 'limit'  => 120, // character limit; default is 50;
 ],
 ```
 
 **Advanced use case:** The ```text``` column type can also show the attribute of a 1-1 relationship. If you have a relationship (like ```parent()```) set up in your Model, you can use relationship and attibute in the ```name```, using dot notation:
 ```php
 [
-    'name' => 'parent.title',
+    'name'  => 'parent.title',
     'label' => 'Title',
-    'type' => 'text'
+    'type'  => 'text'
 ],
 ```
 
@@ -500,12 +500,12 @@ The select column will output its connected entity. Used for relationships like 
 ```php
 [
    // 1-n relationship
-   'label' => 'Parent', // Table column heading
-   'type' => 'select',
-   'name' => 'parent_id', // the column that contains the ID of that connected entity;
-   'entity' => 'parent', // the method that defines the relationship in your Model
+   'label'     => 'Parent', // Table column heading
+   'type'      => 'select',
+   'name'      => 'parent_id', // the column that contains the ID of that connected entity;
+   'entity'    => 'parent', // the method that defines the relationship in your Model
    'attribute' => 'name', // foreign key attribute that is shown to user
-   'model' => "App\Models\Category", // foreign key model
+   'model'     => "App\Models\Category", // foreign key model
 ],
 ```
 
@@ -519,9 +519,9 @@ Show a particular text depending on the value of the attribute.
 ```php
 [
     // select_from_array
-    'name' => 'status',
-    'label' => 'Status',
-    'type' => 'select_from_array',
+    'name'    => 'status',
+    'label'   => 'Status',
+    'type'    => 'select_from_array',
     'options' => [‘draft’ => ‘Draft (invisible)’, ‘published’ => ‘Published (visible)’],
 ],
 ```
@@ -535,12 +535,12 @@ The select_multiple column will output a comma separated list of its connected e
 ```php
 [
    // n-n relationship (with pivot table)
-   'label' => 'Tags', // Table column heading
-   'type' => 'select_multiple',
-   'name' => 'tags', // the method that defines the relationship in your Model
-   'entity' => 'tags', // the method that defines the relationship in your Model
+   'label'     => 'Tags', // Table column heading
+   'type'      => 'select_multiple',
+   'name'      => 'tags', // the method that defines the relationship in your Model
+   'entity'    => 'tags', // the method that defines the relationship in your Model
    'attribute' => 'name', // foreign key attribute that is shown to user
-   'model' => 'App\Models\Tag', // foreign key model
+   'model'     => 'App\Models\Tag', // foreign key model
 ],
 ```
 
@@ -556,14 +556,14 @@ Its definition is very similar to the [table *field type*](/docs/{{version}}/cru
 
 ```php
 [
-    'name' => 'features', 
+    'name'  => 'features', 
     'label' => 'Features', 
-    'type' => 'table', 
+    'type'  => 'table', 
     'columns' => [
-        'name' => 'Name',
+        'name'        => 'Name',
         'description' => 'Description',
-        'price' => 'Price',
-        'obs' => 'Observations'
+        'price'       => 'Price',
+        'obs'         => 'Observations'
     ]
 ],
 ```
@@ -580,9 +580,9 @@ Its definition is very similar to the [upload_multiple *field type*](/docs/{{ver
 
 ```php
 [
-    'name' => 'photos',
-    'label' => 'Photos',
-    'type' => 'upload_multiple',
+    'name'    => 'photos',
+    'label'   => 'Photos',
+    'type'    => 'upload_multiple',
     // 'disk' => 'public', // filesystem disk if you're using S3 or something custom
 ],
 ```
@@ -597,9 +597,9 @@ Display a small screenshot for a Youtube or Vimeo video, stored in the database 
 
 ```php
 [
-   'name' => 'name', // The db column name
+   'name'  => 'name', // The db column name
    'label' => 'Tag Name', // Table column heading
-   'type' => 'video',
+   'type'  => 'video',
 ],
 ```
 
@@ -612,10 +612,10 @@ Display any custom column type you want. Usually used by Backpack package develo
 
 ```php
 [
-   'name' => 'name', // The db column name
+   'name'  => 'name', // The db column name
    'label' => 'Tag Name', // Table column heading
-   'type' => 'view',
-   'view' => 'package::columns.column_type_name', // or path to blade file
+   'type'  => 'view',
+   'view'  => 'package::columns.column_type_name', // or path to blade file
 ],
 ```
 
@@ -664,8 +664,8 @@ If your column points to something atypical (not a value that is stored as plain
 ```php
 // column with custom search logic
 $this->crud->addColumn([
-    'name' => 'slug_or_title',
-    'label' => 'Title',
+    'name'        => 'slug_or_title',
+    'label'       => 'Title',
     'searchLogic' => function ($query, $column, $searchTerm) {
         $query->orWhere('title', 'like', '%'.$searchTerm.'%');
     }
@@ -674,12 +674,12 @@ $this->crud->addColumn([
 
 // 1-n relationship column with custom search logic
 $this->crud->addColumn([
-    'label' => 'Cruise Ship',
-    'type' => 'select',
-    'name' => 'cruise_ship_id',
-    'entity' => 'cruise_ship',
-    'attribute' => 'cruise_ship_name_date', // combined name & date column
-    'model' => 'App\Models\CruiseShip',
+    'label'       => 'Cruise Ship',
+    'type'        => 'select',
+    'name'        => 'cruise_ship_id',
+    'entity'      => 'cruise_ship',
+    'attribute'   => 'cruise_ship_name_date', // combined name & date column
+    'model'       => 'App\Models\CruiseShip',
     'searchLogic' => function ($query, $column, $searchTerm) {
         $query->orWhereHas('cruise_ship', function ($q) use ($column, $searchTerm) {
             $q->where('name', 'like', '%'.$searchTerm.'%')
@@ -691,15 +691,15 @@ $this->crud->addColumn([
 
 // column that doesn't need to be searchable
 $this->crud->addColumn([
-    'name' => 'slug_or_title',
-    'label' => 'Title',
+    'name'        => 'slug_or_title',
+    'label'       => 'Title',
     'searchLogic' => false
 ]);
 
 // column whose search logic should behave like it were a 'text' column type
 $this->crud->addColumn([
-    'name' => 'slug_or_title',
-    'label' => 'Title',
+    'name'        => 'slug_or_title',
+    'label'       => 'Title',
     'searchLogic' => 'text'
 ]);
 ```
@@ -714,12 +714,12 @@ For example, to order Articles not by its Category ID (as default, but by the Ca
 ```php
 $this->crud->addColumn([
     // Select
-   'label' => 'Category',
-   'type' => 'select',
-   'name' => 'category_id', // the db column for the foreign key
-   'entity' => 'category', // the method that defines the relationship in your Model
-   'attribute' => 'name', // foreign key attribute that is shown to user
-   'orderable' => true,
+   'label'      => 'Category',
+   'type'       => 'select',
+   'name'       => 'category_id', // the db column for the foreign key
+   'entity'     => 'category', // the method that defines the relationship in your Model
+   'attribute'  => 'name', // foreign key attribute that is shown to user
+   'orderable'  => true,
    'orderLogic' => function ($query, $column, $columnDirection) {
         return $query->leftJoin('categories', 'categories.id', '=', 'articles.select')
             ->orderBy('categories.name', $columnDirection)->select('articles.*');
@@ -738,10 +738,10 @@ For example, you can wrap the text in an anchor element, to point to that Articl
 ```php
 $this->crud->addColumn([
   // Select
-  'label' => 'Category',
-  'type' => 'select',
-  'name' => 'category_id', // the db column for the foreign key
-  'entity' => 'category', // the method that defines the relationship in your Model
+  'label'     => 'Category',
+  'type'      => 'select',
+  'name'      => 'category_id', // the db column for the foreign key
+  'entity'    => 'category', // the method that defines the relationship in your Model
   'attribute' => 'name', // foreign key attribute that is shown to user
   'wrapper'   => [
       // 'element' => 'a', // the element will default to "a" so you can skip it here
@@ -763,9 +763,9 @@ Let's take another example, and wrap a boolean column into a green/red span:
 
 ```php
 $this->crud->addColumn([
-    'name'  => 'published',
-    'label' => 'Published',
-    'type'  => 'boolean',
+    'name'    => 'published',
+    'label'   => 'Published',
+    'type'    => 'boolean',
     'options' => [0 => 'No', 1 => 'Yes'], // optional
     'wrapper' => [
         'element' => 'span',
@@ -788,11 +788,11 @@ Starting with Backpack\CRUD 3.5.0, you can choose to show/hide column in differe
 
 ```php
 $this->crud->addColumn([
-   'name' => 'description',
-   'visibleInTable' => false, // no point, since it's a large text
-   'visibleInModal' => false, // would make the modal too big
+   'name'            => 'description',
+   'visibleInTable'  => false, // no point, since it's a large text
+   'visibleInModal'  => false, // would make the modal too big
    'visibleInExport' => false, // not important enough
-   'visibleInShow' => true, // sure, why not
+   'visibleInShow'   => true, // sure, why not
 ]);
 ```
 
@@ -808,23 +808,23 @@ Starting with Backpack\CRUD 3.3 (Nov 2017), you can have multiple columns with t
 ```php
 // column that shows the parent's first name
 $this->crud->addColumn([
-   'label' => 'Parent First Name', // Table column heading
-   'type' => 'select',
-   'name' => 'parent_id', // the column that contains the ID of that connected entity;
-   'entity' => 'parent', // the method that defines the relationship in your Model
+   'label'     => 'Parent First Name', // Table column heading
+   'type'      => 'select',
+   'name'      => 'parent_id', // the column that contains the ID of that connected entity;
+   'entity'    => 'parent', // the method that defines the relationship in your Model
    'attribute' => 'first_name', // foreign key attribute that is shown to user
-   'model' => 'App\Models\User', // foreign key model
+   'model'     => 'App\Models\User', // foreign key model
 ]);
 
 // column that shows the parent's last name
 $this->crud->addColumn([
-   'label' => 'Parent Last Name', // Table column heading
-   'type' => 'select',
-   'name' => 'parent_id', // the column that contains the ID of that connected entity;
-   'key' => 'parent_last_name', // the column that contains the ID of that connected entity;
-   'entity' => 'parent', // the method that defines the relationship in your Model
+   'label'     => 'Parent Last Name', // Table column heading
+   'type'      => 'select',
+   'name'      => 'parent_id', // the column that contains the ID of that connected entity;
+   'key'       => 'parent_last_name', // the column that contains the ID of that connected entity;
+   'entity'    => 'parent', // the method that defines the relationship in your Model
    'attribute' => 'last_name', // foreign key attribute that is shown to user
-   'model' => 'App\Models\User', // foreign key model
+   'model'     => 'App\Models\User', // foreign key model
 ]);
 ```
 
@@ -839,15 +839,15 @@ When giving priorities, lower is better. So a column with priority 4 will be hid
 
 ```php
 $this->crud->addColumn([
-    'name' => 'details',
-    'type' => 'text',
-    'label' => 'Details',
+    'name'     => 'details',
+    'type'     => 'text',
+    'label'    => 'Details',
     'priority' => 2,
 ]);
 $this->crud->addColumn([
-    'name' => 'obs',
-    'type' => 'text',
-    'label' => 'Observations',
+    'name'     => 'obs',
+    'type'     => 'text',
+    'label'    => 'Observations',
     'priority' => 3,
 ]);
 ```

@@ -37,9 +37,9 @@ Here's a simple example, with comments that explain what we're doing:
 ```php
 // add a "simple" filter called Draft
 $this->crud->addFilter([ 
-  'type' => 'simple',
-  'name' => 'draft',
-  'label'=> 'Draft'
+  'type'  => 'simple',
+  'name'  => 'draft',
+  'label' => 'Draft'
 ],
 false, // the simple filter has no values, just the "Draft" label specified above
 function() { // if the filter is active (the GET parameter "draft" exits)
@@ -69,9 +69,9 @@ Only shows a label and can be toggled on/off. Useful for things like active/inac
 ```php
 // simple filter
 $this->crud->addFilter([
-  'type' => 'simple',
-  'name' => 'active',
-  'label'=> 'Active'
+  'type'  => 'simple',
+  'name'  => 'active',
+  'label' => 'Active'
 ], 
 false, 
 function() { // if the filter is active
@@ -91,9 +91,9 @@ Shows a text input. Most useful for letting the user filter through information 
 ```php
 // simple filter
 $this->crud->addFilter([
-  'type' => 'text',
-  'name' => 'description',
-  'label'=> 'Description'
+  'type'  => 'text',
+  'name'  => 'description',
+  'label' => 'Description'
 ], 
 false, 
 function($value) { // if the filter is active
@@ -159,9 +159,9 @@ Shows a list of elements (that you provide) in a dropdown. The user can only sel
 ```php
 // dropdown filter
 $this->crud->addFilter([
-  'name' => 'status',
-  'type' => 'dropdown',
-  'label'=> 'Status'
+  'name'  => 'status',
+  'type'  => 'dropdown',
+  'label' => 'Status'
 ], [
   1 => 'In stock',
   2 => 'In provider stock',
@@ -213,9 +213,9 @@ Shows a select2 and allows the user to select one or more items from the list or
 ```php
 // select2_multiple filter
 $this->crud->addFilter([
-  'name' => 'status',
-  'type' => 'select2_multiple',
-  'label'=> 'Status'
+  'name'  => 'status',
+  'type'  => 'select2_multiple',
+  'label' => 'Status'
 ], function() {
     return [
       1 => 'In stock',
@@ -261,9 +261,9 @@ public function categoryOptions(Request $request) {
 ```php
 // select2_ajax filter
 $this->crud->addFilter([
-  'name' => 'category_id',
-  'type' => 'select2_ajax',
-  'label'=> 'Category',
+  'name'        => 'category_id',
+  'type'        => 'select2_ajax',
+  'label'       => 'Category',
   'placeholder' => 'Pick a category'
 ],
 url('admin/test/ajax-category-options'), // the ajax route
@@ -283,11 +283,11 @@ Shows two number inputs, for min and max.
 
 ```php
 $this->crud->addFilter([
-  'name' => 'number',
-  'type' => 'range',
-  'label'=> 'Range',
+  'name'       => 'number',
+  'type'       => 'range',
+  'label'      => 'Range',
   'label_from' => 'min value',
-  'label_to' => 'max value'
+  'label_to'   => 'max value'
 ],
 false,
 function($value) { // if the filter is active
@@ -311,10 +311,10 @@ Display any custom column filter you want. Usually used by Backpack package deve
 ```php
 // custom filter view
 $this->crud->addFilter([
-  'name' => 'category_id',
-  'type' => 'view',
-  'view' => 'package::columns.column_type_name', // or path to blade file
-  'label'=> 'Category',
+  'name'        => 'category_id',
+  'type'        => 'view',
+  'view'        => 'package::columns.column_type_name', // or path to blade file
+  'label'       => 'Category',
   'placeholder' => 'Pick a category',
 ],
 false, 
@@ -424,9 +424,9 @@ Use a dropdown to filter by the values of a MySQL ENUM column:
 ```php
 // select2 filter
 $this->crud->addFilter([
-  'name' => 'published',
-  'type' => 'select2',
-  'label'=> 'Published'
+  'name'  => 'published',
+  'type'  => 'select2',
+  'label' => 'Published'
 ], function() {
     return \App\Models\Test::getEnumValuesAsAssociativeArray('published');
 }, function($value) { // if the filter is active
@@ -438,9 +438,9 @@ Use a select2 to filter by a 1-n relationship:
 ```php
 // select2 filter
 $this->crud->addFilter([
-  'name' => 'category_id',
-  'type' => 'select2',
-  'label'=> 'Category'
+  'name'  => 'category_id',
+  'type'  => 'select2',
+  'label' => 'Category'
 ], function() {
     return \App\Models\Category::all()->pluck('name', 'id')->toArray();
 }, function($value) { // if the filter is active
@@ -452,9 +452,9 @@ Use a select2_multiple to filter Products by an n-n relationship:
 ```php
 // select2_multiple filter
 $this->crud->addFilter([
-  'name' => 'tags',
-  'type' => 'select2_multiple',
-  'label'=> 'Tags'
+  'name'  => 'tags',
+  'type'  => 'select2_multiple',
+  'label' => 'Tags'
 ], function() { // the options that show up in the select2
     return Product::all()->pluck('name', 'id')->toArray();
 }, function($values) { // if the filter is active
@@ -470,9 +470,9 @@ Use a simple filter to add a scope if the filter is active:
 ```php
 // add a "simple" filter called Published 
 $this->crud->addFilter([
-  'type' => 'simple',
-  'name' => 'published',
-  'label'=> 'Published'
+  'type'  => 'simple',
+  'name'  => 'published',
+  'label' => 'Published'
 ], 
 false,
 function() { // if the filter is active (the GET parameter "published" exits)
@@ -483,9 +483,9 @@ function() { // if the filter is active (the GET parameter "published" exits)
 Use a simple filter to show the softDeleted items (trashed):
 ```php
 $this->crud->addFilter([
-  'type' => 'simple',
-  'name' => 'trashed',
-  'label'=> 'Trashed'
+  'type'  => 'simple',
+  'name'  => 'trashed',
+  'label' => 'Trashed'
 ],
 false,
 function($values) { // if the filter is active

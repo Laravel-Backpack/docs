@@ -123,12 +123,12 @@ Shows a Bootstrap card, with the heading and body you specify. You can customize
 
 ```php
 [
-  'type' => 'card',
+  'type'       => 'card',
   // 'wrapper' => ['class' => 'col-sm-6 col-md-4'], // optional
-  // 'class' => 'card bg-dark text-white', // optional
+  // 'class'   => 'card bg-dark text-white', // optional
   'content' => [
       'header' => 'Some card title', // optional
-      'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non mi nec orci euismod venenatis. Integer quis sapien et diam facilisis facilisis ultricies quis justo. Phasellus sem <b>turpis</b>, ornare quis aliquet ut, volutpat et lectus. Aliquam a egestas elit. <i>Nulla posuere</i>, sem et porttitor mollis, massa nibh sagittis nibh, id porttitor nibh turpis sed arcu.',
+      'body'   => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non mi nec orci euismod venenatis. Integer quis sapien et diam facilisis facilisis ultricies quis justo. Phasellus sem <b>turpis</b>, ornare quis aliquet ut, volutpat et lectus. Aliquam a egestas elit. <i>Nulla posuere</i>, sem et porttitor mollis, massa nibh sagittis nibh, id porttitor nibh turpis sed arcu.',
   ]
 ]
 ```
@@ -171,16 +171,16 @@ This will create:
 **Step 3.** Add the widget that points to that ChartController you just created:
 ```php
 Widget::add([ 
-    'type' => 'chart',
+    'type'       => 'chart',
     'controller' => \App\Http\Controllers\Admin\Charts\WeeklyUsersChartController::class,
 
     // OPTIONALS
     
-    // 'class' => 'card mb-2',
+    // 'class'   => 'card mb-2',
     // 'wrapper' => ['class'=> 'col-md-6'] ,
     // 'content' => [
          // 'header' => 'New Users', 
-         // 'body' => 'This chart should make it obvious how many new users have signed up in the past 7 days.<br><br>',
+         // 'body'   => 'This chart should make it obvious how many new users have signed up in the past 7 days.<br><br>',
     // ],
 ]);
 ``` 
@@ -351,8 +351,8 @@ Allows you to include multiple widgets in a div attributes of your choosing. For
 
 ```php
 [
-  'type' => 'div',
-  'class' => 'row',
+  'type'    => 'div',
+  'class'   => 'row',
   'content' => [ // widgets 
       [ 'type' => 'card', 'content' => ['body' => 'One'] ],
       [ 'type' => 'card', 'content' => ['body' => 'Two'] ],
@@ -419,13 +419,13 @@ Shows a white card to signify the progress towards a goal. You can customize the
 
 ```php
 [
-    'type'        => 'progress_white',
-    'class'       => 'card mb-2',
-    'value'       => '11.456',
-    'description' => 'Registered users.',
-    'progress'    => 57, // integer
+    'type'          => 'progress_white',
+    'class'         => 'card mb-2',
+    'value'         => '11.456',
+    'description'   => 'Registered users.',
+    'progress'      => 57, // integer
     'progressClass' => 'progress-bar bg-primary',
-    'hint'        => '8544 more until next milestone.',
+    'hint'          => '8544 more until next milestone.',
 ]
 ```
 
@@ -485,7 +485,7 @@ You can then use the ```well``` widget in a Controller or View:
 
 @php
     Widget::add([
-        'type' => 'well',
+        'type'    => 'well',
         'wrapper' => ['class' => 'col-sm-12'],
         'content' => 'This text will be in a div with the class "<i>well</i>".',
     ]);
@@ -549,13 +549,13 @@ Widget::add($widget_definition_array)->from('package::widgets');
 
 // using the widget definition array, specify its 'viewNamespace'
 Widget::add([
-  'type' => 'card',
+  'type'          => 'card',
   'viewNamespace' => 'package::widgets',
-  'wrapper' => ['class' => 'col-sm-6 col-md-4'],
-  'class' => 'card text-white bg-primary text-center',
-  'content' => [
-    // 'header' => 'Another card title',
-    'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non mi nec orci euismod venenatis. Integer quis sapien et diam facilisis facilisis ultricies quis justo. Phasellus sem <b>turpis</b>, ornare quis aliquet ut, volutpat et lectus. Aliquam a egestas elit.',
+  'wrapper'       => ['class' => 'col-sm-6 col-md-4'],
+  'class'         => 'card text-white bg-primary text-center',
+  'content'       => [
+  // 'header'     => 'Another card title',
+  'body'          => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non mi nec orci euismod venenatis. Integer quis sapien et diam facilisis facilisis ultricies quis justo. Phasellus sem <b>turpis</b>, ornare quis aliquet ut, volutpat et lectus. Aliquam a egestas elit.',
   ],
 ]);
 
