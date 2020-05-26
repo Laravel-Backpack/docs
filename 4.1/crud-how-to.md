@@ -356,14 +356,3 @@ $this->app->extend('crud', function () {
 
 Details and implementation [here](https://github.com/Laravel-Backpack/CRUD/pull/1990).
 
-
-<a name="customize-translations"></a>
-## Customize the translated strings (aka overwrite the language files)
-
-Backpack uses Laravel translations across the admin panel, to easily translate strings (ex: `{{ trans('backpack::base.already_have_an_account') }}`). If you don't like a translation, you're welcome to submit a PR to correct it for all users of your language. If you only want to correct it inside your app, or need to add a new translation string, you can *create a new file in your `resources/lang/vendor/backpack/en/base.php`* (similarly, `crud.php` or any other file). Any language strings that are inside your app, in the right folder, will be preferred over the ones in the package.
-
-Alternatively, if you need to customize A LOT of strings, you can use: 
-```bash
-php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag="lang"
-```
-which will publish ALL lang files, for ALL languages, inside `resources/lang/vendor/backpack`. But it's highly unlikely you need to modify all of them. In case you do publish all languages, please delete the ones you didn't change. That way, you only keep what's custom in your custom files, and it'll be easier to upgrade those files in the future.
