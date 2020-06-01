@@ -65,6 +65,15 @@ $this->crud->setColumnsDetails(['column_1', 'column_2'], ['attribute' => 'value'
 
 // forget what columns have been previously defined, only use these columns
 $this->crud->setColumns([$column_definition_array, $another_column_definition_array]);
+
+// -------------------
+// New in Backpack 4.1
+// -------------------
+// add a column with this name
+$this->crud->column('price');
+
+// change the type and prefix attributes on the 'price' column
+$this->crud->column('price')->type('number')->prefix('$');
 ```
 
 In addition, to manipulate the order columns are shown in, you can:
