@@ -97,6 +97,16 @@ $this->crud->addField($field_definition_array)->beforeField('name');
 
 // add a field after a given field
 $this->crud->addField($field_definition_array)->afterField('name');
+
+
+// -------------------
+// New in Backpack 4.1
+// -------------------
+// add a field with this name
+$this->crud->field('price');
+
+// change the type attribute on the 'price' field
+$this->crud->field('price')->type('number');
 ```
 
 <a name="extra-field-features"></a>
