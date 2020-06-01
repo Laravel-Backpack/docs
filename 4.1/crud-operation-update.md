@@ -67,7 +67,7 @@ For more on how to manipulate fields, please read the [Fields documentation page
 
 CrudController is a RESTful controller, so the ```Update``` operation uses two routes:
 - GET to ```/entity-name/{id}/edit``` - points to ```edit()``` which shows the Edit form (```edit.blade.php```);
-- POST to ```/entity-name/{id}/edit``` - points to ```store()``` which uses Eloquent to update the entry in the database;
+- POST to ```/entity-name/{id}/edit``` - points to ```update()``` which uses Eloquent to update the entry in the database;
 
 The ```edit()``` method will show all the fields you've defined for this operation using the [Fields API](/docs/{{version}}/crud-fields#fields-api), then upon Save the ```update()``` method will first check the validation from the typehinted FormRequest, then create the entry using the Eloquent model. Only attributes that have a field type added and are ```$fillable``` on the model will actually be updated in the database.
 
