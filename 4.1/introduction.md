@@ -14,13 +14,10 @@ In a nutshell:
 php artisan make:migration:schema create_tags_table --model=0 --schema="name:string:unique"
 php artisan migrate
 
-# STEP 1. create a model, a request and a controller for the admin panel
+# STEP 1. create a Model, Request, Controller, Route and sidebar item for the admin panel
 php artisan backpack:crud tag #use singular, not plural
 
-# STEP 2. add a route for this admin panel to routes/backpack/custom.php
-php artisan backpack:add-custom-route "Route::crud('tag', 'TagCrudController');"
-
-# STEP 3. go through the generated files, customize according to your needs
+# STEP 2. go through the generated files, customize according to your needs
 ```
 
 <a name="need-to-know"></a>
