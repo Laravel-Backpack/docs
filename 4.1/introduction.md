@@ -26,7 +26,7 @@ php artisan backpack:crud tag #use singular, not plural
 ## How to Start
 
 We heavily recommend you spend a little time to understand Backpack, and only afterwards install and use it. Fortunately it's super-simple to get started. Using any of the options below will get you to a point where you can use Backpack in your projects:
-- **[Video Course](/docs/{{version}}/getting-started-basics)** - 31 minutes
+- **[Video Course](/docs/{{version}}/getting-started-videos)** - 31 minutes
 - **[Text Course](/docs/{{version}}/getting-started-basics)** - 20 minutes
 - **[Email Course](http://backpackforlaravel.com/getting-started-emails)** - 1 email per day, for 4 days, 5 minutes each
 
