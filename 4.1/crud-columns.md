@@ -202,7 +202,9 @@ Show custom HTML based on a closure you specify in your EntityCrudController. Pl
 ### date
 
 
-The date column will show a localized date in the default date format (as specified in the ```config/backpack/base.php``` file), whether the attribute is casted as date in the model or not:
+The date column will show a localized date in the default date format (as specified in the ```config/backpack/base.php``` file), whether the attribute is casted as date in the model or not.
+
+Note that the ```format``` attribute uses ISO date formatting parameters and not PHP ```date()``` formatters.  See <https://carbon.nesbot.com/docs/#iso-format-available-replacements> for more information.
 
 ```php
 [
@@ -219,7 +221,10 @@ The date column will show a localized date in the default date format (as specif
 ### datetime
 
 
-The date column will show a localized datetime in the default datetime format (as specified in the ```config/backpack/base.php``` file), whether the attribute is casted as datetime in the model or not:
+The date column will show a localized datetime in the default datetime format (as specified in the ```config/backpack/base.php``` file), whether the attribute is casted as datetime in the model or not.
+
+Note that the ```format``` attribute uses ISO date formatting parameters and not PHP ```date()``` formatters.  See <https://carbon.nesbot.com/docs/#iso-format-available-replacements> for more information.
+
 
 ```php
 [
