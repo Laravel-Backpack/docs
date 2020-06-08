@@ -9,7 +9,7 @@
 <h2 class="mb-7">Intro</h2>
 
 
-Meet your teacher, Cristian Tabacitu, the founder of Backpack for Laravel.
+Meet your teacher, [Cristian Tabacitu](https://twitter.com/tabacitu), the founder of Backpack for Laravel.
 
 <div class='mx-sm-n5 mx-md-n6 mx-lg-n7 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/424693910' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
@@ -83,7 +83,7 @@ Mentioned in this video:
 ----
 
 
-Thank you for dedicating these 31 minutes to learning Backpack. **You should now be able to build your first admin panel.** But if you fell like you're _not quite ready yet_, here are a few more things you can do:
+Thank you for dedicating these 31 minutes to learning Backpack. **You should now be able to build your first admin panel.** But if you feel like you're _not quite ready yet_, here are a few more things you can do:
 
 - [Go through the demo](/docs/{{version}}/demo) and play around, browse the features (pay special attention to the Monsters CRUD)
 - Read this [CRUD Crash Course](/docs/{{version}}/crud-tutorial) and do the steps yourself
