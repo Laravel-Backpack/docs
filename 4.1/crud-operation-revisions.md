@@ -38,7 +38,7 @@ cp vendor/venturecraft/revisionable/src/migrations/2013_04_09_062329_create_revi
 namespace App\Models;
 
 class Article extends Eloquent {
-    use \Backpack\CRUD\CrudTrait, \Venturecraft\Revisionable\RevisionableTrait;
+    use \Backpack\CRUD\app\Models\Traits\CrudTrait, \Venturecraft\Revisionable\RevisionableTrait;
     
     public function identifiableName()
     {
