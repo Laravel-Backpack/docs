@@ -118,9 +118,9 @@ $this->crud->addFilter([
   'label' => 'Date'
 ],
   false,
-  function ($value) { // if the filter is active, apply these constraints
-      // $this->crud->addClause('where', 'date', $value);
-  });
+function ($value) { // if the filter is active, apply these constraints
+  // $this->crud->addClause('where', 'date', $value);
+});
 ```
 
 <hr>
@@ -139,12 +139,12 @@ $this->crud->addFilter([
   'name'  => 'from_to',
   'label' => 'Date range'
 ],
-  false,
-  function ($value) { // if the filter is active, apply these constraints
-      // $dates = json_decode($value);
-      // $this->crud->addClause('where', 'date', '>=', $dates->from);
-      // $this->crud->addClause('where', 'date', '<=', $dates->to . ' 23:59:59');
-  });
+false,
+function ($value) { // if the filter is active, apply these constraints
+  // $dates = json_decode($value);
+  // $this->crud->addClause('where', 'date', '>=', $dates->from);
+  // $this->crud->addClause('where', 'date', '<=', $dates->to . ' 23:59:59');
+});
 ```
 
 <hr>

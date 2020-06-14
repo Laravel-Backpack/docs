@@ -116,10 +116,10 @@ $this->crud->addButtonFromModelFunction('line', 'open_google', 'openGoogle', 'be
 In your ```Article``` model:
 
 ```php
-    public function openGoogle($crud = false)
-    {
-        return '<a class="btn btn-sm btn-link" target="_blank" href="http://google.com?q='.urlencode($this->text).'" data-toggle="tooltip" title="Just a demo custom button."><i class="fa fa-search"></i> Google it</a>';
-    }
+public function openGoogle($crud = false)
+{
+    return '<a class="btn btn-sm btn-link" target="_blank" href="http://google.com?q='.urlencode($this->text).'" data-toggle="tooltip" title="Just a demo custom button."><i class="fa fa-search"></i> Google it</a>';
+}
 ```
 
 

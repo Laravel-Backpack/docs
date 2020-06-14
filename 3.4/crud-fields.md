@@ -727,7 +727,7 @@ Select an existing page from PageManager or an internal or external link. It’s
     'label' => "Type",
     'type' => 'page_or_link',
     'page_model' => '\Backpack\PageManager\app\Models\Page'
-]
+],
 ```
 
 Input preview: 
@@ -765,7 +765,7 @@ Show radios according to an associative array you give the input and let the use
                     ],
     // optional
     //'inline'      => false, // show the radios all on the same line?
-]
+],
 ```
 
 Input preview: 
@@ -801,7 +801,7 @@ Your relationships should already be defined on your models.
    'entity' => 'category', // the method that defines the relationship in your Model
    'attribute' => 'name', // foreign key attribute that is shown to user
    'model' => "App\Models\Tag" // foreign key model
-]
+],
 ```
 
 Input preview: 
@@ -822,7 +822,7 @@ Your relationships should already be defined on your models.
    'entity' => 'category', // the method that defines the relationship in your Model
    'attribute' => 'name', // foreign key attribute that is shown to user
    'model' => "App\Models\Tag" // foreign key model
-]
+],
 ```
 
 Input preview: 
@@ -844,7 +844,7 @@ Your relationships should already be defined on your models.
 	'attribute' => 'name', // foreign key attribute that is shown to user
 	'model' => "App\Models\Tag", // foreign key model
 	'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
-]
+],
 ```
 
 Input preview: 
@@ -869,7 +869,7 @@ Your relationships should already be defined on your models.
 	'model' => "App\Models\Tag", // foreign key model
 	'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
 	// 'select_all' => true, // show Select All and Clear buttons?
-]
+],
 ```
 
 Input preview: 
@@ -1450,7 +1450,7 @@ Your field definition will be something like:
   'label' => 'Home address',
   'type' => 'address'
   /// 'view_namespace' => 'yourpackage' // use a custom namespace of your package to load views within a custom view folder.
-]);
+],
 ```
 
 And your blade file something like:
