@@ -309,8 +309,8 @@ The model_function column will output a function on your main model. Its definit
 For this example, if your model would feature this method, it would return the link to that entity:
 ```php
 public function getSlugWithLink() {
-        return '<a href="'.url($this->slug).'" target="_blank">'.$this->slug.'</a>';
-    }
+    return '<a href="'.url($this->slug).'" target="_blank">'.$this->slug.'</a>';
+}
 ```
 
 **Note:** When displaying this column's value, the text is not escaped. That is intentional. This way, you can use it to show labels, color text, italic, bold, links, etc. If you might have malicious JS or CSS in your values, you can create a new escaped field yourself. But it's probably better to treat the problem at the source, and prevent that JS and CSS from reaching your DB in the first place.
@@ -426,7 +426,8 @@ Output the related entries, no matter the relationship:
 
 Its name and definition is the same as for the relationship *field type*:
 ```php
-[  // any type of relationship
+[  
+   // any type of relationship
    'name'         => 'tags', // name of relationship method in the model
    'type'         => 'relationship',
    'label'        => 'Tags', // Table column heading
@@ -447,7 +448,8 @@ Backpack tries to guess which attribute to show for the related item. Something 
 Shows the number of items that are related to the current entry, for a particular relationship.
 
 ```php
-[  // non-relationship count
+[
+   // non-relationship count
    'name'      => 'tags', // name of relationship method in the model
    'type'      => 'relationship_count', 
    'label'     => 'Tags', // Table column heading

@@ -221,7 +221,7 @@ public function identifiableAttribute() {
 Use [Algolia Places autocomplete](https://community.algolia.com/places/) to help users type their address faster. With the ```store_as_json``` option, it will store the address, postcode, city, country, latitude and longitude in a JSON in the database. Without it, it will just store the address string.
 
 ```php
-[   // Address
+[   // Address algolia
     'name'          => 'address',
     'label'         => 'Address',
     'type'          => 'address_algolia',
@@ -245,7 +245,7 @@ Input preview:
 Use [Google Places Search](https://developers.google.com/places/web-service/search) to help users type their address faster. With the ```store_as_json``` option, it will store the address, postcode, city, country, latitude and longitude in a JSON in the database. Without it, it will just store the complete address string.
 
 ```php
-[   // Address
+[   // Address google
     'name'          => 'address',
     'label'         => 'Address',
     'type'          => 'address_google',
@@ -257,9 +257,9 @@ Use [Google Places Search](https://developers.google.com/places/web-service/sear
 Using Google Places API is dependent on using an API Key. Please [get an API key](https://console.cloud.google.com/apis/credentials) - you do have to configure billing, but you qualify for $200/mo free usage, which covers most use cases. Then copy-paste that key as your ```services.google_places.key``` value. So inside your ```config/services.php``` please add the items below:
 
 ```php
-    'google_places' => [
-        'key' => 'the-key-you-got-from-google-places'
-    ],
+'google_places' => [
+    'key' => 'the-key-you-got-from-google-places'
+],
 ```
 
 > **Use attribute casting.** For information stored as JSON in the database, it's recommended that you use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) to ```array``` or ```object```. That way, every time you get the info from the database you'd get it in a usable format. Also, it is heavily recommended that your database column can hold a large JSON - so use `text` rather than `string` in your migration (in MySQL this translates to `text` instead of `varchar`).
@@ -367,7 +367,7 @@ Input preview:
 ### checklist
 
 ```php
-[
+[   // Checklist
     'label'     => 'Roles',
     'type'      => 'checklist',
     'name'      => 'roles',
@@ -388,13 +388,12 @@ Input preview:
 ### checklist_dependency
 
 ```php
-
-// two interconnected entities
-'label'             => 'User Role Permissions',
-'field_unique_name' => 'user_role_permission',
-'type'              => 'checklist_dependency',
-'name'              => ['roles', 'permissions'], // the methods that define the relationship in your Models
-'subfields'         => [
+[   // two interconnected entities
+    'label'             => 'User Role Permissions',
+    'field_unique_name' => 'user_role_permission',
+    'type'              => 'checklist_dependency',
+    'name'              => ['roles', 'permissions'], // the methods that define the relationship in your Models
+    'subfields'         => [
         'primary' => [
             'label'            => 'Roles',
             'name'             => 'roles', // the method that defines the relationship in your Model
@@ -437,7 +436,7 @@ Show a wysiwyg CKEditor to the user.
     'type'          => 'ckeditor',
 
     // optional:
-    'extra_plugins' => ['oembed', 'widget']
+    'extra_plugins' => ['oembed', 'widget'],
     'options'       => [
         'autoGrow_minHeight'   => 200,
         'autoGrow_bottomSpace' => 50,
@@ -486,7 +485,7 @@ Show a pretty colour picker using [Bootstrap Colorpicker](https://itsjavi.com/bo
 
     // optional
     'color_picker_options' => ['customClass' => 'custom-class']
-]
+],
 ```
 
 Input preview: 
@@ -908,7 +907,7 @@ Select an existing page from PageManager or an internal or external link. It's u
     'label'      => "Type",
     'type'       => 'page_or_link',
     'page_model' => '\Backpack\PageManager\app\Models\Page'
-]
+],
 ```
 
 Input preview: 
@@ -983,7 +982,7 @@ Show radios according to an associative array you give the input and let the use
     ],
     // optional
     //'inline'      => false, // show the radios all on the same line?
-]
+],
 ```
 
 Input preview: 
@@ -1030,7 +1029,7 @@ Take a look at the examples below to understand the correct syntax for your use 
 
 **Example 1. Few options (0-100). Entries are loaded onpage, using a simple Eloquent query. No AJAX.**
 ```php
-[
+[   // relationship
     'type' => "relationship",
     'name' => 'category', // the method on your model that defines the relationship
 
@@ -1040,7 +1039,7 @@ Take a look at the examples below to understand the correct syntax for your use 
     // 'entity' => 'category', // the method that defines the relationship in your Model
     // 'model' => "App\Models\Category", // foreign key Eloquent model
     // 'placeholder' => "Select a category", // placeholder for the select2 input
- ]
+ ],
 ```
 
 **Example 2. Many options. Entries are loaded using AJAX.**
@@ -1048,7 +1047,7 @@ Take a look at the examples below to understand the correct syntax for your use 
 If your related entry can have hundreds, thousands or millions of entries, it's not practical to load the options using an Eloquent query onpage, because the Create/Update page would be very slow to load. In this case, you should instruct ```select2``` to fetch the entries using AJAX calls. To do that, in your ```relationship``` field definition you should add ```'ajax' => true```:
 
 ```php
-[
+[   // relationship
     'type' => "relationship",
     'name' => 'category', // the method on your model that defines the relationship
     'ajax' => true,
@@ -1065,7 +1064,7 @@ If your related entry can have hundreds, thousands or millions of entries, it's 
     // 'minimum_input_length' => 2, // minimum characters to type before querying results
     // 'dependencies'         => [‘category’], // when a dependency changes, this select2 is reset to null
     // 'include_all_form_fields'  => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
- ]
+ ],
 ```
 
 Then, you need to create the route and method that allows ```select2``` to search and fetch the results of that search. Fortunately, the ```FetchOperation``` allows you to easily do just that. Inside the CrudController where you've defined the ```relationship``` field, use the ```FetchOperation``` trait, and define a new method that will respond to AJAX queries:
@@ -1088,20 +1087,20 @@ Searching with AJAX provides a great UX. But what if the user doesn't find what 
 ```php
 // Inside ArticleCrudController
 // for 1-n relationships (ex: category)
-[
+[   // relationship
     'type'          => "relationship",
     'name'          => 'category', // the method on your model that defines the relationship
     'ajax'          => true,
     'inline_create' => true,
-]
+],
 // Inside ArticleCrudController
 // for n-n relationships (ex: tags)
-[
+[   // relationship
     'type'          => "relationship",
     'name'          => 'tags', // the method on your model that defines the relationship
     'ajax'          => true,
     'inline_create' => [ 'entity' => 'tag' ] // you need to specify the entity in singular
- ]
+],
 ```
 
 Now, on the CrudController of that secondary entity the user will be able to create on-the-fly (ex: ```CategoryCrudController``` or ```TagCrudController```, you'll need to enable the InlineCreate operation:
@@ -1191,7 +1190,7 @@ Your relationships should already be defined on your models as hasOne() or belon
    'options'   => (function ($query) {
         return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
     }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
-]
+],
 ```
 
 Input preview: 
@@ -1246,7 +1245,7 @@ Your relationships should already be defined on your models as hasOne() or belon
    'options'   => (function ($query) {
         return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
     }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
-]
+],
 ```
 
 Input preview: 
@@ -1275,7 +1274,7 @@ Your relationships should already be defined on your models as hasMany() or belo
     'options'   => (function ($query) {
         return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
     }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
-]
+],
 ```
 
 Input preview: 
@@ -1309,7 +1308,7 @@ Your relationships should already be defined on your models as hasMany() or belo
      'options'   => (function ($query) {
          return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
      }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
-]
+],
 ```
 
 Input preview: 
@@ -1404,7 +1403,7 @@ Also possible:
     'label'   => 'Featured',
     'type'    => 'select_and_order',
     'options' => Product::get()->pluck('title','id')->toArray(),
-]
+],
 ```
 
 Input preview: 
@@ -1466,8 +1465,7 @@ Input preview:
 Display a select2 that takes its values from an AJAX call.
 
 ```php
-[
-    // 1-n relationship
+[   // 1-n relationship
     'label'       => "End", // Table column heading
     'type'        => "select2_from_ajax",
     'name'        => 'category_id', // the column that contains the ID of that connected entity
@@ -1482,7 +1480,7 @@ Display a select2 that takes its values from an AJAX call.
     // 'dependencies'            => ['category'], // when a dependency changes, this select2 is reset to null
     // 'method'                  => 'GET', // optional - HTTP method to use for the AJAX call (GET, POST)
     // 'include_all_form_fields' => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
- ]
+],
 ```
 
 Of course, you also need to create a controller and routes for the data_source above. Here's an example:
@@ -1540,8 +1538,7 @@ Input preview:
 Display a select2 that takes its values from an AJAX call. Same as [select2_from_ajax](#section-select2_from_ajax) above, but allows for multiple items to be selected. The only difference in the field definition is the "pivot" attribute.
 
 ```php
-[
-    // n-n relationship
+[   // n-n relationship
     'label'       => "Cities", // Table column heading
     'type'        => "select2_from_ajax_multiple",
     'name'        => 'cities', // a unique identifier (usually the method that defines the relationship in your Model) 
@@ -1555,7 +1552,7 @@ Display a select2 that takes its values from an AJAX call. Same as [select2_from
     'placeholder'          => "Select a city", // placeholder for the select
     'minimum_input_length' => 2, // minimum characters to type before querying results
     // 'include_all_form_fields'  => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
- ]
+],
 ```
 
 Of course, you also need to create a controller and routes for the data_source above. Here's an example:
@@ -2053,7 +2050,7 @@ Your field definition will be something like:
     'label' => 'Home address',
     'type'  => 'address'
     /// 'view_namespace' => 'yourpackage' // use a custom namespace of your package to load views within a custom view folder.
-]);
+],
 ```
 
 And your blade file something like:
