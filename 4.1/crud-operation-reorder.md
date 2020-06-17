@@ -50,7 +50,7 @@ This will:
 
 Where:
 - ```attribute_name``` should be the attribute you want shown on the draggable elements (ex: ```name```);
-- ```ALLOWED_DEPTH``` should be an integer, how many levels deep would you allow your admin to go when nesting; for infinit levels, you should set it to ```0```;
+- ```ALLOWED_DEPTH``` should be an integer, how many levels deep would you allow your admin to go when nesting; for infinite levels, you should set it to ```0```;
 
 <a name="how-it-works"></a>
 ## How It Works
