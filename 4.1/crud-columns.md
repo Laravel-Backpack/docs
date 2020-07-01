@@ -408,6 +408,8 @@ Show a pretty text instead of the database value, according to an associative ar
         0 => 'Draft',
         1 => 'Published'
     ]
+    // optional
+    // 'inline' => true, // show the radios all on the same line?
 ],
 ```
 
