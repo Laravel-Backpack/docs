@@ -53,6 +53,6 @@
 #### Add-ons
 
 - [Official Add-ons](/docs/{{version}}/add-ons-official)
-- [Community Add-ons](/docs/{{version}}/add-ons-community)
+- [Community Add-ons](https://backpackforlaravel.com/addons)
 - [How to Create an Add-on](/docs/{{version}}/add-ons-tutorial)
     + [Operation Add-on](/docs/{{version}}/add-ons-custom-operation)
