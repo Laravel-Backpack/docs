@@ -518,3 +518,21 @@ Add whatever validation rules & inputs you want, in addition to name and passwor
     }
 ```
 This will make the registration process pick up a view you can create, in ```resources/views/vendor/backpack/base/auth/register.blade.php```. You can copy-paste the original view, and modify as you please.Including adding your own custom inputs.
+
+
+<a name="use-the-same-html-and-css-for-front-end"></a>
+### Use the HTML & CSS for the front-end (Backstrap for front-facing website)
+
+If you like how Backpack looks and feels you can use the same interface to power your front-end, simply by making sure your blade view extend Backpack's layout file, instead of a layout file you'd create. Make sure your blade views extend `backpack_view('blank')` or create a layout file similar to our `layouts/top_left.blade.php` that better fits your needs. Then use it across your app:
+
+```php
+@extends(backpack_view('blank'))
+
+<div>Something</div>
+```
+
+It's a good idea to go through our main layout file - [`layouts/top_left.blade.php`](https://github.com/Laravel-Backpack/CRUD/blob/master/src/resources/views/base/layouts/top_left.blade.php) - to understand how it works and how you can use it to your advantage. Most notably, you can:
+- use our `before_styles` and `after_styles` sections to easily _include_ CSS there - `@section('after_styles')`;
+- use our `before_styles` and `after_styles` stacks to easily _push_ CSS there - `@push('after_styles')`;
+- use our `before_scripts` and `after_scripts` sections to easily _include_ JS there - `@section('after_scripts')`;
+- use our `before_scripts` and `after_scripts` stacks to easily _push_ JS there - `@push('after_scripts')`;
