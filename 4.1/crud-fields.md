@@ -1164,6 +1164,9 @@ You can use most field types inside the field groups, add as many fields you nee
             'label' => 'Quote',
         ],
     ],
+    
+    // optional
+    'new_item_label'  => 'Add Group', // customize the text of the button
 ],
 ```
 
