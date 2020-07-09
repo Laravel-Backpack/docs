@@ -1064,7 +1064,6 @@ If your related entry can have hundreds, thousands or millions of entries, it's 
     // 'minimum_input_length' => 2, // minimum characters to type before querying results
     // 'dependencies'         => [‘category’], // when a dependency changes, this select2 is reset to null
     // 'include_all_form_fields'  => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
-    // 'include_main_form_fields' => ['field1', 'field2'],
  ],
 ```
 
