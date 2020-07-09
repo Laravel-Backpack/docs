@@ -10,9 +10,9 @@ Starting with Backpack 4.1, working with Fields, Columns, Filters, Buttons and W
 
 ```php
 $this->crud->addField([   // Number
-    'name' => 'price',
-    'label' => 'Price',
-    'type' => 'number',
+    'name'   => 'price',
+    'label'  => 'Price',
+    'type'   => 'number',
     'prefix' => "$",
     'suffix' => ".00",
 ]);
@@ -639,8 +639,8 @@ CRUD::filter('select_from_array')
     ->type('dropdown')
     ->label('DropDOWN')
     ->values([
-        'one' => 'One', 
-        'two' => 'Two', 
+        'one'   => 'One', 
+        'two'   => 'Two', 
         'three' => 'Three'
     ])
     ->whenActive(function($value) {

@@ -87,11 +87,12 @@ class TagCrudController extends CrudController
         'modal_class' => 'modal-dialog modal-xl', // use modal-sm, modal-lg to change width
         'modal_route' => route('tag-inline-create'), // InlineCreate::getInlineCreateModal()
         'create_route' =>  route('tag-inline-create-save'), // InlineCreate::storeInlineCreate()
+        'include_main_form_fields' => ['field1', 'field2'], // pass certain fields from the main form to the modal
     ]
 ```
 
 
-**Step 3. OPTIONAL - You can create a ```setupInlineCreateOperation()``` method in the EntityCrudControoler**, to make the InlineCreateOperation different to the CreateOperation, for example have more/less fields, or different fields. Check out the [Fields API](/docs/{{version}}/crud-fields#fields-api) for a reference of all you can do with them.
+**Step 3. OPTIONAL - You can create a ```setupInlineCreateOperation()``` method in the EntityCrudController**, to make the InlineCreateOperation different to the CreateOperation, for example have more/less fields, or different fields. Check out the [Fields API](/docs/{{version}}/crud-fields#fields-api) for a reference of all you can do with them.
 
 <a name="how-it-works"></a>
 ## How It Works

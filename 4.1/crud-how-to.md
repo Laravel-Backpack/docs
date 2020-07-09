@@ -355,3 +355,4 @@ $this->app->extend('crud', function () {
 ```
 
 Details and implementation [here](https://github.com/Laravel-Backpack/CRUD/pull/1990).
+

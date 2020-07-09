@@ -67,7 +67,7 @@ For more on how to manipulate fields, please read the [Fields documentation page
 
 CrudController is a RESTful controller, so the ```Update``` operation uses two routes:
 - GET to ```/entity-name/{id}/edit``` - points to ```edit()``` which shows the Edit form (```edit.blade.php```);
-- POST to ```/entity-name/{id}/edit``` - points to ```store()``` which uses Eloquent to update the entry in the database;
+- POST to ```/entity-name/{id}/edit``` - points to ```update()``` which uses Eloquent to update the entry in the database;
 
 The ```edit()``` method will show all the fields you've defined for this operation using the [Fields API](/docs/{{version}}/crud-fields#fields-api), then upon Save the ```update()``` method will first check the validation from the typehinted FormRequest, then create the entry using the Eloquent model. Only attributes that have a field type added and are ```$fillable``` on the model will actually be updated in the database.
 
@@ -167,7 +167,7 @@ class Product extends Model
 
 Change the languages available to translate to/from, in your crud config file (```config/backpack/crud.php```). By default there are quite a few enabled (English, French, German, Italian, Romanian).
 
-Additionally, if you have slugs, you'll need to use backpack's classes instead of the ones provided by cviebrock/eloquent-sluggable:
+Additionally, if you have slugs (but only if you need translatable slugs), you'll need to use backpack's classes instead of the ones provided by cviebrock/eloquent-sluggable:
 
 ```php
 <?php
@@ -216,6 +216,7 @@ class Category extends Model
     }
 }
 ```
+> If your slugs are not translatable, use the ```cviebrock/eloquent-sluggable``` traits. The Backpack's ```Sluggable``` trait saves your slug as a JSON object, regardless of the ```slug``` field being defined inside the ```$translatable``` property.
 
 <a name="separate-validation"></a>
 ## Separate Validation Rules for Create and Update

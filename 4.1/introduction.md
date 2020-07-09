@@ -1,4 +1,4 @@
-# Getting Started
+# Introduction
 
 ---
 
@@ -14,14 +14,29 @@ In a nutshell:
 php artisan make:migration:schema create_tags_table --model=0 --schema="name:string:unique"
 php artisan migrate
 
-# STEP 1. create a model, a request and a controller for the admin panel
+# STEP 1. create a Model, Request, Controller, Route and sidebar item for the admin panel
 php artisan backpack:crud tag #use singular, not plural
 
-# STEP 2. add a route for this admin panel to routes/backpack/custom.php
-php artisan backpack:add-custom-route "Route::crud('tag', 'TagCrudController');"
-
-# STEP 3. go through the generated files, customize according to your needs
+# STEP 2. go through the generated files, customize according to your needs
 ```
+
+---
+
+<a name="how-to-start"></a>
+## How to Start
+
+We heavily recommend you spend a little time to understand Backpack, and only afterwards install and use it. Fortunately it's super-simple to get started. Using any of the options below will get you to a point where you can use Backpack in your projects:
+- **[Video Course](/docs/{{version}}/getting-started-videos)** - 31 minutes
+- **[Text Course](/docs/{{version}}/getting-started-basics)** - 20 minutes
+- **[Email Course](http://backpackforlaravel.com/getting-started-emails)** - 1 email per day, for 4 days, 5 minutes each
+
+
+<br>
+<a href="/docs/{{version}}/getting-started-videos" class="btn btn-outline-info btn-sm shadow"><i class="fe fe-video"></i> Video Course</a>
+<a href="/docs/{{version}}/getting-started-basics" class="btn btn-outline-info btn-sm shadow"><i class="fe fe-file-text"></i> Text Course</a>
+<a href="http://backpackforlaravel.com/getting-started-emails" class="btn btn-outline-info btn-sm shadow"><i class="fe fe-inbox"></i> Email Course</a>
+
+---
 
 <a name="need-to-know"></a>
 ## Need to Know
@@ -72,16 +87,3 @@ In addition to our core CRUD package, there are a few additional packages you mi
 For more information, please see:
 - [all official add-ons](/docs/{{version}}/add-ons-official)
 - [all community add-ons](/docs/{{version}}/add-ons-community)
-
-<a name="how-to-start"></a>
-## How to Start
-
-We heavily recommend you spend a little time to understand Backpack, and only afterwards install and use it. Currently the recommended options are:
-- **[Text Tutorial](/docs/{{version}}/getting-started-basics)** - 20 minutes
-- **[Email Tutorial](http://backpackforlaravel.com/getting-started-emails)** - 1 email per day, for 4 days, 5 minutes each
-- **Video Tutorial** - working on it
-
-<br>
-<a href="/docs/{{version}}/getting-started-basics" class="btn btn-outline-info shadow">
-  Next 	&#xFFEB;
-</a>

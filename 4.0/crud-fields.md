@@ -25,7 +25,7 @@ So at minimum, your field definition array should look like:
     'name' => 'description',
     'type' => 'textarea',
     'label' => 'Article Description',
-]
+],
 ```
 
 <a name="optional-field-attributes"></a>
@@ -790,7 +790,7 @@ Select an existing page from PageManager or an internal or external link. It's u
     'label' => "Type",
     'type' => 'page_or_link',
     'page_model' => '\Backpack\PageManager\app\Models\Page'
-]
+],
 ```
 
 Input preview: 
@@ -860,7 +860,7 @@ Show radios according to an associative array you give the input and let the use
     ],
     // optional
     //'inline'      => false, // show the radios all on the same line?
-]
+],
 ```
 
 Input preview: 
@@ -902,7 +902,7 @@ Your relationships should already be defined on your models as hasOne() or belon
    'options'   => (function ($query) {
         return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
     }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
-]
+],
 ```
 
 Input preview: 
@@ -952,7 +952,7 @@ Your relationships should already be defined on your models as hasOne() or belon
    'options'   => (function ($query) {
         return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
     }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
-]
+],
 ```
 
 Input preview: 
@@ -979,7 +979,7 @@ Your relationships should already be defined on your models as hasMany() or belo
     'options'   => (function ($query) {
         return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
     }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
-]
+],
 ```
 
 Input preview: 
@@ -1012,7 +1012,7 @@ Your relationships should already be defined on your models as hasMany() or belo
      'options'   => (function ($query) {
          return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
      }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
-]
+],
 ```
 
 Input preview: 
@@ -1102,7 +1102,7 @@ Also possible:
     'label' => 'Featured',
     'type' => 'select_and_order',
     'options' => Product::get()->pluck('title','id')->toArray(),
-]
+],
 ```
 
 Input preview: 
@@ -1705,7 +1705,7 @@ Your field definition will be something like:
     'label' => 'Home address',
     'type' => 'address'
     /// 'view_namespace' => 'yourpackage' // use a custom namespace of your package to load views within a custom view folder.
-]);
+],
 ```
 
 And your blade file something like:
