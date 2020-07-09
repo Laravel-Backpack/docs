@@ -87,6 +87,7 @@ class TagCrudController extends CrudController
         'modal_class' => 'modal-dialog modal-xl', // use modal-sm, modal-lg to change width
         'modal_route' => route('tag-inline-create'), // InlineCreate::getInlineCreateModal()
         'create_route' =>  route('tag-inline-create-save'), // InlineCreate::storeInlineCreate()
+        'include_main_form_fields' => ['field1', 'field2'], // pass certain fields from the main form to the modal
     ]
 ```
 
