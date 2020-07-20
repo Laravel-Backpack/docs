@@ -1017,7 +1017,7 @@ Input preview:
 <a name="relationship"></a>
 ### relationship
 
-Allows the user to choose one/more entries of an Eloquent Model that has a relationship with the current model, using a ```select2``` input. In order to work, this field needs the relationships to be properly defined on the Eloquent models (```hasOne```, ```hasMany```, ```belongsToOne```, ```belongsToMany``` etc).
+Allows the user to choose one/more entries of an Eloquent Model that has a relationship with the current model, using a ```select2``` input. In order to work, this field needs the relationships to be properly defined on the Eloquent models (```hasOne```, ```belongsTo```, ```belongsToMany``` etc).
 
 Input preview (for both 1-n and n-n relationships): 
 
@@ -1260,7 +1260,7 @@ Input preview:
 ### select_multiple (n-n relationship)
 
 Show a Select with the names of the connected entity and let the user select any number of them.
-Your relationships should already be defined on your models as hasMany() or belongsToMany().
+Your relationship should already be defined on your models as belongsToMany().
 
 ```php
 [   // SelectMultiple = n-n relationship (with pivot table)
@@ -1292,7 +1292,7 @@ Input preview:
 [Works just like the SELECT field, but prettier]
 
 Show a Select2 with the names of the connected entity and let the user select any number of them.
-Your relationships should already be defined on your models as hasMany() or belongsToMany().
+Your relationship should already be defined on your models as belongsToMany().
 
 ```php
 [    // Select2Multiple = n-n relationship (with pivot table)
