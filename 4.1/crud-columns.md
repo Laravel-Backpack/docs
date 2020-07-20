@@ -538,7 +538,7 @@ Show a particular text depending on the value of the attribute.
     'name'    => 'status',
     'label'   => 'Status',
     'type'    => 'select_from_array',
-    'options' => [‘draft’ => ‘Draft (invisible)’, ‘published’ => ‘Published (visible)’],
+    'options' => ['draft' => 'Draft (invisible)', 'published' => 'Published (visible)'],
 ],
 ```
 
