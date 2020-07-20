@@ -7,7 +7,7 @@
 
 Revise allows your admins to store, see and undo changes to entries on an Eloquent model.
 
-The operation provides you with a simple interface to work with [venturecraft/revisionable](https://github.com/VentureCraft/revisionable#implementation), which is a great pacakge that stores all changes in a separate table. It can work as an audit trail, a backup system and an accountability system for the admins.
+The operation provides you with a simple interface to work with [venturecraft/revisionable](https://github.com/VentureCraft/revisionable#implementation), which is a great package that stores all changes in a separate table. It can work as an audit trail, a backup system and an accountability system for the admins.
 
 When enabled, ```Revise``` will show another button in the table view, between _Edit_ and _Delete_. On click, that button opens another page which will allow an admin to see all changes and who made them:
 
@@ -32,7 +32,7 @@ composer require backpack/revise-operation
 cp vendor/venturecraft/revisionable/src/migrations/2013_04_09_062329_create_revisions_table.php database/migrations/ && php artisan migrate
 ```
 
-**Step 3.** Use [venturecraft/revisionable](https://github.com/VentureCraft/revisionable#implementation)'s trait on your model, and an ```identifiableName()``` method that returns an attribute on the model that the admin can use to distiguish between entries (ex: name, title, etc). If you are using another bootable trait be sure to override the boot method in your model.
+**Step 3.** Use [venturecraft/revisionable](https://github.com/VentureCraft/revisionable#implementation)'s trait on your model, and an ```identifiableName()``` method that returns an attribute on the model that the admin can use to distinguish between entries (ex: name, title, etc). If you are using another bootable trait be sure to override the boot method in your model.
 
 ```php
 namespace App\Models;
