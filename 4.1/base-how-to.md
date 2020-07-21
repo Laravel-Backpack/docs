@@ -1,4 +1,4 @@
-# How To Customize the UI
+# FAQs for the admin UI
 
 ---
 

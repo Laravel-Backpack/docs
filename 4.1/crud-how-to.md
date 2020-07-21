@@ -1,11 +1,15 @@
-# How To for Backpack\CRUD
+# FAQs for CRUDs
 
 ---
 
 In addition the usual CRUD functionality, Backpack also allows you to do a few more complicated things:
 
+
+<a name="how-to"></a>
+## How To
+
 <a name="customize-views-for-each-crud-panel"></a>
-## Customize Views for each CRUD Panel
+### Customize Views for each CRUD Panel
 
 Backpack loads its views through a double-fallback mechanism:
 - by default, it will load the views in the vendor folder (the package views);
@@ -21,7 +25,7 @@ $this->crud->setDetailsRowView('your-view');
 ```
 
 <a name="customize-css-and-js-for-default-crud-operations"></a>
-## Customize CSS and JS for Default CRUD Operations
+### Customize CSS and JS for Default CRUD Operations
 
 Each default Backpack operation has its own CSS and JS file, in:
 - ```public/vendor/backpack/crud/css```
@@ -30,7 +34,7 @@ Each default Backpack operation has its own CSS and JS file, in:
 If you don't find one there, you can create one, and Backpack will pick it up in that operation's view (ex: ```create.css``` or ```list.js```).
 
 <a name="add-extra-crud-routes"></a>
-## Add Extra CRUD Routes
+### Add Extra CRUD Routes
 
 Starting with Backpack\CRUD 4.0, routes are defined inside the Controller, in methods that look like ```setupOperationNameRoutes()```; you can use this naming convention to setup extra routes, for your custom operations:
 
@@ -53,7 +57,7 @@ protected function setupModerateRoutes($segment, $routeName, $controller) {
 If you want the route to point to a different controller, you can add the route in ```routes/backpack/custom.php``` instead.
 
 <a name="publish-a-column-field-filter-button-to-modify"></a>
-## Publish a column / field / filter / button and modify it
+### Publish a column / field / filter / button and modify it
 
 All Backpack packages allow you to easily overwrite and customize the views. If you want Backpack to pick up _your_ file, instead of the one in the package, you can do that by just placing a file with the same name in your views. So if you want to overwrite the select2 field (```vendor/backpack/crud/src/resources/views/fields/select2.blade.php```) to change some functionality, you need to create ```resources/views/vendor/backpack/crud/fields/select2.blade.php```. You can do that manually, or use this command:
 ```shell
@@ -64,7 +68,7 @@ This will look for the blade file and copy it inside the folder, so you can edit
 >**Please note:** Once you place a file with the same name inside your project, Backpack will pick that one up instead of the one in the package. That means that even though the file in the package is updated, you won't be getting those updates, since you're not using that file. Blade modifications are almost never breaking changes, but it's a good thing to receive updates with zero effort. Even small ones. So please overwrite the files as little as possible. Best to create your own custom fields/column/filters/buttons, whenever you can.
 
 <a name="filter-the-options-in-a-select-field"></a>
-## Filter the options in a select field
+### Filter the options in a select field
 
 This also applies to: select2, select2_multiple, select2_from_ajax, select2_from_ajax_multiple.
 
@@ -107,7 +111,7 @@ class CompanyUser extends User
 ```
 
 <a name="use-the-same-column-name-multiple-times-in-a-crud"></a>
-## Use the same column name multiple times in a CRUD
+### Use the same column name multiple times in a CRUD
 
 If you try to add multiple columns with the same ```name```, by default Backpack will only show the last one. That's because ```name``` is also used as a key in the ```$column``` array. So when you ```addColumn()``` with the same name twice, it just overwrites the previous one.
 
@@ -139,7 +143,7 @@ In order to insert two column with the same name, use the ```key``` attribute on
 ```
 
 <a name="use-the-media-library"></a>
-## Use the Media Library (File Manager)
+### Use the Media Library (File Manager)
 
 The default Backpack installation doesn't come with a file management component. Because most projects don't need it. But we've created a first-party add-on, that brings the power of [elFinder](http://elfinder.org/) to your Laravel projects. To install it, [follow the instructions on the add-on's page](https://github.com/Laravel-Backpack/FileManager). It's as easy as running:
 
@@ -162,7 +166,7 @@ For the integration, we use [barryvdh/laravel-elfinder](https://github.com/barry
 ![Backpack CRUD ListEntries](https://backpackforlaravel.com/uploads/docs-4-0/media_library.png)
 
 <a name="manually-install-backpack-crud"></a>
-## Manually install Backpack
+### Manually install Backpack
 
 If the automatic installation doesn't work for you and you need to manually install CRUD, here are all the commands it is running:
 
@@ -182,7 +186,7 @@ php artisan backpack:publish-middleware
 ```
 
 <a name="load-fields-from-a-different-folder"></a>
-## Load fields from a different folder
+### Load fields from a different folder
 
 If you're developing a package, you might need Backpack to pick up fields from your package folder, instead of having to publish them upon installation.
 
@@ -203,7 +207,7 @@ function () { // if the filter is active (the GET parameter "draft" exits)
 This will make Backpack look for the ```resources/views/custom_filters/complex.blade.php```, and pick that up before anything else.
 
 <a name="add-a-select-that-depends-on-another-field"></a>
-## Add a select2 field that depends on another field
+### Add a select2 field that depends on another field
 
 The ```select2_from_ajax``` and ```select2_from_ajax_multiple``` fields allow you to filter the results of a select2, depending on what has already been selected in a form. Say you have to select2 fields. When the AJAX call is made to the second field, all other variables in the page also get passed - that means you can filter the results of the second select2.
 
@@ -297,7 +301,7 @@ class ArticleController extends Controller
 
 
 <a name="resize-the-content-wrapper-for-an-operation"></a>
-## Change the content class for an operation
+### Change the content class for an operation
 
 If you want to make the contents of an operation take more / less space from the window, you can do that:
 
@@ -342,7 +346,7 @@ $this->crud->setRevisionsTimelineContentClass('col-md-8 col-md-offset-2');
 
 
 <a name="overwrite-a-method-on-the-crud-panel-object"></a>
-## Overwrite a Method on the CrudPanel Object 
+### Overwrite a Method on the CrudPanel Object 
 
 Starting with Backpack v4, you can use a custom CrudPanel object instead of the one in the package. In your custom CrudPanel object, you can overwrite any method you want, but please note that this means that you're overwriting core components, and will be making it more difficult to upgrade to newer versions of Backpack.
 

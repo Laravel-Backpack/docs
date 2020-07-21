@@ -21,7 +21,7 @@
 - [Alerts](/docs/{{version}}/base-alerts)
 - [Breadcrumbs](/docs/{{version}}/base-breadcrumbs)
 - [Widgets](/docs/{{version}}/base-widgets)
-- [How To](/docs/{{version}}/base-how-to)
+- [FAQ](/docs/{{version}}/base-how-to)
 
 #### CRUD Panels
 
@@ -48,7 +48,7 @@
     + [Cheat Sheet](/docs/{{version}}/crud-cheat-sheet)
     + [Crud API](/docs/{{version}}/crud-api)
     + [Fluent API](/docs/{{version}}/crud-fluent-syntax)
-- [How To](/docs/{{version}}/crud-how-to)
+- [FAQ](/docs/{{version}}/crud-how-to)
 
 
 #### Add-ons
