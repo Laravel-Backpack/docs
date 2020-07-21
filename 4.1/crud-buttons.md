@@ -158,8 +158,7 @@ The steps would be:
               success: function(result) {
                   // Show an alert with the result
                   console.log(result,route);
-                  new PNotify({
-                      title: "Import done", // add extra info how many
+                  new Noty({
                       text: "Some Tx had been imported",
                       type: "success"
                   });
@@ -171,8 +170,7 @@ The steps would be:
               },
               error: function(result) {
                   // Show an alert with the result
-                  new PNotify({
-                      title: "Import failed",
+                  new Noty({
                       text: "The new entry could not be created. Please try again.",
                       type: "warning"
                   });
