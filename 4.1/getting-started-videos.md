@@ -31,7 +31,7 @@ Before we go deep into the PHP features offered by Backpack, it's important to u
 <br>
 Mentioned in this video:
 - [Laravel docs - installation](https://laravel.com/docs/7.x)
-- [Backpack docs - installation](/docs/{{version}}ersion}}/installation)
+- [Backpack docs - installation](/docs/{{version}}/installation)
 - [Backpack docs - how to customize the user interface](/docs/{{version}}/base-how-to#customizing-the-design-of-the-menu-sidebar-footer)
 - [Backpack docs - widgets](/docs/{{version}}/base-widgets)
 - [Backpack docs - add-ons](/addons)
