@@ -5,6 +5,7 @@
 - [Installation](/docs/{{version}}/installation)
 - [Release Notes](/docs/{{version}}/release-notes)
 - [Upgrade Guide](/docs/{{version}}/upgrade-guide)
+- [FAQ](/docs/{{version}}/faq)
 
 #### Getting Started
 - [Video Course](/docs/{{version}}/getting-started-videos)
