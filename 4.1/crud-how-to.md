@@ -234,13 +234,14 @@ $this->crud->addField([ // select2_from_ajax: 1-n relationship
     'attribute'            => 'title', // foreign key attribute that is shown to user
     'data_source'          => url('api/article'), // url to controller search function (with /{id} should return model)
     'placeholder'          => 'Select an article', // placeholder for the select
+    'include_all_form_fields' => true, //sends the other form fields along with the request so it can be filtered.
     'minimum_input_length' => 0, // minimum characters to type before querying results
     'dependencies'         => [‘category’], // when a dependency changes, this select2 is reset to null
     // ‘method'                    => ‘GET’, // optional - HTTP method to use for the AJAX call (GET, POST)
 ]);
 ```
 
-**DIFFERENT HERE**: ```minimum_input_length``` and ```dependencies```.
+**DIFFERENT HERE**: ```minimum_input_length```,  ```dependencies``` and ```include_all_form_fields```.
 
 2. That second select points to routes that need to be registered:
 
