@@ -168,6 +168,8 @@ Why? Since ```$this->request``` did nothing at all, we've removed it, to avoid a
 
 <a name="step-12" href="#step-12" class="badge badge-warning text-white" style="text-decoration: none;">Step 12.</a> Inside CrudControllers, if you've used ```wrapperAttributes``` on fields, please note that it's now called ```wrapper```. Please search & replace ```wrapperAttributes``` with ```wrapper``` in your CrudControllers.
 
+Additionally, for the `select2_from_ajax` and `select2_from_ajax_multiple` field types, the inputs on the main form are no longer sent through the AJAX request by default. If you're using [dependant selects](https://backpackforlaravel.com/docs/4.1/crud-how-to#add-a-select2-field-that-depends-on-another-field), please make sure that you add `'include_all_form_fields' => true` to your `select2_from_ajax` and `select2_from_ajax_multiple` field definition to keep the same behaviour as before.
+
 <a href="assets"></a>
 ### CSS & JS Assets
 
