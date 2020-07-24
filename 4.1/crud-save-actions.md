@@ -55,7 +55,7 @@ $this->crud->addSaveActions([
         'name' => 'save_action_one',
         'visible' => function($crud) {
             return true;
-        }
+        },
         'redirect' => function($crud, $request, $itemId) {
             return $crud->route;
         },
@@ -64,7 +64,7 @@ $this->crud->addSaveActions([
         'name' => 'save_action_two',
         'visible' => function($crud) {
             return true;
-        }
+        },
         'redirect' => function($crud, $request, $itemId) {
             return $crud->route;
         },
@@ -82,7 +82,7 @@ $this->crud->replaceSaveActions(
         'name' => 'save_action_one',
         'visible' => function($crud) {
             return true;
-        }
+        },
         'redirect' => function($crud, $request, $itemId) {
             return $crud->route;
         },
