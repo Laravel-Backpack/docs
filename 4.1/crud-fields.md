@@ -2064,7 +2064,7 @@ And your blade file something like:
         type="text"
         name="{{ $field['name'] }}"
         value="{{ old($field['name']) ? old($field['name']) : (isset($field['value']) ? $field['value'] : (isset($field['default']) ? $field['default'] : '' )) }}"
-        @include('crud::inc.field_attributes')
+        @include('crud::fields.inc.attributes')
     >
 
     {{-- HINT --}}
