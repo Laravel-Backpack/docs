@@ -33,3 +33,14 @@ To rephrase and clarify - _you_ don't need a license code to develop an open-sou
 
 We plan to address this inconvenience in Backpack v5, by having a "Backpack Lite" package under MIT License, with limited features. Then you could easily build things on top of that, instead of the main Backpack package. But until then, I'm afraid the problem remains - and the only solution is to clearly state in your README file that your package is open-source, but one of your dependencies requires payment for commercial use. Feel free to email hello@tabacitu.ro with details about your project, for more information.
 
+
+
+<a name="how-do-i-use-a-backpack-license-key"></a>
+### How do I use the Backpack license key I purchased/received? 
+
+There are two places where you can put your Backpack license code:
+
+(A) inside your .ENV file, ona a new line, as `BACKPACK_LICENSE=xxx`
+(B) inside your `config/backpack/base.php`, at the bottom, you'll find `'license_code' => env('BACKPACK_LICENSE', false)` - you can replace `false` with your license code (wrapped by single quotes)
+
+Option (A) is the recommended one, because there's no point in saving the license code within the code base (in git), and exposing it to whoever has access to the source code. The Backpack license code is only needed in production, so the best way is to add an environment variable there, in on your production server.
