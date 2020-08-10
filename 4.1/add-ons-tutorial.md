@@ -90,7 +90,7 @@ Also in ```/src/``` you'll notice ```src/resources/views/fields/toggle.blade.php
 # make sure you replace the below with your actual vendor name and package name
 cd packages/my-company/dummy-field-for-backpack/
 git add .
-git commit -m "turned sthe keleton package into dummy-field package"
+git commit -m "turned the skeleton package into dummy-field package"
 ```
 
 Create [a new GitHub repository](https://github.com/new). Then get the Git URL the same way you did for the Toggle package, from the green "Clone or Download" button. With that Git URL:
