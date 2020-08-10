@@ -40,7 +40,7 @@ We plan to address this inconvenience in Backpack v5, by having a "Backpack Lite
 
 There are two places where you can put your Backpack license code:
 
-(A) inside your .ENV file, ona a new line, as `BACKPACK_LICENSE=xxx`
-(B) inside your `config/backpack/base.php`, at the bottom, you'll find `'license_code' => env('BACKPACK_LICENSE', false)` - you can replace `false` with your license code (wrapped by single quotes)
+- (A) inside your .ENV file, ona a new line, as `BACKPACK_LICENSE=xxx`
+- (B) inside your `config/backpack/base.php`, at the bottom, you'll find `'license_code' => env('BACKPACK_LICENSE', false)` - you can replace `false` with your license code (wrapped by single quotes)
 
 Option (A) is the recommended one, because there's no point in saving the license code within the code base (in git), and exposing it to whoever has access to the source code. The Backpack license code is only needed in production, so the best way is to add an environment variable there, in on your production server.
