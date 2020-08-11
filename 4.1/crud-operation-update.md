@@ -108,10 +108,10 @@ class ProductCrudController extends CrudController
     	// $this->crud->setOperationSetting('saveAllInputsExcept', ['_token', '_method', 'http_referrer', 'current_tab', 'save_action']);
 	// The above will make Backpack store all inputs EXCEPT for the ones it uses for various features.
 	// So you can manipulate the request and add any request variable you'd like.
-	// $this->crud->request->request->add(['author_id'=> backpack_user()->id]);
-	// $this->crud->request->request->remove('password_confirmation');
-	// $this->crud->request->request->add(['author_id'=> backpack_user()->id]);
-	// $this->crud->request->request->remove('password_confirmation');
+	// $this->crud->getRequest()->request->add(['author_id'=> backpack_user()->id]);
+	// $this->crud->getRequest()->request->remove('password_confirmation');
+	// $this->crud->getRequest()->request->add(['author_id'=> backpack_user()->id]);
+	// $this->crud->getRequest()->request->remove('password_confirmation');
 	
         $response = $this->traitUpdate();
         // do something after save
