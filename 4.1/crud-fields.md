@@ -1547,7 +1547,7 @@ Display a select2 that takes its values from an AJAX call. Same as [select2_from
     'name'        => 'cities', // a unique identifier (usually the method that defines the relationship in your Model) 
     'entity'      => 'cities', // the method that defines the relationship in your Model
     'attribute'   => "name", // foreign key attribute that is shown to user
-    'data_source' => url("api/cities"), // url to controller search function (with /{id} should return model)
+    'data_source' => url("api/city"), // url to controller search function (with /{id} should return model)
     'pivot'       => true, // on create&update, do you need to add/delete pivot table entries?
     
     // OPTIONAL
@@ -1561,8 +1561,8 @@ Display a select2 that takes its values from an AJAX call. Same as [select2_from
 Of course, you also need to create a controller and routes for the data_source above. Here's an example:
 
 ```php
-Route::get('/api/category', 'Api\CityController@index');
-Route::get('/api/category/{id}', 'Api\CityController@show');
+Route::get('/api/city', 'Api\CityController@index');
+Route::get('/api/city/{id}', 'Api\CityController@show');
 ```
 
 ```php
