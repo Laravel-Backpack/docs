@@ -70,6 +70,8 @@ In this blade file, you can use:
 - ```$crud``` - the entire CrudPanel object;
 - ```$button``` - the button you're currently showing;
 
+Note: If you've opted to add a button from a model function (not a blade file), inside your model function you can use `$this` to get the current entry (so for example, you can do `$this->id`.
+
 <a name="examples"></a>
 ## Examples
 
