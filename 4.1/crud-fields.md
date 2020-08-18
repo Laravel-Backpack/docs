@@ -11,54 +11,6 @@ Think of the field type as the type of input: ```<input type=”text” />```. B
 
 We have a lot of default field types, detailed below. If you don't find what you're looking for, you can [create a custom field type](/docs/{{version}}/crud-fields#creating-a-custom-field-type). Or if you just want to tweak a default field type a little bit, you can [overwrite default field types](/docs/{{version}}/crud-fields#overwriting-default-field-types).
 
-<a name="mandatory-field-attributes"></a>
-### Mandatory Field Attributes
-
-For each of them, you only need to define it properly in the Controller. All field types will need at least three things: 
-- the ```name``` of the column in the database (ex: "title")
-- the human-readable ```label``` for the input (ex: "Title")
-- the ```type``` of the input (ex: "text")
-
-So at minimum, your field definition array should look like:
-```php
-[
-    'name'  => 'description',
-    'type'  => 'textarea',
-    'label' => 'Article Description',
-]
-```
-
-<a name="optional-field-attributes"></a>
-### Optional Field Attributes
-
-There are a few optional attributes on all default field types, that you can use to easily achieve a few common customizations:
-
-```php
-[
-    'prefix'     => '',
-    'suffix'     => '',
-    'default'    => 'some value', // set a default value
-    'hint'       => 'Some hint text', // helpful text, shows up after the input
-    'attributes' => [
-       'placeholder' => 'Some text when empty',
-       'class'       => 'form-control some-class',
-       'readonly'    => 'readonly',
-       'disabled'    => 'disabled',
-     ], // change the HTML attributes of your input
-     'wrapper'   => [ 
-        'class'      => 'form-group col-md-12'
-     ], // change the HTML attributes for the field wrapper - mostly for resizing fields 
-]
-```
-
-These will help you:
-
-- **prefix** - add a text or icon _before_ the actual input;
-- **suffix** - add a text or icon _after_ the actual input;
-- **default** - specify a default value for the input, on create;
-- **hint** - add descriptive text for this input;
-- **attributes** - change or add actual HTML attributes of the input (ex: readonly, disabled, class, placeholder, etc);
-- **wrapper** - change or add actual HTML attributes to the div that contains the input; 
 
 <a name="fields-api"></a>
 ### Fields API
@@ -109,11 +61,73 @@ $this->crud->field('price');
 $this->crud->field('price')->type('number');
 ```
 
-<a name="extra-field-features"></a>
-### Extra Fields Features
+<a name="field-attributes"></a>
+### Field Attributes
+
+<a name="mandatory-field-attributes"></a>
+#### Mandatory Field Attributes
+
+**The only attribute that's mandatory when you define a field is its `name`**, which will be used:
+- inside the inputs, as `<input name='your_db_column' />`;
+- to store the information in the database, so your `name` should corespond to a database column (if the field type doesn't have different instructions); 
+
+Every other field attribute other than `name`, Backpack 4.1+ will try to guess.
+
+<a name="recommended-field-attributes"></a>
+#### Recommended Field Attributes
+
+Normally developers define the following attributes for all fields:
+- the ```name``` of the column in the database (ex: "title")
+- the human-readable ```label``` for the input (ex: "Title")
+- the ```type``` of the input (ex: "text")
+
+So at minimum, your field definition array should look like:
+```php
+[
+    'name'  => 'description',
+    'type'  => 'textarea',
+    'label' => 'Article Description',
+]
+```
+
+Please note that `label` and `type` are not _mandatory_, just _recommended_:
+- `label` can be ommitted, and Backpack will try to construct it from the `name`;
+- `type` can be ommitted, and Backpack will try to guess it from the column type, or if there's a relationship on the Model with the same `name`;
+
+<a name="optional-field-attributes-for-presentation-purposes"></a>
+#### Optional - Field Attributes for Presentation Purposes
+
+There are a few optional attributes on most default field types, that you can use to easily achieve a few common customizations:
+
+```php
+[
+    'prefix'     => '',
+    'suffix'     => '',
+    'default'    => 'some value', // set a default value
+    'hint'       => 'Some hint text', // helpful text, shows up after the input
+    'attributes' => [
+       'placeholder' => 'Some text when empty',
+       'class'       => 'form-control some-class',
+       'readonly'    => 'readonly',
+       'disabled'    => 'disabled',
+     ], // change the HTML attributes of your input
+     'wrapper'   => [ 
+        'class'      => 'form-group col-md-12'
+     ], // change the HTML attributes for the field wrapper - mostly for resizing fields 
+]
+```
+
+These will help you:
+
+- **prefix** - add a text or icon _before_ the actual input;
+- **suffix** - add a text or icon _after_ the actual input;
+- **default** - specify a default value for the input, on create;
+- **hint** - add descriptive text for this input;
+- **attributes** - change or add actual HTML attributes of the input (ex: readonly, disabled, class, placeholder, etc);
+- **wrapper** - change or add actual HTML attributes to the div that contains the input; 
 
 <a name="fake-fields"></a>
-#### Fake Fields (all stored as JSON in the database)
+#### Optional - Fake Field Attributes (stores fake attributes as JSON in the database)
 
 In case you want to store insignificant information for an entry, that don't need a database column, you can add any number of Fake Fields, and all their information will be store inside one column in the db, as JSON. By default, an ```extras``` column is assumed on the database table, but you can change that.
 
@@ -166,7 +180,7 @@ In this example, these 3 fields will show up in the create & update forms, the C
 If the ```store_in``` attribute wasn't used, they would have been stored in the ```extras``` column.
 
 <a name="split-fields-into-tabs"></a>
-#### Split Fields into Tabs
+#### Optional - Tab Attribute Splits Forms into Tabs
 
 You can now split your create/edit inputs into multiple tabs.
 
@@ -189,8 +203,27 @@ $this->crud->addField([
 
 If you forget to specify a tab name for a field, Backpack will place it above all tabs.
 
+
+<a name="entity-model-and-attribute"></a>
+#### Optional - Attributes for Fields Containing Related Entries
+
+When a field works with related entities (relationships like `BelongsTo`, `HasOne`, `HasMany`, `BelongsToMany`, etc), Backpack needs to know how the current model (being create/edited) and the other model (that shows up in the field) are related. And it stores that information in a few additional field attributes, right after you add the field.
+
+*Normally, Backpack 4.1+ will guess all this relationship information for you.* If you have your relationships properly defined in your Models, you can just use a relationship field the same way you would a normal field. Pretend that _the method in your Model that defines your relationship_ is a real column, and Backpack will do all the work for you.
+
+But if you want to overwrite any of the relationship attributes Backpack guesses, here they are:
+- `entity` - points to the method on the model that contains the relationship; having this defined, Backpack will try to guess from it all other field attributes; ex: `category` or `tags`;
+- `model` - the classname (including namespace) of the related model (ex: `App\Models\Category`); usually deducted from the relationship function in the model;
+- `attribute` - the attribute on the related model (aka foreign attribute) that will be show to the user; for example, you wouldn't want a dropdown of categories showing IDs - no, you'd want to show the category names; in this case, the `attribute` will be `name`; usually deducted using the [identifiable attribute functionality explained below](#identifiable-attribute);
+- `multiple` - boolean, allows the user to pick one or multiple items; usually deducted depending on whether it's a 1-to-n or n-n relationship;
+- `pivot` - boolean, instructs Backpack to store the information inside a pivot table; usually deducted depending on whether it's a 1-to-n or n-n relationship;
+- `relation_type` - text, deducted from `entity`; not a good idea to overwrite;
+
+If you do need a field that contains relationships to behave a certain way, it's usually enough to just specify a different `entity`. However, you _can_ specify any of the attributes above, and Backpack will take your value for it, instead of trying to guess one.
+
+
 <a name="identifiable-attribute"></a>
-#### Identifiable Attribute for Relationship Fields
+** Identifiable Attribute for Relationship Fields**
 
 Fields that work with relationships will allow you to select which ```attribute``` on the related entry you want to show to the user. All relationship fields (relationship, select, select2, select_multiple, select2_multiple, select2_from_ajax, select2_from_ajax_multiple) let you define the ```attribute``` for this specific purpose.
 
@@ -1041,6 +1074,8 @@ Take a look at the examples below to understand the correct syntax for your use 
  ],
 ```
 
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
+
 **Example 2. Many options. Entries are loaded using AJAX.**
 
 If your related entry can have hundreds, thousands or millions of entries, it's not practical to load the options using an Eloquent query onpage, because the Create/Update page would be very slow to load. In this case, you should instruct ```select2``` to fetch the entries using AJAX calls. To do that, in your ```relationship``` field definition you should add ```'ajax' => true```:
@@ -1184,17 +1219,24 @@ Your relationships should already be defined on your models as hasOne() or belon
    'label'     => "Category",
    'type'      => 'select',
    'name'      => 'category_id', // the db column for the foreign key
-   'entity'    => 'category', // the method that defines the relationship in your Model
+
+   // optional 
+   // 'entity' should point to the method that defines the relationship in your Model
+   // defining entity will make Backpack guess 'model' and 'attribute'
+   'entity'    => 'category', 
+
+   // optional - manually specify the related model and attribute
+   'model'     => "App\Models\Category", // related model
    'attribute' => 'name', // foreign key attribute that is shown to user
 
-
-   // optional
-   'model'     => "App\Models\Category",
+   // optional - force the related options to be a custom query, instead of all();
    'options'   => (function ($query) {
         return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
-    }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
+    }), //  you can use this to filter the results show in the select
 ],
 ```
+
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
 
 Input preview: 
 
@@ -1222,6 +1264,8 @@ Display a select where the options are grouped by a second entity (like Categori
 ],
 ```
 
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
+
 Input preview:
 
 ![CRUD Field - select_grouped](https://backpackforlaravel.com/uploads/docs-4-1/fields/select_grouped.png)
@@ -1239,17 +1283,21 @@ Your relationships should already be defined on your models as hasOne() or belon
    'label'     => "Category",
    'type'      => 'select2',
    'name'      => 'category_id', // the db column for the foreign key
-   'entity'    => 'category', // the method that defines the relationship in your Model
-   'attribute' => 'name', // foreign key attribute that is shown to user
 
    // optional
+   'entity'    => 'category', // the method that defines the relationship in your Model
    'model'     => "App\Models\Category", // foreign key model
+   'attribute' => 'name', // foreign key attribute that is shown to user
    'default'   => 2, // set the default value of the select2
+
+    // also optional
    'options'   => (function ($query) {
         return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
     }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
 ],
 ```
+
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
 
 Input preview: 
 
@@ -1268,17 +1316,21 @@ Your relationship should already be defined on your models as belongsToMany().
     'label'     => "Tags",
     'type'      => 'select_multiple',
     'name'      => 'tags', // the method that defines the relationship in your Model
+
+    // optional
     'entity'    => 'tags', // the method that defines the relationship in your Model
+    'model'     => "App\Models\Tag", // foreign key model
     'attribute' => 'name', // foreign key attribute that is shown to user
     'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
 
-    // optional
-    'model'     => "App\Models\Tag", // foreign key model
+    // also optional
     'options'   => (function ($query) {
         return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
     }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
 ],
 ```
+
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
 
 Input preview: 
 
@@ -1300,19 +1352,22 @@ Your relationship should already be defined on your models as belongsToMany().
      'label'     => "Tags",
      'type'      => 'select2_multiple',
      'name'      => 'tags', // the method that defines the relationship in your Model
-     'entity'    => 'tags', // the method that defines the relationship in your Model
-     'attribute' => 'name', // foreign key attribute that is shown to user
 
+     // optional
+     'entity'    => 'tags', // the method that defines the relationship in your Model
+     'model'     => "App\Models\Tag", // foreign key model
+     'attribute' => 'name', // foreign key attribute that is shown to user
      'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
      // 'select_all' => true, // show Select All and Clear buttons?
 
      // optional
-     'model'     => "App\Models\Tag", // foreign key model
      'options'   => (function ($query) {
          return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
      }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
 ],
 ```
+
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
 
 Input preview: 
 
@@ -1340,6 +1395,8 @@ Display a select2 with the values ordered hierarchically and indented, for an en
 ],
 ```
 
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
+
 Input preview:
 
 ![CRUD Field - select2_nested](https://backpackforlaravel.com/uploads/docs-4-1/fields/select2_nested.png)
@@ -1363,6 +1420,8 @@ Display a select2 where the options are grouped by a second entity (like Categor
     'group_by_relationship_back' => 'articles', // relationship from related model back to this model
 ],
 ```
+
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
 
 Input preview:
 
@@ -1486,6 +1545,8 @@ Display a select2 that takes its values from an AJAX call.
 ],
 ```
 
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
+
 Of course, you also need to create a controller and routes for the data_source above. Here's an example:
 
 ```php
@@ -1557,6 +1618,8 @@ Display a select2 that takes its values from an AJAX call. Same as [select2_from
     // 'include_all_form_fields'  => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
 ],
 ```
+
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
 
 Of course, you also need to create a controller and routes for the data_source above. Here's an example:
 
