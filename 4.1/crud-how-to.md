@@ -28,10 +28,10 @@ $this->crud->setDetailsRowView('your-view');
 ### Customize CSS and JS for Default CRUD Operations
 
 Each default Backpack operation has its own CSS and JS file, in:
-- ```public/vendor/backpack/crud/css```
-- ```public/vendor/backpack/crud/js```
+- ```public/packages/backpack/crud/css```
+- ```public/packages/backpack/crud/js```
 
-If you don't find one there, you can create one, and Backpack will pick it up in that operation's view (ex: ```create.css``` or ```list.js```).
+Backpack will pick it up in that operation's view (ex: ```create.css``` or ```list.js```).
 
 <a name="add-extra-crud-routes"></a>
 ### Add Extra CRUD Routes
