@@ -93,7 +93,7 @@ class ProductCrudController extends CrudController
 	// This is done by stripping the request of all inputs that do NOT match Backpack fields for this
 	// particular operation. This is an added security layer, to protect your database from malicious
 	// users who could theoretically add inputs using DeveloperTools or JavaScript. If you're not properly
-	// using $guarded or $fillable on your model, malicious inputs could get you into trouble.
+	// using $guarded or $fillable on your model, malicious inputs could get you into trcruouble.
 	
 	// However, if you know you have proper $guarded or $fillable on your model, andyou want to manipulate 
 	// the request directly to add or remove request parameters, you can also do that.
@@ -102,8 +102,8 @@ class ProductCrudController extends CrudController
     	// $this->crud->setOperationSetting('saveAllInputsExcept', ['_token', '_method', 'http_referrer', 'current_tab', 'save_action']);
 	// The above will make Backpack store all inputs EXCEPT for the ones it uses for various features.
 	// So you can manipulate the request and add any request variable you'd like.
-	// $this->crud->request->request->add(['author_id'=> backpack_user()->id]);
-	// $this->crud->request->request->remove('password_confirmation');
+	// $this->crud->getRequest()->request->add(['author_id'=> backpack_user()->id]);
+	// $this->crud->getRequest()->request->remove('password_confirmation');
 
     	$response = $this->traitStore();
     	// do something after save

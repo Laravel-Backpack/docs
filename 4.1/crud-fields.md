@@ -981,7 +981,7 @@ public function setPasswordAttribute($value) {
     
     public function store()
     {
-        $this->crud->request = $this->crud->validateRequest();
+        $this->crud->setRequest($this->crud->validateRequest());
     
         // Encrypt password if specified.
         if ($request->input('password')) {
