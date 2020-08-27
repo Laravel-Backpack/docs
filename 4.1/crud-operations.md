@@ -882,6 +882,7 @@ protected function setupBulkCloneRoutes($segment, $routeName, $controller)
 ```
 
 4. Setup the default features we need for the operation to work:
+
 ```php
 protected function setupBulkCloneDefaults()
 {
