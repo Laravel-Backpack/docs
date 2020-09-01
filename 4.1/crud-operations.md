@@ -543,7 +543,7 @@ public function clone($id)
 4. We can now actually add this button to our ```UserCrudController::setupCloneOperation()``` method, or our ```setupCloneDefaults()``` method:
 
 ```php
-protected setupCloneDefaults() {
+protected function setupCloneDefaults() {
   $this->crud->allowAccess('clone');
 
   $this->crud->operation(['list', 'show'], function () {
