@@ -411,6 +411,8 @@ Input preview:
 ],
 ```
 
+#### Note: If you don't use a pivot table (pivot = false), you need to cast your db column as array in your model. 
+
 Input preview: 
 
 ![CRUD Field - checklist](https://backpackforlaravel.com/uploads/docs-4-1/fields/checklist.png)
