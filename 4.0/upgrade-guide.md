@@ -143,7 +143,23 @@ This is a great time to think about which default operations you're NOT using wi
     
 ```
 
-**Step 6.** If in any of your EntityCrudControllers, you're using ```parent::``` to call a method from Backpack's CrudController, it will not work anymore. Since the methods are now applied using a trait, not by extending a CrudController. 
+**Step 6.** If in any of your EntityCrudControllers, you're using ```parent::``` to call a method from Backpack's CrudController, it will not work anymore. Since the methods are now applied using a trait, not by extending a CrudController. You will now have to rename the trait's method in the Use statement in order to call it from your custom method, for example:
+
+```
+class MyCrudController extends CrudController
+{
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation {
+        edit as parentEdit;
+    }
+
+    public function edit($id)
+    {
+        // customizations go here
+        // then we call the parent
+	return $this->parentEdit($id);
+    }
+        
+```        
 
 **(6.1)** If your ```store()``` and ```update()``` methods don't have any custom logic apart than calling the parent method, you can delete them. We no longer need the Request type-hinted. So if they look like this, you can delete them:
 ```php
