@@ -399,6 +399,8 @@ Input preview:
 <a name="checklist"></a>
 ### checklist
 
+Show a list of checkboxes, for the user to check one or more of them.
+
 ```php
 [   // Checklist
     'label'     => 'Roles',
@@ -410,6 +412,8 @@ Input preview:
     'pivot'     => true,
 ],
 ```
+
+**Note: If you don't use a pivot table (pivot = false), you need to cast your db column as `array` in your model,by adding your column to your model's `$casts`. **
 
 Input preview: 
 
