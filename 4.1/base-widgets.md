@@ -187,7 +187,7 @@ Widget::add([
 
 **Step 4.** Configure the ChartController you just created:
 - ```public function setup()``` (MANDATORY)
-    - initialize and configure ```$this->chart```, using the methods detailed in the [laravel-charts documentation](https://charts.erik.cat/adding_datasets.html#simple-example); 
+    - initialize and configure ```$this->chart```, using the methods detailed in the [laravel-charts documentation](https://github.com/ConsoleTVs/ChartsDocs/tree/fd537ee2a3f2652925b106274ff7031bef0c9585/docs); 
     - you _can_ define your dataset here, if you want your DB queries to be called upon page load;
 - ```public function data()``` (OPTIONAL, but recommended)
     - use ```$this->chart->dataset()``` to configure what the chart should contain;
