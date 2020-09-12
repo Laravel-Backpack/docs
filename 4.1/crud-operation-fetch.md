@@ -25,7 +25,7 @@ In order to enable this operation in your CrudController, you need to:
 
     protected function fetchTag()
     {
-        return $this->fetch(App\Models\Tag::class);
+        return $this->fetch(\App\Models\Tag::class);
     }
 ```
 
@@ -45,7 +45,7 @@ class ProductCrudController extends CrudController
     protected function fetchTag()
     {
         return $this->fetch([
-            'model' => App\Models\Tag::class, // required
+            'model' => \App\Models\Tag::class, // required
             'searchable_attributes' => ['name', 'description'],
             'paginate' => 10, // items to show per page
             'query' => function($model) {
