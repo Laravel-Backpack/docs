@@ -15,7 +15,7 @@ Since we don't have an Eloquent model for it already, we're going to use [Jeffre
 
 ```zsh
 # STEP 0. create migration
-php artisan make:migration:schema create_tags_table --model=0 --schema="name:string:unique"
+php artisan make:migration:schema create_tags_table --schema="name:string:unique"
 php artisan migrate
 ```
 
