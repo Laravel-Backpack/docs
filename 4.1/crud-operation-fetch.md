@@ -25,7 +25,7 @@ In order to enable this operation in your CrudController, you need to:
 
     protected function fetchTag()
     {
-        return $this->fetch(App\Models\Tag::class);
+        return $this->fetch(\App\Models\Tag::class);
     }
 ```
 
