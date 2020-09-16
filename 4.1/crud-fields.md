@@ -1112,7 +1112,7 @@ Then, you need to create the route and method that allows ```select2``` to searc
 
     public function fetchCategory()
     {
-        return $this->fetch(App\Models\Category::class);
+        return $this->fetch(\App\Models\Category::class);
     }
 ```
 
