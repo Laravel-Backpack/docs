@@ -30,7 +30,7 @@ For example:
 
 To use the Create operation, you must:
 
-**Step 1. Use the operation trait on your secondary entity's CrudController** (aka. the entity that will gain the ability to be created inline, in our example CategoryCrudController):
+**Step 1. Use the operation trait on your secondary entity's CrudController** (aka. the entity that will gain the ability to be created inline, in our example CategoryCrudController). Make sure you use `InlineCreateOperation` *after* `CreateOperation`:
 
 ```php
 <?php
@@ -41,7 +41,12 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 
 class TagCrudController extends CrudController
 {
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
+    
+    // notice InlineCreateOperation is used AFTER CreateOperation
+    // that's required in order for InlineCreate to re-use whatever
+    // CreateOperation has already setup
     
     // OPTIONAL
     // only if you want to make the InlineCreateOperation behave differently 
