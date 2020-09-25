@@ -174,7 +174,7 @@ The tags are the way you will version your package, so it’s important you do i
 
 In order for people to be able to install your package using composer, your package needs to be registerd with Packagist, Composer's free package registry.
 
-On [Packagist.org](http://packagist.org/), submit a new package. Enter you package’s GitHub URL and click Check. If any errors occur, follow the onscreen instructions. When you’re done, you’re taken to your package’s packagist page.
+On [Packagist.org](https://packagist.org/), submit a new package. Enter you package’s GitHub URL and click Check. If any errors occur, follow the onscreen instructions. When you’re done, you’re taken to your package’s packagist page.
 
 **Congrats, you have a working package online**, you can now install it using Composer.
 

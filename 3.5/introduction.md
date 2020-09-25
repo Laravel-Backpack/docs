@@ -39,7 +39,7 @@ php artisan backpack:base:add-sidebar-content "<li><a href='{{ backpack_url('tag
 <a name="screenshots"></a>
 ### Screenshots
 
-Take a look at [our homepage](http://www.backpackforlaravel.com/).
+Take a look at [our homepage](https://backpackforlaravel.com/).
 
 <a name="demo"></a>
 ### Demo
@@ -54,7 +54,7 @@ Backpack has never had a critical vulnerability/hack. But there _have_ been impo
 <a name="maintenance"></a>
 ### Maintenance
 
-Backpack 3.5 is the current version, and is being actively maintained by Backpack's creator, [Cristian Tabacitu](http://tabacitu.ro), with the help of a wonderful community of Backpack veterans. [See all contributors](https://github.com/Laravel-Backpack/CRUD/graphs/contributors).
+Backpack 3.5 is the current version, and is being actively maintained by Backpack's creator, [Cristian Tabacitu](https://tabacitu.ro), with the help of a wonderful community of Backpack veterans. [See all contributors](https://github.com/Laravel-Backpack/CRUD/graphs/contributors).
 
 <a name="license"></a>
 ### License

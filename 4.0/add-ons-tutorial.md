@@ -125,7 +125,7 @@ You might not have used git tags until now. Tags are the way you will version yo
 <a name="step-4-put-it-on-packagist"></a>
 ## Step 4. Put it on Packagist
 
-On [Packagist.org](http://packagist.org), create an account if you don't have one already, then click "Submit package" in the top-right corner. Enter you package's GitHub URL and click Check. If any errors occur, follow the onscreen instructions.
+On [Packagist.org](https://packagist.org), create an account if you don't have one already, then click "Submit package" in the top-right corner. Enter you package's GitHub URL and click Check. If any errors occur, follow the onscreen instructions.
 
 When you're done, you'll be taken to your packagist page, where you'll probably get a notice like this:
 
@@ -225,7 +225,7 @@ If you're building a bigger package, with one CRUD or more, we recommend you fol
 - README.md
 
 For extra reading credits, these are the resources we've used to create this guide:
-- http://laravel.com/docs/packages
+- https://laravel.com/docs/packages
 - https://laracasts.com/discuss/channels/tips/developing-your-packages-in-laravel-5
 - https://github.com/jaiwalker/setup-laravel5-package
 - https://github.com/Jeroen-G/laravel-packager

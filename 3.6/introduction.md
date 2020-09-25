@@ -39,7 +39,7 @@ php artisan backpack:base:add-sidebar-content "<li><a href='{{ backpack_url('tag
 <a name="screenshots"></a>
 ### Screenshots
 
-Take a look at [our homepage](http://www.backpackforlaravel.com/).
+Take a look at [our homepage](https://backpackforlaravel.com/).
 
 <a name="demo"></a>
 ### Demo

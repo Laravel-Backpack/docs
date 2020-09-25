@@ -164,7 +164,7 @@ Tags are the way you will version your package, so it's important you do it. Peo
 <a name="step-3-put-it-on-packagist"></a>
 ## Step 3. Put it on Packagist
 
-On [Packagist.org](http://packagist.org), submit a new package. Enter you package's GitHub URL and click Check. If any errors occur, follow the onscreen instructions.
+On [Packagist.org](https://packagist.org), submit a new package. Enter you package's GitHub URL and click Check. If any errors occur, follow the onscreen instructions.
 
 When you're done, you'll be taken to your packagist page, where you'll probably get a notice like this:
 
@@ -209,7 +209,7 @@ git push origin master --tags
 You can now delete the Backpack project, and the database you've created for it (if any).
 
 For extra reading credits, these are the resources we've used to create this guide:
-- http://laravel.com/docs/packages
+- https://laravel.com/docs/packages
 - https://laracasts.com/discuss/channels/tips/developing-your-packages-in-laravel-5
 - https://github.com/jaiwalker/setup-laravel5-package
 - https://github.com/Jeroen-G/laravel-packager

@@ -9,7 +9,7 @@ Here are the main differences between [Backpack 3.6](https://backpackforlaravel.
 <a name="added"></a>
 # Added
 - using Bootstrap 4 instead of Bootstrap 3; 
-- new design; we're now using a custom design we made, called [Backstrap](http://backstrap.net), based on [CoreUI](http://coreui.io); (_get it? Backpack... Bootstrap... Backstrap? Pff..._)
+- new design; we're now using a custom design we made, called [Backstrap](https://backstrap.net), based on [CoreUI](http://coreui.io); (_get it? Backpack... Bootstrap... Backstrap? Pff..._)
 - no CSS and JS assets are loaded from CDNs; everything's inside the Backpack/CRUD package, installed through NPM, and gets published into your ```public``` folder upon installation; you don't need to use NPM yourself to install or update assets - the Backpack maintainers do that for you;
 - offline & intranet support - thanks to our move away from CDNs, Backpack now works without an internet connection;
 - ability to easily add Vue.JS, React, or any other JS file inside all your admin panel pages, by modifying an array in ```config/backpack/base.php```;
@@ -23,7 +23,7 @@ Here are the main differences between [Backpack 3.6](https://backpackforlaravel.
 
 <a name="removed"></a>
 # Removed
-- AdminLTE design; we're now using Bootstrap 4 + [CoreUI](http://coreui.io), with a custom design we made, called [Backstrap](http://backstrap.net); (_get it? Backpack... Bootstrap... Backstrap?_)
+- AdminLTE design; we're now using Bootstrap 4 + [CoreUI](http://coreui.io), with a custom design we made, called [Backstrap](https://backstrap.net); (_get it? Backpack... Bootstrap... Backstrap?_)
 - Pnotify was removed in favour of Noty to show notificatio bubbles;
 - loading multiple files for CSS and JS, on every page; now Backpack's default is to load one CSS bundle file, and one JS bundle file; CSS and JS for field types is still loaded separately, when needed, of course - you wouldn't want all CSS & JS loaded for all 40+ field types, on every page load;
 - ```backpack/generators``` and ```laracasts/generators``` are no longer installed automatically; however, the official installation process does instruct you to install them;

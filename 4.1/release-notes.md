@@ -19,7 +19,7 @@ But here's the big stuff Backpack 4.1 brings to the table, and why you should up
 - allows admins to create related items on-the-fly, without leaving the current form;
 - shows a new button next to your relationship fields; when you click [+ Add], a modal is shown with all the fields needed to create a related item on-the-fly; it basically brings that entry's Create form on this page;
 - it works well for entities with a few inputs, but it also works well for huge entities with dozens of inputs, tabs, etc;
-- see [docs](https://backpackforlaravel.com/docs/4.1/crud-operation-inline-create), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2311), [demo](http://demo.backpackforlaravel.com/admin/monster)
+- see [docs](https://backpackforlaravel.com/docs/4.1/crud-operation-inline-create), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2311), [demo](https://demo.backpackforlaravel.com/admin/monster)
 
 ![Backpack InlineCreate Operation](https://backpackforlaravel.com/uploads/docs-4-1/release_notes/inline_create_small.gif)
 
@@ -42,7 +42,7 @@ But here's the big stuff Backpack 4.1 brings to the table, and why you should up
 - **one relationship field to rule them all**; instead of thinking whether you need ```select2```, ```select2_multiple```, ```select2_from_ajax``` or ```select2_from_ajax_multiple``` you can now just use the ```relationship``` field, that includes the functionality of all of them... and more;
 - **intelligent defaults**; it automatically figures out the ```entity```, ```model```, ```attribute```, ```multiple```, ```pivot``` and  ```label```, so most of the time you'll just need to define two things for it to work - ```name``` and ```type```;
 - **supports both non-AJAX and AJAX**; for the dropdown options, it defaults to immediate querying; if you want to load the options using AJAX, you just have to point it to the correct route, using ```data_source```; which is super-easy to do using the new Fetch operation detailed above;
-- see [docs](/docs/4.1/crud-fields#relationship), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2311), [demo](http://demo.backpackforlaravel.com/admin/monster)
+- see [docs](/docs/4.1/crud-fields#relationship), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2311), [demo](https://demo.backpackforlaravel.com/admin/monster)
 
 ![Backpack Relationship Field](https://backpackforlaravel.com/uploads/docs-4-1/release_notes/relationship.png)
 
@@ -77,7 +77,7 @@ But here's the big stuff Backpack 4.1 brings to the table, and why you should up
 - allows you to **change how columns look&feel, by wrapping the text into a custom HTML element**; similarly to how we've been able to do for years with Fields, you can now specify a wrapper for columns, and change that wrapper's ```class```, ```style```, etc.
 - you can now **easily add links to your columns**; make it easy for admins to jump from one CRUD to another, by making relationship columns point to that Model's CRUD; but they can also point to whatever else you want;
 - you can now **easily make your column text a different color depending on its content**, just by adding a Bootstrap class (ex: add ```badge badge-warning``` or ```text-success```);
-- see [docs](/docs/{{version}}/crud-columns#wrap-column-text-in-an-html-element), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2448), [demo](http://demo.backpackforlaravel.com/admin/article)
+- see [docs](/docs/{{version}}/crud-columns#wrap-column-text-in-an-html-element), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2448), [demo](https://demo.backpackforlaravel.com/admin/article)
 
 
 ![Backpack Column Wrapper](https://backpackforlaravel.com/uploads/docs-4-1/release_notes/column_wrapper_small.gif)
@@ -88,7 +88,7 @@ But here's the big stuff Backpack 4.1 brings to the table, and why you should up
 
 - the perfect companion to the new ```relationship``` field;
 - **intelligent defaults**; it automatically figures out the ```entity```, ```model```, ```attribute```, ```multiple```, ```pivot``` and  ```label```, so most of the time you'll just need to define two things for it to work - ```name``` and ```type```;
-- see [docs](/docs/{{version}}/crud-columns#relationship), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2615), [demo](http://demo.backpackforlaravel.com/admin/monster)
+- see [docs](/docs/{{version}}/crud-columns#relationship), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2615), [demo](https://demo.backpackforlaravel.com/admin/monster)
 
 
 <hr> 
@@ -98,7 +98,7 @@ But here's the big stuff Backpack 4.1 brings to the table, and why you should up
 - shows the number of items related to the current entry, on that relationship, for example "413 items";
 - perfect for when your entity points to A LOT of other entries;
 - if you have a CRUD with Filters for that related Model, you can add the `wrapper` attribute mentioned above to this column, to turn it into a link that points to a filtered view of that related CRUD; that way the admin can click this column and see those 413 items;
-- see [docs](/docs/{{version}}/crud-columns#relationship_count), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2615), [demo](http://demo.backpackforlaravel.com/admin/monster)
+- see [docs](/docs/{{version}}/crud-columns#relationship_count), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2615), [demo](https://demo.backpackforlaravel.com/admin/monster)
 
 
 <hr> 
@@ -110,7 +110,7 @@ But here's the big stuff Backpack 4.1 brings to the table, and why you should up
 - easily add a widget with a chart, on any admin panel page, directly from your Controller or blade file;
 - the same/similar syntax for multiple chart libraries: ChartJS, Highcharts, Fusioncharts, Echarts, Frappe, C3, thanks to [Laravel Charts](https://charts.erik.cat/); easily switch between charting libraries;
 - easily defer DB queries to an AJAX call (recommended) or make them upon pageload;   
-- see [docs](/docs/4.1/base-widgets#chart), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2596), [demo](http://demo.backpackforlaravel.com/admin/)
+- see [docs](/docs/4.1/base-widgets#chart), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2596), [demo](https://demo.backpackforlaravel.com/admin/)
 
 
 ![Backpack Chart Widget](https://backpackforlaravel.com/uploads/docs-4-1/release_notes/chart_widget_small.gif)
@@ -122,7 +122,7 @@ But here's the big stuff Backpack 4.1 brings to the table, and why you should up
 - a global object that allows you to more easily add/edit Widgets to your admin panel pages;
 - you can still manipulate the ```$data['widgets']``` directly, but you can also use this new class;
 - you can pass the entire widget definition array to ```Widget::add()``` or you can use the new fluent syntax;
-- see [docs](/docs/4.1/base-widgets#widgets-api), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2599), [demo](http://demo.backpackforlaravel.com/admin/)
+- see [docs](/docs/4.1/base-widgets#widgets-api), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2599), [demo](https://demo.backpackforlaravel.com/admin/)
 
 
 ![Backpack Widget Class](https://backpackforlaravel.com/uploads/docs-4-1/release_notes/widget_class.png)

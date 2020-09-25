@@ -6,7 +6,7 @@ Backpack is a collection of Laravel packages that help you **build custom admini
 
 In a nutshell:
 
-- Backpack will provide you with a _visual interface_ for the admin panel (the HTML, the CSS, the JS); it pulls in the excellent [CoreUI](https://coreui.io/) theme, with our own design called [Backstrap](http://backstrap.net), adds authentication functionality & bubble notifications; when you decide to build a custom feature for your admin panel, you already have the HTML blocks for the UI, and it will look good;
+- Backpack will provide you with a _visual interface_ for the admin panel (the HTML, the CSS, the JS); it pulls in the excellent [CoreUI](https://coreui.io/) theme, with our own design called [Backstrap](https://backstrap.net), adds authentication functionality & bubble notifications; when you decide to build a custom feature for your admin panel, you already have the HTML blocks for the UI, and it will look good;
 - Backpack will help you build _sections where your admins can manipulate entries for Eloquent models_; we call them _CRUD Panels_ after the most basic operations: Create/Read/Update/Delete; after [understanding Backpack](/docs/{{version}}/getting-started-basics), you'll be able to create a CRUD panel for each entity in about 10 minutes / model:
 
 ```bash
@@ -51,7 +51,7 @@ We heavily recommend you spend a little time to understand Backpack, and only af
 <a name="how-does-it-look"></a>
 ### How does it look?
 
-- Take a look at [our homepage](http://www.backpackforlaravel.com/).
+- Take a look at [our homepage](https://backpackforlaravel.com/).
 - Play around in our [live demo](https://demo.backpackforlaravel.com/admin/login).
 - [Install the demo](/docs/{{version}}/demo) and fiddle with the code.
 

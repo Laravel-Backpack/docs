@@ -15,8 +15,8 @@ Meet your teacher, [Cristian Tabacitu](https://twitter.com/tabacitu), the founde
 
 <br>
 Mentioned in this video:
-- [Laravel](http://laravel.com)
-- ["Laravel from Scratch" series on Laracasts](http://laravelfromscratch.com/)
+- [Laravel](https://laravel.com)
+- ["Laravel from Scratch" series on Laracasts](https://laravelfromscratch.com/)
 - [Backpack's docs repo on Github](https://github.com/laravel-backpack/docs)
 
 ----

@@ -225,7 +225,7 @@ If you're building a bigger package, with one CRUD or more, we recommend you fol
 - README.md
 
 For extra reading credits, these are the resources we've used to create this guide:
-- http://laravel.com/docs/packages
+- https://laravel.com/docs/packages
 - https://laracasts.com/discuss/channels/tips/developing-your-packages-in-laravel-5
 - https://github.com/jaiwalker/setup-laravel5-package
 - https://github.com/Jeroen-G/laravel-packager
