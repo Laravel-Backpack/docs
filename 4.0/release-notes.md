@@ -76,7 +76,7 @@ If you're an EU resident/company, VAT may be added to your invoice.
 
 There's only one catch: **To receive the discount, you have to purchase the upgrade before October 27th 2019**. You can purchase the upgrade in your Backpack account - you'll notice a new button has shown up next to your v3 license "_Upgrade for xxx EUR_". That button will disappear on October 28th 2019, 00:01 GMT. You will not be able to purchase with a discount after that.
 
-If you've bought the Unlimited License very recently, and haven't launched any projects using Backpack v3, we don't want you to feel cheated. We can make a special discount for you - we'll discount the entire v3 Unlimited cost from your v4 Unlimited License. You'd only pay the price difference from v3 to v4 (100 EUR), and you'd be licensed to use both v3 and v4 in production. [Contact us](http://backpackforlaravel.com/contact).
+If you've bought the Unlimited License very recently, and haven't launched any projects using Backpack v3, we don't want you to feel cheated. We can make a special discount for you - we'll discount the entire v3 Unlimited cost from your v4 Unlimited License. You'd only pay the price difference from v3 to v4 (100 EUR), and you'd be licensed to use both v3 and v4 in production. [Contact us](https://backpackforlaravel.com/contact).
 
 
 <a name="versioning"></a>

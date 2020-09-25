@@ -75,5 +75,5 @@ For more, please see:
 
 We heavily recommend you spend a little time to understand Backpack, and only afterwards install and use it. Currently your options are:
 - **[Text Tutorial](/docs/{{version}}/getting-started-basics)** - 23 minutes
-- **[Email Tutorial](http://backpackforlaravel.com/getting-started-emails)** - 1 email per day, for 5 days, 5 minutes each
+- **[Email Tutorial](https://backpackforlaravel.com/getting-started-emails)** - 1 email per day, for 5 days, 5 minutes each
 - **Video Tutorial** - working on it
