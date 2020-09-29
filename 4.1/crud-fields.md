@@ -344,6 +344,7 @@ Open elFinder and select multiple file from there. Run ```composer require backp
 ```
 
 The field assumes you've cast your attribute as ```array``` on your model.  That way, when you do ```$entry->files``` you get a nice array.
+**NOTE:** If you use `multiple => false` you should NOT cast your attribute as ```array```
 
 Input preview: 
 
