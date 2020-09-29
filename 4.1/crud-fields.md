@@ -2170,3 +2170,120 @@ Inside your custom field type, you can use these variables:
 If your field type uses JavaScript, we recommend you:
 - put a ```data-init-function="bpFieldInitMyCustomField"``` attribute on your input;
 - place your logic inside the scripts section mentioned above, inside ```function bpFieldInitMyCustomField(element) {}```; of course, you choose the name of the function but it has to match whatever you specified as data attribute on the input, and it has to be pretty unique; inside this method, you'll find that ```element``` is jQuery-wrapped object of the element where you specified ```data-init-function```; this should be enough for you to not have to use IDs, or any other tricks, to determine other elements inside the DOM - determine them in relation to the main element; if you want, you can choose to put the ```data-init-function``` attribute on a different element, like the wrapping div;
+
+
+<a name="frequently-asked-questions-about-fields"></a>
+## FAQs
+
+<a name="what-field-should-i-use-for-a-relationship"></a>
+### What field should I use for a relationship?
+
+With so many field types, it can be a little overwhelming for a first-timer to quickly grasp what field type to use for your Eloquent relationship. Here's a list of what most people use, most of the times:
+
+#### hasOne (1-1 relationship)
+
+- example: 
+    - `User -> Phone`
+    - a User has one Phone; a Phone can only belong to one User
+    - the foreign key is stored on the Phone (`user_id` on `phones` table)
+- how to use:
+    - [the `hasOne` relationship should be properly defined](https://laravel.com/docs/eloquent-relationships#one-to-one) in the User model;
+    - you can easily add fields for each individual attribute on the related entry; you just need to specify in the field name that the value should not be stored on the _main model_, but on _a related model_; you can do that using dot notation (`relationship_name.column_name`); note that the prefix (before the dot) is the Model name, not the Table name;
+    - all fields types should work fine - depending on your needs you could choose to add a `text` field, `number` field, `select` field, etc;
+
+```php
+// inside UserCrudController::setupCreateOperation()
+CRUD::field('phone.number')->type('number');
+CRUD::field('phone.prefix')->type('text');
+CRUD::field('phone.country')->type('select2');
+CRUD::field('phone.type')->type('select_from_array')->options(['mobile' => 'Mobile Phone', 'landline' => 'Landline', 'fax' => 'Fax']);
+```
+
+#### belongsTo (n-1 relationship)
+
+- example: 
+    - `Phone -> User`
+    - a Phone belongs to one User; a Phone can only belong to one User
+    - the foreign key is stored on the Phone (`user_id` on `phones` table)
+- how to use:
+    - [the `belongsTo` relationship should be properly defined](https://laravel.com/docs/eloquent-relationships#one-to-many-inverse) in the Phone model;
+    - you can use the `select`, `select2` or `relationship` field types, to add a dropdown to let the admin pick which User the Phone belongs to;
+
+```php
+// inside PhoneCrudController::setupCreateOperation()
+CRUD::field('user')->type('relationship'); // notice the name is the relationship name
+CRUD::field('user_id')->type('select'); // notice the name is the foreign key attribute
+CRUD::field('user_id')->type('select2'); // notice the name is the foreign key attribute
+```
+
+- notes:
+    - if you choose the `relationship` field, you can also use the InlineCreate operation, which will add a [+ Add Item] button next to the dropdown, to let the admin create a User in a modal, without leaving the current Create Phone form; 
+
+#### hasMany (1-n relationship)
+
+- example: 
+    - `Post -> Comment`
+    - a Post has many Comments; a Comment can only belong to one Post
+    - the foreign key is stored on the Comment (`post_id` on `comments` table)
+- how to use:
+    - [the `hasMany` relationship should be properly defined](https://laravel.com/docs/eloquent-relationships#one-to-many) in the Post model;
+    - you can add a dropdown on your Post to pick the comments that are connected to this post (the example fails a bit here - a more appropriate one would be to select Tags and attach them to this Post); for that, use the `select_multiple`, `select2_multiple`, `select_from_ajax_multiple` or `relationship` fields; use the name of the relationship for the field name;
+
+```php
+// inside PostCrudController::setupCreateOperation()
+CRUD::field('comments')->type('relationship');
+CRUD::field('comments')->type('select_multiple');
+CRUD::field('comments')->type('select2_multiple');
+```
+
+- notes: 
+    - you _cannot_ use the InlineCreate operation to have show a [+ Add Item] button next to the dropdown; that's because the Comment needs a `post_id` (not nullable); and until the Save button is clicked to submit the Create Post form, there is no `post_id`;
+    - you can use the `repeatable` field on the Post create/update form, to add multiple Comments in one go, but you'll also need to modify your `store()` and `update()` methods to take that into account, and transform the JSON received from the `repeatable` field into actual entries in the database (and back); check out [this example here](https://gist.github.com/tabacitu/4db255042a62c7458ee17fe33d65522c) for how that can be done for Invoice and InvoiceItem;
+    
+// TODO: create a tutorial on how to use the Repeatable field with exactly these models, Post and Comment;
+
+
+#### belongsToMany (n-n relationship)
+
+- example: 
+    - `User -> Role`
+    - a User has many Roles; a Role can also have many Users
+    - the foreign key is stored on a pivot table (usually the `user_roles` table has both `user_id` and `role_id`)
+- how to use:
+    - [the `hasMany` relationship should be properly defined](https://laravel.com/docs/eloquent-relationships#one-to-many) in the Post model;
+    - you can add a dropdown on your Post to pick the comments that are connected to this post (the example fails a bit here - a more appropriate one would be to select Tags and attach them to this Post); for that, use the `select_multiple`, `select2_multiple`, `select_from_ajax_multiple` or `relationship` fields; use the name of the relationship for the field name;
+
+```php
+// inside PostCrudController::setupCreateOperation()
+CRUD::field('comments')->type('relationship');
+CRUD::field('comments')->type('select_multiple');
+CRUD::field('comments')->type('select2_multiple');
+```
+
+- notes: 
+    - you _cannot_ use the InlineCreate operation to have show a [+ Add Item] button next to the dropdown; that's because the Comment needs a `post_id` (not nullable); and until the Save button is clicked to submit the Create Post form, there is no `post_id`;
+ 
+
+#### belongsToMany (n-n relationship)
+
+// TODO
+
+#### hasOneThrough (1-1-1 relationship)
+
+// TODO
+
+#### hasManyThrough (1-1-n relationship)
+
+// TODO
+
+#### morphOne (1-1 polymorphic relationship)
+
+// TODO
+
+#### morphMany (1-n polymorphic relationship)
+
+// TODO
+
+#### morphToMany (n-n polymorphic relationship)
+
+// TODO
