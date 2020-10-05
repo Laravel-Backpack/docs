@@ -248,20 +248,20 @@ class Category
      *
      * @var string
      */
-	protected $identifiableAttribute = 'title';
+    protected $identifiableAttribute = 'title';
 
-	// or for more complicated use cases you can do
+    // or for more complicated use cases you can do
     
     /**
      * Get the attribute shown on the element to identify this model.
      *
      * @return string
      */
-	public function identifiableAttribute()
+    public function identifiableAttribute()
     {
-	    // process stuff here
-	    return 'whatever_you_want_even_an_accessor';
-	}
+        // process stuff here
+        return 'whatever_you_want_even_an_accessor';
+    }
 }
 ```
 
