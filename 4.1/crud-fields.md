@@ -986,14 +986,20 @@ public function setPasswordAttribute($value) {
     
     public function store()
     {
-        $this->crud->request = $this->crud->validateRequest();
+        $this->crud->setRequest($this->crud->validateRequest());
     
+        /** @var \Illuminate\Http\Request $request */
+        $request = $this->crud->getRequest();
+
         // Encrypt password if specified.
         if ($request->input('password')) {
             $request->request->set('password', Hash::make($request->input('password')));
         } else {
             $request->request->remove('password');
         }
+
+        $this->crud->setRequest($request);
+        $this->crud->unsetValidation(); // Validation has already been run
 
         return $this->traitStore();
     }
