@@ -234,13 +234,34 @@ In Backpack, you can explicitly define this, by giving the field an ```attribute
 - (B) you can specify the identifiable attribute in your model, and all fields will pick this up:
 
 ```php
-// you can define
-protected $identifiableAttribute = 'title';
 
-// or for more complicated use cases you can do
-public function identifiableAttribute() {
-    // process stuff here
-    return 'whatever_you_want_even_an_accessor';
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
+
+class Category
+{
+    use CrudTrait;
+
+    // you can define this
+
+    /**
+     * Attribute shown on the element to identify this model.
+     *
+     * @var string
+     */
+    protected $identifiableAttribute = 'title';
+
+    // or for more complicated use cases you can do
+    
+    /**
+     * Get the attribute shown on the element to identify this model.
+     *
+     * @return string
+     */
+    public function identifiableAttribute()
+    {
+        // process stuff here
+        return 'whatever_you_want_even_an_accessor';
+    }
 }
 ```
 
