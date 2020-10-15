@@ -4,6 +4,10 @@
 
 This will guide you through upgrading from Backpack 3.6 to 4.0. 
 
+
+> **Backpack v4 is a paid upgrade.** You can upgrade your project and run it just fine on localhost - no license key needed for that. But in production you'll need a different license code for v4. For details please see this version's [release notes](/docs/{{version}}/release-notes#licensing).
+
+
 <a name="requirements"></a>
 ## Requirements
 
