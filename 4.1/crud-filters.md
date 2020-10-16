@@ -54,7 +54,7 @@ function() { // if the filter is active (the GET parameter "draft" exits)
 > Notes about the filter logic closure
 > - the code will only be run on the controller's ```index()``` or ```search()``` methods;
 > - you can get the filter value by specifying a parameter to the function (ex: ```$value```);
-> - you have access to other request variables using ```$this->crud->request```;
+> - you have access to other request variables using ```$this->crud->getRequest()```;
 > - you also have read/write access to public properties using ```$this->crud```;
 > - when building complicated "OR" logic, make sure the first "where" in your closure is a "where" and only the subsequent are "orWhere"; Laravel 5.3+ no longer convers the first "orWhere" into a "where";
 

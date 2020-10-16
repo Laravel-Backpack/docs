@@ -70,26 +70,27 @@ An action can do something with AJAX and return true/false, it can return a view
 
 You can check which action is currently being performed using the [standard Laravel Route API](https://laravel.com/api/5.7/Illuminate/Routing/Route.html):
 
-- ```\Route::getCurrentRoute()->getAction()``` or ```$this->request->route()->getAction()```:
+- ```\Route::getCurrentRoute()->getAction()``` or ```$this->crud->getRequest()->route()->getAction()```:
 ```
-array:7 [▼
+array:8 [▼
   "middleware" => array:2 [▼
     0 => "web"
     1 => "admin"
   ]
   "as" => "crud.monster.index"
   "uses" => "App\Http\Controllers\Admin\MonsterCrudController@index"
+  "operation" => "list"
   "controller" => "App\Http\Controllers\Admin\MonsterCrudController@index"
   "namespace" => "App\Http\Controllers\Admin"
   "prefix" => "admin"
   "where" => []
 ]
 ```
-- ```\Route::getCurrentRoute()->getActionName()``` or ```$this->request->route()->getActionName()```:
+- ```\Route::getCurrentRoute()->getActionName()``` or ```$this->crud->getRequest()->route()->getActionName()```:
 ```
 App\Http\Controllers\Admin\MonsterCrudController@index
 ```
-- ```\Route::getCurrentRoute()->getActionMethod()``` or ```$this->request->route()->getActionMethod()```:
+- ```\Route::getCurrentRoute()->getActionMethod()``` or ```$this->crud->getRequest()->route()->getActionMethod()```:
 ```
 index
 ```
@@ -854,7 +855,7 @@ Say we want to create a ```BulkClone``` operation, with a button which clones mu
     {
         $this->crud->hasAccessOrFail('create');
 
-        $entries = $this->request->input('entries');
+        $entries = $this->crud->getRequest()->input('entries');
         $clonedEntries = [];
 
         foreach ($entries as $key => $id) {
@@ -881,6 +882,7 @@ protected function setupBulkCloneRoutes($segment, $routeName, $controller)
 ```
 
 4. Setup the default features we need for the operation to work:
+
 ```php
 protected function setupBulkCloneDefaults()
 {

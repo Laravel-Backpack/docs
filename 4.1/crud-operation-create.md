@@ -93,7 +93,7 @@ class ProductCrudController extends CrudController
 	// This is done by stripping the request of all inputs that do NOT match Backpack fields for this
 	// particular operation. This is an added security layer, to protect your database from malicious
 	// users who could theoretically add inputs using DeveloperTools or JavaScript. If you're not properly
-	// using $guarded or $fillable on your model, malicious inputs could get you into trouble.
+	// using $guarded or $fillable on your model, malicious inputs could get you into trcruouble.
 	
 	// However, if you know you have proper $guarded or $fillable on your model, andyou want to manipulate 
 	// the request directly to add or remove request parameters, you can also do that.
