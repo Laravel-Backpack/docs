@@ -42,7 +42,9 @@ php artisan backpack:install
 ```
 
 3) Take note that:
-- By default all users are considered admins; If that's not what you want in your application (you have both users and admins), please change ```app/Http/Middleware/CheckIfAdmin.php```, particularly ```checkIfUserIsAdmin($user)```, to make sure you only allow admins to access the admin panel;
+- By default all users are considered admins; If that's not what you want in your application (you have both users and admins), please:
+    - Change ```app/Http/Middleware/CheckIfAdmin.php```, particularly ```checkIfUserIsAdmin($user)```, to make sure you only allow admins to access the admin panel;
+    - Change ```app/Providers/RouteServiceProvider::HOME```, which will send logged in (but not admin) users to `/home`, to something that works for your app; This is only needed in Laravel 8+; 
 - Change configuration values in ```config/backpack/base.php``` to make the admin panel your own. Backpack is white label, so you can change everything: menu color, project name, developer name etc.
 - If your User model has been moved (it is not ```App\User.php```), please change ```config/backpack/base.php``` to use the correct user model using the ```user_model_fqn``` config key. If you are using Laravel 8 and up, you need to change this. Because by default Laravel 8 and up save ```User``` model inside ```Models``` directory.
 
