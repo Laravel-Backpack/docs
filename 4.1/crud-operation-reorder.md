@@ -5,7 +5,7 @@
 <a name="about"></a>
 ## About
 
-This operation allows your admins to reoder & nest entries.
+This operation allows your admins to reorder & nest entries.
 
 ![CRUD Reorder Operation](https://backpackforlaravel.com/uploads/docs-4-0/operations/reorder.png)
 
