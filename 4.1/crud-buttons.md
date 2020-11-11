@@ -163,7 +163,7 @@ The steps would be:
                   new Noty({
                       text: "Some Tx had been imported",
                       type: "success"
-                  });
+                  }).show();
 
                   // Hide the modal, if any
                   $('.modal').modal('hide');
@@ -175,7 +175,7 @@ The steps would be:
                   new Noty({
                       text: "The new entry could not be created. Please try again.",
                       type: "warning"
-                  });
+                  }).show();
               }
           });
       }
