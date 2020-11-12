@@ -143,7 +143,7 @@ In order to insert two column with the same name, use the ```key``` attribute on
 <a name="use-the-media-library"></a>
 ## Use the Media Library (File Manager)
 
-If you've chosen to install [elFinder](http://elfinder.org/) when installing Backpack, you already have a media manager. And it’s integrated into:
+If you've chosen to install [elFinder](http://elfinder.org/) when installing Backpack, you already have a media manager. And it's integrated into:
 - TinyMCE (as "tinymce" fieldtype)
 - CKEditor (as "ckeditor" fieldtype)
 - CRUD "browse" fieldtype
@@ -232,8 +232,8 @@ $this->crud->addField([ // select2_from_ajax: 1-n relationship
     'data_source'          => url('api/article'), // url to controller search function (with /{id} should return model)
     'placeholder'          => 'Select an article', // placeholder for the select
     'minimum_input_length' => 0, // minimum characters to type before querying results
-    'dependencies'         => ['category’], // when a dependency changes, this select2 is reset to null
-    // 'method'                    => 'GET’, // optional - HTTP method to use for the AJAX call (GET, POST)
+    'dependencies'         => ['category'], // when a dependency changes, this select2 is reset to null
+    // 'method'                    => 'GET', // optional - HTTP method to use for the AJAX call (GET, POST)
 ]);
 ```
 
@@ -243,7 +243,7 @@ $this->crud->addField([ // select2_from_ajax: 1-n relationship
 
 ```php
 Route::get('api/article', 'App\Http\Controllers\Api\ArticleController@index');
-Route::get('api/article/{id}', 'App\Http\Controllers\Api\ArticleController@show’);
+Route::get('api/article/{id}', 'App\Http\Controllers\Api\ArticleController@show');
 ```
 
 **DIFFERENT HERE**: Nothing.

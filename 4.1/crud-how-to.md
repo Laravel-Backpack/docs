@@ -236,8 +236,8 @@ $this->crud->addField([ // select2_from_ajax: 1-n relationship
     'placeholder'          => 'Select an article', // placeholder for the select
     'include_all_form_fields' => true, //sends the other form fields along with the request so it can be filtered.
     'minimum_input_length' => 0, // minimum characters to type before querying results
-    'dependencies'         => ['category’], // when a dependency changes, this select2 is reset to null
-    // 'method'                    => 'GET’, // optional - HTTP method to use for the AJAX call (GET, POST)
+    'dependencies'         => ['category'], // when a dependency changes, this select2 is reset to null
+    // 'method'                    => 'GET', // optional - HTTP method to use for the AJAX call (GET, POST)
 ]);
 ```
 
@@ -247,7 +247,7 @@ $this->crud->addField([ // select2_from_ajax: 1-n relationship
 
 ```php
 Route::get('api/article', 'App\Http\Controllers\Api\ArticleController@index');
-Route::get('api/article/{id}', 'App\Http\Controllers\Api\ArticleController@show’);
+Route::get('api/article/{id}', 'App\Http\Controllers\Api\ArticleController@show');
 ```
 
 **DIFFERENT HERE**: Nothing.
