@@ -53,9 +53,9 @@ class TagCrudController extends CrudController {
 ```
 
 By default, CRUDs have these operations already enabled:
-- **Create** - using a create form (aka “*add form*”)
-- **ListEntries** - using AJAX DataTables (aka “*list view*”, aka “*table view*”)
-- **Update** - using an update form (aka “*edit form*”)
+- **Create** - using a create form (aka "*add form*")
+- **ListEntries** - using AJAX DataTables (aka "*list view*", aka "*table view*")
+- **Update** - using an update form (aka "*edit form*")
 - **Delete** - using a *button* in the *list view* 
 
 These are the basic operations an admin can execute on an Eloquent model, thanks to Backpack. We do have additional operations (Preview, Reorder, Revisions), and you can easily _create a custom operation_, but let’s not get ahead of ourselves. Baby steps. **Let's go through the most important features of the operations you'll be using _all the time_: ListEntries, Create and Update**.
@@ -116,7 +116,7 @@ $this->crud->addField([
     'entity' => 'articles', // the relationship name in your Model
     'attribute' => 'title', // attribute on Article that is shown to admin
     'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
-], ‘update’);
+], 'update’);
 ```
 
 **Notes:**

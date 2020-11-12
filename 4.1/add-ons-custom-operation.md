@@ -163,7 +163,7 @@ Second, add that new Github Repo as a remote, and push your code to your new Git
 ```bash
 git remote add origin git@github.com:yourusername/yourrepository.git
 git push -u origin master
-git tag -a 1.0.0 -m ‘First version’
+git tag -a 1.0.0 -m 'First version’
 git push --tags
 ```
 

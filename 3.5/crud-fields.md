@@ -7,7 +7,7 @@
 
 Field types define how the admin can manipulate an entry's values. They're used by the Create and Update operations.
 
-Think of the field type as the type of input: ```<input type=”text” />```. But for most entities, you won't just need text inputs - you'll need datepickers, upload buttons, 1-n relationship, n-n relationships, textareas, etc.
+Think of the field type as the type of input: ```<input type="text" />```. But for most entities, you won't just need text inputs - you'll need datepickers, upload buttons, 1-n relationship, n-n relationships, textareas, etc.
 
 We have a lot of default field types, detailed below. If you don't find what you're looking for, you can [create a custom field type](/docs/{{version}}/crud-fields#creating-a-custom-field-type). Or if you just want to tweak a default field type a little bit, you can [overwrite default field types](/docs/{{version}}/crud-fields#overwriting-default-field-types).
 
@@ -1058,7 +1058,7 @@ Display a select with the values you want:
     'name' => 'template',
     'label' => "Template",
     'type' => 'select_from_array',
-    'options' => [‘one’ => ‘One’, ‘two’ => ‘Two’],
+    'options' => ['one’ => 'One’, 'two’ => 'Two’],
     'allows_null' => false,
     'default' => 'one',
     // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
@@ -1079,7 +1079,7 @@ Display a select2 with the values you want:
     'name' => 'template',
     'label' => "Template",
     'type' => 'select2_from_array',
-    'options' => [‘one’ => ‘One’, ‘two’ => ‘Two’],
+    'options' => ['one’ => 'One’, 'two’ => 'Two’],
     'allows_null' => false,
     'default' => 'one',
     // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
@@ -1107,8 +1107,8 @@ Display a select2 that takes its values from an AJAX call.
             'data_source' => url("api/category"), // url to controller search function (with /{id} should return model)
             'placeholder' => "Select a category", // placeholder for the select
             'minimum_input_length' => 2, // minimum characters to type before querying results
-            // 'dependencies'         => [‘category’], // when a dependency changes, this select2 is reset to null
-            // ‘method'                    => ‘GET’, // optional - HTTP method to use for the AJAX call (GET, POST)
+            // 'dependencies'         => ['category’], // when a dependency changes, this select2 is reset to null
+            // 'method'                    => 'GET’, // optional - HTTP method to use for the AJAX call (GET, POST)
  ]
 ```
 
@@ -1548,10 +1548,10 @@ An entry stored in the database will look like this:
 ```
 $video = {
     id: 234324,
-    title: ‘my video title’,
-    image: ‘https://provider.com/image.jpg',
-    url: ‘http://provider.com/video',
-    provider: ‘youtube’
+    title: 'my video title’,
+    image: 'https://provider.com/image.jpg',
+    url: 'http://provider.com/video',
+    provider: 'youtube’
 }
 ```
 

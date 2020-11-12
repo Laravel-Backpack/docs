@@ -7,7 +7,7 @@
 
 Field types define how the admin can manipulate an entry's values. They're used by the Create and Update operations.
 
-Think of the field type as the type of input: ```<input type=”text” />```. But for most entities, you won't just need text inputs - you'll need datepickers, upload buttons, 1-n relationship, n-n relationships, textareas, etc.
+Think of the field type as the type of input: ```<input type="text" />```. But for most entities, you won't just need text inputs - you'll need datepickers, upload buttons, 1-n relationship, n-n relationships, textareas, etc.
 
 We have a lot of default field types, detailed below. If you don't find what you're looking for, you can [create a custom field type](/docs/{{version}}/crud-fields#creating-a-custom-field-type). Or if you just want to tweak a default field type a little bit, you can [overwrite default field types](/docs/{{version}}/crud-fields#overwriting-default-field-types).
 
@@ -1128,7 +1128,7 @@ If your related entry can have hundreds, thousands or millions of entries, it's 
     // AJAX OPTIONALS:
     // 'data_source' => url("fetch/category"), // url to controller search function (with /{id} should return model)
     // 'minimum_input_length' => 2, // minimum characters to type before querying results
-    // 'dependencies'         => [‘category’], // when a dependency changes, this select2 is reset to null
+    // 'dependencies'         => ['category’], // when a dependency changes, this select2 is reset to null
     // 'include_all_form_fields'  => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
  ],
 ```

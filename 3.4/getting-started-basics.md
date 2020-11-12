@@ -59,7 +59,7 @@ php artisan backpack:base:add-sidebar-content "<li><a href='{{ backpack_url('tag
 
 This will create a simple CRUD panel, which you should now be able to see in the Sidebar.
 
-For a simple entry like this, the generated CRUD panel will even work “as is”, no need for customizations. But don’t expect this for more complex entities. They will usually require have particularities and need customization. That’s where Backpack shines - modifying anything in the CRUD Panel is easy and intuitive, once you understand how it works.
+For a simple entry like this, the generated CRUD panel will even work "as is", no need for customizations. But don’t expect this for more complex entities. They will usually require have particularities and need customization. That’s where Backpack shines - modifying anything in the CRUD Panel is easy and intuitive, once you understand how it works.
 
 The code above would generate:
 - a **migration** file

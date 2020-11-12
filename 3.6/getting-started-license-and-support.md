@@ -16,7 +16,7 @@ Take a look at:
 <a name="license"></a>
 ## License
 
-Backpack is **free for non-commercial use**, but needs a license code in order to prevent “_unlicensed use_” notification bubbles and interruption of service. You can get a license code for your project:
+Backpack is **free for non-commercial use**, but needs a license code in order to prevent "_unlicensed use_" notification bubbles and interruption of service. You can get a license code for your project:
 - ```free```, if you're using it for non-commercial purposes; [apply here](https://backpackforlaravel.com/pricing);
 - ```free```, if you've contributed to Backpack on Github; [apply here](https://backpackforlaravel.com/pricing);
 - ```$49 EUR/project```, if you're making money using it for a project; [buy here](https://backpackforlaravel.com/pricing);

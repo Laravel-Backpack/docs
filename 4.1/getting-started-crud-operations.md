@@ -60,9 +60,9 @@ class TagCrudController extends CrudController {
 ```
 
 In the example above, we've enabled the most common operations:
-- **Create** - using a create form (aka “*add form*”)
-- **List** - using AJAX DataTables (aka “*list view*”, aka “*table view*”)
-- **Update** - using an update form (aka “*edit form*”)
+- **Create** - using a create form (aka "*add form*")
+- **List** - using AJAX DataTables (aka "*list view*", aka "*table view*")
+- **Update** - using an update form (aka "*edit form*")
 - **Delete** - using a *button* in the *list view* 
 - **Show** - using a *button* in the *list view* 
 

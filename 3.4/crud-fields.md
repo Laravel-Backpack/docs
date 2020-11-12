@@ -886,7 +886,7 @@ Display a select with the values you want:
     'name' => 'template',
     'label' => "Template",
     'type' => 'select_from_array',
-    'options' => [‘one’ => ‘One’, ‘two’ => ‘Two’],
+    'options' => ['one’ => 'One’, 'two’ => 'Two’],
     'allows_null' => false,
     'default' => 'one',
     // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
@@ -907,7 +907,7 @@ Display a select2 with the values you want:
     'name' => 'template',
     'label' => "Template",
     'type' => 'select2_from_array',
-    'options' => [‘one’ => ‘One’, ‘two’ => ‘Two’],
+    'options' => ['one’ => 'One’, 'two’ => 'Two’],
     'allows_null' => false,
     'default' => 'one',
     // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
@@ -1374,10 +1374,10 @@ An entry stored in the database will look like this:
 ```
 $video = {
     id: 234324,
-    title: ‘my video title’,
-    image: ‘https://provider.com/image.jpg',
-    url: ‘http://provider.com/video',
-    provider: ‘youtube’
+    title: 'my video title’,
+    image: 'https://provider.com/image.jpg',
+    url: 'http://provider.com/video',
+    provider: 'youtube’
 }
 ```
 
