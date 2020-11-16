@@ -107,7 +107,7 @@ Search any custom files you use in your admin panels for ```Auth::```. You _migh
 <a name="step-5"></a>
 #### Step 5
 
-If you haven’t created any custom **error views**, re-publish the ```resources/views/errors``` folder. Please note that this will delete your existing folder. 
+If you haven't created any custom **error views**, re-publish the ```resources/views/errors``` folder. Please note that this will delete your existing folder. 
 
 ```bash
 php artisan vendor:publish --provider="Backpack\Base\BaseServiceProvider" --tag=errors --force
@@ -146,7 +146,7 @@ And change the overlays path in your ```config/backpack/base.php``` file (```ove
 <a name="step-7"></a>
 #### Step 7
 
-**ALL Backpack/Base views have suffered some changes**. If you’ve published/customized/overwritten any of the Backpack/Base views, please [take a look at the changes](https://github.com/Laravel-Backpack/Base/pull/324/files) and implement them in your file. To rephrase this:
+**ALL Backpack/Base views have suffered some changes**. If you've published/customized/overwritten any of the Backpack/Base views, please [take a look at the changes](https://github.com/Laravel-Backpack/Base/pull/324/files) and implement them in your file. To rephrase this:
 - if you have files in you ```resources/views/vendor/backpack/base/``` it means you're actually using _that_ file, instead of the new one provided by upgrading to Base 1.0.0;
 - you need to either (A) delete that file and forfeit any changes you've made (Backpack will pick up the new one) OR (B) apply the changes yourself
 

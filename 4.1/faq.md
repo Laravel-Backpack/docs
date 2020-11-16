@@ -17,7 +17,7 @@ You don't need a license code AT ALL, if you're just installing Backpack on loca
 
 Yes, you do need a license code. But not a _separate_ license code. If you've already purchased a license code, you should use the same code for both your staging and production instances - even if the domains are different.
 
-If you're interested in a license code to test your project online, _before_ you purchase a Backpack license - take note that we don't do that. We do not issue licenses for testing an already built app on a staging domain. If you’ve reached a point where you put your project on a staging server, that should mean Backpack has already helped you or your company save dozens or hundreds of hours of work - so that qualifies as commercial use. We recommend you purchase a license code - you can use the same license code on both your stanging and production domain.
+If you're interested in a license code to test your project online, _before_ you purchase a Backpack license - take note that we don't do that. We do not issue licenses for testing an already built app on a staging domain. If you've reached a point where you put your project on a staging server, that should mean Backpack has already helped you or your company save dozens or hundreds of hours of work - so that qualifies as commercial use. We recommend you purchase a license code - you can use the same license code on both your stanging and production domain.
 
 An alternative to be able to test a project online, without paying anything, would be to put your project online and bear the annoying notification bubbles. If you don't mind the notification bubbles, you can get a general idea of what's working and what's not. It's not ideal, but it's free.
 

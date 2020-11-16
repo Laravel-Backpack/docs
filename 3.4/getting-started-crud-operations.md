@@ -4,7 +4,7 @@
 
 **Duration:** 10 minutes
 
-Let’s bring back the example in our first lesson. The Tags CRUD:
+Let's bring back the example in our first lesson. The Tags CRUD:
 
 ![Tag CRUD - List Entries Operation](https://backpackforlaravel.com/uploads/docs/getting_started/tag_crud_list_entries.png)
 
@@ -53,12 +53,12 @@ class TagCrudController extends CrudController {
 ```
 
 By default, CRUDs have these operations already enabled:
-- **Create** - using a create form (aka “*add form*”)
-- **ListEntries** - using AJAX DataTables (aka “*list view*”, aka “*table view*”)
-- **Update** - using an update form (aka “*edit form*”)
+- **Create** - using a create form (aka "*add form*")
+- **ListEntries** - using AJAX DataTables (aka "*list view*", aka "*table view*")
+- **Update** - using an update form (aka "*edit form*")
 - **Delete** - using a *button* in the *list view* 
 
-These are the basic operations an admin can execute on an Eloquent model, thanks to Backpack. We do have additional operations (Preview, Reorder, Revisions), and you can easily _create a custom operation_, but let’s not get ahead of ourselves. Baby steps. **Let's go through the most important features of the operations you'll be using _all the time_: ListEntries, Create and Update**.
+These are the basic operations an admin can execute on an Eloquent model, thanks to Backpack. We do have additional operations (Preview, Reorder, Revisions), and you can easily _create a custom operation_, but let's not get ahead of ourselves. Baby steps. **Let's go through the most important features of the operations you'll be using _all the time_: ListEntries, Create and Update**.
 
 <a name="create-and-update-operations"></a>
 ## Create & Update Operations
@@ -95,7 +95,7 @@ A typical *field definition array* will need at least three things:
 - ```label``` - the human-readable label for the input (will be generated from ```name``` if not given);
 
 
-You can use [one of the 44+ field types we’ve provided](/docs/{{version}}/crud-fields#default-field-types), or easily [create a custom field type](/docs/{{version}}/crud-fields#creating-a-custom-field-type) if you have some super-specific need that we haven’t covered yet, or even [overwrite how a field type works](#overwriting-default-field-types). Take a few minutes and [browse the 44+ field types](/docs/{{version}}/crud-fields#default-field-types), to understand how the definition array differs from one to another and how many use cases you have already covered.
+You can use [one of the 44+ field types we've provided](/docs/{{version}}/crud-fields#default-field-types), or easily [create a custom field type](/docs/{{version}}/crud-fields#creating-a-custom-field-type) if you have some super-specific need that we haven't covered yet, or even [overwrite how a field type works](#overwriting-default-field-types). Take a few minutes and [browse the 44+ field types](/docs/{{version}}/crud-fields#default-field-types), to understand how the definition array differs from one to another and how many use cases you have already covered.
 
 Let's take another example, slightly more complicated than the ```text``` fields we used above. Something you'll find encounter all the time is relationship fields. So let's say the ```Tag``` model has an **n-n relationship** with an Article model:
 
@@ -116,7 +116,7 @@ $this->crud->addField([
     'entity' => 'articles', // the relationship name in your Model
     'attribute' => 'title', // attribute on Article that is shown to admin
     'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
-], ‘update’);
+], 'update');
 ```
 
 **Notes:**
@@ -139,7 +139,7 @@ $this->crud->addField([
 **Note: **Because the last parameter is missing, the field will be added to both Create and Update forms.
 
 
-> When generating a CrudController, you’ll be using the ```$this->crud->setFromDb();``` method by default, which tries to figure out what fields you might need in your create/update forms and in your list view, but - as you'd expect - only works for the simple field types. You can:
+> When generating a CrudController, you'll be using the ```$this->crud->setFromDb();``` method by default, which tries to figure out what fields you might need in your create/update forms and in your list view, but - as you'd expect - only works for the simple field types. You can:
 > 
 > (1) choose to keep using ```setFromDb()``` and add/remove/change additional fields
 > 
@@ -184,7 +184,7 @@ ListEntries shows the admin a table with all entries. On the front-end, the info
 <a name="columns"></a>
 ### Columns
 
-Columns help you specify *which* attributes are shown in the table and *in which order*. **They’re defined in the ```setup()``` method, the same as fields, and their syntax is super-similar to fields too**:
+Columns help you specify *which* attributes are shown in the table and *in which order*. **They're defined in the ```setup()``` method, the same as fields, and their syntax is super-similar to fields too**:
 
 ```php
 $this->crud->addColumn($column_definition_array); // add a single column, at the end of the table
@@ -241,4 +241,4 @@ $this->crud->removeButton($name);
 $this->crud->removeButtonFromStack($name, $stack);
 ```
 
-**That’s it for today!** Thanks for sticking with us this long. This has been the most important and longest lesson. You can go ahead and [install Backpack](/docs/{{version}}/installation) now, as you’ve already gone through the most important features. Or [read the next lesson](/docs/{{version}}/getting-started-advanced-features), about advanced features.
+**That's it for today!** Thanks for sticking with us this long. This has been the most important and longest lesson. You can go ahead and [install Backpack](/docs/{{version}}/installation) now, as you've already gone through the most important features. Or [read the next lesson](/docs/{{version}}/getting-started-advanced-features), about advanced features.
