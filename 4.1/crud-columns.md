@@ -465,7 +465,7 @@ $this->crud->addColumn([
    'name'      => 'tags_count', // name of relationship method in the model
    'type'      => 'text', 
    'label'     => 'Tags', // Table column heading
-   'suffix' => ' tags', // to show "123 tags" instead of "123"
+   'suffix'    => ' tags', // to show "123 tags" instead of "123"
 ]);
 ```
 
