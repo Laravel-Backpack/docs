@@ -224,7 +224,7 @@ $this->crud->addFilter([
       4 => 'Not available',
     ];
 }, function($values) { // if the filter is active
-    // $this->crud->addClause('whereIn', 'published', json_decode($values));
+    // $this->crud->addClause('whereIn', 'status', json_decode($values));
 });
 ```
 
