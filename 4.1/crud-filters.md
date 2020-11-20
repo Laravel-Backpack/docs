@@ -206,7 +206,7 @@ $this->crud->addFilter([
 <a name="select2_multiple"></a>
 ### Select2_multiple
 
-Shows a select2 and allows the user to select one or more items from the list or search for an item. Useful when the values list is long (over 10 elements) and your user should be able to select multiple elements. You can decide yourself if the query for each element should use 'where' or 'orWhere', in the third parameter of the ```addFilter()``` method.
+Shows a select2 and allows the user to select one or more items from the list or search for an item. Useful when the values list is long (over 10 elements) and your user should be able to select multiple elements.
 
 ![Backpack CRUD Select2_multiple Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/select2_multiple.png)
 
@@ -224,9 +224,7 @@ $this->crud->addFilter([
       4 => 'Not available',
     ];
 }, function($values) { // if the filter is active
-    // foreach (json_decode($values) as $key => $value) {
-    //     $this->crud->addClause('where', 'published', $value);
-    // }
+    // $this->crud->addClause('whereIn', 'status', json_decode($values));
 });
 ```
 
