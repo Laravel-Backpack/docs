@@ -11,7 +11,7 @@ Think of the field type as the type of input: ```<input type="text" />```. But f
 
 We have a lot of default field types, detailed below. If you don't find what you're looking for, you can [create a custom field type](/docs/{{version}}/crud-fields#creating-a-custom-field-type). Or if you just want to tweak a default field type a little bit, you can [overwrite default field types](/docs/{{version}}/crud-fields#overwriting-default-field-types).
 
-> NOTE: Starting in Backpack 4.1 if the field name is a relation method in model, backpack will infer specific relation attributes from it. To disable this behavior please use `'entity' => false` in your field definition. 
+> NOTE: Starting with Backpack 4.1, if the _field name_ is the exact same as a relation method in the model, Backpack will assume you're adding a field for that relationship and infer relation attributes from it. To disable this behaviour, you can use `'entity' => false` in your field definition. 
 
 <a name="fields-api"></a>
 ### Fields API
