@@ -496,7 +496,7 @@ public function clone($id)
 {{-- Button Javascript --}}
 {{-- - used right away in AJAX operations (ex: List) --}}
 {{-- - pushed to the end of the page, after jQuery is loaded, for non-AJAX operations (ex: Show) --}}
-@push('after_scripts') @if ($crud->request->ajax()) @endpush @endif
+@push('after_scripts') @if (request()->ajax()) @endpush @endif
 <script>
 	if (typeof cloneEntry != 'function') {
 	  $("[data-button-type=clone]").unbind('click');
@@ -538,13 +538,13 @@ public function clone($id)
 	// make it so that the function above is run after each DataTable draw event
 	// crud.addFunctionToDataTablesDrawEventQueue('cloneEntry');
 </script>
-@if (!$crud->request->ajax()) @endpush @endif
+@if (!request()->ajax()) @endpush @endif
 ```
 
 4. We can now actually add this button to our ```UserCrudController::setupCloneOperation()``` method, or our ```setupCloneDefaults()``` method:
 
 ```php
-protected setupCloneDefaults() {
+protected function setupCloneDefaults() {
   $this->crud->allowAccess('clone');
 
   $this->crud->operation(['list', 'show'], function () {
