@@ -64,6 +64,29 @@ class ProductCrudController extends CrudController
 
 Based on the fact that the ```fetchTag()``` method exist, the Fetch operation will create a ```/product/fetch/tag``` POST route, which points to ```fetchTag()```. Inside ```fetchTag()``` we call ```fetch()```, that responds with entries in the format ```select2``` needs.
 
+**Preventing FetchOperation of guessing the searchable attributes**
+
+If not specified `searchable_attributes` will be automatically infered from model dabatase columns. To do your own search and replace default FetchOperation behaviour you can setup an empty `searchable_attributes`.
+
+That said, you can use something like below:
+
+```php
+public function fetchUser() {
+        return $this->fetch([
+            'model' => User::class,
+            'query' => function($model) {
+                $search = request()->input('q') ?? false;
+                if ($search) {
+                    return $model->whereRaw('CONCAT(`first_name`," ",`last_name`) LIKE "%' . $search . '%"');
+                }else{
+                    return $model;
+                }
+            },
+            'searchable_attributes' => []
+        ]);
+    }
+```
+
 
 <a name="how-to-overwrite"></a>
 ## How to Overwrite
