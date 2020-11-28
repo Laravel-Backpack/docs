@@ -115,7 +115,7 @@ class CompanyUser extends User
 
 If you try to add multiple columns with the same ```name```, by default Backpack will only show the last one. That's because ```name``` is also used as a key in the ```$column``` array. So when you ```addColumn()``` with the same name twice, it just overwrites the previous one.
 
-In order to insert two column with the same name, use the ```key``` attribute on the second column (or both columns). If this attribute is present for a column, Backpack will use ```key``` instead of ```name```. Example:
+In order to insert two columns with the same name, use the ```key``` attribute on the second column (or both columns). If this attribute is present for a column, Backpack will use ```key``` instead of ```name```. Example:
 
 ```diff
         $this->crud->addColumn([
@@ -145,7 +145,7 @@ In order to insert two column with the same name, use the ```key``` attribute on
 <a name="use-the-media-library"></a>
 ### Use the Media Library (File Manager)
 
-The default Backpack installation doesn't come with a file management component. Because most projects don't need it. But we've created a first-party add-on, that brings the power of [elFinder](http://elfinder.org/) to your Laravel projects. To install it, [follow the instructions on the add-on's page](https://github.com/Laravel-Backpack/FileManager). It's as easy as running:
+The default Backpack installation doesn't come with a file management component. Because most projects don't need it. But we've created a first-party add-on that brings the power of [elFinder](http://elfinder.org/) to your Laravel projects. To install it, [follow the instructions on the add-ons page](https://github.com/Laravel-Backpack/FileManager). It's as easy as running:
 
 ```bash
 # require the package

@@ -89,7 +89,7 @@ Let's say we want to create a simple ```moderate.blade.php``` button. This butto
 Route::get('user/{id}/moderate', 'UserCrudController@ban');
 ```
 
-- We can now create add a ```moderate()``` method to our ```UserCrudController```, which would moderate the user, and redirect back.
+- We can now add a ```moderate()``` method to our ```UserCrudController```, which would moderate the user, and redirect back.
 ```php
 public function moderate() 
 {

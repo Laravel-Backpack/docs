@@ -4,7 +4,7 @@
 
 **Duration:** 5 minutes
 
-> **Are you already comfortable with Laravel?** In order to understand this series and make use of Backpack, you'll need to have a decent understanding of the Laravel framework. If you don't, please go ahead and [watch this excellent intro series on Laracasts](https://laracasts.com/series/laravel-from-scratch-2017) and accomodate yourself with Laravel first.
+> **Are you already comfortable with Laravel?** In order to understand this series and make use of Backpack, you'll need to have a decent understanding of the Laravel framework. If you don't, please go ahead and [watch this excellent intro series on Laracasts](https://laracasts.com/series/laravel-from-scratch-2017) and accommodate yourself with Laravel first.
 
 
 <a name="what-is-backpack"></a>

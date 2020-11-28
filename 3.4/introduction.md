@@ -34,7 +34,7 @@ php artisan backpack:base:add-sidebar-content "<li><a href='{{ backpack_url('tag
 
   - Laravel 5.5, 5.6 or 5.7
   - PHP 7+
-  - MySQL (recommended) / PosgreSQL / SQLite / SQL Server
+  - MySQL (recommended) / PostgreSQL / SQLite / SQL Server
 
 <a name="screenshots"></a>
 ### Screenshots

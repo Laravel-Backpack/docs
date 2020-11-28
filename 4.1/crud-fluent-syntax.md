@@ -27,7 +27,7 @@ $this->crud->field('price')
 		->suffix('.00');
 ```
 
-But you can go a little futher, by using the CrudPanel class at the top of your controller with an alias:
+But you can go a little further, by using the CrudPanel class at the top of your controller with an alias:
 
 ```php
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel as CRUD;
@@ -391,7 +391,7 @@ CRUD::button('create')->stack('top')->view('crud::buttons.create');
 // ---------
 // Example 2
 // ---------
-// insted of
+// instead of
 $this->crud->addButton('line', 'update', 'view', 'crud::buttons.update', 'end');
 // you can now do
 CRUD::button('edit')->stack('line')->view('crud::buttons.edit');

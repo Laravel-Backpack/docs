@@ -93,7 +93,7 @@ $this->crud->replaceSaveActions(
 
 #### removeSaveAction(string $saveAction)
 
-This allows you to remove a specific save action from save actions array. Provide the name of the save action that you would like to remove.
+This allows you to remove a specific save action from the save actions array. Provide the name of the save action that you would like to remove.
 ```php
 $this->crud->removeSaveAction('save_action_one');
 ```

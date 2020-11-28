@@ -2,7 +2,7 @@
 
 -----
 
-This tutorial will help you package a custom operation into a Composer package, so that you (or other people) can use it in multiple Laravel projects. If you haven't already, please [create your custom operation](/docs/{{version}}/crud-operations#creating-a-custom-operation) first, and make sure it's working well, before you move it to a pacakge. It's just easier that way.
+This tutorial will help you package a custom operation into a Composer package, so that you (or other people) can use it in multiple Laravel projects. If you haven't already, please [create your custom operation](/docs/{{version}}/crud-operations#creating-a-custom-operation) first, and make sure it's working well, before you move it to a package. It's just easier that way.
 
 
 <a name="create-the-package"></a>
@@ -172,9 +172,9 @@ The tags are the way you will version your package, so it's important you do it.
 <a name="put-it-on-packagist"></a>
 ### Put it on Packagist
 
-In order for people to be able to install your package using composer, your package needs to be registerd with Packagist, Composer's free package registry.
+In order for people to be able to install your package using composer, your package needs to be registered with Packagist, Composer's free package registry.
 
-On [Packagist.org](https://packagist.org/), submit a new package. Enter you package's GitHub URL and click Check. If any errors occur, follow the onscreen instructions. When you're done, you're taken to your package's packagist page.
+On [Packagist.org](https://packagist.org/), submit a new package. Enter your package's GitHub URL and click Check. If any errors occur, follow the onscreen instructions. When you're done, you're taken to your package's packagist page.
 
 **Congrats, you have a working package online**, you can now install it using Composer.
 

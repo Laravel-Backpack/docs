@@ -110,7 +110,7 @@ Exporting the DataTable to PDF, CSV, XLS is as easy as typing ```$this->crud->en
 By default, all entries are shown in the ListEntries table, before filtering. If you want to restrict the entries to a subset, you can use the methods below in your EntityCrudController's ```setup()``` method:
 
 ```php
-// Change what entries are show in the table view.
+// Change what entries are shown in the table view.
 // This changes all queries on the table view,
 // as opposed to filters, who only change it when that filter is applied. 
 $this->crud->addClause('active'); // apply a local scope
@@ -130,7 +130,7 @@ $this->crud->orderBy();
 <a name="responsive-table"></a>
 #### Responsive Table
 
-If you CRUD table has more columns than can fit inside the viewport (on mobile / tablet or smaller desktop screens), unimportant columns will start hiding and an expansion icon (three dots) will appear to the left of each row. We call this behaviour "_responsive table_", and consider this to be the best UX. By behaviour we consider the 1st column the most important, than 2nd, than 3rd, etc; the "actions" column is considered as important as the 1st column. You can of course [change the importance of columns](/docs/{{version}}/crud-columns#define-which-columns-to-hide-in-responsive-table).
+If your CRUD table has more columns than can fit inside the viewport (on mobile / tablet or smaller desktop screens), unimportant columns will start hiding and an expansion icon (three dots) will appear to the left of each row. We call this behaviour "_responsive table_", and consider this to be the best UX. By behaviour we consider the 1st column the most important, then 2nd, then 3rd, etc; the "actions" column is considered as important as the 1st column. You can of course [change the importance of columns](/docs/{{version}}/crud-columns#define-which-columns-to-hide-in-responsive-table).
 
 If you do not like this, you can **toggle off the responsive behaviour for all CRUD tables** by changing this config value in your ```config/backpack/crud.php``` to ```false```:
 ```php

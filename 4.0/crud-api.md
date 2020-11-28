@@ -76,7 +76,7 @@ $this->crud->addColumn()->beforeColumn('name');
 $this->crud->addColumn()->afterColumn('name');
 ```
 
-- **Chained - makeFirstColumn()** - make this colum the first one in the list
+- **Chained - makeFirstColumn()** - make this column the first one in the list
 ```php
 $this->crud->addColumn()->makeFirstColumn();
 // Please note: you need to also specify priority 1 in your addColumn statement for details_row or responsive expand buttons to show
@@ -146,7 +146,7 @@ $this->crud->filters();
 <a name="details-row-api"></a>
 #### Details Row
 
-Shows a ```+``` (plus sign) next to each table row, so that the user can expand that row and reveal details. You are responsible for creting the view with those details.
+Shows a ```+``` (plus sign) next to each table row, so that the user can expand that row and reveal details. You are responsible for creating the view with those details.
 
 - **enableDetailsRow()** - show the + sign in the table view
 ```php

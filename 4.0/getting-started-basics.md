@@ -4,7 +4,7 @@
 
 **Duration:** 5 minutes
 
-> **Are you already comfortable with Laravel?** In order to understand this series and make use of Backpack, you'll need to have a decent understanding of the Laravel framework. If you don't, please go ahead and [watch this excellent intro series on Laracasts](https://laracasts.com/series/laravel-from-scratch-2018) and accomodate yourself with Laravel first.
+> **Are you already comfortable with Laravel?** In order to understand this series and make use of Backpack, you'll need to have a decent understanding of the Laravel framework. If you don't, please go ahead and [watch this excellent intro series on Laracasts](https://laracasts.com/series/laravel-from-scratch-2018) and accommodate yourself with Laravel first.
 
 
 <a name="what-is-backpack"></a>
@@ -34,7 +34,7 @@ Mind that you will _almost never_ use all of Backpack's features in one CRUD. Bu
 <a name="backpack-design"></a>
 ### Front-End Design
 
-Backpack installs the [CoreUI](https://coreui.io) HTML theme, and our own design on top - [Backstrap](https://backstrap.net). It uses Boostrap 4, and has many HTML blocks ready for you to use. When you're building a custom page in your admin panel, it's easy to just copy-paste the HTML from our [Backstrap demo](https://backstrap.net), or from the [CoreUI documentation](https://coreui.io/docs/getting-started/introduction/), and it look good, without you having to design anything.
+Backpack installs the [CoreUI](https://coreui.io) HTML theme, and our own design on top - [Backstrap](https://backstrap.net). It uses Bootstrap 4, and has many HTML blocks ready for you to use. When you're building a custom page in your admin panel, it's easy to just copy-paste the HTML from our [Backstrap demo](https://backstrap.net), or from the [CoreUI documentation](https://coreui.io/docs/getting-started/introduction/), and it look good, without you having to design anything.
 
 It also installs Noty for triggering JS notification bubbles, and SweetAlerts. So you can easily use these across your admin panel. You can [trigger notification bubbles in PHP](/docs/{{version}}/base-about#triggering-notification-bubbles-in-php) or [trigger notification bubbles in JavaScript](/docs/{{version}}/base-about#triggering-notification-bubbles-in-javascript).
 
@@ -42,7 +42,7 @@ It also installs Noty for triggering JS notification bubbles, and SweetAlerts. S
 <a name="backpack-authentication"></a>
 ### Authentication
 
-Backpack comes with a basic authentication system, that's separate from Laravel's. This way, you can have different login screens for users & admins, if you need. If not, you can choose to use only one authentication - either Laravel's, or Backpack's.
+Backpack comes with a basic authentication system that's separate from Laravel's. This way, you can have different login screens for users & admins, if you need. If not, you can choose to use only one authentication - either Laravel's, or Backpack's.
 
 ![Backpack 3.5 Authentication Screens](https://backpackforlaravel.com/uploads/docs-4-0/getting_started/auth_screens.png)
 
@@ -78,7 +78,7 @@ It will also add:
 - a route inside ```routes/backpack/custom.php```, pointing to that controller;
 - a sidebar item inside ```resources/views/vendor/backpack/base/inc/sidebar_content.blade.php```;
 
-You might have noticed that **no views** are generated. That's because in most cases you _don't need_ custom views with Backpack. All your custom code is in the controller, model or request, so the default views are loaded, from the pacakge. If you do, however, need to customize a view, it is [ridiculously easy](/docs/{{version}}/crud-how-to#customize-views-for-each-crud-panel).
+You might have noticed that **no views** are generated. That's because in most cases you _don't need_ custom views with Backpack. All your custom code is in the controller, model or request, so the default views are loaded, from the package. If you do, however, need to customize a view, it is [ridiculously easy](/docs/{{version}}/crud-how-to#customize-views-for-each-crud-panel).
 
 Also, we won't be covering the **migration**, **model** and **request** files here, as they are in no way custom. The only thing you need to make sure is that the Model is properly configured (db table, relationships, ```$fillable``` or ```$guarded``` properties, etc) and that it uses our ```CrudTrait```. What we _will_ be covering is ```TagCrudController``` - which is where most of your logic will reside. Here's a copy of a simple one you might use to achieve the above:
 

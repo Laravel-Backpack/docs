@@ -82,7 +82,7 @@ You'll find a few examples below - but you should use which classes you want to 
 <a href="ui-with-dark-sidebar"></a>
 #### Backstrap
 
-Transparent top menu, transparet sidebar, transparent footer. This is the default. This is what _we_ think is best for most users, from our 8+ years of experience building admin panels. Prioritising _content_ over _menus_.
+Transparent top menu, transparent sidebar, transparent footer. This is the default. This is what _we_ think is best for most users, from our 8+ years of experience building admin panels. Prioritising _content_ over _menus_.
 
 ![Backstrap design](https://backpackforlaravel.com/uploads/docs-4-0/ui/examples/default.png)
 
@@ -253,7 +253,7 @@ You can add files to this array, and they'll be loaded in all admin panels pages
 <a name="customize-overlays-css"></a>
 ### Customize the look and feel of the admin panel (using CSS)
 
-If you want to change the look&feel of the admin panel, you can create a custom CSS file wherever you want. We recommend you do it inside ```public/packages/myname/mycustomthemename/css/style.css``` folder so that it's easier to turn into a theme, if you decide later to share or re-use your CSS in other projects.
+If you want to change the look and feel of the admin panel, you can create a custom CSS file wherever you want. We recommend you do it inside ```public/packages/myname/mycustomthemename/css/style.css``` folder so that it's easier to turn into a theme, if you decide later to share or re-use your CSS in other projects.
 
 In ```config/backpack/base.php``` add your file to this config option:
 
@@ -506,4 +506,4 @@ Add whatever validation rules & inputs you want, in addition to name and passwor
         return backpack_view('auth.register');
     }
 ```
-This will make the registration process pick up a view you can create, in ```resources/views/vendor/backpack/base/auth/register.blade.php```. You can copy-paste the original view, and modify as you please.Including adding your own custom inputs.
+This will make the registration process pick up a view you can create, in ```resources/views/vendor/backpack/base/auth/register.blade.php```. You can copy-paste the original view, and modify as you please. Including adding your own custom inputs.

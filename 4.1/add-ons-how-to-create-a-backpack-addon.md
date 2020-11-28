@@ -33,7 +33,7 @@ Requirements:
 
 ### Install Backpack Demo
 
-We're going to use [the Backpack demo project](https://github.com/laravel-backpack/demo) to generate create a new package. Follow the instructions in [the Installation chapter](https://github.com/laravel-backpack/demo#install). 
+We're going to use [the Backpack demo project](https://github.com/laravel-backpack/demo) to create a new package. Follow the instructions in [the Installation chapter](https://github.com/laravel-backpack/demo#install). 
 
 Any Laravel & Backpack app would work. But since you're going to require packages that you only need during package development, and make various changes to app files, we recommended you _create_ the package using a Backpack demo. After the package is online (with zero functionality), you will _install_ it in a real application, and _modify_ it right there, in the ```vendor``` folder. You will then delete this Backpack demo project.
 
@@ -59,7 +59,7 @@ This will create a ```/packages/``` folder in your root directory, where your pa
 
 Now let's customise it and add some boilerplate code, everything that most Laravel Packages will need. Replace everything you need in ```composer.json```, ```CHANGELOG.md```, ```CONTRIBUTING.md```, ```LICENSE.md```, ```README.md```. Make it yours.
 
-If you want to use Laravel package auto-discovery (and why wouldn't you), make sure to include the Laravel prviders section in your ```composer.json```'s ```extra``` section, like so:
+If you want to use Laravel package auto-discovery (and why wouldn't you), make sure to include the Laravel providers section in your ```composer.json```'s ```extra``` section, like so:
 ```
     "extra": {
         "branch-alias": {
@@ -164,7 +164,7 @@ Tags are the way you will version your package, so it's important you do it. Peo
 <a name="step-3-put-it-on-packagist"></a>
 ## Step 3. Put it on Packagist
 
-On [Packagist.org](https://packagist.org), submit a new package. Enter you package's GitHub URL and click Check. If any errors occur, follow the onscreen instructions.
+On [Packagist.org](https://packagist.org), submit a new package. Enter your package's GitHub URL and click Check. If any errors occur, follow the onscreen instructions.
 
 When you're done, you'll be taken to your packagist page, where you'll probably get a notice like this:
 

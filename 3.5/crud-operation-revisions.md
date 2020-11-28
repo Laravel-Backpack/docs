@@ -7,7 +7,7 @@
 
 Revisions allows your admins to store, see and undo changes to entries on an Eloquent model.
 
-The operation provides you with a simple interface to work with [venturecraft/revisionable](https://github.com/VentureCraft/revisionable#implementation), which is a great pacakge that stores all changes in a separate table. It can work as an audit trail, a backup system and an accountability system for the admins.
+The operation provides you with a simple interface to work with [venturecraft/revisionable](https://github.com/VentureCraft/revisionable#implementation), which is a great package that stores all changes in a separate table. It can work as an audit trail, a backup system and an accountability system for the admins.
 
 When enabled, ```Revisions``` will show another button in the table view, between _Edit_ and _Delete_. On click, that button opens another page which will allow an admin to see all changes and who made them:
 
