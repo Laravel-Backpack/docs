@@ -131,7 +131,7 @@ When you're done, you'll be taken to your packagist page, where you'll probably 
 
 >This package is not auto-updated. Please set up the [GitHub Service Hook](https://packagist.org/profile/) for Packagist so that it gets updated whenever you push!
 
-Let's take care of that. Click [that link](https://packagist.org/profile/), click "Show API Token", copy it and go to _your package's GitHub page_, in ```Settings / Webhooks & Services / Add a new service```. Search for Packagist. Enter your username and the token and hit Submit. Your error in Packagist should dissapear in 5–10 minutes.
+Let's take care of that. Click [that link](https://packagist.org/profile/), click "Show API Token", copy it and go to _your package's GitHub page_, in ```Settings / Webhooks & Services / Add a new service```. Search for Packagist. Enter your username and the token and hit Submit. Your error in Packagist should disappear in 5–10 minutes.
 
 Congrats! You now have a working package online. You can now require it with composer.
 
