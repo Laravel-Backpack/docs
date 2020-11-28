@@ -54,9 +54,9 @@ Our recommendation is to _not_ stick to Laravel 6.0 just because it's a [LTS ver
         "laracasts/generators": "^1.0"
 ```
 
-<a name="step-3" href="#step-3" class="badge badge-warning text-white" style="text-decoration: none;">Step 3.</a> If you're using the Revisions operation, it has now been split into a separate package. So please add ```"backpack/revise-operation": "^1.0",``` to your composer's required section.
+<a name="step-3" href="#step-3" class="badge badge-warning text-white" style="text-decoration: none;">Step 3.</a> If you're using the Revisions operation, it has now been split into a separate package. So please add ```"backpack/revise-operation": "^1.0",``` to your composer's require section.
 
-<a name="step-4" href="#step-4" class="badge badge-warning text-white" style="text-decoration: none;">Step 4.</a> Backpack itself is no longer using ```laravel/helpers```. Instead of using helpers like ```str_slug()``` we're now doing ```Str::slug()``` everywhere. We recommend you do the same. But if you want to keep using string and array helpers, please add ```"laravel/helpers": "^1.1",``` to your composer's required section.
+<a name="step-4" href="#step-4" class="badge badge-warning text-white" style="text-decoration: none;">Step 4.</a> Backpack itself is no longer using ```laravel/helpers```. Instead of using helpers like ```str_slug()``` we're now doing ```Str::slug()``` everywhere. We recommend you do the same. But if you want to keep using string and array helpers, please add ```"laravel/helpers": "^1.1",``` to your composer's require section.
 
 <a name="step-5" href="#step-5" class="badge badge-warning text-white" style="text-decoration: none;">Step 5.</a> Since we're no longer using ```laravel/helpers```, we need the ```Str``` and ```Arr``` classes to be aliased. You should have already done this when upgrading to Laravel 5.8/6.x/7.x. But please make sure that in your ```config/app.php``` you have these aliases:
 ```php
