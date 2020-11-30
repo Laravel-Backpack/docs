@@ -125,13 +125,13 @@ You might not have used git tags until now. Tags are the way you will version yo
 <a name="step-4-put-it-on-packagist"></a>
 ## Step 4. Put it on Packagist
 
-On [Packagist.org](https://packagist.org), create an account if you don't have one already, then click "Submit package" in the top-right corner. Enter you package's GitHub URL and click Check. If any errors occur, follow the onscreen instructions.
+On [Packagist.org](https://packagist.org), create an account if you don't have one already, then click "Submit package" in the top-right corner. Enter your package's GitHub URL and click Check. If any errors occur, follow the onscreen instructions.
 
 When you're done, you'll be taken to your packagist page, where you'll probably get a notice like this:
 
 >This package is not auto-updated. Please set up the [GitHub Service Hook](https://packagist.org/profile/) for Packagist so that it gets updated whenever you push!
 
-Let's take care of that. Click [that link](https://packagist.org/profile/), click "Show API Token", copy it and go to _your package's GitHub page_, in ```Settings / Webhooks & Services / Add a new service```. Search for Packagist. Enter your username and the token and hit Submit. Your error in Packagist should dissapear in 5–10 minutes.
+Let's take care of that. Click [that link](https://packagist.org/profile/), click "Show API Token", copy it and go to _your package's GitHub page_, in ```Settings / Webhooks & Services / Add a new service```. Search for Packagist. Enter your username and the token and hit Submit. Your error in Packagist should disappear in 5–10 minutes.
 
 Congrats! You now have a working package online. You can now require it with composer.
 

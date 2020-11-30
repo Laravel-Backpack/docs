@@ -74,7 +74,7 @@ But here's the big stuff Backpack 4.1 brings to the table, and why you should up
 
 #### **New columns feature: ```wrapper```** 
 
-- allows you to **change how columns look&feel, by wrapping the text into a custom HTML element**; similarly to how we've been able to do for years with Fields, you can now specify a wrapper for columns, and change that wrapper's ```class```, ```style```, etc.
+- allows you to **change how columns look and feel, by wrapping the text into a custom HTML element**; similarly to how we've been able to do for years with Fields, you can now specify a wrapper for columns, and change that wrapper's ```class```, ```style```, etc.
 - you can now **easily add links to your columns**; make it easy for admins to jump from one CRUD to another, by making relationship columns point to that Model's CRUD; but they can also point to whatever else you want;
 - you can now **easily make your column text a different color depending on its content**, just by adding a Bootstrap class (ex: add ```badge badge-warning``` or ```text-success```);
 - see [docs](/docs/{{version}}/crud-columns#wrap-column-text-in-an-html-element), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2448), [demo](https://demo.backpackforlaravel.com/admin/article)
@@ -109,7 +109,7 @@ But here's the big stuff Backpack 4.1 brings to the table, and why you should up
 
 - easily add a widget with a chart, on any admin panel page, directly from your Controller or blade file;
 - the same/similar syntax for multiple chart libraries: ChartJS, Highcharts, Fusioncharts, Echarts, Frappe, C3, thanks to [Laravel Charts](https://charts.erik.cat/); easily switch between charting libraries;
-- easily defer DB queries to an AJAX call (recommended) or make them upon pageload;   
+- easily defer DB queries to an AJAX call (recommended) or make them upon page load;   
 - see [docs](/docs/4.1/base-widgets#chart), [PR](https://github.com/Laravel-Backpack/CRUD/pull/2596), [demo](https://demo.backpackforlaravel.com/admin/)
 
 

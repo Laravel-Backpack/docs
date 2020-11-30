@@ -72,7 +72,7 @@ In case you need to change how this operation works, it's best to take a look at
 
 **Custom behaviour for one fetch method**
 
-To make a ```fetchCategory()``` method behave differently, you can copy-paste the logic inside the ```FetchOperation::fetch()``` and change it to do whatever you need. Instead of returing ```$this->fetch()``` you can return your own results.
+To make a ```fetchCategory()``` method behave differently, you can copy-paste the logic inside the ```FetchOperation::fetch()``` and change it to do whatever you need. Instead of returning ```$this->fetch()``` you can return your own results.
 
 **Custom behaviour for multiple fetch methods inside a Controller**
 

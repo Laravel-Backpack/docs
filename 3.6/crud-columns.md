@@ -280,7 +280,7 @@ public function getSlugWithLink() {
 }
 ```
 
-**Note:** When displaying this column's value, the text is not escaped. That is intentional. This way, you can use it to show labels, color text, italic, bold, links, etc. If you might have malicious JS or CSS in your values, you can create a new escaped field yourself. But it's probably better to treat the problem at the source, and prevent that JS and CSS from reaching your DB in the first place.
+**Note:** When displaying this column's value, the text is not escaped. That is intentional. This way, you can use it to show labels, color text, italic, bold, links, etc. If you might have malicious JS or CSS in your values, you can create a new escaped field yourself. But it's probably better to treat the problem at the source, and prevent JS and CSS from reaching your DB in the first place.
 
 <a name="model_function_attribute"></a>
 ### model_function_attribute
@@ -299,7 +299,7 @@ If the function you're trying to use returns an object, not a string, you can us
 ],
 ```
 
-**Note:** When displaying this column's value, the text is not escaped. That is intentional. This way, you can use it to show labels, color text, italic, bold, links, etc. If you might have malicious JS or CSS in your values, you can create a new escaped field yourself. But it's probably better to treat the problem at the source, and prevent that JS and CSS from reaching your DB in the first place.
+**Note:** When displaying this column's value, the text is not escaped. That is intentional. This way, you can use it to show labels, color text, italic, bold, links, etc. If you might have malicious JS or CSS in your values, you can create a new escaped field yourself. But it's probably better to treat the problem at the source, and prevent JS and CSS from reaching your DB in the first place.
 
 <a name="multidimensional_array"></a>
 ### multidimensional_array
@@ -395,7 +395,7 @@ The text column will just output the text value of a db column (or model attribu
 ],
 ```
 
-**Advanced use case:** The ```text``` column type can also show the attribute of a 1-1 relationship. If you have a relationship (like ```parent()```) set up in your Model, you can use relationship and attibute in the ```name```, using dot notation:
+**Advanced use case:** The ```text``` column type can also show the attribute of a 1-1 relationship. If you have a relationship (like ```parent()```) set up in your Model, you can use relationship and attribute in the ```name```, using dot notation:
 ```php
 [
     'name' => 'parent.title',
@@ -623,7 +623,7 @@ If you want a column to not be orderable at all, just pass ```'orderable' => fal
 <a name="choose-where-columns-are-visible"></a>
 ### Choose Where Columns are Visible
 
-Starting with Backpack\CRUD 3.5.0, you can choose to show/hide column in different contexts. You can pass ```true``` / ```false``` to the column attributes below, and Backpack will know to show the column or not, in different contexts:
+Starting with Backpack\CRUD 3.5.0, you can choose to show/hide columns in different contexts. You can pass ```true``` / ```false``` to the column attributes below, and Backpack will know to show the column or not, in different contexts:
 
 ```php
 $this->crud->addColumn([
@@ -698,4 +698,4 @@ You can make the last column be less important (and hide) by giving it an unreas
 $this->crud->setActionsColumnPriority(10000);
 ```
 
->Note that repsonsive tables adopt special behavior if the table is not able to show all columns. This includes displaying a vertical elipsis to the left of the row, and making the row clickable to reveal more detail. This behavior is automatic and is not manually controllable via a field property.
+>Note that responsive tables adopt special behavior if the table is not able to show all columns. This includes displaying a vertical ellipsis to the left of the row, and making the row clickable to reveal more detail. This behavior is automatic and is not manually controllable via a field property.

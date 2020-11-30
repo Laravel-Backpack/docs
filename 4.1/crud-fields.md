@@ -70,7 +70,7 @@ $this->crud->field('price')->type('number');
 
 **The only attribute that's mandatory when you define a field is its `name`**, which will be used:
 - inside the inputs, as `<input name='your_db_column' />`;
-- to store the information in the database, so your `name` should corespond to a database column (if the field type doesn't have different instructions); 
+- to store the information in the database, so your `name` should correspond to a database column (if the field type doesn't have different instructions); 
 
 Every other field attribute other than `name`, Backpack 4.1+ will try to guess.
 
@@ -92,8 +92,8 @@ So at minimum, your field definition array should look like:
 ```
 
 Please note that `label` and `type` are not _mandatory_, just _recommended_:
-- `label` can be ommitted, and Backpack will try to construct it from the `name`;
-- `type` can be ommitted, and Backpack will try to guess it from the column type, or if there's a relationship on the Model with the same `name`;
+- `label` can be omitted, and Backpack will try to construct it from the `name`;
+- `type` can be omitted, and Backpack will try to guess it from the column type, or if there's a relationship on the Model with the same `name`;
 
 <a name="optional-field-attributes-for-presentation-purposes"></a>
 #### Optional - Field Attributes for Presentation Purposes
@@ -130,7 +130,7 @@ These will help you:
 <a name="fake-fields"></a>
 #### Optional - Fake Field Attributes (stores fake attributes as JSON in the database)
 
-In case you want to store insignificant information for an entry, that don't need a database column, you can add any number of Fake Fields, and all their information will be store inside one column in the db, as JSON. By default, an ```extras``` column is assumed on the database table, but you can change that.
+In case you want to store insignificant information for an entry that doesn't need a database column, you can add any number of Fake Fields, and all their information will be stored inside one column in the db, as JSON. By default, an ```extras``` column is assumed on the database table, but you can change that.
 
 **Step 1.** Use the fake attribute on your field:
 ```php
@@ -352,7 +352,7 @@ Onclick preview:
 <a name="browse-multiple"></a>
 ### browse_multiple
 
-Open elFinder and select multiple file from there. Run ```composer require backpack/filemanager``` to install elFinder, then you can use the field:
+Open elFinder and select multiple files from there. Run ```composer require backpack/filemanager``` to install elFinder, then you can use the field:
 
 ```php
 [   // Browse multiple
@@ -825,7 +825,7 @@ $this->crud->addField([
     'name' => "image",
     'type' => 'image',
     'crop' => true, // set to true to allow cropping, false to disable
-    'aspect_ratio' => 1, // ommit or set to 0 to allow any aspect ratio
+    'aspect_ratio' => 1, // omit or set to 0 to allow any aspect ratio
     // 'disk'      => 's3_bucket', // in case you need to show images from a different disk
     // 'prefix'    => 'uploads/images/profile_pictures/' // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
 ]);
@@ -1189,7 +1189,7 @@ Remember, ```FetchOperation``` is still needed on the main crud (ex: ```ArticleC
 <a name="repeatable"></a>
 ### repeatable
 
-Shows a group of inputs to the user, and allows the user to add ore remove groups of that kind:
+Shows a group of inputs to the user, and allows the user to add or remove groups of that kind:
 
 ![CRUD Field - repeatable](https://backpackforlaravel.com/uploads/docs-4-1/fields/repeatable.png)
 
@@ -1377,7 +1377,7 @@ Input preview:
 
 [Works just like the SELECT field, but prettier]
 
-Show a Select2 with the names of the connected entity and let the user select any number of them.
+Shows a Select2 with the names of the connected entity and let the user select any number of them.
 Your relationship should already be defined on your models as belongsToMany().
 
 ```php
@@ -1466,7 +1466,7 @@ Input preview:
 <a name="select_and_order"></a>
 ### select_and_order
 
-Display items on two columns and let the user drag&drop between them to choose which items are selected an which are not, and reorder the selected items with drag&drop.
+Display items on two columns and let the user drag&drop between them to choose which items are selected and which are not, and reorder the selected items with drag&drop.
 
 Its definition is exactly as ```select_from_array```, but the value will be stored as JSON in the database: ```["3","5","7","6"]```, so it needs the attribute to be cast to array on the Model:
 
@@ -1887,9 +1887,9 @@ Input preview:
     'label'     => 'Image',
     'type'      => 'upload',
     'upload'    => true,
-    'disk'      => 'uploads', // if you store files in the /public folder, please ommit this; if you store them in /storage or S3, please specify it;
+    'disk'      => 'uploads', // if you store files in the /public folder, please omit this; if you store them in /storage or S3, please specify it;
     // optional:
-    'temporary' => 10 // if using a service, such as S3, that requires you to make temporary URL's this will make a URL that is valid for the number of minutes specified
+    'temporary' => 10 // if using a service, such as S3, that requires you to make temporary URLs this will make a URL that is valid for the number of minutes specified
 ],
 ```
 
@@ -1964,9 +1964,9 @@ Shows a multiple file input to the user and stores the values as a JSON array in
     'label'     => 'Photos',
     'type'      => 'upload_multiple',
     'upload'    => true,
-    'disk'      => 'uploads', // if you store files in the /public folder, please ommit this; if you store them in /storage or S3, please specify it;
+    'disk'      => 'uploads', // if you store files in the /public folder, please omit this; if you store them in /storage or S3, please specify it;
     // optional:
-    'temporary' => 10 // if using a service, such as S3, that requires you to make temporary URL's this will make a URL that is valid for the number of minutes specified
+    'temporary' => 10 // if using a service, such as S3, that requires you to make temporary URLs this will make a URL that is valid for the number of minutes specified
 ],
 ```
 
@@ -2134,7 +2134,7 @@ The actual field types are stored in the Backpack/CRUD package in ```/resources/
 
 To quickly publish a field blade file in your project, you can use ```php artisan backpack:publish crud/fields/field_name```. For example, to publish the number field type, you'd type ```php artisan backpack:publish crud/fields/number```
 
->Please keep in mind that if you're using _your_ file for a field type, you're not using the _package file_. So any updates we push to that file, you're not getting them. In most cases, it's recommended you crate a custom field type for your use case, instead of overwriting default field types.
+>Please keep in mind that if you're using _your_ file for a field type, you're not using the _package file_. So any updates we push to that file, you're not getting them. In most cases, it's recommended you create a custom field type for your use case, instead of overwriting default field types.
 
 <a name="creating-a-custom-field-type"></a>
 ## Creating a Custom Field Type

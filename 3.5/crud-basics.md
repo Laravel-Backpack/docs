@@ -2,7 +2,7 @@
 
 ---
 
-Backpack\CRUD provides a fast way to build admininistration panels - places where your administrators can Create, Read, Update, Delete entries for a specific Eloquent model. **One CRUD Panel provides functionality for one Eloquent Model.** 
+Backpack\CRUD provides a fast way to build administration panels - places where your administrators can Create, Read, Update, Delete entries for a specific Eloquent model. **One CRUD Panel provides functionality for one Eloquent Model.** 
 
 <a name="requirements"></a>
 ## Requirements
@@ -43,4 +43,4 @@ For a ```Tag``` entity, your CRUD Panel would consist of:
 - a route inside ```routes/backpack/custom.php```;
 - your existing model (```app/Models/Tag.php```);
 
-To further your understading of how a CRUD Panel works, [read more about this example in the tutorial](/docs/{{version}}/crud-tutorial).
+To further your understanding  of how a CRUD Panel works, [read more about this example in the tutorial](/docs/{{version}}/crud-tutorial).

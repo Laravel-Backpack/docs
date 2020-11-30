@@ -2,7 +2,7 @@
 
 ---
 
-We've put toghether a working Laravel app (backend-only), that you can install on your machine. This should make it easier to:
+We've put together a working Laravel app (backend-only), that you can install on your machine. This should make it easier to:
 - see how it looks & feels;
 - see how it works;
 - change stuff in code, to see how easy it is to customize Backpack; 

@@ -96,7 +96,7 @@ $this->crud->setHeading('some string', 'create'); // set the Heading for the cre
 $this->crud->setSubheading('some string', 'create'); // set the Subheading for the create action
 ```
 
-There methods are usually useful inside actions, not in ```setup()```. Since action methods are called _after_ ```setup()```, any call to these getters and setters in ```setup()``` would get overwritten by the call in the action.
+These methods are usually useful inside actions, not in ```setup()```. Since action methods are called _after_ ```setup()```, any call to these getters and setters in ```setup()``` would get overwritten by the call in the action.
 
 <a name="access-to-operations"></a>
 ### Handling Access to Operations

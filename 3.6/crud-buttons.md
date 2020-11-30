@@ -89,7 +89,7 @@ Let's say we want to create a simple ```moderate.blade.php``` button. This butto
 Route::get('user/{id}/moderate', 'UserCrudController@moderate');
 ```
 
-- We can now create add a ```moderate()``` method to our ```UserCrudController```, which would moderate the user, and redirect back.
+- We can now add a ```moderate()``` method to our ```UserCrudController```, which would moderate the user, and redirect back.
 ```php
 public function moderate() 
 {
@@ -187,7 +187,7 @@ The steps would be:
 Route::get('user/import', 'UserCrudController@import');
 ```
 
-- We can now create add a ```import()``` method to our ```UserCrudController```, which would import the users.
+- We can now add a ```import()``` method to our ```UserCrudController```, which would import the users.
 ```php
 public function import() 
 {

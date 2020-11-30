@@ -2,7 +2,7 @@
 
 ---
 
-This will guide you to upgrade from Backpack 4.0 to 4.1. The steps are color-coded by the probablility that you will need it for your application: <span class="badge badge-info text-white" style="text-decoration: none;">High</span>, <span class="badge badge-warning text-white" style="text-decoration: none;">Medium</span> and <span class="badge badge-secondary-soft" style="text-decoration: none;">Low</span>.
+This will guide you to upgrade from Backpack 4.0 to 4.1. The steps are color-coded by the probability that you will need it for your application: <span class="badge badge-info text-white" style="text-decoration: none;">High</span>, <span class="badge badge-warning text-white" style="text-decoration: none;">Medium</span> and <span class="badge badge-secondary-soft" style="text-decoration: none;">Low</span>.
 
 <a name="requirements"></a>
 ## Requirements
