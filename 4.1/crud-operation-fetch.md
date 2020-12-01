@@ -66,7 +66,7 @@ Based on the fact that the ```fetchTag()``` method exist, the Fetch operation wi
 
 **Preventing FetchOperation of guessing the searchable attributes**
 
-If not specified `searchable_attributes` will be automatically infered from model dabatase columns. To do your own search and replace default FetchOperation behaviour you can setup an empty `searchable_attributes`.
+If not specified `searchable_attributes` will be automatically infered from model dabatase columns. To prevent this behaviour you can setup an empty `searchable_attributes` array.
 
 That said, you can use something like below:
 
