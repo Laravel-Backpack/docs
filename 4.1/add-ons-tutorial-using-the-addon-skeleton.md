@@ -144,11 +144,9 @@ If you _won't_ be using config files, just delete the entire `config` package di
 
 If you _will_ be using config files, to let the users of your package publish it and change how stuff works that way, it's super-simple to use:
 - you already have a file generated in `/packages/VendorName/PackageName/config/packagename.php`;
-- cut&paste any config values you want over here; if you add for example `config_key`, it'll be available in your classes using `config('packagename.config_key')`;
+- cut&paste any config values you want over here; if you add for example `config_key`, it'll be available in your classes using `config('vendorname.packagename.config_key')`;
 
 If you don't have any configs right now, but will want to add later, that's ok too. Do it later.
-
-// TODO: make sure the package namespace above is correct
 
 #### Files inside your project's `database` directory
 
@@ -162,18 +160,15 @@ That means:
 
 #### Files inside your project's `resources\views` directory
 
-You have the same directory in your package, just move them there. Views moved in your package folder will be automatically available in the `packagename` namespace, so you can load them using `view('packagename::path.to.file')`.
+You have the same directory in your package, just move them there. Views moved in your package folder will be automatically available in the `packagename` namespace, so you can load them using `view('vendorname.packagename::path.to.file')`.
 
 For views that need to been changed by the user upon installation, and cannot be moved to the package (for example, menu items inside `sidebar_content.blade.php`), add the changes the user needs to do inside your package's `readme.md` file, under Installation.
-
 
 #### Files inside your project's `resources\lang` directory
 
 If your package won't support translations yet, just skip this.
 
-If it will, notice you already have a lang file created for English, in your package - `/packages/VendorName/PackageName/resources/lang/en/packagename.php`. Populate that file with the language lines you need, by cutting&pasting from your project. They'll be available as `lang('packagename::packagename.line_key')` so you need to also find&replace your old keys with the new ones.
-
-// TODO: make sure this works, and the package namespace written above is correct
+If it will, notice you already have a lang file created for English, in your package - `/packages/VendorName/PackageName/resources/lang/en/packagename.php`. Populate that file with the language lines you need, by cutting&pasting from your project. They'll be available as `lang('vendorname.packagename::packagename.line_key')` so you need to also find&replace your old keys with the new ones.
 
 #### Files inside your project's `routes` directory
 
@@ -259,19 +254,13 @@ But what you should probably be doing is requiring the package like any other pa
 - you don't commit anything extra inside your project;
 - you can _easily_ make changes to your package, from whatever project you're using it in;
 
-To do that, go ahead and do this to clean up your `composer.json` file:
+To do that, go ahead and do this to uninstall your package from your project:
 ```bash
 cd ../../.. # so that you're inside your project, not package
 
 # discard the changes in your composer files
-git checkout -- composer.json
-git checkout -- composer.lock
-
-# delete the package folder
-rm -rf packages/vendorName/packageName
-
-# if it was the only package there, delete the packages folder too
-rm -rf packages
+# and delete the files from packages/vendorname/packagename
+php artisan packager:remove VendorName PackageName
 ```
 
 And now install it exactly the same as your users will:
