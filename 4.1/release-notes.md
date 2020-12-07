@@ -166,7 +166,7 @@ But here's the big stuff Backpack 4.1 brings to the table, and why you should up
 - ```venturecraft/revisionable``` dependency; in order to use the Revisions operation you now have to install [the backpack/revise-operation add-on](https://github.com/laravel-backpack/revise-operation);
 - ```barryvdh/laravel-elfinder``` dependency; in order to use the File Manager screen, the ```browse``` or ```browse_multiple``` field types, you now need to install the [backpack/filemanager add-on](https://github.com/Laravel-Backpack/FileManager) that we created;
 - ```intervention/image``` dependency; in order to use the ```image``` field type you might need to [install the package](http://image.intervention.io/getting_started/installation), if you've copy-pasted our example mutator in your Model; 
-- ```App\Models\BackpackUser``` is no longer needer, recommended or published when installing Backpack; authentication now works with your default ```App\User``` model (or whatever it is); this eliminates a bit of unneeded complexity, and fixes a bunch of problems when there are morph relationships towards the User model; but you can still keep it if you like to have a separate model for you admins;
+- ```App\Models\BackpackUser``` is no longer needed, recommended or published when installing Backpack; authentication now works with your default ```App\User``` model (or whatever it is); this eliminates a bit of unneeded complexity, and fixes a bunch of problems when there are morph relationships towards the User model; but you can still keep it if you like to have a separate model for you admins;
 
 
 ---
