@@ -87,6 +87,27 @@ public function fetchUser() {
     }
 ```
 
+## Using FetchOperation with `select2_ajax` filter
+
+FetchOperation can also be used with `select2_ajax` filter. To make it work we need to setup aditional attributes in the filter. By default the `method` used by FetchOperation is `POST` while in filter is `GET`. We also need to tell backpack what attribute we want to show to the user. 
+
+```
+$this->crud->addFilter([
+  'name'        => 'category_id',
+  'type'        => 'select2_ajax',
+  'label'       => 'Category',
+  'placeholder' => 'Pick a category',
+  'method' => 'POST', //mandatory change
+  'select_attribute' => 'name' //the attribute that will be shown to the user by default 'name'
+  'select_key' => 'id' //by default is ID, change if your model use some other key
+],
+url('admin/fetch/monster'), // the fetch route 
+function($value) { // if the filter is active
+    // $this->crud->addClause('where', 'category_id', $value);
+});
+
+```
+
 
 <a name="how-to-overwrite"></a>
 ## How to Overwrite
