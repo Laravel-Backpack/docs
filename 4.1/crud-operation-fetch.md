@@ -98,9 +98,9 @@ $this->crud->addFilter([
   'type'        => 'select2_ajax',
   'label'       => 'Category',
   'placeholder' => 'Pick a category',
-  'method' => 'POST', //mandatory change
-  'select_attribute' => 'name' //the attribute that will be shown to the user by default 'name'
-  'select_key' => 'id' //by default is ID, change if your model use some other key
+  'method' => 'POST', // mandatory change
+  // 'select_attribute' => 'name' // the attribute that will be shown to the user by default 'name'
+  // 'select_key' => 'id' // by default is ID, change it if your model uses some other key
 ],
 url('admin/fetch/monster'), // the fetch route 
 function($value) { // if the filter is active
