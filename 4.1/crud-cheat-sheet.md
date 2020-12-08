@@ -115,23 +115,23 @@ $this->crud->enablePersistentTable();
 <small>Methods: setDetaultPageLength(), setPageLengthMenu()</small>
 
 ```php
-// you can define the default page lenght. If it does not exist we will add it to the pagination array.
+// you can define the default page length. If it does not exist we will add it to the pagination array.
 $this->crud->setDefaultPageLength(10);
 
 // you can configure the paginator shown to the user in various ways
 
 // values and labels, 1st array the values, 2nd array the labels:
-$this->crud->setPageLengthMenu([[100, 200, 300],['one hundred', 'two hundred', 'three hundred']]); 
+$this->crud->setPageLengthMenu([[100, 200, 300], ['one hundred', 'two hundred', 'three hundred']]); 
 
-//values and labels in one array:
+// values and labels in one array:
 $this->crud->setPageLengthMenu([100 => 'one hundred', 200 => 'two hundred', 300 => 'three hundred']); 
 
 // only values, we will use the values as labels:
-$this->crud->setPageLengthMenu([100, 200, 300]); OR $this->crud->setPageLengthMenu([[100, 200, 300]]); 
+$this->crud->setPageLengthMenu([100, 200, 300]); // OR
+$this->crud->setPageLengthMenu([[100, 200, 300]]); 
 
-//only one option available:
+// only one option available:
 $this->crud->setPageLengthMenu(10); 
-
 ```
 
 <small>NOTE: Do not use 0 as a key, if you want to represent "ALL" use -1 instead.</small>
