@@ -87,6 +87,7 @@ public function fetchUser() {
     }
 ```
 
+<a name="fetch-ajax-filter"></a>
 ## Using FetchOperation with `select2_ajax` filter
 
 FetchOperation can also be used with `select2_ajax` filter. To make it work we need to setup aditional attributes in the filter. By default the `method` used by FetchOperation is `POST` while in filter is `GET`. We also need to tell backpack what attribute we want to show to the user. 
