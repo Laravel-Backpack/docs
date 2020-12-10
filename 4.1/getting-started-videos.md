@@ -49,7 +49,7 @@ Let's generate a few Backpack CRUDs - places where the admin can Create, Read, U
 
 <br>
 Mentioned in this video:
-- [Backpack's online demo](https://demo.backpackforlaravel.com/admin/login)
+- [Backpack's online demo](http://demo.backpackforlaravel.com/admin/login)
 - [laravel-shift/blueprint](https://blueprint.laravelshift.com/) - CLI tool to generate Eloquent models
 - [Laravel docs - migrations](https://laravel.com/docs/7.x/migrations#introduction)
 - [backpack/generators - CLI tool to generate CRUDs](https://github.com/laravel-backpack/generators)

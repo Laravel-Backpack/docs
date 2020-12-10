@@ -52,7 +52,7 @@ We heavily recommend you spend a little time to understand Backpack, and only af
 ### How does it look?
 
 - Take a look at [our homepage](https://backpackforlaravel.com/).
-- Play around in our [live demo](https://demo.backpackforlaravel.com/admin/login).
+- Play around in our [live demo](http://demo.backpackforlaravel.com/admin/login).
 - [Install the demo](/docs/{{version}}/demo) and fiddle with the code.
 
 <a name="security"></a>
