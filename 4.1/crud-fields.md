@@ -1750,8 +1750,22 @@ Show a [Summernote wysiwyg editor](http://summernote.org/) to the user.
     'name'  => 'description',
     'label' => 'Description',
     'type'  => 'summernote',
-    // 'options' => [], // easily pass parameters to the summernote JS initialization 
+    'options' => []
 ],
+
+// the summernote field works with the default configuration options but allow developer to configure to his needs
+// optional configuration check https://summernote.org/deep-dive/ for a list of available configs
+[   
+    'name'  => 'description',
+    'label' => 'Description',
+    'type'  => 'summernote',
+    'options' => [ 
+        'toolbar' => [
+            ['font', ['bold', 'underline', 'italic']]
+        ]
+    ],
+],
+
 ```
 
 Input preview: 
