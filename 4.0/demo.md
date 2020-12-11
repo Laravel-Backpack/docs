@@ -19,7 +19,7 @@ In this [Demo repository](https://github.com/laravel-backpack/demo), we've:
 <a name="preview"></a>
 ## Demo Preview
 
-If you just want to take a look at the Backpack interface and click around, you don't need to install the Demo. **Take a look at [demo.backpackforlaravel.com](http://demo.backpackforlaravel.com/admin) - we've installed for you.** The online demo is wiped and reinstalled every hour, on the hour.
+If you just want to take a look at the Backpack interface and click around, you don't need to install the Demo. **Take a look at [demo.backpackforlaravel.com](https://demo.backpackforlaravel.com/admin) - we've installed for you.** The online demo is wiped and reinstalled every hour, on the hour.
 
 <a name="installation"></a>
 ## Demo Installation
