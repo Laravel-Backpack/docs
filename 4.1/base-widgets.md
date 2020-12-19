@@ -22,13 +22,13 @@ In order to use the ```Widget``` class, you should make sure your main views (fo
 You can easily push widgets to these sections, by using the autoloaded ```Widget``` class. You can think of the ```Widget``` class as a global container for widgets, for the current page being rendered. That means you can call the ```Widget``` container inside a ```Controller```, inside a ```view```, or inside a service provider you create - wherever you want.
 
 ```php
-    Widget::add($widget_definition_array)->to('before_content');
-    
-    // alternatively, use a fluent syntax to define each widget attribute
-    Widget::add()
-            ->to('before_content')
-            ->type('card')
-            ->content(null);
+Widget::add($widget_definition_array)->to('before_content');
+
+// alternatively, use a fluent syntax to define each widget attribute
+Widget::add()
+    ->to('before_content')
+    ->type('card')
+    ->content(null);
 ```
 
 
@@ -48,10 +48,10 @@ When passing a widget array, you need to specify at least these attributes:
 
 Most widget types also have these attributes present, which you can use to tweak how the widget looks inside the page:
 ```php
-    'wrapper' => [
-        'class' => 'col-sm-6 col-md-4', // customize the class on the parent element (wrapper)
-        'style' => 'border-radius: 10px;',
-    ]
+'wrapper' => [
+    'class' => 'col-sm-6 col-md-4', // customize the class on the parent element (wrapper)
+    'style' => 'border-radius: 10px;',
+]
 ```
 
 <a name="widgets-api"></a>
@@ -60,6 +60,8 @@ Most widget types also have these attributes present, which you can use to tweak
 To manipulate widgets, you can use the methods below. The action will be performed on the page being constructed for the current request. And the ```Widget``` class is a global container, so you can add widgets to it both from the Controller, and from the view.
 
 ```php
+use Backpack\CRUD\app\Library\Widget;
+
 // to add a widget to a different section than the default 'before_content' section:
 Widget::add($widget_definition_array)->to('after_content');
 Widget::add($widget_definition_array)->section('after_content');
@@ -73,9 +75,9 @@ Widget::add($widget_definition_array);
 Widget::make($widget_definition_array);
 // alternatively, define each widget attribute one by one, using a fluent syntax
 Widget::add()
-        ->to('after_content')
-        ->type('card')
-        ->content('something');
+    ->to('after_content')
+    ->type('card')
+    ->content('something');
 
 // to reference a widget later on, give it a unique 'name'
 Widget::add($widget_definition_array)->name('my_widget');
@@ -100,11 +102,11 @@ Shows a notification bubble, with the heading and text you specify:
 
 ```php
 [
-  'type'         => 'alert',
-  'class'        => 'alert alert-danger mb-2',
-  'heading'      => 'Important information!',
-  'content'      => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti nulla quas distinctio veritatis provident mollitia error fuga quis repellat, modi minima corporis similique, quaerat minus rerum dolorem asperiores, odit magnam.',
-  'close_button' => true, // show close button or not
+    'type'         => 'alert',
+    'class'        => 'alert alert-danger mb-2',
+    'heading'      => 'Important information!',
+    'content'      => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti nulla quas distinctio veritatis provident mollitia error fuga quis repellat, modi minima corporis similique, quaerat minus rerum dolorem asperiores, odit magnam.',
+    'close_button' => true, // show close button or not
 ]
 ```
 
@@ -123,13 +125,13 @@ Shows a Bootstrap card, with the heading and body you specify. You can customize
 
 ```php
 [
-  'type'       => 'card',
-  // 'wrapper' => ['class' => 'col-sm-6 col-md-4'], // optional
-  // 'class'   => 'card bg-dark text-white', // optional
-  'content' => [
-      'header' => 'Some card title', // optional
-      'body'   => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non mi nec orci euismod venenatis. Integer quis sapien et diam facilisis facilisis ultricies quis justo. Phasellus sem <b>turpis</b>, ornare quis aliquet ut, volutpat et lectus. Aliquam a egestas elit. <i>Nulla posuere</i>, sem et porttitor mollis, massa nibh sagittis nibh, id porttitor nibh turpis sed arcu.',
-  ]
+    'type'       => 'card',
+    // 'wrapper' => ['class' => 'col-sm-6 col-md-4'], // optional
+    // 'class'   => 'card bg-dark text-white', // optional
+    'content'    => [
+        'header' => 'Some card title', // optional
+        'body'   => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non mi nec orci euismod venenatis. Integer quis sapien et diam facilisis facilisis ultricies quis justo. Phasellus sem <b>turpis</b>, ornare quis aliquet ut, volutpat et lectus. Aliquam a egestas elit. <i>Nulla posuere</i>, sem et porttitor mollis, massa nibh sagittis nibh, id porttitor nibh turpis sed arcu.',
+    ]
 ]
 ```
 
@@ -218,8 +220,8 @@ public function getLibraryFilePath()
     // or
     
     return [
-      asset('path/to/first/js/file'),
-      asset('path/to/second/js/file'),
+        asset('path/to/first/js/file'),
+        asset('path/to/second/js/file'),
     ];
 }
 ```
@@ -276,14 +278,18 @@ class NewEntriesChartController extends ChartController
     {
         for ($days_backwards = 30; $days_backwards >= 0; $days_backwards--) {
             // Could also be an array_push if using an array rather than a collection.
-            $users[] = User::whereDate('created_at', today()->subDays($days_backwards))
-                            ->count();
-            $articles[] = Article::whereDate('created_at', today()->subDays($days_backwards))
-                            ->count();
-            $categories[] = Category::whereDate('created_at', today()->subDays($days_backwards))
-                            ->count();
-            $tags[] = Tag::whereDate('created_at', today()->subDays($days_backwards))
-                            ->count();
+            $users[] = User::whereDate('created_at', today())
+                ->subDays($days_backwards))
+                ->count();
+            $articles[] = Article::whereDate('created_at', today())
+                ->subDays($days_backwards))
+                ->count();
+            $categories[] = Category::whereDate('created_at', today())
+                ->subDays($days_backwards))
+                ->count();
+            $tags[] = Tag::whereDate('created_at', today())
+                ->subDays($days_backwards))
+                ->count();
         }
 
         $this->chart->dataset('Users', 'line', $users)
@@ -351,13 +357,13 @@ Allows you to include multiple widgets in a div attributes of your choosing. For
 
 ```php
 [
-  'type'    => 'div',
-  'class'   => 'row',
-  'content' => [ // widgets 
-      [ 'type' => 'card', 'content' => ['body' => 'One'] ],
-      [ 'type' => 'card', 'content' => ['body' => 'Two'] ],
-      [ 'type' => 'card', 'content' => ['body' => 'Three'] ],
-  ]
+    'type'    => 'div',
+    'class'   => 'row',
+    'content' => [ // widgets 
+        [ 'type' => 'card', 'content' => ['body' => 'One'] ],
+        [ 'type' => 'card', 'content' => ['body' => 'Two'] ],
+        [ 'type' => 'card', 'content' => ['body' => 'Three'] ],
+    ]
 ]
 ```
 
@@ -372,11 +378,11 @@ Shows a Boostrap jumbotron component, with the heading and body you specify.
 
 ```php
 [
-  'type'        => 'jumbotron',
-  'heading'     => 'Welcome!',
-  'content'     => 'Use the sidebar to the left to create, edit or delete content.',
-  'button_link' => backpack_url('logout'),
-  'button_text' => 'Logout',
+    'type'        => 'jumbotron',
+    'heading'     => 'Welcome!',
+    'content'     => 'Use the sidebar to the left to create, edit or delete content.',
+    'button_link' => backpack_url('logout'),
+    'button_text' => 'Logout',
 ]
 ```
 
@@ -444,9 +450,9 @@ Loads a blade view from a location you specify. Any attributes your give it will
 
 ```php
 [
-    'type'        => 'view',
-    'view'        => 'path.to.custom.view',
-    'someAttr'    => 'some value',
+    'type'     => 'view',
+    'view'     => 'path.to.custom.view',
+    'someAttr' => 'some value',
 ]
 ```
 
@@ -473,9 +479,9 @@ Widgets consist of only one file - a blade file with the same name as the widget
 For example, you can create a ```well.blade.php```:
 ```php
 @includeWhen(!empty($widget['wrapper']), 'backpack::widgets.inc.wrapper_start')
-  <div class="{{ $widget['class'] ?? 'well mb-2' }}">
-    {!! $widget['content'] !!}
-  </div>
+    <div class="{{ $widget['class'] ?? 'well mb-2' }}">
+        {!! $widget['content'] !!}
+    </div>
 @includeWhen(!empty($widget['wrapper']), 'backpack::widgets.inc.wrapper_end')
 ```
 
@@ -503,36 +509,36 @@ To use information from the database, you can:
 Inside the widget blade files, you include custom CSS and JS, by pushing to the stacks in the layout:
 ```php
 @includeWhen(!empty($widget['wrapper']), 'backpack::widgets.inc.wrapper_start')
-  <div class="{{ $widget['class'] ?? 'well mb-2' }}">
-    {!! $widget['content'] !!}
-  </div>
+    <div class="{{ $widget['class'] ?? 'well mb-2' }}">
+        {!! $widget['content'] !!}
+    </div>
 @includeWhen(!empty($widget['wrapper']), 'backpack::widgets.inc.wrapper_end')
 
 @push('after_styles')
-  <link href="{{ asset('packages/select2/dist/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
-  <style>
-    .some_class {
-      color: red;
-    }
-  </style>
+    <link href="{{ asset('packages/select2/dist/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+    <style>
+        .some_class {
+            color: red;
+        }
+    </style>
 @endpush
 
 
 @push('after_scripts')
-  <script src="{{ asset('packages/select2/dist/js/select2.min.js') }}"></script>
-  <script>
-      jQuery(document).ready(function($) {
-          // trigger select2 for each untriggered select2 box
-          $('.select2_field').each(function (i, obj) {
-              if (!$(obj).hasClass("select2-hidden-accessible"))
-              {
-                  $(obj).select2({
-                      theme: "bootstrap"
-                  });
-              }
-          });
-      });
-  </script>
+    <script src="{{ asset('packages/select2/dist/js/select2.min.js') }}"></script>
+    <script>
+        jQuery(document).ready(function($) {
+            // trigger select2 for each untriggered select2 box
+            $('.select2_field').each(function (i, obj) {
+                if (!$(obj).hasClass("select2-hidden-accessible"))
+                {
+                    $(obj).select2({
+                        theme: "bootstrap"
+                    });
+                }
+            });
+        });
+    </script>
 @endpush
 ```
 
@@ -549,14 +555,14 @@ Widget::add($widget_definition_array)->from('package::widgets');
 
 // using the widget definition array, specify its 'viewNamespace'
 Widget::add([
-  'type'          => 'card',
-  'viewNamespace' => 'package::widgets',
-  'wrapper'       => ['class' => 'col-sm-6 col-md-4'],
-  'class'         => 'card text-white bg-primary text-center',
-  'content'       => [
-  // 'header'     => 'Another card title',
-  'body'          => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non mi nec orci euismod venenatis. Integer quis sapien et diam facilisis facilisis ultricies quis justo. Phasellus sem <b>turpis</b>, ornare quis aliquet ut, volutpat et lectus. Aliquam a egestas elit.',
-  ],
+    'type'          => 'card',
+    'viewNamespace' => 'package::widgets',
+    'wrapper'       => ['class' => 'col-sm-6 col-md-4'],
+    'class'         => 'card text-white bg-primary text-center',
+    'content'       => [
+        // 'header' => 'Another card title',
+        'body'      => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non mi nec orci euismod venenatis. Integer quis sapien et diam facilisis facilisis ultricies quis justo. Phasellus sem <b>turpis</b>, ornare quis aliquet ut, volutpat et lectus. Aliquam a egestas elit.',
+    ],
 ]);
 
 ```
