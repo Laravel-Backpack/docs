@@ -22,6 +22,8 @@ In order to use the ```Widget``` class, you should make sure your main views (fo
 You can easily push widgets to these sections, by using the autoloaded ```Widget``` class. You can think of the ```Widget``` class as a global container for widgets, for the current page being rendered. That means you can call the ```Widget``` container inside a ```Controller```, inside a ```view```, or inside a service provider you create - wherever you want.
 
 ```php
+use Backpack\CRUD\app\Library\Widget;
+
 Widget::add($widget_definition_array)->to('before_content');
 
 // alternatively, use a fluent syntax to define each widget attribute
@@ -60,8 +62,6 @@ Most widget types also have these attributes present, which you can use to tweak
 To manipulate widgets, you can use the methods below. The action will be performed on the page being constructed for the current request. And the ```Widget``` class is a global container, so you can add widgets to it both from the Controller, and from the view.
 
 ```php
-use Backpack\CRUD\app\Library\Widget;
-
 // to add a widget to a different section than the default 'before_content' section:
 Widget::add($widget_definition_array)->to('after_content');
 Widget::add($widget_definition_array)->section('after_content');
