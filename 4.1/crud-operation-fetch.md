@@ -90,7 +90,9 @@ public function fetchUser() {
 <a name="fetch-ajax-filter"></a>
 ## Using FetchOperation with `select2_ajax` filter
 
-FetchOperation can also be used with `select2_ajax` filter. To make it work we need to setup aditional attributes in the filter. By default the `method` used by FetchOperation is `POST` while in filter is `GET`. We also need to tell backpack what attribute we want to show to the user. 
+The FetchOperation can also be used as the source URL for the `select2_ajax` filter. To do that, we need to:
+- change the AJAX method from `GET` (the default for this filter) to `POST` (the default for the Fetch operation);
+- tell the filter what attribute we want to show to the user; 
 
 ```
 $this->crud->addFilter([
