@@ -1821,7 +1821,7 @@ The basic field type, all it needs is the two mandatory parameters: name and lab
     //'hint'       => 'Some hint text', // helpful text, show up after input
     //'attributes' => [
        //'placeholder' => 'Some text when empty',
-       //'class' => 'form-control some-class'
+       //'class' => 'form-control some-class',
        //'readonly'  => 'readonly',
        //'disabled'  => 'disabled',
      //], // extra HTML attributes and values your input might need
