@@ -34,8 +34,13 @@ class ProductCrudController extends CrudController
     {
         // $this->crud->setValidation(StoreRequest::class);
         // $this->crud->addField()
+	
         // or just do everything you've done for the Create Operation
         // $this->crud->setupCreateOperation();
+	
+	// You can also do things depending on the current entry
+	// (the database item being edited or updated)
+	// if ($this->crud->getCurrentEntry()->smth == true) {}
     }
 }
 ```
