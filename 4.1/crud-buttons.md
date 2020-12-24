@@ -99,7 +99,7 @@ public function moderate()
 }
 ```
 
-- Now we can actually add this button to any of ```UserCrudController::setup()```:
+- Now we can actually add this button to any of ```UserCrudController::setupListOperation()```:
 ```php
 $this->crud->addButtonFromView('line', 'moderate', 'moderate', 'beginning');
 ```
@@ -109,7 +109,7 @@ $this->crud->addButtonFromView('line', 'moderate', 'moderate', 'beginning');
 
 Instead of creating a blade file for your button, you can use a function on your model to output the button's HTML.
 
-In your ```ArticleCrudController::setup()```:
+In your ```ArticleCrudController::setupListOperation()```:
 ```php
 // add a button whose HTML is returned by a method in the CRUD model
 $this->crud->addButtonFromModelFunction('line', 'open_google', 'openGoogle', 'beginning');
@@ -196,7 +196,7 @@ public function import()
 }
 ```
 
-- Now we can actually add this button to any of ```UserCrudController::setup()```:
+- Now we can actually add this button to any of ```UserCrudController::setupListOperation()```:
 ```php
 $this->crud->addButtonFromView('top', 'import', 'import', 'end');
 ```
