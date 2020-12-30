@@ -68,7 +68,7 @@ trait CreateOperation
 
 An action can do something with AJAX and return true/false, it can return a view, or whatever else you can do inside a controller method. Notice that it's a ```public``` method - which is a Laravel requirement, in order to point a route to it.
 
-You can check which action is currently being performed using the [standard Laravel Route API](https://laravel.com/api/5.7/Illuminate/Routing/Route.html):
+You can check which action is currently being performed using the [standard Laravel Route API](https://laravel.com/api/8.x/Illuminate/Routing/Route.html):
 
 - ```\Route::getCurrentRoute()->getAction()``` or ```$this->crud->getRequest()->route()->getAction()```:
 ```
