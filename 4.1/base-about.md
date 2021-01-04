@@ -28,11 +28,9 @@ Backpack pulls in our custom HTML template, [Backstrap](https://www.npmjs.com/pa
 
 After installation, you'll notice Backpack has added a few files:
 
-**1) Views to ```resources/views/vendor/backpack/base/```**
-    - ```inc/sidebar_content.blade.php```;
-    - ```dashboard.blade.php```;
+**1) View to ```resources/views/vendor/backpack/base/inc/sidebar_content.blade.php```**
 
-Those files are used to show the contents of the menu to the left (sidebar), and the first page the admin sees when logging in (dashboard). They've been published there so that you can easily modify their contents, by editing their HTML or adding dynamic content through [widgets](/docs/{{version}}/base-widgets).
+This  file is used to show the contents of the menu to the left (sidebar). It's been published there so that you can easily modify its contents, by editing its HTML.
 
 **2) Middleware to ```app/Http/Middleware/CheckIfAdmin.php```**
 
@@ -46,18 +44,26 @@ This route file is for convenience and convention. We recommend you place all yo
 <a name="published-views"></a>
 ### Published Views
 
-After installation, you'll notice Backpack has added a few blade files in ```resources/views/vendor/backpack/base/```:
+After installation, you'll notice Backpack has added a new blade file in ```resources/views/vendor/backpack/base/```:
     - ```inc/sidebar_content.blade.php```;
-    - ```dashboard.blade.php```;
 
-Those files are used to show the contents of the menu to the left (sidebar), and the first page the admin sees when logging in (dashboard). They've been published there so that you can easily modify their contents, by editing their HTML or adding dynamic content through [widgets](/docs/{{version}}/base-widgets).
+That file is used to show the contents of the menu to the left (sidebar). It's been published there so that you can easily modify its contents, by editing its HTML or adding dynamic content through [widgets](/docs/{{version}}/base-widgets).
 
 <a name="unpublished-views"></a>
 ### Unpublished Views
 
 You can change any blade file to your own needs. Determine what file you'd need to modify if you were to edit directly in the project's vendor folder, then go to ```resources/views/vendor/backpack/base``` and create a file with the exact same name. Backpack\Base will use this new file, instead of the one in the package. 
 
-For example, if you want to add an item to the top menu, you could just create a file called ```resources/views/vendor/backpack/base/inc/topbar_left_content.php```. Backpack will now use this file's contents, instead of  ```vendor/backpack/base/src/resources/views/inc/topbar_left_content.php```
+For example:
+- if you want to add an item to the top menu, you could just create a file called ```resources/views/vendor/backpack/base/inc/topbar_left_content.blade.php```; Backpack will now use this file's contents, instead of  ```vendor/backpack/base/src/resources/views/inc/topbar_left_content.php```;
+- if you want to change the contents of the dashboard page, you can just create a file called `resources/views/vendor/backpack/base/dashboard.blade.php` and Backpack will use that one, instead of the one in the package;
+
+You can create blade views from scratch, or you can use our command to publish the view from the package and edit it to your liking:
+```
+php artisan backpack:publish base/dashboard
+```
+
+Then inside the blade files, you can use either plain-old HTML or add dynamic content through [Backpack widgets](/docs/{{version}}/base-widgets).
 
 <a name="folder-structure"></a>
 ### Folder Structure
