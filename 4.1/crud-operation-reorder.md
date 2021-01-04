@@ -71,7 +71,7 @@ public function reorder()
     // your custom code here
     
     // call the method in the trait
-    $this->traitReorder();
+    return $this->traitReorder();
 }
 ```
 
