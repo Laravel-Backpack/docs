@@ -5,7 +5,7 @@
 We've been blessed with a wonderful, supportive community, where developers help each other out. Some of them have even created add-ons, so that we can all reuse functionality across our projects:
 
 | Name          | Description   | License  |
-| ------------- |:-------------| :--------|
+| ------------- |:-------------:| --------:|
 | [AbbyJanke/BackpackBlog](https://github.com/AbbyJanke/BackpackBlog)      | blog front-end and back-end | - |
 | [AbbyJanke/BackpackMeta](https://github.com/AbbyJanke/BackpackMeta)      | helps create meta options for extending core functions      |   - |
 | [eduardoarandah/LogViewer](https://github.com/eduardoarandah/backpacklogviewer) | advanced logging interface - brings the ArcaneDev/LogViewer package to Backpack admin panels    | [MIT](https://github.com/eduardoarandah/backpacklogviewer/blob/master/LICENSE.md) |
@@ -16,4 +16,3 @@ We've been blessed with a wonderful, supportive community, where developers help
 | [webfactor/laravel-generators](https://github.com/webfactor/laravel-generators) | CLI to generate migrations, factories, seeders, CRUDs, lang files, route files      |  [MIT](https://github.com/webfactor/laravel-generators/blob/master/LICENSE.md) |
 | [seandowney/laravel-backpack-gallery-crud](https://gitlab.com/seandowney/laravel-backpack-gallery-crud) | Manage photo galleries      |  [MIT](https://github.com/seandowney/laravel-backpack-gallery-crud/blob/master/LICENSE.md) |
 | [seandowney/laravel-backpack-store-crud](https://gitlab.com/seandowney/laravel-backpack-store-crud) | Manage a shop with the beginnings of a Frontend - Categories, Products, Price Options and Groups, Delivery Options and Groups and Orders. Not tested above Crud 3.4       |  [MIT](https://gitlab.com/seandowney/laravel-backpack-store-crud/blob/master/LICENSE.md) |
-
