@@ -104,7 +104,7 @@ $this->crud->addFilter([
   // 'select_attribute' => 'name' // the attribute that will be shown to the user by default 'name'
   // 'select_key' => 'id' // by default is ID, change it if your model uses some other key
 ],
-url('admin/fetch/monster'), // the fetch route 
+backpack_url('product/fetch/category'), // the fetch route on the ProductCrudController 
 function($value) { // if the filter is active
     // $this->crud->addClause('where', 'category_id', $value);
 });
