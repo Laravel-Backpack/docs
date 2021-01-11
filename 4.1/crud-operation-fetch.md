@@ -87,6 +87,30 @@ public function fetchUser() {
     }
 ```
 
+<a name="fetch-ajax-filter"></a>
+## Using FetchOperation with `select2_ajax` filter
+
+The FetchOperation can also be used as the source URL for the `select2_ajax` filter. To do that, we need to:
+- change the AJAX method from `GET` (the default for this filter) to `POST` (the default for the Fetch operation);
+- tell the filter what attribute we want to show to the user; 
+
+```
+$this->crud->addFilter([
+  'name'        => 'category_id',
+  'type'        => 'select2_ajax',
+  'label'       => 'Category',
+  'placeholder' => 'Pick a category',
+  'method' => 'POST', // mandatory change
+  // 'select_attribute' => 'name' // the attribute that will be shown to the user by default 'name'
+  // 'select_key' => 'id' // by default is ID, change it if your model uses some other key
+],
+backpack_url('product/fetch/category'), // the fetch route on the ProductCrudController 
+function($value) { // if the filter is active
+    // $this->crud->addClause('where', 'category_id', $value);
+});
+
+```
+
 
 <a name="how-to-overwrite"></a>
 ## How to Overwrite
