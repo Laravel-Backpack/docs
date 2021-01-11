@@ -661,7 +661,7 @@ Input preview:
 **Please note:** if you're using datetime [attribute casting](https://laravel.com/docs/5.3/eloquent-mutators#attribute-casting) on your model, you also need to place this mutator inside your model:
 ```php
 	public function setDatetimeAttribute($value) {
-		$this->attributes['datetime'] = \Date::parse($value);
+		$this->attributes['datetime'] = \Carbon\Carbon::parse($value);
 	}
 ```
 Otherwise the input's datetime-local format will cause some errors.
@@ -696,7 +696,7 @@ Show a [Bootstrap Datetime Picker](https://eonasdan.github.io/bootstrap-datetime
 **Please note:** if you're using date [attribute casting](https://laravel.com/docs/5.3/eloquent-mutators#attribute-casting) on your model, you may also need to place this mutator inside your model:
 ```php
 	public function setDatetimeAttribute($value) {
-		$this->attributes['datetime'] = \Date::parse($value);
+		$this->attributes['datetime'] = \Carbon\Carbon::parse($value);
 	}
 ```
 Otherwise the input's datetime-local format will cause some errors. Remember to change "datetime" with the name of your attribute (column name).
