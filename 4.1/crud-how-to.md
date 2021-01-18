@@ -270,7 +270,7 @@ class ArticleController extends Controller
         $search_term = $request->input('q');
         
         // NOTE: this is a Backpack helper that parses your form input into an usable array. 
-                 you still have the original request as `request('form')`
+        // you still have the original request as `request('form')`
         $form = backpack_form_input();
 
         $options = Article::query();
@@ -363,4 +363,3 @@ $this->app->extend('crud', function () {
 ```
 
 Details and implementation [here](https://github.com/Laravel-Backpack/CRUD/pull/1990).
-
