@@ -268,7 +268,10 @@ class ArticleController extends Controller
     public function index(Request $request)
     {
         $search_term = $request->input('q');
-        $form = collect($request->input('form'))->pluck('value', 'name');
+        
+        // NOTE: this is a Backpack helper that parses your form input into an usable array. 
+                 you still have the original request as `request('form')`
+        $form = backpack_form_input();
 
         $options = Article::query();
 
