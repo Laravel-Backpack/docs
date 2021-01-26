@@ -831,7 +831,9 @@ $this->crud->addField([
 ]);
 ```
 
-**Step 2.** Add a [mutator](https://laravel.com/docs/7.x/eloquent-mutators#defining-a-mutator) to your Model, where you pick up the uploaded file and store it wherever you want. You can use this boilerplate code and modify it to match your use case. The code below requires that you have ```intervention/image``` installed. If you don't, please do ```composer require intervention/image``` first.
+**Step 2.** Add a [mutator](https://laravel.com/docs/7.x/eloquent-mutators#defining-a-mutator) to your Model, where you pick up the uploaded file and store it wherever you want. You can use this boilerplate code and modify it to match your use case. 
+
+**NOTE: The code below requires that you have ```intervention/image``` installed. If you don't, please do ```composer require intervention/image``` first.**
 
 ```php
 // ..
