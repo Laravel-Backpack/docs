@@ -65,4 +65,4 @@ In case you want to add extra functionality that's already been built, check out
 
 - **Error: SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was too long**. Your MySQL version might be a bit old. Please [apply this quick fix](https://laravel-news.com/laravel-5-4-key-too-long-error), then run ```php artisan migrate:fresh```.
 
-- **Any other installation error?** If you can't install Backpack because of a different error, you can [try the manual installation process](/docs/{{version}}/crud-how-to#manually-install-backpack-crud), which you can tweak to your needs.
+- **Any other installation error?** If you can't install Backpack because of a different error, you can [try the manual installation process](/docs/{{version}}/crud-how-to#manually-install-backpack), which you can tweak to your needs.
