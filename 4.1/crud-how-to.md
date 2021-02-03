@@ -215,7 +215,7 @@ Say you want to show two selects:
 - the first one shows Categories
 - the second one shows Articles, but only from the category above
 
-1. In you CrudController you would do:
+1. In your CrudController you would do:
 
 ```php
 $this->crud->addField([    // SELECT2
