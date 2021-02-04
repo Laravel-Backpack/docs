@@ -20,8 +20,8 @@ class ProductCrudController extends CrudController
 ```
 
 **Operations are traits that add functionality to that controller**. Most operations will have:
-- routes inside a ```setupOperationNameRoutes()```; this gets called in your ```routes/backpack/custom.php``` by the ```Route::crud('product', 'ProductCrudController``` macro, which determines which routes to register for that CrudController;
-- default setup inside a ```setupOperationNameDefaults()``` method, that gets called automatically by CrudController when you use that operation on a controller;
+- routes inside a ```setup<OperationName>Routes()```; this gets called in your ```routes/backpack/custom.php``` by the ```Route::crud('product', 'ProductCrudController``` macro, which determines which routes to register for that CrudController;
+- default setup inside a ```setup<OperationName>Defaults()``` method, that gets called automatically by CrudController when you use that operation on a controller;
 - methods that return views, or perform certain operations;
 
 Of course, you can easily [add custom operations](/#creating-a-custom-operation).
