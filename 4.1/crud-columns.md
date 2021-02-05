@@ -13,6 +13,8 @@ It's used inside default operations to:
 
 A column consists of only one file - a blade file with the same name as the column type (ex: ```text.blade.php```). Backpack provides you with [default column types](#default-column-types) for the common use cases, but you can easily [change how a default field type works](#overwriting-default-column-types), or [create an entirely new field type](#creating-a-custom-column-type).
 
+> IMPORTANT NOTE: Starting with Backpack 4.1, if the _column name_ is the exact same as _a relation method_ in the model, Backpack will assume you're adding a column for that relationship and infer relation attributes from it. To disable this behaviour, you can use `'entity' => false` in your column definition. 
+
 <a name="mandatory-attributes"></a>
 ### Mandatory Attributes
 
