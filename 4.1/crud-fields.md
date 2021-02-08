@@ -273,7 +273,7 @@ class Category
 <a name="address_algolia"></a>
 ### address_algolia
 
-Use [Algolia Places autocomplete](https://community.algolia.com/places/) to help users type their address faster. With the ```store_as_json``` option, it will store the address, postcode, city, country, latitude and longitude in a JSON in the database. Without it, it will just store the address string.
+Use [Algolia Places autocomplete](https://community.algolia.com/places/) to help users type their address faster. With the ```store_as_json``` option, it will store the address, postcode, city, country, latitude and longitude in a JSON in the database. Without it, it will just store the address string. For information stored as JSON in the database, it's recommended that you use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) to ```array``` or ```object```. That way, every time you get the info from the database you'd get it in a usable format.
 
 ```php
 [   // Address algolia
@@ -285,7 +285,7 @@ Use [Algolia Places autocomplete](https://community.algolia.com/places/) to help
 ],
 ```
 
-> **Use attribute casting.** For information stored as JSON in the database, it's recommended that you use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) to ```array``` or ```object```. That way, every time you get the info from the database you'd get it in a usable format.
+> **Algolia is killing Places.** Please note that Algolia Places **will stop working in May 2022**, as reported in [this announcement](https://www.algolia.com/blog/product/sunseting-our-places-feature/). For that reason, it's probably a good idea to use the `address_google` field instead (it's right after this one).
 
 
 Input preview: 
