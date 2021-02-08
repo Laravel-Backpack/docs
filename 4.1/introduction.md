@@ -45,7 +45,6 @@ We heavily recommend you spend a little time to understand Backpack, and only af
 ### Requirements
 
   - Laravel 8.x, 7.x or 6.x
-  - PHP 7.2.5+
   - MySQL (recommended) / PostgreSQL / SQLite / SQL Server
 
 <a name="how-does-it-look"></a>
