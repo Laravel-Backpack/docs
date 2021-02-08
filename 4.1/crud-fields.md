@@ -544,7 +544,29 @@ Show a pretty colour picker using [Bootstrap Colorpicker](https://itsjavi.com/bo
     'default'              => '#000000',
 
     // optional
-    'color_picker_options' => ['customClass' => 'custom-class']
+    // Anything your define inside `color_picker_options` will be passed as JS
+    // to the JavaScript plugin. For more information about the options available
+    // please see the plugin docs at:
+    //  ### https://itsjavi.com/bootstrap-colorpicker/module-options.html
+    'color_picker_options' => [
+        'customClass' => 'custom-class',
+        'horizontal' => true,
+        'extensions' => [
+            [
+                'name' => 'swatches', // extension name to load
+                'options' => [ // extension options
+                    'colors' => [
+                        'primary' => '#337ab7',
+                        'success' => '#5cb85c',
+                        'info' => '#5bc0de',
+                        'warning' => '#f0ad4e',
+                        'danger' => '#d9534f'
+                    ],
+                    'namesAsValues' => false
+                ]
+            ]
+        ]
+    ]
 ],
 ```
 
