@@ -21,6 +21,7 @@ For example:
 
 - a working Create operation;
 - correctly defined Eloquent relationships on both the primary Model, and the secondary Model;
+- a working Fetch operation to retrieve the secondary Model from the primary Model;
 - an understanding of what we call "_main_" and "_secondary_" in this case; using the same example as above, where you want to be able to add ```Categories``` in a modal, inside ```ArticleCrudController```'s create&update forms:
     - the _main entity_ would be Article (big form); 
     - the _secondary entity_ would be Category (small form, in a modal);
