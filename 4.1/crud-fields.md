@@ -1151,6 +1151,7 @@ If your related entry can have hundreds, thousands or millions of entries, it's 
     // 'placeholder' => "Select a category", // placeholder for the select2 input
 
     // AJAX OPTIONALS:
+    // 'delay' => 500, // the minimum amount of time between ajax requests when searching in the field
     // 'data_source' => url("fetch/category"), // url to controller search function (with /{id} should return model)
     // 'minimum_input_length' => 2, // minimum characters to type before querying results
     // 'dependencies'         => ['category'], // when a dependency changes, this select2 is reset to null
@@ -1597,6 +1598,7 @@ Display a select2 that takes its values from an AJAX call.
     'data_source' => url("api/category"), // url to controller search function (with /{id} should return model)
 
     // OPTIONAL
+    // 'delay' => 500, // the minimum amount of time between ajax requests when searching in the field
     // 'placeholder'             => "Select a category", // placeholder for the select
     // 'minimum_input_length'    => 2, // minimum characters to type before querying results
     // 'model'                   => "App\Models\Category", // foreign key model
@@ -1608,7 +1610,7 @@ Display a select2 that takes its values from an AJAX call.
 
 For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
 
-Of course, you also need to create a controller and routes for the data_source above. Here's an example:
+Of course, you also need to create a controller and routes for the data_source above. You can use [FetchOperation](https://backpackforlaravel.com/docs/4.1/crud-operation-fetch) or setup your custom API. Here's an example:
 
 ```php
 Route::get('/api/category', 'Api\CategoryController@index');
@@ -1673,6 +1675,7 @@ Display a select2 that takes its values from an AJAX call. Same as [select2_from
     'pivot'       => true, // on create&update, do you need to add/delete pivot table entries?
     
     // OPTIONAL
+    'delay' => 500, // the minimum amount of time between ajax requests when searching in the field
     'model'                => "App\Models\City", // foreign key model
     'placeholder'          => "Select a city", // placeholder for the select
     'minimum_input_length' => 2, // minimum characters to type before querying results
