@@ -1610,7 +1610,7 @@ Display a select2 that takes its values from an AJAX call.
 
 For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
 
-Of course, you also need to create a controller and routes for the data_source above. You can use [FetchOperation](https://backpackforlaravel.com/docs/4.1/crud-operation-fetch) or setup your custom API. Here's an example:
+Of course, you also need to create make the data_source above respond to AJAX calls. You can use the [FetchOperation](https://backpackforlaravel.com/docs/4.1/crud-operation-fetch) to quickly do that in your current CrudController, or you can set up your custom API by creating a custom Route and Controller. Here's an example:
 
 ```php
 Route::get('/api/category', 'Api\CategoryController@index');
