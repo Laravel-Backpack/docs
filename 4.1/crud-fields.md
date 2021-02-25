@@ -937,6 +937,8 @@ Input preview:
 
 ![CRUD Field - image](https://backpackforlaravel.com/uploads/docs-4-1/fields/image.png)
 
+> NOTE: if you are having trouble uploading big images, please check your php extensions **apcu** and/or **opcache**, users have reported some issues with these extensions when trying to upload very big images. REFS: https://github.com/Laravel-Backpack/CRUD/issues/3457
+
 <hr>
 
 <a name="month"></a>
