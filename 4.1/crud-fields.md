@@ -937,7 +937,7 @@ Input preview:
 
 ![CRUD Field - image](https://backpackforlaravel.com/uploads/docs-4-1/fields/image.png)
 
-> Note that since the image field uses base64 encoding, php caching extensions like `apcu` or `opcache` may cause some issues using this field.
+> NOTE: if you are having trouble uploading big images, please check your php extensions **apcu** and/or **opcache**, users have reported some issues with these extensions when trying to upload very big images. REFS: https://github.com/Laravel-Backpack/CRUD/issues/3457
 
 <hr>
 
