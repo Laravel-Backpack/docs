@@ -35,16 +35,16 @@ Let's install this excellent package that will make everything a lot faster:
 composer require jeroen-g/laravel-packager --dev
 ```
 
-Let's create our package. Instead of using their skeleton, we're going to use the [backpack-addon-skeleton](https://github.com/DigitallyHappy/backpack-addon-skeleton):
+Let's create our package. Instead of using their skeleton, we're going to use the Backpack [addon-skeleton](https://github.com/Laravel-Backpack/addon-skeleton):
 
 ```sh
-php artisan packager:new --i --skeleton="https://github.com/DigitallyHappy/backpack-addon-skeleton/archive/master.zip"
+php artisan packager:new --i --skeleton="https://github.com/Laravel-Backpack/addon-skeleton/archive/master.zip"
 ```
 
 It will then ask you some basic information about the package. Keep in mind:
 - the ```vendor-name``` should probably be your Github handle (or organisation), in kebab-case (ex: `company-name`); it will be used for folder names, but also for Github and Packagist links;
 - the ```package-name``` should be in `kebab-case` too (ex: ```moderate-operation```);
-- the `skeleton`, if you haven't copied the entire command above, should probably be the one we provide: `https://github.com/DigitallyHappy/backpack-addon-skeleton/archive/master.zip`, which has everything you need to quickly create a Backpack add-on, including an innovative `AddonServiceProvider` that "_just works_"; 
+- the `skeleton`, if you haven't copied the entire command above, should probably be the one we provide: `https://github.com/Laravel-Backpack/addon-skeleton/archive/master.zip`, which has everything you need to quickly create a Backpack add-on, including an innovative `AddonServiceProvider` that "_just works_"; 
 - the ```website``` should be a valid URL, so include the protocol too: ```http://example.com```;
 - the ```description``` should be pretty short; you can change it later in `composer.json`;
 - the ```license``` is just the license name, if it's a common one (ex: ```MIT```, ```GPLv2```); our skeleton assumes you want `MIT` but you can easily change it;
