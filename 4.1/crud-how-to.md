@@ -179,9 +179,7 @@ composer require backpack/crud:"4.1.x-dev as 4.0.99"
 2) Instead of running ```php artisan backpack:install``` you can run:
 ```bash
 php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag="minimum"
-php artisan vendor:publish --provider="Prologue\Alerts\AlertsServiceProvider"
 php artisan migrate
-php artisan backpack:publish-user-model
 php artisan backpack:publish-middleware
 ```
 
