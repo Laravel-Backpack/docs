@@ -103,14 +103,30 @@ $this->crud->addButtonFromModelFunction($stack, $name, $model_function_name, $po
 $this->crud->addButtonFromView($stack, $name, $view, $position);
 ```
 
+- **modifyButton()** - modify the attributes of a button
+```php
+$this->crud->modifyButton($name, $modifications);
+```
+
 - **removeButton()** - remove a button from whatever stack it's in
 ```php
-$this->crud->removeButton($name);
+$this->crud->removeButton($name); // remove a single button
+$this->crud->removeButtons($names); // or multiple
 ```
 
 - **removeButtonFromStack()** - remove a button from a particular stack
 ```php
 $this->crud->removeButtonFromStack($name, $stack);
+```
+
+- **removeAllButtons()** - remove all buttons from any stack
+```php
+$this->crud->removeAllButtons();
+```
+
+- **removeAllButtonsFromStack()** - remove all buttons from a particular stack
+```php
+$this->crud->removeAllButtonsFromStack($stack);
 ```
 
 <a name="filters-api"></a>
