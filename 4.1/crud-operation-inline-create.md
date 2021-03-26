@@ -29,6 +29,8 @@ For example:
 <a name="how-to-use"></a>
 ## How to Use
 
+> IMPORTANT NOTE: if your field name is `something_somewhere` or `somethingSomewhere` you need to manually define the `data_source` because your name will be parsed by `Str::kebab()` and `_` (underscore) or `camelCase` will be converted to `-` (hifens), so in `fetch` your route will be `something-somewhere` instead of the expected `somethingSomewhere`. FIX: `data_source => backpack_url('monster/fetch/something-something')` (replace with your strings)
+
 To use the Create operation, you must:
 
 **Step 1. Use the operation trait on your secondary entity's CrudController** (aka. the entity that will gain the ability to be created inline, in our example CategoryCrudController). Make sure you use `InlineCreateOperation` *after* `CreateOperation`:
