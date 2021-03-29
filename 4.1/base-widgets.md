@@ -278,16 +278,16 @@ class NewEntriesChartController extends ChartController
     {
         for ($days_backwards = 30; $days_backwards >= 0; $days_backwards--) {
             // Could also be an array_push if using an array rather than a collection.
-            $users[] = User::whereDate('created_at', today())
+            $users[] = User::whereDate('created_at', today()
                 ->subDays($days_backwards))
                 ->count();
-            $articles[] = Article::whereDate('created_at', today())
+            $articles[] = Article::whereDate('created_at', today()
                 ->subDays($days_backwards))
                 ->count();
-            $categories[] = Category::whereDate('created_at', today())
+            $categories[] = Category::whereDate('created_at', today()
                 ->subDays($days_backwards))
                 ->count();
-            $tags[] = Tag::whereDate('created_at', today())
+            $tags[] = Tag::whereDate('created_at', today()
                 ->subDays($days_backwards))
                 ->count();
         }
