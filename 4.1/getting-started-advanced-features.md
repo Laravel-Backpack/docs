@@ -23,7 +23,7 @@ Here are some other cool things Backpack makes easy for you. We recommend going 
 ## Other Features
 - **Create & Update**
     - [Manage files on disk](/docs/{{version}}/crud-how-to#use-the-media-library-file-manager) (media library)
-    - [Fake fields](/docs/{{version}}/crud-fields#fake-fields-all-stored-as-json-in-the-database)
+    - [Fake fields](/docs/{{version}}/crud-fields#optional-fake-field-attributes-stores-fake-attributes-as-json-in)
     - Translatable models and [multi-language CRUDs](/docs/{{version}}/crud-operation-update#translatable-models)
     - [Tabs in create/update forms](/docs/{{version}}/crud-fields#split-fields-into-tabs)
 
