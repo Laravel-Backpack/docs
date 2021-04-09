@@ -1810,7 +1810,7 @@ Input preview:
 <a name="table"></a>
 ### table
 
-Show a table with multiple inputs per row and store the values as JSON in the database. The user can add more rows and reorder the rows as they please.
+Show a table with multiple inputs per row and store the values as JSON array of objects in the database. The user can add more rows and reorder the rows as they please.
 
 ```php
 [   // Table
@@ -1828,7 +1828,7 @@ Show a table with multiple inputs per row and store the values as JSON in the da
 ],
 ```
 
->It's highly recommended that you use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) on your model when working with JSON stored in database columns, and cast your this attribute to either ```object``` or ```array```.
+>It's highly recommended that you use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) on your model when working with JSON arrays stored in database columns, and cast this attribute to either ```object``` or ```array``` in your Model.
 
 Input preview: 
 
