@@ -31,7 +31,7 @@ This simple architecture (```ProductCrudController extends CrudController```) me
 - **you can _easily_ add custom operations**;
 
 For example:
-- want to change how a single ```Product``` is shown to the admin? just create a method called ```show()``` in your ```ProductCrudController```; simple OOP dictates that your method will be picked up, instead of the one in CrudController; some goes for ```create()```, ```store()```, etc - you have complete control;
+- want to change how a single ```Product``` is shown to the admin? just create a method called ```show()``` in your ```ProductCrudController```; simple OOP dictates that your method will be picked up, instead of the one in CrudController; same goes for ```create()```, ```store()```, etc - you have complete control;
 - want to create a new "Publish" operation on a ```Product```? your ```ProductCrudController``` is a great place for that logic; just create a custom ```publish()``` method and a route that points to it;
 
 <a name="files"></a>
