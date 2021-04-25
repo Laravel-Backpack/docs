@@ -13,7 +13,7 @@ Everything else is optional. Your project might use them or it might not. Only d
 
 1) In your terminal
 
-``` bash
+```bash
 # Install the package
 composer require backpack/backupmanager
 
@@ -27,11 +27,11 @@ php artisan backpack:add-sidebar-content "<li class='nav-item'><a class='nav-lin
 2) Add a new "disk" to config/filesystems.php:
 
 ```php
-        // used for Backpack/BackupManager
-        'backups' => [
-            'driver' => 'local',
-            'root'   => storage_path('backups'), // that's where your backups are stored by default: storage/backups
-        ],
+// used for Backpack/BackupManager
+'backups' => [
+    'driver' => 'local',
+    'root'   => storage_path('backups'), // that's where your backups are stored by default: storage/backups
+],
 ```
 This is where you choose a different driver if you want your backups to be stored somewhere else (S3, Dropbox, Google Drive, Box, etc).
 
@@ -50,12 +50,12 @@ protected function schedule(Schedule $schedule)
 ```
 
 5) [optional] If you need to change the path to the mysql_dump command, you can do that in your config/database.php file. For MAMP on Mac OS, add these to your mysql connection:
-```
-            'dump' => [
-                'dump_binary_path' => '/Applications/MAMP/Library/bin/', // only the path, so without `mysqldump` or `pg_dump`
-                'use_single_transaction',
-                'timeout' => 60 * 5, // 5 minute timeout
-            ]
+```php
+'dump' => [
+    'dump_binary_path' => '/Applications/MAMP/Library/bin/', // only the path, so without `mysqldump` or `pg_dump`
+    'use_single_transaction',
+    'timeout' => 60 * 5, // 5 minute timeout
+]
 ```
 
 <a name="log-manager"></a>
@@ -66,29 +66,29 @@ protected function schedule(Schedule $schedule)
 
 1) Install via composer:
 
-``` bash
+```bash
 composer require backpack/logmanager
 ```
 
 2) Add a "storage" filesystem disk in config/filesystems.php:
 
-```
+```php
 // used for Backpack/LogManager
 'storage' => [
-            'driver' => 'local',
-            'root'   => storage_path(),
-        ],
+    'driver' => 'local',
+    'root'   => storage_path(),
+],
 ```
 
 3) Configure Laravel to create a new log file for every day, in your .ENV file, if it's not already. Otherwise there will only be one file at all times.
 
 ```
-    APP_LOG=daily
+APP_LOG=daily
 ```
 
 or directly in your config/app.php file:
-```
-    'log' => env('APP_LOG', 'daily'),
+```php
+'log' => env('APP_LOG', 'daily'),
 ```
 
 4) [optional] Add a menu item for it in resources/views/vendor/backpack/base/inc/sidebar_content.blade.php or menu.blade.php:
@@ -105,7 +105,7 @@ An interface for the administrator to easily change application settings. Uses L
 
 Installation:
 
-``` bash
+```bash
 # install the package
 composer require backpack/settings
 
@@ -132,8 +132,7 @@ An admin panel where you, as a developer, can define templates with different fi
 
 An admin panel for user authentication on Laravel 5, using Backpack\CRUD. Add, edit, delete users, roles and permission.
 
-[>> Installation](https://github.com/Laravel-Backpack/PermissionManager#install)
-[>> Github](https://github.com/Laravel-Backpack/PermissionManager)
+[>> See screenshots and installation](https://github.com/Laravel-Backpack/PermissionManager)
 
 <a name="menu-crud"></a>
 ## MenuCrud
@@ -148,3 +147,21 @@ An admin panel for menu items on Laravel 5, using Backpack\CRUD. Add, edit, reor
 Since NewsCRUD does not provide any extra functionality other than Backpack\CRUD, it is not a package. It's just a tutorial to show you how this can be achieved. In the future, CRUD examples like this one will be easily installed from the command line, from a central repository. Until then, you will need to manually create the files.
 
 [>> Github](https://github.com/Laravel-Backpack/NewsCRUD)
+
+
+<a name="file-manager"></a>
+## FileManager
+
+Backpack admin interface for files and folder, using [barryvdh/laravel-elfinder](https://github.com/barryvdh/laravel-elfinder).
+
+[>> See screenshots and installation](https://github.com/Laravel-Backpack/FileManager)
+
+Installation:
+
+```bash
+composer require backpack/filemanager
+```
+
+```bash
+php artisan backpack:filemanager:install
+```
