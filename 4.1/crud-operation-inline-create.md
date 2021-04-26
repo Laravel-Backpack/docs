@@ -29,6 +29,8 @@ For example:
 <a name="how-to-use"></a>
 ## How to Use
 
+> If your field name is comprised of multiple words (eg. `contact_number` or `contactNumber`) you will need to also define the `data_source` attribute for this field; keep in mind that by to generate a route, your field name will be parsed run through `Str::kebab()` - that means `_` (underscore) or `camelCase` will be converted to `-` (hyphens), so in `fetch` your route will be `contact-number` instead of the expected `contactNumber`. To fix this, you need to define: `data_source => backpack_url('monster/fetch/contact-number')` (replace with your strings)
+
 To use the Create operation, you must:
 
 **Step 1. Use the operation trait on your secondary entity's CrudController** (aka. the entity that will gain the ability to be created inline, in our example CategoryCrudController). Make sure you use `InlineCreateOperation` *after* `CreateOperation`:
