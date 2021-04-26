@@ -152,7 +152,7 @@ Since NewsCRUD does not provide any extra functionality other than Backpack\CRUD
 <a name="file-manager"></a>
 ## FileManager
 
-Backpack admin interface for files and folder, using [barryvdh/laravel-elfinder](https://github.com/barryvdh/laravel-elfinder).
+Backpack admin interface for files and folders, using [barryvdh/laravel-elfinder](https://github.com/barryvdh/laravel-elfinder).
 
 [>> See screenshots and installation](https://github.com/Laravel-Backpack/FileManager)
 
