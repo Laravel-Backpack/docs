@@ -29,7 +29,7 @@ For example:
 <a name="how-to-use"></a>
 ## How to Use
 
-> IMPORTANT NOTE: if your field name is `something_somewhere` or `somethingSomewhere` you need to manually define the `data_source` because your name will be parsed by `Str::kebab()` and `_` (underscore) or `camelCase` will be converted to `-` (hifens), so in `fetch` your route will be `something-somewhere` instead of the expected `somethingSomewhere`. FIX: `data_source => backpack_url('monster/fetch/something-something')` (replace with your strings)
+> If your field name is comprised of multiple words (eg. `contact_number` or `contactNumber`) you will need to also define the `data_source` attribute for this field; keep in mind that by to generate a route, your field name will be parsed run through `Str::kebab()` - that means `_` (underscore) or `camelCase` will be converted to `-` (hyphens), so in `fetch` your route will be `contact-number` instead of the expected `contactNumber`. To fix this, you need to define: `data_source => backpack_url('monster/fetch/contact-number')` (replace with your strings)
 
 To use the Create operation, you must:
 
