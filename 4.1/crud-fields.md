@@ -910,7 +910,7 @@ Class Product extends Model
         }
 	else
         {
-            return $this->attributes['image'] = $value;
+            return $this->attributes[$attribute_name] = $value;
         }
     }
     
