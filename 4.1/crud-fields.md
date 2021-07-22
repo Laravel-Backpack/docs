@@ -148,7 +148,7 @@ In case you want to store insignificant information for an entry that doesn't ne
 - are on a new ```$fakeColumns``` property (create it now);
 - are casted as array in ```$casts```;
 
->If you need your fakes to also be translatable, remember to also place ```extras``` in your model's ```$translatable``` property.
+>If you need your fakes to also be translatable, remember to also place ```extras``` in your model's ```$translatable``` property and remove it from ```$casts```.
 
 Example:
 ```php
