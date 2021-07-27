@@ -1137,7 +1137,7 @@ Take a look at the examples below to understand the correct syntax for your use 
  ],
 ```
 
-For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
 
 **Example 2. Many options. Entries are loaded using AJAX.**
 
@@ -1304,7 +1304,7 @@ Your relationships should already be defined on your models as hasOne() or belon
 ],
 ```
 
-For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
 
 Input preview: 
 
@@ -1332,7 +1332,7 @@ Display a select where the options are grouped by a second entity (like Categori
 ],
 ```
 
-For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
 
 Input preview:
 
@@ -1365,7 +1365,7 @@ Your relationships should already be defined on your models as hasOne() or belon
 ],
 ```
 
-For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
 
 Input preview: 
 
@@ -1398,7 +1398,7 @@ Your relationship should already be defined on your models as belongsToMany().
 ],
 ```
 
-For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
 
 Input preview: 
 
@@ -1435,7 +1435,7 @@ Your relationship should already be defined on your models as belongsToMany().
 ],
 ```
 
-For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
 
 Input preview: 
 
@@ -1463,7 +1463,7 @@ Display a select2 with the values ordered hierarchically and indented, for an en
 ],
 ```
 
-For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
 
 Input preview:
 
@@ -1489,7 +1489,7 @@ Display a select2 where the options are grouped by a second entity (like Categor
 ],
 ```
 
-For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
 
 Input preview:
 
@@ -1614,7 +1614,7 @@ Display a select2 that takes its values from an AJAX call.
 ],
 ```
 
-For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
 
 Of course, you also need to create make the data_source above respond to AJAX calls. You can use the [FetchOperation](https://backpackforlaravel.com/docs/4.1/crud-operation-fetch) to quickly do that in your current CrudController, or you can set up your custom API by creating a custom Route and Controller. Here's an example:
 
@@ -1689,7 +1689,7 @@ Display a select2 that takes its values from an AJAX call. Same as [select2_from
 ],
 ```
 
-For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
 
 Of course, you also need to create a controller and routes for the data_source above. Here's an example:
 
