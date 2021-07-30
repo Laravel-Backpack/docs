@@ -653,6 +653,7 @@ Show a DateRangePicker and let the user choose a start date and end date.
     'default'            => ['2019-03-28 01:01', '2019-04-05 02:00'], 
     // options sent to daterangepicker.js
     'date_range_options' => [
+        'drops' => 'down', // can be one of [down/up/auto]
         'timePicker' => true,
         'locale' => ['format' => 'DD/MM/YYYY HH:mm']
     ]
