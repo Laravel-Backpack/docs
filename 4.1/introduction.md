@@ -21,7 +21,7 @@ php artisan backpack:crud tag #use singular, not plural
 # STEP 2. go through the generated files, customize according to your needs
 ```
 
-Better yet, if you purchase our brand-new [Backpack DevTools](https://backpackforlaravel.com/products/devtools) (premium addon, paid extra) you'll be able to generate better Migrations, Models, Seeders, Factories and CRUDs, from the comfort of your browser window 🤯 
+Better yet, if you purchase our brand-new [Backpack DevTools](https://backpackforlaravel.com/products/devtools) (premium addon, paid extra) you can generate better Migrations, Models, Seeders, Factories and CRUDs... from the comfort of your browser window 🤯 It's never been this easy:
 
 ![](https://user-images.githubusercontent.com/1032474/128379216-72ae55fa-fcff-4747-8c35-42c733923c94.gif)
 
