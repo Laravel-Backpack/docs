@@ -11,10 +11,15 @@ We assume:
 <a name="generate-files"></a>
 ## Generate Files
 
+> **NEW!!!** Starting with Aug 2021, there's a much simpler way to generate everything 🎉 **Check out our new paid addon - [Backpack DevTools](https://backpackforlaravel.com/products/devtools).** It's a GUI that will help you generate Migrations, Models (complete with relationships), CRUDs from the browser 😱 It does cost extra, but it's well worth the price if you use Backpack regularly or your models are not dead-simple.
+
 Since we don't have an Eloquent model for it already, we're going to use [Jeffrey Way's Generators](https://github.com/laracasts/Laravel-5-Generators-Extended) package, which you've most likely installed along with Backpack, to generate the migration. 
 
 ```zsh
-# STEP 0. create migration
+# install a 3rd party tool to generate migrations from the command line
+composer require --dev laracasts/generators
+
+# generate a migration and run it
 php artisan make:migration:schema create_tags_table --schema="name:string:unique"
 php artisan migrate
 ```
@@ -373,3 +378,5 @@ You can of course change anything here, if you want.
 You are now ready to go to ```your-app-name.domain/admin/tag``` and see your fully functional admin panel for ```Tags```. 
 
 **Congratulations, you should now have a good understanding of how Backpack\CRUD works!** This is a very very basic example, but the process will be identical for Models with 50+ attributes, complicated logic, etc.
+
+If you do have complex models, we _heavily_ recommend you go purchase [Backpack DevTools](https://backpackforlaravel.com/products/devtools) right now. It's the official paid GUI for generating all of the above. And while you're at it, you can [purchase a Backpack license](https://backpackforlaravel.com/pricing) too 😉

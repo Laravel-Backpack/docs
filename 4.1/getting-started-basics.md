@@ -55,15 +55,20 @@ After you [install Backpack](/docs/{{version}}/installation) (don't do it now), 
 This is where it gets interesting. As soon as you [install Backpack](/docs/{{version}}/installation) in your project, you can create **CRUDs** for your admins to easily manipulate DB information. Let's browse through a simple example, of creating a CRUD administration panel for a Tag entity:
 
 ```zsh
-# STEP 1. create migration
+# STEP 0. install a 3d party tool to generate migrations
+composer require --dev laracasts/generators
+
+# STEP 1. create a migration
 php artisan make:migration:schema create_tags_table --model=0 --schema="name:string:unique,slug:string:unique"
 php artisan migrate
 
-# STEP 2. create crud
+# STEP 2. create a CRUD for it
 php artisan backpack:crud tag #use singular, not plural
 ```
 
 This will create a simple CRUD panel, which you should now be able to see in the Sidebar.
+
+> Notice we've used [laracasts/generators](https://github.com/laracasts/Laravel-5-Generators-Extended) to generate the migration. You can use whatever you want, but **we heavily recommend purchasing & using our brand-new [Backpack DevTools](https://backpackforlaravel.com/products/devtools) addon**. It'll help _immensely_ when working with more complicated Models. That's because you define the migration & model... in the browser 😱 And it generates models... with relationships 😱🥳
 
 For a simple entry like this, the generated CRUD panel will even work "as is", no need for customizations. But don't expect this for more complex entities. They will usually have particularities and need customization. That's where Backpack shines - modifying anything in the CRUD Panel is easy and intuitive, once you understand how it works.
 
