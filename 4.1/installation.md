@@ -25,21 +25,24 @@ If you can run Laravel 8, 7 or 6, you can install Backpack. Backpack does _not_ 
 cd your-laravel-project-name
 ```
 
-1) In your project's main directory, install CRUD using composer:
+1) In your project's main directory:
 
 ``` bash
+# require Backpack using Composer
 composer require backpack/crud:"4.1.*"
+composer require --dev backpack/generators
 
-# you might also want to install these tools that help during development
-composer require backpack/generators --dev
-composer require laracasts/generators --dev
-```
-
-2) Now run the installation commands for Backpack:
-
-``` bash
+# run the installation command
 php artisan backpack:install
 ```
+
+2) [optional] Backpack assumes you already have your Eloquent Models properly set up. If you don't, **consider using something to quickly generate Migrations & Models**. You can use anything you want, but here are the options we recommend:
+
+- a) Generate from a **web interface** - [Backpack Devtools](https://backpackforlaravel.com/products/devtools) - premium product, paid separately. A simple GUI to quickly generate Migrations, Models, Factories, Seeders and CRUDs, right from your browser. Works well for entities of all sizes.
+
+- b) Generate from the **command-line** - [Laracasts Generators](https://github.com/laracasts/Laravel-5-Generators-Extended) - free & open-source. Adds a new artisan command so that you can do `php artisan make:migration:schema create_users_table --schema="username:string, email:string:unique"`. Works well for smaller entities.
+
+- c) Generate from a **YAML file** - [LaravelShift's Blueprint](https://blueprint.laravelshift.com/) - free & open-source. Enables you to create a `draft.yml` file in your repo, where you can specify the column using their custom YAML syntax. Works well for small & medium entities.
 
 3) Take note that:
 - By default all users are considered admins; If that's not what you want in your application (you have both users and admins), please:
