@@ -11,6 +11,7 @@ In a nutshell:
 
 ```bash
 # STEP 0. create migration (in case you're starting from scratch)
+composer require --dev laracasts/generators
 php artisan make:migration:schema create_tags_table --model=0 --schema="name:string:unique"
 php artisan migrate
 
@@ -19,6 +20,10 @@ php artisan backpack:crud tag #use singular, not plural
 
 # STEP 2. go through the generated files, customize according to your needs
 ```
+
+Better yet, if you purchase our brand-new [Backpack DevTools](https://backpackforlaravel.com/products/devtools) (premium addon, paid extra) you'll be able to do generate better Migrations, Models, Seeders, Factories and CRUDs, from the comfort of your browser window 🤯
+
+![](https://user-images.githubusercontent.com/1032474/128379216-72ae55fa-fcff-4747-8c35-42c733923c94.gif)
 
 ---
 
