@@ -56,6 +56,8 @@ This is where it gets interesting. As soon as you [install Backpack](/docs/{{ver
 
 You can generate everything a CRUD needs using one of the methods below:
 
+---
+
 **Option A) PAID - using our GUI, [Backpack DevTools](https://backpackforlaravel.com/products/devtools)**
 
 Just install DevTools, fill in a web form with the columns for your entity, and it'll generate all needed files. It's that simple. Check out [the images here](https://backpackforlaravel.com/products/devtools) for how it works. It's especially useful for more complex entities. It is a paid tool though, and you might not be ready to purchase yet, so let's explore a free option too.
