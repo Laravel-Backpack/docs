@@ -52,7 +52,17 @@ After you [install Backpack](/docs/{{version}}/installation) (don't do it now), 
 <a name="backpack-crud"></a>
 ### CRUDs
 
-This is where it gets interesting. As soon as you [install Backpack](/docs/{{version}}/installation) in your project, you can create **CRUDs** for your admins to easily manipulate DB information. Let's browse through a simple example, of creating a CRUD administration panel for a Tag entity:
+This is where it gets interesting. As soon as you [install Backpack](/docs/{{version}}/installation) in your project, you can create **CRUDs** for your admins to easily manipulate DB information. Let's browse through a simple example, of creating a CRUD administration panel for a Tag entity.
+
+You can generate everything a CRUD needs using one of the methods below:
+
+**Option A) PAID - using our GUI, [Backpack DevTools](https://backpackforlaravel.com/products/devtools)**
+
+Just install DevTools, fill in a web form with the columns for your entity, and it'll generate all needed files. It's that simple. Check out [the images here](https://backpackforlaravel.com/products/devtools) for how it works. It's especially useful for more complex entities. It is a paid tool though, and you might not be ready to purchase yet, so let's explore a free option too.
+
+**Option B) FREE - using the command-line interface**
+
+You can use anything you want to generate the Migration and Model, so in this case we're going to use [laracasts/generators](https://github.com/laracasts/Laravel-5-Generators-Extended):
 
 ```zsh
 # STEP 0. install a 3d party tool to generate migrations
@@ -66,13 +76,13 @@ php artisan migrate
 php artisan backpack:crud tag #use singular, not plural
 ```
 
-This will create a simple CRUD panel, which you should now be able to see in the Sidebar.
+---
 
-> Notice we've used [laracasts/generators](https://github.com/laracasts/Laravel-5-Generators-Extended) to generate the migration. You can use whatever you want, but **we heavily recommend purchasing & using our brand-new [Backpack DevTools](https://backpackforlaravel.com/products/devtools) addon**. It'll help _immensely_ when working with more complicated Models. That's because you define the migration & model... in the browser 😱 And it generates models... with relationships 😱🥳
+In both cases, what we're getting is a simple CRUD panel, which you should now be able to see in the Sidebar.
 
 For a simple entry like this, the generated CRUD panel will even work "as is", no need for customizations. But don't expect this for more complex entities. They will usually have particularities and need customization. That's where Backpack shines - modifying anything in the CRUD Panel is easy and intuitive, once you understand how it works.
 
-The code above would generate:
+The methods above will generate:
 - a **migration** file
 - a **model** (```app\Models\Tag.php```)
 - a **request** file, for form validation (```app\Http\Requests\TagCrudRequest.php```)
@@ -142,7 +152,7 @@ You should notice:
 - The ```setup()``` method defines the basics of the CRUD panel;
 - Each operation is set up inside a ```setupXxxOperation()``` method;
 
-**That's all for today! **If you want to learn more, go ahead and [read the next lesson](/docs/{{version}}/getting-started-crud-operations) of this series.
+**That's all for today!** If you want to learn more, go ahead and [read the next lesson](/docs/{{version}}/getting-started-crud-operations) of this series.
 
 
 <br>
