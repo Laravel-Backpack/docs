@@ -328,7 +328,7 @@ Input preview:
 <a name="browse"></a>
 ### browse
 
-This button allows the admin to open [elFinder](http://elfinder.org/) and select a file from there. Run ```composer require backpack/filemanager``` to install elFinder, then you can use the field:
+This button allows the admin to open [elFinder](http://elfinder.org/) and select a file from there. Run ```composer require backpack/filemanager && php artisan backpack:filemanager:install``` to install [FileManager](https://github.com/laravel-backpack/filemanager), then you can use the field:
 
 ```php
 [   // Browse
@@ -352,7 +352,7 @@ Onclick preview:
 <a name="browse-multiple"></a>
 ### browse_multiple
 
-Open elFinder and select multiple files from there. Run ```composer require backpack/filemanager``` to install elFinder, then you can use the field:
+Open elFinder and select multiple files from there. Run ```composer require backpack/filemanager && php artisan backpack:filemanager:install``` to install [FileManager](https://github.com/laravel-backpack/filemanager), then you can use the field:
 
 ```php
 [   // Browse multiple
