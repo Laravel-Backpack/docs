@@ -270,6 +270,8 @@ class ArticleController extends Controller
         // NOTE: this is a Backpack helper that parses your form input into an usable array. 
         // you still have the original request as `request('form')`
         $form = backpack_form_input();
+        
+        // NOTE: you have `$form['ajax_trigger_input']` with keys: `element` **(The name of the element that requested this endpoint)**, and if using inside `repeatable` you will also have `row` **(The row that triggered the request, so you know what value you need to filter the results)**.
 
         $options = Article::query();
 
