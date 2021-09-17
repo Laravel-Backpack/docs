@@ -819,7 +819,7 @@ $this->crud->addColumn([
    'visibleInTable'  => false, // no point, since it's a large text
    'visibleInModal'  => false, // would make the modal too big
    'visibleInExport' => false, // not important enough
-   'visibleInShow'   => true, // sure, why not
+   'visibleInShow'   => true, // boolean or closure - function($entry) { return $entry->isAdmin(); } 
 ]);
 ```
 
