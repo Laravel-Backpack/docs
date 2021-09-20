@@ -114,3 +114,14 @@ You can also overwrite the bulk clone button by creating a file with the same na
 ```zsh
 php artisan backpack:publish crud/buttons/bulk_clone
 ```
+
+<a name="exempt-attribute-when-cloning"></a>
+## Exempt attributes when cloning
+If you have attributes that should not be cloned eg. a SKU with an unique constraint you can overwrite the replicate method on your model:
+
+```php
+    public function replicate(array $except = null) {
+    
+        return parent::replicate(['sku']);
+    }
+```
