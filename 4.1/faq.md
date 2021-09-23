@@ -50,6 +50,21 @@ Option (A) is the recommended one, because there's no point in saving the licens
 ## Miscellaneous
 
 
+<a name="how-do-i-update-backpack"></a>
+### How do I update Backpack to the latest non-breaking version? 
+
+First of all, **run `composer update` on your project**. That will pull in the latest supported version of all your Backpack packages.
+
+Then you should **re-publish the JS and CSS assets**. There are two ways to do that:
+
+(A) Run `php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag=public --force`. Please note this will overwrite anything that's already there. This B solution has a downside: _unused files are not removed_. A few files Backpack no longer uses will still be in your public/packages folder, even though they're no longer used.
+
+(B) If you have NOT touched you `public/packages` folder, or placed anything custom inside it:
+- delete the public/packages directory and all its contents;
+- run `php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag=public`
+- if you use elFinder, also delete `resources/views/vendor/elfinder` and run `php artisan backpack:filemanager:install`
+
+
 <a name="how-do-i-uninstall-backpack"></a>
 ### How do I uninstall Backpack from my project? 
 
