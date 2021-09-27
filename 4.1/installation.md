@@ -36,6 +36,8 @@ composer require --dev backpack/generators
 php artisan backpack:install
 ```
 
+> Backpack install is interactive and will ask questions during instalation, if you don't want that add the `--no-interaction` argument to the install command.
+
 2) [optional] Backpack assumes you already have your Eloquent Models properly set up. If you don't, **consider using something to quickly generate Migrations & Models**. You can use anything you want, but here are the options we recommend:
 
 - a) Generate from a **web interface** - [Backpack Devtools](https://backpackforlaravel.com/products/devtools) - premium product, paid separately. A simple GUI to quickly generate Migrations, Models, Factories, Seeders and CRUDs, right from your browser. Works well for entities of all sizes.
