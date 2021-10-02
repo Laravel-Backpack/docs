@@ -1421,6 +1421,7 @@ Your relationship should already be defined on your models as belongsToMany().
      'label'     => "Tags",
      'type'      => 'select2_multiple',
      'name'      => 'tags', // the method that defines the relationship in your Model
+     'multiple'  => true, // bolean
 
      // optional
      'entity'    => 'tags', // the method that defines the relationship in your Model
