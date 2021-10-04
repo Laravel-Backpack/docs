@@ -198,6 +198,24 @@ Show custom HTML based on a closure you specify in your EntityCrudController. Pl
 
 <hr>
 
+<a name="custom_html"></a>
+### custom_html
+
+
+Show the HTML that you provide in the page. You can optionaly escape the text when displaying it on page.
+
+```php
+[
+    'name'     => 'my_custom_html',
+    'label'    => 'Custom HTML',
+    'type'     => 'custom_html',
+    'value' => '<span class="text-danger">Something</span>'
+    'escaped' => false //optional, if the "value" should be escaped when displayed in the page. 
+],
+```
+
+<hr>
+
 <a name="date"></a>
 ### date
 
@@ -269,6 +287,23 @@ Show a thumbnail image.
     // optional width/height if 25px is not ok with you
     // 'height' => '30px',
     // 'width'  => '30px',
+],
+```
+
+<hr>
+
+<a name="json"></a>
+### json
+
+
+Display database stored JSON in a prettier way to your users.
+
+```php
+[
+    'name'     => 'my_json_column_name',
+    'label'    => 'JSON',
+    'type'     => 'json',
+    'escaped' => false //optional, if the "value" should be escaped when displayed in the page. 
 ],
 ```
 
@@ -495,31 +530,6 @@ Notes:
 
 <hr>
 
-<a name="text"></a>
-### text
-
-The text column will just output the text value of a db column (or model attribute). Its definition is:
-```php
-[
-   'name'      => 'name', // The db column name
-   'label'     => 'Tag Name', // Table column heading
-   // 'prefix' => 'Name: ',
-   // 'suffix' => '(user)',
-   // 'limit'  => 120, // character limit; default is 50;
-],
-```
-
-**Advanced use case:** The ```text``` column type can also show the attribute of a 1-1 relationship. If you have a relationship (like ```parent()```) set up in your Model, you can use relationship and attribute in the ```name```, using dot notation:
-```php
-[
-    'name'  => 'parent.title',
-    'label' => 'Title',
-    'type'  => 'text'
-],
-```
-
-<hr>
-
 <a name="select"></a>
 ### select
 
@@ -537,7 +547,6 @@ The select column will output its connected entity. Used for relationships like 
 ```
 
 <hr>
-
 <a name="select_from_array"></a>
 ### select_from_array
 
@@ -596,6 +605,45 @@ Its definition is very similar to the [table *field type*](/docs/{{version}}/cru
 ```
 
 <hr>
+
+<a name="text"></a>
+### text
+
+The text column will just output the text value of a db column (or model attribute). Its definition is:
+```php
+[
+   'name'      => 'name', // The db column name
+   'label'     => 'Tag Name', // Table column heading
+   // 'prefix' => 'Name: ',
+   // 'suffix' => '(user)',
+   // 'limit'  => 120, // character limit; default is 50,
+],
+```
+
+**Advanced use case:** The ```text``` column type can also show the attribute of a 1-1 relationship. If you have a relationship (like ```parent()```) set up in your Model, you can use relationship and attribute in the ```name```, using dot notation:
+```php
+[
+    'name'  => 'parent.title',
+    'label' => 'Title',
+    'type'  => 'text'
+],
+```
+
+<hr>
+
+<a name="textarea"></a>
+### textarea
+The text column will just output the text value of a db column (or model attribute) in a textarea field. Its definition is:
+```php
+[
+   'name'      => 'name', // The db column name
+   'label'     => 'Tag Name', // Table column heading
+   // 'prefix' => 'Name: ',
+   // 'suffix' => '(user)',
+   // 'limit'  => 120, // character limit; default is 50
+   // 'escaped' => false //if the text should be escaped
+],
+```
 
 <a name="upload_multiple"></a>
 ### upload_multiple
