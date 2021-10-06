@@ -751,6 +751,8 @@ Show an [EasyMDE - Markdown Editor](https://easy-markdown-editor.tk/) to the use
 ],
 ```
 
+> NOTE: Please take into consideration that the contents displayed in the editor are not escaped by default. You should take care about escaping the contents, or don't allow it to reach the database in the first place.
+
 Input preview: 
 
 ![CRUD Field - easymde](https://backpackforlaravel.com/uploads/docs-4-1/fields/easymde.png)
@@ -1771,6 +1773,7 @@ Show a [SimpleMDE markdown editor](https://simplemde.com/) to the user.
     // 'simplemdeAttributesRaw' => $some_json
 ],
 ```
+> NOTE: Please take into consideration that the contents displayed in the editor are not escaped by default. You should take care about escaping the contents, or don't allow it to reach the database in the first place.
 
 Input preview: 
 
@@ -1788,7 +1791,8 @@ Show a [Summernote wysiwyg editor](http://summernote.org/) to the user.
     'name'  => 'description',
     'label' => 'Description',
     'type'  => 'summernote',
-    'options' => []
+    'options' => [],
+    //'escaped' => true, optionaly escape the contents of the editor
 ],
 
 // the summernote field works with the default configuration options but allow developer to configure to his needs
@@ -1805,6 +1809,8 @@ Show a [Summernote wysiwyg editor](http://summernote.org/) to the user.
 ],
 
 ```
+
+> NOTE: Please take into consideration that the contents displayed in the editor are not escaped by default. You should take care about escaping the contents, or don't allow it to reach the database in the first place.
 
 Input preview: 
 
