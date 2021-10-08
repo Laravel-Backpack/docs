@@ -2195,7 +2195,6 @@ With so many field types, it can be a little overwhelming for a first-timer to q
 // inside UserCrudController::setupCreateOperation()
 CRUD::field('phone.number')->type('number');
 CRUD::field('phone.prefix')->type('text');
-CRUD::field('phone.country')->type('select2');
 CRUD::field('phone.type')->type('select_from_array')->options(['mobile' => 'Mobile Phone', 'landline' => 'Landline', 'fax' => 'Fax']);
 ```
 
@@ -2214,9 +2213,9 @@ CRUD::field('phone.type')->type('select_from_array')->options(['mobile' => 'Mobi
 
 ```php
 // inside PhoneCrudController::setupCreateOperation()
-CRUD::field('user')->type('relationship'); // notice the name is the relationship name
-CRUD::field('user_id')->type('select'); // notice the name is the foreign key attribute
-CRUD::field('user_id')->type('select2'); // notice the name is the foreign key attribute
+CRUD::field('user'); // notice the name is the relationship name and backpack will auto-infer the field type as [`relationship`](#relationship)
+CRUD::field('user_id')->type('select')->model('App\Models\User')->attribute('name')->entity('user'); // notice the name is the foreign key attribute
+CRUD::field('user_id')->type('select2')->model('App\Models\User')->attribute('name')->entity('user'); // notice the name is the foreign key attribute
 ```
 
 - notes:
@@ -2230,21 +2229,15 @@ CRUD::field('user_id')->type('select2'); // notice the name is the foreign key a
     - the foreign key is stored on the Comment (`post_id` on `comments` table)
 - how to use:
     - [the `hasMany` relationship should be properly defined](https://laravel.com/docs/eloquent-relationships#one-to-many) in the Post model;
-    - you can add a dropdown on your Post to pick the comments that are connected to it (the example fails a bit here - a more appropriate one would be to select Tags and attach them to this Post); for that, use the [`relationship`](#relationship), [`select_multiple`](#select-multiple), [`select2_multiple`](#select2-multiple) or [`select2_from_ajax_multiple`](#select2-from-ajax-multiple) fields; use the name of the relationship for the field name;
-
+    
 ```php
 // inside PostCrudController::setupCreateOperation()
-CRUD::field('comments')->type('relationship');
-CRUD::field('comments')->type('select_multiple');
-CRUD::field('comments')->type('select2_multiple');
+CRUD::field('comments')->type('repeatable')->fields([['name' => 'comment_text']]); //note comment_text is one field in the comment table.
 ```
+- you should use the [`repeatable`](#repeatable) field on the Post create/update form, to add Comments to your Posts, but you'll also need to modify your `store()` and `update()` methods to take that into account, and transform the JSON received from the [`repeatable`](#repeatable) field into actual entries in the database (and back); check out [this example here](https://gist.github.com/pxpm/d584a109037d3efc7519872ac2096334) for a full example on how to do it.
 
 - notes: 
     - you _cannot_ use [the InlineCreate operation](/docs/{{version}}/crud-operation-inline-create) to have show a [+ Add Item] button next to the dropdown; that's because the Comment needs a `post_id` (not nullable); and until the Save button is clicked to submit the Create Post form, there is no `post_id`;
-    - you can use the `repeatable` field on the Post create/update form, to add multiple Comments in one go, but you'll also need to modify your `store()` and `update()` methods to take that into account, and transform the JSON received from the `repeatable` field into actual entries in the database (and back); check out [this example here](https://gist.github.com/tabacitu/4db255042a62c7458ee17fe33d65522c) for how that can be done for Invoice and InvoiceItem;
-    
-// TODO: create a tutorial on how to use the Repeatable field with exactly these models, Post and Comment;
-
 
 #### belongsToMany (n-n relationship)
 
@@ -2258,39 +2251,49 @@ CRUD::field('comments')->type('select2_multiple');
 
 ```php
 // inside UserCrudController::setupCreateOperation()
-CRUD::field('roles')->type('relationship');
+CRUD::field('roles'); //use the relation name here and backpack will assume that it is a [`relationship`](#relationship) field type
 CRUD::field('roles')->type('select_multiple');
 CRUD::field('roles')->type('select2_multiple');
 
 // inside RoleCrudController::setupCreateOperation()
-CRUD::field('users')->type('relationship');
+CRUD::field('users')->type('relationship'); //if you omit the type here, since `users` is a relation in Role model it would be auto-infered by backpack
 CRUD::field('users')->type('select_multiple');
 CRUD::field('users')->type('select2_multiple');
 ```
-
 - notes:
-    - if you choose the `relationship` field, you can also use [the InlineCreate operation](/docs/{{version}}/crud-operation-inline-create), which will add a [+ Add Item] button next to the dropdown, to let the admin create a Role in a modal, without leaving the current Create User form; 
+    - if you choose to use the [`relationship`](#relationship) field type, you can also use [the InlineCreate operation](/docs/{{version}}/crud-operation-inline-create), which will add a [+ Add Item] button next to the dropdown, to let the admin create a User/Role in a modal, without leaving the current Create User/Role form; 
 
-// TODO: what if you want to save extra information on the pivot table?
-
-#### hasOneThrough (1-1-1 relationship)
-
-// TODO
-// AFAIK it works perfectly fine, we should just point to `hasOne` above, right?
-
-#### hasManyThrough (1-1-n relationship)
-
-// TODO
-// AFAIK it works perfectly fine, we should just point to `hasMany` above, right?
+##### EXTRA: Saving aditional data in the pivot table
+- To be able to save aditional data in the pivot table you should use [`repeatable`](#repeatable) field, but you'll also need to modify your `store()` and `update()` methods to take that into account, and transform the JSON received from the [`repeatable`](#repeatable) field into actual entries in the database (and back); check out [this example here](https://gist.github.com/pxpm/516f55c303235b799ac4e38f1167094e) for a full example on how to do it.        
 
 #### morphOne (1-1 polymorphic relationship)
 
-// TODO
+- example:
+    - Post/User -> Video.
+    - The User model and the Post model have 1 Video each. 
+    - [the `morphOne` relationship should be properly defined](https://laravel.com/docs/8.x/eloquent-relationships#one-to-one-polymorphic-relations) in both the Post/User and Video models;
+
+You should now use the [`repeatable`](#repeatable) field on the Post/User create/update form, to add a `Video` to your models, but you'll also need to modify your `store()` and `update()` methods to take that into account, and transform the JSON received from the [`repeatable`](#repeatable) field into actual entries in the database (and back); check out [this example here](https://gist.github.com/pxpm/c49c4ebb3c8d8af8a5bcce3122622a61) for a full example on how to do it.
 
 #### morphMany (1-n polymorphic relationship)
 
-// TODO
+- example:
+    - Video/Post -> Comment.
+    - The Video model and the Post model can have multiple Comment model but the comment belong to only one of them.
+    - [the `morphMany` relationship should be properly defined](https://laravel.com/docs/8.x/eloquent-relationships#one-to-many-polymorphic-relations) in both the Post/Video and Comment models;
+
+You should now use the [`repeatable`](#repeatable) field on the Post/Video create/update form, to add one or more `Comment` to your models, but you'll also need to modify your `store()` and `update()` methods to take that into account, and transform the JSON received from the [`repeatable`](#repeatable) field into actual entries in the database (and back); check out [this example here](https://gist.github.com/pxpm/d7709df4e1fac04c0c329a2ad0b35a5b) for a full example on how to do it.
 
 #### morphToMany (n-n polymorphic relationship)
 
-// TODO
+- example:
+    - Video/Post -> Tag.
+    - The Video model and the Post model can have multiple Tag model and each Tag model can belong to one or more of them.
+    - [the `morphToMany` relationship should be properly defined](https://laravel.com/docs/8.x/eloquent-relationships#many-to-many-polymorphic-relations) in both the Post/Video and Tag models;
+
+You should now use the [`repeatable`](#repeatable) field on the Post/Video create/update form, to add one or more `Tag` to your models, but you'll also need to modify your `store()` and `update()` methods to take that into account, and transform the JSON received from the [`repeatable`](#repeatable) field into actual entries in the database (and back); check out [this example here](https://gist.github.com/pxpm/2a45de69d755f673e3fc5fa60b2b0441) for a full example on how to do it.
+
+#### hasOneThrough (1-1-1 relationship) and hasManyThrough (1-1-n relationship)
+
+- Both are "read" relations and should not be edited from the far side of the relation. To give some context imagine 3 models: Product, Category and Order.
+The Product has a Category (category_id), and the Order has a Product (product_id). We would use `HasOneThrough` in the `Order` model to get the `Category` through `Product` model. 
