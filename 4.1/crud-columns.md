@@ -198,6 +198,24 @@ Show custom HTML based on a closure you specify in your EntityCrudController. Pl
 
 <hr>
 
+<a name="custom_html"></a>
+### custom_html
+
+
+Show the HTML that you provide in the page. You can optionaly escape the text when displaying it on page.
+
+```php
+[
+    'name'     => 'my_custom_html',
+    'label'    => 'Custom HTML',
+    'type'     => 'custom_html',
+    'value' => '<span class="text-danger">Something</span>'
+    'escaped' => false //optional, if the "value" should be escaped when displayed in the page. 
+],
+```
+
+<hr>
+
 <a name="date"></a>
 ### date
 
@@ -274,6 +292,23 @@ Show a thumbnail image.
 
 <hr>
 
+<a name="json"></a>
+### json
+
+
+Display database stored JSON in a prettier way to your users.
+
+```php
+[
+    'name'     => 'my_json_column_name',
+    'label'    => 'JSON',
+    'type'     => 'json',
+    'escaped' => false //optional, if the "value" should be escaped when displayed in the page. 
+],
+```
+
+<hr>
+
 <a name="markdown"></a>
 ### markdown
 
@@ -313,7 +348,7 @@ public function getSlugWithLink() {
 }
 ```
 
-**Note:** When displaying this column's value, the text is not escaped. That is intentional. This way, you can use it to show labels, color text, italic, bold, links, etc. If you might have malicious JS or CSS in your values, you can create a new escaped field yourself. But it's probably better to treat the problem at the source, and prevent that JS and CSS from reaching your DB in the first place.
+**Note:** When displaying this column's value, the text is not escaped. That is intentional. This way, you can use it to show labels, color text, italic, bold, links, etc. If you might have malicious JS or CSS in your values, you can create a new escaped field yourself. But it's probably better to treat the problem at the source, and prevent JS and CSS from reaching your DB in the first place.
 
 <hr>
 
@@ -334,7 +369,7 @@ If the function you're trying to use returns an object, not a string, you can us
 ],
 ```
 
-**Note:** When displaying this column's value, the text is not escaped. That is intentional. This way, you can use it to show labels, color text, italic, bold, links, etc. If you might have malicious JS or CSS in your values, you can create a new escaped field yourself. But it's probably better to treat the problem at the source, and prevent that JS and CSS from reaching your DB in the first place.
+**Note:** When displaying this column's value, the text is not escaped. That is intentional. This way, you can use it to show labels, color text, italic, bold, links, etc. If you might have malicious JS or CSS in your values, you can create a new escaped field yourself. But it's probably better to treat the problem at the source, and prevent JS and CSS from reaching your DB in the first place.
 
 <hr>
 
@@ -449,13 +484,24 @@ Shows the number of items that are related to the current entry, for a particula
 
 ```php
 [
-   // non-relationship count
+   // relationship count
    'name'      => 'tags', // name of relationship method in the model
    'type'      => 'relationship_count', 
    'label'     => 'Tags', // Table column heading
    // OPTIONAL
    // 'suffix' => ' tags', // to show "123 tags" instead of "123 items"
 ],
+```
+
+**Important Note:** This column will load ALL related items onto the page. Which is not a problem normally, for small tables. But if your related table has thousands or millions of entries, it will considerably slow down the page. For a much more performant option, with the same result, you can add a fake column to the results using Laravel's `withCount()` method, then use the `text` column to show that number. That will be a lot faster, and the end-result is identical from the user's perspective. For the same example above (number of tags) this is how it will look:
+```
+$this->crud->query->withCount('tags'); // this will add a tags_count column to the results
+$this->crud->addColumn([
+   'name'      => 'tags_count', // name of relationship method in the model
+   'type'      => 'text', 
+   'label'     => 'Tags', // Table column heading
+   'suffix'    => ' tags', // to show "123 tags" instead of "123"
+]);
 ```
 
 <hr>
@@ -484,31 +530,6 @@ Notes:
 
 <hr>
 
-<a name="text"></a>
-### text
-
-The text column will just output the text value of a db column (or model attribute). Its definition is:
-```php
-[
-   'name'      => 'name', // The db column name
-   'label'     => 'Tag Name', // Table column heading
-   // 'prefix' => 'Name: ',
-   // 'suffix' => '(user)',
-   // 'limit'  => 120, // character limit; default is 50;
-],
-```
-
-**Advanced use case:** The ```text``` column type can also show the attribute of a 1-1 relationship. If you have a relationship (like ```parent()```) set up in your Model, you can use relationship and attibute in the ```name```, using dot notation:
-```php
-[
-    'name'  => 'parent.title',
-    'label' => 'Title',
-    'type'  => 'text'
-],
-```
-
-<hr>
-
 <a name="select"></a>
 ### select
 
@@ -526,7 +547,6 @@ The select column will output its connected entity. Used for relationships like 
 ```
 
 <hr>
-
 <a name="select_from_array"></a>
 ### select_from_array
 
@@ -585,6 +605,45 @@ Its definition is very similar to the [table *field type*](/docs/{{version}}/cru
 ```
 
 <hr>
+
+<a name="text"></a>
+### text
+
+The text column will just output the text value of a db column (or model attribute). Its definition is:
+```php
+[
+   'name'      => 'name', // The db column name
+   'label'     => 'Tag Name', // Table column heading
+   // 'prefix' => 'Name: ',
+   // 'suffix' => '(user)',
+   // 'limit'  => 120, // character limit; default is 50,
+],
+```
+
+**Advanced use case:** The ```text``` column type can also show the attribute of a 1-1 relationship. If you have a relationship (like ```parent()```) set up in your Model, you can use relationship and attribute in the ```name```, using dot notation:
+```php
+[
+    'name'  => 'parent.title',
+    'label' => 'Title',
+    'type'  => 'text'
+],
+```
+
+<hr>
+
+<a name="textarea"></a>
+### textarea
+The text column will just output the text value of a db column (or model attribute) in a textarea field. Its definition is:
+```php
+[
+   'name'      => 'name', // The db column name
+   'label'     => 'Tag Name', // Table column heading
+   // 'prefix' => 'Name: ',
+   // 'suffix' => '(user)',
+   // 'limit'  => 120, // character limit; default is 50
+   // 'escaped' => false //if the text should be escaped
+],
+```
 
 <a name="upload_multiple"></a>
 ### upload_multiple
@@ -773,7 +832,7 @@ $this->crud->addColumn([
 If you specify ```wrapper``` to a column, the entries in that column will be wrapped in the element you specify. Note that: 
 - To get an HTML anchor (a link), you can specify ```a``` for the element (but that's also the default); to get a paragraph you'd specify ```p``` for the element; to get an inline element you'd specify ```span``` for the element; etc;
 - Anything you declare in the ```wrapper``` array (other than ```element```) will be used as HTML attributes for that element (ex: ```class```, ```style```, ```target``` etc);
-- Each wrapper attribute can be declared as a string OR as a callback;
+- Each wrapper attribute, including the element itself, can be declared as a string OR as a callback;
 
 Let's take another example, and wrap a boolean column into a green/red span:
 
@@ -800,7 +859,7 @@ $this->crud->addColumn([
 <a name="choose-where-columns-are-visible"></a>
 ### Choose Where Columns are Visible
 
-Starting with Backpack\CRUD 3.5.0, you can choose to show/hide column in different contexts. You can pass ```true``` / ```false``` to the column attributes below, and Backpack will know to show the column or not, in different contexts:
+Starting with Backpack\CRUD 3.5.0, you can choose to show/hide columns in different contexts. You can pass ```true``` / ```false``` to the column attributes below, and Backpack will know to show the column or not, in different contexts:
 
 ```php
 $this->crud->addColumn([
@@ -808,7 +867,7 @@ $this->crud->addColumn([
    'visibleInTable'  => false, // no point, since it's a large text
    'visibleInModal'  => false, // would make the modal too big
    'visibleInExport' => false, // not important enough
-   'visibleInShow'   => true, // sure, why not
+   'visibleInShow'   => true, // boolean or closure - function($entry) { return $entry->isAdmin(); } 
 ]);
 ```
 
@@ -875,4 +934,4 @@ You can make the last column be less important (and hide) by giving it an unreas
 $this->crud->setActionsColumnPriority(10000);
 ```
 
->Note that repsonsive tables adopt special behavior if the table is not able to show all columns. This includes displaying a vertical elipsis to the left of the row, and making the row clickable to reveal more detail. This behavior is automatic and is not manually controllable via a field property.
+>Note that responsive tables adopt special behavior if the table is not able to show all columns. This includes displaying a vertical ellipsis to the left of the row, and making the row clickable to reveal more detail. This behavior is automatic and is not manually controllable via a field property.

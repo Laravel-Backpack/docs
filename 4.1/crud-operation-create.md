@@ -63,7 +63,7 @@ CrudController is a RESTful controller, so the ```Create``` operation uses two r
 - GET to ```/entity-name/create``` - points to ```create()``` which shows the Add New Entry form (```create.blade.php```);
 - POST to ```/entity-name``` - points to ```store()``` which does the actual storing operation;
 
-The ```create()``` method will show all the fields you've defined for this operation using the [Fields API](/docs/{{version}}/crud-fields#fields-api), then upon Save the ```store()``` method will first check the validation from the FormRequest you've specified, then create the entry using the Eloquent model. Only attributes that specified as fields, and are ```$fillable``` on the model will actually be stored in the database.
+The ```create()``` method will show all the fields you've defined for this operation using the [Fields API](/docs/{{version}}/crud-fields#fields-api), then upon Save the ```store()``` method will first check the validation from the FormRequest you've specified, then create the entry using the Eloquent model. Only attributes that are specified as fields, and are ```$fillable``` on the model will actually be stored in the database.
 
 <a name="callbacks"></a>
 ## Callbacks
@@ -89,13 +89,13 @@ class ProductCrudController extends CrudController
         // $this->crud->addField(['type' => 'hidden', 'name' => 'author_id']);
 	// $this->crud->removeField('password_confirmation');
 	
-	// Note: By default Backpack ONLY saves the inputs that were added onpage using Backpack fields.
+	// Note: By default Backpack ONLY saves the inputs that were added on page using Backpack fields.
 	// This is done by stripping the request of all inputs that do NOT match Backpack fields for this
 	// particular operation. This is an added security layer, to protect your database from malicious
 	// users who could theoretically add inputs using DeveloperTools or JavaScript. If you're not properly
 	// using $guarded or $fillable on your model, malicious inputs could get you into trouble.
 	
-	// However, if you know you have proper $guarded or $fillable on your model, andyou want to manipulate 
+	// However, if you know you have proper $guarded or $fillable on your model, and you want to manipulate 
 	// the request directly to add or remove request parameters, you can also do that.
 	// We have a config value you can set, either inside your operation in `config/backpack/crud.php` if
 	// you want it to apply to all CRUDs, or inside a particular CrudController:

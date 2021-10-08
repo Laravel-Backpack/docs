@@ -136,7 +136,7 @@ Widget Preview:
 <a name="div"></a>
 ### Div
 
-Allows you to include multiple widgets in a div attributes of your choosing. For example, you can include multiple widgets in a ```<div class="row"></div>``` with the code below:
+Allows you to include multiple widgets in the div attributes of your choice. For example, you can include multiple widgets in a ```<div class="row"></div>``` with the code below:
 
 ```php
 [
@@ -155,7 +155,7 @@ Anything you specify on this widget, other than ```type``` and ```content```, ha
 <a name="jumbotron"></a>
 ### Jumbotron
 
-Shows a Boostrap jumbotron component, with the heading and body you specify.
+Shows a Bootstrap jumbotron component, with the heading and body you specify.
 
 ```php
 [
@@ -222,7 +222,7 @@ Widget Preview:
 <a name="view"></a>
 ### View
 
-Loads a blade view from a location you specify. Any attributes your give it will be available in the ```$widget``` variable inside that view. 
+Loads a blade view from a location you specify. Any attributes you give it will be available in the ```$widget``` variable inside that view. 
 
 ```php
 [

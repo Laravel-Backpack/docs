@@ -11,6 +11,7 @@ In a nutshell:
 
 ```bash
 # STEP 0. create migration (in case you're starting from scratch)
+composer require --dev laracasts/generators
 php artisan make:migration:schema create_tags_table --model=0 --schema="name:string:unique"
 php artisan migrate
 
@@ -19,6 +20,10 @@ php artisan backpack:crud tag #use singular, not plural
 
 # STEP 2. go through the generated files, customize according to your needs
 ```
+
+Better yet, if you purchase our brand-new [Backpack DevTools](https://backpackforlaravel.com/products/devtools) (premium addon, paid extra) you can generate better Migrations, Models, Seeders, Factories and CRUDs... from the comfort of your browser window 🤯 It's never been this easy:
+
+![](https://user-images.githubusercontent.com/1032474/128379216-72ae55fa-fcff-4747-8c35-42c733923c94.gif)
 
 ---
 
@@ -44,9 +49,8 @@ We heavily recommend you spend a little time to understand Backpack, and only af
 <a name="requirements"></a>
 ### Requirements
 
-  - Laravel 7 or Laravel 6
-  - PHP 7.2.5+
-  - MySQL (recommended) / PosgreSQL / SQLite / SQL Server
+  - Laravel 8.x, 7.x or 6.x
+  - MySQL (recommended) / PostgreSQL / SQLite / SQL Server
 
 <a name="how-does-it-look"></a>
 ### How does it look?

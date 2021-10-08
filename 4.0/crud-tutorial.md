@@ -92,7 +92,7 @@ class Tag extends Model {
 
   /*
   |--------------------------------------------------------------------------
-  | ACCESORS
+  | ACCESSORS
   |--------------------------------------------------------------------------
   */
 
@@ -172,7 +172,7 @@ What we should notice inside this TagCrudController is that:
 - All operations are enabled by using that operation's trait on the controller;
 - Each operation is set up inside a ```setupXxxOperation()``` method;
 
-As we can tell from the comments in our ```setupXxxOperation()``` methods, in most cases we _shouldn't_ use ```$this->crud->setFromDb()```, which automagically figures out which columns and fields to show. That's because for real models, in real projects, it would _never_ be able to 100% figure out which field types to use. Real projects are very custom - that's a fact. In real projects, models are complicated, use a bunch of fields types and you'll want to customize things. Instead of using ```setFromDb()``` then gradually changing what you don't like, **we heavily recommend you manually define all fields and columns you need**.
+As we can tell from the comments in our ```setupXxxOperation()``` methods, in most cases we _shouldn't_ use ```$this->crud->setFromDb()```, which automagically figures out which columns and fields to show. That's because for real models, in real projects, it would _never_ be able to 100% figure out which field types to use. Real projects are very custom - that's a fact. In real projects, models are complicated, use a bunch of field types and you'll want to customize things. Instead of using ```setFromDb()``` then gradually changing what you don't like, **we heavily recommend you manually define all fields and columns you need**.
 
 That being said, since our ```Tag``` model is so simple, we _can_ leave it like this - it will work perfectly, since we only need a ```text``` field and a ```text``` column. But let's not do that. Let's define our fields and columns manually, like big boys & girls. 
 
@@ -203,7 +203,7 @@ This will:
 - add a simple ```text``` column for our ```name``` attribute for the List operation (the table view);
 - add a simple ```text``` field for our ```name``` attribute to the Create and Update forms;
 
-It the exact same thing ```setFromDb()``` would have figured out, but done manually. This way, if we want to add [other columns](/docs/{{version}}/crud-columns)) or [other fields](/docs/{{version}}/crud-fields), we can easily do that. If we want to change the label of the ```name``` field from ```Name``` to ```Tag name```, we just make that small change. The benefits of _not_ using ```setFromDb()``` will be more obvious once you use Backpack on real models, we promise.
+It's the exact same thing ```setFromDb()``` would have figured out, but done manually. This way, if we want to add [other columns](/docs/{{version}}/crud-columns)) or [other fields](/docs/{{version}}/crud-fields), we can easily do that. If we want to change the label of the ```name``` field from ```Name``` to ```Tag name```, we just make that small change. The benefits of _not_ using ```setFromDb()``` will be more obvious once you use Backpack on real models, we promise.
 
 #### Option 2. Operation Closures
 

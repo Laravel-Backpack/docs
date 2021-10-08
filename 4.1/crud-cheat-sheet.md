@@ -71,7 +71,7 @@ $this->crud->filters(); // gets all the filters
 <small>Methods: enableDetailsRow(), disableDetailsRow()</small>
 
 ```php
-// Shows a + sign next to each table row, so that the user can expand that row and reveal details. You are responsible for creting the view with those details.
+// Shows a + sign next to each table row, so that the user can expand that row and reveal details. You are responsible for creating the view with those details.
 $this->crud->enableDetailsRow();
 // NOTE: you also need to do allow access to the right users: $this->crud->allowAccess('details_row');
 // NOTE: you also need to do overwrite the showDetailsRow($id) method in your EntityCrudController to show whatever you'd like in the details row OR overwrite the views/backpack/crud/details_row.blade.php
@@ -115,9 +115,26 @@ $this->crud->enablePersistentTable();
 <small>Methods: setDetaultPageLength(), setPageLengthMenu()</small>
 
 ```php
-$this->crud->setDefaultPageLength(10); // number of rows shown in list view
-$this->crud->setPageLengthMenu([100, 200, 300]); // page length menu to show in the list view
+// you can define the default page length. If it does not exist we will add it to the pagination array.
+$this->crud->setDefaultPageLength(10);
+
+// you can configure the paginator shown to the user in various ways
+
+// values and labels, 1st array the values, 2nd array the labels:
+$this->crud->setPageLengthMenu([[100, 200, 300], ['one hundred', 'two hundred', 'three hundred']]); 
+
+// values and labels in one array:
+$this->crud->setPageLengthMenu([100 => 'one hundred', 200 => 'two hundred', 300 => 'three hundred']); 
+
+// only values, we will use the values as labels:
+$this->crud->setPageLengthMenu([100, 200, 300]); // OR
+$this->crud->setPageLengthMenu([[100, 200, 300]]); 
+
+// only one option available:
+$this->crud->setPageLengthMenu(10); 
 ```
+
+<small>NOTE: Do not use 0 as a key, if you want to represent "ALL" use -1 instead.</small>
 
 <a name="action-column-api"></a>
 #### Actions Column
@@ -135,7 +152,7 @@ $this->crud->setActionsColumnPriority(10000);
 <small>Methods: addClause(), groupBy(), limit(), orderBy()</small>
 
 ```php
-// Change what entries are show in the table view.
+// Change what entries are shown in the table view.
 // This changes all queries on the table view,
 // as opposed to filters, who only change it when that filter is applied. 
 $this->crud->addClause('active'); // apply local scope
@@ -149,7 +166,7 @@ $this->crud->groupBy();
 $this->crud->limit();
 
 $this->crud->orderBy();
-// please note it's generally a good idea to use crud->orderBy() inside "if (!$this->request->has('order')) {}"; that way, your custom order is applied ONLY IF the user hasn't forced another order (by clicking a column heading)
+// please note it's generally a good idea to use crud->orderBy() inside "if (!$this->crud->getRequest()->has('order')) {}"; that way, your custom order is applied ONLY IF the user hasn't forced another order (by clicking a column heading)
 ```
 
 <a name="show-api"></a>

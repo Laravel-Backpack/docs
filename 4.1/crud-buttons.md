@@ -91,7 +91,7 @@ Let's say we want to create a simple ```moderate.blade.php``` button. This butto
 Route::get('user/{id}/moderate', 'UserCrudController@moderate');
 ```
 
-- We can now create add a ```moderate()``` method to our ```UserCrudController```, which would moderate the user, and redirect back.
+- We can now add a ```moderate()``` method to our ```UserCrudController```, which would moderate the user, and redirect back.
 ```php
 public function moderate() 
 {
@@ -99,7 +99,7 @@ public function moderate()
 }
 ```
 
-- Now we can actually add this button to any of ```UserCrudController::setup()```:
+- Now we can actually add this button to any of ```UserCrudController::setupListOperation()```:
 ```php
 $this->crud->addButtonFromView('line', 'moderate', 'moderate', 'beginning');
 ```
@@ -109,7 +109,7 @@ $this->crud->addButtonFromView('line', 'moderate', 'moderate', 'beginning');
 
 Instead of creating a blade file for your button, you can use a function on your model to output the button's HTML.
 
-In your ```ArticleCrudController::setup()```:
+In your ```ArticleCrudController::setupListOperation()```:
 ```php
 // add a button whose HTML is returned by a method in the CRUD model
 $this->crud->addButtonFromModelFunction('line', 'open_google', 'openGoogle', 'beginning');
@@ -130,7 +130,7 @@ public function openGoogle($crud = false)
 
 Let's say we want to create an ```import.blade.php``` button. For simplicity, this button would just run an AJAX call which handles everything, and shows a status report to the user through notification bubbles. 
 
-The "top" buttons are not bound to any certain entry, like buttons from the "list" stack. They can only do general things. And if they do general things, it's _generally_ recommended that you move their javascript to the bottom of the page. You can easily do that with ```@push('after_javascript')```, because the Backpack default layout has an ```after_javascript``` stack. This way, you can make sure your Javascript is moved at the bottom of the page, after all other Javascript has been loaded (jQuery, DataTables, etc). Check out the example below.
+The "top" buttons are not bound to any certain entry, like buttons from the "list" stack. They can only do general things. And if they do general things, it's _generally_ recommended that you move their javascript to the bottom of the page. You can easily do that with ```@push('after_scripts')```, because the Backpack default layout has an ```after_scripts``` stack. This way, you can make sure your Javascript is moved at the bottom of the page, after all other Javascript has been loaded (jQuery, DataTables, etc). Check out the example below.
 
 The steps would be:
 
@@ -163,7 +163,7 @@ The steps would be:
                   new Noty({
                       text: "Some Tx had been imported",
                       type: "success"
-                  });
+                  }).show();
 
                   // Hide the modal, if any
                   $('.modal').modal('hide');
@@ -175,7 +175,7 @@ The steps would be:
                   new Noty({
                       text: "The new entry could not be created. Please try again.",
                       type: "warning"
-                  });
+                  }).show();
               }
           });
       }
@@ -188,7 +188,7 @@ The steps would be:
 Route::get('user/import', 'UserCrudController@import');
 ```
 
-- We can now create add a ```import()``` method to our ```UserCrudController```, which would import the users.
+- We can now add a ```import()``` method to our ```UserCrudController```, which would import the users.
 ```php
 public function import() 
 {
@@ -196,7 +196,7 @@ public function import()
 }
 ```
 
-- Now we can actually add this button to any of ```UserCrudController::setup()```:
+- Now we can actually add this button to any of ```UserCrudController::setupListOperation()```:
 ```php
 $this->crud->addButtonFromView('top', 'import', 'import', 'end');
 ```

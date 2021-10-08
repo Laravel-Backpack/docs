@@ -55,5 +55,4 @@
 
 - [Official Add-ons](/docs/{{version}}/add-ons-official)
 - [Community Add-ons](https://backpackforlaravel.com/addons)
-- [How to Create an Add-on](/docs/{{version}}/add-ons-tutorial)
-    + [Operation Add-on](/docs/{{version}}/add-ons-custom-operation)
+- [How to Create an Add-on](/docs/{{version}}/add-ons-tutorial-using-the-addon-skeleton)

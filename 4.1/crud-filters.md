@@ -54,9 +54,9 @@ function() { // if the filter is active (the GET parameter "draft" exits)
 > Notes about the filter logic closure
 > - the code will only be run on the controller's ```index()``` or ```search()``` methods;
 > - you can get the filter value by specifying a parameter to the function (ex: ```$value```);
-> - you have access to other request variables using ```$this->crud->request```;
+> - you have access to other request variables using ```$this->crud->getRequest()```;
 > - you also have read/write access to public properties using ```$this->crud```;
-> - when building complicated "OR" logic, make sure the first "where" in your closure is a "where" and only the subsequent are "orWhere"; Laravel 5.3+ no longer convers the first "orWhere" into a "where";
+> - when building complicated "OR" logic, make sure the first "where" in your closure is a "where" and only the subsequent are "orWhere"; Laravel 5.3+ no longer converts the first "orWhere" into a "where";
 
 <a name="filter-types"></a>
 ## Filter types
@@ -84,7 +84,7 @@ function() { // if the filter is active
 <a name="text"></a>
 ### Text
 
-Shows a text input. Most useful for letting the user filter through information that not shown as a column in the CRUD table - otherwise they could just use the DataTables search field.
+Shows a text input. Most useful for letting the user filter through information that's not shown as a column in the CRUD table - otherwise they could just use the DataTables search field.
 
 ![Backpack CRUD Text Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/text.png)
 
@@ -206,7 +206,7 @@ $this->crud->addFilter([
 <a name="select2_multiple"></a>
 ### Select2_multiple
 
-Shows a select2 and allows the user to select one or more items from the list or search for an item. Useful when the values list is long (over 10 elements) and your user should be able to select multiple elements. You can decide yourself if the query for each element should use 'where' or 'orWhere', in the third parameter of the ```addFilter()``` method.
+Shows a select2 and allows the user to select one or more items from the list or search for an item. Useful when the values list is long (over 10 elements) and your user should be able to select multiple elements.
 
 ![Backpack CRUD Select2_multiple Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/select2_multiple.png)
 
@@ -224,9 +224,7 @@ $this->crud->addFilter([
       4 => 'Not available',
     ];
 }, function($values) { // if the filter is active
-    // foreach (json_decode($values) as $key => $value) {
-    //     $this->crud->addClause('where', 'published', $value);
-    // }
+    // $this->crud->addClause('whereIn', 'status', json_decode($values));
 });
 ```
 
@@ -236,6 +234,8 @@ $this->crud->addFilter([
 ### Select2_ajax
 
 Shows a select2 and allows the user to select one item from the list or search for an item. This list is fetched through an AJAX call by the select2. Useful when the values list is long (over 1000 elements).
+
+<small>NOTE: if you want to setup your ajax routes using FetchOperation, have a look at: <a href="https://backpackforlaravel.com/docs/4.1/crud-operation-fetch#fetch-ajax-filter">FetchOperation with ajax filter</a></small>
 
 ![Backpack CRUD Select2_ajax Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/select2_ajax.png)
 

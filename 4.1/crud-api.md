@@ -76,7 +76,7 @@ $this->crud->addColumn()->beforeColumn('name');
 $this->crud->addColumn()->afterColumn('name');
 ```
 
-- **Chained - makeFirstColumn()** - make this colum the first one in the list
+- **Chained - makeFirstColumn()** - make this column the first one in the list
 ```php
 $this->crud->addColumn()->makeFirstColumn();
 // Please note: you need to also specify priority 1 in your addColumn statement for details_row or responsive expand buttons to show
@@ -103,14 +103,30 @@ $this->crud->addButtonFromModelFunction($stack, $name, $model_function_name, $po
 $this->crud->addButtonFromView($stack, $name, $view, $position);
 ```
 
+- **modifyButton()** - modify the attributes of a button
+```php
+$this->crud->modifyButton($name, $modifications);
+```
+
 - **removeButton()** - remove a button from whatever stack it's in
 ```php
-$this->crud->removeButton($name);
+$this->crud->removeButton($name); // remove a single button
+$this->crud->removeButtons($names); // or multiple
 ```
 
 - **removeButtonFromStack()** - remove a button from a particular stack
 ```php
 $this->crud->removeButtonFromStack($name, $stack);
+```
+
+- **removeAllButtons()** - remove all buttons from any stack
+```php
+$this->crud->removeAllButtons();
+```
+
+- **removeAllButtonsFromStack()** - remove all buttons from a particular stack
+```php
+$this->crud->removeAllButtonsFromStack($stack);
 ```
 
 <a name="filters-api"></a>
@@ -146,7 +162,7 @@ $this->crud->filters();
 <a name="details-row-api"></a>
 #### Details Row
 
-Shows a ```+``` (plus sign) next to each table row, so that the user can expand that row and reveal details. You are responsible for creting the view with those details.
+Shows a ```+``` (plus sign) next to each table row, so that the user can expand that row and reveal details. You are responsible for creating the view with those details.
 
 - **enableDetailsRow()** - show the + sign in the table view
 ```php

@@ -45,7 +45,11 @@ Mentioned in this video:
 
 Let's generate a few Backpack CRUDs - places where the admin can Create, Read, Update or Delete entries. CRUDs will make it easy for you to build admin panels, 10x faster than before.
 
-<div class='mx-sm-n5 mx-md-n6 mx-lg-n7 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/424701595' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+<div class='mx-sm-n5 mx-md-n6 mx-lg-n7 mt-7 embed-container mb-4'><iframe src='https://player.vimeo.com/video/424701595' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+
+
+> **NEW!!!** Starting with Aug 2021, there's a much simpler way to generate everything 🎉 Instead of using Blueprint,
+ **check out our new paid addon - [Backpack DevTools](https://backpackforlaravel.com/products/devtools).** It's a GUI that will help you generate Migrations, Models (complete with relationships), CRUDs from the browser 😱 It does cost extra, but it's well worth the price if you use Backpack regularly or your models are not dead-simple.
 
 <br>
 Mentioned in this video:
@@ -59,6 +63,8 @@ Mentioned in this video:
 - [Backpack's Update Operation](/docs/{{version}}/crud-operation-update)
 - [Backpack's Delete Operation](/docs/{{version}}/crud-operation-delete)
 
+Not mentioned in this video, but heavily recommended:
+- [Backpack DevTools](https://backpackforlaravel.com/products/devtools)
 
 ----
 
@@ -89,6 +95,7 @@ Thank you for dedicating these 31 minutes to learning Backpack. **You should now
 - Read this [CRUD Crash Course](/docs/{{version}}/crud-tutorial) and do the steps yourself
 - Take a look at the [CrudController API Cheat Sheet](/docs/{{version}}/crud-cheat-sheet)
 - Read our [Getting Started Text Course](/docs/{{version}}/getting-started-basics)
+- Purchase and install [Backpack DevTools](https://backpackforlaravel.com/products/devtools) which will generate the minimum stuff for you
 
 
 <style>

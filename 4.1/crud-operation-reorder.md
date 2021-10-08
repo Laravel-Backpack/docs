@@ -5,7 +5,7 @@
 <a name="about"></a>
 ## About
 
-This operation allows your admins to reoder & nest entries.
+This operation allows your admins to reorder & nest entries.
 
 ![CRUD Reorder Operation](https://backpackforlaravel.com/uploads/docs-4-0/operations/reorder.png)
 
@@ -14,7 +14,7 @@ This operation allows your admins to reoder & nest entries.
 
 Your model should have the following integer fields, with a default value of 0: ```parent_id```, ```lft```, ```rgt```, ```depth```.
 
-Additionnaly, the `parent_id` field has to be nullable.
+Additionally, the `parent_id` field has to be nullable.
 
 <a name="how-to-use"></a>
 ## How to Use
@@ -71,7 +71,7 @@ public function reorder()
     // your custom code here
     
     // call the method in the trait
-    $this->traitReorder();
+    return $this->traitReorder();
 }
 ```
 

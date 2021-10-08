@@ -64,6 +64,53 @@ class ProductCrudController extends CrudController
 
 Based on the fact that the ```fetchTag()``` method exist, the Fetch operation will create a ```/product/fetch/tag``` POST route, which points to ```fetchTag()```. Inside ```fetchTag()``` we call ```fetch()```, that responds with entries in the format ```select2``` needs.
 
+**Preventing FetchOperation of guessing the searchable attributes**
+
+If not specified `searchable_attributes` will be automatically infered from model dabatase columns. To prevent this behaviour you can setup an empty `searchable_attributes` array.
+
+That said, you can use something like below:
+
+```php
+public function fetchUser() {
+        return $this->fetch([
+            'model' => User::class,
+            'query' => function($model) {
+                $search = request()->input('q') ?? false;
+                if ($search) {
+                    return $model->whereRaw('CONCAT(`first_name`," ",`last_name`) LIKE "%' . $search . '%"');
+                }else{
+                    return $model;
+                }
+            },
+            'searchable_attributes' => []
+        ]);
+    }
+```
+
+<a name="fetch-ajax-filter"></a>
+## Using FetchOperation with `select2_ajax` filter
+
+The FetchOperation can also be used as the source URL for the `select2_ajax` filter. To do that, we need to:
+- change the AJAX method from `GET` (the default for this filter) to `POST` (the default for the Fetch operation);
+- tell the filter what attribute we want to show to the user; 
+
+```
+$this->crud->addFilter([
+  'name'        => 'category_id',
+  'type'        => 'select2_ajax',
+  'label'       => 'Category',
+  'placeholder' => 'Pick a category',
+  'method' => 'POST', // mandatory change
+  // 'select_attribute' => 'name' // the attribute that will be shown to the user by default 'name'
+  // 'select_key' => 'id' // by default is ID, change it if your model uses some other key
+],
+backpack_url('product/fetch/category'), // the fetch route on the ProductCrudController 
+function($value) { // if the filter is active
+    // $this->crud->addClause('where', 'category_id', $value);
+});
+
+```
+
 
 <a name="how-to-overwrite"></a>
 ## How to Overwrite
@@ -72,7 +119,7 @@ In case you need to change how this operation works, it's best to take a look at
 
 **Custom behaviour for one fetch method**
 
-To make a ```fetchCategory()``` method behave differently, you can copy-paste the logic inside the ```FetchOperation::fetch()``` and change it to do whatever you need. Instead of returing ```$this->fetch()``` you can return your own results.
+To make a ```fetchCategory()``` method behave differently, you can copy-paste the logic inside the ```FetchOperation::fetch()``` and change it to do whatever you need. Instead of returning ```$this->fetch()``` you can return your own results.
 
 **Custom behaviour for multiple fetch methods inside a Controller**
 

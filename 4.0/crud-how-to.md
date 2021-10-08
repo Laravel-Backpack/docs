@@ -113,7 +113,7 @@ class CompanyUser extends User
 
 If you try to add multiple columns with the same ```name```, by default Backpack will only show the last one. That's because ```name``` is also used as a key in the ```$column``` array. So when you ```addColumn()``` with the same name twice, it just overwrites the previous one.
 
-In order to insert two column with the same name, use the ```key``` attribute on the second column (or both columns). If this attribute is present for a column, Backpack will use ```key``` instead of ```name```. Example:
+In order to insert two columns with the same name, use the ```key``` attribute on the second column (or both columns). If this attribute is present for a column, Backpack will use ```key``` instead of ```name```. Example:
 
 ```diff
         $this->crud->addColumn([
@@ -143,10 +143,10 @@ In order to insert two column with the same name, use the ```key``` attribute on
 <a name="use-the-media-library"></a>
 ## Use the Media Library (File Manager)
 
-If you've chosen to install [elFinder](http://elfinder.org/) when installing Backpack, you already have a media manager. And it’s integrated into:
-- TinyMCE (as “tinymce” fieldtype)
-- CKEditor (as “ckeditor” fieldtype)
-- CRUD “browse” fieldtype
+If you've chosen to install [elFinder](http://elfinder.org/) when installing Backpack, you already have a media manager. And it's integrated into:
+- TinyMCE (as "tinymce" fieldtype)
+- CKEditor (as "ckeditor" fieldtype)
+- CRUD "browse" fieldtype
 - standalone, at the *your-project/admin/elfinder* route;
 
 For the integration, barryvdh's [laravel-elfinder](https://github.com/barryvdh/laravel-elfinder) package is used.
@@ -216,9 +216,9 @@ Say you want to show two selects:
 
 ```php
 $this->crud->addField([    // SELECT2
-    'label'         => ‘Category',
+    'label'         => 'Category',
     'type'          => 'select',
-    'name'          => ‘category',
+    'name'          => 'category',
     'entity'        => 'category',
     'attribute'     => 'name',
 ]);
@@ -232,8 +232,8 @@ $this->crud->addField([ // select2_from_ajax: 1-n relationship
     'data_source'          => url('api/article'), // url to controller search function (with /{id} should return model)
     'placeholder'          => 'Select an article', // placeholder for the select
     'minimum_input_length' => 0, // minimum characters to type before querying results
-    'dependencies'         => [‘category’], // when a dependency changes, this select2 is reset to null
-    // ‘method'                    => ‘GET’, // optional - HTTP method to use for the AJAX call (GET, POST)
+    'dependencies'         => ['category'], // when a dependency changes, this select2 is reset to null
+    // 'method'                    => 'GET', // optional - HTTP method to use for the AJAX call (GET, POST)
 ]);
 ```
 
@@ -243,7 +243,7 @@ $this->crud->addField([ // select2_from_ajax: 1-n relationship
 
 ```php
 Route::get('api/article', 'App\Http\Controllers\Api\ArticleController@index');
-Route::get('api/article/{id}', 'App\Http\Controllers\Api\ArticleController@show’);
+Route::get('api/article/{id}', 'App\Http\Controllers\Api\ArticleController@show');
 ```
 
 **DIFFERENT HERE**: Nothing.

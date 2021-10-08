@@ -63,7 +63,7 @@ $this->crud->filters(); // gets all the filters
 #### Details Row
 
 ```php
-// Shows a + sign next to each table row, so that the user can expand that row and reveal details. You are responsible for creting the view with those details.
+// Shows a + sign next to each table row, so that the user can expand that row and reveal details. You are responsible for creating the view with those details.
 $this->crud->enableDetailsRow();
 // NOTE: you also need to do allow access to the right users: $this->crud->allowAccess('details_row');
 // NOTE: you also need to do overwrite the showDetailsRow($id) method in your EntityCrudController to show whatever you'd like in the details row OR overwrite the views/backpack/crud/details_row.blade.php
@@ -107,7 +107,7 @@ $this->crud->setActionsColumnPriority(10000);
 #### Custom / Advanced Queries
 
 ```php
-// Change what entries are show in the table view.
+// Change what entries are shown in the table view.
 // This changes all queries on the table view,
 // as opposed to filters, who only change it when that filter is applied. 
 $this->crud->addClause('active'); // apply local scope

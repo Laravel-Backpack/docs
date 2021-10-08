@@ -7,10 +7,11 @@
 
 Field types define how the admin can manipulate an entry's values. They're used by the Create and Update operations.
 
-Think of the field type as the type of input: ```<input type=”text” />```. But for most entities, you won't just need text inputs - you'll need datepickers, upload buttons, 1-n relationship, n-n relationships, textareas, etc.
+Think of the field type as the type of input: ```<input type="text" />```. But for most entities, you won't just need text inputs - you'll need datepickers, upload buttons, 1-n relationship, n-n relationships, textareas, etc.
 
 We have a lot of default field types, detailed below. If you don't find what you're looking for, you can [create a custom field type](/docs/{{version}}/crud-fields#creating-a-custom-field-type). Or if you just want to tweak a default field type a little bit, you can [overwrite default field types](/docs/{{version}}/crud-fields#overwriting-default-field-types).
 
+> NOTE: Starting with Backpack 4.1, if the _field name_ is the exact same as a relation method in the model, Backpack will assume you're adding a field for that relationship and infer relation attributes from it. To disable this behaviour, you can use `'entity' => false` in your field definition. 
 
 <a name="fields-api"></a>
 ### Fields API
@@ -69,7 +70,7 @@ $this->crud->field('price')->type('number');
 
 **The only attribute that's mandatory when you define a field is its `name`**, which will be used:
 - inside the inputs, as `<input name='your_db_column' />`;
-- to store the information in the database, so your `name` should corespond to a database column (if the field type doesn't have different instructions); 
+- to store the information in the database, so your `name` should correspond to a database column (if the field type doesn't have different instructions); 
 
 Every other field attribute other than `name`, Backpack 4.1+ will try to guess.
 
@@ -91,8 +92,8 @@ So at minimum, your field definition array should look like:
 ```
 
 Please note that `label` and `type` are not _mandatory_, just _recommended_:
-- `label` can be ommitted, and Backpack will try to construct it from the `name`;
-- `type` can be ommitted, and Backpack will try to guess it from the column type, or if there's a relationship on the Model with the same `name`;
+- `label` can be omitted, and Backpack will try to construct it from the `name`;
+- `type` can be omitted, and Backpack will try to guess it from the column type, or if there's a relationship on the Model with the same `name`;
 
 <a name="optional-field-attributes-for-presentation-purposes"></a>
 #### Optional - Field Attributes for Presentation Purposes
@@ -129,7 +130,7 @@ These will help you:
 <a name="fake-fields"></a>
 #### Optional - Fake Field Attributes (stores fake attributes as JSON in the database)
 
-In case you want to store insignificant information for an entry, that don't need a database column, you can add any number of Fake Fields, and all their information will be store inside one column in the db, as JSON. By default, an ```extras``` column is assumed on the database table, but you can change that.
+In case you want to store insignificant information for an entry that doesn't need a database column, you can add any number of Fake Fields, and all their information will be stored inside one column in the db, as JSON. By default, an ```extras``` column is assumed on the database table, but you can change that.
 
 **Step 1.** Use the fake attribute on your field:
 ```php
@@ -147,7 +148,7 @@ In case you want to store insignificant information for an entry, that don't nee
 - are on a new ```$fakeColumns``` property (create it now);
 - are casted as array in ```$casts```;
 
->If you need your fakes to also be translatable, remember to also place ```extras``` in your model's ```$translatable``` property.
+>If you need your fakes to also be translatable, remember to also place ```extras``` in your model's ```$translatable``` property and remove it from ```$casts```.
 
 Example:
 ```php
@@ -234,13 +235,34 @@ In Backpack, you can explicitly define this, by giving the field an ```attribute
 - (B) you can specify the identifiable attribute in your model, and all fields will pick this up:
 
 ```php
-// you can define
-protected $identifiableAttribute = 'title';
 
-// or for more complicated use cases you can do
-public function identifiableAttribute() {
-    // process stuff here
-    return 'whatever_you_want_even_an_accessor';
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
+
+class Category
+{
+    use CrudTrait;
+
+    // you can define this
+
+    /**
+     * Attribute shown on the element to identify this model.
+     *
+     * @var string
+     */
+    protected $identifiableAttribute = 'title';
+
+    // or for more complicated use cases you can do
+    
+    /**
+     * Get the attribute shown on the element to identify this model.
+     *
+     * @return string
+     */
+    public function identifiableAttribute()
+    {
+        // process stuff here
+        return 'whatever_you_want_even_an_accessor';
+    }
 }
 ```
 
@@ -251,7 +273,7 @@ public function identifiableAttribute() {
 <a name="address_algolia"></a>
 ### address_algolia
 
-Use [Algolia Places autocomplete](https://community.algolia.com/places/) to help users type their address faster. With the ```store_as_json``` option, it will store the address, postcode, city, country, latitude and longitude in a JSON in the database. Without it, it will just store the address string.
+Use [Algolia Places autocomplete](https://community.algolia.com/places/) to help users type their address faster. With the ```store_as_json``` option, it will store the address, postcode, city, country, latitude and longitude in a JSON in the database. Without it, it will just store the address string. For information stored as JSON in the database, it's recommended that you use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) to ```array``` or ```object```. That way, every time you get the info from the database you'd get it in a usable format.
 
 ```php
 [   // Address algolia
@@ -263,7 +285,7 @@ Use [Algolia Places autocomplete](https://community.algolia.com/places/) to help
 ],
 ```
 
-> **Use attribute casting.** For information stored as JSON in the database, it's recommended that you use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) to ```array``` or ```object```. That way, every time you get the info from the database you'd get it in a usable format.
+> **Algolia is killing Places.** Please note that Algolia Places **will stop working in May 2022**, as reported in [this announcement](https://www.algolia.com/blog/product/sunseting-our-places-feature/). For that reason, it's probably a good idea to use the `address_google` field instead (it's right after this one).
 
 
 Input preview: 
@@ -306,7 +328,7 @@ Input preview:
 <a name="browse"></a>
 ### browse
 
-This button allows the admin to open [elFinder](http://elfinder.org/) and select a file from there. Run ```composer require backpack/filemanager``` to install elFinder, then you can use the field:
+This button allows the admin to open [elFinder](http://elfinder.org/) and select a file from there. Run ```composer require backpack/filemanager && php artisan backpack:filemanager:install``` to install [FileManager](https://github.com/laravel-backpack/filemanager), then you can use the field:
 
 ```php
 [   // Browse
@@ -330,7 +352,7 @@ Onclick preview:
 <a name="browse-multiple"></a>
 ### browse_multiple
 
-Open elFinder and select multiple file from there. Run ```composer require backpack/filemanager``` to install elFinder, then you can use the field:
+Open elFinder and select multiple files from there. Run ```composer require backpack/filemanager && php artisan backpack:filemanager:install``` to install [FileManager](https://github.com/laravel-backpack/filemanager), then you can use the field:
 
 ```php
 [   // Browse multiple
@@ -344,6 +366,7 @@ Open elFinder and select multiple file from there. Run ```composer require backp
 ```
 
 The field assumes you've cast your attribute as ```array``` on your model.  That way, when you do ```$entry->files``` you get a nice array.
+**NOTE:** If you use `multiple => false` you should NOT cast your attribute as ```array```
 
 Input preview: 
 
@@ -521,7 +544,29 @@ Show a pretty colour picker using [Bootstrap Colorpicker](https://itsjavi.com/bo
     'default'              => '#000000',
 
     // optional
-    'color_picker_options' => ['customClass' => 'custom-class']
+    // Anything your define inside `color_picker_options` will be passed as JS
+    // to the JavaScript plugin. For more information about the options available
+    // please see the plugin docs at:
+    //  ### https://itsjavi.com/bootstrap-colorpicker/module-options.html
+    'color_picker_options' => [
+        'customClass' => 'custom-class',
+        'horizontal' => true,
+        'extensions' => [
+            [
+                'name' => 'swatches', // extension name to load
+                'options' => [ // extension options
+                    'colors' => [
+                        'primary' => '#337ab7',
+                        'success' => '#5cb85c',
+                        'info' => '#5bc0de',
+                        'warning' => '#f0ad4e',
+                        'danger' => '#d9534f'
+                    ],
+                    'namesAsValues' => false
+                ]
+            ]
+        ]
+    ]
 ],
 ```
 
@@ -608,6 +653,7 @@ Show a DateRangePicker and let the user choose a start date and end date.
     'default'            => ['2019-03-28 01:01', '2019-04-05 02:00'], 
     // options sent to daterangepicker.js
     'date_range_options' => [
+        'drops' => 'down', // can be one of [down/up/auto]
         'timePicker' => true,
         'locale' => ['format' => 'DD/MM/YYYY HH:mm']
     ]
@@ -638,7 +684,7 @@ Input preview:
 **Please note:** if you're using datetime [attribute casting](https://laravel.com/docs/5.3/eloquent-mutators#attribute-casting) on your model, you also need to place this mutator inside your model:
 ```php
 	public function setDatetimeAttribute($value) {
-		$this->attributes['datetime'] = \Date::parse($value);
+		$this->attributes['datetime'] = \Carbon\Carbon::parse($value);
 	}
 ```
 Otherwise the input's datetime-local format will cause some errors.
@@ -673,7 +719,7 @@ Show a [Bootstrap Datetime Picker](https://eonasdan.github.io/bootstrap-datetime
 **Please note:** if you're using date [attribute casting](https://laravel.com/docs/5.3/eloquent-mutators#attribute-casting) on your model, you may also need to place this mutator inside your model:
 ```php
 	public function setDatetimeAttribute($value) {
-		$this->attributes['datetime'] = \Date::parse($value);
+		$this->attributes['datetime'] = \Carbon\Carbon::parse($value);
 	}
 ```
 Otherwise the input's datetime-local format will cause some errors. Remember to change "datetime" with the name of your attribute (column name).
@@ -687,7 +733,7 @@ Input preview:
 <a name="easymde"></a>
 ### easymde
 
-Show an [EasyMDE markdown editor](https://easymde.com/) to the user. EasyMDE is a well-maintained fork of SimpleMDE.
+Show an [EasyMDE - Markdown Editor](https://easy-markdown-editor.tk/) to the user. EasyMDE is a well-maintained fork of SimpleMDE.
 
 ```php
 [   // easymde
@@ -704,6 +750,8 @@ Show an [EasyMDE markdown editor](https://easymde.com/) to the user. EasyMDE is 
     // 'easymdeAttributesRaw' => $some_json
 ],
 ```
+
+> NOTE: The contents displayed in this editor are NOT stripped, sanitized or escaped by default. Whenever you store Markdown or HTML inside your database, it's HIGHLY recommended that you sanitize the input or output. Laravel makes it super-easy to do that on the model using [accessors](https://laravel.com/docs/8.x/eloquent-mutators#accessors-and-mutators). If you do NOT trust the admins who have access to this field (or end-users can also store information to this db column), please make sure this attribute is always escaped, before it's shown. You can do that by running the value through `strip_tags()` in an accessor on the model (here's [an example](https://github.com/Laravel-Backpack/demo/commit/509c0bf0d8b9ee6a52c50f0d2caed65f1f986385)) or better yet, using an [HTML Purifier package](https://github.com/mewebstudio/Purifier) (here's [an example](https://github.com/Laravel-Backpack/demo/commit/7342cffb418bb568b9e4ee279859685ddc0456c1)). 
 
 Input preview: 
 
@@ -768,7 +816,7 @@ Include an <input type="hidden"> in the form.
 <a name="icon-picker"></a>
 ### icon_picker
 
-Show an icon picker. Supported icon sets are fontawesome, glyphicon, ionicon, weathericon, mapicon, octicon, typicon, elusiveicon, materialdesign as per the jQuery plugin, [bootstrap-iconpicker](http://victor-valencia.github.io/bootstrap-iconpicker/).
+Show an icon picker. Supported icon sets are fontawesome, lineawesome, glyphicon, ionicon, weathericon, mapicon, octicon, typicon, elusiveicon, materialdesign as per the jQuery plugin, [bootstrap-iconpicker](http://victor-valencia.github.io/bootstrap-iconpicker/).
 
 The stored value will be the class name (ex: fa-home).
 
@@ -777,7 +825,7 @@ The stored value will be the class name (ex: fa-home).
     'label'   => "Icon",
     'name'    => 'icon',
     'type'    => 'icon_picker',
-    'iconset' => 'fontawesome' // options: fontawesome, glyphicon, ionicon, weathericon, mapicon, octicon, typicon, elusiveicon, materialdesign
+    'iconset' => 'fontawesome' // options: fontawesome, lineawesome, glyphicon, ionicon, weathericon, mapicon, octicon, typicon, elusiveicon, materialdesign
 ],
 ```
 
@@ -802,13 +850,15 @@ $this->crud->addField([
     'name' => "image",
     'type' => 'image',
     'crop' => true, // set to true to allow cropping, false to disable
-    'aspect_ratio' => 1, // ommit or set to 0 to allow any aspect ratio
+    'aspect_ratio' => 1, // omit or set to 0 to allow any aspect ratio
     // 'disk'      => 's3_bucket', // in case you need to show images from a different disk
     // 'prefix'    => 'uploads/images/profile_pictures/' // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
 ]);
 ```
 
-**Step 2.** Add a [mutator](https://laravel.com/docs/7.x/eloquent-mutators#defining-a-mutator) to your Model, where you pick up the uploaded file and store it wherever you want. You can use this boilerplate code and modify it to match your use case. The code below requires that you have ```intervention/image``` installed. If you don't, please do ```composer require intervention/image``` first.
+**Step 2.** Add a [mutator](https://laravel.com/docs/7.x/eloquent-mutators#defining-a-mutator) to your Model, where you pick up the uploaded file and store it wherever you want. You can use this boilerplate code and modify it to match your use case. 
+
+**NOTE: The code below requires that you have ```intervention/image``` installed. If you don't, please do ```composer require intervention/image``` first.**
 
 ```php
 // ..
@@ -861,6 +911,10 @@ Class Product extends Model
             $public_destination_path = Str::replaceFirst('public/', '', $destination_path);
             $this->attributes[$attribute_name] = $public_destination_path.'/'.$filename;
         }
+	else
+        {
+            return $this->attributes[$attribute_name] = $value;
+        }
     }
     
 // ..
@@ -889,6 +943,8 @@ And you can, of course, use any value for more extreme rectangles.
 Input preview: 
 
 ![CRUD Field - image](https://backpackforlaravel.com/uploads/docs-4-1/fields/image.png)
+
+> NOTE: if you are having trouble uploading big images, please check your php extensions **apcu** and/or **opcache**, users have reported some issues with these extensions when trying to upload very big images. REFS: https://github.com/Laravel-Backpack/CRUD/issues/3457
 
 <hr>
 
@@ -985,14 +1041,20 @@ public function setPasswordAttribute($value) {
     
     public function store()
     {
-        $this->crud->request = $this->crud->validateRequest();
+        $this->crud->setRequest($this->crud->validateRequest());
     
+        /** @var \Illuminate\Http\Request $request */
+        $request = $this->crud->getRequest();
+
         // Encrypt password if specified.
         if ($request->input('password')) {
             $request->request->set('password', Hash::make($request->input('password')));
         } else {
             $request->request->remove('password');
         }
+
+        $this->crud->setRequest($request);
+        $this->crud->unsetValidation(); // Validation has already been run
 
         return $this->traitStore();
     }
@@ -1078,7 +1140,7 @@ Take a look at the examples below to understand the correct syntax for your use 
  ],
 ```
 
-For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
 
 **Example 2. Many options. Entries are loaded using AJAX.**
 
@@ -1098,9 +1160,10 @@ If your related entry can have hundreds, thousands or millions of entries, it's 
     // 'placeholder' => "Select a category", // placeholder for the select2 input
 
     // AJAX OPTIONALS:
+    // 'delay' => 500, // the minimum amount of time between ajax requests when searching in the field
     // 'data_source' => url("fetch/category"), // url to controller search function (with /{id} should return model)
     // 'minimum_input_length' => 2, // minimum characters to type before querying results
-    // 'dependencies'         => [‘category’], // when a dependency changes, this select2 is reset to null
+    // 'dependencies'         => ['category'], // when a dependency changes, this select2 is reset to null
     // 'include_all_form_fields'  => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
  ],
 ```
@@ -1160,7 +1223,7 @@ Remember, ```FetchOperation``` is still needed on the main crud (ex: ```ArticleC
 <a name="repeatable"></a>
 ### repeatable
 
-Shows a group of inputs to the user, and allows the user to add ore remove groups of that kind:
+Shows a group of inputs to the user, and allows the user to add or remove groups of that kind:
 
 ![CRUD Field - repeatable](https://backpackforlaravel.com/uploads/docs-4-1/fields/repeatable.png)
 
@@ -1206,6 +1269,10 @@ You can use most field types inside the field groups, add as many fields you nee
     
     // optional
     'new_item_label'  => 'Add Group', // customize the text of the button
+    'init_rows' => 2, // number of empty rows to be initialized, by default 1
+    'min_rows' => 2, // minimum rows allowed, when reached the "delete" buttons will be hidden
+    'max_rows' => 2, // maximum rows allowed, when reached the "new item" button will be hidden
+    
 ],
 ```
 
@@ -1240,7 +1307,7 @@ Your relationships should already be defined on your models as hasOne() or belon
 ],
 ```
 
-For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
 
 Input preview: 
 
@@ -1268,7 +1335,7 @@ Display a select where the options are grouped by a second entity (like Categori
 ],
 ```
 
-For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
 
 Input preview:
 
@@ -1301,7 +1368,7 @@ Your relationships should already be defined on your models as hasOne() or belon
 ],
 ```
 
-For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
 
 Input preview: 
 
@@ -1334,7 +1401,7 @@ Your relationship should already be defined on your models as belongsToMany().
 ],
 ```
 
-For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
 
 Input preview: 
 
@@ -1348,7 +1415,7 @@ Input preview:
 
 [Works just like the SELECT field, but prettier]
 
-Show a Select2 with the names of the connected entity and let the user select any number of them.
+Shows a Select2 with the names of the connected entity and let the user select any number of them.
 Your relationship should already be defined on your models as belongsToMany().
 
 ```php
@@ -1371,7 +1438,7 @@ Your relationship should already be defined on your models as belongsToMany().
 ],
 ```
 
-For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
 
 Input preview: 
 
@@ -1399,7 +1466,7 @@ Display a select2 with the values ordered hierarchically and indented, for an en
 ],
 ```
 
-For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
 
 Input preview:
 
@@ -1425,7 +1492,7 @@ Display a select2 where the options are grouped by a second entity (like Categor
 ],
 ```
 
-For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
 
 Input preview:
 
@@ -1437,7 +1504,7 @@ Input preview:
 <a name="select_and_order"></a>
 ### select_and_order
 
-Display items on two columns and let the user drag&drop between them to choose which items are selected an which are not, and reorder the selected items with drag&drop.
+Display items on two columns and let the user drag&drop between them to choose which items are selected and which are not, and reorder the selected items with drag&drop.
 
 Its definition is exactly as ```select_from_array```, but the value will be stored as JSON in the database: ```["3","5","7","6"]```, so it needs the attribute to be cast to array on the Model:
 
@@ -1540,6 +1607,7 @@ Display a select2 that takes its values from an AJAX call.
     'data_source' => url("api/category"), // url to controller search function (with /{id} should return model)
 
     // OPTIONAL
+    // 'delay' => 500, // the minimum amount of time between ajax requests when searching in the field
     // 'placeholder'             => "Select a category", // placeholder for the select
     // 'minimum_input_length'    => 2, // minimum characters to type before querying results
     // 'model'                   => "App\Models\Category", // foreign key model
@@ -1549,9 +1617,9 @@ Display a select2 that takes its values from an AJAX call.
 ],
 ```
 
-For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
 
-Of course, you also need to create a controller and routes for the data_source above. Here's an example:
+Of course, you also need to create make the data_source above respond to AJAX calls. You can use the [FetchOperation](https://backpackforlaravel.com/docs/4.1/crud-operation-fetch) to quickly do that in your current CrudController, or you can set up your custom API by creating a custom Route and Controller. Here's an example:
 
 ```php
 Route::get('/api/category', 'Api\CategoryController@index');
@@ -1616,6 +1684,7 @@ Display a select2 that takes its values from an AJAX call. Same as [select2_from
     'pivot'       => true, // on create&update, do you need to add/delete pivot table entries?
     
     // OPTIONAL
+    'delay' => 500, // the minimum amount of time between ajax requests when searching in the field
     'model'                => "App\Models\City", // foreign key model
     'placeholder'          => "Select a city", // placeholder for the select
     'minimum_input_length' => 2, // minimum characters to type before querying results
@@ -1623,7 +1692,7 @@ Display a select2 that takes its values from an AJAX call. Same as [select2_from
 ],
 ```
 
-For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-entity-model-and-attribute-for-fields-containing-relate).
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
 
 Of course, you also need to create a controller and routes for the data_source above. Here's an example:
 
@@ -1705,6 +1774,8 @@ Show a [SimpleMDE markdown editor](https://simplemde.com/) to the user.
 ],
 ```
 
+> NOTE: The contents displayed in this editor are NOT stripped, sanitized or escaped by default. Whenever you store Markdown or HTML inside your database, it's HIGHLY recommended that you sanitize the input or output. Laravel makes it super-easy to do that on the model using [accessors](https://laravel.com/docs/8.x/eloquent-mutators#accessors-and-mutators). If you do NOT trust the admins who have access to this field (or end-users can also store information to this db column), please make sure this attribute is always escaped, before it's shown. You can do that by running the value through `strip_tags()` in an accessor on the model (here's [an example](https://github.com/Laravel-Backpack/demo/commit/509c0bf0d8b9ee6a52c50f0d2caed65f1f986385)) or better yet, using an [HTML Purifier package](https://github.com/mewebstudio/Purifier) (here's [an example](https://github.com/Laravel-Backpack/demo/commit/7342cffb418bb568b9e4ee279859685ddc0456c1)).
+
 Input preview: 
 
 ![CRUD Field - simplemde](https://backpackforlaravel.com/uploads/docs-4-1/fields/simplemde.png)
@@ -1721,9 +1792,25 @@ Show a [Summernote wysiwyg editor](http://summernote.org/) to the user.
     'name'  => 'description',
     'label' => 'Description',
     'type'  => 'summernote',
-    // 'options' => [], // easily pass parameters to the summernote JS initialization 
+    'options' => [],
 ],
+
+// the summernote field works with the default configuration options but allow developer to configure to his needs
+// optional configuration check https://summernote.org/deep-dive/ for a list of available configs
+[   
+    'name'  => 'description',
+    'label' => 'Description',
+    'type'  => 'summernote',
+    'options' => [ 
+        'toolbar' => [
+            ['font', ['bold', 'underline', 'italic']]
+        ]
+    ],
+],
+
 ```
+
+> NOTE: Summernote does NOT sanitize the input. If you do not trust the users of this field, you should sanitize the input or output using something like HTML Purifier. Personally we like to use install [mewebstudio/Purifier](https://github.com/mewebstudio/Purifier) and add an [accessor or mutator](https://laravel.com/docs/8.x/eloquent-mutators#accessors-and-mutators) on the Model, so that wherever the model is created from (admin panel or app), the output will always be clean. [Example here](https://github.com/Laravel-Backpack/demo/commit/7342cffb418bb568b9e4ee279859685ddc0456c1).
 
 Input preview: 
 
@@ -1734,7 +1821,7 @@ Input preview:
 <a name="table"></a>
 ### table
 
-Show a table with multiple inputs per row and store the values as JSON in the database. The user can add more rows and reorder the rows as they please.
+Show a table with multiple inputs per row and store the values as JSON array of objects in the database. The user can add more rows and reorder the rows as they please.
 
 ```php
 [   // Table
@@ -1752,7 +1839,7 @@ Show a table with multiple inputs per row and store the values as JSON in the da
 ],
 ```
 
->It's highly recommended that you use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) on your model when working with JSON stored in database columns, and cast your this attribute to either ```object``` or ```array```.
+>It's highly recommended that you use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) on your model when working with JSON arrays stored in database columns, and cast this attribute to either ```object``` or ```array``` in your Model.
 
 Input preview: 
 
@@ -1778,12 +1865,14 @@ The basic field type, all it needs is the two mandatory parameters: name and lab
     //'hint'       => 'Some hint text', // helpful text, show up after input
     //'attributes' => [
        //'placeholder' => 'Some text when empty',
-       //'class' => 'form-control some-class'
+       //'class' => 'form-control some-class',
+       //'readonly'  => 'readonly',
+       //'disabled'  => 'disabled',
      //], // extra HTML attributes and values your input might need
      //'wrapper'   => [
        //'class' => 'form-group col-md-12'
      //], // extra HTML attributes for the field wrapper - mostly for resizing fields 
-     //'readonly'  => 'readonly',
+    
 ],
 ```
 
@@ -1858,9 +1947,9 @@ Input preview:
     'label'     => 'Image',
     'type'      => 'upload',
     'upload'    => true,
-    'disk'      => 'uploads', // if you store files in the /public folder, please ommit this; if you store them in /storage or S3, please specify it;
+    'disk'      => 'uploads', // if you store files in the /public folder, please omit this; if you store them in /storage or S3, please specify it;
     // optional:
-    'temporary' => 10 // if using a service, such as S3, that requires you to make temporary URL's this will make a URL that is valid for the number of minutes specified
+    'temporary' => 10 // if using a service, such as S3, that requires you to make temporary URLs this will make a URL that is valid for the number of minutes specified
 ],
 ```
 
@@ -1884,7 +1973,7 @@ The field sends the file, through a Request, to the Controller. The Controller t
 
 >NOTE: If this field is mandatory (required in validation) please use the [sometimes laravel validation rule](https://laravel.com/docs/5.8/validation#conditionally-adding-rules) together with **required** in your validation. (sometimes|required|file etc... )
 
-[The ```uploadFileToDisk()``` method](https://github.com/Laravel-Backpack/CRUD/blob/master/src/CrudTrait.php#L108-L129) will take care of everything for most use cases:
+[The ```uploadFileToDisk()``` method](https://github.com/Laravel-Backpack/CRUD/blob/master/src/app/Models/Traits/HasUploadFields.php#L31-L59) will take care of everything for most use cases:
 
 ```php
 /**
@@ -1935,9 +2024,9 @@ Shows a multiple file input to the user and stores the values as a JSON array in
     'label'     => 'Photos',
     'type'      => 'upload_multiple',
     'upload'    => true,
-    'disk'      => 'uploads', // if you store files in the /public folder, please ommit this; if you store them in /storage or S3, please specify it;
+    'disk'      => 'uploads', // if you store files in the /public folder, please omit this; if you store them in /storage or S3, please specify it;
     // optional:
-    'temporary' => 10 // if using a service, such as S3, that requires you to make temporary URL's this will make a URL that is valid for the number of minutes specified
+    'temporary' => 10 // if using a service, such as S3, that requires you to make temporary URLs this will make a URL that is valid for the number of minutes specified
 ],
 ```
 
@@ -1964,7 +2053,7 @@ public function setPhotosAttribute($value)
 
 The field sends the files, through a Request, to the Controller. The Controller then tries to create/update the Model. That's when the mutator on your model will run. That also means we can do any [file validation](https://laravel.com/docs/5.3/validation#rule-file) (```file```, ```image```, ```mimetypes```, ```mimes```) in the Request, before the files are stored on the disk.
 
-[The ```uploadMultipleFilesToDisk()``` method](https://github.com/Laravel-Backpack/CRUD/blob/master/src/CrudTrait.php#L154-L189) will take care of everything for most use cases:
+[The ```uploadMultipleFilesToDisk()``` method](https://github.com/Laravel-Backpack/CRUD/blob/master/src/app/Models/Traits/HasUploadFields.php#L76-L113) will take care of everything for most use cases:
 
 ```
 /**
@@ -2105,7 +2194,7 @@ The actual field types are stored in the Backpack/CRUD package in ```/resources/
 
 To quickly publish a field blade file in your project, you can use ```php artisan backpack:publish crud/fields/field_name```. For example, to publish the number field type, you'd type ```php artisan backpack:publish crud/fields/number```
 
->Please keep in mind that if you're using _your_ file for a field type, you're not using the _package file_. So any updates we push to that file, you're not getting them. In most cases, it's recommended you crate a custom field type for your use case, instead of overwriting default field types.
+>Please keep in mind that if you're using _your_ file for a field type, you're not using the _package file_. So any updates we push to that file, you're not getting them. In most cases, it's recommended you create a custom field type for your use case, instead of overwriting default field types.
 
 <a name="creating-a-custom-field-type"></a>
 ## Creating a Custom Field Type

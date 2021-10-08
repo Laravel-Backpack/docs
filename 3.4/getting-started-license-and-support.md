@@ -16,7 +16,7 @@ Take a look at:
 <a name="license"></a>
 ## License
 
-Backpack is **free for non-commercial use**, but needs a license code in order to prevent “_unlicensed use_” notification bubbles and interruption of service. You can get a license code for your project:
+Backpack is **free for non-commercial use**, but needs a license code in order to prevent "_unlicensed use_" notification bubbles and interruption of service. You can get a license code for your project:
 - ```free```, if you're using it for non-commercial purposes;
 - ```free```, if you've contributed to Backpack on Github;
 - ```$49 EUR/project```, if you're making money using it for a project;
@@ -25,14 +25,14 @@ Backpack is **free for non-commercial use**, but needs a license code in order t
 But **developers** or companies **who make money using it** - for themselves, their employers or their clients, **should [purchase a commercial license here](https://backpackforlaravel.com/pricing)**. We do give away free license codes for personal use, non-commercial purposes, non-profits or Backpack contributors, just [let us know](https://backpackforlaravel.com/contact), happy to help.
 
 
->**You don't need a license code on LOCALHOST.** If you’re just trying Backpack on your own machine, you don’t need a license code. You only need a license code when you take your application to production.
+>**You don't need a license code on LOCALHOST.** If you're just trying Backpack on your own machine, you don't need a license code. You only need a license code when you take your application to production.
 
 <a name="support"></a>
 ## Support
 
-With thousands of developers using Backpack, a lot of them non-commercial, and such a small price, **we can’t offer official support for the packages**. We've been doing this since 2016, we actively maintain the packages, we try to squash any bugs ASAP and add new features all the time, but we unfortunately can't spend time on back-and-forth on implementation issues in your project. But. We do have good documentation and have been blessed with a **great community**, where people help each other out. If Backpack becomes your tool of preference, I highly recommend you join our gang. Help others get started, create cool stuff, or even influence the direction of Backpack: 
+With thousands of developers using Backpack, a lot of them non-commercial, and such a small price, **we can't offer official support for the packages**. We've been doing this since 2016, we actively maintain the packages, we try to squash any bugs ASAP and add new features all the time, but we unfortunately can't spend time on back-and-forth on implementation issues in your project. But. We do have good documentation and have been blessed with a **great community**, where people help each other out. If Backpack becomes your tool of preference, I highly recommend you join our gang. Help others get started, create cool stuff, or even influence the direction of Backpack: 
 
-- **[StackOverflow tag](https://stackoverflow.com/questions/tagged/backpack-for-laravel) for support requests** (If you need help creating something using Backpack, post your question on StackOverflow using the ```backpack-for-laravel``` tag. We've been blessed with a great community, that is happy to help. Who doesn't like getting StackOverflow points?)
+- **[StackOverflow tag](https://stackoverflow.com/questions/tagged/backpack-for-laravel) for support requests** (If you need help creating something using Backpack, post your question on StackOverflow using the ```backpack-for-laravel``` tag. We've been blessed with a great community that is happy to help. Who doesn't like getting StackOverflow points?)
 - **[Gitter Chatroom](https://gitter.im/BackpackForLaravel/Lobby) for quick questions** (If you have an urgent matter that won't take much time to answer, use our 24/7 Gitter chatroom. Be considerate, everyone's probably working on their own project right now.)
 - **[Github Issues](https://github.com/laravel-backpack/) for bugs** (Found a bug? Great! Please search for it on Github first - someone might have already found it. If not, open an issue, we're happy to learn about it and make Backpack better. )
  

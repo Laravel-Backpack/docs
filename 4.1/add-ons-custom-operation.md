@@ -2,7 +2,7 @@
 
 -----
 
-This tutorial will help you package a custom operation into a Composer package, so that you (or other people) can use it in multiple Laravel projects. If you haven't already, please [create your custom operation](/docs/{{version}}/crud-operations#creating-a-custom-operation) first, and make sure it's working well, before you move it to a pacakge. It's just easier that way.
+This tutorial will help you package a custom operation into a Composer package, so that you (or other people) can use it in multiple Laravel projects. If you haven't already, please [create your custom operation](/docs/{{version}}/crud-operations#creating-a-custom-operation) first, and make sure it's working well, before you move it to a package. It's just easier that way.
 
 
 <a name="create-the-package"></a>
@@ -163,22 +163,22 @@ Second, add that new Github Repo as a remote, and push your code to your new Git
 ```bash
 git remote add origin git@github.com:yourusername/yourrepository.git
 git push -u origin master
-git tag -a 1.0.0 -m ‘First version’
+git tag -a 1.0.0 -m 'First version'
 git push --tags
 ```
 
-The tags are the way you will version your package, so it’s important you do it.
+The tags are the way you will version your package, so it's important you do it.
 
 <a name="put-it-on-packagist"></a>
 ### Put it on Packagist
 
-In order for people to be able to install your package using composer, your package needs to be registerd with Packagist, Composer's free package registry.
+In order for people to be able to install your package using composer, your package needs to be registered with Packagist, Composer's free package registry.
 
-On [Packagist.org](https://packagist.org/), submit a new package. Enter you package’s GitHub URL and click Check. If any errors occur, follow the onscreen instructions. When you’re done, you’re taken to your package’s packagist page.
+On [Packagist.org](https://packagist.org/), submit a new package. Enter your package's GitHub URL and click Check. If any errors occur, follow the onscreen instructions. When you're done, you're taken to your package's packagist page.
 
 **Congrats, you have a working package online**, you can now install it using Composer.
 
-Note: On the package page, you might get a notice like this: _This package is not auto-updated. Please set up the [GitHub Service Hook](https://packagist.org/profile/) for Packagist so that it gets updated whenever you push!_ Let’s take care of that. Click that link, get your API token and go to your package’s GitHub page, in Settings / Webhooks & Services / Add a new service. Search for Packagist. Enter your username and the token and hit Submit. Your error in Packagist should dissapear in 5–10 minutes.
+Note: On the package page, you might get a notice like this: _This package is not auto-updated. Please set up the [GitHub Service Hook](https://packagist.org/profile/) for Packagist so that it gets updated whenever you push!_ Let's take care of that. Click that link, get your API token and go to your package's GitHub page, in Settings / Webhooks & Services / Add a new service. Search for Packagist. Enter your username and the token and hit Submit. Your error in Packagist should disappear in 5–10 minutes.
 
 <a name="feedback-and-promotion"></a>
 ### Feedback and Promotion

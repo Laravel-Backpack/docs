@@ -56,7 +56,7 @@ function() { // if the filter is active (the GET parameter "draft" exits)
 > - you can get the filter value by specifying a parameter to the function (ex: ```$value```);
 > - you have access to other request variables using ```$this->crud->request```;
 > - you also have read/write access to public properties using ```$this->crud```;
-> - when building complicated "OR" logic, make sure the first "where" in your closure is a "where" and only the subsequent are "orWhere"; Laravel 5.3+ no longer convers the first "orWhere" into a "where";
+> - when building complicated "OR" logic, make sure the first "where" in your closure is a "where" and only the subsequent are "orWhere"; Laravel 5.3+ no longer converts the first "orWhere" into a "where";
 
 <a name="filter-types"></a>
 ## Filter types
@@ -82,7 +82,7 @@ function() { // if the filter is active
 <a name="text"></a>
 ### Text
 
-Shows a text input. Most useful for letting the user filter through information that not shown as a column in the CRUD table - otherwise they could just use the DataTables search field.
+Shows a text input. Most useful for letting the user filter through information that's not shown as a column in the CRUD table - otherwise they could just use the DataTables search field.
 
 ![Backpack CRUD Text Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/text.png)
 

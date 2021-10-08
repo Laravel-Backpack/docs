@@ -36,7 +36,7 @@ If you don't find one there, you can create one, and Backpack will pick it up in
 Starting with Backpack\CRUD 3.2, you can use the ```with()``` method on ```CRUD::resource``` to better organize your routes. Something like this:
 
 ```php
-CRUD::resource(‘teams’, ‘Admin\TeamCrudController’)->with(function(){
+CRUD::resource('teams', 'Admin\TeamCrudController')->with(function(){
     // add extra routes to this resource
     Route::get('teams/ajax-name-options', 'Admin\TeamCrudController@nameOptions');
     Route::get('teams/ajax-category-options', 'Admin\TeamCrudController@categoryOptions');
@@ -102,7 +102,7 @@ class CompanyUser extends User
 
 If you try to add multiple columns with the same ```name```, by default Backpack will only show the last one. That's because ```name``` is also used as a key in the ```$column``` array. So when you ```addColumn()``` with the same name twice, it just overwrites the previous one.
 
-In order to insert two column with the same name, use the ```key``` attribute on the second column (or both columns). If this attribute is present for a column, Backpack will use ```key``` instead of ```name```. Example:
+In order to insert two columns with the same name, use the ```key``` attribute on the second column (or both columns). If this attribute is present for a column, Backpack will use ```key``` instead of ```name```. Example:
 
 ```diff
         $this->crud->addColumn([
@@ -132,10 +132,10 @@ In order to insert two column with the same name, use the ```key``` attribute on
 <a name="use-the-media-library"></a>
 ## Use the Media Library (File Manager)
 
-If you've chosen to install [elFinder](http://elfinder.org/) when installing Backpack, you already have a media manager. And it’s integrated into:
-- TinyMCE (as “tinymce” fieldtype)
-- CKEditor (as “ckeditor” fieldtype)
-- CRUD “browse” fieldtype
+If you've chosen to install [elFinder](http://elfinder.org/) when installing Backpack, you already have a media manager. And it's integrated into:
+- TinyMCE (as "tinymce" fieldtype)
+- CKEditor (as "ckeditor" fieldtype)
+- CRUD "browse" fieldtype
 - standalone, at the *your-project/admin/elfinder* route;
 
 For the integration, barryvdh's [laravel-elfinder](https://github.com/barryvdh/laravel-elfinder) package is used.

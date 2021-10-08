@@ -115,7 +115,7 @@ class CompanyUser extends User
 
 If you try to add multiple columns with the same ```name```, by default Backpack will only show the last one. That's because ```name``` is also used as a key in the ```$column``` array. So when you ```addColumn()``` with the same name twice, it just overwrites the previous one.
 
-In order to insert two column with the same name, use the ```key``` attribute on the second column (or both columns). If this attribute is present for a column, Backpack will use ```key``` instead of ```name```. Example:
+In order to insert two columns with the same name, use the ```key``` attribute on the second column (or both columns). If this attribute is present for a column, Backpack will use ```key``` instead of ```name```. Example:
 
 ```diff
         $this->crud->addColumn([
@@ -145,7 +145,7 @@ In order to insert two column with the same name, use the ```key``` attribute on
 <a name="use-the-media-library"></a>
 ### Use the Media Library (File Manager)
 
-The default Backpack installation doesn't come with a file management component. Because most projects don't need it. But we've created a first-party add-on, that brings the power of [elFinder](http://elfinder.org/) to your Laravel projects. To install it, [follow the instructions on the add-on's page](https://github.com/Laravel-Backpack/FileManager). It's as easy as running:
+The default Backpack installation doesn't come with a file management component. Because most projects don't need it. But we've created a first-party add-on that brings the power of [elFinder](http://elfinder.org/) to your Laravel projects. To install it, [follow the instructions on the add-ons page](https://github.com/Laravel-Backpack/FileManager). It's as easy as running:
 
 ```bash
 # require the package
@@ -156,9 +156,9 @@ php artisan backpack:filemanager:install
 ```
 
 If you've chosen to install [backpack/filemanager](https://github.com/Laravel-Backpack/FileManager), you'll have elFinder integrated into:
-- TinyMCE (as “tinymce” field type)
-- CKEditor (as “ckeditor” field type)
-- CRUD (as “browse” and "browse_multiple" field types)
+- TinyMCE (as "tinymce" field type)
+- CKEditor (as "ckeditor" field type)
+- CRUD (as "browse" and "browse_multiple" field types)
 - stand-alone, at the */admin/elfinder* route;
 
 For the integration, we use [barryvdh/laravel-elfinder](https://github.com/barryvdh/laravel-elfinder).
@@ -179,9 +179,7 @@ composer require backpack/crud:"4.1.x-dev as 4.0.99"
 2) Instead of running ```php artisan backpack:install``` you can run:
 ```bash
 php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag="minimum"
-php artisan vendor:publish --provider="Prologue\Alerts\AlertsServiceProvider"
 php artisan migrate
-php artisan backpack:publish-user-model
 php artisan backpack:publish-middleware
 ```
 
@@ -215,13 +213,13 @@ Say you want to show two selects:
 - the first one shows Categories
 - the second one shows Articles, but only from the category above
 
-1. In you CrudController you would do:
+1. In your CrudController you would do:
 
 ```php
 $this->crud->addField([    // SELECT2
-    'label'         => ‘Category',
+    'label'         => 'Category',
     'type'          => 'select',
-    'name'          => ‘category',
+    'name'          => 'category',
     'entity'        => 'category',
     'attribute'     => 'name',
 ]);
@@ -236,8 +234,8 @@ $this->crud->addField([ // select2_from_ajax: 1-n relationship
     'placeholder'          => 'Select an article', // placeholder for the select
     'include_all_form_fields' => true, //sends the other form fields along with the request so it can be filtered.
     'minimum_input_length' => 0, // minimum characters to type before querying results
-    'dependencies'         => [‘category’], // when a dependency changes, this select2 is reset to null
-    // ‘method'                    => ‘GET’, // optional - HTTP method to use for the AJAX call (GET, POST)
+    'dependencies'         => ['category'], // when a dependency changes, this select2 is reset to null
+    // 'method'                    => 'GET', // optional - HTTP method to use for the AJAX call (GET, POST)
 ]);
 ```
 
@@ -247,7 +245,7 @@ $this->crud->addField([ // select2_from_ajax: 1-n relationship
 
 ```php
 Route::get('api/article', 'App\Http\Controllers\Api\ArticleController@index');
-Route::get('api/article/{id}', 'App\Http\Controllers\Api\ArticleController@show’);
+Route::get('api/article/{id}', 'App\Http\Controllers\Api\ArticleController@show');
 ```
 
 **DIFFERENT HERE**: Nothing.
@@ -268,7 +266,10 @@ class ArticleController extends Controller
     public function index(Request $request)
     {
         $search_term = $request->input('q');
-        $form = collect($request->input('form'))->pluck('value', 'name');
+        
+        // NOTE: this is a Backpack helper that parses your form input into an usable array. 
+        // you still have the original request as `request('form')`
+        $form = backpack_form_input();
 
         $options = Article::query();
 
@@ -288,7 +289,7 @@ class ArticleController extends Controller
             $results = $options->paginate(10);
         }
 
-        return $options->paginate(10);
+        return $results;
     }
 
     public function show($id)
@@ -360,4 +361,3 @@ $this->app->extend('crud', function () {
 ```
 
 Details and implementation [here](https://github.com/Laravel-Backpack/CRUD/pull/1990).
-

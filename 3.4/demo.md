@@ -2,7 +2,7 @@
 
 ---
 
-We've put toghether a working Laravel backend app, that you can install on your machine. This should make it easier for see how it looks and works. You can even change stuff in code, to see how easy it is to customize Backpack. In this [Demo repository](https://github.com/laravel-backpack/demo), we've:
+We've put together a working Laravel backend app, that you can install on your machine. This should make it easier for see how it looks and works. You can even change stuff in code, to see how easy it is to customize Backpack. In this [Demo repository](https://github.com/laravel-backpack/demo), we've:
 - installed Laravel 5.6;
 - installed Backpack\Base and Backpack\CRUD on top;
 - created a few demo models (Monsters, Icons, Products) and admin panels for them, using dozens of field types, column types, filters, etc - to show off most of Backpack's default features;
@@ -47,7 +47,7 @@ Once everything's installed, and your database has been set up:
 - By default, registration is open only in your local environment. Check out ```config/backpack/base.php``` to change this and other preferences.
 - Check out the Monsters admin panel - it features over 40 field types.
 - The magic of Backpack is not in its standard functionality, but in how easy it is to code your own, then customize every little bit of it. Our recommendation:
-    - Go through the [CRUD Tutorial](/docs/{version}/crud-tutorial) to understand it;
+    - Go through the [CRUD Tutorial](/docs/{{version}}/crud-tutorial) to understand it;
     - Create a new CRUD panel for an entity, using the faster procedure outlined at the end of that page; say... ```car```;
 
 

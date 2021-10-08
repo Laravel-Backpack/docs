@@ -31,7 +31,7 @@ Of course, you can easily [add custom operations](/#creating-a-custom-operation)
 
 No operations are enabled by default.
 
-But Backpack does provide the logic for the most common operations admins perform on Eloquent modesl. You just need to use it (and maybe configure it) in your controller.
+But Backpack does provide the logic for the most common operations admins perform on Eloquent model. You just need to use it (and maybe configure it) in your controller.
 
 Operations provided by Backpack:
 - [List](/docs/{{version}}/crud-operation-list-entries) - allows the admin to see all entries for an Eloquent model, with pagination, search, filters;
@@ -68,28 +68,29 @@ trait CreateOperation
 
 An action can do something with AJAX and return true/false, it can return a view, or whatever else you can do inside a controller method. Notice that it's a ```public``` method - which is a Laravel requirement, in order to point a route to it.
 
-You can check which action is currently being performed using the [standard Laravel Route API](https://laravel.com/api/5.7/Illuminate/Routing/Route.html):
+You can check which action is currently being performed using the [standard Laravel Route API](https://laravel.com/api/8.x/Illuminate/Routing/Route.html):
 
-- ```\Route::getCurrentRoute()->getAction()``` or ```$this->request->route()->getAction()```:
+- ```\Route::getCurrentRoute()->getAction()``` or ```$this->crud->getRequest()->route()->getAction()```:
 ```
-array:7 [▼
+array:8 [▼
   "middleware" => array:2 [▼
     0 => "web"
     1 => "admin"
   ]
   "as" => "crud.monster.index"
   "uses" => "App\Http\Controllers\Admin\MonsterCrudController@index"
+  "operation" => "list"
   "controller" => "App\Http\Controllers\Admin\MonsterCrudController@index"
   "namespace" => "App\Http\Controllers\Admin"
   "prefix" => "admin"
   "where" => []
 ]
 ```
-- ```\Route::getCurrentRoute()->getActionName()``` or ```$this->request->route()->getActionName()```:
+- ```\Route::getCurrentRoute()->getActionName()``` or ```$this->crud->getRequest()->route()->getActionName()```:
 ```
 App\Http\Controllers\Admin\MonsterCrudController@index
 ```
-- ```\Route::getCurrentRoute()->getActionMethod()``` or ```$this->request->route()->getActionMethod()```:
+- ```\Route::getCurrentRoute()->getActionMethod()``` or ```$this->crud->getRequest()->route()->getActionMethod()```:
 ```
 index
 ```
@@ -123,7 +124,7 @@ $this->crud->setHeading('some string', 'create'); // set the Heading for the cre
 $this->crud->setSubheading('some string', 'create'); // set the Subheading for the create action
 ```
 
-There methods are usually useful inside actions, not in ```setup()```. Since action methods are called _after_ ```setup()```, any call to these getters and setters in ```setup()``` would get overwritten by the call in the action.
+These methods are usually useful inside actions, not in ```setup()```. Since action methods are called _after_ ```setup()```, any call to these getters and setters in ```setup()``` would get overwritten by the call in the action.
 
 <a name="access-to-operations"></a>
 ### Handling Access to Operations
@@ -197,7 +198,7 @@ trait CommentOperation
     /**
      * Define which routes are needed for this operation.
      *
-     * @param string $segment    Name of the current entity (singular). Used as first URL segment.
+     * @param string $segment    Name of the current entity (singular). Used as the first URL segment.
      * @param string $routeName  Prefix of the route name.
      * @param string $controller Name of the current CrudController.
      */
@@ -495,7 +496,7 @@ public function clone($id)
 {{-- Button Javascript --}}
 {{-- - used right away in AJAX operations (ex: List) --}}
 {{-- - pushed to the end of the page, after jQuery is loaded, for non-AJAX operations (ex: Show) --}}
-@push('after_scripts') @if ($crud->request->ajax()) @endpush @endif
+@push('after_scripts') @if (request()->ajax()) @endpush @endif
 <script>
 	if (typeof cloneEntry != 'function') {
 	  $("[data-button-type=clone]").unbind('click');
@@ -537,13 +538,13 @@ public function clone($id)
 	// make it so that the function above is run after each DataTable draw event
 	// crud.addFunctionToDataTablesDrawEventQueue('cloneEntry');
 </script>
-@if (!$crud->request->ajax()) @endpush @endif
+@if (!request()->ajax()) @endpush @endif
 ```
 
 4. We can now actually add this button to our ```UserCrudController::setupCloneOperation()``` method, or our ```setupCloneDefaults()``` method:
 
 ```php
-protected setupCloneDefaults() {
+protected function setupCloneDefaults() {
   $this->crud->allowAccess('clone');
 
   $this->crud->operation(['list', 'show'], function () {
@@ -854,7 +855,7 @@ Say we want to create a ```BulkClone``` operation, with a button which clones mu
     {
         $this->crud->hasAccessOrFail('create');
 
-        $entries = $this->request->input('entries');
+        $entries = $this->crud->getRequest()->input('entries');
         $clonedEntries = [];
 
         foreach ($entries as $key => $id) {
@@ -881,6 +882,7 @@ protected function setupBulkCloneRoutes($segment, $routeName, $controller)
 ```
 
 4. Setup the default features we need for the operation to work:
+
 ```php
 protected function setupBulkCloneDefaults()
 {

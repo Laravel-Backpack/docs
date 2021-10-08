@@ -7,7 +7,7 @@
 
 Field types define how the admin can manipulate an entry's values. They're used by the Create and Update operations.
 
-Think of the field type as the type of input: ```<input type=”text” />```. But for most entities, you won't just need text inputs - you'll need datepickers, upload buttons, 1-n relationship, n-n relationships, textareas, etc.
+Think of the field type as the type of input: ```<input type="text" />```. But for most entities, you won't just need text inputs - you'll need datepickers, upload buttons, 1-n relationship, n-n relationships, textareas, etc.
 
 We have a lot of default field types, detailed below. If you don't find what you're looking for, you can [create a custom field type](/docs/{{version}}/crud-fields#creating-a-custom-field-type). Or if you just want to tweak a default field type a little bit, you can [overwrite default field types](/docs/{{version}}/crud-fields#overwriting-default-field-types).
 
@@ -105,7 +105,7 @@ $this->crud->addField($field_definition_array)->afterField('name');
 <a name="fake-fields"></a>
 #### Fake Fields (all stored as JSON in the database)
 
-In case you want to store insignificant information for an entry, that don't need a database column, you can add any number of Fake Fields, and all their information will be store inside one column in the db, as JSON. By default, an ```extras``` column is assumed on the database table, but you can change that.
+In case you want to store insignificant information for an entry that doesn't need a database column, you can add any number of Fake Fields, and all their information will be stored inside one column in the db, as JSON. By default, an ```extras``` column is assumed on the database table, but you can change that.
 
 **Step 1.** Use the fake attribute on your field:
 ```php
@@ -113,7 +113,7 @@ In case you want to store insignificant information for an entry, that don't nee
     'name' => 'name', // JSON variable name
     'label' => "Tag Name", // human-readable label for the input
 
-    'fake' => true, // show the field, but don’t store it in the database column above
+    'fake' => true, // show the field, but don't store it in the database column above
     'store_in' => 'extras' // [optional] the database column name where you want the fake fields to ACTUALLY be stored as a JSON array 
 ],
 ```
@@ -147,7 +147,7 @@ Example:
 ],
 ```
 
-In this example, these 3 fields will show up in the create & update forms, the CRUD will process as usual, but in the database these values won’t be stored in the ```meta_title```, ```meta_description``` and ```meta_keywords``` columns. They will be stored in the ```metas``` column as a JSON array:
+In this example, these 3 fields will show up in the create & update forms, the CRUD will process as usual, but in the database these values won't be stored in the ```meta_title```, ```meta_description``` and ```meta_keywords``` columns. They will be stored in the ```metas``` column as a JSON array:
 
 ```php
 {"meta_title":"title","meta_description":"desc","meta_keywords":"keywords"}
@@ -223,7 +223,7 @@ Using Google Places API is dependant on using an API Key. Please [get an API key
 
 ```php
     'google_places' => [
-        'key' => ’the-key-you-got-from-google-places'
+        'key' => 'the-key-you-got-from-google-places'
     ],
 ```
 
@@ -258,7 +258,7 @@ Onclick preview:
 <a name="browse-multiple"></a>
 ### browse_multiple
 
-Open elFinder and select multiple file from there.
+Open elFinder and select multiple files from there.
 
 ```php
 [   // Browse multiple
@@ -655,7 +655,7 @@ $this->crud->addField([ // image
     'type' => 'image',
     'upload' => true,
     'crop' => true, // set to true to allow cropping, false to disable
-    'aspect_ratio' => 1, // ommit or set to 0 to allow any aspect ratio
+    'aspect_ratio' => 1, // omit or set to 0 to allow any aspect ratio
     // 'disk' => 's3_bucket', // in case you need to show images from a different disk
     // 'prefix' => 'uploads/images/profile_pictures/' // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
 ]);
@@ -758,7 +758,7 @@ Input preview:
 <a name="page-or-link"></a>
 ### page_or_link
 
-Select an existing page from PageManager or an internal or external link. It’s used in the MenuManager package, but can be used in any other model just as well. Its definition looks like this:
+Select an existing page from PageManager or an internal or external link. It's used in the MenuManager package, but can be used in any other model just as well. Its definition looks like this:
 ```php
 [   // PageOrLink
     'name' => 'type',
@@ -934,7 +934,7 @@ Input preview:
 
 [Works just like the SELECT field, but prettier]
 
-Show a Select2 with the names of the connected entity and let the user select any number of them.
+Shows a Select2 with the names of the connected entity and let the user select any number of them.
 Your relationships should already be defined on your models as hasMany() or belongsToMany().
 
 ```php
@@ -1008,7 +1008,7 @@ Input preview:
 <a name="select_and_order"></a>
 ### select_and_order
 
-Display items on two columns and let the user drag&drop between them to choose which items are selected an which are not, and reorder the selected items with drag&drop.
+Display items on two columns and let the user drag&drop between them to choose which items are selected and which are not, and reorder the selected items with drag&drop.
 
 Its definition is exactly as ```select_from_array```, but the value will be stored as JSON in the database: ```["3","5","7","6"]```, so it needs the attribute to be cast to array on the Model:
 
@@ -1058,7 +1058,7 @@ Display a select with the values you want:
     'name' => 'template',
     'label' => "Template",
     'type' => 'select_from_array',
-    'options' => [‘one’ => ‘One’, ‘two’ => ‘Two’],
+    'options' => ['one' => 'One', 'two' => 'Two'],
     'allows_null' => false,
     'default' => 'one',
     // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
@@ -1079,7 +1079,7 @@ Display a select2 with the values you want:
     'name' => 'template',
     'label' => "Template",
     'type' => 'select2_from_array',
-    'options' => [‘one’ => ‘One’, ‘two’ => ‘Two’],
+    'options' => ['one' => 'One', 'two' => 'Two'],
     'allows_null' => false,
     'default' => 'one',
     // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
@@ -1107,8 +1107,8 @@ Display a select2 that takes its values from an AJAX call.
             'data_source' => url("api/category"), // url to controller search function (with /{id} should return model)
             'placeholder' => "Select a category", // placeholder for the select
             'minimum_input_length' => 2, // minimum characters to type before querying results
-            // 'dependencies'         => [‘category’], // when a dependency changes, this select2 is reset to null
-            // ‘method'                    => ‘GET’, // optional - HTTP method to use for the AJAX call (GET, POST)
+            // 'dependencies'         => ['category'], // when a dependency changes, this select2 is reset to null
+            // 'method'                    => 'GET', // optional - HTTP method to use for the AJAX call (GET, POST)
  ]
 ```
 
@@ -1383,7 +1383,7 @@ Input preview:
     'label' => 'Image',
     'type' => 'upload',
     'upload' => true,
-    'disk' => 'uploads' // if you store files in the /public folder, please ommit this; if you store them in /storage or S3, please specify it;
+    'disk' => 'uploads' // if you store files in the /public folder, please omit this; if you store them in /storage or S3, please specify it;
 ],
 ```
 
@@ -1450,7 +1450,7 @@ Shows a multiple file input to the user and stores the values as a JSON array in
     'label' => 'Photos',
     'type' => 'upload_multiple',
     'upload' => true,
-    'disk' => 'uploads' // if you store files in the /public folder, please ommit this; if you store them in /storage or S3, please specify it;
+    'disk' => 'uploads' // if you store files in the /public folder, please omit this; if you store them in /storage or S3, please specify it;
 ],
 ```
 
@@ -1548,10 +1548,10 @@ An entry stored in the database will look like this:
 ```
 $video = {
     id: 234324,
-    title: ‘my video title’,
-    image: ‘https://provider.com/image.jpg',
-    url: ‘http://provider.com/video',
-    provider: ‘youtube’
+    title: 'my video title',
+    image: 'https://provider.com/image.jpg',
+    url: 'http://provider.com/video',
+    provider: 'youtube'
 }
 ```
 
@@ -1604,11 +1604,11 @@ Show a wysiwyg (CKEditor) to the user.
 <a name="overwriting-default-field-types"></a>
 ## Overwriting Default Field Types
 
-The actual field types are stored in the Backpack/CRUD package in ```/resources/views/fields```. If you need to change an existing field, you don’t need to modify the package, you just need to add a blade file in your application in ```/resources/views/vendor/backpack/crud/fields```, with the same name. The package checks there first, and only if there's no file there, will it load it from the package.
+The actual field types are stored in the Backpack/CRUD package in ```/resources/views/fields```. If you need to change an existing field, you don't need to modify the package, you just need to add a blade file in your application in ```/resources/views/vendor/backpack/crud/fields```, with the same name. The package checks there first, and only if there's no file there, will it load it from the package.
 
 To quickly publish a field blade file in your project, you can use ```php artisan backpack:crud:publish fields/field_name```. For example, to publish the number field type, you'd type ```php artisan backpack:crud:publish fields/number```
 
->Please keep in mind that if you're using _your_ file for a field type, you're not using the _package file_. So any updates we push to that file, you're not getting them. In most cases, it's recommended you crate a custom field type for your use case, instead of overwriting default field types.
+>Please keep in mind that if you're using _your_ file for a field type, you're not using the _package file_. So any updates we push to that file, you're not getting them. In most cases, it's recommended you create a custom field type for your use case, instead of overwriting default field types.
 
 <a name="creating-a-custom-field-type"></a>
 ## Creating a Custom Field Type

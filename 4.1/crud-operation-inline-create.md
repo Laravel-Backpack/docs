@@ -21,12 +21,15 @@ For example:
 
 - a working Create operation;
 - correctly defined Eloquent relationships on both the primary Model, and the secondary Model;
+- a working Fetch operation to retrieve the secondary Model from the primary Model;
 - an understanding of what we call "_main_" and "_secondary_" in this case; using the same example as above, where you want to be able to add ```Categories``` in a modal, inside ```ArticleCrudController```'s create&update forms:
     - the _main entity_ would be Article (big form); 
     - the _secondary entity_ would be Category (small form, in a modal);
 
 <a name="how-to-use"></a>
 ## How to Use
+
+> If your field name is comprised of multiple words (eg. `contact_number` or `contactNumber`) you will need to also define the `data_source` attribute for this field; keep in mind that by to generate a route, your field name will be parsed run through `Str::kebab()` - that means `_` (underscore) or `camelCase` will be converted to `-` (hyphens), so in `fetch` your route will be `contact-number` instead of the expected `contactNumber`. To fix this, you need to define: `data_source => backpack_url('monster/fetch/contact-number')` (replace with your strings)
 
 To use the Create operation, you must:
 
@@ -106,4 +109,4 @@ The ```CreateInline``` operation uses two routes:
 - POST to ```/entity-name/inline/create/modal``` -  ```getInlineCreateModal()``` which returns the contents of the Create form, according to how it's been defined by the CreateOperation (in ```setupCreateOperation()```, then overwritten by the InlineCreateOperation (in ```setupInlineCreateOperation()```);
 - POST to ```/entity-name/inline/create``` - points to ```storeInlineCreate()``` which does the actual saving in the database by calling the ```store()``` method from the CreateOperation;
 
-Since this operation is just a way to allow access to the Create operation from a modal, the ```getInlineCreateModal()``` method will show all the fields you've defined for this operation using the [Fields API](/docs/{{version}}/crud-fields#fields-api), then upon Save the ```store()``` method will first check the validation from the FormRequest you've specified, then create the entry using the Eloquent model. Only attributes that specified as fields, and are ```$fillable``` on the model will actually be stored in the database.
+Since this operation is just a way to allow access to the Create operation from a modal, the ```getInlineCreateModal()``` method will show all the fields you've defined for this operation using the [Fields API](/docs/{{version}}/crud-fields#fields-api), then upon Save the ```store()``` method will first check the validation from the FormRequest you've specified, then create the entry using the Eloquent model. Only attributes that are specified as fields, and are ```$fillable``` on the model will actually be stored in the database.

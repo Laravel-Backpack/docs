@@ -131,15 +131,15 @@ Available customization:
 'exportOnlyField' => true
 ```
 
-By default, field will start visible in table. User can hide it toggling visibility. Will be exported if visible in table.
+By default, the field will start visible in the table. Users can hide it toggling visibility. Will be exported if visible in the table.
 
 If you force `visibleInExport => true` you are saying that independent of field visibility in table it will **always** be exported.
 
 Contrary is `visibleInExport => false`, even if visible in table, field will not be exported as per developer instructions.
 
-Setting `visibleInTable => true` will force the field to stay in table no matter what. User can't hide it. (By default all fields visible in table will be exported. If you don't want to export this field use with combination with `visibleInExport => false`)
+Setting `visibleInTable => true` will force the field to stay in the table no matter what. User can't hide it. (By default all fields visible in the table will be exported. If you don't want to export this field use with combination with `visibleInExport => false`)
 
-Using `'visibleInTable' => false` will make the field start hidden in table. But user can toggle it's visibility.
+Using `'visibleInTable' => false` will make the field start hidden in the table. But users can toggle it's visibility.
 
 If you want a field that is not on table, user can't show it, but will **ALWAYS** be exported use the `exportOnlyField => true`. If used will ignore any other custom visibility you defined.
 
@@ -149,7 +149,7 @@ If you want a field that is not on table, user can't show it, but will **ALWAYS*
 By default, all entries are shown in the ListEntries table, before filtering. If you want to restrict the entries to a subset, you can use the methods below in your EntityCrudController's ```setupListOperation()``` method:
 
 ```php
-// Change what entries are show in the table view.
+// Change what entries are shown in the table view.
 // This changes all queries on the table view,
 // as opposed to filters, who only change it when that filter is applied. 
 $this->crud->addClause('active'); // apply a local scope
@@ -169,7 +169,7 @@ $this->crud->orderBy();
 <a name="responsive-table"></a>
 #### Responsive Table
 
-If you CRUD table has more columns than can fit inside the viewport (on mobile / tablet or smaller desktop screens), unimportant columns will start hiding and an expansion icon (three dots) will appear to the left of each row. We call this behaviour "_responsive table_", and consider this to be the best UX. By behaviour we consider the 1st column the most important, than 2nd, than 3rd, etc; the "actions" column is considered as important as the 1st column. You can of course [change the importance of columns](/docs/{{version}}/crud-columns#define-which-columns-to-hide-in-responsive-table).
+If your CRUD table has more columns than can fit inside the viewport (on mobile / tablet or smaller desktop screens), unimportant columns will start hiding and an expansion icon (three dots) will appear to the left of each row. We call this behaviour "_responsive table_", and consider this to be the best UX. By behaviour we consider the 1st column the most important, then 2nd, then 3rd, etc; the "actions" column is considered as important as the 1st column. You can of course [change the importance of columns](/docs/{{version}}/crud-columns#define-which-columns-to-hide-in-responsive-table).
 
 If you do not like this, you can **toggle off the responsive behaviour for all CRUD tables** by changing this config value in your ```config/backpack/crud.php``` to ```false```:
 ```php
@@ -185,14 +185,14 @@ To turn off the responsive table behaviour for _just one CRUD panel_, you can us
 
 By default, ListEntries will NOT remember your filtering, search and pagination when you leave the page. If you want ListEntries to do that, you can enable a ListEntries feature we call ```persistent_table```. 
 
-**This will take the user back to the _filtered table_ after adding an item, previewing an item, creating an item or just browsing around**, preserving the table just like he/she left it - with the same filtering, pagination and search applied. It does so by saving the pagination, search and filtering for an arbitrary amout of time (by default: forever).
+**This will take the user back to the _filtered table_ after adding an item, previewing an item, creating an item or just browsing around**, preserving the table just like he/she left it - with the same filtering, pagination and search applied. It does so by saving the pagination, search and filtering for an arbitrary amount of time (by default: forever).
 
 To use ```persistent_table``` you can:
 - enable it for all CRUDs with the config option ```'persistent_table' => true``` in your ```config/backpack/crud.php```;
 - enable it inside a particular crud controller with ```$this->crud->enablePersistentTable();```
 - disable it inside a particular crud controller with ```$this->crud->disablePersistentTable();```
 
-> You can configure the persistent table duration in ``` config/backpack/crud.php ``` under `operations > list > persistentTableDuration`. False is forever. Set any amout of time you want in minutes. Note: you can configure it's expiring time on a per-crud basis using `$this->crud->setOperationSetting('persistentTableDuration', 120); in your setupListOperation()` for 2 hours persistency. The default is `false` which means forever. 
+> You can configure the persistent table duration in ``` config/backpack/crud.php ``` under `operations > list > persistentTableDuration`. False is forever. Set any amount of time you want in minutes. Note: you can configure it's expiring time on a per-crud basis using `$this->crud->setOperationSetting('persistentTableDuration', 120); in your setupListOperation()` for 2 hours persistency. The default is `false` which means forever. 
 
 <a name="how-to-overwrite"></a>
 ## How to Overwrite

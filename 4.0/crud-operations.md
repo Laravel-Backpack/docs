@@ -20,8 +20,8 @@ class ProductCrudController extends CrudController
 ```
 
 **Operations are traits that add functionality to that controller**. Most operations will have:
-- routes inside a ```setupOperationNameRoutes()```; this gets called in your ```routes/backpack/custom.php``` by the ```Route::crud('product', 'ProductCrudController``` macro, which determines which routes to register for that CrudController;
-- default setup inside a ```setupOperationNameDefaults()``` method, that gets called automatically by CrudController when you use that operation on a controller;
+- routes inside a ```setup<OperationName>Routes()```; this gets called in your ```routes/backpack/custom.php``` by the ```Route::crud('product', 'ProductCrudController``` macro, which determines which routes to register for that CrudController;
+- default setup inside a ```setup<OperationName>Defaults()``` method, that gets called automatically by CrudController when you use that operation on a controller;
 - methods that return views, or perform certain operations;
 
 Of course, you can easily [add custom operations](/#creating-a-custom-operation).
@@ -31,7 +31,7 @@ Of course, you can easily [add custom operations](/#creating-a-custom-operation)
 
 No operations are enabled by default.
 
-But Backpack does provide the logic for the most common operations admins perform on Eloquent modesl. You just need to use it (and maybe configure it) in your controller.
+But Backpack does provide the logic for the most common operations admins perform on Eloquent model. You just need to use it (and maybe configure it) in your controller.
 
 Operations provided by Backpack:
 - [List](/docs/{{version}}/crud-operation-list-entries) - allows the admin to see all entries for an Eloquent model, with pagination, search, filters;
@@ -123,7 +123,7 @@ $this->crud->setHeading('some string', 'create'); // set the Heading for the cre
 $this->crud->setSubheading('some string', 'create'); // set the Subheading for the create action
 ```
 
-There methods are usually useful inside actions, not in ```setup()```. Since action methods are called _after_ ```setup()```, any call to these getters and setters in ```setup()``` would get overwritten by the call in the action.
+These methods are usually useful inside actions, not in ```setup()```. Since action methods are called _after_ ```setup()```, any call to these getters and setters in ```setup()``` would get overwritten by the call in the action.
 
 <a name="access-to-operations"></a>
 ### Handling Access to Operations
@@ -197,7 +197,7 @@ trait CommentOperation
     /**
      * Define which routes are needed for this operation.
      *
-     * @param string $segment    Name of the current entity (singular). Used as first URL segment.
+     * @param string $segment    Name of the current entity (singular). Used as the first URL segment.
      * @param string $routeName  Prefix of the route name.
      * @param string $controller Name of the current CrudController.
      */
