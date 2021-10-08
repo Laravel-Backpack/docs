@@ -751,7 +751,7 @@ Show an [EasyMDE - Markdown Editor](https://easy-markdown-editor.tk/) to the use
 ],
 ```
 
-> NOTE: Please take into consideration that the contents displayed in the editor are not escaped by default. You should take care about escaping the contents, or don't allow it to reach the database in the first place.
+> NOTE: The contents displayed in the editor are NOT escaped by default. If you do NOT trust the admins who have access to this field (or end-users can also store information to this db column), please make sure this attribute is always escaped, before it's shown. You can do that by running the value through `strip_tags()` in a [Laravel accessor](https://laravel.com/docs/8.x/eloquent-mutators#accessors-and-mutators) on the model. Here's [an example](https://github.com/Laravel-Backpack/demo/commit/509c0bf0d8b9ee6a52c50f0d2caed65f1f986385).
 
 Input preview: 
 
@@ -1773,7 +1773,8 @@ Show a [SimpleMDE markdown editor](https://simplemde.com/) to the user.
     // 'simplemdeAttributesRaw' => $some_json
 ],
 ```
-> NOTE: Please take into consideration that the contents displayed in the editor are not escaped by default. You should take care about escaping the contents, or don't allow it to reach the database in the first place.
+```suggestion
+> NOTE: The contents displayed in the editor are NOT escaped by default. If you do NOT trust the admins who have access to this field (or end-users can also store information to this db column), please make sure this attribute is always escaped, before it's shown. You can do that by running the value through `strip_tags()` in a [Laravel accessor](https://laravel.com/docs/8.x/eloquent-mutators#accessors-and-mutators) on the model. Here's [an example](https://github.com/Laravel-Backpack/demo/commit/509c0bf0d8b9ee6a52c50f0d2caed65f1f986385).
 
 Input preview: 
 
@@ -1810,7 +1811,7 @@ Show a [Summernote wysiwyg editor](http://summernote.org/) to the user.
 
 ```
 
-> NOTE: Please take into consideration that the contents displayed in the editor are not escaped by default. You should take care about escaping the contents, or don't allow it to reach the database in the first place.
+> NOTE: Summernote does NOT sanitize the input. If you do not trust the users of this field, you should sanitize the input or output using something like HTML Purifier. Personally we like to use install [mewebstudio/Purifier](https://github.com/mewebstudio/Purifier) and add an [accessor or mutator](https://laravel.com/docs/8.x/eloquent-mutators#accessors-and-mutators) on the Model, so that wherever the model is created from (admin panel or app), the output will always be clean. [Example here](https://github.com/Laravel-Backpack/demo/commit/7342cffb418bb568b9e4ee279859685ddc0456c1).
 
 Input preview: 
 
