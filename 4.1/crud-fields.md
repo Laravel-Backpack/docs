@@ -1793,7 +1793,6 @@ Show a [Summernote wysiwyg editor](http://summernote.org/) to the user.
     'label' => 'Description',
     'type'  => 'summernote',
     'options' => [],
-    //'escaped' => true, optionaly escape the contents of the editor
 ],
 
 // the summernote field works with the default configuration options but allow developer to configure to his needs
