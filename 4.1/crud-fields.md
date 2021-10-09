@@ -2380,6 +2380,16 @@ You should now use the [`repeatable`](#repeatable) field on the Post/Video creat
     - The Video model and the Post model can have multiple Tag model and each Tag model can belong to one or more of them.
     - [the `morphToMany` relationship should be properly defined](https://laravel.com/docs/8.x/eloquent-relationships#many-to-many-polymorphic-relations) in both the Post/Video and Tag models;
 
+```php
+CRUD::field('tags'); //will assume to be a relationship field type.
+CRUD::field('tags')->type('select2_multiple')->model('\Backpack\NewsCRUD\app\Models\Tag')->attribute('name');
+```
+
+- notes:
+    - if you choose to use the [`relationship`](#relationship) field type, you can also use [the InlineCreate operation](/docs/{{version}}/crud-operation-inline-create), which will add a [+ Add Item] button next to the dropdown, to let the admin create a User/Role in a modal, without leaving the current Create User/Role form; 
+
+##### EXTRA: Saving aditional data in the pivot table
+
 You should now use the [`repeatable`](#repeatable) field on the Post/Video create/update form, to add one or more `Tag` to your models, but you'll also need to modify your `store()` and `update()` methods to take that into account, and transform the JSON received from the [`repeatable`](#repeatable) field into actual entries in the database (and back); check out [this example here](https://gist.github.com/pxpm/2a45de69d755f673e3fc5fa60b2b0441) for a full example on how to do it.
 
 #### hasOneThrough (1-1-1 relationship) and hasManyThrough (1-1-n relationship)
