@@ -235,7 +235,7 @@ $this->crud->addFilter([
 
 Shows a select2 and allows the user to select one item from the list or search for an item. This list is fetched through an AJAX call by the select2. Useful when the values list is long (over 1000 elements).
 
-<small>NOTE: if you want to setup your ajax routes using FetchOperation, have a look at: <a href="https://backpackforlaravel.com/docs/4.1/crud-operation-fetch#fetch-ajax-filter">FetchOperation with ajax filter</a></small>
+<small>NOTE: if you want to setup your ajax routes using FetchOperation, have a look at: <a href="https://backpackforlaravel.com/docs/4.2/crud-operation-fetch#fetch-ajax-filter">FetchOperation with ajax filter</a></small>
 
 ![Backpack CRUD Select2_ajax Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/select2_ajax.png)
 

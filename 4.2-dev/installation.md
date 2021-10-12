@@ -5,7 +5,7 @@
 <a name="requirements"></a>
 ## Requirements
 
-If you can run Laravel 8, 7 or 6, you can install Backpack. Backpack does _not_ have additional requirements. For the following process, we assume:
+If you can run Laravel 8, you can install Backpack. Backpack does _not_ have additional requirements. For the following process, we assume:
 
 - you have a [working installation of Laravel](https://laravel.com/docs/7.x#installation) (an existing project is fine, you don't need a *fresh* Laravel install);
 
@@ -29,7 +29,7 @@ cd your-laravel-project-name
 
 ``` bash
 # require Backpack using Composer
-composer require backpack/crud:"4.1.*"
+composer require backpack/crud:"4.2.*"
 composer require --dev backpack/generators
 
 # run the installation command

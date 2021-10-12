@@ -49,7 +49,7 @@ We heavily recommend you spend a little time to understand Backpack, and only af
 <a name="requirements"></a>
 ### Requirements
 
-  - Laravel 8.x, 7.x or 6.x
+  - Laravel 8.x
   - MySQL (recommended) / PostgreSQL / SQLite / SQL Server
 
 <a name="how-does-it-look"></a>
@@ -67,7 +67,7 @@ Backpack has never had a critical vulnerability/hack. But there _have_ been impo
 <a name="maintenance"></a>
 ### Maintenance
 
-Backpack 4.1 is the current version, and is being actively maintained by the Backpack team, with the help of a wonderful community of Backpack veterans. [See all contributors](https://github.com/Laravel-Backpack/CRUD/graphs/contributors).
+Backpack 4.2 is the current version, and is being actively maintained by the Backpack team, with the help of a wonderful community of Backpack veterans. [See all contributors](https://github.com/Laravel-Backpack/CRUD/graphs/contributors).
 
 <a name="license"></a>
 ### License
@@ -77,7 +77,7 @@ Backpack is under a license we call "_You make money, I make money_" (YummY). Ba
 <a name="versioning"></a>
 ### Versioning
 
-When installing Backpack, require its minor version (currently ```4.1.*```). Backpack follows the same versioning system as did prior to Laravel 6 - minor Backpack versions _will_ include breaking changes. This allows us to push new features without charging our users again. For us, this is what ```major.minor.patch``` means:
+When installing Backpack, require its minor version (currently ```4.2.*```). Backpack follows the same versioning system as did prior to Laravel 6 - minor Backpack versions _will_ include breaking changes. This allows us to push new features without charging our users again. For us, this is what ```major.minor.patch``` means:
 
 - ```major``` - **PAID upgrade; MAJOR breaking changes;** historically every 2-3 years; upgrading may take even 2-3 hours; includes MAJOR new features, MAJOR changes in how the whole system works, and complete rewrites; it allows us to _considerably_ improve how we build admin panels and add features that were previously impossible;
 - ```minor``` - **FREE upgrade; SOME breaking changes**; historically every 6 months; upgrading takes 15-60 minutes; offers big new features, for free;
