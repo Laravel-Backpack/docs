@@ -79,7 +79,7 @@ No changes needed.  // TODO
 <a name="controllers"></a>
 ### CrudControllers
 
-No changes needed.  // TODO
+<a name="step-11" href="#step-11" class="badge badge-danger text-white" style="text-decoration: none;">Step 11.</a> We have removed the `simplemde` field, since it the JS library hasn't received any updates since 2016. However, there is a drop-in replacement called `easymde` which is well maintained. If you're using the `simplemde` field anywhere in your project, please use `easymde` instead. A simple find & replace should do.
 
 <a href="assets"></a>
 ### CSS & JS Assets
