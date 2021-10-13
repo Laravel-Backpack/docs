@@ -1751,37 +1751,6 @@ Input preview:
 
 <hr>
 
-<a name="simplemde"></a>
-### simplemde
-
-Show a [SimpleMDE markdown editor](https://simplemde.com/) to the user.
-
-> **NOTE:** SimpleMDE works, but it has not received any updates in 4 years. We recommend you use EasyMDE instead, a fork of SimpleMDE that seems to be well looked after. Check out the [```easymde``` field type](#easymde) for Backpack - it works exactly the same as this one.
-
-```php
-[   // SimpleMDE
-    'name'  => 'description',
-    'label' => 'Description',
-    'type'  => 'simplemde',
-    // optional
-    // 'simplemdeAttributes' => [
-    //   'promptURLs'   => true,
-    //   'status'       => false,
-    //   'spellChecker' => false,
-    //   'forceSync'    => true,
-    // ],
-    // 'simplemdeAttributesRaw' => $some_json
-],
-```
-
-> NOTE: The contents displayed in this editor are NOT stripped, sanitized or escaped by default. Whenever you store Markdown or HTML inside your database, it's HIGHLY recommended that you sanitize the input or output. Laravel makes it super-easy to do that on the model using [accessors](https://laravel.com/docs/8.x/eloquent-mutators#accessors-and-mutators). If you do NOT trust the admins who have access to this field (or end-users can also store information to this db column), please make sure this attribute is always escaped, before it's shown. You can do that by running the value through `strip_tags()` in an accessor on the model (here's [an example](https://github.com/Laravel-Backpack/demo/commit/509c0bf0d8b9ee6a52c50f0d2caed65f1f986385)) or better yet, using an [HTML Purifier package](https://github.com/mewebstudio/Purifier) (here's [an example](https://github.com/Laravel-Backpack/demo/commit/7342cffb418bb568b9e4ee279859685ddc0456c1)).
-
-Input preview: 
-
-![CRUD Field - simplemde](https://backpackforlaravel.com/uploads/docs-4-1/fields/simplemde.png)
-
-<hr>
-
 <a name="summernote"></a>
 ### summernote
 
