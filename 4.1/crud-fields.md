@@ -925,7 +925,7 @@ Class Product extends Model
 >	public static function boot()
 >	{
 >		parent::boot();
->		static::deleting(function($obj) {
+>		static::deleted(function($obj) {
 >			\Storage::disk('public_folder')->delete($obj->image);
 >		});
 >	}
