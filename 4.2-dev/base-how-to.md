@@ -193,6 +193,89 @@ Green top menu, white sidebar.
     'footer_class' => 'app-footer d-none',
 ```
 
+
+<a name="change-primary-colors"></a>
+### Change the primary colors (from purple to something else)
+
+This assumes you have:
+- Backpack 4.1.57+ (check with `php artisan backpack:version`) and its assets published (otherwise run `php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag=public --force`);
+- a working Laravel install with NPM and Laravel Mix;
+
+Add Backstrap, Noty and Animate.css as dev-dependencies to your project:
+```
+npm install --dev
+npm i @digitallyhappy/backstrap --save-dev
+npm i noty --save-dev
+npm i animate.css@3.7.2 --save-dev
+```
+
+Then create a SCSS file for that custom bundle you want. We recommend doing it in `resources/sass/custom-backpack-bundle.scss`:
+
+```scss
+// create a bundle CSS file for the an alternative Backstrap style (blue instead of purple for primary color)
+
+@import "node_modules/@digitallyhappy/backstrap/src/scss/_backstrap_colors";
+
+$primary:       $blue !default; // <--- THIS will make all buttons blue instead of purple
+$secondary:     $gray-300 !default;
+$success:       $green !default;
+$info:          $blue !default;
+$warning:       $yellow !default;
+$danger:        $red !default;
+$light:         $gray-200 !default;
+$dark:          $black !default;
+
+$hover-color: rgba(105, 171, 239, 0.12);
+$border-color: rgba(0, 40, 100, 0.12);
+$muted-bg-color: rgba(0, 0, 0, 0.02);
+
+$theme-colors: () !default;
+$theme-colors: map-merge(
+  (
+    "primary":    $primary,
+    "default":    $secondary,
+    "secondary":  $secondary,
+    "success":    $success,
+    "info":       $info,
+    "notice":     $info,
+    "warning":    $warning,
+    "danger":     $danger,
+    "error":      $danger,
+    "light":      $light,
+    "dark":       $dark
+  ),
+  $theme-colors
+);
+
+@import "node_modules/@digitallyhappy/backstrap/src/scss/_backstrap_miscellaneous";
+
+@import "node_modules/@coreui/coreui/scss/coreui";
+@import "node_modules/@digitallyhappy/backstrap/src/scss/_custom";
+@import "node_modules/animate.css/source/_base";
+@import "node_modules/noty/src/noty";
+```
+
+Now add the command to your `webpack.mix.js` file to compile this new SASS file:
+
+```js
+// create a custom Backpack bundle CSS, with custom colors
+mix.sass('resources/scss/custom-backpack-bundle.scss', 'public/packages/backpack/base/css/')
+    .options({
+      processCssUrls: false
+    });
+```
+
+And run `npm run dev`. If SASS is not a dev-requirement in your project already, Mix will add it automatically and ask you to run `npm run dev` again. Do that if necessary.
+
+Your result should say "_webpack compiled successfully_". If so, you can now use that new bundle file in all your Backpack pages by going to `config/backpack/base.php` and changing the main bundle CSS file that Backpack uses... with your own:
+
+```diff
+    'styles' => [
+-        'packages/backpack/base/css/bundle.css',
++        'css/custom-backpack-bundle.css',
+```
+
+
 <a name="create-a-new-theme"></a>
 ### Create a new theme / child theme
 
