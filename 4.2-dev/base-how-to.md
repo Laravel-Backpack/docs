@@ -194,8 +194,22 @@ Green top menu, white sidebar.
 ```
 
 
-<a name="change-primary-colors"></a>
-### Change the primary colors (from purple to something else)
+<a name="change-colors"></a>
+### Change the colors
+
+#### Change primary color from purple to blue
+
+We thought you might want to do this. Purple isn't for everybody. That's why Backpack 4.1.57+ comes with two bundle CSS files: `bundle.css` and `blue-bundle.css`. That second file does exactly what you expect - changes the primary color from electric purple to blue. That's it. In order to use it, go to your `config/backpack/base.php` and use that file instead:
+
+```diff    
+'styles' => [
+-        'packages/backpack/base/css/bundle.css',
++        'packages/backpack/base/css/blue-bundle.css',
+```
+
+That's it. Now go to your browser and refresh, you should see blue buttons and text everywhere, instead of purple.
+
+#### Custom colors for primary, secondary, success, warning etc.
 
 This assumes you have:
 - Backpack 4.1.57+ (check with `php artisan backpack:version`) and its assets published (otherwise run `php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag=public --force`);
@@ -209,14 +223,14 @@ npm i noty --save-dev
 npm i animate.css@3.7.2 --save-dev
 ```
 
-Then create a SCSS file for that custom bundle you want. We recommend doing it in `resources/sass/custom-backpack-bundle.scss`:
+Then create a SCSS file for that custom bundle you want. We recommend doing it in `resources/sass/custom-backpack-bundle.scss`. Then customize this file to your liking:
 
 ```scss
 // create a bundle CSS file for the an alternative Backstrap style (blue instead of purple for primary color)
 
 @import "node_modules/@digitallyhappy/backstrap/src/scss/_backstrap_colors";
 
-$primary:       $blue !default; // <--- THIS will make all buttons blue instead of purple
+$primary:       $black !default; // <--- For eg. This will make all buttons and texts black instead of purple
 $secondary:     $gray-300 !default;
 $success:       $green !default;
 $info:          $blue !default;
