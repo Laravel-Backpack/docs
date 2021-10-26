@@ -40,7 +40,7 @@ Additionally, here are a few more ways you can customize your CRUDs:
 - [Custom Content Class for each CRUD](/docs/{{version}}/crud-how-to#resize-the-content-wrapper-for-an-operation)
 - [Custom CSS or JS](/docs/{{version}}/crud-how-to#customize-css-and-js-for-default-crud-operations) for each CRUD Operation
 
-**That's it for today!** Told you we're done with long lessons :-) Hopefully some of the above have peaked your interest and you've clicked to see what Backpack can do. In the [next lesson](/docs/{{version}}/getting-started-license-and-support) we'll go through a few other Backpack packages that cover some recurring use cases.
+**That's it for today!** Told you we're done with long lessons :-) Hopefully some of the above have piqued your interest and you've clicked to see what Backpack can do. In the [next lesson](/docs/{{version}}/getting-started-license-and-support) we'll go through a few other Backpack packages that cover some recurring use cases.
 
 
 <br>
