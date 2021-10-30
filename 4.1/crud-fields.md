@@ -710,12 +710,11 @@ Show a [Bootstrap Datetime Picker](https://eonasdan.github.io/bootstrap-datetime
     'datetime_picker_options' => [
         'format' => 'DD/MM/YYYY HH:mm',
         'language' => 'pt',
-	'tooltips' => [ //use this to translate the tooltips in the field
-		'today' => 'Hoje',
-		'selectDate' => 'Selecione a data',
-		// available tooltips: today,clear,close,selectMonth,prevMonth,nextMonth,selectYear,prevYear,nextYear,selectDecade,prevDecade,nextDecade,prevCentury,nextCentury,pickHour,incrementHour,decrementHour,pickMinute,incrementMinute,decrementMinute,pickSecond,incrementSecond,decrementSecond,togglePeriod,selectTime,selectDate
-
-	]
+        'tooltips' => [ //use this to translate the tooltips in the field
+                'today' => 'Hoje',
+                'selectDate' => 'Selecione a data',
+                // available tooltips: today, clear, close, selectMonth, prevMonth, nextMonth, selectYear, prevYear, nextYear, selectDecade, prevDecade, nextDecade, prevCentury, nextCentury, pickHour, incrementHour, decrementHour, pickMinute, incrementMinute, decrementMinute, pickSecond, incrementSecond, decrementSecond, togglePeriod, selectTime, selectDate
+        ]
     ],
     'allows_null' => true,
     // 'default' => '2017-05-12 11:59:59',
