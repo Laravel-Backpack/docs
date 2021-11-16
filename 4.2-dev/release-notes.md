@@ -30,9 +30,13 @@ But what Backpack 4.2 brings to the table and why you should upgrade from [Backp
 
 <hr>
 
-### One more thing
+### Developer Experience
 
-// TODO
+#### Easily Debug AJAX Errors using the Error Frame Modal
+
+Did your AJAX request error? No need to dig into your Chrome Devtools and read that awful output. When you have your APP_DEBUG to `true`, Backpack will show that error in a modal. This seems like a small thing, but it makes it _much_ easier to work with some complex Backpack features, like [ListOperation](https://backpackforlaravel.com/docs/4.1/crud-operation-list-entries), [InlineCreateOperation](https://backpackforlaravel.com/docs/4.1/crud-operation-inline-create), [filters](https://backpackforlaravel.com/docs/4.1/crud-filters), [`select2_from_ajax`](https://backpackforlaravel.com/docs/4.1/crud-fields#select2_from_ajax) field, [`relationship`](https://backpackforlaravel.com/docs/4.1/crud-fields#relationship-1) field. During development, if something goes wrong, Backpack will show it to you - it's that simple:
+
+![image](https://user-images.githubusercontent.com/1838187/141500871-039ef53f-4207-4018-ac93-c41b547b62a5.png)
 
 <hr>
 
