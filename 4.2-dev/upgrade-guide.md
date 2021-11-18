@@ -94,6 +94,10 @@ No changes needed.  // TODO
 - (B) Run ```php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag=public --force```. Please note this will overwrite anything that's already there. This B solution has a downside: unused files are not removed. A few files Backpack no longer uses will still be in your ```public/packages``` folder, even though they're no longer used.
 
 
+<a name="step-14" href="#step-13" class="badge badge-danger text-white" style="text-decoration: none;">Step 13.</a> We've removed the custom CSS & JS files that Backpack provided for each operation (eg. `list.css` and `create.js` - [see why here](https://github.com/Laravel-Backpack/CRUD/pull/3942)).
+
+- If you've added any custom code in `public/packages/backpack/crud/css` and `public/packages/backpack/crud/js`, copy them to a different location (we suggest `public/assets/admin/css` and `public/assets/admin/js`) use the brand-new `script` and `style` widgets to load them only where you need them. See the [updated docs section](/docs/{{version}}/crud-how-to#add-css-and-js-to-a-page-or-operation) for more information. This is only needed if YOU have added any custom code there. The Backpack CSS that was there is now included in the `bundle.css` and `bundle.js` files, so if you haven't modified those at all...
+- It is now safe to delete the `public/packages/backpack/crud/css` and `public/packages/backpack/crud/js` directories - those files are no longer loaded.
 
 <a name="views"></a>
 ### Views
