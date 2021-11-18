@@ -26,7 +26,13 @@ But what Backpack 4.2 brings to the table and why you should upgrade from [Backp
 
 ### Widgets
 
-// TODO
+#### New widget - `script`
+
+You can now easily "push" a JS file to any page you want, straight from a Controller or view. This is particularly useful when you want something custom done inside a CRUD Operation. See [the `script` widget docs](/docs/{{version}}/base-widgets#script-1) for more details.
+
+#### New widget - `style`
+
+You can now easily "push" a CSS file to any page you want, straight from a Controller or view. This is particularly useful when you want something custom done inside a CRUD Operation. See [the `script` widget docs](/docs/{{version}}/base-widgets#style-1) for more details.
 
 <hr>
 
