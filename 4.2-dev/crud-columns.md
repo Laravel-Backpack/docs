@@ -37,6 +37,7 @@ When passing a column array, you need to specify at least these attributes:
 - [```visibleInExport```](#choose-where-columns-are-visible)
 - [```visibleInShow```](#choose-where-columns-are-visible)
 - [```priority```](#define-which-columns-to-hide-in-responsive-table)
+- [```escaped```](#escape-column-output)
 
 <a name="columns-api"></a>
 ### Columns API
@@ -182,8 +183,7 @@ $this->crud->addColumn([
 <a name="closure"></a>
 ### closure
 
-
-Show custom HTML based on a closure you specify in your EntityCrudController. Please note this column does not escape HTML before rendering. You need to do that yourself, if you consider it necessary.
+Show custom HTML based on a closure you specify in your EntityCrudController.
 
 ```php
 [
@@ -201,18 +201,21 @@ Show custom HTML based on a closure you specify in your EntityCrudController. Pl
 <a name="custom_html"></a>
 ### custom_html
 
-
-Show the HTML that you provide in the page. You can optionaly escape the text when displaying it on page.
+Show the HTML that you provide in the page. You can optionaly escape the text when displaying it on page, if you don't trust the value.
 
 ```php
 [
     'name'     => 'my_custom_html',
     'label'    => 'Custom HTML',
     'type'     => 'custom_html',
-    'value' => '<span class="text-danger">Something</span>'
-    'escaped' => false //optional, if the "value" should be escaped when displayed in the page. 
+    'value'    => '<span class="text-danger">Something</span>',
+
+    // OPTIONALS
+    // 'escaped' => true // echo using {{ }} instead of {!! !!}
 ],
 ```
+
+> <span class="badge badge-danger text-white" style="text-decoration: none;">IMPORTANT</span> As opposed to most other Backpack columns, the output of `custom_html` is **NOT escaped by default**. That means if the database value contains malicious JS, that JS might be run when the admin previews it. Make sure to purify the value of this column in an accessor on your Model. At a minimum, you can use `strip_tags()` (here's [an example](https://github.com/Laravel-Backpack/demo/commit/509c0bf0d8b9ee6a52c50f0d2caed65f1f986385)), but a lot better would be to use an [HTML Purifier package](https://github.com/mewebstudio/Purifier) (do that [manually](https://github.com/Laravel-Backpack/demo/commit/7342cffb418bb568b9e4ee279859685ddc0456c1) or by casting the attribute to `CleanHtmlOutput::class`).
 
 <hr>
 
@@ -303,7 +306,7 @@ Display database stored JSON in a prettier way to your users.
     'name'     => 'my_json_column_name',
     'label'    => 'JSON',
     'type'     => 'json',
-    'escaped' => false //optional, if the "value" should be escaped when displayed in the page. 
+    // 'escaped' => false, // echo using {!! !!} instead of {{ }}, in order to render HTML
 ],
 ```
 
@@ -323,6 +326,8 @@ Convert a markdown string to HTML, using ```Illuminate\Mail\Markdown```. Since M
 ],
 ```
 
+> <span class="badge badge-danger text-white" style="text-decoration: none;">IMPORTANT</span> As opposed to most other Backpack columns, the output of `markdown` is **NOT escaped by default**. That means if the database value contains malicious JS, that JS might be run when the admin previews it. Make sure to purify the value of this column in an accessor on your Model. At a minimum, you can use `strip_tags()` (here's [an example](https://github.com/Laravel-Backpack/demo/commit/509c0bf0d8b9ee6a52c50f0d2caed65f1f986385)), but a lot better would be to use an [HTML Purifier package](https://github.com/mewebstudio/Purifier) (do that [manually](https://github.com/Laravel-Backpack/demo/commit/7342cffb418bb568b9e4ee279859685ddc0456c1) or by casting the attribute to `CleanHtmlOutput::class`).
+
 <hr>
 
 <a name="model_function"></a>
@@ -339,6 +344,7 @@ The model_function column will output a function on your main model. Its definit
    'function_name' => 'getSlugWithLink', // the method in your Model
    // 'function_parameters' => [$one, $two], // pass one/more parameters to that method
    // 'limit' => 100, // Limit the number of characters shown
+   // 'escaped' => false, // echo using {!! !!} instead of {{ }}, in order to render HTML
 ],
 ```
 For this example, if your model would feature this method, it would return the link to that entity:
@@ -347,8 +353,6 @@ public function getSlugWithLink() {
     return '<a href="'.url($this->slug).'" target="_blank">'.$this->slug.'</a>';
 }
 ```
-
-**Note:** When displaying this column's value, the text is not escaped. That is intentional. This way, you can use it to show labels, color text, italic, bold, links, etc. If you might have malicious JS or CSS in your values, you can create a new escaped field yourself. But it's probably better to treat the problem at the source, and prevent JS and CSS from reaching your DB in the first place.
 
 <hr>
 
@@ -366,10 +370,9 @@ If the function you're trying to use returns an object, not a string, you can us
    // 'function_parameters' => [$one, $two], // pass one/more parameters to that method
    'attribute' => 'route',
    // 'limit' => 100, // Limit the number of characters shown
+   // 'escaped' => false, // echo using {!! !!} instead of {{ }}, in order to render HTML
 ],
 ```
-
-**Note:** When displaying this column's value, the text is not escaped. That is intentional. This way, you can use it to show labels, color text, italic, bold, links, etc. If you might have malicious JS or CSS in your values, you can create a new escaped field yourself. But it's probably better to treat the problem at the source, and prevent JS and CSS from reaching your DB in the first place.
 
 <hr>
 
@@ -641,7 +644,7 @@ The text column will just output the text value of a db column (or model attribu
    // 'prefix' => 'Name: ',
    // 'suffix' => '(user)',
    // 'limit'  => 120, // character limit; default is 50
-   // 'escaped' => false //if the text should be escaped
+   // 'escaped' => false, // echo using {!! !!} instead of {{ }}, in order to render HTML
 ],
 ```
 
@@ -902,6 +905,17 @@ $this->crud->addColumn([
    'model'     => 'App\Models\User', // foreign key model
 ]);
 ```
+
+<a name="escape-column-output"></a>
+### Escape column output
+
+For security purposes, Backpack escapes the output of all column types except for `markdown` and `custom_html` (those columns would be useless escaped). That means it uses `{{ }}` to echo the output, not `{!! !!}`. If you have any HTML inside a db column, it will be shown as HTML instead of interpreted. It does that because, if the value was added by a malicious user (not admin), it could contain malicious JS code.
+
+However, if you trust that a certain column contains _safe_ HTML, you can disable this behaviour by setting the `escaped` attribute to `false`.
+
+Our recommendation, in order to trust the output of a column, is to either:
+- (a) only allow the admin to add/edit that column;
+- (b) purify the value in an accessor on the Model, so that every time you get it, it's cleaned; you can use an [HTML Purifier package](https://github.com/mewebstudio/Purifier) for that (do it [manually](https://github.com/Laravel-Backpack/demo/commit/7342cffb418bb568b9e4ee279859685ddc0456c1) or by casting the attribute to `CleanHtmlOutput::class`);
 
 <a name="define-which-columns-to-hide-in-responsive-table"></a>
 ### Define which columns to show or hide in the responsive table
