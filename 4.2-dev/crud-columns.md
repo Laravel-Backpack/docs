@@ -196,6 +196,8 @@ Show custom HTML based on a closure you specify in your EntityCrudController.
 ],
 ```
 
+> **DEPRECATED**: closure column will be removed in a future version of Backpack, the same thing can now be achieved using any column (including the `text` column) and the `value` attribute - just pass the same closure to the `value` attribute of any column type.
+
 <hr>
 
 <a name="custom_html"></a>
