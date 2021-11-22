@@ -36,7 +36,7 @@ composer require --dev backpack/generators
 php artisan backpack:install
 ```
 
-> Backpack install is interactive and will ask questions during instalation, if you don't want that add the `--no-interaction` argument to the install command.
+> Backpack install is interactive and will ask questions during installation, if you don't want that add the `--no-interaction` argument to the install command.
 
 2) [optional] Backpack assumes you already have your Eloquent Models properly set up. If you don't, **consider using something to quickly generate Migrations & Models**. You can use anything you want, but here are the options we recommend:
 
