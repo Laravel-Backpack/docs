@@ -916,10 +916,6 @@ Class Product extends Model
             $public_destination_path = Str::replaceFirst('public/', '', $destination_path);
             $this->attributes[$attribute_name] = $public_destination_path.'/'.$filename;
         }
-	else
-        {
-            return $this->attributes[$attribute_name] = $value;
-        }
     }
     
 // ..
