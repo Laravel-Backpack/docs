@@ -1229,12 +1229,11 @@ Shows a group of inputs to the user, and allows the user to add or remove groups
 
 Clicking on the "New Item" button will add another group with the same fields (in the example, another Testimonial). The end result is a JSON with the values for those fields, nicely grouped. 
 
-You can use most field types inside the field groups, add as many fields you need, and change their width using ```wrapper``` like you would do outside the repeatable field. But please note that:
-- **subfields need to have their definition valid and complete** in order to work inside `repeatable`; you can't use shorthands and Backpack can't guess attributes for you - everything has to be explicitly defined;
-- a few fields are not compatible with repeatable (ex: upload, upload_multiple); [see the notes inside this PR](https://github.com/Laravel-Backpack/CRUD/pull/3905) for a complete list of incompatible fields; the fields that do not work inside repeatable have sensible alternatives (eg. `browse` and `browse_multiple`);
-- starting with Backpack 4.2, the result of the `repeatable` field is a nested array, so you can use nested array validation inside your FormRequest (eg. `'testimonial.*.name' => 'required|min:5|max:256'`); see [Laravel's nested array input validation rules](https://laravel.com/docs/validation#validating-nested-array-input) for more examples;
-- starting with Backapck 4.2, **you _must_ cast the db column** where you store the `repeatable` value to `array` or `json` (eg. add `protected $casts = ['testimonials' => 'array'];` to your model); it no longer work uncasted because the value is now a PHP array, not a JSON;
+You can use most field types inside the field groups, add as many fields you need, and change their width using ```wrapper``` like you would do outside the repeatable field. But please note that a few fields are _not_ compatible with repeatable (ex: upload, upload_multiple) - [see the notes inside this PR](https://github.com/Laravel-Backpack/CRUD/pull/3905) for a complete list of incompatible fields. But fear not, Backpack has sensible alternatives to those fields (eg. `browse` and `browse_multiple`).
 
+To validate the `repeatable` subfields, you can use nested array validation inside your FormRequest (eg. `'testimonial.*.name' => 'required|min:5|max:256'`). See [Laravel's nested array input validation rules](https://laravel.com/docs/validation#validating-nested-array-input) for more examples.
+
+> **Use attribute casting - cast to `array` or `json`.** This field contains a nested PHP array and works with it as such. Use [attribute casting](https://mattstauffer.com/blog/laravel-5.0-eloquent-attribute-casting/) to automatically encode/decode it to JSON when storing/retrieving it from the database. It's as easy as adding `protected $casts = ['testimonials' => 'array'];` to your model.
 
 ```php
 [   // repeatable
