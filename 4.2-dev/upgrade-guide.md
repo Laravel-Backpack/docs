@@ -60,7 +60,16 @@ Note: If you're scared or lazy, for just $9 you can purchase a [Laravel Shift](h
 <a name="models"></a>
 ### Models
 
-No changes needed. // TODO
+<a name="step-12" href="#step-12" class="badge badge-warning text-white" style="text-decoration: none;">Step 13.</a> The `repeatable` field has been completely rewritten, in order to work with values as a nested PHP array, not a JSON. This has HUGE benefits, but presents a few breaking changes. If you've used the `repeatable` field in your CRUDs
+- please make sure that db column is casted as `array` or `json` (eg. add `protected $casts = ['testimonials' => 'array'];` to your model);
+- a data syntax bug has been fixed - previously, if inside `repeatable` you used a subfield with multiple values (`select_multiple` or `select2_multiple` etc.), it would not store `'categories': [1, 2]` like you'd expect, but `'categories[]': [1, 2]`; those brackets were not intentional, but we could not fix them without telling you about  it; when upgrading to 4.2:
+    - if you've coded a workaround to strip those brackets, you can now remove the workaround;
+    - if you use the attribute with brackets anywhere, please expect it to be either _with_ or _without_ brackets; Backpack will NOT strip all the brackets automatically, it will only strip them upon saving, when an admin edits that particular entry;
+
+<a name="form-requests"></a>
+### Form Requests
+
+<a name="step-12" href="#step-12" class="badge badge-warning text-white" style="text-decoration: none;">Step 13.</a> One big reason for rewriting the `repeatable` field was to improve validation. Because the result of that field is now a nested PHP array, you no longer have to code your own custom validation logic... you can now use nested array validation inside your FormRequest (eg. `'testimonial.*.name' => 'required|min:5|max:256'`); see [Laravel's nested array input validation rules](https://laravel.com/docs/validation#validating-nested-array-input) for more examples; however, if you do NOT want to update your validation, that's ok too, just make sure you no longer `json_decode()` the value (eg: instead of `$fieldGroups = json_decode($value);` you can do `$fieldGroups = is_array($value) ? $value : [];`);
 
 <a name="routes"></a>
 ### Routes
