@@ -50,7 +50,11 @@ Did your AJAX request error? No need to dig into your Chrome Devtools and read t
 <a name="changed"></a>
 ## Changed
 
-// TODO
+#### Easily Include CSS and JS Assets Only Once Per Page
+
+Backpack now ships with a new `@loadOnce()` directive, which makes sure that piece of JS/CSS/code is only loaded once per pageload. You can see [more info about it here](https://github.com/digitallyhappy/assets) (and why it's more than `@once`).
+
+Of course, Backpack now uses this directive in all views that could get repeatedly loaded, so for example if you're loading in a single form a `select2`, a `select2_multiple` and a `select2_from_ajax`... you won't be getting the assets three times... but once.
 
 <a name="removed"></a>
 ## Removed
