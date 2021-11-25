@@ -111,7 +111,7 @@ No changes needed.  // TODO
 <a name="views"></a>
 ### Views
 
-No changes needed.  // TODO
+<a name="step-14" href="#step-13" class="badge badge-secondary-soft" style="text-decoration: none;">Step 13.</a> If you've developed custom fields or columns that load CSS or JS, it's recommended you load them using `@loadOnce('path/to/file.css')` and `@loadOnce('path/to/file.js')` instead of `<link href="path/to/file.css>"` and `<script src="path/to/file.js></script>"`. This will make sure that piece of JS/CSS/code is only loaded once per pageload. You can find [more info about it here](https://github.com/digitallyhappy/assets) (and why it's more than `@once`).
 
 <a name="security"></a>
 ### Security
