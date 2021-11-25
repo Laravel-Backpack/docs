@@ -85,6 +85,29 @@ No changes needed.  // TODO
 // TODO: code that needs adding
 ```
 
+
+<a name="step-12" href="#step-12" class="badge badge-warning text-white" style="text-decoration: none;">Step 13.</a> In your `config/backpack/crud.php`, especially if you've used the `saveAllInputsExcept` functionality, please take note that we've prefixed all system GET/POST parameters with underscore (to differentiate them from actual database columns). Please replace `http_referrer`, `locale`, `current_tab` with `_http_referrer`, `_locale`, `_current_tab`. In most cases those two lines are commented out, but... even so, it'd be good to add an underscore to them, so future you won't have problems. [Take a look at the PR](https://github.com/Laravel-Backpack/CRUD/pull/3955/files) to see the diff, but here's the gist of it:
+
+```diff
+        /*
+         * Create Operation
+         */
+        'create' => [
+                     // ...
+-                    // 'saveAllInputsExcept' => ['_token', '_method', 'http_referrer', 'current_tab', 'save_action'],
++                    // 'saveAllInputsExcept' => ['_token', '_method', '_http_referrer', '_current_tab', '_save_action'],
+
+        // ..
+
+        /*
+         * Update Operation
+         */
+        'update' => [
+                     // ...
+-                    // 'saveAllInputsExcept' => ['_token', '_method', 'http_referrer', 'current_tab', 'save_action'],
++                    // 'saveAllInputsExcept' => ['_token', '_method', '_http_referrer', '_current_tab', '_save_action'],
+```
+
 <a name="controllers"></a>
 ### CrudControllers
 
@@ -112,6 +135,8 @@ No changes needed.  // TODO
 ### Views
 
 <a name="step-14" href="#step-13" class="badge badge-secondary-soft" style="text-decoration: none;">Step 13.</a> If you've developed custom fields or columns that load CSS or JS, it's recommended you load them using `@loadOnce('path/to/file.css')` and `@loadOnce('path/to/file.js')` instead of `<link href="path/to/file.css>"` and `<script src="path/to/file.js></script>"`. This will make sure that piece of JS/CSS/code is only loaded once per pageload. You can find [more info about it here](https://github.com/digitallyhappy/assets) (and why it's more than `@once`).
+
+<a name="step-14" href="#step-13" class="badge badge-warning text-white" style="text-decoration: none;">Step 13.</a> If you've overwritten any of the default operations in any way (blade files or PHP classes), take note that we've renamed the system GET/POST parameters - they're all prefixed by underscore now, to differentiate them from actual database columns. Please replace `http_referrer`, `locale`, `current_tab` with `_http_referrer`, `_locale`, `_current_tab`, respectively. [Take a look at the PR](https://github.com/Laravel-Backpack/CRUD/pull/3955/files) to see the affected files. In 99% of all cases you won't be affected by this, there's little reason to overwrite the default operations. This also applies if you've overridden the `SaveActions` or `form_content`.
 
 <a name="security"></a>
 ### Security
