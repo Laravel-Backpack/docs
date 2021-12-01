@@ -2312,29 +2312,55 @@ CRUD::field('user_id')->type('select2')->model('App\Models\User')->attribute('na
     - if you choose to use the [`relationship`](#relationship) field, you can also use [the InlineCreate operation](/docs/{{version}}/crud-operation-inline-create), which will add a [+ Add Item] button next to the dropdown, to let the admin create a User in a modal, without leaving the current Create Phone form; 
 
 #### hasMany (1-n relationship)
+Starting in 4.2, `HasMany` relation had been improved to allow custom functionality. You can use this relation type for two scenarios:
+- Select from a list of entries
+- Create the many items when adding the main entry 
 
-- example: 
-    - `Post -> Comment`
-    - a Post has many Comments; a Comment can only belong to one Post
-    - the foreign key is stored on the Comment (`post_id` on `comments` table)
-- how to use:
-    - [the `hasMany` relationship should be properly defined](https://laravel.com/docs/eloquent-relationships#one-to-many) in the Post model;
-    
+##### Selecting from a list
+- The select from a list shows the user a multiple select from a previously build list that when selected would change the connected key in that entry to the main entry key. In the following example, would change the `post_id` key in the `comments` table to the `id` of the created/edited `Post`. 
+
+    - example: 
+        - `Post -> Comment`
+        - a Post has many Comments; a Comment can only belong to one Post
+        - the foreign key is stored on the Comment (`post_id` on `comments` table)
+    - how to use:
+        - [the `hasMany` relationship should be properly defined](https://laravel.com/docs/eloquent-relationships#one-to-many) in the Post model;
+
 ```php
 // inside PostCrudController::setupCreateOperation()
-CRUD::field('comments')->type('repeatable')->fields([['name' => 'comment_text']]); //note comment_text is one field in the comment table.
+CRUD::field('comments');
+// optional `fallback_id`, `force_delete`
 ```
-- you should use the [`repeatable`](#repeatable) field on the Post create/update form, to add Comments to your Posts, but you'll also need to modify your `store()` and `update()` methods to take that into account, and transform the JSON received from the [`repeatable`](#repeatable) field into actual entries in the database (and back); check out [this example here](https://gist.github.com/pxpm/d584a109037d3efc7519872ac2096334) for a full example on how to do it.
+**WHEN UNSELECTING:**  Backpack follow some rules when user `unselect` an entry from the field:
+    - if `fallback_id` is provided, Backpack will set the connecting key `post_id` to what developer provides.
+    - if `post_id` is nullable on `comments` table Backpack will set the value to `null`. **If `force_delete` is `true` Backpack will delete the entry from `comments` table**
+    - if `post_id` is not nullable Backpack will delete the entry from the `comments` table.
 
 - notes: 
     - you _cannot_ use [the InlineCreate operation](/docs/{{version}}/crud-operation-inline-create) to have show a [+ Add Item] button next to the dropdown; that's because the Comment needs a `post_id` (not nullable); and until the Save button is clicked to submit the Create Post form, there is no `post_id`;
 
+##### Creating many entries when adding the main entry
+Before 4.2 to create entries developer would need to setup a repeatable field, overwrite the Backpack saving process and create acessors to display the field. This was just too much work for developers. **Starting in 4.2 Backpack takes care of most of it**.
+
+Using the same example as above (`Post -> Comment`) you should define the field as follow:
+
+```php
+// inside PostCrudController::setupCreateOperation()
+CRUD::field('comments')->pivotFields([['name' => 'comment_text']]); //note comment_text is a text field in the comment table.
+```
+
+And that's it:
+- Repeatable field will be created.
+- Saving process will be taken care by Backpack.
+- We will re-display the field correctly.
+
 #### belongsToMany (n-n relationship)
+Starting in 4.2, `BelongsToMany` relation had been improved to simplify the scenario when you need to work with field stored inside the pivot table.
 
 - example: 
     - `User -> Role`
     - a User has many Roles; a Role can also have many Users
-    - the foreign key is stored on a pivot table (usually the `user_roles` table has both `user_id` and `role_id`)
+    - the foreign keys are stored on a pivot table (usually the `user_roles` table has both `user_id` and `role_id`)
 - how to use:
     - [the `belongsToMany` relationship should be properly defined](https://laravel.com/docs/eloquent-relationships#many-to-many) in both the User and Role models;
     - you can add a dropdown on your User to pick the Roles that are connected to it; for that, use the [`relationship`](#relationship), [`select_multiple`](#select-multiple), [`select2_multiple`](#select2-multiple) or  [`select2_from_ajax_multiple`](#select2-from-ajax-multiple) fields;
@@ -2354,7 +2380,29 @@ CRUD::field('users')->type('select2_multiple');
     - if you choose to use the [`relationship`](#relationship) field type, you can also use [the InlineCreate operation](/docs/{{version}}/crud-operation-inline-create), which will add a [+ Add Item] button next to the dropdown, to let the admin create a User/Role in a modal, without leaving the current Create User/Role form; 
 
 ##### EXTRA: Saving aditional data in the pivot table
-- To be able to save aditional data in the pivot table you should use [`repeatable`](#repeatable) field, but you'll also need to modify your `store()` and `update()` methods to take that into account, and transform the JSON received from the [`repeatable`](#repeatable) field into actual entries in the database (and back); check out [this example here](https://gist.github.com/pxpm/516f55c303235b799ac4e38f1167094e) for a full example on how to do it.        
+Before 4.2 to work with pivot fields developer would need to setup a repeatable field, overwrite the Backpack saving process and create acessors to display the field. **In 4.2 Backpack takes care of most of it**.
+
+Using the same example as above (`User -> Roles`) you should do the following:
+    - setup the pivot fields in your relation definition: 
+```php
+// inside App\Models\User
+public function roles() {
+    return $this->belongsToMany('App\Models\Role')->withPivot('notes', 'some_other_field'); // `notes` and `some_other_field` are aditional fields in the pivot table
+}
+```
+    - setup the field and define the pivot fields:
+```php
+// inside UserCrudController::setupCreateOperation()
+CRUD::field('roles')->pivotFields([['name' => 'notes'], ['name' => 'some_other_field']]); 
+```
+
+And you are done:
+- Repeatable field will be created with a select for the pivot connected entity field
+- Saving process will be taken care by Backpack.
+- We will re-display the field correctly.
+
+- **Aditional configuration**:
+You can add any configuration to the pivot field as you would do in a select field, the only difference is the `wrapper` where you need to specify `pivot_wrapper`, to target the pivot select that Backpack creates.
 
 #### morphOne (1-1 polymorphic relationship)
 
@@ -2363,35 +2411,31 @@ CRUD::field('users')->type('select2_multiple');
     - The User model and the Post model have 1 Video each. 
     - [the `morphOne` relationship should be properly defined](https://laravel.com/docs/8.x/eloquent-relationships#one-to-one-polymorphic-relations) in both the Post/User and Video models;
 
-You should now use the [`repeatable`](#repeatable) field on the Post/User create/update form, to add a `Video` to your models, but you'll also need to modify your `store()` and `update()` methods to take that into account, and transform the JSON received from the [`repeatable`](#repeatable) field into actual entries in the database (and back); check out [this example here](https://gist.github.com/pxpm/c49c4ebb3c8d8af8a5bcce3122622a61) for a full example on how to do it.
+
+Fields shouls be used as if it was an `HasOne` relation, so: 
+```php
+CRUD::field('video.description')->type('ckeditor');
+CRUD::field('video.url');
+```
+
+Backpack will take care of the saving process and deal with the morphable relation.
 
 #### morphMany (1-n polymorphic relationship)
-
+This is in all aspects similar to `HasMany` relation, the difference is that it's stored in a pivot table. 
 - example:
     - Video/Post -> Comment.
-    - The Video model and the Post model can have multiple Comment model but the comment belong to only one of them.
+    - The Video model and the Post model can have multiple Comment model but the comment belongs to only one of them.
     - [the `morphMany` relationship should be properly defined](https://laravel.com/docs/8.x/eloquent-relationships#one-to-many-polymorphic-relations) in both the Post/Video and Comment models;
 
-You should now use the [`repeatable`](#repeatable) field on the Post/Video create/update form, to add one or more `Comment` to your models, but you'll also need to modify your `store()` and `update()` methods to take that into account, and transform the JSON received from the [`repeatable`](#repeatable) field into actual entries in the database (and back); check out [this example here](https://gist.github.com/pxpm/d7709df4e1fac04c0c329a2ad0b35a5b) for a full example on how to do it.
+You can use it as a `selectable` or a `creatable` similar to `HasMany`. Please read `HasMany` documentation on how to setup the fields. 
 
 #### morphToMany (n-n polymorphic relationship)
-
-- example:
+This is in all aspects similar to `BelongsToMany` relation, the difference is that it stores the `morphable` entity in the pivot table 
     - Video/Post -> Tag.
     - The Video model and the Post model can have multiple Tag model and each Tag model can belong to one or more of them.
     - [the `morphToMany` relationship should be properly defined](https://laravel.com/docs/8.x/eloquent-relationships#many-to-many-polymorphic-relations) in both the Post/Video and Tag models;
 
-```php
-CRUD::field('tags'); //will assume to be a relationship field type.
-CRUD::field('tags')->type('select2_multiple')->model('\Backpack\NewsCRUD\app\Models\Tag')->attribute('name');
-```
-
-- notes:
-    - if you choose to use the [`relationship`](#relationship) field type, you can also use [the InlineCreate operation](/docs/{{version}}/crud-operation-inline-create), which will add a [+ Add Item] button next to the dropdown, to let the admin create a User/Role in a modal, without leaving the current Create User/Role form; 
-
-##### EXTRA: Saving aditional data in the pivot table
-
-You should now use the [`repeatable`](#repeatable) field on the Post/Video create/update form, to add one or more `Tag` to your models, but you'll also need to modify your `store()` and `update()` methods to take that into account, and transform the JSON received from the [`repeatable`](#repeatable) field into actual entries in the database (and back); check out [this example here](https://gist.github.com/pxpm/2a45de69d755f673e3fc5fa60b2b0441) for a full example on how to do it.
+Please read the relationship `BelongsToMany` documentation, everything is the same in regards to fields definition and Backpack will take care of the morphable relation saving.
 
 #### hasOneThrough (1-1-1 relationship) and hasManyThrough (1-1-n relationship)
 
