@@ -115,6 +115,13 @@ No changes needed.  // TODO
 
 <a name="step-y" href="#step-y" class="badge badge-warning text-white" style="text-decoration: none;">Step y.</a> If you're using the **Reorder operation**, but have overriden some of its functionality, please take note that the operation itself and its blade file has had a small change, so that the information is now passed as JSON. Take a look at the [changes here](https://github.com/Laravel-Backpack/CRUD/pull/3808/files) and do them in your own custom code too.
 
+<a name="step-y" href="#step-y" class="badge badge-danger text-white" style="text-decoration: none;">Step z.</a> We've change the way you configure the **Show operation** (but if unconfigured, its default behaviour stays the same). If you've ever defined `setupShowOperation()`, you know that it was confusing - we were running `setFromDb()` after everything you had defined, so doing `removeColumn()` was very difficult. In Backpack 4.2 we've fixed this - the operation provides a default `setupShowOperation()`, but if you define one yourself, it this will _override_ the default, so it's up to you to define all columns. In order to upgrade:
+- if you DON'T have a `setupShowOperation()` defined in your CrudController, there's nothing to do, it will work the same for you;
+- if you DO have a `setupShowOperation()` defined in your CrudController:
+    - if you hated the old behaviour, keep `setupShowOperation()` and define all columns you want to show - you're in complete control; you can also just do `$this->setupListOperation()` if you want to use the same columns as there;
+    - if you liked the old behaviour, you can rename your `setupShowOperation()` method to `modifyShowOperation()`, and it will work pretty much the same way; it will be called AFTER all columns are added using `$this->crud->setFromDb()`, but BEFORE any columns are removed using `$this->removeColumnsThatDontBelongInsideShowOperation()`; more info in the [Show operation docs](/docs/{{version}}/crud-operation-show#modifyshowoperation);
+
+
 <a href="assets"></a>
 ### CSS & JS Assets
 
