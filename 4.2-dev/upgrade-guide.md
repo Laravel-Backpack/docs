@@ -86,26 +86,17 @@ No changes needed.  // TODO
 ```
 
 
-<a name="step-12" href="#step-12" class="badge badge-warning text-white" style="text-decoration: none;">Step 13.</a> In your `config/backpack/crud.php`, especially if you've used the `saveAllInputsExcept` functionality, please take note that we've prefixed all system GET/POST parameters with underscore (to differentiate them from actual database columns). Please replace `http_referrer`, `locale`, `current_tab` with `_http_referrer`, `_locale`, `_current_tab`. In most cases those two lines are commented out, but... even so, it'd be good to add an underscore to them, so future you won't have problems. [Take a look at the PR](https://github.com/Laravel-Backpack/CRUD/pull/3955/files) to see the diff, but here's the gist of it:
+<a name="step-12" href="#step-12" class="badge badge-danger text-white" style="text-decoration: none;">Step 14.</a> Operation configurations have been moved from `config/backpack/crud.php`, each to its own file. That way, if an operation config value isn't present, it will fall back to Backpack's default value. To upgrade, please:
+- run `php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag=config` to publish the new config files (you'll find them as `config/backpack/operations/create.php` for example);
+- change the values inside each file to match your values in `config/backpack/crud.php` under `operations`; 
+- in your `config/backpack/crud.php` delete the `operations` array entirely;
+
+
+<a name="step-12" href="#step-12" class="badge badge-warning text-white" style="text-decoration: none;">Step 13.</a> For the Create and Update operations, if you've used the `saveAllInputsExcept` functionality, you might have noticed some hidden parameters were prefixed with underscore, some weren't. Now they're all prefixed, to differentiate them from actual database columns. **In your `config/backpack/operations/create.php` and `config/backpack/operations/update.php`, please replace `http_referrer`, `locale`, `current_tab` with `_http_referrer`, `_locale`, `_current_tab`.** In most cases those two lines are commented out, but... even so, it'd be good to add an underscore to them, so future you won't have problems. [Take a look at the PR](https://github.com/Laravel-Backpack/CRUD/pull/3955/files) to see the diff, but here's the gist of it:
 
 ```diff
-        /*
-         * Create Operation
-         */
-        'create' => [
-                     // ...
--                    // 'saveAllInputsExcept' => ['_token', '_method', 'http_referrer', 'current_tab', 'save_action'],
-+                    // 'saveAllInputsExcept' => ['_token', '_method', '_http_referrer', '_current_tab', '_save_action'],
-
-        // ..
-
-        /*
-         * Update Operation
-         */
-        'update' => [
-                     // ...
--                    // 'saveAllInputsExcept' => ['_token', '_method', 'http_referrer', 'current_tab', 'save_action'],
-+                    // 'saveAllInputsExcept' => ['_token', '_method', '_http_referrer', '_current_tab', '_save_action'],
+-     // 'saveAllInputsExcept' => ['_token', '_method', 'http_referrer', 'current_tab', 'save_action'],
++     // 'saveAllInputsExcept' => ['_token', '_method', '_http_referrer', '_current_tab', '_save_action'],
 ```
 
 <a name="controllers"></a>
