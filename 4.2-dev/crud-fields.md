@@ -989,25 +989,6 @@ Input preview:
 
 <hr>
 
-<a name="page-or-link"></a>
-### page_or_link
-
-Select an existing page from PageManager or an internal or external link. It's used in the MenuManager package, but can be used in any other model just as well. Its definition looks like this:
-```php
-[   // PageOrLink
-    'name'       => ['type', 'link', 'page_id'],
-    'label'      => "Type",
-    'type'       => 'page_or_link',
-    'page_model' => '\Backpack\PageManager\app\Models\Page'
-],
-```
-
-Input preview: 
-
-![CRUD Field - page_or_link](https://backpackforlaravel.com/uploads/docs-4-1/fields/page_or_link.png)
-
-<hr>
-
 <a name="password"></a>
 ### password
 
