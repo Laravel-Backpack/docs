@@ -166,7 +166,7 @@ Alternatively, if you want to keep the old behaviour, for ALL CRUDs, you can go 
 
 <a name="step-y" href="#step-y" class="badge badge-warning text-white" style="text-decoration: none;">Step y.</a> The `page_or_link` field has been moved from `backpack/crud` to `backpack/menucrud` because it made little sense outside it. If you've used the `page_or_link` field anywhere in your CrudControllers:
 - if you have `MenuCRUD` installed: 
-    - bump the NewsCRUD version in your `composer.json` (`"backpack/newscrud": "^4.0.3"`)
+    - bump the MenuCRUD version in your `composer.json` (`"backpack/menucrud": "^3.0.0"`)
     - anywhere you've used the `page_or_link` field, make sure to specify its view_namespace (`'view_namespace' => 'menucrud::fields'`);
 - if you DO NOT have `MenuCRUD` installed;
     -  tell us that this has affected you, in [this PR](https://github.com/Laravel-Backpack/CRUD/pull/3459);
