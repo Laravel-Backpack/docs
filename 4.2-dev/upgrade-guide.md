@@ -99,7 +99,7 @@ No changes needed.  // TODO
 - kept the default behaviour (safest - strip all inputs that don't have fields) if it's undefined or anything other than a closure;
 
 If (and only if) in your `config/backpack/operations/create.php` or `config/backpack/operations/update.php` you've copied `saveAllInputsExcept` as an array (not `null` or `false`), you can now achieve the same thing by doing, for example:
-```php
+```diff
 -    'saveAllInputsExcept' => ['_token', '_method', 'http_referrer', 'current_tab', 'save_action'],
 +    'strippedRequest' => (function ($request) {
 +        return $request->except('_token', '_method', '_http_referrer', '_current_tab', '_save_action');
@@ -114,8 +114,64 @@ But you can also do a lot more, because you have the `$request` in that closure.
 
 <a name="step-y" href="#step-y" class="badge badge-warning text-white" style="text-decoration: none;">Step y.</a> If you're using the **Reorder operation**, but have overriden some of its functionality, please take note that the operation itself and its blade file has had a small change, so that the information is now passed as JSON. Take a look at the [changes here](https://github.com/Laravel-Backpack/CRUD/pull/3808/files) and do them in your own custom code too.
 
+<a name="step-y" href="#step-y" class="badge badge-danger text-white" style="text-decoration: none;">Step z.</a> The default behaviour for the **Show operation**, in Backpack 4.1, has been to guess which columns to show.** You could then create `setupShowOperation()` to add or modify columns, but you couldn't _remove_ columns, because the default logic would add them back. In Backpack 4.2 we've fixed this, by moving default setup logic inside a `setupShowOperation()` method. This means that _if you have a `setupShowOperation()` method in your CrudControllers_, the default behaviour will be _completely overwritten_ - so the columns will no longer be guessed, only what you have inside your own method will be run. **To keep the same behaviour as before (guess columns) but also do stuff _after that_, please rename your `setupShowOperation()` methods to `modifyShowOperation()`.** If it exists, that method will be run _after_ the columns are guessed, but _before_ columns that don't make sense inside Show are removed. More info in the [Show operation docs](/docs/{{version}}/crud-operation-show#modifyshowoperation).
 
-<a name="step-y" href="#step-y" class="badge badge-danger text-white" style="text-decoration: none;">Step z.</a> The default behaviour for the Show operation, in Backpack 4.1, has been to guess which columns to show.** You could then create `setupShowOperation()` to add or modify columns, but you couldn't _remove_ columns, because the default logic would add them back. In Backpack 4.2 we've fixed this, by moving default setup logic inside a `setupShowOperation()` method. This means that _if you have a `setupShowOperation()` method in your CrudControllers_, the default behaviour will be _completely overwritten_ - so the columns will no longer be guessed, only what you have inside your own method will be run. **To keep the same behaviour as before (guess columns) but also do stuff _after that_, please rename your `setupShowOperation()` methods to `modifyShowOperation()`.** If it exists, that method will be run _after_ the columns are guessed, but _before_ columns that don't make sense inside Show are removed. More info in the [Show operation docs](/docs/{{version}}/crud-operation-show#modifyshowoperation).
+<a name="step-y" href="#step-y" class="badge badge-warning text-white" style="text-decoration: none;">Step y.</a> The **Create and Update operations** no longer save the `request()`, they save your `ProductFormRequest` (the one that contains the validation). So... if you've modified the `request()` or `CRUD::getRequest()` in any of your CrudControllers (most likely to add or remove inputs), theose changes will never reach the db. To give you an example, if you've over overwritten the `store()` or `update()` methods to add an input, it might look something like this:
+```php
+use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as traitStore; }
+
+public function store()
+{
+    $this->crud->setOperationSetting('saveAllInputsExcept', ['save_action', 'token', 'http_referrer']);
+    $this->crud->getRequest()->request->add(['updated_by' => backpack_user()->id]);     
+        
+    return $this->traitStore();
+}
+```
+
+That will no longer work. But you can easily change the request inside the `strippedRequest` config:
+
+```php
+public function store()
+{
+    $this->crud->set('strippedRequest', function($request) {
+        $request->add([ 'updated_by' => backpack_user()->id ]);
+        return $request->except(['_save_action', '_token', '_http_referrer']);
+    });
+        
+    return $this->traitStore();
+}
+```
+
+Or better yet, instead of overriding the `store()` or `update()` methods in your ProductCrudController just to add an input, you can now do something much cleaner. You can add that input inside your `ProductRequest`, for example:
+```php
+
+    protected function prepareForValidation()
+    {
+        // add something to the request
+        $this->request->add(['updated_by' => backpack_user()->id]);
+        
+        // by default Backpack saves all inputs that have fields
+        // but instead, let's tell it to save all VALIDATED inputs
+        \CRUD::set('create.strippedRequest', function ($request) {
+            return $request->validated();
+        });
+        \CRUD::set('update.strippedRequest', function ($request) {
+            return $request->validated();
+        });
+    }
+    
+    // TODO: add `updated_by` => 'nullable' to the validation rules
+    // since only attributes that have been validated will now be saved
+
+```
+Alternatively, if you want to keep the old behaviour, for ALL CRUDs, you can go to your `config/backpack/opeartions/create.php` and `config/backpack/opeartions/update.php`. That way, you can keep your old CrudController overrides:
+```php
+    'strippedRequest' => (function ($request) {
+        return CRUD::getRequest()->request->except('_token', '_method', '_http_referrer', '_current_tab', '_save_action');
+    }),
+```
+
 
 <a href="assets"></a>
 ### CSS & JS Assets
