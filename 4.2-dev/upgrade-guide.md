@@ -148,22 +148,13 @@ Or better yet, instead of overriding the `store()` or `update()` methods in your
 
     protected function prepareForValidation()
     {
-        // add something to the request
-        $this->request->add(['updated_by' => backpack_user()->id]);
-        
-        // by default Backpack saves all inputs that have fields
-        // but instead, let's tell it to save all VALIDATED inputs
-        \CRUD::set('create.strippedRequest', function ($request) {
-            return $request->validated();
-        });
-        \CRUD::set('update.strippedRequest', function ($request) {
-            return $request->validated();
+        \CRUD::setOperationSetting('strippedRequest', function ($request) {
+            $input = $request->only(\CRUD::getAllFieldNames());
+            $input['updated_by'] = backpack_user()->id;
+            
+            return $input;
         });
     }
-    
-    // TODO: add `updated_by` => 'nullable' to the validation rules
-    // since only attributes that have been validated will now be saved
-
 ```
 Alternatively, if you want to keep the old behaviour, for ALL CRUDs, you can go to your `config/backpack/opeartions/create.php` and `config/backpack/opeartions/update.php`. That way, you can keep your old CrudController overrides:
 ```php
