@@ -92,12 +92,20 @@ No changes needed.  // TODO
 - in your `config/backpack/crud.php` delete the `operations` array entirely;
 
 
-<a name="step-12" href="#step-12" class="badge badge-warning text-white" style="text-decoration: none;">Step 13.</a> For the Create and Update operations, if you've used the `saveAllInputsExcept` functionality, you might have noticed some hidden parameters were prefixed with underscore, some weren't. Now they're all prefixed, to differentiate them from actual database columns. **In your `config/backpack/operations/create.php` and `config/backpack/operations/update.php`, please replace `http_referrer`, `locale`, `current_tab` with `_http_referrer`, `_locale`, `_current_tab`.** In most cases those two lines are commented out, but... even so, it'd be good to add an underscore to them, so future you won't have problems. [Take a look at the PR](https://github.com/Laravel-Backpack/CRUD/pull/3955/files) to see the diff, but here's the gist of it:
+<a name="step-12" href="#step-12" class="badge badge-warning text-white" style="text-decoration: none;">Step 13.</a> For the Create and Update operations, you were previously able to change what inputs are stripped from the request before saving, by configuring `saveAllInputsExcept` for that operation. We've:
+- moved the configuration to `config/backpack/operations/create.php` & `config/backpack/operations/update.php`;
+- renamed it to `strippedRequest`;
+- expanded the functionality, by requiring you to give a closure instead of an array; 
+- kept the default behaviour (safest - strip all inputs that don't have fields) if it's undefined or anything other than a closure;
 
-```diff
--     // 'saveAllInputsExcept' => ['_token', '_method', 'http_referrer', 'current_tab', 'save_action'],
-+     // 'saveAllInputsExcept' => ['_token', '_method', '_http_referrer', '_current_tab', '_save_action'],
+If (and only if) in your `config/backpack/operations/create.php` or `config/backpack/operations/update.php` you've copied `saveAllInputsExcept` as an array (not `null` or `false`), you can now achieve the same thing by doing, for example:
+```php
+-    'saveAllInputsExcept' => ['_token', '_method', 'http_referrer', 'current_tab', 'save_action'],
++    'strippedRequest' => (function ($request) {
++        return $request->except('_token', '_method', '_http_referrer', '_current_tab', '_save_action');
++    }),
 ```
+But you can also do a lot more, because you have the `$request` in that closure. See more info in PR #[3987](https://github.com/Laravel-Backpack/CRUD/pull/3987). In addition, please notice that previously some hidden parameters were prefixed with underscore, some weren't. Now they're all prefixed, to differentiate them from actual database columns.
 
 <a name="controllers"></a>
 ### CrudControllers
