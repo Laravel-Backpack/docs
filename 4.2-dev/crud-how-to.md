@@ -385,3 +385,43 @@ $this->app->extend('crud', function () {
 ```
 
 Details and implementation [here](https://github.com/Laravel-Backpack/CRUD/pull/1990).
+
+
+
+<a name="overwrite-a-method-on-the-crud-panel-object"></a>
+### Add an Uneditable Input inside Create or Update Operation 
+
+You might want to add a new attribute to the Model that gets saved. Let's say you want to add an `updated_by` indicator to the Update operation, containing the ID of the user currently logged in (`backpack_user()->id`).
+
+**Option 1.** Sure, in your `ProductCrudController::setupUpdateOperation()` can do `CRUD::field('updated_by')->type('hidden')->value(backpack_user()->id);`, but because that hidden field is inside the HTML, it opens up the possiblity that a malicious actor will edit the value of the input, in the browser. 
+
+
+**Option 2.** You can change the `strippedRequest` closure inside your `ProductCrudController::setup()`:
+```php
+public function setupUpdateOperation() 
+{
+    CRUD::setOperationSetting('strippedRequest', function ($request) {
+        // keep the recommended Backpack stripping (remove anything that doesn't have a field)
+        // but add 'updated_by' too
+        $input = $request->only(CRUD::getAllFieldNames());
+        $input['updated_by'] = backpack_user()->id;
+
+        return $input;
+    });
+}
+```
+
+**Option 3.** You can change the same `strippedRequest` closure inside the `ProductFormRequest` that contains your validation:
+```php
+    protected function prepareForValidation()
+    {
+        \CRUD::set('update.strippedRequest', function ($request) {
+            // keep the recommended Backpack stripping (remove anything that doesn't have a field)
+            // but add 'updated_by' too
+            $input = $request->only(\CRUD::getAllFieldNames());
+            $input['updated_by'] = backpack_user()->id;
+
+            return $input;
+        });
+    }
+```
