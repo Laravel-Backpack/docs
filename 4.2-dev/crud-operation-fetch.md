@@ -16,9 +16,7 @@ None.
 <a name="how-to-use"></a>
 ## How to Use
 
-In order to enable this operation in your CrudController, you need to:
-1. Use the ```FetchOperation``` trait;
-2. Add a ```fetchEntityName()``` method, that will respond to the AJAX requests (following this  naming convention);
+In order to enable this operation, in your CrudController you need to **use the ```FetchOperation``` trait and add a new method** that responds to the AJAX requests (following the naming convention ```fetchEntityName()```). For example, for a `Tag` model you'd do:
 
 ```php
     use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
@@ -56,19 +54,17 @@ class ProductCrudController extends CrudController
 }
 ```
 
-3. A route following has been created automatically to point to the ```fetchTag``` method you created. You now point your AJAX select to this route, using ```backpack_url('your-main-entity/fetch/tag')``` .
+You can now point your AJAX select to this route, which will be ```backpack_url('your-main-entity/fetch/tag')``` .
 
 
 <a name="how-it-works"></a>
 ## How It Works
 
-Based on the fact that the ```fetchTag()``` method exist, the Fetch operation will create a ```/product/fetch/tag``` POST route, which points to ```fetchTag()```. Inside ```fetchTag()``` we call ```fetch()```, that responds with entries in the format ```select2``` needs.
+Based on the fact that the ```fetchTag()``` method exists, the Fetch operation will create a ```/product/fetch/tag``` POST route, which points to ```fetchTag()```. Inside ```fetchTag()``` we call ```fetch()```, that responds with entries in the format ```select2``` needs.
 
-**Preventing FetchOperation of guessing the searchable attributes**
+**Preventing FetchOperation from guessing the searchable attributes**
 
-If not specified `searchable_attributes` will be automatically infered from model dabatase columns. To prevent this behaviour you can setup an empty `searchable_attributes` array.
-
-That said, you can use something like below:
+If not specified `searchable_attributes` will be automatically infered from model database columns. To prevent this behaviour you can setup an empty `searchable_attributes` array. For example:
 
 ```php
 public function fetchUser() {
@@ -91,7 +87,7 @@ public function fetchUser() {
 ## Using FetchOperation with `select2_ajax` filter
 
 The FetchOperation can also be used as the source URL for the `select2_ajax` filter. To do that, we need to:
-- change the AJAX method from `GET` (the default for this filter) to `POST` (the default for the Fetch operation);
+- change the `select2_ajax` filter method from `GET` (its default) to `POST` (what FetchOperation uses);
 - tell the filter what attribute we want to show to the user; 
 
 ```
