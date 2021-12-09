@@ -110,6 +110,8 @@ But you can also do a lot more, because you have the `$request` in that closure.
 <a name="controllers"></a>
 ### CrudControllers
 
+<a name="step-x" href="#step-x" class="badge badge-warning text-white" style="text-decoration: none;">Step x.</a> We've improved the guessing of column types, by also taking into consideration your Model casts ([PR here](https://github.com/Laravel-Backpack/CRUD/pull/3618)). If you have places in your CrudControllers where you have NOT defined a column type (and just assumed it'll probably be `text`), but that item is cast as `date`, `json`, `array` etc... Backpack will now try to show a more appropriate column type for it, instead of `text`. This is unlikely to affect you negatively, but... it's not a terrible idea to go through all your ListOperation and ShowOperation views, to make sure you're happy with what's displayed.
+
 <a name="step-x" href="#step-x" class="badge badge-danger text-white" style="text-decoration: none;">Step x.</a> We have removed the **`simplemde` field**, since it the JS library hasn't received any updates since 2016. However, there is a drop-in replacement called `easymde` which is well maintained. If you're using the `simplemde` field anywhere in your project, please use `easymde` instead. A simple find & replace should do.
 
 <a name="step-y" href="#step-y" class="badge badge-warning text-white" style="text-decoration: none;">Step y.</a> If you're using the **Reorder operation**, but have overriden some of its functionality, please take note that the operation itself and its blade file has had a small change, so that the information is now passed as JSON. Take a look at the [changes here](https://github.com/Laravel-Backpack/CRUD/pull/3808/files) and do them in your own custom code too.
