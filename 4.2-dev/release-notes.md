@@ -2,7 +2,7 @@
 
 ---
 
-**Launch date:** (expected) end of Nov, 2021
+**Launch date:** (expected) end of Dec, 2021
 
 Anybody with a 4.0 or 4.1 license can install and use 4.2, but in order to get the new features in a project that currently runs 4.1, you need to [follow the upgrade guide](/docs/{{version}}/upgrade-guide). Don't get fooled by the fact that we kept the 4.x.x prefix - that's just to show that **Backpack 4.2 is a FREE upgrade from 4.1**. But **Backpack 4.2 is a MAJOR new version**, with 12 months of work put into it, and major improvements under-the-hood. It is the current and recommended version of Backpack and it's got so many cool new things that we couldn't fit them all inside this page.
 
