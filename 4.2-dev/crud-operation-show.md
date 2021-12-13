@@ -38,7 +38,7 @@ This will:
 - make a Preview button appear inside the List view; 
 - allow access to the show view;
 
-By default, the operation tries to show all db columns in the database, but _remove_ any columns and buttons that it thinks you _wouldn't want_ shown. Which works great for simple Eloquent Models, it'll _just work_. But for more complex Models, it's always preferrable to define your own columns, using the same syntax you're using when defining the ListOperation.
+By default, the operation tries to show all db columns in the database, but _remove_ any columns and buttons that it thinks you _wouldn't want_ shown. Which works great for simple Eloquent Models, it'll _just work_. But for more complex Models, it might be preferrable to define your own columns, using the same syntax you're using when defining the ListOperation.
 
 
 <a name="configuring"></a>
