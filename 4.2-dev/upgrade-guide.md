@@ -24,7 +24,7 @@ Please make sure your project respects the requirements below, before you start 
 <a name="upgraade-steps"></a>
 ## Upgrade Steps
 
-The upgrade guide might seem long and intimidating, but really, it's an upgrade. It's only long because we've tried to document ALL breaking changes, no matter how small. But **most projects will only be affected by a few of these breaking changes**, and the changes needed from your are very small. Please **go thorough all steps**, to ensure a smooth upgrade process.
+The upgrade guide might seem long and intimidating, but really, it's an upgrade. It's only long because we've tried to document ALL breaking changes, no matter how small. But **most projects will only be affected by a few of these breaking changes**, and the changes needed from your are very small. Please **go thorough all steps**, to ensure a smooth upgrade process. The steps are color-coded by how likely we think that step is needed for your project: <span class="badge badge-info text-white" style="text-decoration: none;">High</span>, <span class="badge badge-warning text-white" style="text-decoration: none;">Medium</span> and <span class="badge badge-secondary-soft" style="text-decoration: none;">Low</span>.
 
 <br>
 
@@ -166,7 +166,9 @@ Starting with Backpack 4.2, the operation will do its "_automatic setup_" inside
 
 ----
 
-<a name="step-14" href="#step-14" class="badge badge-warning text-white" style="text-decoration: none;">Step 14.</a> The **Create and Update operations** no longer save the `request()`, they save your `ProductFormRequest` (the one that contains the validation). So... if you've modified the `request()` or `CRUD::getRequest()` in any of your CrudControllers (most likely to add or remove inputs), those changes will never reach the db. To give you an example, if you've over overwritten the `store()` or `update()` methods to add an input, it might look something like this:
+<a name="step-14" href="#step-14" class="badge badge-warning text-white" style="text-decoration: none;">Step 14.</a> The **Create and Update operations** no longer save the `request()`, they save your `ProductFormRequest` (the one that contains the validation). If you have NOT modified the `request()` or `CRUD::getRequest()` in any of your CrudControllers, you will not be affected by this, move on.
+
+However, if you _have_ modified the request (most likely to add or remove inputs), those changes will never reach the db. To give you an example, if you've over overridden the `store()` or `update()` methods to add an input, it might look something like this:
 ```php
 use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as traitStore; }
 
@@ -272,7 +274,7 @@ Alternatively... if you absolutely _hate_ this new behaviour and want your previ
 <a name="cache"></a>
 ### Cache
 
-<a name="step-18" href="#step-18" class="badge badge-warning text-white" style="text-decoration: none;">Step 18.</a> Clear your app's cache:
+<a name="step-21" href="#step-21" class="badge badge-info text-white" style="text-decoration: none;">Step 21.</a> Clear your app's cache:
 ```
 php artisan config:clear
 php artisan cache:clear

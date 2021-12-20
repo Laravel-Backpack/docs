@@ -22,7 +22,9 @@ For large forms, it's often smart to ask the user if they really want to lose th
 
 ### Fields
 
-// TODO
+#### Simple validation for `repeatable` entries
+
+Previously, in order to validate the contents of a subfield in `repeatable`, you had to write your own custom validation, which could take you quite some time. Now, you can just do `'testimonial.*.name' => 'required|min:5|max:256'` and use [Laravel's nested array validation](https://laravel.com/docs/8.x/validation#validating-nested-array-input).
 
 <hr> 
 
@@ -58,12 +60,19 @@ Backpack now ships with a new `@loadOnce()` directive, which makes sure that pie
 
 Of course, Backpack now uses this directive in all views that could get repeatedly loaded, so for example if you're loading in a single form a `select2`, a `select2_multiple` and a `select2_from_ajax`... you won't be getting the assets three times... but once.
 
+#### Increased Default Security
+
+Starting with v4.2, Backpack will throttle password request attempts. This will prevent malicious actors from using the "reset password" functionality of your admin panel to send unsolicited emails.
+
+In addition, most column types now escape the output by default. This will better prevent your admins from XSS attacks, in case where you do not trust the information in the database to not contain javascript payloads.
+
 <a name="removed"></a>
 ## Removed
 
 - Support for Laravel 6;
 - Support for Laravel 7;
 - Support for PHP lower than 7.3 (since Laravel 8 does not support them);
+- `simplemde` field, in favor of `easymde`;
 
 ---
 
