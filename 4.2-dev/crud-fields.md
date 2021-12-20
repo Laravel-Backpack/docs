@@ -433,6 +433,7 @@ Show a list of checkboxes, for the user to check one or more of them.
     'attribute' => 'name',
     'model'     => "Backpack\PermissionManager\app\Models\Role",
     'pivot'     => true,
+    // 'number_of_columns' => 3,
 ],
 ```
 
