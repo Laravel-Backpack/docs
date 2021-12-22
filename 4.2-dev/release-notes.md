@@ -18,6 +18,57 @@ But what Backpack 4.2 brings to the table and why you should upgrade from [Backp
 
 For large forms, it's often smart to ask the user if they really want to lose their form changes, before they leave the page. That's exactly what `CRUD::set('warnBeforeLeaving', true)` will do, just call it in your `setupCreateOperation()` or `setupUpdateOperation()`.
 
+
+#### Quickly validate forms inside CrudController, no FormRequest needed
+
+Previously, you could validate the Create & Update forms in one way - by telling Backpack which FormRequest holds the validation rules: `CRUD::setValidation(TagRequest::class)`. Which works very well for large models. But for very simple models... like Tags... do you really _need_ a `TagRequest` to say the name is required? If you've found that inconvenient, we have good news:
+
+```php
+protected function setupCreateOperation()
+{
+    // instead of these (which still work, btw)
+    $this->crud->setValidation(TagRequest::class);
+    $this->crud->setValidation('App\Http\Requests\TagRequest');
+
+    // you can now also do this
+    $this->crud->setValidation([
+        'name' => 'required|min:2',
+    ]);
+
+    // you even define custom validation messages, using the second parameter
+    $rules = ['name' => 'required|min:2'];
+    $messages = [
+        'name.required' => 'You gotta give it a name, man.',
+        'name.min' => 'You came up short. Try more than 2 characters.',
+    ];
+    $this->crud->setValidation($rules, $messages);
+}
+```
+
+#### Define validation rules directly on fields
+
+In addition to the array validation above... Backpack 4.2 has one more trick up its sleeve. You can now also define the validation rules and vlidation messages right when you define the field. No more `FormRequest`, no more defining the validation rules separately:
+
+```php
+protected function setupCreateOperation()
+{
+    $this->crud->addField([
+        'name' => 'content',
+        'label' => 'Content',
+        'type' => 'ckeditor',
+        'placeholder' => 'Your text here',
+        'validationRules' => 'required|min:10',
+        'validationMessages' => [
+            'required' => 'You gotta write smth man.',
+            'min' => 'More than 10 characters, bro. Wtf... You can do this!',
+        ]
+    ]);
+    $this->crud->setValidation(); // This MUST be called AFTER the fields are defined, never before.
+}
+```
+
+In hosrt, just call `CRUD::setValidation()` without passing anything and it will validate all the fields that have `validationRules` defined. But be careful - you have to call `setValidation()` _after_ you've defined your fields.
+
 <hr>
 
 ### Fields
