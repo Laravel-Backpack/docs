@@ -67,7 +67,7 @@ protected function setupCreateOperation()
 }
 ```
 
-In hosrt, just call `CRUD::setValidation()` without passing anything and it will validate all the fields that have `validationRules` defined. But be careful - you have to call `setValidation()` _after_ you've defined your fields.
+In short, just call `CRUD::setValidation()` without passing anything and it will validate all the fields that have `validationRules` defined. But be careful - you have to call `setValidation()` _after_ you've defined your fields.
 
 <hr>
 
