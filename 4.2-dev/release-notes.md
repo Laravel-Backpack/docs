@@ -14,7 +14,7 @@ But what Backpack 4.2 brings to the table and why you should upgrade from [Backp
 
 ### Operations
 
-#### `warnBeforeLeaving` inside Create & Update
+#### Warning before leaving the Create or Update form
 
 For large forms, it's often smart to ask the user if they really want to lose their form changes, before they leave the page. That's exactly what `CRUD::set('warnBeforeLeaving', true)` will do, just call it in your `setupCreateOperation()` or `setupUpdateOperation()`.
 
