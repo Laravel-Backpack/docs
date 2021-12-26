@@ -45,6 +45,41 @@ protected function setupCreateOperation()
 }
 ```
 
+#### Use Model Events inside CrudControllers
+
+You can now define closures to be run when Model Events get triggered, right inside your CrudController:
+
+```php
+public function setup() {
+    // this will get run for all operations that trigger the "deleting" model event
+    // by default, that's the Delete operation
+    Monster::deleting(function ($entry) {
+        // TODO: delete that entry's files from the disk
+    });
+
+    // this will get run on all operations that trigger the "saving" model event
+    // by default, that's the Create and Update operations
+    Monster::saving(function ($entry) {
+        // TODO: change one value to another or something
+    });
+}
+
+public function setupCreateOperation()
+{
+    // this will only get triggered inside the Create operation because
+    // that's where we've defined it
+    Monster::creating(function ($entry) {
+        // TODO: something to the entry
+    });
+}
+```
+
+This is particularly useful if you've ever overriden your `create()` or `store()` methods in your CrudController. Now... you don't really have to do that any more, you can do stuff directy on the model, upon an event. But it's not limited to that use case, since it supports [all Eloquent events](https://laravel.com/docs/master/eloquent#events).
+
+<hr>
+
+### Fields
+
 #### Define validation rules directly on fields
 
 In addition to the array validation above... Backpack 4.2 has one more trick up its sleeve. You can now also define the validation rules and vlidation messages right when you define the field. No more `FormRequest`, no more defining the validation rules separately:
@@ -63,19 +98,62 @@ protected function setupCreateOperation()
             'min' => 'More than 10 characters, bro. Wtf... You can do this!',
         ]
     ]);
-    $this->crud->setValidation(); // This MUST be called AFTER the fields are defined, never before.
+    // This MUST be called AFTER the fields are defined, never before.
+    $this->crud->setValidation();
 }
 ```
 
 In short, just call `CRUD::setValidation()` without passing anything and it will validate all the fields that have `validationRules` defined. But be careful - you have to call `setValidation()` _after_ you've defined your fields.
 
-<hr>
 
-### Fields
+#### Define Model Events directly on fields
+
+Previously, if you wanted to change the value of a field when retrieving it or storing in the database, Backpack encouraged you to use Accessors and Mutators. You can still do that, they're stock Laravel features and they'll work fine. But sometimes... you might not want to change the Model itself.
+
+Now, you can define closures to run when standard Eloquent events are triggered, right on your fields:
+
+```php
+// using the ARRAY SYNTAX, define an array of events and closures
+CRUD::addField([
+    'name' => 'name',
+    'events' => [
+        'saving' => function ($entry) {
+            $entry->name = strtoupper($entry->name);
+        },
+    ],
+]);
+
+// using the FLUENT SYNTAX, you can define the same array
+CRUD::field('name')->events([
+    'saving' => function ($entry) {
+        $entry->name = strtoupper($entry->name);
+    },
+]);
+
+// BUT you can also use the convenience method "on" to define just ONE event
+CRUD::field('name')->on('saving', function ($entry) {
+    $entry->name = strtoupper($entry->name);
+});
+```
+
+It supports [all Eloquent events](https://laravel.com/docs/master/eloquent#events), but... the ones that make sense are just: ~~`retrieved`~~, `creating`, `created`, `updating`, `updated`, `saving`, `saved`, ~~`deleting`~~, ~~`deleted`~~, ~~`restoring`~~, ~~`restored`~~, and ~~`replicating`~~, because those are the events that actually take place inside the Create and Update operations.
+
+We think you'll find this particularly useful for the `image`, `upload` and `upload_multiple` fields. Previously, they required you to create Mutators for them to work. Which meant you had to go to the Model to do that. But now... you can just do that in your CrudController:
+
+```php
+CRUD::field('attachment')->on('saving', function ($entry) {
+    $value = request()->file('upload');
+
+    if (!is_null($value)) {
+        $entry->uploadFileToDisk($value, 'upload', 'public', 'uploads/monsters/upload_field');
+    }
+});
+```
 
 #### Simple validation for `repeatable` entries
 
 Previously, in order to validate the contents of a subfield in `repeatable`, you had to write your own custom validation, which could take you quite some time. Now, you can just do `'testimonial.*.name' => 'required|min:5|max:256'` and use [Laravel's nested array validation](https://laravel.com/docs/8.x/validation#validating-nested-array-input).
+
 
 <hr> 
 

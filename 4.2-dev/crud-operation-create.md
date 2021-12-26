@@ -155,7 +155,65 @@ You must then call `setValidation()` without a parameter, and Backpack will go t
 <a name="callbacks"></a>
 ### Callbacks
 
-Developers coming from GroceryCRUD or other CRUD systems will be looking for callbacks to run before_insert, before_update, after_insert, after_update. **There are no callbacks in Backpack**. The store code is inside a trait, so you can easily overwrite it:
+If you're coming from other CRUD systems (like GroceryCRUD) you might be looking for callbacks to run "before_insert", "before_update", "after_insert", "after_update". **There are no callbacks in Backpack**, because... they're not needed. There are plenty of other ways to do things before/after an entry is created.
+
+#### Use Events in your `setup()` method
+
+Laravel already triggers [multiple events](https://laravel.com/docs/master/eloquent#events) in an entry's lifecycle. Those also include:
+- `creating` and `created`, which are triggered by the Create operation;
+- `saving` and `saved`, which are triggered by both the Create and the Update operations;
+
+So if you want to do something to a `Product` entry _before_ it's created, you can easily do that:
+```php
+public function setupCreateOperation()
+{
+
+	// ...
+
+	Product::creating(function($entry) {
+		$entry->author_id = backpack_user()->id;
+	});
+}
+```
+
+Take a closer look at [Eloquent events](https://laravel.com/docs/master/eloquent#events) if you're not familiar with them, they're really _really_ powerful once you understand them. Please note that **these events will only get registered when the function gets called**, so if you define them in your `CrudController`, then:
+- they will NOT run when an entry is changed outside that CrudController;
+- if you want to expand the scope to cover both the `Create` and `Update` operations, you can easily do that, for example by using the `saving` and `saved` events, and moving the event-calling to your main `setup()` method;
+
+#### Use events in your field definition
+
+You can tell a field to do something to the entry when that field gets saved to the database. Rephrased, you can define standard [Eloquent events](https://laravel.com/docs/master/eloquent#events) directly on fields. For example:
+
+```php
+// FLUENT syntax - use the convenience method "on" to define just ONE event
+CRUD::field('name')->on('saving', function ($entry) {
+    $entry->author_id = backpack_user()->id;
+});
+
+// FLUENT SYNTAX - you can define multiple events in one go
+CRUD::field('name')->events([
+    'saving' => function ($entry) {
+	    $entry->author_id = backpack_user()->id;
+    },
+    'saved' => function ($entry) {
+	    // TODO: upload some file
+    },
+]);
+
+// using the ARRAY SYNTAX, define an array of events and closures
+CRUD::addField([
+    'name' => 'name',
+    'events' => [
+        'saving' => function ($entry) {
+		    $entry->author_id = backpack_user()->id;
+        },
+    ],
+]);
+```
+
+#### Override the `store()` method
+
+The store code is inside a trait, so you can easily override it, if you want:
 
 ```php
 <?php
