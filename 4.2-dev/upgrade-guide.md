@@ -71,7 +71,7 @@ The upgrade guide might seem long and intimidating, but really, it's an upgrade.
 <a name="form-requests"></a>
 ### Form Requests
 
-<a name="step-5" href="#step-5" class="badge badge-warning text-white" style="text-decoration: none;">Step 5.</a> **For `repeatable` fields, you no longer have to create custom validation logic. You can now use Laravel's [nosted array validation](https://laravel.com/docs/validation#validating-nested-array-input).** If you've used a `repeatable` in your CRUDs and validated it in your FormRequest:
+<a name="step-5" href="#step-5" class="badge badge-warning text-white" style="text-decoration: none;">Step 5.</a> **For `repeatable` fields, you no longer have to create custom validation logic. You can now use Laravel's [nested array validation](https://laravel.com/docs/validation#validating-nested-array-input).** If you've used a `repeatable` in your CRUDs and validated it in your FormRequest:
 - you can keep your custom validation logic, but make sure you no longer `json_decode()` the value in the input; if you've used our validation example, that means instead of `$fieldGroups = json_decode($value);` you should do `$fieldGroups = is_array($value) ? $value : [];`;
 - you can rewrite that validation in a cleaner and more concise way, using [Laravel's nested array input validation rules](https://laravel.com/docs/validation#validating-nested-array-input); for example, you can do `'testimonial.*.name' => 'required|min:5|max:256'` to validate all `name` subfields inside a repeatable `testimonial`;
 
