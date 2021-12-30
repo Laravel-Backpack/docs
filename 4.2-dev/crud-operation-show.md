@@ -5,7 +5,7 @@
 <a name="about"></a>
 ## About
 
-This CRUD operation allows your admins to preview an entry. When enabled, it will add a "Preview" button in the ListEntries view, that points to a show page:
+This CRUD operation allows your admins to preview an entry. When enabled, it will add a "Preview" button in the ListEntries view, that points to a show page. By default, it will show all attributes for that model:
 
 ![Backpack CRUD Show Operation](https://backpackforlaravel.com/uploads/docs-4-0/operations/show.png)
 
@@ -14,7 +14,7 @@ In case your entity is translatable, it will show a multi-language dropdown, jus
 <a name="how-it-works"></a>
 ## How it Works
 
-The ```/entity-name/{id}/show``` route points to the ```show()``` method in your EntityCrudController. Inside this method, it uses ```setFromDb()``` to try to magically figure out all attributes you would like shown for this Model, and shows them using [Column types](/docs/{{version}}/crud-columns) inside ```show.blade.php```.
+The ```/entity-name/{id}/show``` route points to the ```show()``` method in your EntityCrudController, which shows all columns that have been set up using [column types](/docs/{{version}}/crud-columns), by showing a ```show.blade.php``` blade file. 
 
 <a name="enabling"></a>
 ## How to Use
@@ -38,17 +38,38 @@ This will:
 - make a Preview button appear inside the List view; 
 - allow access to the show view;
 
-By default, the operation tries to guess what column types to show for each column in the database, using ```setFromDb()```. But it only works for simple column types. Most likely, you'll need to manually define the more complicated column types. You should manually define columns inside the ```setupShowOperation()``` method - which gets called automatically when the Show operation is being performed. For example:
+By default, the operation tries to show all db columns in the database, but _remove_ any columns and buttons that it thinks you _wouldn't want_ shown. Which works great for simple Eloquent Models, it'll _just work_. But for more complex Models, it might be preferrable to define your own columns, using the same syntax you're using when defining the ListOperation.
+
+
+<a name="configuring"></a>
+## How to Configure
+
+### setupShowOperation()
+
+You can manually define columns inside the ```setupShowOperation()``` method - thereby stopping the default "guessing" and "removing" of columns - you'll start from a blank slate and be in complete control of what columns are shown. For example:
 
 ```php
+    // if you just want to show the same columns as inside ListOperation
     protected function setupShowOperation()
     {
-        // by default the Show operation will try to show all columns in the db table,
-        // but we can easily take over, and have full control of what columns are shown,
-        // by changing this config for the Show operation 
-        $this->crud->set('show.setFromDb', false);
+        $this->setupListOperation();
+    }
+```
 
-        // example logic
+But you can also do both - let Backpack guess columns, and do stuff before or after that guessing, by calling the `autoSetupShowOperation()` method wherever you want inside your `setupShowOperation()`:
+
+```php
+    // show whatever you want
+    protected function setupShowOperation()
+    {
+        // MAYBE: do stuff before the autosetup
+        
+        // automatically add the columns
+        $this->autoSetupShowOperation();
+    
+        // MAYBE: do stuff after the autosetup
+        
+        // for example, let's add some new columns
         $this->crud->addColumn([
             'name' => 'table',
             'label' => 'Table',
@@ -69,14 +90,9 @@ By default, the operation tries to guess what column types to show for each colu
                 'price' => 'Price',
             ],
         ]);
-        $this->crud->addColumn('text');
-        // $this->crud->removeColumn('date');
-        // $this->crud->removeColumn('extras');
         
-        // Note: if you HAVEN'T set show.setFromDb to false, the removeColumn() calls won't work
-        // because setFromDb() is called AFTER setupShowOperation(); we know this is not intuitive at all
-        // and we plan to change behaviour in the next version; see this Github issue for more details
-        // https://github.com/Laravel-Backpack/CRUD/issues/3108
+        // or maybe remove a column
+        $this->crud->removeColumn('text');
     }
 ```
 

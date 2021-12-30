@@ -433,6 +433,7 @@ Show a list of checkboxes, for the user to check one or more of them.
     'attribute' => 'name',
     'model'     => "Backpack\PermissionManager\app\Models\Role",
     'pivot'     => true,
+    // 'number_of_columns' => 3,
 ],
 ```
 
@@ -987,25 +988,6 @@ Shows an input type=number to the user, with optional prefix and suffix:
 Input preview: 
 
 ![CRUD Field - number](https://backpackforlaravel.com/uploads/docs-4-1/fields/number.png)
-
-<hr>
-
-<a name="page-or-link"></a>
-### page_or_link
-
-Select an existing page from PageManager or an internal or external link. It's used in the MenuManager package, but can be used in any other model just as well. Its definition looks like this:
-```php
-[   // PageOrLink
-    'name'       => ['type', 'link', 'page_id'],
-    'label'      => "Type",
-    'type'       => 'page_or_link',
-    'page_model' => '\Backpack\PageManager\app\Models\Page'
-],
-```
-
-Input preview: 
-
-![CRUD Field - page_or_link](https://backpackforlaravel.com/uploads/docs-4-1/fields/page_or_link.png)
 
 <hr>
 

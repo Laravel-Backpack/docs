@@ -76,10 +76,157 @@ CrudController is a RESTful controller, so the ```Update``` operation uses two r
 
 The ```edit()``` method will show all the fields you've defined for this operation using the [Fields API](/docs/{{version}}/crud-fields#fields-api), then upon Save the ```update()``` method will first check the validation from the typehinted FormRequest, then create the entry using the Eloquent model. Only attributes that have a field type added and are ```$fillable``` on the model will actually be updated in the database.
 
-<a name="callbacks"></a>
-## Callbacks
 
-Developers coming from GroceryCRUD or other CRUD systems will be looking for callbacks to run before_insert, before_update, after_insert, after_update. **There are no callbacks in Backpack**. The store code is inside a trait, so you can easily overwrite it:
+<a name="advanced-features-and-techniques"></a>
+## Advanced Features and Techniques
+
+<a name="validation"></a>
+### Validation
+
+There are three ways you can define the [validation rules](https://laravel.com/docs/validation#available-validation-rules) for your fields:
+
+#### Validating fields using FormRequests
+
+When you generate a CrudController, you'll notice a [Laravel FormRequest](https://laravel.com/docs/validation#form-request-validation) has also been generated, and that FormRequest is mentioned as the source of your validation rules:
+```php
+protected function setupUpdateOperation()
+{
+    $this->crud->setValidation(StoreRequest::class);
+}
+```
+
+This works particularly well for bigger models, because you can mention a lot of rules, messages and attributes in your `FormRequest` and it will not increase the size of your `CrudController`.
+
+**Differences between the Create and Update validations?** Then create a separate request file for each operation and instruct your EntityCrudController to use those files:
+
+```php
+use App\Http\Requests\CreateTagRequest as StoreRequest;
+use App\Http\Requests\UpdateTagRequest as UpdateRequest;
+
+// ...
+
+public function setupCreateOperation()
+{
+    $this->crud->setValidation(CreateRequest::class);
+}
+
+public function setupUpdateOperation()
+{
+    $this->crud->setValidation(UpdateRequest::class);
+}
+```
+
+#### Validating fields using a rules array
+
+For smaller models (with just a few validation rules), creating an entire FormRequest file to hold them might be overkill. If you prefer, you can pass an array of [validation rules](https://laravel.com/docs/validation#available-validation-rules) to the same `setValidation()` method (with an optional second parameter for the validation messages):
+
+```php
+protected function setupUpdateOperation()
+{
+    $this->crud->setValidation([
+        'name' => 'required|min:2',
+    ]);
+
+    // or maybe
+    $rules = ['name' => 'required|min:2'];
+    $messages = [
+        'name.required' => 'You gotta give it a name, man.',
+        'name.min' => 'You came up short. Try more than 2 characters.',
+    ];
+    $this->crud->setValidation($rules, $messages);
+}
+```
+
+This is more convenient for small and medium models. Plus, it's very easy to read.
+
+#### Validating fields using field attributes
+
+Another good option for small & medium models is to define the [validation rules](https://laravel.com/docs/validation#available-validation-rules) directly on your fields:
+
+```php
+protected function setupUpdateOperation()
+{
+    $this->crud->addField([
+        'name' => 'content',
+        'label' => 'Content',
+        'type' => 'ckeditor',
+        'placeholder' => 'Your textarea text here',
+        'validationRules' => 'required|min:10',
+        'validationMessages' => [
+            'required' => 'You gotta write smth man.',
+            'min' => 'More than 10 characters, bro. Wtf... You can do this!',
+        ]
+    ]);
+    // CAREFUL! This MUST be called AFTER the fields are defined, NEVER BEFORE
+    $this->crud->setValidation();
+}
+```
+
+You must then call `setValidation()` without a parameter, and Backpack will go through all defined fields, get their `validationRules` and validate them. It is VERY IMPORTANT to call `setValidation()` _after_ you've defined the fields! Otherwise Backpack won't find any `validationRules`.
+
+<a name="callbacks"></a>
+### Callbacks
+
+Developers coming other CRUD systems (like GroceryCRUD) will be looking for callbacks to run "before_insert", "before_update", "after_insert", "after_update". **There are no callbacks in Backpack**, because... they're not needed. There are plenty of other ways to do things before/after an entry is updated.
+
+
+#### Use Events in your `setup()` method
+
+Laravel already triggers [multiple events](https://laravel.com/docs/master/eloquent#events) in an entry's lifecycle. Those also include:
+- `updating` and `updated`, which are triggered by the Update operation;
+- `saving` and `saved`, which are triggered by both the Create and the Update operations;
+
+So if you want to do something to a `Product` entry _before_ it's updated, you can easily do that:
+```php
+public function setupUpdateOperation()
+{
+
+    // ...
+
+    Product::updating(function($entry) {
+        $entry->last_edited_by = backpack_user()->id;
+    });
+}
+```
+
+Take a closer look at [Eloquent events](https://laravel.com/docs/master/eloquent#events) if you're not familiar with them, they're really _really_ powerful once you understand them. Please note that **these events will only get registered when the function gets called**, so if you define them in your `CrudController`, then:
+- they will NOT run when an entry is changed outside that CrudController;
+- if you want to expand the scope to cover both the `Create` and `Update` operations, you can easily do that, for example by using the `saving` and `saved` events, and moving the event-calling to your main `setup()` method;
+
+#### Use events in your field definition
+
+You can tell a field to do something to the entry when that field gets saved to the database. Rephrased, you can define standard [Eloquent events](https://laravel.com/docs/master/eloquent#events) directly on fields. For example:
+
+```php
+// FLUENT syntax - use the convenience method "on" to define just ONE event
+CRUD::field('name')->on('updating', function ($entry) {
+    $entry->last_edited_by = backpack_user()->id;
+});
+
+// FLUENT SYNTAX - you can define multiple events in one go
+CRUD::field('name')->events([
+    'updating' => function ($entry) {
+        $entry->last_edited_by = backpack_user()->id;
+    },
+    'saved' => function ($entry) {
+        // TODO: upload some file
+    },
+]);
+
+// using the ARRAY SYNTAX, define an array of events and closures
+CRUD::addField([
+    'name' => 'name',
+    'events' => [
+        'updating' => function ($entry) {
+            $entry->author_id = backpack_user()->id;
+        },
+    ],
+]);
+```
+
+#### Override the `update()` method
+
+The store code is inside a trait, so you can easily overwrite it:
 
 ```php
 <?php
@@ -128,7 +275,7 @@ class ProductCrudController extends CrudController
 >But before you do that, ask yourself - **_is this something that should be done when an entry is added/updated/deleted from the application, too_**? Not just the admin admin? If so, a better place for it would be the Model. Remember your Model is a pure Eloquent Model, so the cleanest way might be to use [Eloquent Event Observers](https://laravel.com/docs/5.5/eloquent#events) or [accessors and mutators](https://laravel.com/docs/master/eloquent-mutators#accessors-and-mutators).
 
 <a name="translatable-models"></a>
-## Translatable models and multi-language CRUDs
+### Translatable models and multi-language CRUDs
 
 ![CRUD Update Operation](https://backpackforlaravel.com/uploads/docs-4-0/operations/update_translatable.png)
 
@@ -222,18 +369,3 @@ class Category extends Model
 }
 ```
 > If your slugs are not translatable, use the ```cviebrock/eloquent-sluggable``` traits. The Backpack's ```Sluggable``` trait saves your slug as a JSON object, regardless of the ```slug``` field being defined inside the ```$translatable``` property.
-
-<a name="separate-validation"></a>
-## Separate Validation Rules for Create and Update
-
-**Differences between the Create and Update validations?** If your Update operation requires a different validation than the Create operation, just:
-- create a separate request file for each operation;
-- instruct your EntityCrudController to use separate files, in the "use" section;
-
-For example, we could create ```UpdateTagRequest.php``` and ```CreateTagRequest.php```, with different validations, then in TagCrudController just do:
-```diff
-- use App\Http\Requests\TagRequest as StoreRequest;
-+ use App\Http\Requests\CreateTagRequest as StoreRequest;
-- use App\Http\Requests\TagRequest as UpdateRequest;
-+ use App\Http\Requests\UpdateTagRequest as UpdateRequest;
-```
