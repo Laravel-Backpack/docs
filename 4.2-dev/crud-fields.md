@@ -802,7 +802,7 @@ Input preview:
 <a name="hidden"></a>
 ### hidden
 
-Include an <input type="hidden"> in the form.
+Include an `<input type="hidden">` in the form.
 
 ```php
 [   // Hidden
