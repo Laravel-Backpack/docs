@@ -802,7 +802,7 @@ Input preview:
 <a name="hidden"></a>
 ### hidden
 
-Include an <input type="hidden"> in the form.
+Include an `<input type="hidden">` in the form.
 
 ```php
 [   // Hidden
@@ -1807,22 +1807,6 @@ The basic field type, all it needs is the two mandatory parameters: name and lab
     'name'  => 'title',
     'label' => "Title",
     'type'  => 'text',
-
-    // optional
-    //'prefix'     => '',
-    //'suffix'     => '',
-    //'default'    => 'some value', // default value
-    //'hint'       => 'Some hint text', // helpful text, show up after input
-    //'attributes' => [
-       //'placeholder' => 'Some text when empty',
-       //'class' => 'form-control some-class',
-       //'readonly'  => 'readonly',
-       //'disabled'  => 'disabled',
-     //], // extra HTML attributes and values your input might need
-     //'wrapper'   => [
-       //'class' => 'form-group col-md-12'
-     //], // extra HTML attributes for the field wrapper - mostly for resizing fields 
-    
 ],
 ```
 
