@@ -1201,7 +1201,9 @@ Searching with AJAX provides a great UX. But what if the user doesn't find what 
     'type'          => "relationship",
     'name'          => 'tags', // the method on your model that defines the relationship
     'ajax'          => true,
-    'inline_create' => [ 'entity' => 'tag' ] // you need to specify the entity in singular
+    // in this example, the relation is called `tags` and it does not match route name
+    // route name is `Route::crud('tag');` so we need configure it
+    'inline_create' => [ 'entity' => 'tag' ] 
 ],
 ```
 
@@ -1228,14 +1230,15 @@ Shows a group of inputs to the user, and allows the user to add or remove groups
 
 ![CRUD Field - repeatable](https://backpackforlaravel.com/uploads/docs-4-1/fields/repeatable.png)
 
-Clicking on the "New Item" button will add another group with the same fields (in the example, another Testimonial). The end result is a JSON with the values for those fields, nicely grouped. 
+**Since 4.2**: repeatable returns an array when the form is submitted instead of the already parsed json. **You must cast** the repeatable field to **ARRAY** or **JSON** in your model.
+
+Clicking on the "New Item" button will add another group with the same fields (in the example, another Testimonial).
 
 You can use most field types inside the field groups, add as many fields you need, and change their width using ```wrapper``` like you would do outside the repeatable field. But please note that:
 - **all fields defined inside a field group need to have their definition valid and complete**; you can't use shorthands, you shouldn't assume fields will guess attributes for you;
-- some field types do not make sense to be included inside a field group (for example, relationship fields might not make sense; they will work if the relationship is defined on the main model, but upon save the selected entries will NOT be saved as usual, they will be saved as JSON; you can intercept the saving if you want and do whatever you want); 
+- some field types do not make sense to be included inside a field group (for example, relationship fields might not make sense; they will work if the relationship is defined on the main model, but upon save the selected entries will NOT be saved as relationships, they will be saved as JSON; you can intercept the saving if you want and do whatever you want); 
 - a few fields _make sense_, but _cannot_ work inside a repeatable group (ex: upload, upload_multiple); [see the notes inside the PR](https://github.com/Laravel-Backpack/CRUD/pull/2266#issuecomment-559436214) for more details, and a complete list of the fields; the few fields that do not work inside repeatable have sensible alternatives;
-- you _can_ add validation to subfields, but naturally it'll be a little different; for a quick example of how to add validation to your repeatable fields, check out our Demo, particularly [`DummyRequest.php`](https://github.com/Laravel-Backpack/demo/blob/master/app/Http/Requests/DummyRequest.php#L31-L61);
-
+- **VALIDATION**: you should validate repeatable fields the same way you validate [nested arrays in Laravel]([https://laravel.com/docs/8.x/validation#validating-nested-array-input) Eg: `repeatable.*.name => 'required'`
 
 ```php
 [   // repeatable
@@ -2270,11 +2273,11 @@ If your field type uses JavaScript, we recommend you:
 
 With so many field types, it can be a little overwhelming for a first-timer to quickly grasp what field type to use for your Eloquent relationship. Here's a list of what most people use, most of the times:
 
+<a name="hasone"></a>
 #### hasOne (1-1 relationship)
 
 - example: 
-    - `User -> Phone`
-    - a User has one Phone; a Phone can only belong to one User
+    - `User -> hasOne -> Phone`
     - the foreign key is stored on the Phone (`user_id` on `phones` table)
 - how to use:
     - [the `hasOne` relationship should be properly defined](https://laravel.com/docs/eloquent-relationships#one-to-one) in the User model;
@@ -2287,7 +2290,7 @@ CRUD::field('phone.number')->type('number');
 CRUD::field('phone.prefix')->type('text');
 CRUD::field('phone.type')->type('select_from_array')->options(['mobile' => 'Mobile Phone', 'landline' => 'Landline', 'fax' => 'Fax']);
 ```
-
+<a name="belongsto"></a>
 #### belongsTo (n-1 relationship)
 
 - example: 
@@ -2311,6 +2314,7 @@ CRUD::field('user_id')->type('select2')->model('App\Models\User')->attribute('na
 - notes:
     - if you choose to use the [`relationship`](#relationship) field, you can also use [the InlineCreate operation](/docs/{{version}}/crud-operation-inline-create), which will add a [+ Add Item] button next to the dropdown, to let the admin create a User in a modal, without leaving the current Create Phone form; 
 
+<a name="hasmany"></a>
 #### hasMany (1-n relationship)
 Starting in 4.2, `HasMany` relation had been improved to allow custom functionality. You can use this relation type for two scenarios:
 - Select from a list of entries
@@ -2320,8 +2324,7 @@ Starting in 4.2, `HasMany` relation had been improved to allow custom functional
 - The select from a list shows the user a multiple select from a previously build list that when selected would change the connected key in that entry to the main entry key. In the following example, would change the `post_id` key in the `comments` table to the `id` of the created/edited `Post`. 
 
     - example: 
-        - `Post -> Comment`
-        - a Post has many Comments; a Comment can only belong to one Post
+        - `Post -> HasMany -> Comment`
         - the foreign key is stored on the Comment (`post_id` on `comments` table)
     - how to use:
         - [the `hasMany` relationship should be properly defined](https://laravel.com/docs/eloquent-relationships#one-to-many) in the Post model;
@@ -2334,15 +2337,15 @@ CRUD::field('comments');
 **WHEN UNSELECTING:**  Backpack follow some rules when user `unselect` an entry from the field:
     - if `fallback_id` is provided, Backpack will set the connecting key `post_id` to what developer provides.
     - if `post_id` is nullable on `comments` table Backpack will set the value to `null`. **If `force_delete` is `true` Backpack will delete the entry from `comments` table**
-    - if `post_id` is not nullable Backpack will delete the entry from the `comments` table.
+    - if `post_id` is not nullable and no `fallback_id` or `force_delete` is provided, and error will be thrown. Make sure you configure the field according to your database definition.
 
 - notes: 
-    - you _cannot_ use [the InlineCreate operation](/docs/{{version}}/crud-operation-inline-create) to have show a [+ Add Item] button next to the dropdown; that's because the Comment needs a `post_id` (not nullable); and until the Save button is clicked to submit the Create Post form, there is no `post_id`;
-
+    - you _can_ use [the InlineCreate operation](/docs/{{version}}/crud-operation-inline-create) to have show a [+ Add Item] button next to the dropdown; For it to work `post_id` on comments table need to nullable or have a default setup in database otherwise an error will be raised;
+<a name="hasmany-creatable"></a>
 ##### Creating many entries when adding the main entry
 Before 4.2 to create entries developer would need to setup a repeatable field, overwrite the Backpack saving process and create acessors to display the field. This was just too much work for developers. **Starting in 4.2 Backpack takes care of most of it**.
 
-Using the same example as above (`Post -> Comment`) you should define the field as follow:
+Using the same example as above (`Post -> HasMany -> Comment`) you should define the field as follow:
 
 ```php
 // inside PostCrudController::setupCreateOperation()
@@ -2354,12 +2357,12 @@ And that's it:
 - Saving process will be taken care by Backpack.
 - We will re-display the field correctly.
 
+<a name="belongstomany"></a>
 #### belongsToMany (n-n relationship)
 Starting in 4.2, `BelongsToMany` relation had been improved to simplify the scenario when you need to work with field stored inside the pivot table.
 
 - example: 
-    - `User -> Role`
-    - a User has many Roles; a Role can also have many Users
+    - `User -> BelongsToMany -> Role`
     - the foreign keys are stored on a pivot table (usually the `user_roles` table has both `user_id` and `role_id`)
 - how to use:
     - [the `belongsToMany` relationship should be properly defined](https://laravel.com/docs/eloquent-relationships#many-to-many) in both the User and Role models;
@@ -2367,33 +2370,29 @@ Starting in 4.2, `BelongsToMany` relation had been improved to simplify the scen
 
 ```php
 // inside UserCrudController::setupCreateOperation()
-CRUD::field('roles'); //use the relation name here and backpack will assume that it is a [`relationship`](#relationship) field type
-CRUD::field('roles')->type('select_multiple');
-CRUD::field('roles')->type('select2_multiple');
+CRUD::field('roles');
 
 // inside RoleCrudController::setupCreateOperation()
-CRUD::field('users')->type('relationship'); //if you omit the type here, since `users` is a relation in Role model it would be auto-infered by backpack
-CRUD::field('users')->type('select_multiple');
-CRUD::field('users')->type('select2_multiple');
+CRUD::field('users');
 ```
 - notes:
-    - if you choose to use the [`relationship`](#relationship) field type, you can also use [the InlineCreate operation](/docs/{{version}}/crud-operation-inline-create), which will add a [+ Add Item] button next to the dropdown, to let the admin create a User/Role in a modal, without leaving the current Create User/Role form; 
+    - if you choose to use the [`relationship`](#relationship) field type, you can also use [the InlineCreate operation](/docs/{{version}}/crud-operation-inline-create), which will add a `[+ Add Item]` button next to the dropdown, to let the admin create a User/Role in a modal, without leaving the current Create User/Role form; 
 
 ##### EXTRA: Saving aditional data in the pivot table
 Before 4.2 to work with pivot fields developer would need to setup a repeatable field, overwrite the Backpack saving process and create acessors to display the field. **In 4.2 Backpack takes care of most of it**.
 
-Using the same example as above (`User -> Roles`) you should do the following:
-    - setup the pivot fields in your relation definition: 
+Using the same example as above (`User -> BelongsToMany -> Roles`) you should do the following:
+##### setup the pivot fields in your relation definition: 
 ```php
 // inside App\Models\User
 public function roles() {
-    return $this->belongsToMany('App\Models\Role')->withPivot('notes', 'some_other_field'); // `notes` and `some_other_field` are aditional fields in the pivot table
+    return $this->belongsToMany('App\Models\Role')->withPivot('notes', 'some_other_field'); // `notes` and `some_other_field` are aditional fields in the pivot table that you plan to show in the form.
 }
 ```
-    - setup the field and define the pivot fields:
+##### setup the pivot fields in your relation definition: 
 ```php
 // inside UserCrudController::setupCreateOperation()
-CRUD::field('roles')->pivotFields([['name' => 'notes'], ['name' => 'some_other_field']]); 
+CRUD::field('roles')->pivotFields([['name' => 'notes', 'type' => 'textarea'], ['name' => 'some_other_field']]); 
 ```
 
 And you are done:
@@ -2402,40 +2401,58 @@ And you are done:
 - We will re-display the field correctly.
 
 - **Aditional configuration**:
-You can add any configuration to the pivot field as you would do in a select field, the only difference is the `wrapper` where you need to specify `pivot_wrapper`, to target the pivot select that Backpack creates.
-
+You can add any configuration to the pivot field as you would do in a [relationship](#relationship) select field, the only difference is is that it should go inside the `pivot_selector` key. 
+```php
+CRUD::field('users')->pivotFields(
+    [
+        ['name' => 'notes'],
+    ])
+    ->pivot_selector([
+            'ajax' => true,
+            'data_source' => backpack_url('role/fetch/user'),
+            'placeholder' => 'some placeholder',
+            'wrapper' => [
+                'class' => 'col-md-6'
+            ]
+        ]);
+```
+<a name="morphone"></a>
 #### morphOne (1-1 polymorphic relationship)
 
 - example:
-    - Post/User -> Video.
+    - Post/User -> morphOne -> Video.
     - The User model and the Post model have 1 Video each. 
     - [the `morphOne` relationship should be properly defined](https://laravel.com/docs/8.x/eloquent-relationships#one-to-one-polymorphic-relations) in both the Post/User and Video models;
 
 
-Fields shouls be used as if it was an `HasOne` relation, so: 
+Fields shouls be used as if it was an [HasOne](#hasone) relation, so: 
 ```php
 CRUD::field('video.description')->type('ckeditor');
 CRUD::field('video.url');
 ```
 
 Backpack will take care of the saving process and deal with the morphable relation.
-
+<a name="morphmany"></a>
 #### morphMany (1-n polymorphic relationship)
-This is in all aspects similar to `HasMany` relation, the difference is that it's stored in a pivot table. 
+This is in all aspects similar to [HasMany](#hasmany) relation, the difference is that it's stored in a pivot table. 
 - example:
-    - Video/Post -> Comment.
+    - Video/Post -> morphMany -> Comment.
     - The Video model and the Post model can have multiple Comment model but the comment belongs to only one of them.
     - [the `morphMany` relationship should be properly defined](https://laravel.com/docs/8.x/eloquent-relationships#one-to-many-polymorphic-relations) in both the Post/Video and Comment models;
 
-You can use it as a `selectable` or a `creatable` similar to `HasMany`. Please read `HasMany` documentation on how to setup the fields. 
-
+There is no sense in using this a `select` when using a polymorphic relation because the items that could/would be select might belong to different entities. So you should setup this relation as you would setup a [HasMany creatable](#hasmany-creatable).
+```php
+// inside PostCrudController::setupCreateOperation() and inside VideoCrudController::setupCreateOperation()
+CRUD::field('comments')->pivotFields([['name' => 'comment_text']]); //note comment_text is a text field in the comment table.
+```
+<a name="morphtomany"></a>
 #### morphToMany (n-n polymorphic relationship)
-This is in all aspects similar to `BelongsToMany` relation, the difference is that it stores the `morphable` entity in the pivot table 
-    - Video/Post -> Tag.
+This is in all aspects similar to [BelongsToMany](#belongstomany) relation, the difference is that it stores the `morphable` entity in the pivot table 
+    - Video/Post -> belongsToMany -> Tag.
     - The Video model and the Post model can have multiple Tag model and each Tag model can belong to one or more of them.
     - [the `morphToMany` relationship should be properly defined](https://laravel.com/docs/8.x/eloquent-relationships#many-to-many-polymorphic-relations) in both the Post/Video and Tag models;
 
-Please read the relationship `BelongsToMany` documentation, everything is the same in regards to fields definition and Backpack will take care of the morphable relation saving.
+Please read the relationship [BelongsToMany](#belongstomany) documentation, everything is the same in regards to fields definition and Backpack will take care of the morphable relation saving.
 
 #### hasOneThrough (1-1-1 relationship) and hasManyThrough (1-1-n relationship)
 
