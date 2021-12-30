@@ -77,17 +77,17 @@ Every other field attribute other than `name`, Backpack 4.1+ will try to guess.
 <a name="recommended-field-attributes"></a>
 #### Recommended Field Attributes
 
-Normally developers define the following attributes for all fields:
+Usually developers define the following attributes for all fields:
 - the ```name``` of the column in the database (ex: "title")
 - the human-readable ```label``` for the input (ex: "Title")
 - the ```type``` of the input (ex: "text")
 
-So at minimum, your field definition array should look like:
+So at minimum, a field definition array usually looks like:
 ```php
 [
     'name'  => 'description',
-    'type'  => 'textarea',
     'label' => 'Article Description',
+    'type'  => 'textarea',
 ]
 ```
 
