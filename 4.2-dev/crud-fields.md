@@ -19,13 +19,10 @@ We have a lot of default field types, detailed below. If you don't find what you
 To manipulate fields, you can use the methods below. The action will be performed on the currently running operation. So make sure you run these methods inside ```setupCreateOperation()```, ```setupUpdateOperation()``` or in ```setup()``` inside operation blocks:
 
 ```php
-// add a field to both Create and Update operation
+// add a field 
 $this->crud->addField($field_definition_array);
 
-// add a field only to the Update operation
-$this->crud->addField($field_definition_array);
-
-// shorthand: add a text field to both Create and Update operations
+// shorthand: add a text field 
 $this->crud->addField('db_column_name');
 
 // add multiple fields
