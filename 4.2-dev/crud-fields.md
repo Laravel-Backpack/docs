@@ -130,7 +130,7 @@ These will help you:
 <a name="fake-fields"></a>
 #### Optional - Fake Field Attributes (stores fake attributes as JSON in the database)
 
-In case you want to store insignificant information for an entry that doesn't need a database column, you can add any number of Fake Fields, and all their information will be stored inside one column in the db, as JSON. By default, an ```extras``` column is assumed on the database table, but you can change that.
+In case you want to store information for an entry that doesn't need a separate database column, you can add any number of Fake Fields, and their information will be stored inside a column in the db, as JSON. By default, an ```extras``` column is used and assumed on the database table, but you can change that.
 
 **Step 1.** Use the fake attribute on your field:
 ```php
