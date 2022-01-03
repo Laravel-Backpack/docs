@@ -683,13 +683,13 @@ Input preview:
 
 **Please note:** if you're using datetime [attribute casting](https://laravel.com/docs/5.3/eloquent-mutators#attribute-casting) on your model, you also need to place this mutator inside your model:
 ```php
-	public function setDatetimeAttribute($value) {
-		$this->attributes['datetime'] = \Carbon\Carbon::parse($value);
-	}
+    public function setDatetimeAttribute($value) {
+        $this->attributes['datetime'] = \Carbon\Carbon::parse($value);
+    }
 ```
 Otherwise the input's datetime-local format will cause some errors.
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - datetime](https://backpackforlaravel.com/uploads/docs-4-1/fields/datetime.png)
 
@@ -723,13 +723,13 @@ Show a [Bootstrap Datetime Picker](https://eonasdan.github.io/bootstrap-datetime
 
 **Please note:** if you're using date [attribute casting](https://laravel.com/docs/5.3/eloquent-mutators#attribute-casting) on your model, you may also need to place this mutator inside your model:
 ```php
-	public function setDatetimeAttribute($value) {
-		$this->attributes['datetime'] = \Carbon\Carbon::parse($value);
-	}
+    public function setDatetimeAttribute($value) {
+        $this->attributes['datetime'] = \Carbon\Carbon::parse($value);
+    }
 ```
 Otherwise the input's datetime-local format will cause some errors. Remember to change "datetime" with the name of your attribute (column name).
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - datetime_picker](https://backpackforlaravel.com/uploads/docs-4-1/fields/datetime_picker.png)
 
@@ -756,9 +756,9 @@ Show an [EasyMDE - Markdown Editor](https://easy-markdown-editor.tk/) to the use
 ],
 ```
 
-> NOTE: The contents displayed in this editor are NOT stripped, sanitized or escaped by default. Whenever you store Markdown or HTML inside your database, it's HIGHLY recommended that you sanitize the input or output. Laravel makes it super-easy to do that on the model using [accessors](https://laravel.com/docs/8.x/eloquent-mutators#accessors-and-mutators). If you do NOT trust the admins who have access to this field (or end-users can also store information to this db column), please make sure this attribute is always escaped, before it's shown. You can do that by running the value through `strip_tags()` in an accessor on the model (here's [an example](https://github.com/Laravel-Backpack/demo/commit/509c0bf0d8b9ee6a52c50f0d2caed65f1f986385)) or better yet, using an [HTML Purifier package](https://github.com/mewebstudio/Purifier) (here's [an example](https://github.com/Laravel-Backpack/demo/commit/7342cffb418bb568b9e4ee279859685ddc0456c1)). 
+> NOTE: The contents displayed in this editor are NOT stripped, sanitized or escaped by default. Whenever you store Markdown or HTML inside your database, it's HIGHLY recommended that you sanitize the input or output. Laravel makes it super-easy to do that on the model using [accessors](https://laravel.com/docs/8.x/eloquent-mutators#accessors-and-mutators). If you do NOT trust the admins who have access to this field (or end-users can also store information to this db column), please make sure this attribute is always escaped, before it's shown. You can do that by running the value through `strip_tags()` in an accessor on the model (here's [an example](https://github.com/Laravel-Backpack/demo/commit/509c0bf0d8b9ee6a52c50f0d2caed65f1f986385)) or better yet, using an [HTML Purifier package](https://github.com/mewebstudio/Purifier) (here's [an example](https://github.com/Laravel-Backpack/demo/commit/7342cffb418bb568b9e4ee279859685ddc0456c1)).
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - easymde](https://backpackforlaravel.com/uploads/docs-4-1/fields/easymde.png)
 
@@ -775,7 +775,7 @@ Input preview:
 ],
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - email](https://backpackforlaravel.com/uploads/docs-4-1/fields/email.png)
 
@@ -797,7 +797,7 @@ Show a select with the values in the database for that ENUM field. Requires that
 
 PLEASE NOTE the enum field only works for MySQL databases.
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - enum](https://backpackforlaravel.com/uploads/docs-4-1/fields/enum.png)
 
@@ -836,7 +836,7 @@ The stored value will be the class name (ex: fa-home).
 
 Your input will look like button, with a dropdown where the user can search or pick an icon:
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - icon_picker](https://backpackforlaravel.com/uploads/docs-4-1/fields/icon_picker.png)
 
@@ -845,9 +845,9 @@ Input preview:
 <a name="image"></a>
 ### image
 
-Upload an image and store it on the disk. 
+Upload an image and store it on the disk.
 
-**Step 1.** Show the field. 
+**Step 1.** Show the field.
 ```php
 // image
 $this->crud->addField([
@@ -861,7 +861,7 @@ $this->crud->addField([
 ]);
 ```
 
-**Step 2.** Add a [mutator](https://laravel.com/docs/7.x/eloquent-mutators#defining-a-mutator) to your Model, where you pick up the uploaded file and store it wherever you want. You can use this boilerplate code and modify it to match your use case. 
+**Step 2.** Add a [mutator](https://laravel.com/docs/7.x/eloquent-mutators#defining-a-mutator) to your Model, where you pick up the uploaded file and store it wherever you want. You can use this boilerplate code and modify it to match your use case.
 
 **NOTE: The code below requires that you have ```intervention/image``` installed. If you don't, please do ```composer require intervention/image``` first.**
 
@@ -881,9 +881,9 @@ Class Product extends Model
     {
         $attribute_name = "image";
         // or use your own disk, defined in config/filesystems.php
-        $disk = config('backpack.base.root_disk_name'); 
+        $disk = config('backpack.base.root_disk_name');
         // destination path relative to the disk above
-        $destination_path = "public/uploads/folder_1/folder_2"; 
+        $destination_path = "public/uploads/folder_1/folder_2";
 
         // if the image was erased
         if ($value==null) {
@@ -899,37 +899,37 @@ Class Product extends Model
         {
             // 0. Make the image
             $image = \Image::make($value)->encode('jpg', 90);
-            
-	        // 1. Generate a filename.
+
+            // 1. Generate a filename.
             $filename = md5($value.time()).'.jpg';
-            
-	        // 2. Store the image on disk.
+
+            // 2. Store the image on disk.
             \Storage::disk($disk)->put($destination_path.'/'.$filename, $image->stream());
-	    
-	        // 3. Delete the previous image, if there was one.
+
+            // 3. Delete the previous image, if there was one.
             \Storage::disk($disk)->delete($this->{$attribute_name});
-		
+
             // 4. Save the public path to the database
-	        // but first, remove "public/" from the path, since we're pointing to it 
+            // but first, remove "public/" from the path, since we're pointing to it
             // from the root folder; that way, what gets saved in the db
-	        // is the public URL (everything that comes after the domain name)
+            // is the public URL (everything that comes after the domain name)
             $public_destination_path = Str::replaceFirst('public/', '', $destination_path);
             $this->attributes[$attribute_name] = $public_destination_path.'/'.$filename;
         }
     }
-    
+
 // ..
 ```
 > **The uploaded images are not deleted for you.** If you delete an entry (using the CRUD or anywhere inside your app), the image file won't be deleted from the disk.
 > If you're NOT using soft deletes on that Model and want the image to be deleted at the same time the entry is, just specify that in your Model's ```deleting``` event:
 > ```php
->	public static function boot()
->	{
->		parent::boot();
->		static::deleted(function($obj) {
->			\Storage::disk('public_folder')->delete($obj->image);
->		});
->	}
+>   public static function boot()
+>   {
+>       parent::boot();
+>       static::deleted(function($obj) {
+>           \Storage::disk('public_folder')->delete($obj->image);
+>       });
+>   }
 > ```
 
 **A note about aspect_ratio**
@@ -941,7 +941,7 @@ The value for aspect ratio is a float that represents the ratio of the cropping 
 
 And you can, of course, use any value for more extreme rectangles.
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - image](https://backpackforlaravel.com/uploads/docs-4-1/fields/image.png)
 
@@ -960,7 +960,7 @@ Input preview:
 ],
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - month](https://backpackforlaravel.com/uploads/docs-4-1/fields/month.png)
 
@@ -984,7 +984,7 @@ Shows an input type=number to the user, with optional prefix and suffix:
 ],
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - number](https://backpackforlaravel.com/uploads/docs-4-1/fields/number.png)
 
@@ -1003,7 +1003,7 @@ Select an existing page from PageManager or an internal or external link. It's u
 ],
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - page_or_link](https://backpackforlaravel.com/uploads/docs-4-1/fields/page_or_link.png)
 
@@ -1020,7 +1020,7 @@ Input preview:
 ],
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - password](https://backpackforlaravel.com/uploads/docs-4-1/fields/password.png)
 
@@ -1039,11 +1039,11 @@ public function setPasswordAttribute($value) {
 
 ```php
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as traitStore; }
-    
+
     public function store()
     {
         $this->crud->setRequest($this->crud->validateRequest());
-    
+
         /** @var \Illuminate\Http\Request $request */
         $request = $this->crud->getRequest();
 
@@ -1075,7 +1075,7 @@ Show radios according to an associative array you give the input and let the use
     'label'       => 'Status', // the input label
     'type'        => 'radio',
     'options'     => [
-        // the key will be stored in the db, the value will be shown as label; 
+        // the key will be stored in the db, the value will be shown as label;
         0 => "Draft",
         1 => "Published"
     ],
@@ -1084,7 +1084,7 @@ Show radios according to an associative array you give the input and let the use
 ],
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - radio](https://backpackforlaravel.com/uploads/docs-4-1/fields/radio.png)
 
@@ -1108,7 +1108,7 @@ Shows an HTML5 range element, allowing the user to drag a cursor left-right, to 
 ],
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - range](https://backpackforlaravel.com/uploads/docs-4-1/fields/range.png)
 
@@ -1119,7 +1119,7 @@ Input preview:
 
 Allows the user to choose one/more entries of an Eloquent Model that has a relationship with the current model, using a ```select2``` input. In order to work, this field needs the relationships to be properly defined on the Eloquent models (```hasOne```, ```belongsTo```, ```belongsToMany``` etc).
 
-Input preview (for both 1-n and n-n relationships): 
+Input preview (for both 1-n and n-n relationships):
 
 ![CRUD Field - range](https://backpackforlaravel.com/uploads/docs-4-1/fields/relationship.png)
 
@@ -1228,11 +1228,11 @@ Shows a group of inputs to the user, and allows the user to add or remove groups
 
 ![CRUD Field - repeatable](https://backpackforlaravel.com/uploads/docs-4-1/fields/repeatable.png)
 
-Clicking on the "New Item" button will add another group with the same fields (in the example, another Testimonial). The end result is a JSON with the values for those fields, nicely grouped. 
+Clicking on the "New Item" button will add another group with the same fields (in the example, another Testimonial). The end result is a JSON with the values for those fields, nicely grouped.
 
 You can use most field types inside the field groups, add as many fields you need, and change their width using ```wrapper``` like you would do outside the repeatable field. But please note that:
 - **all fields defined inside a field group need to have their definition valid and complete**; you can't use shorthands, you shouldn't assume fields will guess attributes for you;
-- some field types do not make sense to be included inside a field group (for example, relationship fields might not make sense; they will work if the relationship is defined on the main model, but upon save the selected entries will NOT be saved as usual, they will be saved as JSON; you can intercept the saving if you want and do whatever you want); 
+- some field types do not make sense to be included inside a field group (for example, relationship fields might not make sense; they will work if the relationship is defined on the main model, but upon save the selected entries will NOT be saved as usual, they will be saved as JSON; you can intercept the saving if you want and do whatever you want);
 - a few fields _make sense_, but _cannot_ work inside a repeatable group (ex: upload, upload_multiple); [see the notes inside the PR](https://github.com/Laravel-Backpack/CRUD/pull/2266#issuecomment-559436214) for more details, and a complete list of the fields; the few fields that do not work inside repeatable have sensible alternatives;
 - you _can_ add validation to subfields, but naturally it'll be a little different; for a quick example of how to add validation to your repeatable fields, check out our Demo, particularly [`DummyRequest.php`](https://github.com/Laravel-Backpack/demo/blob/master/app/Http/Requests/DummyRequest.php#L31-L61);
 
@@ -1267,13 +1267,13 @@ You can use most field types inside the field groups, add as many fields you nee
             'label' => 'Quote',
         ],
     ],
-    
+
     // optional
     'new_item_label'  => 'Add Group', // customize the text of the button
     'init_rows' => 2, // number of empty rows to be initialized, by default 1
     'min_rows' => 2, // minimum rows allowed, when reached the "delete" buttons will be hidden
     'max_rows' => 2, // maximum rows allowed, when reached the "new item" button will be hidden
-    
+
 ],
 ```
 
@@ -1292,10 +1292,10 @@ Your relationships should already be defined on your models as hasOne() or belon
    'type'      => 'select',
    'name'      => 'category_id', // the db column for the foreign key
 
-   // optional 
+   // optional
    // 'entity' should point to the method that defines the relationship in your Model
    // defining entity will make Backpack guess 'model' and 'attribute'
-   'entity'    => 'category', 
+   'entity'    => 'category',
 
    // optional - manually specify the related model and attribute
    'model'     => "App\Models\Category", // related model
@@ -1310,7 +1310,7 @@ Your relationships should already be defined on your models as hasOne() or belon
 
 For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - select](https://backpackforlaravel.com/uploads/docs-4-1/fields/select.png)
 
@@ -1347,7 +1347,7 @@ Input preview:
 <a name="select2"></a>
 ### select2 (1-n relationship)
 
-Works just like the SELECT field, but prettier. Shows a Select2 with the names of the connected entity and let the user select one of them. 
+Works just like the SELECT field, but prettier. Shows a Select2 with the names of the connected entity and let the user select one of them.
 Your relationships should already be defined on your models as hasOne() or belongsTo().
 
 ```php
@@ -1371,7 +1371,7 @@ Your relationships should already be defined on your models as hasOne() or belon
 
 For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - select2](https://backpackforlaravel.com/uploads/docs-4-1/fields/select2_nested.png)
 
@@ -1404,7 +1404,7 @@ Your relationship should already be defined on your models as belongsToMany().
 
 For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - select_multiple](https://backpackforlaravel.com/uploads/docs-4-1/fields/select_multiple.png)
 
@@ -1441,7 +1441,7 @@ Your relationship should already be defined on your models as belongsToMany().
 
 For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - select2_multiple](https://backpackforlaravel.com/uploads/docs-4-1/fields/select2_multiple.png)
 
@@ -1461,7 +1461,7 @@ Display a select2 with the values ordered hierarchically and indented, for an en
     'type'      => 'select2_nested',
     'entity'    => 'category', // the method that defines the relationship in your Model
     'attribute' => 'name', // foreign key attribute that is shown to user
-    
+
     // optional
     'model'     => "App\Models\Category", // force foreign key model
 ],
@@ -1540,7 +1540,7 @@ Also possible:
 ],
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - select_and_order](https://backpackforlaravel.com/uploads/docs-4-1/fields/select_and_order.png)
 
@@ -1564,7 +1564,7 @@ Display a select with the values you want:
 ],
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - select_from_array](https://backpackforlaravel.com/uploads/docs-4-1/fields/select_from_array.png)
 
@@ -1587,7 +1587,7 @@ Display a select2 with the values you want:
 ],
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - select2_from_array](https://backpackforlaravel.com/uploads/docs-4-1/fields/select2_from_array.png)
 
@@ -1658,12 +1658,12 @@ class CategoryController extends Controller
 **Note:** If you want to also make this field work inside `repeatable` too, your API endpoint will also need to respond to the `keys` parameter, with the actual items that have those keys. For example:
 
 ```php
-        if ($request->has('keys')) { 
+        if ($request->has('keys')) {
             return Category::findMany($request->input('keys'));
         }
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - select2_from_array](https://backpackforlaravel.com/uploads/docs-4-1/fields/select2_from_array.png)
 
@@ -1678,12 +1678,12 @@ Display a select2 that takes its values from an AJAX call. Same as [select2_from
 [   // n-n relationship
     'label'       => "Cities", // Table column heading
     'type'        => "select2_from_ajax_multiple",
-    'name'        => 'cities', // a unique identifier (usually the method that defines the relationship in your Model) 
+    'name'        => 'cities', // a unique identifier (usually the method that defines the relationship in your Model)
     'entity'      => 'cities', // the method that defines the relationship in your Model
     'attribute'   => "name", // foreign key attribute that is shown to user
     'data_source' => url("api/city"), // url to controller search function (with /{id} should return model)
     'pivot'       => true, // on create&update, do you need to add/delete pivot table entries?
-    
+
     // OPTIONAL
     'delay' => 500, // the minimum amount of time between ajax requests when searching in the field
     'model'                => "App\Models\City", // foreign key model
@@ -1737,14 +1737,14 @@ class CityController extends Controller
 }
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - select2_from_ajax_multiple](https://backpackforlaravel.com/uploads/docs-4-1/fields/select2_from_ajax_multiple.png)
 
 **Note:** If you want to also make this field work inside `repeatable` too, your API endpoint will also need to respond to the `keys` parameter, with the actual items that have those keys. For example:
 
 ```php
-        if ($request->has('keys')) { 
+        if ($request->has('keys')) {
             return City::findMany($request->input('keys'));
         }
 ```
@@ -1777,7 +1777,7 @@ Show a [SimpleMDE markdown editor](https://simplemde.com/) to the user.
 
 > NOTE: The contents displayed in this editor are NOT stripped, sanitized or escaped by default. Whenever you store Markdown or HTML inside your database, it's HIGHLY recommended that you sanitize the input or output. Laravel makes it super-easy to do that on the model using [accessors](https://laravel.com/docs/8.x/eloquent-mutators#accessors-and-mutators). If you do NOT trust the admins who have access to this field (or end-users can also store information to this db column), please make sure this attribute is always escaped, before it's shown. You can do that by running the value through `strip_tags()` in an accessor on the model (here's [an example](https://github.com/Laravel-Backpack/demo/commit/509c0bf0d8b9ee6a52c50f0d2caed65f1f986385)) or better yet, using an [HTML Purifier package](https://github.com/mewebstudio/Purifier) (here's [an example](https://github.com/Laravel-Backpack/demo/commit/7342cffb418bb568b9e4ee279859685ddc0456c1)).
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - simplemde](https://backpackforlaravel.com/uploads/docs-4-1/fields/simplemde.png)
 
@@ -1798,11 +1798,11 @@ Show a [Summernote wysiwyg editor](http://summernote.org/) to the user.
 
 // the summernote field works with the default configuration options but allow developer to configure to his needs
 // optional configuration check https://summernote.org/deep-dive/ for a list of available configs
-[   
+[
     'name'  => 'description',
     'label' => 'Description',
     'type'  => 'summernote',
-    'options' => [ 
+    'options' => [
         'toolbar' => [
             ['font', ['bold', 'underline', 'italic']]
         ]
@@ -1813,7 +1813,7 @@ Show a [Summernote wysiwyg editor](http://summernote.org/) to the user.
 
 > NOTE: Summernote does NOT sanitize the input. If you do not trust the users of this field, you should sanitize the input or output using something like HTML Purifier. Personally we like to use install [mewebstudio/Purifier](https://github.com/mewebstudio/Purifier) and add an [accessor or mutator](https://laravel.com/docs/8.x/eloquent-mutators#accessors-and-mutators) on the Model, so that wherever the model is created from (admin panel or app), the output will always be clean. [Example here](https://github.com/Laravel-Backpack/demo/commit/7342cffb418bb568b9e4ee279859685ddc0456c1).
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - summernote](https://backpackforlaravel.com/uploads/docs-4-1/fields/summernote.png)
 
@@ -1842,7 +1842,7 @@ Show a table with multiple inputs per row and store the values as JSON array of 
 
 >It's highly recommended that you use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) on your model when working with JSON arrays stored in database columns, and cast this attribute to either ```object``` or ```array``` in your Model.
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - table](https://backpackforlaravel.com/uploads/docs-4-1/fields/table.png)
 
@@ -1872,14 +1872,14 @@ The basic field type, all it needs is the two mandatory parameters: name and lab
      //], // extra HTML attributes and values your input might need
      //'wrapper'   => [
        //'class' => 'form-group col-md-12'
-     //], // extra HTML attributes for the field wrapper - mostly for resizing fields 
-    
+     //], // extra HTML attributes for the field wrapper - mostly for resizing fields
+
 ],
 ```
 
 You can use the optional 'prefix' and 'suffix' attributes to display something before and after the input, like icons, path prefix, etc:
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - text](https://backpackforlaravel.com/uploads/docs-4-1/fields/text.png)
 
@@ -1898,7 +1898,7 @@ Show a textarea to the user.
 ],
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - textarea](https://backpackforlaravel.com/uploads/docs-4-1/fields/textarea.png)
 
@@ -1932,7 +1932,7 @@ Show a wysiwyg (TinyMCE) to the user.
 ],
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - tinymce](https://backpackforlaravel.com/uploads/docs-4-1/fields/tinymce.png)
 
@@ -1958,13 +1958,13 @@ Input preview:
 ```php
 public function setImageAttribute($value)
     {
-    	$attribute_name = "image";
-    	$disk = "public";
-    	$destination_path = "folder_1/subfolder_1";
+        $attribute_name = "image";
+        $disk = "public";
+        $destination_path = "folder_1/subfolder_1";
 
-    	$this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path);
-	
-	// return $this->attributes[{$attribute_name}]; // uncomment if this is a translatable field
+        $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path);
+
+    // return $this->attributes[{$attribute_name}]; // uncomment if this is a translatable field
     }
 ```
 
@@ -1996,16 +1996,16 @@ If you wish to have a different functionality, you can delete the method call fr
 
 If you're NOT using soft deletes on that Model and want the file to be deleted at the same time the entry is, just specify that in your Model's ```deleting``` event:
 ```php
-	public static function boot()
-	{
-		parent::boot();
-		static::deleting(function($obj) {
-			\Storage::disk('public_folder')->delete($obj->image);
-		});
-	}
+    public static function boot()
+    {
+        parent::boot();
+        static::deleting(function($obj) {
+            \Storage::disk('public_folder')->delete($obj->image);
+        });
+    }
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - upload](https://backpackforlaravel.com/uploads/docs-4-1/fields/upload.png)
 
@@ -2035,18 +2035,18 @@ Shows a multiple file input to the user and stores the values as a JSON array in
 ```php
 public function setPhotosAttribute($value)
     {
-    	$attribute_name = "photos";
-    	$disk = "public";
-    	$destination_path = "folder_1/subfolder_1";
+        $attribute_name = "photos";
+        $disk = "public";
+        $destination_path = "folder_1/subfolder_1";
 
-    	$this->uploadMultipleFilesToDisk($value, $attribute_name, $disk, $destination_path);
+        $this->uploadMultipleFilesToDisk($value, $attribute_name, $disk, $destination_path);
     }
 ```
 
 **Step 3.** Since the filenames are stored in the database as a JSON array, we're going to use [attribute casting](https://laravel.com/docs/5.3/eloquent-mutators#attribute-casting) on your model, so every time we get the filenames array from the database it's converted from a JSON array to a PHP array:
 ```php
     protected $casts = [
-    	'photos' => 'array'
+        'photos' => 'array'
     ];
 ```
 
@@ -2076,22 +2076,22 @@ If you wish to have a different functionality, you can delete the method call fr
 
 If you're NOT using soft deletes on that Model and want the files to be deleted at the same time the entry is, just specify that in your Model's ```deleting``` event:
 ```php
-	public static function boot()
-	{
-		parent::boot();
-		static::deleting(function($obj) {
-			if (count((array)$obj->photos)) {
-				foreach ($obj->photos as $file_path) {
-					\Storage::disk('public_folder')->delete($file_path);
-				}
-			}
-		});
-	}
+    public static function boot()
+    {
+        parent::boot();
+        static::deleting(function($obj) {
+            if (count((array)$obj->photos)) {
+                foreach ($obj->photos as $file_path) {
+                    \Storage::disk('public_folder')->delete($file_path);
+                }
+            }
+        });
+    }
 ```
 
 You might notice the field is using a ```clear_photos``` variable. Don't worry, you don't need it in your db table. That's just used to delete photos upon "update". If you use ```$fillable``` on your model, just don't include it. If you use ```$guarded``` on your model, place it in guarded.
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - upload_multiple](https://backpackforlaravel.com/uploads/docs-4-1/fields/upload_multiple.png)
 
@@ -2169,7 +2169,7 @@ Load a custom view in the form.
 ],
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - week](https://backpackforlaravel.com/uploads/docs-4-1/fields/week.png)
 
@@ -2272,7 +2272,7 @@ With so many field types, it can be a little overwhelming for a first-timer to q
 
 #### hasOne (1-1 relationship)
 
-- example: 
+- example:
     - `User -> Phone`
     - a User has one Phone; a Phone can only belong to one User
     - the foreign key is stored on the Phone (`user_id` on `phones` table)
@@ -2290,7 +2290,7 @@ CRUD::field('phone.type')->type('select_from_array')->options(['mobile' => 'Mobi
 
 #### belongsTo (n-1 relationship)
 
-- example: 
+- example:
     - `Phone -> User`
     - a Phone belongs to one User; a Phone can only belong to one User
     - the foreign key is stored on the Phone (`user_id` on `phones` table)
@@ -2309,29 +2309,29 @@ CRUD::field('user_id')->type('select2')->model('App\Models\User')->attribute('na
 ```
 
 - notes:
-    - if you choose to use the [`relationship`](#relationship) field, you can also use [the InlineCreate operation](/docs/{{version}}/crud-operation-inline-create), which will add a [+ Add Item] button next to the dropdown, to let the admin create a User in a modal, without leaving the current Create Phone form; 
+    - if you choose to use the [`relationship`](#relationship) field, you can also use [the InlineCreate operation](/docs/{{version}}/crud-operation-inline-create), which will add a [+ Add Item] button next to the dropdown, to let the admin create a User in a modal, without leaving the current Create Phone form;
 
 #### hasMany (1-n relationship)
 
-- example: 
+- example:
     - `Post -> Comment`
     - a Post has many Comments; a Comment can only belong to one Post
     - the foreign key is stored on the Comment (`post_id` on `comments` table)
 - how to use:
     - [the `hasMany` relationship should be properly defined](https://laravel.com/docs/eloquent-relationships#one-to-many) in the Post model;
-    
+
 ```php
 // inside PostCrudController::setupCreateOperation()
 CRUD::field('comments')->type('repeatable')->fields([['name' => 'comment_text']]); //note comment_text is one field in the comment table.
 ```
 - you should use the [`repeatable`](#repeatable) field on the Post create/update form, to add Comments to your Posts, but you'll also need to modify your `store()` and `update()` methods to take that into account, and transform the JSON received from the [`repeatable`](#repeatable) field into actual entries in the database (and back); check out [this example here](https://gist.github.com/pxpm/d584a109037d3efc7519872ac2096334) for a full example on how to do it.
 
-- notes: 
+- notes:
     - you _cannot_ use [the InlineCreate operation](/docs/{{version}}/crud-operation-inline-create) to have show a [+ Add Item] button next to the dropdown; that's because the Comment needs a `post_id` (not nullable); and until the Save button is clicked to submit the Create Post form, there is no `post_id`;
 
 #### belongsToMany (n-n relationship)
 
-- example: 
+- example:
     - `User -> Role`
     - a User has many Roles; a Role can also have many Users
     - the foreign key is stored on a pivot table (usually the `user_roles` table has both `user_id` and `role_id`)
@@ -2351,16 +2351,16 @@ CRUD::field('users')->type('select_multiple');
 CRUD::field('users')->type('select2_multiple');
 ```
 - notes:
-    - if you choose to use the [`relationship`](#relationship) field type, you can also use [the InlineCreate operation](/docs/{{version}}/crud-operation-inline-create), which will add a [+ Add Item] button next to the dropdown, to let the admin create a User/Role in a modal, without leaving the current Create User/Role form; 
+    - if you choose to use the [`relationship`](#relationship) field type, you can also use [the InlineCreate operation](/docs/{{version}}/crud-operation-inline-create), which will add a [+ Add Item] button next to the dropdown, to let the admin create a User/Role in a modal, without leaving the current Create User/Role form;
 
 ##### EXTRA: Saving aditional data in the pivot table
-- To be able to save aditional data in the pivot table you should use [`repeatable`](#repeatable) field, but you'll also need to modify your `store()` and `update()` methods to take that into account, and transform the JSON received from the [`repeatable`](#repeatable) field into actual entries in the database (and back); check out [this example here](https://gist.github.com/pxpm/516f55c303235b799ac4e38f1167094e) for a full example on how to do it.        
+- To be able to save aditional data in the pivot table you should use [`repeatable`](#repeatable) field, but you'll also need to modify your `store()` and `update()` methods to take that into account, and transform the JSON received from the [`repeatable`](#repeatable) field into actual entries in the database (and back); check out [this example here](https://gist.github.com/pxpm/516f55c303235b799ac4e38f1167094e) for a full example on how to do it.
 
 #### morphOne (1-1 polymorphic relationship)
 
 - example:
     - Post/User -> Video.
-    - The User model and the Post model have 1 Video each. 
+    - The User model and the Post model have 1 Video each.
     - [the `morphOne` relationship should be properly defined](https://laravel.com/docs/8.x/eloquent-relationships#one-to-one-polymorphic-relations) in both the Post/User and Video models;
 
 You should now use the [`repeatable`](#repeatable) field on the Post/User create/update form, to add a `Video` to your models, but you'll also need to modify your `store()` and `update()` methods to take that into account, and transform the JSON received from the [`repeatable`](#repeatable) field into actual entries in the database (and back); check out [this example here](https://gist.github.com/pxpm/c49c4ebb3c8d8af8a5bcce3122622a61) for a full example on how to do it.
@@ -2387,7 +2387,7 @@ CRUD::field('tags')->type('select2_multiple')->model('\Backpack\NewsCRUD\app\Mod
 ```
 
 - notes:
-    - if you choose to use the [`relationship`](#relationship) field type, you can also use [the InlineCreate operation](/docs/{{version}}/crud-operation-inline-create), which will add a [+ Add Item] button next to the dropdown, to let the admin create a User/Role in a modal, without leaving the current Create User/Role form; 
+    - if you choose to use the [`relationship`](#relationship) field type, you can also use [the InlineCreate operation](/docs/{{version}}/crud-operation-inline-create), which will add a [+ Add Item] button next to the dropdown, to let the admin create a User/Role in a modal, without leaving the current Create User/Role form;
 
 ##### EXTRA: Saving aditional data in the pivot table
 
@@ -2396,4 +2396,4 @@ You should now use the [`repeatable`](#repeatable) field on the Post/Video creat
 #### hasOneThrough (1-1-1 relationship) and hasManyThrough (1-1-n relationship)
 
 - Both are "read" relations and should not be edited from the far side of the relation. To give some context imagine 3 models: Product, Category and Order.
-The Product has a Category (category_id), and the Order has a Product (product_id). We would use `HasOneThrough` in the `Order` model to get the `Category` through `Product` model. 
+The Product has a Category (category_id), and the Order has a Product (product_id). We would use `HasOneThrough` in the `Order` model to get the `Category` through `Product` model.
