@@ -1096,7 +1096,7 @@ Input preview:
 <a name="relationship"></a>
 ### relationship
 
-Allows the user to choose one/more entries of an Eloquent Model that has a relationship with the current model, using a ```select2``` input. In order to work, this field needs the relationships to be properly defined on the Eloquent models (```hasOne```, ```belongsTo```, ```belongsToMany``` etc).
+Allows the user to choose one/more entries of an Eloquent Model that has a relationship with the current model, using a `select2` input. In order to work, this field needs the relationships to be properly defined on the Eloquent models (`hasOne`, `hasMany`, `belongsTo`, `belongsToMany`, `morphOne`, `morphMany`  etc).
 
 Input preview (for both 1-n and n-n relationships): 
 
@@ -2219,7 +2219,7 @@ If your field type uses JavaScript, we recommend you:
 <a name="what-field-should-i-use-for-a-relationship"></a>
 ### What field should I use for a relationship?
 
-With so many field types, it can be a little overwhelming for a first-timer to quickly grasp what field type to use for your Eloquent relationship. Here's a list of what most people use, most of the times:
+With so many field types, it can be a little overwhelming for a first-timer to quickly grasp what field type to use for your Eloquent relationship. Here's an example for each relationship type:
 
 <a name="hasone"></a>
 #### hasOne (1-1 relationship)
@@ -2227,6 +2227,8 @@ With so many field types, it can be a little overwhelming for a first-timer to q
 - example: 
     - `User -> hasOne -> Phone`
     - the foreign key is stored on the Phone (`user_id` on `phones` table)
+- what to use:
+    - any field (eg. `text`, `number`, `textarea`), with its name prefixed by the relationship name (dot notation);
 - how to use:
     - [the `hasOne` relationship should be properly defined](https://laravel.com/docs/eloquent-relationships#one-to-one) in the User model;
     - you can easily add fields for each individual attribute on the related entry; you just need to specify in the field name that the value should not be stored on the _main model_, but on _a related model_; you can do that using dot notation (`relationship_name.column_name`); note that the prefix (before the dot) is the **Relation** name, not the table name;
@@ -2248,9 +2250,9 @@ CRUD::field('phone.type')->type('select_from_array')->options(['mobile' => 'Mobi
 - how to use:
     - [the `belongsTo` relationship should be properly defined](https://laravel.com/docs/eloquent-relationships#one-to-many-inverse) in the Phone model;
     - you can easily add a dropdown to let the admin pick which User the Phone belongs; you can use any of the dropdown fields, but for convenience we've made a list here, and broken them down depending on aproximately how many entries the dropdown will have:
-    - for 0-10 dropdown items - we recommend you use the [`select`](#select) field;
-    - for 0-500 dropdown items - we recommend you use the [`select2`](#select2) or [`relationship`](#relationship) field;
-    - for 500-1.000.000+ dropdown items - we recommend you load the dropdown items using AJAX, by using the [`relationship`](#relationship) field and Fetch operation or by using the [`select2_from_ajax`](#select2-from-ajax) field;
+        - for 0-10 dropdown items - we recommend you use the [`select`](#select) field;
+        - for 0-500 dropdown items - we recommend you use the [`select2`](#select2) or [`relationship`](#relationship) field;
+        - for 500-1.000.000+ dropdown items - we recommend you load the dropdown items using AJAX, by using the [`relationship`](#relationship) field and Fetch operation or by using the [`select2_from_ajax`](#select2-from-ajax) field;
 
 ```php
 // inside PhoneCrudController::setupCreateOperation()
@@ -2260,50 +2262,52 @@ CRUD::field('user_id')->type('select2')->model('App\Models\User')->attribute('na
 ```
 
 - notes:
-    - if you choose to use the [`relationship`](#relationship) field, you can also use [the InlineCreate operation](/docs/{{version}}/crud-operation-inline-create), which will add a [+ Add Item] button next to the dropdown, to let the admin create a User in a modal, without leaving the current Create Phone form; 
+    - if you choose to use the [`relationship`](#relationship) field, you could also use [the InlineCreate operation](/docs/{{version}}/crud-operation-inline-create), which will add a [+ Add Item] button next to the dropdown, to let the admin create a User in a modal, without leaving the current Create Phone form;
 
 <a name="hasmany"></a>
 #### hasMany (1-n relationship)
-Starting in 4.2, `HasMany` relation had been improved to allow custom functionality. You can use this relation type for two scenarios:
-- Select from a list of entries
-- Create the many items when adding the main entry 
 
-##### Selecting from a list
-- The select from a list shows the user a multiple select from a previously build list that when selected would change the connected key in that entry to the main entry key. In the following example, would change the `post_id` key in the `comments` table to the `id` of the created/edited `Post`. 
-
-    - example: 
-        - `Post -> HasMany -> Comment`
-        - the foreign key is stored on the Comment (`post_id` on `comments` table)
-    - how to use:
-        - [the `hasMany` relationship should be properly defined](https://laravel.com/docs/eloquent-relationships#one-to-many) in the Post model;
+- example:
+    - `Post -> HasMany -> Comment`
+    - the foreign key is stored on the Comment (`post_id` on `comments` table)
+- what to use:
+    - use the `relationship` field;
+- how to use:
+    - [the `hasMany` relationship should be properly defined](https://laravel.com/docs/eloquent-relationships#one-to-many) in the Post model;
 
 ```php
 // inside PostCrudController::setupCreateOperation()
-CRUD::field('comments');
-// optional `fallback_id`, `force_delete`
+CRUD::field('comments'); // when unselected, will set foreign key to null
+CRUD::field('comments')->fallback_id(3); // when unselected, will set foreign key to 3
+CRUD::field('comments')->force_delete(true);  // when unselected, will delete the related entry
 ```
-**WHEN UNSELECTING:**  Backpack follow some rules when user `unselect` an entry from the field:
-    - if `fallback_id` is provided, Backpack will set the connecting key `post_id` to what developer provides.
-    - if `post_id` is nullable on `comments` table Backpack will set the value to `null`. **If `force_delete` is `true` Backpack will delete the entry from `comments` table**
-    - if `post_id` is not nullable and no `fallback_id` or `force_delete` is provided, and error will be thrown. Make sure you configure the field according to your database definition.
 
-- notes: 
-    - you _can_ use [the InlineCreate operation](/docs/{{version}}/crud-operation-inline-create) to have show a [+ Add Item] button next to the dropdown; For it to work `post_id` on comments table need to nullable or have a default setup in database otherwise an error will be raised;
+- notes:
+    - when a related entry is unselected (removed), Backpack will:
+        - set the foreign key to `null`, if that db column is nullable (eg. `post_id`);
+        - set the foreign key to a default value, if you define a `fallback_id` on the field;
+        - delete related entry entirely, if you define `'force_delete' => false` on the field;
+    - you can use [the InlineCreate operation](/docs/{{version}}/crud-operation-inline-create) to show a [+ Add Item] button next to the dropdown; for it to work `post_id` on comments table need to nullable or have a default setup in database;
+
+
 <a name="hasmany-creatable"></a>
-##### Creating many entries when adding the main entry
-Before 4.2 to create entries developer would need to setup a repeatable field, overwrite the Backpack saving process and create acessors to display the field. This was just too much work for developers. **Starting in 4.2 Backpack takes care of most of it**.
+#### hasMany (1-n relationship) with extra info on pivot table
 
-Using the same example as above (`Post -> HasMany -> Comment`) you should define the field as follow:
+If you want the admin to not only _select_ an entry, but also define something about their relationship.
+
+- example:
+    - `Post -> HasMany -> Comment`
+    - the foreign key is stored on the Comment (`post_id` on `comments` table)
+- what to use:
+    - use the `relationship` field;
+- how to use:
+    - [the `hasMany` relationship should be properly defined](https://laravel.com/docs/eloquent-relationships#one-to-many) in the Post model;
 
 ```php
 // inside PostCrudController::setupCreateOperation()
-CRUD::field('comments')->pivotFields([['name' => 'comment_text']]); //note comment_text is a text field in the comment table.
+CRUD::field('comments')->pivotFields([['name' => 'comment_text']]);
+// where comment_text is a text field in the comment table.
 ```
-
-And that's it:
-- Repeatable field will be created.
-- Saving process will be taken care by Backpack.
-- We will re-display the field correctly.
 
 <a name="belongstomany"></a>
 #### belongsToMany (n-n relationship)
