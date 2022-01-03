@@ -2050,6 +2050,14 @@ public function setPhotosAttribute($value)
     ];
 ```
 
+**Setp 4.** Validation! You can validate the files submitted using [nested array validation](https://laravel.com/docs/8.x/validation#validating-nested-array-input). Example:
+
+```php
+$request->validate([
+    'upload_multiple.*.file' => 'file',
+];
+```
+
 **How it works:**
 
 The field sends the files, through a Request, to the Controller. The Controller then tries to create/update the Model. That's when the mutator on your model will run. That also means we can do any [file validation](https://laravel.com/docs/5.3/validation#rule-file) (```file```, ```image```, ```mimetypes```, ```mimes```) in the Request, before the files are stored on the disk.
