@@ -19,13 +19,10 @@ We have a lot of default field types, detailed below. If you don't find what you
 To manipulate fields, you can use the methods below. The action will be performed on the currently running operation. So make sure you run these methods inside ```setupCreateOperation()```, ```setupUpdateOperation()``` or in ```setup()``` inside operation blocks:
 
 ```php
-// add a field to both Create and Update operation
+// add a field 
 $this->crud->addField($field_definition_array);
 
-// add a field only to the Update operation
-$this->crud->addField($field_definition_array);
-
-// shorthand: add a text field to both Create and Update operations
+// shorthand: add a text field 
 $this->crud->addField('db_column_name');
 
 // add multiple fields
@@ -77,17 +74,17 @@ Every other field attribute other than `name`, Backpack 4.1+ will try to guess.
 <a name="recommended-field-attributes"></a>
 #### Recommended Field Attributes
 
-Normally developers define the following attributes for all fields:
+Usually developers define the following attributes for all fields:
 - the ```name``` of the column in the database (ex: "title")
 - the human-readable ```label``` for the input (ex: "Title")
 - the ```type``` of the input (ex: "text")
 
-So at minimum, your field definition array should look like:
+So at minimum, a field definition array usually looks like:
 ```php
 [
     'name'  => 'description',
-    'type'  => 'textarea',
     'label' => 'Article Description',
+    'type'  => 'textarea',
 ]
 ```
 
@@ -130,7 +127,7 @@ These will help you:
 <a name="fake-fields"></a>
 #### Optional - Fake Field Attributes (stores fake attributes as JSON in the database)
 
-In case you want to store insignificant information for an entry that doesn't need a database column, you can add any number of Fake Fields, and all their information will be stored inside one column in the db, as JSON. By default, an ```extras``` column is assumed on the database table, but you can change that.
+In case you want to store information for an entry that doesn't need a separate database column, you can add any number of Fake Fields, and their information will be stored inside a column in the db, as JSON. By default, an ```extras``` column is used and assumed on the database table, but you can change that.
 
 **Step 1.** Use the fake attribute on your field:
 ```php
@@ -807,7 +804,7 @@ Input preview:
 <a name="hidden"></a>
 ### hidden
 
-Include an <input type="hidden"> in the form.
+Include an `<input type="hidden">` in the form.
 
 ```php
 [   // Hidden
