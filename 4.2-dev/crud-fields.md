@@ -1217,7 +1217,7 @@ You can use most field types inside the field groups, add as many fields you nee
 - **all fields defined inside a field group need to have their definition valid and complete**; you can't use shorthands, you shouldn't assume fields will guess attributes for you;
 - some field types do not make sense to be included inside a field group (for example, relationship fields might not make sense; they will work if the relationship is defined on the main model, but upon save the selected entries will NOT be saved as relationships, they will be saved as JSON; you can intercept the saving if you want and do whatever you want); 
 - a few fields _make sense_, but _cannot_ work inside a repeatable group (ex: upload, upload_multiple); [see the notes inside the PR](https://github.com/Laravel-Backpack/CRUD/pull/2266#issuecomment-559436214) for more details, and a complete list of the fields; the few fields that do not work inside repeatable have sensible alternatives;
-- **VALIDATION**: you should validate repeatable fields the same way you validate [nested arrays in Laravel]([https://laravel.com/docs/8.x/validation#validating-nested-array-input) Eg: `repeatable.*.name => 'required'`
+- **VALIDATION**: you can validate repeatable fields the same way you validate [nested arrays in Laravel]([https://laravel.com/docs/8.x/validation#validating-nested-array-input) Eg: `testimonial.*.name => 'required'`
 
 ```php
 [   // repeatable
