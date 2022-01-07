@@ -7,7 +7,7 @@
 
 This operation allows your admins to edit entries from the database.
 
-![CRUD Update Operation](https://backpackforlaravel.com/uploads/docs-4-1/operations/update.png)
+![CRUD Update Operation](https://backpackforlaravel.com/uploads/docs-4-2/operations/update.png)
 
 <a name="requirements"></a>
 ## Requirements

@@ -13,7 +13,7 @@ For example:
     - the admin needs to click an Add button
     - a modal will show the form from ```CategoryCrudController```'s Create operation;
 
-![Backpack InlineCreate Operation](https://backpackforlaravel.com/uploads/docs-4-1/release_notes/inline_create_small.gif)
+![Backpack InlineCreate Operation](https://backpackforlaravel.com/uploads/docs-4-2/release_notes/inline_create_small.gif)
 
 
 <a name="requirements"></a>

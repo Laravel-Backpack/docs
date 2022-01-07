@@ -150,7 +150,7 @@ Widget Preview:
 
 Shows a pie chart / line chart / bar chart inside a Bootstrap card, with the heading and body you specify.
 
-![Backpack chart widgets](https://backpackforlaravel.com/uploads/docs-4-1/release_notes/chart_widget_small.gif)
+![Backpack chart widgets](https://backpackforlaravel.com/uploads/docs-4-2/release_notes/chart_widget_small.gif)
 
 To create and use a new widget chart, you need to:
 

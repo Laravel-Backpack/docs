@@ -9,11 +9,11 @@ This operation shows a table with all database entries. It's the first page the 
 
 A simple List view might look like this:
 
-![Backpack CRUD ListEntries](https://backpackforlaravel.com/uploads/docs-4-1/operations/listEntries.png)
+![Backpack CRUD ListEntries](https://backpackforlaravel.com/uploads/docs-4-2/operations/listEntries.png)
 
 But a complex implementation of the ListEntries operation, using Columns, Filters, custom Buttons, custom Operations, responsive table, Details Row, Export Buttons will still look pretty good:
 
-![Backpack CRUD ListEntries](https://backpackforlaravel.com/uploads/docs-4-1/operations/listEntries_full.png)
+![Backpack CRUD ListEntries](https://backpackforlaravel.com/uploads/docs-4-2/operations/listEntries_full.png)
 
 You can easily customize [columns](#columns), [buttons](#buttons), [filters](#filters), [enable/disable additional features we've built](#other-features), or [overwrite the view and build your own features](#how-to-overwrite).
 
