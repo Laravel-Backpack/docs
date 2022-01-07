@@ -1096,16 +1096,14 @@ Input preview:
 <a name="relationship"></a>
 ### relationship
 
-Allows the user to choose one/more entries of an Eloquent Model that has a relationship with the current model, using a `select2` input. In order to work, this field needs the relationships to be properly defined on the Eloquent models (`hasOne`, `hasMany`, `belongsTo`, `belongsToMany`, `morphOne`, `morphMany`  etc).
+Shows the user a `select2` input, allowing them to choose one/more entries of a related Eloquent Model. In order to work, this it needs the relationships to be properly defined on the Model.
 
-Input preview (for both 1-n and n-n relationships): 
+Input preview (for both 1-n and n-n relationships):
 
 ![CRUD Field - relationship](https://backpackforlaravel.com/uploads/docs-4-2/fields/relationship.png)
 
+You just need to point the field to the relationship method on your Model (NOT the foreign key):
 
-Take a look at the examples below to understand the correct syntax for your use case.
-
-**Example 1. Few options (0-100). Entries are loaded onpage, using a simple Eloquent query. No AJAX.**
 ```php
 [   // relationship
     'type' => "relationship",
@@ -1113,18 +1111,38 @@ Take a look at the examples below to understand the correct syntax for your use 
 
     // OPTIONALS:
     // 'label' => "Category",
-    // 'attribute' => "name", // foreign key attribute that is shown to user (identifiable attribute)
-    // 'entity' => 'category', // the method that defines the relationship in your Model
-    // 'model' => "App\Models\Category", // foreign key Eloquent model
+    // 'attribute' => "title", // attribute that is shown to user (identifiable attribute)
     // 'placeholder' => "Select a category", // placeholder for the select2 input
  ],
 ```
 
-For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
+To understand the optional attributes regarding the relationship [look here](#optional-attributes-for-fields-containing-related-entries).
 
-**Example 2. Many options. Entries are loaded using AJAX.**
+Out of the box, it supports all common relationships:
+- ✅ `hasOne` (1-1) - shows a repeatable with a single entry (aka `relationship.entry`) // TODO
+- ✅ `belongsTo` (n-1) - shows a select2 (single)
+- ✅ `hasMany` (1-n) - shows a select2_multiple OR `relationship.entries` if you define `fields`
+- ✅ `belongsToMany` (n-n) - shows a select2_multiple OR `relationship.entries` if you define `fields`
+- ✅ `morphOne` (1-1) - shows a repeatable with a single entry (aka `relationship.entry`) // TODO
+- ✅ `morphMany` (1-n) - shows a select2_multiple OR `relationship.entries` if you define `fields`
+- ✅ `morphToMany` (n-n) - shows a select2_multiple OR `relationship.entries` if you define `fields`
 
-If your related entry can have hundreds, thousands or millions of entries, it's not practical to load the options using an Eloquent query onpage, because the Create/Update page would be very slow to load. In this case, you should instruct ```select2``` to fetch the entries using AJAX calls. To do that, in your ```relationship``` field definition you should add ```'ajax' => true```:
+It does NOT support the following relationships, because they don't really make sense as fields:
+- ❌ `hasOneThrough` (1-1-1) - it's read-only, no sense having a field for it;
+- ❌ `hasManyThrough` (1-1-n) - it's read-only, no sense having a field for it;
+- ❌ Has One Of Many (1-n turned into 1-1) - it's read-only, no sense having a field for it;
+- ❌ Morph One Of Many (1-n turned into 1-1) - it's read-only, no sense having a field for it;
+- ❌ `morphTo` (n-1) - never needed, UI would be very difficult to understand & use;
+- ❌ `morphedByMany` (n-n inverse) - never needed, UI would be very difficult to understand & use;
+
+In addition, there are quite a few optional features, bundled into the `relationship` field:
+
+<a name="load-entries-from-ajax-calls-using-the-fetch-operation"></a>
+#### Load entries from AJAX calls - using the Fetch Operation
+
+If your related entry has hundreds, thousands or millions of entries, it's not practical to load the options using an onpage Eloquent query, because the Create/Update page would be very slow to load. In this case, you should instruct the `relationship` field to fetch the entries using AJAX calls.
+
+**Step 1.** Add `'ajax' => true` to your relationship field definition:
 
 ```php
 [   // relationship
@@ -1148,7 +1166,7 @@ If your related entry can have hundreds, thousands or millions of entries, it's 
  ],
 ```
 
-Then, you need to create the route and method that allows ```select2``` to search and fetch the results of that search. Fortunately, the ```FetchOperation``` allows you to easily do just that. Inside the CrudController where you've defined the ```relationship``` field, use the ```FetchOperation``` trait, and define a new method that will respond to AJAX queries:
+**Step 2.** Create the route and method that responds to the AJAX calls. Fortunately, the `FetchOperation` allows you to easily do just that. Inside the same CrudController where you've defined the `relationship` field, use the `FetchOperation` trait, and define a new method that will respond to AJAX queries for that entity:
 
 ```php
     use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
@@ -1159,34 +1177,42 @@ Then, you need to create the route and method that allows ```select2``` to searc
     }
 ```
 
-This will set up a ```/fetch/category``` route, which points to ```fetchCategory()```, which returns the search results in a format ```select2``` likes. For more on how this operation works, and how you can customize it, check out the [FetchOperation docs](/docs/{{version}}/crud-operation-fetch).
+This will set up a ```/fetch/category``` route, which points to ```fetchCategory()```, which returns the search results. For more on how this operation works (and how you can customize it), see the [FetchOperation docs](/docs/{{version}}/crud-operation-fetch).
 
-**Additional operation. InlineCreate - lets the user create a related entry in a modal.**
 
-Searching with AJAX provides a great UX. But what if the user doesn't find what they're looking for? In that case, it would be useful to add a related entry on-the-fly, without leaving the form. If you are using the Fetch operation to get the entries, you're already halfway there. In addition, you only need two additional steps:
+<a name="create-related-entries-in-a-modal-using-the-inlinecreate-operation"></a>
+#### Create related entries in a modal - using the InlineCreate Operation
+
+Works for the `BelongsTo`, `BelongsToMany` and `MorphToMany` relationships.
+
+Searching with AJAX provides a great UX. But what if the user doesn't find what they're looking for? In that case, it would be useful to add a related entry on-the-fly, without leaving the main form:
+
+![CRUD Field - relationship fetch with inline create](https://backpackforlaravel.com/uploads/docs-4-2/fields/relationship_inlineCreate.gif)
+
+If you are using the Fetch operation to get the entries, you're already halfway there. In addition to using Fetch as instructed in the section above, you only need two additional steps:
+
+**Step 1.** Add `inline_create` to your field definition in **the current CrudController**:
 
 ```php
-// Inside ArticleCrudController
 // for 1-n relationships (ex: category)
-[   // relationship
+[
     'type'          => "relationship",
-    'name'          => 'category', // the method on your model that defines the relationship
+    'name'          => 'category',
     'ajax'          => true,
-    'inline_create' => true,
+    'inline_create' => true, // <--- THIS
 ],
-// Inside ArticleCrudController
 // for n-n relationships (ex: tags)
-[   // relationship
+[
     'type'          => "relationship",
     'name'          => 'tags', // the method on your model that defines the relationship
     'ajax'          => true,
-    // in this example, the relation is called `tags` and it does not match route name
-    // route name is `Route::crud('tag');` so we need configure it
-    'inline_create' => [ 'entity' => 'tag' ] 
+    'inline_create' => [ 'entity' => 'tag' ]  // <--- OR THIS
 ],
+// in this second example, the relation is called `tags` (plural),
+// but we need to define the entity as "tag" (singural)
 ```
 
-Now, on the CrudController of that secondary entity the user will be able to create on-the-fly (ex: ```CategoryCrudController``` or ```TagCrudController```, you'll need to enable the InlineCreate operation:
+**Step 2.** On the CrudController of that secondary entity (that the user will be able to create on-the-fly, eg. `CategoryCrudController` or `TagCrudController`), you'll need to enable the InlineCreate operation:
 ```php
 class CategoryCrudController extends CrudController
 {
@@ -1199,6 +1225,115 @@ class CategoryCrudController extends CrudController
 This ```InlineCreateOperation``` will allow us to show _the same fields that are inside the Create operation_, inside a new operation _InlineCreate_, that is available in a modal. For more information, check out the [InlineCreate Operation docs](/docs/{{version}}/crud-operation-inline-create).
 
 Remember, ```FetchOperation``` is still needed on the main crud (ex: ```ArticleCrudController```) so that the entries are fetched by ```select2``` using AJAX.
+
+#### Save additional data to pivot table
+
+For relationships with a pivot table (n-n relationships: `BelongsToMany`, `MorphToMany`), that contain other columns other than the foreign keys themselves, the `relationship` field provides a quick way for your admin to edit those "extra attributes on the pivot table". For example, if you have these database tables:
+
+```php
+// - companies: id, name
+// - company_person: id, company_id, person_id, job_title, job_description
+// - persons: id, first_name, last_name
+```
+
+You might want the admin to edit the "job_title" and "job_description" of a person inside a company, right then-and-there. So instead of this:
+
+
+![CRUD Field - belongsToMany relationship without custom pivot table attributes](https://backpackforlaravel.com/uploads/docs-4-2/fields/relationship_belongsToMany_noPivot.png)
+
+you might want to end up with this:
+
+![CRUD Field - belongsToMany relationship with custom pivot table attributes](https://backpackforlaravel.com/uploads/docs-4-2/fields/relationship_belongsToMany_withPivot.png)
+
+
+
+The `relationship` field allows you to easily do that. Here's how:
+
+**Step 1.** On both your models, make sure the extra database columns are defined, using `withPivot()`:
+
+```php
+// inside the Company model
+public function people()
+{
+    return $this->belongsToMany(\App\Models\Person::class)
+                ->withPivot('job_title', 'job_description');
+}
+// inside the Person model
+public function companies()
+{
+    return $this->belongsToMany(\App\Models\Company::class)
+                ->withPivot('job_title', 'job_description');
+}
+```
+
+**Step 2.** Inside your `relationship` field definition, add those two attributes as `pivotFields`:
+
+```php
+// Inside PersonCrudController
+[
+    'name'          => 'companies',
+    'type'          => "relationship",
+     // ..
+    'pivotFields'   => [
+        [
+            'name' => 'job_title',
+            'type' => 'text',
+            'wrapper' => [
+                'class' => 'form-group col-md-3',
+            ],
+        ],
+        [
+            'name' => 'job_description',
+            'type' => 'text',
+            'wrapper' => [
+                'class' => 'form-group col-md-9',
+            ],
+        ],
+    ],
+],
+```
+
+**That's it.** Backpack now will save those additional inputs on the pivot table.
+
+Additionally, if you want to change something about the primary select, you can do that using the `pivot_selector` attribute:
+
+```php
+[
+    'name'          => 'companies',
+    'type'          => "relationship",
+    'pivotFields'   => [ ... ],
+     // ..
+    'pivot_selector'=> [
+        // 'ajax' => true,
+        'placeholder' => 'Pick a company',
+        'wrapper' => [
+            'class' => 'col-md-6',
+        ],
+    ],
+]
+```
+
+#### Manage related entries in the same form (create, update, delete)
+
+// TODO
+
+
+<a name="create-related-entries-in-a-modal-using-the-inlinecreate-operation"></a>
+#### Delete related entries or fall back to default
+
+Normally, when the admin removes a relationship from the "select", the only thing that gets deleted is the relationship. NOT the related entry. But for the `hasMany` and `morphMany` relationships, you can also instruct Backpack to remove the _related entry_ upon saving, or change the foreign key to a default value (fallback).
+
+```php
+// Inside ArticleCrudController
+[
+    'type'          => "relationship",
+    'name'          => 'comments',
+    // when removed, use fallback_id
+    'fallback_id'   => 3, // will relate to the comment with ID "3"
+    // when removed, delete the entry
+    'force_delete'  => true, // will delete that comment
+],
+```
 
 <hr>
 
@@ -2327,14 +2462,19 @@ CRUD::field('roles');
 // inside RoleCrudController::setupCreateOperation()
 CRUD::field('users');
 ```
+
 - notes:
     - if you choose to use the [`relationship`](#relationship) field type, you can also use [the InlineCreate operation](/docs/{{version}}/crud-operation-inline-create), which will add a `[+ Add Item]` button next to the dropdown, to let the admin create a User/Role in a modal, without leaving the current Create User/Role form; 
 
 ##### EXTRA: Saving aditional data in the pivot table
+
 Before 4.2 to work with pivot fields developer would need to setup a repeatable field, overwrite the Backpack saving process and create acessors to display the field. **In 4.2 Backpack takes care of most of it**.
 
 Using the same example as above (`User -> BelongsToMany -> Roles`) you should do the following:
+
+
 ##### setup the pivot fields in your relation definition: 
+
 ```php
 // inside App\Models\User
 public function roles() {
@@ -2342,6 +2482,7 @@ public function roles() {
 }
 ```
 ##### setup the pivot fields in your relation definition: 
+
 ```php
 // inside UserCrudController::setupCreateOperation()
 CRUD::field('roles')->pivotFields([['name' => 'notes', 'type' => 'textarea'], ['name' => 'some_other_field']]); 
@@ -2368,6 +2509,8 @@ CRUD::field('users')->pivotFields(
             ]
         ]);
 ```
+
+
 <a name="morphone"></a>
 #### morphOne (1-1 polymorphic relationship)
 
@@ -2384,6 +2527,8 @@ CRUD::field('video.url');
 ```
 
 Backpack will take care of the saving process and deal with the morphable relation.
+
+
 <a name="morphmany"></a>
 #### morphMany (1-n polymorphic relationship)
 This is in all aspects similar to [HasMany](#hasmany) relation, the difference is that it's stored in a pivot table. 
@@ -2397,6 +2542,8 @@ There is no sense in using this a `select` when using a polymorphic relation bec
 // inside PostCrudController::setupCreateOperation() and inside VideoCrudController::setupCreateOperation()
 CRUD::field('comments')->pivotFields([['name' => 'comment_text']]); //note comment_text is a text field in the comment table.
 ```
+
+
 <a name="morphtomany"></a>
 #### morphToMany (n-n polymorphic relationship)
 This is in all aspects similar to [BelongsToMany](#belongstomany) relation, the difference is that it stores the `morphable` entity in the pivot table 
@@ -2406,7 +2553,31 @@ This is in all aspects similar to [BelongsToMany](#belongstomany) relation, the 
 
 Please read the relationship [BelongsToMany](#belongstomany) documentation, everything is the same in regards to fields definition and Backpack will take care of the morphable relation saving.
 
-#### hasOneThrough (1-1-1 relationship) and hasManyThrough (1-1-n relationship)
 
-- Both are "read" relations and should not be edited from the far side of the relation. To give some context imagine 3 models: Product, Category and Order.
-The Product has a Category (category_id), and the Order has a Product (product_id). We would use `HasOneThrough` in the `Order` model to get the `Category` through `Product` model. 
+#### hasOneThrough (1-1-1 relationship)
+
+- This is a "read-only" relationship. It does not make sense to add a field for it.
+
+
+#### hasManyThrough (1-1-n relationship)
+
+- This is a "read-only" relationship. It does not make sense to add a field for it.
+
+
+#### Has One of Many (1-1 relationship out of 1-n relationship)
+
+- This is a "read-only" relationship. It does not make sense to add a field for it. Please use the general-purpose relationship towards this entity (the 1-n relationship, without `latestOfMany()` or `oldestOfMany()`).
+
+
+#### Morph One of Many (1-1 relationship out of 1-n relationship)
+
+- This is a "read-only" relationship. It does not make sense to add a field for it. Please use the general-purpose relationship towards this entity (the 1-n relationship, without `latestOfMany()` or `oldestOfMany()`).
+
+#### MorphTo (n-1 relationship)
+
+- We do not provide an interface to edit this relationship. We never needed it, nobody ever asked for it and it would be very difficult to create an interface that is easy-to-use and easy-to-understand for the admin. If you find yourself needing this, please let us know by opening an issue on Github.
+
+#### MorphedByMany (n-n inverse relationship)
+
+- We do not provide an interface to edit this relationship. We never needed it, nobody ever asked for it and it would be very difficult to create an interface that is easy-to-use and easy-to-understand for the admin. If you find yourself needing this, please let us know by opening an issue on Github.
+
