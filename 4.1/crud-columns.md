@@ -209,7 +209,7 @@ Show the HTML that you provide in the page. You can optionaly escape the text wh
     'name'     => 'my_custom_html',
     'label'    => 'Custom HTML',
     'type'     => 'custom_html',
-    'value' => '<span class="text-danger">Something</span>'
+    'value' => '<span class="text-danger">Something</span>',
     'escaped' => false //optional, if the "value" should be escaped when displayed in the page. 
 ],
 ```
