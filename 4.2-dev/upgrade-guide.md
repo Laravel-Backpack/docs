@@ -150,15 +150,19 @@ But you can also do a lot more, because you have the `$request` in that closure.
 
 ----
 
-<a name="step-11" href="#step-11" class="badge badge-info text-white" style="text-decoration: none;">Step 11.</a> We have removed the **`simplemde` field**, since the JS library hasn't received any updates since 2016. However, there is a drop-in replacement called `easymde` which is well maintained. If you're using the `simplemde` field type anywhere in your project, please use `easymde` instead. A simple find & replace in your Controllers should do.
+<a name="step-11" href="#step-11" class="badge badge-secondary-soft" style="text-decoration: none;">Step 11.</a> The `repeatable` field type now shows zero rows when empty (previously it was showing one). If this is not ok for your project, please define `'min_rows' => 1` on your `repeatable` field.
 
 ----
 
-<a name="step-12" href="#step-12" class="badge badge-secondary-soft" style="text-decoration: none;">Step 12.</a> If you're using the **Reorder operation** _and_ have overriden some of its functionality, please take note that the information is now passed as JSON. Replicate the [small changes here](https://github.com/Laravel-Backpack/CRUD/pull/3808/files) in your custom code too.
+<a name="step-12" href="#step-12" class="badge badge-info text-white" style="text-decoration: none;">Step 12.</a> We have removed the **`simplemde` field**, since the JS library hasn't received any updates since 2016. However, there is a drop-in replacement called `easymde` which is well maintained. If you're using the `simplemde` field type anywhere in your project, please use `easymde` instead. A simple find & replace in your Controllers should do.
 
 ----
 
-<a name="step-13" href="#step-13" class="badge badge-info text-white" style="text-decoration: none;">Step 13.</a> When setting up your **Show operation** in Backpack 4.1, whatever you did inside `setupShowOperation()` was called _before_ the opration added all columns. That made it pretty difficult to delete auto-added columns. You might have used a workaround for this.
+<a name="step-13" href="#step-13" class="badge badge-secondary-soft" style="text-decoration: none;">Step 13.</a> If you're using the **Reorder operation** _and_ have overriden some of its functionality, please take note that the information is now passed as JSON. Replicate the [small changes here](https://github.com/Laravel-Backpack/CRUD/pull/3808/files) in your custom code too.
+
+----
+
+<a name="step-14" href="#step-14" class="badge badge-info text-white" style="text-decoration: none;">Step 14.</a> When setting up your **Show operation** in Backpack 4.1, whatever you did inside `setupShowOperation()` was called _before_ the opration added all columns. That made it pretty difficult to delete auto-added columns. You might have used a workaround for this.
 
 Starting with Backpack 4.2, the operation will do its "_automatic setup_" inside an `autoSetupShowOperation()` method. If you define `setupShowOperation()`, that method will no longer be called, you have to call it inside you `setupShowOperation()` if you want what it does. To upgrade:
 - if you _do not_ have a `setupShowOperation()` in your CrudControllers, you are not affected by this - don't worry;
@@ -168,7 +172,7 @@ Starting with Backpack 4.2, the operation will do its "_automatic setup_" inside
 
 ----
 
-<a name="step-14" href="#step-14" class="badge badge-warning text-white" style="text-decoration: none;">Step 14.</a> The **Create and Update operations** no longer save the `request()`, they save your `ProductFormRequest` (the one that contains the validation). If you have NOT modified the `request()` or `CRUD::getRequest()` in any of your CrudControllers, you will not be affected by this, move on.
+<a name="step-15" href="#step-15" class="badge badge-warning text-white" style="text-decoration: none;">Step 15.</a> The **Create and Update operations** no longer save the `request()`, they save your `ProductFormRequest` (the one that contains the validation). If you have NOT modified the `request()` or `CRUD::getRequest()` in any of your CrudControllers, you will not be affected by this, move on.
 
 However, if you _have_ modified the request (most likely to add or remove inputs), those changes will never reach the db. To give you an example, if you've over overridden the `store()` or `update()` methods to add an input, it might look something like this:
 ```php
@@ -230,12 +234,12 @@ Alternatively... if you absolutely _hate_ this new behaviour and want your previ
 
 ----
 
-<a name="step-15" href="#step-15" class="badge badge-secondary-soft" style="text-decoration: none;">Step 15.</a> If you've customized the saving process of the Create or Update operations (read: you've overriden the `store()` or `update()` methods), please take into consideration that starting with Backpack 4.2, **when a select multiple is emptied, it will still be part of the request, as `null`**. Whereas previously (if emptied) it was missing entirely. This applies to all `select` and `select2` fields when used as `multiple`. You might need to change your saving logic accordingly, instead of expecting them to be missing, to expect them to be `null`.
+<a name="step-16" href="#step-16" class="badge badge-secondary-soft" style="text-decoration: none;">Step 16.</a> If you've customized the saving process of the Create or Update operations (read: you've overriden the `store()` or `update()` methods), please take into consideration that starting with Backpack 4.2, **when a select multiple is emptied, it will still be part of the request, as `null`**. Whereas previously (if emptied) it was missing entirely. This applies to all `select` and `select2` fields when used as `multiple`. You might need to change your saving logic accordingly, instead of expecting them to be missing, to expect them to be `null`.
 
 ----
 
 
-<a name="step-16" href="#step-16" class="badge badge-secondary-soft" style="text-decoration: none;">Step 16.</a> The `page_or_link` field has been moved from `backpack/crud` to `backpack/menucrud` because it made little sense outside it. If you've used the `page_or_link` field anywhere in your CrudControllers:
+<a name="step-17" href="#step-17" class="badge badge-secondary-soft" style="text-decoration: none;">Step 17.</a> The `page_or_link` field has been moved from `backpack/crud` to `backpack/menucrud` because it made little sense outside it. If you've used the `page_or_link` field anywhere in your CrudControllers:
 - if you have `MenuCRUD` installed: 
     - bump the MenuCRUD version in your `composer.json` (`"backpack/menucrud": "^3.0.0"`)
     - anywhere you've used the `page_or_link` field, make sure to specify its view_namespace (`'view_namespace' => 'menucrud::fields'`);
@@ -247,7 +251,7 @@ Alternatively... if you absolutely _hate_ this new behaviour and want your previ
 <a href="assets"></a>
 ### CSS & JS Assets
 
-<a name="step-17" href="#step-17" class="badge badge-info text-white" style="text-decoration: none;">Step 17.</a> We've updated most CSS & JS dependencies to their latest versions. There are two ways to publish the latest styles and scripts for these dependencies:
+<a name="step-18" href="#step-18" class="badge badge-info text-white" style="text-decoration: none;">Step 18.</a> We've updated most CSS & JS dependencies to their latest versions. There are two ways to publish the latest styles and scripts for these dependencies:
 - (A) If you have NOT touched you ```public/packages``` folder, or placed anything custom inside it:
         - delete the ```public/packages``` directory and all its contents;
         - run ```php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag=public```
@@ -256,7 +260,7 @@ Alternatively... if you absolutely _hate_ this new behaviour and want your previ
 
 ----
 
-<a name="step-18" href="#step-18" class="badge badge-info text-white" style="text-decoration: none;">Step 18.</a> We've removed the custom CSS & JS files that Backpack provided for each operation (eg. `list.css` and `create.js` - [see why here](https://github.com/Laravel-Backpack/CRUD/pull/3942)).
+<a name="step-19" href="#step-19" class="badge badge-info text-white" style="text-decoration: none;">Step 19.</a> We've removed the custom CSS & JS files that Backpack provided for each operation (eg. `list.css` and `create.js` - [see why here](https://github.com/Laravel-Backpack/CRUD/pull/3942)).
 
 - If you've added any custom code in `public/packages/backpack/crud/css` and `public/packages/backpack/crud/js`, copy them to a different location (we suggest `public/assets/admin/css` and `public/assets/admin/js`). Then use the brand-new `script` and `style` widgets to load them only where you need them. See the [updated docs section](/docs/{{version}}/crud-how-to#add-css-and-js-to-a-page-or-operation) for more information. This is only needed if YOU have added any custom code there. The Backpack CSS that was there is now included in the `bundle.css` and `bundle.js` files.
 - if you haven't modified those at all... it is now safe to delete the `public/packages/backpack/crud/css` and `public/packages/backpack/crud/js` directories - those files are no longer loaded.
@@ -264,16 +268,16 @@ Alternatively... if you absolutely _hate_ this new behaviour and want your previ
 <a name="views"></a>
 ### Views
 
-<a name="step-19" href="#step-19" class="badge badge-secondary-soft" style="text-decoration: none;">Step 19.</a> **Have you developed any custom fields or columns?** Rephrased: do you have anything inside your `resources/views/vendor/backpack/crud/fields` or `resources/views/vendor/backpack/crud/fields`? If so, and those fields or columns load any external CSS or JS, we recommended you load them using `@loadOnce('path/to/file.css')` and `@loadOnce('path/to/file.js')` instead of `<link href="path/to/file.css>"` and `<script src="path/to/file.js></script>"`. This will make sure that piece of JS/CSS/code is only loaded once per pageload. You can find [more info about it here](https://github.com/digitallyhappy/assets) (and why it's more than `@once`).
+<a name="step-20" href="#step-20" class="badge badge-secondary-soft" style="text-decoration: none;">Step 20.</a> **Have you developed any custom fields or columns?** Rephrased: do you have anything inside your `resources/views/vendor/backpack/crud/fields` or `resources/views/vendor/backpack/crud/fields`? If so, and those fields or columns load any external CSS or JS, we recommended you load them using `@loadOnce('path/to/file.css')` and `@loadOnce('path/to/file.js')` instead of `<link href="path/to/file.css>"` and `<script src="path/to/file.js></script>"`. This will make sure that piece of JS/CSS/code is only loaded once per pageload. You can find [more info about it here](https://github.com/digitallyhappy/assets) (and why it's more than `@once`).
 
 ----
 
-<a name="step-20" href="#step-20" class="badge badge-secondary-soft" style="text-decoration: none;">Step 20.</a> If you've overwritten any of the default operations in any way (blade files or PHP classes), take note that we've renamed the system GET/POST parameters (aka hidden inputs) - they're all prefixed by underscore now, to differentiate them from actual database columns. Please replace `http_referrer`, `locale`, `current_tab` with `_http_referrer`, `_locale`, `_current_tab`, respectively. [Take a look at the PR](https://github.com/Laravel-Backpack/CRUD/pull/3955/files) to see the affected files. In 99% of all cases you won't be affected by this, there's little reason to overwrite the default operations. This also applies if you've overridden the `SaveActions` or `form_content`.
+<a name="step-21" href="#step-21" class="badge badge-secondary-soft" style="text-decoration: none;">Step 21.</a> If you've overwritten any of the default operations in any way (blade files or PHP classes), take note that we've renamed the system GET/POST parameters (aka hidden inputs) - they're all prefixed by underscore now, to differentiate them from actual database columns. Please replace `http_referrer`, `locale`, `current_tab` with `_http_referrer`, `_locale`, `_current_tab`, respectively. [Take a look at the PR](https://github.com/Laravel-Backpack/CRUD/pull/3955/files) to see the affected files. In 99% of all cases you won't be affected by this, there's little reason to overwrite the default operations. This also applies if you've overridden the `SaveActions` or `form_content`.
 
 <a name="security"></a>
 ### Security
 
-<a name="step-21" href="#step-21" class="badge badge-info" style="text-decoration: none;">Step 21.</a> By default, all columns now echo using `{{ }}` instead of `{!! !!}`. That means they "_escape the output_", assuming they contain strings, not HTML. This was done to increase _default security_, to protect the admin from any malicious strings that might have been stored in the database. There are two exceptions to this, two columns that are not `escaped` by default: `custom_html` and `markdown`, where Backpack assumes you store HTML. To upgrade:
+<a name="step-22" href="#step-22" class="badge badge-info" style="text-decoration: none;">Step 22.</a> By default, all columns now echo using `{{ }}` instead of `{!! !!}`. That means they "_escape the output_", assuming they contain strings, not HTML. This was done to increase _default security_, to protect the admin from any malicious strings that might have been stored in the database. There are two exceptions to this, two columns that are not `escaped` by default: `custom_html` and `markdown`, where Backpack assumes you store HTML. To upgrade:
 - If you've been showing HTML using the `array`, `array_count`, `closure`, `model_function`, `model_function_attribute`, `relationship_count` or `textarea` columns, you can use `'escaped' => false` on those columns to go back to the previous behaviour. But please [read more about this](/docs/{{version}}/crud-columns#escape-column-output), it might be a good idea to sanitize your input/output if you've forgotten to do so.
 - If you're using the `markdown` or `custom_html` columns, please note that they still DO NOT escape the output by default (since they most likely store HTML); make sure you've properly sanitized your input or output - it's super-easy using an [HTML Purifier package](https://github.com/mewebstudio/Purifier) (you can do that by casting the attribute to `CleanHtmlOutput::class` in your Model or [manually](https://github.com/Laravel-Backpack/demo/commit/7342cffb418bb568b9e4ee279859685ddc0456c1));
 
@@ -281,7 +285,7 @@ Alternatively... if you absolutely _hate_ this new behaviour and want your previ
 <a name="cache"></a>
 ### Cache
 
-<a name="step-22" href="#step-22" class="badge badge-info text-white" style="text-decoration: none;">Step 22.</a> Clear your app's cache:
+<a name="step-23" href="#step-23" class="badge badge-info text-white" style="text-decoration: none;">Step 23.</a> Clear your app's cache:
 ```
 php artisan config:clear
 php artisan cache:clear
