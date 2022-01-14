@@ -286,7 +286,7 @@ Your result should say "_webpack compiled successfully_". If so, you can now use
 ```diff
     'styles' => [
 -        'packages/backpack/base/css/bundle.css',
-+        'packages/backpack/base/css/custom-backpack-bundle.css',
++        'css/custom-backpack-bundle.css',
 ```
 
 
