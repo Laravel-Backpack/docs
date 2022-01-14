@@ -150,7 +150,10 @@ But you can also do a lot more, because you have the `$request` in that closure.
 
 ----
 
-<a name="step-11" href="#step-11" class="badge badge-secondary-soft" style="text-decoration: none;">Step 11.</a> The `repeatable` field type now shows zero rows when empty (previously it was showing one). If this is not ok for your project, please define `'min_rows' => 1` on your `repeatable` field.
+<a name="step-11" href="#step-11" class="badge badge-secondary-soft" style="text-decoration: none;">Step 11.</a> There have been some changes in how the `repeatable` field works by default:
+- it now shows `0` rows when empty (previously it was showing `1`); we believe that provides a better UX for most projects, but if you don't like it, please define `'min_rows' => 1`;
+- we're renamed the `fields` attribute to `subfields` for more clarity (but both will work);
+- if you have subfields that do NOT have their type defined, Backpack will now assume you wanted a `text` field;
 
 ----
 
