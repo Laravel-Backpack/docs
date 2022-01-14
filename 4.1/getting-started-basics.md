@@ -36,7 +36,7 @@ Mind that you will _almost never_ use all of Backpack's features in one CRUD. Bu
 
 Backpack installs the [CoreUI](https://coreui.io) HTML theme, and our own design on top - [Backstrap](https://backstrap.net). It uses Bootstrap 4, and has many HTML blocks ready for you to use. When you're building a custom page in your admin panel, it's easy to just copy-paste the HTML from our [Backstrap demo](https://backstrap.net), or from the [CoreUI documentation](https://coreui.io/docs/getting-started/introduction/) and it will look good, without you having to design anything.
 
-It also installs Noty for triggering JS notification bubbles, and SweetAlerts. So you can easily use these across your admin panel. You can [trigger notification bubbles in PHP](/docs/{{version}}/base-about#triggering-notification-bubbles-in-php) or [trigger notification bubbles in JavaScript](/docs/{{version}}/base-about#triggering-notification-bubbles-in-javascript).
+It also installs Noty for triggering JS notification bubbles, and SweetAlerts. So you can easily use these across your admin panel. You can [trigger alerts in PHP](/docs/{{version}}/base-alerts#triggering-alerts-in-php) or [trigger alerts in JavaScript](/docs/{{version}}/base-alerts#triggering-alerts-in-javascript).
 
 
 <a name="backpack-authentication"></a>
