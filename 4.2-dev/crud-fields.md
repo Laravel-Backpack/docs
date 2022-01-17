@@ -1450,7 +1450,11 @@ You can use most field types inside the field groups, add as many subfields you 
     'init_rows' => 2, // number of empty rows to be initialized, by default 1
     'min_rows' => 2, // minimum rows allowed, when reached the "delete" buttons will be hidden
     'max_rows' => 2, // maximum rows allowed, when reached the "new item" button will be hidden
-    
+    // allow reordering?
+    'reorder' => false, // hide up&down arrows next to each row (no reordering)
+    'reorder' => true, // show up&down arrows next to each row
+    'reorder' => 'order', // show arrows AND add a hidden subfield with that name (value gets updated when rows move)
+    'reorder' => ['name' => 'order', 'type' => 'number', 'attributes' => ['data-reorder-input' => true]], // show arrows AND add a visible number subfield
 ],
 ```
 
