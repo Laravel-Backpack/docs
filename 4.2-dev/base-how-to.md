@@ -223,7 +223,7 @@ npm i noty --save-dev
 npm i animate.css@3.7.2 --save-dev
 ```
 
-Then create a SCSS file for that custom bundle you want. We recommend doing it in `resources/sass/custom-backpack-bundle.scss`. Then customize this file to your liking:
+Then create a SCSS file for that custom bundle you want. We recommend doing it in `resources/scss/custom-backpack-bundle.scss`. Then customize this file to your liking:
 
 ```scss
 // create a bundle CSS file for the an alternative Backstrap style (blue instead of purple for primary color)
