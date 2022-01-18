@@ -1122,10 +1122,10 @@ Out of the box, it supports all common relationships:
 - ✅ `hasOne` (1-1) - shows subform if you define `subfields`
 - ✅ `belongsTo` (n-1) - shows a select2 (single)
 - ✅ `hasMany` (1-n) - shows a select2_multiple OR a subform if you define `subfields`
-- ✅ `belongsToMany` (n-n) - shows a select2_multiple OR a subform if you define `pivotFields` / `subfields`
+- ✅ `belongsToMany` (n-n) - shows a select2_multiple OR a subform if you define `subfields` for pivot extras
 - ✅ `morphOne` (1-1) - shows a subform if you define `subfields`
 - ✅ `morphMany` (1-n) - shows a select2_multiple OR a subform if you define `subfields`
-- ✅ `morphToMany` (n-n) - shows a select2_multiple OR a subform if you define `pivotFields` / `subfields`
+- ✅ `morphToMany` (n-n) - shows a select2_multiple OR a subform if you define `subfields` for pivot extras
 
 It does NOT support the following Eloquent relationships, since they don't make sense in this context:
 - ❌ `hasOneThrough` (1-1-1) - it's read-only, no sense having a field for it;
@@ -1266,7 +1266,7 @@ public function companies()
 }
 ```
 
-**Step 2.** Inside your `relationship` field definition, add `pivotFields` (aka `subfields`) for those two db columns:
+**Step 2.** Inside your `relationship` field definition, add `subfields` for those two db columns:
 
 ```php
 // Inside PersonCrudController
@@ -1274,7 +1274,7 @@ public function companies()
     'name'          => 'companies',
     'type'          => "relationship",
      // ..
-    'subfields'   => [ // also available as the more explicit `pivotFields`
+    'subfields'   => [
         [
             'name' => 'job_title',
             'type' => 'text',

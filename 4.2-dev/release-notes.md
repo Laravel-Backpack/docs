@@ -155,7 +155,27 @@ CRUD::field('attachment')->on('saving', function ($entry) {
 Previously, in order to validate the contents of a subfield in `repeatable`, you had to write your own custom validation, which could take you quite some time. Now, you can just do `'testimonial.*.name' => 'required|min:5|max:256'` and use [Laravel's nested array validation](https://laravel.com/docs/8.x/validation#validating-nested-array-input).
 
 
-<hr> 
+#### Better than ever `relationship` field, now with `subfields` too
+
+We've spent _months_ building up and polishing the `relationship` field. It's now a one-stop-shop for all your needs, when creating/editing a relationship. Because it supports all common Eloquent relationships:
+- ✅ `hasOne` (1-1) - shows subform if you define `subfields`
+- ✅ `belongsTo` (n-1) - shows a select2 (single)
+- ✅ `hasMany` (1-n) - shows a select2_multiple OR a subform if you define `subfields`
+- ✅ `belongsToMany` (n-n) - shows a select2_multiple OR a subform if you define `subfields` for pivot extras
+- ✅ `morphOne` (1-1) - shows a subform if you define `subfields`
+- ✅ `morphMany` (1-n) - shows a select2_multiple OR a subform if you define `subfields`
+- ✅ `morphToMany` (n-n) - shows a select2_multiple OR a subform if you define `subfields` for pivot extras
+
+One HUGE addition we've made in 4.2 is... 🥁🥁🥁 subfields. For complex relationship, you just need to define `subfields` and the select2 will be turned into a subform, allowing your admin to define extra attributes. This will save you _hours_ or even _days_ when you have complex relationships. Because right in the current form, your admin can now easily:
+- [create/update/delete a related 1-1 entry](/docs/{{version}}/crud-how-to#hasone-1-1-relationship) (`hasOne` and `morphOne`, eg. User and UserDetail)
+- [create/update/delete related 1-n entries](/docs/{{version}}/crud-fields#manage-related-entries-in-the-same-form-create-update-delete) (`hasMany` and `morphMany`, eg. Invoice and InvoiceItem)
+- [edit columns on the pivot table of n-n relationships](/docs/{{version}}/crud-fields#save-additional-data-to-pivot-table) (`belongsToMany` and `morphToMany`, eg. 'position' on company_user)
+
+Check out the links above for more info, but in short, `subfields` will look and work just as you'd expect, like a `repeatable` field (because, under the hood, that's what it uses):
+
+![](https://backpackforlaravel.com/uploads/docs-4-2/fields/repeatable_hasMany_entries.png)
+
+<hr>
 
 ### Widgets
 
