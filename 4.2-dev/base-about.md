@@ -152,3 +152,68 @@ You can use these helpers anywhere in your app (models, views, controllers, requ
 ## Error Pages
 
 When installing Backpack, a few error views are published into ```resources/views/errors```, if you don't already have other files there. This is because Laravel does not provide error pages for all HTTP error codes. Having these files in your project will make sure that, if a user gets an HTTP error, at least it will look decent. Error pages are provided for the following error codes: ```400```, ```401```, ```403```, ```404```, ```405```, ```408```, ```429```, ```500```, ```503```.
+
+
+<a name="custom-pages"></a>
+## Custom Pages
+
+To create a new page for your admin panel, you can follow the same process you would if you created a normal Laravel page (a Route, View and maybe a Controller). Just make sure that:
+- the route file is under the `admin` middleware;
+- the view extends one of our layout files (so that you get the design and the topbar+sidebar layout;
+
+### Add a custom page to your admin panel (dynamic page)
+
+```php
+
+# Step 1. Create a route for it (we recommend you place it in your `routes/backpack/custom.php` for simplicity)
+
+Route::get('example-page', 'PageController@example');
+
+# Step 2. Create the controller (we recommend you place it in your `app/Http/Controllers/Admin`)
+
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+
+class PageController extends Controller
+{
+    public function example()
+    {
+        $data['something'] = 'Something';
+        
+        return view('admin.example_page', $data);
+    }
+}
+
+# Step 3. Create the view (we recommend you place it in your `resources/views/admin`:
+
+@extends(backpack_view('blank'))
+
+@section('content')
+    <h1>Example page</h1>
+@endsection
+```
+
+### Add a custom page to your admin panel (static page)
+
+Alternatively, if you are not getting any information from the database, and are just creating a quick static page, here's a quicker way:
+
+
+```php
+
+# Step 1. Create a route for it (we recommend you place it in your `routes/backpack/custom.php` for simplicity)
+
+Route::get('example-page', function () { return view('admin.example_page'); });
+
+# Step 2. Create that view (we recommend you place it in your `resources/views/admin`:
+
+@extends(backpack_view('blank'))
+
+@section('content')
+    <h1>Example page</h1>
+@endsection
+
+```
+
