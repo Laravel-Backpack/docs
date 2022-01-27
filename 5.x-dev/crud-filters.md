@@ -58,8 +58,9 @@ function() { // if the filter is active (the GET parameter "draft" exits)
 > - you also have read/write access to public properties using ```$this->crud```;
 > - when building complicated "OR" logic, make sure the first "where" in your closure is a "where" and only the subsequent are "orWhere"; Laravel 5.3+ no longer converts the first "orWhere" into a "where";
 
-<a name="filter-types"></a>
-## Filter types
+<a name="free-filter-types"></a>
+## FREE Filter Types
+
 
 <a name="simple"></a>
 ### Simple
@@ -72,36 +73,15 @@ $this->crud->addFilter([
   'type'  => 'simple',
   'name'  => 'active',
   'label' => 'Active'
-], 
-false, 
+],
+false,
 function() { // if the filter is active
-  // $this->crud->addClause('active'); // apply the "active" eloquent scope 
+  // $this->crud->addClause('active'); // apply the "active" eloquent scope
 } );
 ```
 
 <hr>
 
-<a name="text"></a>
-### Text <span class="badge badge-pill badge-info">PRO</span>
-
-Shows a text input. Most useful for letting the user filter through information that's not shown as a column in the CRUD table - otherwise they could just use the DataTables search field.
-
-![Backpack CRUD Text Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/text.png)
-
-```php
-// simple filter
-$this->crud->addFilter([
-  'type'  => 'text',
-  'name'  => 'description',
-  'label' => 'Description'
-], 
-false, 
-function($value) { // if the filter is active
-  // $this->crud->addClause('where', 'description', 'LIKE', "%$value%");
-});
-```
-
-<hr>
 
 <a name="date"></a>
 ### Date
@@ -120,30 +100,6 @@ $this->crud->addFilter([
   false,
 function ($value) { // if the filter is active, apply these constraints
   // $this->crud->addClause('where', 'date', $value);
-});
-```
-
-<hr>
-
-<a name="date-range"></a>
-### Date range <span class="badge badge-pill badge-info">PRO</span>
-
-Show a daterange picker. The user can select a start date and an end date.
-
-![Backpack CRUD Date Range Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/date_range.png)
-
-```php
-// daterange filter
-$this->crud->addFilter([
-  'type'  => 'date_range',
-  'name'  => 'from_to',
-  'label' => 'Date range'
-],
-false,
-function ($value) { // if the filter is active, apply these constraints
-  // $dates = json_decode($value);
-  // $this->crud->addClause('where', 'date', '>=', $dates->from);
-  // $this->crud->addClause('where', 'date', '<=', $dates->to . ' 23:59:59');
 });
 ```
 
@@ -173,6 +129,78 @@ $this->crud->addFilter([
 ```
 
 <hr>
+
+<a name="view"></a>
+### View
+
+Display any custom column filter you want. Usually used by Backpack package developers, to use views from within their packages, instead of having to publish them.
+
+```php
+// custom filter view
+$this->crud->addFilter([
+  'name'        => 'category_id',
+  'type'        => 'view',
+  'view'        => 'package::columns.column_type_name', // or path to blade file
+  'label'       => 'Category',
+  'placeholder' => 'Pick a category',
+],
+false,
+function($value) { // if the filter is active
+    // $this->crud->addClause('where', 'category_id', $value);
+});
+```
+
+<a name="pro-filter-types"></a>
+## PRO Filter Types
+
+
+<a name="text"></a>
+### Text <span class="badge badge-pill badge-info">PRO</span>
+
+Shows a text input. Most useful for letting the user filter through information that's not shown as a column in the CRUD table - otherwise they could just use the DataTables search field.
+
+![Backpack CRUD Text Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/text.png)
+
+```php
+// simple filter
+$this->crud->addFilter([
+  'type'  => 'text',
+  'name'  => 'description',
+  'label' => 'Description'
+],
+false,
+function($value) { // if the filter is active
+  // $this->crud->addClause('where', 'description', 'LIKE', "%$value%");
+});
+```
+
+<hr>
+
+
+<a name="date-range"></a>
+### Date range <span class="badge badge-pill badge-info">PRO</span>
+
+Show a daterange picker. The user can select a start date and an end date.
+
+![Backpack CRUD Date Range Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/date_range.png)
+
+```php
+// daterange filter
+$this->crud->addFilter([
+  'type'  => 'date_range',
+  'name'  => 'from_to',
+  'label' => 'Date range'
+],
+false,
+function ($value) { // if the filter is active, apply these constraints
+  // $dates = json_decode($value);
+  // $this->crud->addClause('where', 'date', '>=', $dates->from);
+  // $this->crud->addClause('where', 'date', '<=', $dates->to . ' 23:59:59');
+});
+```
+
+<hr>
+
 
 <a name="select2"></a>
 ### Select2 <span class="badge badge-pill badge-info">PRO</span>
@@ -298,28 +326,6 @@ function($value) { // if the filter is active
     if ($range->to) {
         $this->crud->addClause('where', 'number', '<=', (float) $range->to);
     }
-});
-```
-
-<hr>
-
-<a name="view"></a>
-### View
-
-Display any custom column filter you want. Usually used by Backpack package developers, to use views from within their packages, instead of having to publish them. 
-
-```php
-// custom filter view
-$this->crud->addFilter([
-  'name'        => 'category_id',
-  'type'        => 'view',
-  'view'        => 'package::columns.column_type_name', // or path to blade file
-  'label'       => 'Category',
-  'placeholder' => 'Pick a category',
-],
-false, 
-function($value) { // if the filter is active
-    // $this->crud->addClause('where', 'category_id', $value);
 });
 ```
 

@@ -268,7 +268,7 @@ class Category
 ## FREE Field Types
 
 <a name="checkbox"></a>
-### checkbox <span class="badge badge-pill badge-success">FREE</span>
+### checkbox
 
 Checkbox for true/false.
 
@@ -287,7 +287,7 @@ Input preview:
 <hr>
 
 <a name="checklist"></a>
-### checklist <span class="badge badge-pill badge-success">FREE</span>
+### checklist
 
 Show a list of checkboxes, for the user to check one or more of them.
 
@@ -313,7 +313,7 @@ Input preview:
 <hr>
 
 <a name="checklist-dependency"></a>
-### checklist_dependency <span class="badge badge-pill badge-success">FREE</span>
+### checklist_dependency
 
 ```php
 [   // two interconnected entities
@@ -353,7 +353,7 @@ Input preview:
 <hr>
 
 <a name="color"></a>
-### color <span class="badge badge-pill badge-success">FREE</span>
+### color
 
 ```php
 [   // Color
@@ -371,7 +371,7 @@ Input preview:
 <hr>
 
 <a name="custom-html"></a>
-### custom_html <span class="badge badge-pill badge-success">FREE</span>
+### custom_html
 
 Allows you to insert custom HTML in the create/update forms. Usually used in forms with a lot of fields, to separate them using h1-h5, hr, etc, but can be used for any HTML.
 
@@ -384,7 +384,7 @@ Allows you to insert custom HTML in the create/update forms. Usually used in for
 ```
 
 <a name="date"></a>
-### date <span class="badge badge-pill badge-success">FREE</span>
+### date
 
 ```php
 [   // Date
@@ -401,7 +401,7 @@ Input preview:
 <hr>
 
 <a name="datetime"></a>
-### datetime <span class="badge badge-pill badge-success">FREE</span>
+### datetime
 
 ```php
 [   // DateTime
@@ -426,7 +426,7 @@ Input preview:
 <hr>
 
 <a name="easymde"></a>
-### easymde <span class="badge badge-pill badge-success">FREE</span>
+### easymde
 
 Show an [EasyMDE - Markdown Editor](https://easy-markdown-editor.tk/) to the user. EasyMDE is a well-maintained fork of SimpleMDE.
 
@@ -455,7 +455,7 @@ Input preview:
 <hr>
 
 <a name="email"></a>
-### email <span class="badge badge-pill badge-success">FREE</span>
+### email
 
 ```php
 [   // Email
@@ -473,7 +473,7 @@ Input preview:
 <hr>
 
 <a name="enum"></a>
-### enum <span class="badge badge-pill badge-success">FREE</span>
+### enum
 
 Show a select with the values in the database for that ENUM field. Requires that the db column type is "enum". If the db column allows null, the " - " value will also show up in the select.
 
@@ -494,7 +494,7 @@ Input preview:
 <hr>
 
 <a name="hidden"></a>
-### hidden <span class="badge badge-pill badge-success">FREE</span>
+### hidden
 
 Include an `<input type="hidden">` in the form.
 
@@ -509,7 +509,7 @@ Include an `<input type="hidden">` in the form.
 <hr>
 
 <a name="month"></a>
-### month <span class="badge badge-pill badge-success">FREE</span>
+### month
 
 ```php
 [   // Month
@@ -526,7 +526,7 @@ Input preview:
 <hr>
 
 <a name="number"></a>
-### number <span class="badge badge-pill badge-success">FREE</span>
+### number
 
 Shows an input type=number to the user, with optional prefix and suffix:
 
@@ -550,7 +550,7 @@ Input preview:
 <hr>
 
 <a name="password"></a>
-### password <span class="badge badge-pill badge-success">FREE</span>
+### password
 
 ```php
 [   // Password
@@ -605,7 +605,7 @@ public function setPasswordAttribute($value) {
 <hr>
 
 <a name="radio"></a>
-### radio <span class="badge badge-pill badge-success">FREE</span>
+### radio
 
 Show radios according to an associative array you give the input and let the user pick from them. You can choose for the radio options to be displayed inline or one-per-line.
 
@@ -631,7 +631,7 @@ Input preview:
 <hr>
 
 <a name="range"></a>
-### range <span class="badge badge-pill badge-success">FREE</span>
+### range
 
 Shows an HTML5 range element, allowing the user to drag a cursor left-right, to pick a number from a defined range.
 
@@ -655,7 +655,7 @@ Input preview:
 <hr>
 
 <a name="select"></a>
-### select (1-n relationship) <span class="badge badge-pill badge-success">FREE</span>
+### select (1-n relationship)
 
 Show a Select with the names of the connected entity and let the user select one of them.
 Your relationships should already be defined on your models as hasOne() or belongsTo().
@@ -693,7 +693,7 @@ Input preview:
 
 
 <a name="select-grouped"></a>
-### select_grouped <span class="badge badge-pill badge-success">FREE</span>
+### select_grouped
 
 Display a select where the options are grouped by a second entity (like Categories).
 
@@ -719,7 +719,7 @@ Input preview:
 <hr>
 
 <a name="select-multiple"></a>
-### select_multiple (n-n relationship) <span class="badge badge-pill badge-success">FREE</span>
+### select_multiple (n-n relationship)
 
 Show a Select with the names of the connected entity and let the user select any number of them.
 Your relationship should already be defined on your models as belongsToMany().
@@ -753,7 +753,7 @@ Input preview:
 <hr>
 
 <a name="select-from-array"></a>
-### select_from_array <span class="badge badge-pill badge-success">FREE</span>
+### select_from_array
 
 Display a select with the values you want:
 
@@ -776,7 +776,7 @@ Input preview:
 <hr>
 
 <a name="text"></a>
-### text <span class="badge badge-pill badge-success">FREE</span>
+### text
 
 The basic field type, all it needs is the two mandatory parameters: name and label.
 
@@ -813,7 +813,7 @@ Input preview:
 <hr>
 
 <a name="textarea"></a>
-### textarea <span class="badge badge-pill badge-success">FREE</span>
+### textarea
 
 Show a textarea to the user.
 
@@ -832,7 +832,7 @@ Input preview:
 <hr>
 
 <a name="time"></a>
-### time <span class="badge badge-pill badge-success">FREE</span>
+### time
 
 ```php
 [   // Time
@@ -845,7 +845,7 @@ Input preview:
 <hr>
 
 <a name="upload"></a>
-### upload <span class="badge badge-pill badge-success">FREE</span>
+### upload
 
 **Step 1.** Show a file input to the user:
 ```php
@@ -918,7 +918,7 @@ Input preview:
 <hr>
 
 <a name="upload-multiple"></a>
-### upload_multiple <span class="badge badge-pill badge-success">FREE</span>
+### upload_multiple
 
 Shows a multiple file input to the user and stores the values as a JSON array in the database.
 
@@ -1002,7 +1002,7 @@ Input preview:
 ![CRUD Field - upload_multiple](https://backpackforlaravel.com/uploads/docs-4-2/fields/upload_multiple.png)
 
 <a name="url"></a>
-### url <span class="badge badge-pill badge-success">FREE</span>
+### url
 
 ```php
 [   // URL
@@ -1015,7 +1015,7 @@ Input preview:
 <hr>
 
 <a name="view"></a>
-### view <span class="badge badge-pill badge-success">FREE</span>
+### view
 
 Load a custom view in the form.
 
@@ -1032,7 +1032,7 @@ Load a custom view in the form.
 <hr>
 
 <a name="week"></a>
-### week <span class="badge badge-pill badge-success">FREE</span>
+### week
 
 ```php
 [   // Week

@@ -91,37 +91,7 @@ $this->crud->addColumn()->makeFirstColumn();
 ```
 
 <a name="default-column-types"></a>
-## Default Column Types
-
-<a name="array"></a>
-### array <span class="badge badge-pill badge-info">PRO</span>
-
-Enumerate an array stored in the db column as JSON.
-```php
-[
-   'name'  => 'options', // The db column name
-   'label' => 'Options', // Table column heading
-   'type'  => 'array'
-],
-```
-
-<hr>
-
-<a name="array_count"></a>
-### array_count <span class="badge badge-pill badge-info">PRO</span>
-
-Count the items in an array stored in the db column as JSON.
-
-```php
-[
-   'name'  => 'options', // The db column name
-   'label' => 'Options', // Table column heading
-   'type'  => 'array_count',
-   // 'suffix' => 'options', // if you want it to show "2 options" instead of "2 items"
-],
-```
-
-<hr>
+## FREE Column Types
 
 <a name="boolean"></a>
 ### boolean
@@ -314,24 +284,6 @@ Display database stored JSON in a prettier way to your users.
 
 <hr>
 
-<a name="markdown"></a>
-### markdown <span class="badge badge-pill badge-info">PRO</span>
-
-
-Convert a markdown string to HTML, using ```Illuminate\Mail\Markdown```. Since Markdown is usually used for long texts, this column is most helpful in the "Show" operation - not so much in the "ListEntries" operation, where only short snippets make sense.
-
-```php
-[
-   'name'  => 'text', // The db column name
-   'label' => 'Text', // Table column heading
-   'type'  => 'markdown',
-],
-```
-
-> <span class="badge badge-danger text-white" style="text-decoration: none;">IMPORTANT</span> As opposed to most other Backpack columns, the output of `markdown` is **NOT escaped by default**. That means if the database value contains malicious JS, that JS might be run when the admin previews it. Make sure to purify the value of this column in an accessor on your Model. At a minimum, you can use `strip_tags()` (here's [an example](https://github.com/Laravel-Backpack/demo/commit/509c0bf0d8b9ee6a52c50f0d2caed65f1f986385)), but a lot better would be to use an [HTML Purifier package](https://github.com/mewebstudio/Purifier) (do that [manually](https://github.com/Laravel-Backpack/demo/commit/7342cffb418bb568b9e4ee279859685ddc0456c1) or by casting the attribute to `CleanHtmlOutput::class`).
-
-<hr>
-
 <a name="model_function"></a>
 ### model_function
 
@@ -457,31 +409,6 @@ This example will show:
 
 <hr>
 
-<a name="relationship"></a>
-### relationship <span class="badge badge-pill badge-info">PRO</span>
-
-Output the related entries, no matter the relationship:
-- 1-n relationships - outputs the name of its one connected entity;
-- n-n relationships - enumerates the names of all its connected entities;
-
-Its name and definition is the same as for the relationship *field type*:
-```php
-[  
-   // any type of relationship
-   'name'         => 'tags', // name of relationship method in the model
-   'type'         => 'relationship',
-   'label'        => 'Tags', // Table column heading
-   // OPTIONAL
-   // 'entity'    => 'tags', // the method that defines the relationship in your Model
-   // 'attribute' => 'name', // foreign key attribute that is shown to user
-   // 'model'     => App\Models\Category::class, // foreign key model
-],
-```
-
-Backpack tries to guess which attribute to show for the related item. Something that the end-user will recognize as unique. If it's something common like "name" or "title" it will guess it. If not, you can manually specify the ```attribute``` inside the column definition, or you can add ```public $identifiableAttribute = 'column_name';``` to your model, and Backpack will use that column as the one the user finds identifiable. It will use it here, and it will use it everywhere you haven't explicitly asked for a different attribute.
-
-<hr>
-
 <a name="relationship_count"></a>
 ### relationship_count
 
@@ -587,30 +514,6 @@ The select_multiple column will output a comma separated list of its connected e
 
 <hr>
 
-<a name="table"></a>
-### table <span class="badge badge-pill badge-info">PRO</span>
-
-
-The ```table``` column will output a condensed table, when used on an attribute that stores a JSON array or object. It is meant to be used inside the show functionality (not list, though it also works there).
-
-Its definition is very similar to the [table *field type*](/docs/{{version}}/crud-fields#table).
-
-```php
-[
-    'name'  => 'features', 
-    'label' => 'Features', 
-    'type'  => 'table', 
-    'columns' => [
-        'name'        => 'Name',
-        'description' => 'Description',
-        'price'       => 'Price',
-        'obs'         => 'Observations'
-    ]
-],
-```
-
-<hr>
-
 <a name="text"></a>
 ### text
 
@@ -669,6 +572,123 @@ Its definition is very similar to the [upload_multiple *field type*](/docs/{{ver
 
 <hr>
 
+<a name="view"></a>
+### view
+
+Display any custom column type you want. Usually used by Backpack package developers, to use views from within their packages, instead of having to publish the views.
+
+```php
+[
+   'name'  => 'name', // The db column name
+   'label' => 'Tag Name', // Table column heading
+   'type'  => 'view',
+   'view'  => 'package::columns.column_type_name', // or path to blade file
+],
+```
+
+<hr>
+
+
+<a name="pro-column-types"></a>
+## PRO Column Types
+
+<a name="array"></a>
+### array <span class="badge badge-pill badge-info">PRO</span>
+
+Enumerate an array stored in the db column as JSON.
+```php
+[
+   'name'  => 'options', // The db column name
+   'label' => 'Options', // Table column heading
+   'type'  => 'array'
+],
+```
+
+<hr>
+
+<a name="array_count"></a>
+### array_count <span class="badge badge-pill badge-info">PRO</span>
+
+Count the items in an array stored in the db column as JSON.
+
+```php
+[
+   'name'  => 'options', // The db column name
+   'label' => 'Options', // Table column heading
+   'type'  => 'array_count',
+   // 'suffix' => 'options', // if you want it to show "2 options" instead of "2 items"
+],
+```
+
+<hr>
+
+<a name="markdown"></a>
+### markdown <span class="badge badge-pill badge-info">PRO</span>
+
+
+Convert a markdown string to HTML, using ```Illuminate\Mail\Markdown```. Since Markdown is usually used for long texts, this column is most helpful in the "Show" operation - not so much in the "ListEntries" operation, where only short snippets make sense.
+
+```php
+[
+   'name'  => 'text', // The db column name
+   'label' => 'Text', // Table column heading
+   'type'  => 'markdown',
+],
+```
+
+> <span class="badge badge-danger text-white" style="text-decoration: none;">IMPORTANT</span> As opposed to most other Backpack columns, the output of `markdown` is **NOT escaped by default**. That means if the database value contains malicious JS, that JS might be run when the admin previews it. Make sure to purify the value of this column in an accessor on your Model. At a minimum, you can use `strip_tags()` (here's [an example](https://github.com/Laravel-Backpack/demo/commit/509c0bf0d8b9ee6a52c50f0d2caed65f1f986385)), but a lot better would be to use an [HTML Purifier package](https://github.com/mewebstudio/Purifier) (do that [manually](https://github.com/Laravel-Backpack/demo/commit/7342cffb418bb568b9e4ee279859685ddc0456c1) or by casting the attribute to `CleanHtmlOutput::class`).
+
+<hr>
+
+<a name="relationship"></a>
+### relationship <span class="badge badge-pill badge-info">PRO</span>
+
+Output the related entries, no matter the relationship:
+- 1-n relationships - outputs the name of its one connected entity;
+- n-n relationships - enumerates the names of all its connected entities;
+
+Its name and definition is the same as for the relationship *field type*:
+```php
+[
+   // any type of relationship
+   'name'         => 'tags', // name of relationship method in the model
+   'type'         => 'relationship',
+   'label'        => 'Tags', // Table column heading
+   // OPTIONAL
+   // 'entity'    => 'tags', // the method that defines the relationship in your Model
+   // 'attribute' => 'name', // foreign key attribute that is shown to user
+   // 'model'     => App\Models\Category::class, // foreign key model
+],
+```
+
+Backpack tries to guess which attribute to show for the related item. Something that the end-user will recognize as unique. If it's something common like "name" or "title" it will guess it. If not, you can manually specify the ```attribute``` inside the column definition, or you can add ```public $identifiableAttribute = 'column_name';``` to your model, and Backpack will use that column as the one the user finds identifiable. It will use it here, and it will use it everywhere you haven't explicitly asked for a different attribute.
+
+<hr>
+
+<a name="table"></a>
+### table <span class="badge badge-pill badge-info">PRO</span>
+
+
+The ```table``` column will output a condensed table, when used on an attribute that stores a JSON array or object. It is meant to be used inside the show functionality (not list, though it also works there).
+
+Its definition is very similar to the [table *field type*](/docs/{{version}}/crud-fields#table).
+
+```php
+[
+    'name'  => 'features',
+    'label' => 'Features',
+    'type'  => 'table',
+    'columns' => [
+        'name'        => 'Name',
+        'description' => 'Description',
+        'price'       => 'Price',
+        'obs'         => 'Observations'
+    ]
+],
+```
+
+<hr>
+
 <a name="video"></a>
 ### video <span class="badge badge-pill badge-info">PRO</span>
 
@@ -680,22 +700,6 @@ Display a small screenshot for a Youtube or Vimeo video, stored in the database 
    'name'  => 'name', // The db column name
    'label' => 'Tag Name', // Table column heading
    'type'  => 'video',
-],
-```
-
-<hr>
-
-<a name="view"></a>
-### view
-
-Display any custom column type you want. Usually used by Backpack package developers, to use views from within their packages, instead of having to publish the views. 
-
-```php
-[
-   'name'  => 'name', // The db column name
-   'label' => 'Tag Name', // Table column heading
-   'type'  => 'view',
-   'view'  => 'package::columns.column_type_name', // or path to blade file
 ],
 ```
 
