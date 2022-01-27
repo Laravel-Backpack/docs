@@ -10,29 +10,29 @@ Here are some other cool things Backpack makes easy for you. We recommend going 
 
 <a name="other-operations"></a>
 ## Other Operations
-- [Show](/docs/{{version}}/crud-operation-show) Operation - you can let your admins preview an entry
-- [Reorder](/docs/{{version}}/crud-operation-reorder) Operation - you can reorder and nesting entries (hierarchy tree)
-- [Revisions](/docs/{{version}}/crud-operation-revisions) Operation - you can keep a record of all modifications to an entry, and let your admin revert changes
-- [Clone](/docs/{{version}}/crud-operation-clone) Operation - you can make a copy of an entry;
-- [BulkDelete](/docs/{{version}}/crud-operation-delete) Operation - you can delete multiple items in one go;
-- [BulkClone](/docs/{{version}}/crud-operation-clone) Operation - you can clone multiple items in one go;
+- [Show](/docs/{{version}}/crud-operation-show) Operation - you can let your admins preview an entry <span class="badge badge-pill badge-success">FREE</span>
+- [Reorder](/docs/{{version}}/crud-operation-reorder) Operation - you can reorder and nesting entries (hierarchy tree) <span class="badge badge-pill badge-success">FREE</span>
+- [Revisions](/docs/{{version}}/crud-operation-revisions) Operation - you can keep a record of all modifications to an entry, and let your admin revert changes <span class="badge badge-pill badge-success">FREE</span>
+- [Clone](/docs/{{version}}/crud-operation-clone) Operation - you can make a copy of an entry; <span class="badge badge-pill badge-info">PRO</span>
+- [BulkDelete](/docs/{{version}}/crud-operation-delete) Operation - you can delete multiple items in one go; <span class="badge badge-pill badge-info">PRO</span>
+- [BulkClone](/docs/{{version}}/crud-operation-clone) Operation - you can clone multiple items in one go; <span class="badge badge-pill badge-info">PRO</span>
 
 ---
 
 <a name="other-features"></a>
 ## Other Features
 - **Create & Update**
-    - [Manage files on disk](/docs/{{version}}/crud-how-to#use-the-media-library-file-manager) (media library)
-    - [Fake fields](/docs/{{version}}/crud-fields#optional-fake-field-attributes-stores-fake-attributes-as-json-in)
-    - Translatable models and [multi-language CRUDs](/docs/{{version}}/crud-operation-update#translatable-models)
-    - [Tabs in create/update forms](/docs/{{version}}/crud-fields#split-fields-into-tabs)
+    - [Manage files on disk](/docs/{{version}}/crud-how-to#use-the-media-library-file-manager) (media library) <span class="badge badge-pill badge-success">FREE</span>
+    - [Fake fields](/docs/{{version}}/crud-fields#optional-fake-field-attributes-stores-fake-attributes-as-json-in) <span class="badge badge-pill badge-success">FREE</span>
+    - Translatable models and [multi-language CRUDs](/docs/{{version}}/crud-operation-update#translatable-models) <span class="badge badge-pill badge-success">FREE</span>
+    - [Tabs in create/update forms](/docs/{{version}}/crud-fields#split-fields-into-tabs) <span class="badge badge-pill badge-success">FREE</span>
 
 --
 
 - **ListEntries**
-    - you can add a "+" button next to each entry, to allow the admin to easily preview some quick information that was too big to fit inside a columns - we call it [details row](/docs/{{version}}/crud-operation-list-entries#details-row)
-    - export all visible items in the table by adding [export buttons](/docs/{{version}}/crud-operation-list-entries#export-buttons)
-    - [custom search logic](/docs/{{version}}/crud-columns#custom-search-logic) for the columns in the list view
+    - you can add a "+" button next to each entry, to allow the admin to easily preview some quick information that was too big to fit inside a columns - we call it [details row](/docs/{{version}}/crud-operation-list-entries#details-row) <span class="badge badge-pill badge-success">FREE</span>
+    - export all visible items in the table by adding [export buttons](/docs/{{version}}/crud-operation-list-entries#export-buttons) <span class="badge badge-pill badge-success">FREE</span>
+    - [custom search logic](/docs/{{version}}/crud-columns#custom-search-logic) for the columns in the list view <span class="badge badge-pill badge-success">FREE</span>
 
 
 Additionally, here are a few more ways you can customize your CRUDs:

@@ -16,16 +16,16 @@ Take a look at:
 <a name="license"></a>
 ## License
 
-Backpack is **free for non-commercial use**, but needs a license code in order to prevent "_unlicensed use_" notification bubbles and interruption of service. You can get a license code for your project:
-- ```free```, if you're using it for non-commercial purposes; [apply here](https://backpackforlaravel.com/pricing);
-- ```free```, if you've contributed to Backpack on Github; [apply here](https://backpackforlaravel.com/pricing);
-- ```€69 EUR/project```, if you're making money using it for a project; [buy here](https://backpackforlaravel.com/pricing);
-- ```€399 EUR for unlimited projects```, if you use Backpack a lot; [buy here](https://backpackforlaravel.com/pricing);
 
-**Freelancers** or companies **who make money using Backpack** - for themselves, their employers or their clients, **should [purchase a commercial license here](https://backpackforlaravel.com/pricing)**.
+Starting with v5, Backpack has become open-core. The main features are now split into two packages:
 
+- [Backpack\CRUD](https://github.com/laravel-backpack/crud) is the core, released under the [MIT License](https://github.com/Laravel-Backpack/CRUD/blob/master/LICENSE.md) (free, open-source); <span class="badge badge-pill badge-success">FREE</span>
+- [Backpack\PRO](https://backpackforlaravel.com/products/pro) is a Backpack add-on, released under our [EULA](https://backpackforlaravel.com/eula) (paid, closed-source); <span class="badge badge-pill badge-info">PRO</span>
 
->**You don't need a license code on LOCALHOST.** If you're just trying Backpack on your own machine, you don't need a license code. You only need a license code when you take your application to production.
+Backpack\CRUD is perfect if you're building a simple admin panel - it's packed with features! It's also perfect if you're building an open-source project, the permissive license allows you to do whatever you want.
+
+When your admin panel grows and your needs become more complex, you can purchase our [Backpack\PRO](https://backpackforlaravel.com/products/pro) add-on, which adds A LOT of features for complex use-cases (see [list here]([Backpack\Pro](https://backpackforlaravel.com/products/pro))). Our documentation includes instructions on how to use both Backpack\CRUD and Backpack\PRO, with all the PRO features clearly labeled <span class="badge badge-pill badge-info">PRO</span>
+
 
 <a name="support"></a>
 ## Support

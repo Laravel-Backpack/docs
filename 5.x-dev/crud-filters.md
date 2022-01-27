@@ -82,7 +82,7 @@ function() { // if the filter is active
 <hr>
 
 <a name="text"></a>
-### Text
+### Text <span class="badge badge-pill badge-info">PRO</span>
 
 Shows a text input. Most useful for letting the user filter through information that's not shown as a column in the CRUD table - otherwise they could just use the DataTables search field.
 
@@ -126,7 +126,7 @@ function ($value) { // if the filter is active, apply these constraints
 <hr>
 
 <a name="date-range"></a>
-### Date range
+### Date range <span class="badge badge-pill badge-info">PRO</span>
 
 Show a daterange picker. The user can select a start date and an end date.
 
@@ -175,7 +175,7 @@ $this->crud->addFilter([
 <hr>
 
 <a name="select2"></a>
-### Select2
+### Select2 <span class="badge badge-pill badge-info">PRO</span>
 
 Shows a select2 and allows the user to select one item from the list or search for an item. Useful when the values list is long (over 10 elements).
 
@@ -204,7 +204,7 @@ $this->crud->addFilter([
 <hr>
 
 <a name="select2_multiple"></a>
-### Select2_multiple
+### Select2_multiple <span class="badge badge-pill badge-info">PRO</span>
 
 Shows a select2 and allows the user to select one or more items from the list or search for an item. Useful when the values list is long (over 10 elements) and your user should be able to select multiple elements.
 
@@ -231,11 +231,11 @@ $this->crud->addFilter([
 <hr>
 
 <a name="select2_ajax"></a>
-### Select2_ajax
+### Select2_ajax <span class="badge badge-pill badge-info">PRO</span>
 
 Shows a select2 and allows the user to select one item from the list or search for an item. This list is fetched through an AJAX call by the select2. Useful when the values list is long (over 1000 elements).
 
-<small>NOTE: if you want to setup your ajax routes using FetchOperation, have a look at: <a href="https://backpackforlaravel.com/docs/4.2/crud-operation-fetch#fetch-ajax-filter">FetchOperation with ajax filter</a></small>
+<small>NOTE: if you want to setup your ajax routes using FetchOperation, have a look at: <a href="https://backpackforlaravel.com/docs/5.x/crud-operation-fetch#fetch-ajax-filter">FetchOperation with ajax filter</a></small>
 
 ![Backpack CRUD Select2_ajax Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/select2_ajax.png)
 
@@ -275,7 +275,7 @@ function($value) { // if the filter is active
 <hr>
 
 <a name="range"></a>
-### Range
+### Range <span class="badge badge-pill badge-info">PRO</span>
 
 Shows two number inputs, for min and max.
 

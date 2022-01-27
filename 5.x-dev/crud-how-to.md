@@ -452,7 +452,7 @@ CRUD::field('comments')->subfields([['name' => 'body']]);
 <a name="belongstomany"></a>
 #### belongsToMany (n-n relationship)
 
-Note: Starting in 4.2, `BelongsToMany` relation had been improved to simplify the scenario where your pivot table has extra database columns (in addition to the foreign keys).
+Note: Starting with v5, the `BelongsToMany` relation had been improved to simplify the scenario where your pivot table has extra database columns (in addition to the foreign keys).
 
 - example:
     - `User -> BelongsToMany -> Role`
@@ -735,7 +735,7 @@ If the automatic installation doesn't work for you and you need to manually inst
 1) In your terminal:
 
 ``` bash
-composer require backpack/crud:"4.2.x-dev as 4.1.99"
+composer require backpack/crud:"5.x-dev as 4.1.99"
 ```
 
 2) Instead of running ```php artisan backpack:install``` you can run:

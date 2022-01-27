@@ -265,140 +265,10 @@ class Category
 
 
 <a name="default-field-types"></a>
-## Default Field Types
-
-<a name="address_algolia"></a>
-### address_algolia
-
-Use [Algolia Places autocomplete](https://community.algolia.com/places/) to help users type their address faster. With the ```store_as_json``` option, it will store the address, postcode, city, country, latitude and longitude in a JSON in the database. Without it, it will just store the address string. For information stored as JSON in the database, it's recommended that you use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) to ```array``` or ```object```. That way, every time you get the info from the database you'd get it in a usable format.
-
-```php
-[   // Address algolia
-    'name'          => 'address',
-    'label'         => 'Address',
-    'type'          => 'address_algolia',
-    // optional
-    'store_as_json' => true
-],
-```
-
-> **Algolia is killing Places.** Please note that Algolia Places **will stop working in May 2022**, as reported in [this announcement](https://www.algolia.com/blog/product/sunseting-our-places-feature/). For that reason, it's probably a good idea to use the `address_google` field instead (it's right after this one).
-
-
-Input preview: 
-
-![CRUD Field - address](https://backpackforlaravel.com/uploads/docs-4-2/fields/address.png)
-
-<hr>
-
-<a name="address_google"></a>
-### address_google
-
-Use [Google Places Search](https://developers.google.com/places/web-service/search) to help users type their address faster. With the ```store_as_json``` option, it will store the address, postcode, city, country, latitude and longitude in a JSON in the database. Without it, it will just store the complete address string.
-
-```php
-[   // Address google
-    'name'          => 'address',
-    'label'         => 'Address',
-    'type'          => 'address_google',
-    // optional
-    'store_as_json' => true
-],
-```
-
-Using Google Places API is dependent on using an API Key. Please [get an API key](https://console.cloud.google.com/apis/credentials) - you do have to configure billing, but you qualify for $200/mo free usage, which covers most use cases. Then copy-paste that key as your ```services.google_places.key``` value. So inside your ```config/services.php``` please add the items below:
-
-```php
-'google_places' => [
-    'key' => 'the-key-you-got-from-google-places'
-],
-```
-
-> **Use attribute casting.** For information stored as JSON in the database, it's recommended that you use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) to ```array``` or ```object```. That way, every time you get the info from the database you'd get it in a usable format. Also, it is heavily recommended that your database column can hold a large JSON - so use `text` rather than `string` in your migration (in MySQL this translates to `text` instead of `varchar`).
-
-Input preview: 
-
-![CRUD Field - address](https://backpackforlaravel.com/uploads/docs-4-2/fields/address_google.png)
-
-<hr>
-
-<a name="browse"></a>
-### browse
-
-This button allows the admin to open [elFinder](http://elfinder.org/) and select a file from there. Run ```composer require backpack/filemanager && php artisan backpack:filemanager:install``` to install [FileManager](https://github.com/laravel-backpack/filemanager), then you can use the field:
-
-```php
-[   // Browse
-    'name'  => 'image',
-    'label' => 'Image',
-    'type'  => 'browse'
-],
-```
-
-
-Input preview: 
-
-![CRUD Field - browse](https://backpackforlaravel.com/uploads/docs-4-2/fields/browse.png)
-
-Onclick preview:
-
-![CRUD Field - browse popup](https://backpackforlaravel.com/uploads/docs-4-2/fields/browse_popup.png)
-
-<hr>
-
-<a name="browse-multiple"></a>
-### browse_multiple
-
-Open elFinder and select multiple files from there. Run ```composer require backpack/filemanager && php artisan backpack:filemanager:install``` to install [FileManager](https://github.com/laravel-backpack/filemanager), then you can use the field:
-
-```php
-[   // Browse multiple
-    'name'          => 'files',
-    'label'         => 'Files',
-    'type'          => 'browse_multiple',
-    // 'multiple'   => true, // enable/disable the multiple selection functionality
-    // 'sortable'   => false, // enable/disable the reordering with drag&drop
-    // 'mime_types' => null, // visible mime prefixes; ex. ['image'] or ['application/pdf']
-],
-```
-
-The field assumes you've cast your attribute as ```array``` on your model.  That way, when you do ```$entry->files``` you get a nice array.
-**NOTE:** If you use `multiple => false` you should NOT cast your attribute as ```array```
-
-Input preview: 
-
-![CRUD Field - browse_multiple](https://backpackforlaravel.com/uploads/docs-4-2/fields/browse_multiple.png)
-
-<hr>
-
-<a name="base64-image"></a>
-### base64_image
-
-Upload an image and store it in the database as Base64. Notes:
-- make sure the column type is LONGBLOB;
-- detailed [instructions and customizations here](https://github.com/Laravel-Backpack/CRUD/pull/56#issue-164712261); 
-
-```php
-// base64_image
-$this->crud->addField([
-    'label'        => "Profile Image",
-    'name'         => "image",
-    'filename'     => "image_filename", // set to null if not needed
-    'type'         => 'base64_image',
-    'aspect_ratio' => 1, // set to 0 to allow any aspect ratio
-    'crop'         => true, // set to true to allow cropping, false to disable
-    'src'          => NULL, // null to read straight from DB, otherwise set to model accessor function
-]);
-```
-
-Input preview: 
-
-![CRUD Field - base64_image](https://backpackforlaravel.com/uploads/docs-4-2/fields/base64_image.png)
-
-<hr>
+## FREE Field Types
 
 <a name="checkbox"></a>
-### checkbox
+### checkbox <span class="badge badge-pill badge-success">FREE</span>
 
 Checkbox for true/false.
 
@@ -417,7 +287,7 @@ Input preview:
 <hr>
 
 <a name="checklist"></a>
-### checklist
+### checklist <span class="badge badge-pill badge-success">FREE</span>
 
 Show a list of checkboxes, for the user to check one or more of them.
 
@@ -443,7 +313,7 @@ Input preview:
 <hr>
 
 <a name="checklist-dependency"></a>
-### checklist_dependency
+### checklist_dependency <span class="badge badge-pill badge-success">FREE</span>
 
 ```php
 [   // two interconnected entities
@@ -482,37 +352,8 @@ Input preview:
 
 <hr>
 
-<a name="ckeditor"></a>
-### ckeditor
-
-Show a wysiwyg CKEditor to the user.
-
-```php
-[   // CKEditor
-    'name'          => 'description',
-    'label'         => 'Description',
-    'type'          => 'ckeditor',
-
-    // optional:
-    'extra_plugins' => ['oembed', 'widget'],
-    'options'       => [
-        'autoGrow_minHeight'   => 200,
-        'autoGrow_bottomSpace' => 50,
-        'removePlugins'        => 'resize,maximize',
-    ]
-],
-```
-
-If you'd like to be able to select files from elFinder, you need to also run ```composer require backpack/filemanager``` to install elFinder.
-
-Input preview: 
-
-![CRUD Field - ckeditor](https://backpackforlaravel.com/uploads/docs-4-2/fields/ckeditor.png)
-
-<hr>
-
 <a name="color"></a>
-### color
+### color <span class="badge badge-pill badge-success">FREE</span>
 
 ```php
 [   // Color
@@ -529,53 +370,8 @@ Input preview:
 
 <hr>
 
-<a name="color-picker"></a>
-### color_picker
-
-Show a pretty colour picker using [Bootstrap Colorpicker](https://itsjavi.com/bootstrap-colorpicker/).
-
-```php
-[   // color_picker
-    'label'                => 'Background Color',
-    'name'                 => 'background_color',
-    'type'                 => 'color_picker',
-    'default'              => '#000000',
-
-    // optional
-    // Anything your define inside `color_picker_options` will be passed as JS
-    // to the JavaScript plugin. For more information about the options available
-    // please see the plugin docs at:
-    //  ### https://itsjavi.com/bootstrap-colorpicker/module-options.html
-    'color_picker_options' => [
-        'customClass' => 'custom-class',
-        'horizontal' => true,
-        'extensions' => [
-            [
-                'name' => 'swatches', // extension name to load
-                'options' => [ // extension options
-                    'colors' => [
-                        'primary' => '#337ab7',
-                        'success' => '#5cb85c',
-                        'info' => '#5bc0de',
-                        'warning' => '#f0ad4e',
-                        'danger' => '#d9534f'
-                    ],
-                    'namesAsValues' => false
-                ]
-            ]
-        ]
-    ]
-],
-```
-
-Input preview: 
-
-![CRUD Field - color_picker](https://backpackforlaravel.com/uploads/docs-4-2/fields/color_picker.png)
-
-<hr>
-
 <a name="custom-html"></a>
-### custom_html
+### custom_html <span class="badge badge-pill badge-success">FREE</span>
 
 Allows you to insert custom HTML in the create/update forms. Usually used in forms with a lot of fields, to separate them using h1-h5, hr, etc, but can be used for any HTML.
 
@@ -588,7 +384,7 @@ Allows you to insert custom HTML in the create/update forms. Usually used in for
 ```
 
 <a name="date"></a>
-### date
+### date <span class="badge badge-pill badge-success">FREE</span>
 
 ```php
 [   // Date
@@ -604,72 +400,8 @@ Input preview:
 
 <hr>
 
-<a name="date-picker"></a>
-### date_picker
-
-Show a pretty [Bootstrap Datepicker](http://bootstrap-datepicker.readthedocs.io/en/latest/).
-
-```php
-[   // date_picker
-   'name'  => 'date',
-   'type'  => 'date_picker',
-   'label' => 'Date',
-
-   // optional:
-   'date_picker_options' => [
-      'todayBtn' => 'linked',
-      'format'   => 'dd-mm-yyyy',
-      'language' => 'fr'
-   ],
-],
-```
-
-Please note it is recommended that you use [attribute casting](https://laravel.com/docs/5.3/eloquent-mutators#attribute-casting) on your model (cast to date).
-
-
-Input preview: 
-
-![CRUD Field - date_picker](https://backpackforlaravel.com/uploads/docs-4-2/fields/date_picker.png)
-
-<hr>
-
-<a name="date-range"></a>
-### date_range
-
-Starting with Backpack\CRUD 3.1.59
-
-Show a DateRangePicker and let the user choose a start date and end date.
-
-```php
-[   // date_range
-    'name'  => ['start_date', 'end_date'], // db columns for start_date & end_date
-    'label' => 'Event Date Range',
-    'type'  => 'date_range',
-
-    // OPTIONALS
-    // default values for start_date & end_date
-    'default'            => ['2019-03-28 01:01', '2019-04-05 02:00'], 
-    // options sent to daterangepicker.js
-    'date_range_options' => [
-        'drops' => 'down', // can be one of [down/up/auto]
-        'timePicker' => true,
-        'locale' => ['format' => 'DD/MM/YYYY HH:mm']
-    ]
-],
-```
-
-Please note it is recommended that you use [attribute casting](https://laravel.com/docs/5.3/eloquent-mutators#attribute-casting) on your model (cast to date).
-
-Your end result will look like this:
-
-Input preview: 
-
-![CRUD Field - date_range](https://backpackforlaravel.com/uploads/docs-4-2/fields/date_range.png)
-
-<hr>
-
 <a name="datetime"></a>
-### datetime
+### datetime <span class="badge badge-pill badge-success">FREE</span>
 
 ```php
 [   // DateTime
@@ -693,48 +425,8 @@ Input preview:
 
 <hr>
 
-<a name="datetime-picker"></a>
-### datetime_picker
-
-Show a [Bootstrap Datetime Picker](https://eonasdan.github.io/bootstrap-datetimepicker/).
-
-```php
-[   // DateTime
-    'name'  => 'start',
-    'label' => 'Event start',
-    'type'  => 'datetime_picker',
-
-    // optional:
-    'datetime_picker_options' => [
-        'format' => 'DD/MM/YYYY HH:mm',
-        'language' => 'pt',
-        'tooltips' => [ //use this to translate the tooltips in the field
-                'today' => 'Hoje',
-                'selectDate' => 'Selecione a data',
-                // available tooltips: today, clear, close, selectMonth, prevMonth, nextMonth, selectYear, prevYear, nextYear, selectDecade, prevDecade, nextDecade, prevCentury, nextCentury, pickHour, incrementHour, decrementHour, pickMinute, incrementMinute, decrementMinute, pickSecond, incrementSecond, decrementSecond, togglePeriod, selectTime, selectDate
-        ]
-    ],
-    'allows_null' => true,
-    // 'default' => '2017-05-12 11:59:59',
-],
-```
-
-**Please note:** if you're using date [attribute casting](https://laravel.com/docs/5.3/eloquent-mutators#attribute-casting) on your model, you may also need to place this mutator inside your model:
-```php
-	public function setDatetimeAttribute($value) {
-		$this->attributes['datetime'] = \Carbon\Carbon::parse($value);
-	}
-```
-Otherwise the input's datetime-local format will cause some errors. Remember to change "datetime" with the name of your attribute (column name).
-
-Input preview: 
-
-![CRUD Field - datetime_picker](https://backpackforlaravel.com/uploads/docs-4-2/fields/datetime_picker.png)
-
-<hr>
-
 <a name="easymde"></a>
-### easymde
+### easymde <span class="badge badge-pill badge-success">FREE</span>
 
 Show an [EasyMDE - Markdown Editor](https://easy-markdown-editor.tk/) to the user. EasyMDE is a well-maintained fork of SimpleMDE.
 
@@ -763,7 +455,7 @@ Input preview:
 <hr>
 
 <a name="email"></a>
-### email
+### email <span class="badge badge-pill badge-success">FREE</span>
 
 ```php
 [   // Email
@@ -781,7 +473,7 @@ Input preview:
 <hr>
 
 <a name="enum"></a>
-### enum
+### enum <span class="badge badge-pill badge-success">FREE</span>
 
 Show a select with the values in the database for that ENUM field. Requires that the db column type is "enum". If the db column allows null, the " - " value will also show up in the select.
 
@@ -802,7 +494,7 @@ Input preview:
 <hr>
 
 <a name="hidden"></a>
-### hidden
+### hidden <span class="badge badge-pill badge-success">FREE</span>
 
 Include an `<input type="hidden">` in the form.
 
@@ -816,139 +508,8 @@ Include an `<input type="hidden">` in the form.
 
 <hr>
 
-<a name="icon-picker"></a>
-### icon_picker
-
-Show an icon picker. Supported icon sets are fontawesome, lineawesome, glyphicon, ionicon, weathericon, mapicon, octicon, typicon, elusiveicon, materialdesign as per the jQuery plugin, [bootstrap-iconpicker](http://victor-valencia.github.io/bootstrap-iconpicker/).
-
-The stored value will be the class name (ex: fa-home).
-
-```php
-[   // icon_picker
-    'label'   => "Icon",
-    'name'    => 'icon',
-    'type'    => 'icon_picker',
-    'iconset' => 'fontawesome' // options: fontawesome, lineawesome, glyphicon, ionicon, weathericon, mapicon, octicon, typicon, elusiveicon, materialdesign
-],
-```
-
-Your input will look like button, with a dropdown where the user can search or pick an icon:
-
-Input preview: 
-
-![CRUD Field - icon_picker](https://backpackforlaravel.com/uploads/docs-4-2/fields/icon_picker.png)
-
-<hr>
-
-<a name="image"></a>
-### image
-
-Upload an image and store it on the disk. 
-
-**Step 1.** Show the field. 
-```php
-// image
-$this->crud->addField([
-    'label' => "Profile Image",
-    'name' => "image",
-    'type' => 'image',
-    'crop' => true, // set to true to allow cropping, false to disable
-    'aspect_ratio' => 1, // omit or set to 0 to allow any aspect ratio
-    // 'disk'      => 's3_bucket', // in case you need to show images from a different disk
-    // 'prefix'    => 'uploads/images/profile_pictures/' // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
-]);
-```
-
-**Step 2.** Add a [mutator](https://laravel.com/docs/7.x/eloquent-mutators#defining-a-mutator) to your Model, where you pick up the uploaded file and store it wherever you want. You can use this boilerplate code and modify it to match your use case. 
-
-**NOTE: The code below requires that you have ```intervention/image``` installed. If you don't, please do ```composer require intervention/image``` first.**
-
-```php
-// ..
-
-use Illuminate\Support\Str;
-use Intervention\Image\ImageManagerStatic as Image;
-
-// ..
-
-Class Product extends Model
-{
-    // ..
-
-    public function setImageAttribute($value)
-    {
-        $attribute_name = "image";
-        // or use your own disk, defined in config/filesystems.php
-        $disk = config('backpack.base.root_disk_name'); 
-        // destination path relative to the disk above
-        $destination_path = "public/uploads/folder_1/folder_2"; 
-
-        // if the image was erased
-        if ($value==null) {
-            // delete the image from disk
-            \Storage::disk($disk)->delete($this->{$attribute_name});
-
-            // set null in the database column
-            $this->attributes[$attribute_name] = null;
-        }
-
-        // if a base64 was sent, store it in the db
-        if (Str::startsWith($value, 'data:image'))
-        {
-            // 0. Make the image
-            $image = \Image::make($value)->encode('jpg', 90);
-            
-	        // 1. Generate a filename.
-            $filename = md5($value.time()).'.jpg';
-            
-	        // 2. Store the image on disk.
-            \Storage::disk($disk)->put($destination_path.'/'.$filename, $image->stream());
-	    
-	        // 3. Delete the previous image, if there was one.
-            \Storage::disk($disk)->delete($this->{$attribute_name});
-		
-            // 4. Save the public path to the database
-	        // but first, remove "public/" from the path, since we're pointing to it 
-            // from the root folder; that way, what gets saved in the db
-	        // is the public URL (everything that comes after the domain name)
-            $public_destination_path = Str::replaceFirst('public/', '', $destination_path);
-            $this->attributes[$attribute_name] = $public_destination_path.'/'.$filename;
-        }
-    }
-    
-// ..
-```
-> **The uploaded images are not deleted for you.** If you delete an entry (using the CRUD or anywhere inside your app), the image file won't be deleted from the disk.
-> If you're NOT using soft deletes on that Model and want the image to be deleted at the same time the entry is, just specify that in your Model's ```deleting``` event:
-> ```php
->	public static function boot()
->	{
->		parent::boot();
->		static::deleted(function($obj) {
->			\Storage::disk('public_folder')->delete($obj->image);
->		});
->	}
-> ```
-
-**A note about aspect_ratio**
-The value for aspect ratio is a float that represents the ratio of the cropping rectangle height and width. By way of example,
-
-- Square = 1
-- Landscape = 2
-- Portrait = 0.5
-
-And you can, of course, use any value for more extreme rectangles.
-
-Input preview: 
-
-![CRUD Field - image](https://backpackforlaravel.com/uploads/docs-4-2/fields/image.png)
-
-> NOTE: if you are having trouble uploading big images, please check your php extensions **apcu** and/or **opcache**, users have reported some issues with these extensions when trying to upload very big images. REFS: https://github.com/Laravel-Backpack/CRUD/issues/3457
-
-<hr>
-
 <a name="month"></a>
-### month
+### month <span class="badge badge-pill badge-success">FREE</span>
 
 ```php
 [   // Month
@@ -965,7 +526,7 @@ Input preview:
 <hr>
 
 <a name="number"></a>
-### number
+### number <span class="badge badge-pill badge-success">FREE</span>
 
 Shows an input type=number to the user, with optional prefix and suffix:
 
@@ -982,14 +543,14 @@ Shows an input type=number to the user, with optional prefix and suffix:
 ],
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - number](https://backpackforlaravel.com/uploads/docs-4-2/fields/number.png)
 
 <hr>
 
 <a name="password"></a>
-### password
+### password <span class="badge badge-pill badge-success">FREE</span>
 
 ```php
 [   // Password
@@ -999,7 +560,7 @@ Input preview:
 ],
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - password](https://backpackforlaravel.com/uploads/docs-4-2/fields/password.png)
 
@@ -1044,7 +605,7 @@ public function setPasswordAttribute($value) {
 <hr>
 
 <a name="radio"></a>
-### radio
+### radio <span class="badge badge-pill badge-success">FREE</span>
 
 Show radios according to an associative array you give the input and let the user pick from them. You can choose for the radio options to be displayed inline or one-per-line.
 
@@ -1070,7 +631,7 @@ Input preview:
 <hr>
 
 <a name="range"></a>
-### range
+### range <span class="badge badge-pill badge-success">FREE</span>
 
 Shows an HTML5 range element, allowing the user to drag a cursor left-right, to pick a number from a defined range.
 
@@ -1093,8 +654,847 @@ Input preview:
 
 <hr>
 
+<a name="select"></a>
+### select (1-n relationship) <span class="badge badge-pill badge-success">FREE</span>
+
+Show a Select with the names of the connected entity and let the user select one of them.
+Your relationships should already be defined on your models as hasOne() or belongsTo().
+
+```php
+[  // Select
+   'label'     => "Category",
+   'type'      => 'select',
+   'name'      => 'category_id', // the db column for the foreign key
+
+   // optional
+   // 'entity' should point to the method that defines the relationship in your Model
+   // defining entity will make Backpack guess 'model' and 'attribute'
+   'entity'    => 'category',
+
+   // optional - manually specify the related model and attribute
+   'model'     => "App\Models\Category", // related model
+   'attribute' => 'name', // foreign key attribute that is shown to user
+
+   // optional - force the related options to be a custom query, instead of all();
+   'options'   => (function ($query) {
+        return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
+    }), //  you can use this to filter the results show in the select
+],
+```
+
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
+
+Input preview:
+
+![CRUD Field - select](https://backpackforlaravel.com/uploads/docs-4-2/fields/select.png)
+
+
+<hr>
+
+
+<a name="select-grouped"></a>
+### select_grouped <span class="badge badge-pill badge-success">FREE</span>
+
+Display a select where the options are grouped by a second entity (like Categories).
+
+```php
+[   // select_grouped
+    'label'     => 'Articles grouped by categories',
+    'type'      => 'select_grouped', //https://github.com/Laravel-Backpack/CRUD/issues/502
+    'name'      => 'article_id',
+    'entity'    => 'article',
+    'attribute' => 'title',
+    'group_by'  => 'category', // the relationship to entity you want to use for grouping
+    'group_by_attribute' => 'name', // the attribute on related model, that you want shown
+    'group_by_relationship_back' => 'articles', // relationship from related model back to this model
+],
+```
+
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
+
+Input preview:
+
+![CRUD Field - select_grouped](https://backpackforlaravel.com/uploads/docs-4-2/fields/select_grouped.png)
+
+<hr>
+
+<a name="select-multiple"></a>
+### select_multiple (n-n relationship) <span class="badge badge-pill badge-success">FREE</span>
+
+Show a Select with the names of the connected entity and let the user select any number of them.
+Your relationship should already be defined on your models as belongsToMany().
+
+```php
+[   // SelectMultiple = n-n relationship (with pivot table)
+    'label'     => "Tags",
+    'type'      => 'select_multiple',
+    'name'      => 'tags', // the method that defines the relationship in your Model
+
+    // optional
+    'entity'    => 'tags', // the method that defines the relationship in your Model
+    'model'     => "App\Models\Tag", // foreign key model
+    'attribute' => 'name', // foreign key attribute that is shown to user
+    'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
+
+    // also optional
+    'options'   => (function ($query) {
+        return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
+    }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
+],
+```
+
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
+
+Input preview:
+
+![CRUD Field - select_multiple](https://backpackforlaravel.com/uploads/docs-4-2/fields/select_multiple.png)
+
+
+<hr>
+
+<a name="select-from-array"></a>
+### select_from_array <span class="badge badge-pill badge-success">FREE</span>
+
+Display a select with the values you want:
+
+```php
+[   // select_from_array
+    'name'        => 'template',
+    'label'       => "Template",
+    'type'        => 'select_from_array',
+    'options'     => ['one' => 'One', 'two' => 'Two'],
+    'allows_null' => false,
+    'default'     => 'one',
+    // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
+],
+```
+
+Input preview:
+
+![CRUD Field - select_from_array](https://backpackforlaravel.com/uploads/docs-4-2/fields/select_from_array.png)
+
+<hr>
+
+<a name="text"></a>
+### text <span class="badge badge-pill badge-success">FREE</span>
+
+The basic field type, all it needs is the two mandatory parameters: name and label.
+
+```php
+[   // Text
+    'name'  => 'title',
+    'label' => "Title",
+    'type'  => 'text',
+
+    // optional
+    //'prefix'     => '',
+    //'suffix'     => '',
+    //'default'    => 'some value', // default value
+    //'hint'       => 'Some hint text', // helpful text, show up after input
+    //'attributes' => [
+       //'placeholder' => 'Some text when empty',
+       //'class' => 'form-control some-class',
+       //'readonly'  => 'readonly',
+       //'disabled'  => 'disabled',
+     //], // extra HTML attributes and values your input might need
+     //'wrapper'   => [
+       //'class' => 'form-group col-md-12'
+     //], // extra HTML attributes for the field wrapper - mostly for resizing fields
+
+],
+```
+
+You can use the optional 'prefix' and 'suffix' attributes to display something before and after the input, like icons, path prefix, etc:
+
+Input preview:
+
+![CRUD Field - text](https://backpackforlaravel.com/uploads/docs-4-2/fields/text.png)
+
+<hr>
+
+<a name="textarea"></a>
+### textarea <span class="badge badge-pill badge-success">FREE</span>
+
+Show a textarea to the user.
+
+```php
+[   // Textarea
+    'name'  => 'description',
+    'label' => 'Description',
+    'type'  => 'textarea'
+],
+```
+
+Input preview:
+
+![CRUD Field - textarea](https://backpackforlaravel.com/uploads/docs-4-2/fields/textarea.png)
+
+<hr>
+
+<a name="time"></a>
+### time <span class="badge badge-pill badge-success">FREE</span>
+
+```php
+[   // Time
+    'name'  => 'start',
+    'label' => 'Start time',
+    'type'  => 'time'
+],
+```
+
+<hr>
+
+<a name="upload"></a>
+### upload <span class="badge badge-pill badge-success">FREE</span>
+
+**Step 1.** Show a file input to the user:
+```php
+[   // Upload
+    'name'      => 'image',
+    'label'     => 'Image',
+    'type'      => 'upload',
+    'upload'    => true,
+    'disk'      => 'uploads', // if you store files in the /public folder, please omit this; if you store them in /storage or S3, please specify it;
+    // optional:
+    'temporary' => 10 // if using a service, such as S3, that requires you to make temporary URLs this will make a URL that is valid for the number of minutes specified
+],
+```
+
+**Step 2.** In order to save/update/delete the file from disk&db, we need to create [a mutator](https://laravel.com/docs/5.3/eloquent-mutators#defining-a-mutator) on your model:
+```php
+public function setImageAttribute($value)
+    {
+    	$attribute_name = "image";
+    	$disk = "public";
+    	$destination_path = "folder_1/subfolder_1";
+
+    	$this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path);
+
+	// return $this->attributes[{$attribute_name}]; // uncomment if this is a translatable field
+    }
+```
+
+**How it works:**
+
+The field sends the file, through a Request, to the Controller. The Controller then tries to create/update the Model. That's when the mutator on your model will run. That also means we can do any [file validation](https://laravel.com/docs/5.3/validation#rule-file) (```file```, ```image```, ```mimetypes```, ```mimes```) in the Request, before the file is stored on the disk.
+
+>NOTE: If this field is mandatory (required in validation) please use the [sometimes laravel validation rule](https://laravel.com/docs/5.8/validation#conditionally-adding-rules) together with **required** in your validation. (sometimes|required|file etc... )
+
+[The ```uploadFileToDisk()``` method](https://github.com/Laravel-Backpack/CRUD/blob/master/src/app/Models/Traits/HasUploadFields.php#L31-L59) will take care of everything for most use cases:
+
+```php
+/**
+     * Handle file upload and DB storage for a file:
+     * - on CREATE
+     *     - stores the file at the destination path
+     *     - generates a name
+     *     - stores the full path in the DB;
+     * - on UPDATE
+     *     - if the value is null, deletes the file and sets null in the DB
+     *     - if the value is different, stores the different file and updates DB value
+     * /
+public function uploadFileToDisk($value, $attribute_name, $disk, $destination_path) {}
+```
+
+If you wish to have a different functionality, you can delete the method call from your mutator and do your own thing.
+
+>**The uploaded files are not deleted for you.** When you delete an entry (whether through CRUD or the application), the uploaded files will not be deleted.
+
+If you're NOT using soft deletes on that Model and want the file to be deleted at the same time the entry is, just specify that in your Model's ```deleting``` event:
+```php
+	public static function boot()
+	{
+		parent::boot();
+		static::deleting(function($obj) {
+			\Storage::disk('public_folder')->delete($obj->image);
+		});
+	}
+```
+
+Input preview:
+
+![CRUD Field - upload](https://backpackforlaravel.com/uploads/docs-4-2/fields/upload.png)
+
+<hr>
+
+<a name="upload-multiple"></a>
+### upload_multiple <span class="badge badge-pill badge-success">FREE</span>
+
+Shows a multiple file input to the user and stores the values as a JSON array in the database.
+
+**Step 0.** Make sure the db column can hold the amount of text this field will have. For example, for MySQL, VARCHAR(255) might not be enough all the time (for 3+ files), so it's better to go with TEXT. Make sure you're using a big column type in your migration or db.
+
+**Step 1.** Show a multiple file input to the user:
+```php
+[   // Upload
+    'name'      => 'photos',
+    'label'     => 'Photos',
+    'type'      => 'upload_multiple',
+    'upload'    => true,
+    'disk'      => 'uploads', // if you store files in the /public folder, please omit this; if you store them in /storage or S3, please specify it;
+    // optional:
+    'temporary' => 10 // if using a service, such as S3, that requires you to make temporary URLs this will make a URL that is valid for the number of minutes specified
+],
+```
+
+**Step 2.** In order to save/update/delete the files from disk&db, we need to create [a mutator](https://laravel.com/docs/5.3/eloquent-mutators#defining-a-mutator) on your model:
+```php
+public function setPhotosAttribute($value)
+    {
+    	$attribute_name = "photos";
+    	$disk = "public";
+    	$destination_path = "folder_1/subfolder_1";
+
+    	$this->uploadMultipleFilesToDisk($value, $attribute_name, $disk, $destination_path);
+    }
+```
+
+**Step 3.** Since the filenames are stored in the database as a JSON array, we're going to use [attribute casting](https://laravel.com/docs/5.3/eloquent-mutators#attribute-casting) on your model, so every time we get the filenames array from the database it's converted from a JSON array to a PHP array:
+```php
+    protected $casts = [
+    	'photos' => 'array'
+    ];
+```
+
+**How it works:**
+
+The field sends the files, through a Request, to the Controller. The Controller then tries to create/update the Model. That's when the mutator on your model will run. That also means we can do any [file validation](https://laravel.com/docs/5.3/validation#rule-file) (```file```, ```image```, ```mimetypes```, ```mimes```) in the Request, before the files are stored on the disk.
+
+[The ```uploadMultipleFilesToDisk()``` method](https://github.com/Laravel-Backpack/CRUD/blob/master/src/app/Models/Traits/HasUploadFields.php#L76-L113) will take care of everything for most use cases:
+
+```
+/**
+     * Handle multiple file upload and DB storage:
+     * - if files are sent
+     *     - stores the files at the destination path
+     *     - generates random names
+     *     - stores the full path in the DB, as JSON array;
+     * - if a hidden input is sent to clear one or more files
+     *     - deletes the file
+     *     - removes that file from the DB.
+     * /
+public function uploadMultipleFilesToDisk($value, $attribute_name, $disk, $destination_path) {}
+```
+
+If you wish to have a different functionality, you can delete the method call from your mutator and do your own thing.
+
+>**The uploaded files are not deleted for you.** When you delete an entry (whether through CRUD or the application), the uploaded files will not be deleted.
+
+If you're NOT using soft deletes on that Model and want the files to be deleted at the same time the entry is, just specify that in your Model's ```deleting``` event:
+```php
+	public static function boot()
+	{
+		parent::boot();
+		static::deleting(function($obj) {
+			if (count((array)$obj->photos)) {
+				foreach ($obj->photos as $file_path) {
+					\Storage::disk('public_folder')->delete($file_path);
+				}
+			}
+		});
+	}
+```
+
+You might notice the field is using a ```clear_photos``` variable. Don't worry, you don't need it in your db table. That's just used to delete photos upon "update". If you use ```$fillable``` on your model, just don't include it. If you use ```$guarded``` on your model, place it in guarded.
+
+Input preview:
+
+![CRUD Field - upload_multiple](https://backpackforlaravel.com/uploads/docs-4-2/fields/upload_multiple.png)
+
+<a name="url"></a>
+### url <span class="badge badge-pill badge-success">FREE</span>
+
+```php
+[   // URL
+    'name'  => 'link',
+    'label' => 'Link to video file',
+    'type'  => 'url'
+],
+```
+
+<hr>
+
+<a name="view"></a>
+### view <span class="badge badge-pill badge-success">FREE</span>
+
+Load a custom view in the form.
+
+```php
+[   // view
+    'name' => 'custom-ajax-button',
+    'type' => 'view',
+    'view' => 'partials/custom-ajax-button'
+],
+```
+
+**Note:** the same functionality can be achieved using a [custom field type](/docs/{{version}}/crud-fields#creating-a-custom-field-type), or using the [custom_html field type](/docs/{{version}}/crud-fields#custom-html) (if the content is really simple).
+
+<hr>
+
+<a name="week"></a>
+### week <span class="badge badge-pill badge-success">FREE</span>
+
+```php
+[   // Week
+    'name'  => 'first_week',
+    'label' => 'First week',
+    'type'  => 'week'
+],
+```
+
+Input preview:
+
+![CRUD Field - week](https://backpackforlaravel.com/uploads/docs-4-2/fields/week.png)
+
+
+
+<a name="pro-field-types"></a>
+## PRO Field Types
+
+
+<a name="address_algolia"></a>
+### address_algolia <span class="badge badge-pill badge-info">PRO</span>
+
+Use [Algolia Places autocomplete](https://community.algolia.com/places/) to help users type their address faster. With the ```store_as_json``` option, it will store the address, postcode, city, country, latitude and longitude in a JSON in the database. Without it, it will just store the address string. For information stored as JSON in the database, it's recommended that you use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) to ```array``` or ```object```. That way, every time you get the info from the database you'd get it in a usable format.
+
+```php
+[   // Address algolia
+    'name'          => 'address',
+    'label'         => 'Address',
+    'type'          => 'address_algolia',
+    // optional
+    'store_as_json' => true
+],
+```
+
+> **Algolia is killing Places.** Please note that Algolia Places **will stop working in May 2022**, as reported in [this announcement](https://www.algolia.com/blog/product/sunseting-our-places-feature/). For that reason, it's probably a good idea to use the `address_google` field instead (it's right after this one).
+
+
+Input preview:
+
+![CRUD Field - address](https://backpackforlaravel.com/uploads/docs-4-2/fields/address.png)
+
+<hr>
+
+<a name="address_google"></a>
+### address_google <span class="badge badge-pill badge-info">PRO</span>
+
+Use [Google Places Search](https://developers.google.com/places/web-service/search) to help users type their address faster. With the ```store_as_json``` option, it will store the address, postcode, city, country, latitude and longitude in a JSON in the database. Without it, it will just store the complete address string.
+
+```php
+[   // Address google
+    'name'          => 'address',
+    'label'         => 'Address',
+    'type'          => 'address_google',
+    // optional
+    'store_as_json' => true
+],
+```
+
+Using Google Places API is dependent on using an API Key. Please [get an API key](https://console.cloud.google.com/apis/credentials) - you do have to configure billing, but you qualify for $200/mo free usage, which covers most use cases. Then copy-paste that key as your ```services.google_places.key``` value. So inside your ```config/services.php``` please add the items below:
+
+```php
+'google_places' => [
+    'key' => 'the-key-you-got-from-google-places'
+],
+```
+
+> **Use attribute casting.** For information stored as JSON in the database, it's recommended that you use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) to ```array``` or ```object```. That way, every time you get the info from the database you'd get it in a usable format. Also, it is heavily recommended that your database column can hold a large JSON - so use `text` rather than `string` in your migration (in MySQL this translates to `text` instead of `varchar`).
+
+Input preview:
+
+![CRUD Field - address](https://backpackforlaravel.com/uploads/docs-4-2/fields/address_google.png)
+
+<hr>
+
+<a name="browse"></a>
+### browse <span class="badge badge-pill badge-info">PRO</span>
+
+This button allows the admin to open [elFinder](http://elfinder.org/) and select a file from there. Run ```composer require backpack/filemanager && php artisan backpack:filemanager:install``` to install [FileManager](https://github.com/laravel-backpack/filemanager), then you can use the field:
+
+```php
+[   // Browse
+    'name'  => 'image',
+    'label' => 'Image',
+    'type'  => 'browse'
+],
+```
+
+
+Input preview:
+
+![CRUD Field - browse](https://backpackforlaravel.com/uploads/docs-4-2/fields/browse.png)
+
+Onclick preview:
+
+![CRUD Field - browse popup](https://backpackforlaravel.com/uploads/docs-4-2/fields/browse_popup.png)
+
+<hr>
+
+<a name="browse-multiple"></a>
+### browse_multiple <span class="badge badge-pill badge-info">PRO</span>
+
+Open elFinder and select multiple files from there. Run ```composer require backpack/filemanager && php artisan backpack:filemanager:install``` to install [FileManager](https://github.com/laravel-backpack/filemanager), then you can use the field:
+
+```php
+[   // Browse multiple
+    'name'          => 'files',
+    'label'         => 'Files',
+    'type'          => 'browse_multiple',
+    // 'multiple'   => true, // enable/disable the multiple selection functionality
+    // 'sortable'   => false, // enable/disable the reordering with drag&drop
+    // 'mime_types' => null, // visible mime prefixes; ex. ['image'] or ['application/pdf']
+],
+```
+
+The field assumes you've cast your attribute as ```array``` on your model.  That way, when you do ```$entry->files``` you get a nice array.
+**NOTE:** If you use `multiple => false` you should NOT cast your attribute as ```array```
+
+Input preview:
+
+![CRUD Field - browse_multiple](https://backpackforlaravel.com/uploads/docs-4-2/fields/browse_multiple.png)
+
+<hr>
+
+<a name="base64-image"></a>
+### base64_image <span class="badge badge-pill badge-info">PRO</span>
+
+Upload an image and store it in the database as Base64. Notes:
+- make sure the column type is LONGBLOB;
+- detailed [instructions and customizations here](https://github.com/Laravel-Backpack/CRUD/pull/56#issue-164712261);
+
+```php
+// base64_image
+$this->crud->addField([
+    'label'        => "Profile Image",
+    'name'         => "image",
+    'filename'     => "image_filename", // set to null if not needed
+    'type'         => 'base64_image',
+    'aspect_ratio' => 1, // set to 0 to allow any aspect ratio
+    'crop'         => true, // set to true to allow cropping, false to disable
+    'src'          => NULL, // null to read straight from DB, otherwise set to model accessor function
+]);
+```
+
+Input preview:
+
+![CRUD Field - base64_image](https://backpackforlaravel.com/uploads/docs-4-2/fields/base64_image.png)
+
+<hr>
+
+<a name="ckeditor"></a>
+### ckeditor <span class="badge badge-pill badge-info">PRO</span>
+
+Show a wysiwyg CKEditor to the user.
+
+```php
+[   // CKEditor
+    'name'          => 'description',
+    'label'         => 'Description',
+    'type'          => 'ckeditor',
+
+    // optional:
+    'extra_plugins' => ['oembed', 'widget'],
+    'options'       => [
+        'autoGrow_minHeight'   => 200,
+        'autoGrow_bottomSpace' => 50,
+        'removePlugins'        => 'resize,maximize',
+    ]
+],
+```
+
+If you'd like to be able to select files from elFinder, you need to also run ```composer require backpack/filemanager``` to install elFinder.
+
+Input preview:
+
+![CRUD Field - ckeditor](https://backpackforlaravel.com/uploads/docs-4-2/fields/ckeditor.png)
+
+<hr>
+
+<a name="color-picker"></a>
+### color_picker <span class="badge badge-pill badge-info">PRO</span>
+
+Show a pretty colour picker using [Bootstrap Colorpicker](https://itsjavi.com/bootstrap-colorpicker/).
+
+```php
+[   // color_picker
+    'label'                => 'Background Color',
+    'name'                 => 'background_color',
+    'type'                 => 'color_picker',
+    'default'              => '#000000',
+
+    // optional
+    // Anything your define inside `color_picker_options` will be passed as JS
+    // to the JavaScript plugin. For more information about the options available
+    // please see the plugin docs at:
+    //  ### https://itsjavi.com/bootstrap-colorpicker/module-options.html
+    'color_picker_options' => [
+        'customClass' => 'custom-class',
+        'horizontal' => true,
+        'extensions' => [
+            [
+                'name' => 'swatches', // extension name to load
+                'options' => [ // extension options
+                    'colors' => [
+                        'primary' => '#337ab7',
+                        'success' => '#5cb85c',
+                        'info' => '#5bc0de',
+                        'warning' => '#f0ad4e',
+                        'danger' => '#d9534f'
+                    ],
+                    'namesAsValues' => false
+                ]
+            ]
+        ]
+    ]
+],
+```
+
+Input preview:
+
+![CRUD Field - color_picker](https://backpackforlaravel.com/uploads/docs-4-2/fields/color_picker.png)
+
+<hr>
+
+<a name="date-range"></a>
+### date_range <span class="badge badge-pill badge-info">PRO</span>
+
+Show a DateRangePicker and let the user choose a start date and end date.
+
+```php
+[   // date_range
+    'name'  => ['start_date', 'end_date'], // db columns for start_date & end_date
+    'label' => 'Event Date Range',
+    'type'  => 'date_range',
+
+    // OPTIONALS
+    // default values for start_date & end_date
+    'default'            => ['2019-03-28 01:01', '2019-04-05 02:00'],
+    // options sent to daterangepicker.js
+    'date_range_options' => [
+        'drops' => 'down', // can be one of [down/up/auto]
+        'timePicker' => true,
+        'locale' => ['format' => 'DD/MM/YYYY HH:mm']
+    ]
+],
+```
+
+Please note it is recommended that you use [attribute casting](https://laravel.com/docs/5.3/eloquent-mutators#attribute-casting) on your model (cast to date).
+
+Your end result will look like this:
+
+Input preview:
+
+![CRUD Field - date_range](https://backpackforlaravel.com/uploads/docs-4-2/fields/date_range.png)
+
+
+
+<hr>
+
+<a name="date-picker"></a>
+### date_picker <span class="badge badge-pill badge-info">PRO</span>
+
+Show a pretty [Bootstrap Datepicker](http://bootstrap-datepicker.readthedocs.io/en/latest/).
+
+```php
+[   // date_picker
+   'name'  => 'date',
+   'type'  => 'date_picker',
+   'label' => 'Date',
+
+   // optional:
+   'date_picker_options' => [
+      'todayBtn' => 'linked',
+      'format'   => 'dd-mm-yyyy',
+      'language' => 'fr'
+   ],
+],
+```
+
+Please note it is recommended that you use [attribute casting](https://laravel.com/docs/5.3/eloquent-mutators#attribute-casting) on your model (cast to date).
+
+
+Input preview:
+
+![CRUD Field - date_picker](https://backpackforlaravel.com/uploads/docs-4-2/fields/date_picker.png)
+
+<hr>
+
+<a name="datetime-picker"></a>
+### datetime_picker <span class="badge badge-pill badge-info">PRO</span>
+
+Show a [Bootstrap Datetime Picker](https://eonasdan.github.io/bootstrap-datetimepicker/).
+
+```php
+[   // DateTime
+    'name'  => 'start',
+    'label' => 'Event start',
+    'type'  => 'datetime_picker',
+
+    // optional:
+    'datetime_picker_options' => [
+        'format' => 'DD/MM/YYYY HH:mm',
+        'language' => 'pt',
+        'tooltips' => [ //use this to translate the tooltips in the field
+                'today' => 'Hoje',
+                'selectDate' => 'Selecione a data',
+                // available tooltips: today, clear, close, selectMonth, prevMonth, nextMonth, selectYear, prevYear, nextYear, selectDecade, prevDecade, nextDecade, prevCentury, nextCentury, pickHour, incrementHour, decrementHour, pickMinute, incrementMinute, decrementMinute, pickSecond, incrementSecond, decrementSecond, togglePeriod, selectTime, selectDate
+        ]
+    ],
+    'allows_null' => true,
+    // 'default' => '2017-05-12 11:59:59',
+],
+```
+
+**Please note:** if you're using date [attribute casting](https://laravel.com/docs/5.3/eloquent-mutators#attribute-casting) on your model, you may also need to place this mutator inside your model:
+```php
+    public function setDatetimeAttribute($value) {
+        $this->attributes['datetime'] = \Carbon\Carbon::parse($value);
+    }
+```
+Otherwise the input's datetime-local format will cause some errors. Remember to change "datetime" with the name of your attribute (column name).
+
+Input preview:
+
+![CRUD Field - datetime_picker](https://backpackforlaravel.com/uploads/docs-4-2/fields/datetime_picker.png)
+
+
+<hr>
+
+<a name="icon-picker"></a>
+### icon_picker <span class="badge badge-pill badge-info">PRO</span>
+
+Show an icon picker. Supported icon sets are fontawesome, lineawesome, glyphicon, ionicon, weathericon, mapicon, octicon, typicon, elusiveicon, materialdesign as per the jQuery plugin, [bootstrap-iconpicker](http://victor-valencia.github.io/bootstrap-iconpicker/).
+
+The stored value will be the class name (ex: fa-home).
+
+```php
+[   // icon_picker
+    'label'   => "Icon",
+    'name'    => 'icon',
+    'type'    => 'icon_picker',
+    'iconset' => 'fontawesome' // options: fontawesome, lineawesome, glyphicon, ionicon, weathericon, mapicon, octicon, typicon, elusiveicon, materialdesign
+],
+```
+
+Your input will look like button, with a dropdown where the user can search or pick an icon:
+
+Input preview:
+
+![CRUD Field - icon_picker](https://backpackforlaravel.com/uploads/docs-4-2/fields/icon_picker.png)
+
+<hr>
+
+<a name="image"></a>
+### image <span class="badge badge-pill badge-info">PRO</span>
+
+Upload an image and store it on the disk.
+
+**Step 1.** Show the field.
+```php
+// image
+$this->crud->addField([
+    'label' => "Profile Image",
+    'name' => "image",
+    'type' => 'image',
+    'crop' => true, // set to true to allow cropping, false to disable
+    'aspect_ratio' => 1, // omit or set to 0 to allow any aspect ratio
+    // 'disk'      => 's3_bucket', // in case you need to show images from a different disk
+    // 'prefix'    => 'uploads/images/profile_pictures/' // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
+]);
+```
+
+**Step 2.** Add a [mutator](https://laravel.com/docs/7.x/eloquent-mutators#defining-a-mutator) to your Model, where you pick up the uploaded file and store it wherever you want. You can use this boilerplate code and modify it to match your use case.
+
+**NOTE: The code below requires that you have ```intervention/image``` installed. If you don't, please do ```composer require intervention/image``` first.**
+
+```php
+// ..
+
+use Illuminate\Support\Str;
+use Intervention\Image\ImageManagerStatic as Image;
+
+// ..
+
+Class Product extends Model
+{
+    // ..
+
+    public function setImageAttribute($value)
+    {
+        $attribute_name = "image";
+        // or use your own disk, defined in config/filesystems.php
+        $disk = config('backpack.base.root_disk_name');
+        // destination path relative to the disk above
+        $destination_path = "public/uploads/folder_1/folder_2";
+
+        // if the image was erased
+        if ($value==null) {
+            // delete the image from disk
+            \Storage::disk($disk)->delete($this->{$attribute_name});
+
+            // set null in the database column
+            $this->attributes[$attribute_name] = null;
+        }
+
+        // if a base64 was sent, store it in the db
+        if (Str::startsWith($value, 'data:image'))
+        {
+            // 0. Make the image
+            $image = \Image::make($value)->encode('jpg', 90);
+
+            // 1. Generate a filename.
+            $filename = md5($value.time()).'.jpg';
+
+            // 2. Store the image on disk.
+            \Storage::disk($disk)->put($destination_path.'/'.$filename, $image->stream());
+
+            // 3. Delete the previous image, if there was one.
+            \Storage::disk($disk)->delete($this->{$attribute_name});
+
+            // 4. Save the public path to the database
+            // but first, remove "public/" from the path, since we're pointing to it
+            // from the root folder; that way, what gets saved in the db
+            // is the public URL (everything that comes after the domain name)
+            $public_destination_path = Str::replaceFirst('public/', '', $destination_path);
+            $this->attributes[$attribute_name] = $public_destination_path.'/'.$filename;
+        }
+    }
+
+// ..
+```
+> **The uploaded images are not deleted for you.** If you delete an entry (using the CRUD or anywhere inside your app), the image file won't be deleted from the disk.
+> If you're NOT using soft deletes on that Model and want the image to be deleted at the same time the entry is, just specify that in your Model's ```deleting``` event:
+> ```php
+>   public static function boot()
+>   {
+>       parent::boot();
+>       static::deleted(function($obj) {
+>           \Storage::disk('public_folder')->delete($obj->image);
+>       });
+>   }
+> ```
+
+**A note about aspect_ratio**
+The value for aspect ratio is a float that represents the ratio of the cropping rectangle height and width. By way of example,
+
+- Square = 1
+- Landscape = 2
+- Portrait = 0.5
+
+And you can, of course, use any value for more extreme rectangles.
+
+Input preview:
+
+![CRUD Field - image](https://backpackforlaravel.com/uploads/docs-4-2/fields/image.png)
+
+> NOTE: if you are having trouble uploading big images, please check your php extensions **apcu** and/or **opcache**, users have reported some issues with these extensions when trying to upload very big images. REFS: https://github.com/Laravel-Backpack/CRUD/issues/3457
+
+
+<hr>
+
 <a name="relationship"></a>
-### relationship
+### relationship <span class="badge badge-pill badge-info">PRO</span>
 
 Shows the user a `select2` input, allowing them to choose one/more entries of a related Eloquent Model. In order to work, the relationships need to be properly defined on the Model.
 
@@ -1398,13 +1798,13 @@ Normally, when the admin removes a relationship from the "select", only the rela
 <hr>
 
 <a name="repeatable"></a>
-### repeatable
+### repeatable <span class="badge badge-pill badge-info">PRO</span>
 
 Shows a group of inputs to the user, and allows the user to add or remove groups of that kind:
 
 ![CRUD Field - repeatable](https://backpackforlaravel.com/uploads/docs-4-2/fields/repeatable.png)
 
-**Since 4.2**: repeatable returns an array when the form is submitted instead of the already parsed json. **You must cast** the repeatable field to **ARRAY** or **JSON** in your model.
+**Since v5**: repeatable returns an array when the form is submitted instead of the already parsed json. **You must cast** the repeatable field to **ARRAY** or **JSON** in your model.
 
 Clicking on the "New Item" button will add another group with the same subfields (in the example, another Testimonial).
 
@@ -1444,7 +1844,7 @@ You can use most field types inside the field groups, add as many subfields you 
             'label' => 'Quote',
         ],
     ],
-    
+
     // optional
     'new_item_label'  => 'Add Group', // customize the text of the button
     'init_rows' => 2, // number of empty rows to be initialized, by default 1
@@ -1458,77 +1858,12 @@ You can use most field types inside the field groups, add as many subfields you 
 ],
 ```
 
-
-<hr>
-
-<a name="select"></a>
-### select (1-n relationship)
-
-Show a Select with the names of the connected entity and let the user select one of them.
-Your relationships should already be defined on your models as hasOne() or belongsTo().
-
-```php
-[  // Select
-   'label'     => "Category",
-   'type'      => 'select',
-   'name'      => 'category_id', // the db column for the foreign key
-
-   // optional 
-   // 'entity' should point to the method that defines the relationship in your Model
-   // defining entity will make Backpack guess 'model' and 'attribute'
-   'entity'    => 'category', 
-
-   // optional - manually specify the related model and attribute
-   'model'     => "App\Models\Category", // related model
-   'attribute' => 'name', // foreign key attribute that is shown to user
-
-   // optional - force the related options to be a custom query, instead of all();
-   'options'   => (function ($query) {
-        return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
-    }), //  you can use this to filter the results show in the select
-],
-```
-
-For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
-
-Input preview: 
-
-![CRUD Field - select](https://backpackforlaravel.com/uploads/docs-4-2/fields/select.png)
-
-
-<hr>
-
-
-<a name="select-grouped"></a>
-### select_grouped
-
-Display a select where the options are grouped by a second entity (like Categories).
-
-```php
-[   // select_grouped
-    'label'     => 'Articles grouped by categories',
-    'type'      => 'select_grouped', //https://github.com/Laravel-Backpack/CRUD/issues/502
-    'name'      => 'article_id',
-    'entity'    => 'article',
-    'attribute' => 'title',
-    'group_by'  => 'category', // the relationship to entity you want to use for grouping
-    'group_by_attribute' => 'name', // the attribute on related model, that you want shown
-    'group_by_relationship_back' => 'articles', // relationship from related model back to this model
-],
-```
-
-For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
-
-Input preview:
-
-![CRUD Field - select_grouped](https://backpackforlaravel.com/uploads/docs-4-2/fields/select_grouped.png)
-
 <hr>
 
 <a name="select2"></a>
-### select2 (1-n relationship)
+### select2 (1-n relationship) <span class="badge badge-pill badge-info">PRO</span>
 
-Works just like the SELECT field, but prettier. Shows a Select2 with the names of the connected entity and let the user select one of them. 
+Works just like the SELECT field, but prettier. Shows a Select2 with the names of the connected entity and let the user select one of them.
 Your relationships should already be defined on your models as hasOne() or belongsTo().
 
 ```php
@@ -1552,48 +1887,15 @@ Your relationships should already be defined on your models as hasOne() or belon
 
 For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - select2](https://backpackforlaravel.com/uploads/docs-4-2/fields/select2_nested.png)
-
-<hr>
-
-<a name="select-multiple"></a>
-### select_multiple (n-n relationship)
-
-Show a Select with the names of the connected entity and let the user select any number of them.
-Your relationship should already be defined on your models as belongsToMany().
-
-```php
-[   // SelectMultiple = n-n relationship (with pivot table)
-    'label'     => "Tags",
-    'type'      => 'select_multiple',
-    'name'      => 'tags', // the method that defines the relationship in your Model
-
-    // optional
-    'entity'    => 'tags', // the method that defines the relationship in your Model
-    'model'     => "App\Models\Tag", // foreign key model
-    'attribute' => 'name', // foreign key attribute that is shown to user
-    'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
-
-    // also optional
-    'options'   => (function ($query) {
-        return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
-    }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
-],
-```
-
-For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
-
-Input preview: 
-
-![CRUD Field - select_multiple](https://backpackforlaravel.com/uploads/docs-4-2/fields/select_multiple.png)
 
 
 <hr>
 
 <a name="select2-multiple"></a>
-### select2_multiple (n-n relationship)
+### select2_multiple (n-n relationship) <span class="badge badge-pill badge-info">PRO</span>
 
 [Works just like the SELECT field, but prettier]
 
@@ -1622,14 +1924,14 @@ Your relationship should already be defined on your models as belongsToMany().
 
 For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - select2_multiple](https://backpackforlaravel.com/uploads/docs-4-2/fields/select2_multiple.png)
 
 <hr>
 
 <a name="select2-nested"></a>
-### select2_nested
+### select2_nested <span class="badge badge-pill badge-info">PRO</span>
 
 Display a select2 with the values ordered hierarchically and indented, for an entity where you use Reorder. Please mind that the connected model needs:
 - a ```children()``` relationship pointing to itself;
@@ -1642,7 +1944,7 @@ Display a select2 with the values ordered hierarchically and indented, for an en
     'type'      => 'select2_nested',
     'entity'    => 'category', // the method that defines the relationship in your Model
     'attribute' => 'name', // foreign key attribute that is shown to user
-    
+
     // optional
     'model'     => "App\Models\Category", // force foreign key model
 ],
@@ -1657,7 +1959,7 @@ Input preview:
 <hr>
 
 <a name="select2-grouped"></a>
-### select2_grouped
+### select2_grouped <span class="badge badge-pill badge-info">PRO</span>
 
 Display a select2 where the options are grouped by a second entity (like Categories).
 
@@ -1684,7 +1986,7 @@ Input preview:
 <hr>
 
 <a name="select_and_order"></a>
-### select_and_order
+### select_and_order <span class="badge badge-pill badge-info">PRO</span>
 
 Display items on two columns and let the user drag&drop between them to choose which items are selected and which are not, and reorder the selected items with drag&drop.
 
@@ -1721,38 +2023,15 @@ Also possible:
 ],
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - select_and_order](https://backpackforlaravel.com/uploads/docs-4-2/fields/select_and_order.png)
 
 
 <hr>
 
-<a name="select-from-array"></a>
-### select_from_array
-
-Display a select with the values you want:
-
-```php
-[   // select_from_array
-    'name'        => 'template',
-    'label'       => "Template",
-    'type'        => 'select_from_array',
-    'options'     => ['one' => 'One', 'two' => 'Two'],
-    'allows_null' => false,
-    'default'     => 'one',
-    // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
-],
-```
-
-Input preview: 
-
-![CRUD Field - select_from_array](https://backpackforlaravel.com/uploads/docs-4-2/fields/select_from_array.png)
-
-<hr>
-
 <a name="select2-from-array"></a>
-### select2_from_array
+### select2_from_array <span class="badge badge-pill badge-info">PRO</span>
 
 Display a select2 with the values you want:
 
@@ -1768,14 +2047,14 @@ Display a select2 with the values you want:
 ],
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - select2_from_array](https://backpackforlaravel.com/uploads/docs-4-2/fields/select2_from_array.png)
 
 <hr>
 
 <a name="select2-from-ajax"></a>
-### select2_from_ajax
+### select2_from_ajax <span class="badge badge-pill badge-info">PRO</span>
 
 Display a select2 that takes its values from an AJAX call.
 
@@ -1839,19 +2118,19 @@ class CategoryController extends Controller
 **Note:** If you want to also make this field work inside `repeatable` too, your API endpoint will also need to respond to the `keys` parameter, with the actual items that have those keys. For example:
 
 ```php
-        if ($request->has('keys')) { 
+        if ($request->has('keys')) {
             return Category::findMany($request->input('keys'));
         }
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - select2_from_array](https://backpackforlaravel.com/uploads/docs-4-2/fields/select2_from_array.png)
 
 <hr>
 
 <a name="select2-from-ajax-multiple"></a>
-### select2_from_ajax_multiple
+### select2_from_ajax_multiple <span class="badge badge-pill badge-info">PRO</span>
 
 Display a select2 that takes its values from an AJAX call. Same as [select2_from_ajax](#section-select2_from_ajax) above, but allows for multiple items to be selected. The only difference in the field definition is the "pivot" attribute.
 
@@ -1859,12 +2138,12 @@ Display a select2 that takes its values from an AJAX call. Same as [select2_from
 [   // n-n relationship
     'label'       => "Cities", // Table column heading
     'type'        => "select2_from_ajax_multiple",
-    'name'        => 'cities', // a unique identifier (usually the method that defines the relationship in your Model) 
+    'name'        => 'cities', // a unique identifier (usually the method that defines the relationship in your Model)
     'entity'      => 'cities', // the method that defines the relationship in your Model
     'attribute'   => "name", // foreign key attribute that is shown to user
     'data_source' => url("api/city"), // url to controller search function (with /{id} should return model)
     'pivot'       => true, // on create&update, do you need to add/delete pivot table entries?
-    
+
     // OPTIONAL
     'delay' => 500, // the minimum amount of time between ajax requests when searching in the field
     'model'                => "App\Models\City", // foreign key model
@@ -1918,14 +2197,14 @@ class CityController extends Controller
 }
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - select2_from_ajax_multiple](https://backpackforlaravel.com/uploads/docs-4-2/fields/select2_from_ajax_multiple.png)
 
 **Note:** If you want to also make this field work inside `repeatable` too, your API endpoint will also need to respond to the `keys` parameter, with the actual items that have those keys. For example:
 
 ```php
-        if ($request->has('keys')) { 
+        if ($request->has('keys')) {
             return City::findMany($request->input('keys'));
         }
 ```
@@ -1934,7 +2213,7 @@ Input preview:
 <hr>
 
 <a name="summernote"></a>
-### summernote
+### summernote <span class="badge badge-pill badge-info">PRO</span>
 
 Show a [Summernote wysiwyg editor](http://summernote.org/) to the user.
 
@@ -1948,11 +2227,11 @@ Show a [Summernote wysiwyg editor](http://summernote.org/) to the user.
 
 // the summernote field works with the default configuration options but allow developer to configure to his needs
 // optional configuration check https://summernote.org/deep-dive/ for a list of available configs
-[   
+[
     'name'  => 'description',
     'label' => 'Description',
     'type'  => 'summernote',
-    'options' => [ 
+    'options' => [
         'toolbar' => [
             ['font', ['bold', 'underline', 'italic']]
         ]
@@ -1963,14 +2242,14 @@ Show a [Summernote wysiwyg editor](http://summernote.org/) to the user.
 
 > NOTE: Summernote does NOT sanitize the input. If you do not trust the users of this field, you should sanitize the input or output using something like HTML Purifier. Personally we like to use install [mewebstudio/Purifier](https://github.com/mewebstudio/Purifier) and add an [accessor or mutator](https://laravel.com/docs/8.x/eloquent-mutators#accessors-and-mutators) on the Model, so that wherever the model is created from (admin panel or app), the output will always be clean. [Example here](https://github.com/Laravel-Backpack/demo/commit/7342cffb418bb568b9e4ee279859685ddc0456c1).
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - summernote](https://backpackforlaravel.com/uploads/docs-4-2/fields/summernote.png)
 
 <hr>
 
 <a name="table"></a>
-### table
+### table <span class="badge badge-pill badge-info">PRO</span>
 
 Show a table with multiple inputs per row and store the values as JSON array of objects in the database. The user can add more rows and reorder the rows as they please.
 
@@ -1992,83 +2271,15 @@ Show a table with multiple inputs per row and store the values as JSON array of 
 
 >It's highly recommended that you use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) on your model when working with JSON arrays stored in database columns, and cast this attribute to either ```object``` or ```array``` in your Model.
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - table](https://backpackforlaravel.com/uploads/docs-4-2/fields/table.png)
 
-<hr>
-
-<a name="text"></a>
-### text
-
-The basic field type, all it needs is the two mandatory parameters: name and label.
-
-```php
-[   // Text
-    'name'  => 'title',
-    'label' => "Title",
-    'type'  => 'text',
-
-    // optional
-    //'prefix'     => '',
-    //'suffix'     => '',
-    //'default'    => 'some value', // default value
-    //'hint'       => 'Some hint text', // helpful text, show up after input
-    //'attributes' => [
-       //'placeholder' => 'Some text when empty',
-       //'class' => 'form-control some-class',
-       //'readonly'  => 'readonly',
-       //'disabled'  => 'disabled',
-     //], // extra HTML attributes and values your input might need
-     //'wrapper'   => [
-       //'class' => 'form-group col-md-12'
-     //], // extra HTML attributes for the field wrapper - mostly for resizing fields 
-    
-],
-```
-
-You can use the optional 'prefix' and 'suffix' attributes to display something before and after the input, like icons, path prefix, etc:
-
-Input preview: 
-
-![CRUD Field - text](https://backpackforlaravel.com/uploads/docs-4-2/fields/text.png)
-
-<hr>
-
-<a name="textarea"></a>
-### textarea
-
-Show a textarea to the user.
-
-```php
-[   // Textarea
-    'name'  => 'description',
-    'label' => 'Description',
-    'type'  => 'textarea'
-],
-```
-
-Input preview: 
-
-![CRUD Field - textarea](https://backpackforlaravel.com/uploads/docs-4-2/fields/textarea.png)
-
-<hr>
-
-<a name="time"></a>
-### time
-
-```php
-[   // Time
-    'name'  => 'start',
-    'label' => 'Start time',
-    'type'  => 'time'
-],
-```
 
 <hr>
 
 <a name="tinymce"></a>
-### tinymce
+### tinymce <span class="badge badge-pill badge-info">PRO</span>
 
 Show a wysiwyg (TinyMCE) to the user.
 
@@ -2082,184 +2293,15 @@ Show a wysiwyg (TinyMCE) to the user.
 ],
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - tinymce](https://backpackforlaravel.com/uploads/docs-4-2/fields/tinymce.png)
 
-<hr>
-
-<a name="upload"></a>
-### upload
-
-**Step 1.** Show a file input to the user:
-```php
-[   // Upload
-    'name'      => 'image',
-    'label'     => 'Image',
-    'type'      => 'upload',
-    'upload'    => true,
-    'disk'      => 'uploads', // if you store files in the /public folder, please omit this; if you store them in /storage or S3, please specify it;
-    // optional:
-    'temporary' => 10 // if using a service, such as S3, that requires you to make temporary URLs this will make a URL that is valid for the number of minutes specified
-],
-```
-
-**Step 2.** In order to save/update/delete the file from disk&db, we need to create [a mutator](https://laravel.com/docs/5.3/eloquent-mutators#defining-a-mutator) on your model:
-```php
-public function setImageAttribute($value)
-    {
-    	$attribute_name = "image";
-    	$disk = "public";
-    	$destination_path = "folder_1/subfolder_1";
-
-    	$this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path);
-	
-	// return $this->attributes[{$attribute_name}]; // uncomment if this is a translatable field
-    }
-```
-
-**How it works:**
-
-The field sends the file, through a Request, to the Controller. The Controller then tries to create/update the Model. That's when the mutator on your model will run. That also means we can do any [file validation](https://laravel.com/docs/5.3/validation#rule-file) (```file```, ```image```, ```mimetypes```, ```mimes```) in the Request, before the file is stored on the disk.
-
->NOTE: If this field is mandatory (required in validation) please use the [sometimes laravel validation rule](https://laravel.com/docs/5.8/validation#conditionally-adding-rules) together with **required** in your validation. (sometimes|required|file etc... )
-
-[The ```uploadFileToDisk()``` method](https://github.com/Laravel-Backpack/CRUD/blob/master/src/app/Models/Traits/HasUploadFields.php#L31-L59) will take care of everything for most use cases:
-
-```php
-/**
-     * Handle file upload and DB storage for a file:
-     * - on CREATE
-     *     - stores the file at the destination path
-     *     - generates a name
-     *     - stores the full path in the DB;
-     * - on UPDATE
-     *     - if the value is null, deletes the file and sets null in the DB
-     *     - if the value is different, stores the different file and updates DB value
-     * /
-public function uploadFileToDisk($value, $attribute_name, $disk, $destination_path) {}
-```
-
-If you wish to have a different functionality, you can delete the method call from your mutator and do your own thing.
-
->**The uploaded files are not deleted for you.** When you delete an entry (whether through CRUD or the application), the uploaded files will not be deleted.
-
-If you're NOT using soft deletes on that Model and want the file to be deleted at the same time the entry is, just specify that in your Model's ```deleting``` event:
-```php
-	public static function boot()
-	{
-		parent::boot();
-		static::deleting(function($obj) {
-			\Storage::disk('public_folder')->delete($obj->image);
-		});
-	}
-```
-
-Input preview: 
-
-![CRUD Field - upload](https://backpackforlaravel.com/uploads/docs-4-2/fields/upload.png)
-
-<hr>
-
-<a name="upload-multiple"></a>
-### upload_multiple
-
-Shows a multiple file input to the user and stores the values as a JSON array in the database.
-
-**Step 0.** Make sure the db column can hold the amount of text this field will have. For example, for MySQL, VARCHAR(255) might not be enough all the time (for 3+ files), so it's better to go with TEXT. Make sure you're using a big column type in your migration or db.
-
-**Step 1.** Show a multiple file input to the user:
-```php
-[   // Upload
-    'name'      => 'photos',
-    'label'     => 'Photos',
-    'type'      => 'upload_multiple',
-    'upload'    => true,
-    'disk'      => 'uploads', // if you store files in the /public folder, please omit this; if you store them in /storage or S3, please specify it;
-    // optional:
-    'temporary' => 10 // if using a service, such as S3, that requires you to make temporary URLs this will make a URL that is valid for the number of minutes specified
-],
-```
-
-**Step 2.** In order to save/update/delete the files from disk&db, we need to create [a mutator](https://laravel.com/docs/5.3/eloquent-mutators#defining-a-mutator) on your model:
-```php
-public function setPhotosAttribute($value)
-    {
-    	$attribute_name = "photos";
-    	$disk = "public";
-    	$destination_path = "folder_1/subfolder_1";
-
-    	$this->uploadMultipleFilesToDisk($value, $attribute_name, $disk, $destination_path);
-    }
-```
-
-**Step 3.** Since the filenames are stored in the database as a JSON array, we're going to use [attribute casting](https://laravel.com/docs/5.3/eloquent-mutators#attribute-casting) on your model, so every time we get the filenames array from the database it's converted from a JSON array to a PHP array:
-```php
-    protected $casts = [
-    	'photos' => 'array'
-    ];
-```
-
-**How it works:**
-
-The field sends the files, through a Request, to the Controller. The Controller then tries to create/update the Model. That's when the mutator on your model will run. That also means we can do any [file validation](https://laravel.com/docs/5.3/validation#rule-file) (```file```, ```image```, ```mimetypes```, ```mimes```) in the Request, before the files are stored on the disk.
-
-[The ```uploadMultipleFilesToDisk()``` method](https://github.com/Laravel-Backpack/CRUD/blob/master/src/app/Models/Traits/HasUploadFields.php#L76-L113) will take care of everything for most use cases:
-
-```
-/**
-     * Handle multiple file upload and DB storage:
-     * - if files are sent
-     *     - stores the files at the destination path
-     *     - generates random names
-     *     - stores the full path in the DB, as JSON array;
-     * - if a hidden input is sent to clear one or more files
-     *     - deletes the file
-     *     - removes that file from the DB.
-     * /
-public function uploadMultipleFilesToDisk($value, $attribute_name, $disk, $destination_path) {}
-```
-
-If you wish to have a different functionality, you can delete the method call from your mutator and do your own thing.
-
->**The uploaded files are not deleted for you.** When you delete an entry (whether through CRUD or the application), the uploaded files will not be deleted.
-
-If you're NOT using soft deletes on that Model and want the files to be deleted at the same time the entry is, just specify that in your Model's ```deleting``` event:
-```php
-	public static function boot()
-	{
-		parent::boot();
-		static::deleting(function($obj) {
-			if (count((array)$obj->photos)) {
-				foreach ($obj->photos as $file_path) {
-					\Storage::disk('public_folder')->delete($file_path);
-				}
-			}
-		});
-	}
-```
-
-You might notice the field is using a ```clear_photos``` variable. Don't worry, you don't need it in your db table. That's just used to delete photos upon "update". If you use ```$fillable``` on your model, just don't include it. If you use ```$guarded``` on your model, place it in guarded.
-
-Input preview: 
-
-![CRUD Field - upload_multiple](https://backpackforlaravel.com/uploads/docs-4-2/fields/upload_multiple.png)
-
-
-### url
-
-```php
-[   // URL
-    'name'  => 'link',
-    'label' => 'Link to video file',
-    'type'  => 'url'
-],
-```
 
 <hr>
 
 <a name="video"></a>
-### video
+### video <span class="badge badge-pill badge-info">PRO</span>
 
 Allow the user to paste a YouTube/Vimeo link. That will get the video information with JavaScript and store it as a JSON in the database.
 
@@ -2291,42 +2333,8 @@ Vimeo does not require an API key in order to query their DB, but YouTube does, 
 
 <hr>
 
-<a name="view"></a>
-### view
-
-Load a custom view in the form.
-
-```php
-[   // view
-    'name' => 'custom-ajax-button',
-    'type' => 'view',
-    'view' => 'partials/custom-ajax-button'
-],
-```
-
-**Note:** the same functionality can be achieved using a [custom field type](/docs/{{version}}/crud-fields#creating-a-custom-field-type), or using the [custom_html field type](/docs/{{version}}/crud-fields#custom-html) (if the content is really simple).
-
-<hr>
-
-<a name="week"></a>
-### week
-
-```php
-[   // Week
-    'name'  => 'first_week',
-    'label' => 'First week',
-    'type'  => 'week'
-],
-```
-
-Input preview: 
-
-![CRUD Field - week](https://backpackforlaravel.com/uploads/docs-4-2/fields/week.png)
-
-<hr>
-
 <a name="wysiwyg"></a>
-### wysiwyg
+### wysiwyg <span class="badge badge-pill badge-info">PRO</span>
 
 Show a wysiwyg (CKEditor) to the user.
 
@@ -2337,6 +2345,7 @@ Show a wysiwyg (CKEditor) to the user.
     'type'  => 'wysiwyg'
 ],
 ```
+
 
 <a name="overwriting-default-field-types"></a>
 ## Overwriting Default Field Types

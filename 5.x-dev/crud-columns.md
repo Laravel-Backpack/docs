@@ -94,7 +94,7 @@ $this->crud->addColumn()->makeFirstColumn();
 ## Default Column Types
 
 <a name="array"></a>
-### array
+### array <span class="badge badge-pill badge-info">PRO</span>
 
 Enumerate an array stored in the db column as JSON.
 ```php
@@ -108,7 +108,7 @@ Enumerate an array stored in the db column as JSON.
 <hr>
 
 <a name="array_count"></a>
-### array_count
+### array_count <span class="badge badge-pill badge-info">PRO</span>
 
 Count the items in an array stored in the db column as JSON.
 
@@ -315,7 +315,7 @@ Display database stored JSON in a prettier way to your users.
 <hr>
 
 <a name="markdown"></a>
-### markdown
+### markdown <span class="badge badge-pill badge-info">PRO</span>
 
 
 Convert a markdown string to HTML, using ```Illuminate\Mail\Markdown```. Since Markdown is usually used for long texts, this column is most helpful in the "Show" operation - not so much in the "ListEntries" operation, where only short snippets make sense.
@@ -458,7 +458,7 @@ This example will show:
 <hr>
 
 <a name="relationship"></a>
-### relationship
+### relationship <span class="badge badge-pill badge-info">PRO</span>
 
 Output the related entries, no matter the relationship:
 - 1-n relationships - outputs the name of its one connected entity;
@@ -588,7 +588,7 @@ The select_multiple column will output a comma separated list of its connected e
 <hr>
 
 <a name="table"></a>
-### table
+### table <span class="badge badge-pill badge-info">PRO</span>
 
 
 The ```table``` column will output a condensed table, when used on an attribute that stores a JSON array or object. It is meant to be used inside the show functionality (not list, though it also works there).
@@ -670,7 +670,7 @@ Its definition is very similar to the [upload_multiple *field type*](/docs/{{ver
 <hr>
 
 <a name="video"></a>
-### video
+### video <span class="badge badge-pill badge-info">PRO</span>
 
 
 Display a small screenshot for a Youtube or Vimeo video, stored in the database as JSON using the "video" field type.

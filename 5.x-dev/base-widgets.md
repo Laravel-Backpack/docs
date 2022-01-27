@@ -146,7 +146,7 @@ Widget Preview:
 <hr>
 
 <a name="chart"></a>
-### Chart
+### Chart <span class="badge badge-pill badge-info">PRO</span>
 
 Shows a pie chart / line chart / bar chart inside a Bootstrap card, with the heading and body you specify.
 

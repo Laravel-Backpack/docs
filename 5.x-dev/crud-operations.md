@@ -34,16 +34,16 @@ No operations are enabled by default.
 But Backpack does provide the logic for the most common operations admins perform on Eloquent model. You just need to use it (and maybe configure it) in your controller.
 
 Operations provided by Backpack:
-- [List](/docs/{{version}}/crud-operation-list-entries) - allows the admin to see all entries for an Eloquent model, with pagination, search, filters;
-- [Create](/docs/{{version}}/crud-operation-create) - allows the admin to add a new entry;
-- [Update](/docs/{{version}}/crud-operation-update) - allows the admin to edit an existing entry;
-- [Show](/docs/{{version}}/crud-operation-show) - allows the admin to preview an entry;
-- [Delete](/docs/{{version}}/crud-operation-delete) - allows the admin to remove and entry;
-- [BulkDelete](/docs/{{version}}/crud-operation-delete) - allows the admin to remove multiple entries in one go;
-- [Clone](/docs/{{version}}/crud-operation-clone) - allows the admin to make a copy of a database entry;
-- [BulkClone](/docs/{{version}}/crud-operation-clone) - allows the admin to make a copy of multiple database entries in one go;
-- [Reorder](/docs/{{version}}/crud-operation-reorder) - allows the admin to reorder & nest all entries of a model, in a hierarchy tree;
-- [Revisions](/docs/{{version}}/crud-operation-revisions) - shows an audit log of all changes to an entry, and allows the admin to undo modifications;
+- [List](/docs/{{version}}/crud-operation-list-entries) - allows the admin to see all entries for an Eloquent model, with pagination, search, filters; <span class="badge badge-pill badge-success">FREE</span>
+- [Create](/docs/{{version}}/crud-operation-create) - allows the admin to add a new entry; <span class="badge badge-pill badge-success">FREE</span>
+- [Update](/docs/{{version}}/crud-operation-update) - allows the admin to edit an existing entry; <span class="badge badge-pill badge-success">FREE</span>
+- [Show](/docs/{{version}}/crud-operation-show) - allows the admin to preview an entry; <span class="badge badge-pill badge-success">FREE</span>
+- [Delete](/docs/{{version}}/crud-operation-delete) - allows the admin to remove and entry; <span class="badge badge-pill badge-success">FREE</span>
+- [BulkDelete](/docs/{{version}}/crud-operation-delete) - allows the admin to remove multiple entries in one go; <span class="badge badge-pill badge-info">PRO</span>
+- [Clone](/docs/{{version}}/crud-operation-clone) - allows the admin to make a copy of a database entry; <span class="badge badge-pill badge-info">PRO</span>
+- [BulkClone](/docs/{{version}}/crud-operation-clone) - allows the admin to make a copy of multiple database entries in one go; <span class="badge badge-pill badge-info">PRO</span>
+- [Reorder](/docs/{{version}}/crud-operation-reorder) - allows the admin to reorder & nest all entries of a model, in a hierarchy tree; <span class="badge badge-pill badge-success">FREE</span>
+- [Revisions](/docs/{{version}}/crud-operation-revisions) - shows an audit log of all changes to an entry, and allows you to undo modifications; <span class="badge badge-pill badge-success">FREE</span>
 
 
 <a name="operation-actions"></a>
