@@ -3,6 +3,7 @@
 - [Introduction](/docs/{{version}}/introduction)
 - [Demo](/docs/{{version}}/demo)
 - [Installation](/docs/{{version}}/installation)
+- [Features (Free vs Paid)](/docs/{{version}}/features-free-vs-paid)
 - [Release Notes](/docs/{{version}}/release-notes)
 - [Upgrade Guide](/docs/{{version}}/upgrade-guide)
 - [FAQ](/docs/{{version}}/faq)
