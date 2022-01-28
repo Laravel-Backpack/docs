@@ -1,4 +1,4 @@
-# Filters
+# Filters <span class="badge badge-info">PRO</span>
 
 ---
 
@@ -10,6 +10,8 @@ Backpack CRUD allows you to show a filters bar right above the entries table. Wh
 ![Backpack CRUD Filters](https://backpackforlaravel.com/uploads/docs-4-0/filters/filters.png)
 
 Just like with fields, columns or buttons, you can add existing filters or create a custom filter that fits to your particular needs. Everything's done inside your ```EntityCrudController::setupListOperation()```. 
+
+This is a <span class="badge badge-info">PRO</span> feature. It requires that you have [purchased access to `backpack/pro`](https://backpackforlaravel.com/products/pro).
 
 <a name="methods"></a>
 ### Filters API
@@ -58,9 +60,8 @@ function() { // if the filter is active (the GET parameter "draft" exits)
 > - you also have read/write access to public properties using ```$this->crud```;
 > - when building complicated "OR" logic, make sure the first "where" in your closure is a "where" and only the subsequent are "orWhere"; Laravel 5.3+ no longer converts the first "orWhere" into a "where";
 
-<a name="free-filter-types"></a>
-## FREE Filter Types
-
+<a name="filter-types"></a>
+## Filter Types
 
 <a name="simple"></a>
 ### Simple
@@ -78,6 +79,28 @@ false,
 function() { // if the filter is active
   // $this->crud->addClause('active'); // apply the "active" eloquent scope
 } );
+```
+
+<hr>
+
+<a name="text"></a>
+### Text
+
+Shows a text input. Most useful for letting the user filter through information that's not shown as a column in the CRUD table - otherwise they could just use the DataTables search field.
+
+![Backpack CRUD Text Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/text.png)
+
+```php
+// simple filter
+$this->crud->addFilter([
+  'type'  => 'text',
+  'name'  => 'description',
+  'label' => 'Description'
+],
+false,
+function($value) { // if the filter is active
+  // $this->crud->addClause('where', 'description', 'LIKE', "%$value%");
+});
 ```
 
 <hr>
@@ -100,6 +123,30 @@ $this->crud->addFilter([
   false,
 function ($value) { // if the filter is active, apply these constraints
   // $this->crud->addClause('where', 'date', $value);
+});
+```
+
+<hr>
+
+<a name="date-range"></a>
+### Date range
+
+Show a daterange picker. The user can select a start date and an end date.
+
+![Backpack CRUD Date Range Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/date_range.png)
+
+```php
+// daterange filter
+$this->crud->addFilter([
+  'type'  => 'date_range',
+  'name'  => 'from_to',
+  'label' => 'Date range'
+],
+false,
+function ($value) { // if the filter is active, apply these constraints
+  // $dates = json_decode($value);
+  // $this->crud->addClause('where', 'date', '>=', $dates->from);
+  // $this->crud->addClause('where', 'date', '<=', $dates->to . ' 23:59:59');
 });
 ```
 
@@ -130,80 +177,9 @@ $this->crud->addFilter([
 
 <hr>
 
-<a name="view"></a>
-### View
-
-Display any custom column filter you want. Usually used by Backpack package developers, to use views from within their packages, instead of having to publish them.
-
-```php
-// custom filter view
-$this->crud->addFilter([
-  'name'        => 'category_id',
-  'type'        => 'view',
-  'view'        => 'package::columns.column_type_name', // or path to blade file
-  'label'       => 'Category',
-  'placeholder' => 'Pick a category',
-],
-false,
-function($value) { // if the filter is active
-    // $this->crud->addClause('where', 'category_id', $value);
-});
-```
-
-<a name="pro-filter-types"></a>
-## PRO Filter Types
-
-
-<a name="text"></a>
-### Text <span class="badge badge-pill badge-info">PRO</span>
-
-Shows a text input. Most useful for letting the user filter through information that's not shown as a column in the CRUD table - otherwise they could just use the DataTables search field.
-
-![Backpack CRUD Text Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/text.png)
-
-```php
-// simple filter
-$this->crud->addFilter([
-  'type'  => 'text',
-  'name'  => 'description',
-  'label' => 'Description'
-],
-false,
-function($value) { // if the filter is active
-  // $this->crud->addClause('where', 'description', 'LIKE', "%$value%");
-});
-```
-
-<hr>
-
-
-<a name="date-range"></a>
-### Date range <span class="badge badge-pill badge-info">PRO</span>
-
-Show a daterange picker. The user can select a start date and an end date.
-
-![Backpack CRUD Date Range Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/date_range.png)
-
-```php
-// daterange filter
-$this->crud->addFilter([
-  'type'  => 'date_range',
-  'name'  => 'from_to',
-  'label' => 'Date range'
-],
-false,
-function ($value) { // if the filter is active, apply these constraints
-  // $dates = json_decode($value);
-  // $this->crud->addClause('where', 'date', '>=', $dates->from);
-  // $this->crud->addClause('where', 'date', '<=', $dates->to . ' 23:59:59');
-});
-```
-
-<hr>
-
 
 <a name="select2"></a>
-### Select2 <span class="badge badge-pill badge-info">PRO</span>
+### Select2
 
 Shows a select2 and allows the user to select one item from the list or search for an item. Useful when the values list is long (over 10 elements).
 
@@ -232,7 +208,7 @@ $this->crud->addFilter([
 <hr>
 
 <a name="select2_multiple"></a>
-### Select2_multiple <span class="badge badge-pill badge-info">PRO</span>
+### Select2_multiple
 
 Shows a select2 and allows the user to select one or more items from the list or search for an item. Useful when the values list is long (over 10 elements) and your user should be able to select multiple elements.
 
@@ -259,7 +235,7 @@ $this->crud->addFilter([
 <hr>
 
 <a name="select2_ajax"></a>
-### Select2_ajax <span class="badge badge-pill badge-info">PRO</span>
+### Select2_ajax
 
 Shows a select2 and allows the user to select one item from the list or search for an item. This list is fetched through an AJAX call by the select2. Useful when the values list is long (over 1000 elements).
 
@@ -303,7 +279,7 @@ function($value) { // if the filter is active
 <hr>
 
 <a name="range"></a>
-### Range <span class="badge badge-pill badge-info">PRO</span>
+### Range
 
 Shows two number inputs, for min and max.
 
@@ -330,6 +306,27 @@ function($value) { // if the filter is active
 ```
 
 <hr>
+
+<a name="view"></a>
+### View
+
+Display any custom column filter you want. Usually used by Backpack package developers, to use views from within their packages, instead of having to publish them.
+
+```php
+// custom filter view
+$this->crud->addFilter([
+  'name'        => 'category_id',
+  'type'        => 'view',
+  'view'        => 'package::columns.column_type_name', // or path to blade file
+  'label'       => 'Category',
+  'placeholder' => 'Pick a category',
+],
+false,
+function($value) { // if the filter is active
+    // $this->crud->addClause('where', 'category_id', $value);
+});
+```
+
 
 <a name="creating-a-custom-filter-type"></a>
 ## Creating custom filters
