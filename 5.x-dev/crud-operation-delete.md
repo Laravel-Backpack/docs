@@ -60,9 +60,9 @@ php artisan backpack:publish crud/buttons/delete
 ```
 
 <a name="delete-multiple-items-bulk-delete"></a>
-## Delete Multiple Items (Bulk Delete)
+## Delete Multiple Items (Bulk Delete) <span class="badge badge-info">PRO</span>
 
-In addition to the button for each entry, you can show checkboxes next to each element, and allow your admin to delete multiple entries at once.
+In addition to the button for each entry, <span class="badge badge-info">PRO</span> developers can show checkboxes next to each element, to allow their admin to delete multiple entries at once.
 
 
 <a name="how-it-works"></a>

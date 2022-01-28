@@ -1,4 +1,4 @@
-# InlineCreate Operation
+# InlineCreate Operation <span class="badge badge-info">PRO</span>
 
 ---
 
@@ -19,6 +19,10 @@ For example:
 <a name="requirements"></a>
 ## Requirements
 
+
+This is a <span class="badge badge-info">PRO</span> operation. It requires that you have [purchased access to `backpack/pro`](https://backpackforlaravel.com/products/pro).
+
+In addition, it needs:
 - a working Create operation;
 - correctly defined Eloquent relationships on both the primary Model, and the secondary Model;
 - a working Fetch operation to retrieve the secondary Model from the primary Model;

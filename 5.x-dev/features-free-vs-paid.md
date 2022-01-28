@@ -13,7 +13,7 @@ You do not _need to_ purchase anything from us. But we hope that:
 <a name="feature-list"></a>
 ## Features
 
-Everywhere in our docs, you'll see the <span class="badge badge-pill badge-info">PRO</span> label if that needs the `backpack\pro` package. Everything else... is free, as part of `backpack\crud`. But here's a breakdown of all features, so you can easily understand know what's a good fit for you:
+Everywhere in our docs, you'll see the <span class="badge badge-pill badge-info">PRO</span> label if that needs the `backpack\pro` package. Everything else... is free, as part of `backpack\crud`. But here's a comparison table of all features, so you can easily understand what will be a good fit for you:
 
 <table class="table table-sm table-striped table-hover">
   <thead>
@@ -52,7 +52,7 @@ Everywhere in our docs, you'll see the <span class="badge badge-pill badge-info"
     <tr>
       <td> &nbsp; - Widgets</td>
       <td class="text-center"><span class="badge badge-success">9 widgets</span></td>
-      <td class="text-center"><span class="badge badge-success">9 widgets</span> + <span class="badge badge-info">chart</span></td>
+      <td class="text-center"><span class="badge badge-success">9 widgets</span> + <a href="/docs/5.x-dev/base-widgets#chart-pro" class="badge badge-info text-white" data-toggle="tooltip" title="Easily create charts from your database entries!">chart</a></td>
     </tr>
     <tr>
       <td><strong>CRUD Panels</strong></td>
@@ -60,129 +60,124 @@ Everywhere in our docs, you'll see the <span class="badge badge-pill badge-info"
       <td class="text-center"></td>
     </tr>
     <tr>
-      <td> &nbsp; - Operations</td>
-      <td class="text-center"></td>
-      <td class="text-center"></td>
-    </tr>
-    <tr>
-      <td> &nbsp; &nbsp; &nbsp; - List Operation</td>
+      <td> &nbsp; - List Operation</td>
       <td class="text-center"><span class="badge badge-success">FREE</span></td>
       <td class="text-center"><span class="badge badge-success">FREE</span></td>
     </tr>
     <tr>
-      <td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - Columns</td>
+      <td> &nbsp; &nbsp; &nbsp; - Columns</td>
       <td class="text-center"><span class="badge badge-success">25 column types</span></td>
-      <td class="text-center"><span class="badge badge-info">31+ column types</span></td>
+      <td class="text-center"><a href="/docs/5.x-dev/crud-columns#pro-column-types" class="badge badge-info text-white" data-toggle="tooltip" title="Easily show arrays, markdown, relationships, tables and videos!">31+ column types</a></td>
     </tr>
     <tr>
-      <td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - Filters</td>
+      <td> &nbsp; &nbsp; &nbsp; - Filters</td>
       <td class="text-center">-</td>
-      <td class="text-center"><span class="badge badge-info">10+ filter types</span></td>
+      <td class="text-center"><a href="/docs/5.x-dev/crud-filters" class="badge badge-info text-white" data-toggle="tooltip" title="Help your admin easily filter their table view - by date, text, options, date range... and more!">10+ filter types</a></td>
     </tr>
     <tr>
-      <td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - Buttons</td>
-      <td class="text-center"><span class="badge badge-success">FREE</span></td>
-      <td class="text-center"><span class="badge badge-success">FREE</span></td>
-    </tr>
-    <tr>
-      <td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - Export Buttons</td>
+      <td> &nbsp; &nbsp; &nbsp; - Buttons</td>
       <td class="text-center"><span class="badge badge-success">FREE</span></td>
       <td class="text-center"><span class="badge badge-success">FREE</span></td>
     </tr>
     <tr>
-      <td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - Details Row</td>
+      <td> &nbsp; &nbsp; &nbsp; - Export Buttons</td>
       <td class="text-center"><span class="badge badge-success">FREE</span></td>
       <td class="text-center"><span class="badge badge-success">FREE</span></td>
     </tr>
     <tr>
-      <td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - Search</td>
+      <td> &nbsp; &nbsp; &nbsp; - Details Row</td>
       <td class="text-center"><span class="badge badge-success">FREE</span></td>
       <td class="text-center"><span class="badge badge-success">FREE</span></td>
     </tr>
     <tr>
-      <td> &nbsp; &nbsp; &nbsp; - Create & Update Operations</td>
+      <td> &nbsp; &nbsp; &nbsp; - Search</td>
       <td class="text-center"><span class="badge badge-success">FREE</span></td>
       <td class="text-center"><span class="badge badge-success">FREE</span></td>
     </tr>
     <tr>
-      <td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - Fields</td>
+      <td> &nbsp; - Create & Update Operations</td>
+      <td class="text-center"><span class="badge badge-success">FREE</span></td>
+      <td class="text-center"><span class="badge badge-success">FREE</span></td>
+    </tr>
+    <tr>
+      <td> &nbsp; &nbsp; &nbsp; - Fields</td>
       <td class="text-center"><span class="badge badge-success">29 field types</span></td>
-      <td class="text-center"><span class="badge badge-info">57+ field types</span></td>
+      <td class="text-center"><a href="/docs/5.x-dev/crud-fields#pro-field-types" class="badge badge-info text-white" data-toggle="tooltip" title="For relationships with a lot of entries, complex relationships, fields with subfields, WYSIWYGs, addresses, videos, images and A LOT more!">57+ field types</a></td>
     </tr>
     <tr>
-      <td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - Validation</td>
-      <td class="text-center"><span class="badge badge-success">FREE</span></td>
-      <td class="text-center"><span class="badge badge-success">FREE</span></td>
-    </tr>
-    <tr>
-      <td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - Multiple fields per line</td>
+      <td> &nbsp; &nbsp; &nbsp; - Validation</td>
       <td class="text-center"><span class="badge badge-success">FREE</span></td>
       <td class="text-center"><span class="badge badge-success">FREE</span></td>
     </tr>
     <tr>
-      <td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - Split fields into tabs</td>
+      <td> &nbsp; &nbsp; &nbsp; - Multiple fields per line</td>
       <td class="text-center"><span class="badge badge-success">FREE</span></td>
       <td class="text-center"><span class="badge badge-success">FREE</span></td>
     </tr>
     <tr>
-      <td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - Translatable Models</td>
+      <td> &nbsp; &nbsp; &nbsp; - Split fields into tabs</td>
       <td class="text-center"><span class="badge badge-success">FREE</span></td>
       <td class="text-center"><span class="badge badge-success">FREE</span></td>
     </tr>
     <tr>
-      <td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - Save Actions</td>
+      <td> &nbsp; &nbsp; &nbsp; - Translatable Models</td>
       <td class="text-center"><span class="badge badge-success">FREE</span></td>
       <td class="text-center"><span class="badge badge-success">FREE</span></td>
     </tr>
     <tr>
-      <td> &nbsp; &nbsp; &nbsp; - Show Operation</td>
+      <td> &nbsp; &nbsp; &nbsp; - Save Actions</td>
       <td class="text-center"><span class="badge badge-success">FREE</span></td>
       <td class="text-center"><span class="badge badge-success">FREE</span></td>
     </tr>
     <tr>
-      <td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - Columns</td>
+      <td> &nbsp; - Show Operation</td>
+      <td class="text-center"><span class="badge badge-success">FREE</span></td>
+      <td class="text-center"><span class="badge badge-success">FREE</span></td>
+    </tr>
+    <tr>
+      <td> &nbsp; &nbsp; &nbsp; - Columns</td>
       <td class="text-center"><span class="badge badge-success">25 column types</span></td>
-      <td class="text-center"><span class="badge badge-info">31+ column types</span></td>
+      <td class="text-center"><a href="/docs/5.x-dev/crud-columns#pro-column-types" class="badge badge-info text-white" data-toggle="tooltip" title="Easily show arrays, markdown, relationships, tables and videos!">31+ column types</a></td>
     </tr>
     <tr>
-      <td> &nbsp; &nbsp; &nbsp; - Reorder Operation</td>
-      <td class="text-center"><span class="badge badge-success">FREE</span></td>
-      <td class="text-center"><span class="badge badge-success">FREE</span></td>
-    </tr>
-    <tr>
-      <td> &nbsp; &nbsp; &nbsp; - Revise Operation</td>
+      <td> &nbsp; - Reorder Operation</td>
       <td class="text-center"><span class="badge badge-success">FREE</span></td>
       <td class="text-center"><span class="badge badge-success">FREE</span></td>
     </tr>
     <tr>
-      <td> &nbsp; &nbsp; &nbsp; - Delete Operation</td>
+      <td> &nbsp; - Revise Operation</td>
       <td class="text-center"><span class="badge badge-success">FREE</span></td>
       <td class="text-center"><span class="badge badge-success">FREE</span></td>
     </tr>
     <tr>
-      <td> &nbsp; &nbsp; &nbsp; - BulkDelete Operation</td>
+      <td> &nbsp; - Delete Operation</td>
+      <td class="text-center"><span class="badge badge-success">FREE</span></td>
+      <td class="text-center"><span class="badge badge-success">FREE</span></td>
+    </tr>
+    <tr>
+      <td> &nbsp; - BulkDelete Operation</td>
       <td class="text-center">-</td>
-      <td class="text-center"><span class="badge badge-info">PRO</span></td>
+      <td class="text-center"><a href="/docs/5.x-dev/crud-operation-delete#delete-multiple-items-bulk-delete-pro" class="badge badge-info text-white" data-toggle="tooltip" title="Easily delete multiple entries in one go!">PRO</a></td>
     </tr>
     <tr>
-      <td> &nbsp; &nbsp; &nbsp; - Clone Operation</td>
+      <td> &nbsp; - Clone Operation</td>
       <td class="text-center">-</td>
-      <td class="text-center"><span class="badge badge-info">PRO</span></td>
+      <td class="text-center"><a href="/docs/5.x-dev/crud-operation-clone" class="badge badge-info text-white" data-toggle="tooltip" title="Easily duplicate an entry!">PRO</a></td>
     </tr>
     <tr>
-      <td> &nbsp; &nbsp; &nbsp; - BulkClone Operation</td>
+      <td> &nbsp; - BulkClone Operation</td>
       <td class="text-center">-</td>
-      <td class="text-center"><span class="badge badge-info">PRO</span></td>
+      <td class="text-center"><a href="/docs/5.x-dev/crud-operation-clone#clone-multiple-items-bulk-clone" class="badge badge-info text-white" data-toggle="tooltip" title="Easily duplicate multiple entries in one go!">PRO</a></td>
     </tr>
     <tr>
-      <td> &nbsp; &nbsp; &nbsp; - Fetch Operation</td>
+      <td> &nbsp; - Fetch Operation</td>
       <td class="text-center">-</td>
-      <td class="text-center"><span class="badge badge-info">PRO</span></td>
+      <td class="text-center"><a href="/docs/5.x-dev/crud-operation-fetch" class="badge badge-info text-white" data-toggle="tooltip" title="Easily respond to AJAX requests from relationship, select2_from_ajax and select2_from_ajax_multiple fields!">PRO</a></td>
     </tr>
     <tr>
-      <td> &nbsp; &nbsp; &nbsp; - InlineCreate Operation</td>
+      <td> &nbsp; - InlineCreate Operation</td>
       <td class="text-center">-</td>
-      <td class="text-center"><span class="badge badge-info">PRO</span></td>
+      <td class="text-center"><a href="/docs/5.x-dev/crud-operation-inline-create" class="badge badge-info text-white" data-toggle="tooltip" title="Empower your admins to add related entries in a modal, without leaving the main form!">PRO</a></td>
     </tr>
   </tbody>
 </table>

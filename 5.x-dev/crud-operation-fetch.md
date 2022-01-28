@@ -1,4 +1,4 @@
-# Fetch Operation
+# Fetch Operation <span class="badge badge-info">PRO</span>
 
 ---
 
@@ -11,7 +11,7 @@ This operation allows an EntityCrudController to respond to AJAX requests with e
 <a name="requirements"></a>
 ## Requirements
 
-None.
+This is a <span class="badge badge-info">PRO</span> operation. It requires that you have [purchased access to `backpack/pro`](https://backpackforlaravel.com/products/pro).
 
 <a name="how-to-use"></a>
 ## How to Use

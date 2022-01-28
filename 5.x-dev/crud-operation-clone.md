@@ -1,4 +1,4 @@
-# Clone Operation
+# Clone Operation <span class="badge badge-info">PRO</span>
 
 --
 
@@ -14,6 +14,12 @@ This CRUD operation allows your admins to duplicate one or more entries from the
 >- will NOT have the same n-n relationships
 >
 >This might be somewhat counterintuitive for end users - though it should make perfect sense for us developers. This is why the Clone operation is NOT enabled by default.
+
+
+<a name="requirements"></a>
+## Requirements
+
+This is a <span class="badge badge-info">PRO</span> operation. It requires that you have [purchased access to `backpack/pro`](https://backpackforlaravel.com/products/pro).
 
 <a name="clone-a-single-item"></a>
 ## Clone a Single Item
