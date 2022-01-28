@@ -3,17 +3,17 @@
 ---
 
 Starting with Backpack v5, our software is open-core. That means there are features that you can use for free, and features you can only access by purchasing. Our goal with this split was to have:
-- a simplified version, that includes what most admin panel absolutely need, in `backpack\crud`; <span class="badge badge-pill badge-success">FREE</span>
-- a plug-and-play addon, that adds the features for more complex admin panels, in `backpack\pro`; <span class="badge badge-pill badge-info">PRO</span>
+- a simplified version, that includes what most admin panels absolutely need, in `backpack\crud`; <span class="badge badge-pill badge-success">FREE</span>
+- a plug-and-play addon, that adds features for more complex use cases, in `backpack\pro`; <span class="badge badge-pill badge-info">PRO</span>
 
 You do not _need to_ purchase anything from us. But we hope that:
-- if you're making money from your project, as soon as you need _one_ paid feature, you can justify the cost, to save the time it takes to build that yourself;
-- if you're _not_ making money from your project yet, as project grows and starts making a profit, you'll _want to_ purchase, to get accesss to the paid features and support its development;
+- if you're making money from your project, as soon as you need _one_ paid feature, you can justify its cost, to save the time it takes to build that yourself;
+- if you're _not_ making money from your project yet, as the project grows and starts making a profit, you'll _want to_ purchase, to get access to paid features and support its development;
 
 <a name="feature-list"></a>
 ## Features
 
-Everywhere in our docs, you'll see the <span class="badge badge-pill badge-info">PRO</span> label if that needs the `backpack\pro` package. Everything else... is free, as part of `backpack\crud`. But here's a comparison table of all features, so you can easily understand what will be a good fit for you:
+Everywhere in our docs, you'll see the <span class="badge badge-pill badge-info">PRO</span> label if it needs the `backpack\pro` add-on. Everything else... is free, as part of `backpack\crud`. But here's a comparison table of all features, so you can easily understand what will be a good fit for you:
 
 <table class="table table-sm table-striped table-hover">
   <thead>
@@ -188,16 +188,16 @@ Everywhere in our docs, you'll see the <span class="badge badge-pill badge-info"
 </table>
 
 <br><br>
-Both `backpack/crud` and `backpack/pro` will keep receiving active attention, maintenance and care from us, for many years going forward - this is our job. But in principle, new features will _not_ be included in `backpack/crud`. We will keep adding new features to `backpack/pro`, though. If you have suggestions, please [open an issue here](https://github.com/laravel-backpack/ideas).
+Both `backpack/crud` and `backpack/pro` will keep receiving active attention, maintenance and care from us, for many years going forward - this is our job. But in principle, new features will _not_ be added to `backpack/crud`. We will keep adding new features to `backpack/pro`, though. If you have suggestions, please [open an issue here](https://github.com/laravel-backpack/ideas).
 
 <a name="no-license-needed-on-localhost"></a>
 ## Add-ons
 
-In addition the our main packages (`backpack\crud` and `backpack\pro`), whose features we've detailed above, we've also developed a series of single-purpose Backpack add-ons. Most developers won't need these, but those who do... will be grateful that we took the time to do it for them. These first-party add-ons are:
+In addition the our main packages (`backpack\crud` and `backpack\pro`), whose features we've detailed above, we've also developed a series of single-purpose Backpack add-ons. Most developers won't need these, but those who do... will be grateful that we took the time:
     - some free: `backpack\permissionmanager`, `backpack\settings`, `backpack\pagemanager`, `backpack\newscrud`, `backpack\menucrud`, `backpack\filemanager`, `backpack\logmanager`, `backpack\backupmanager`, `backpack\revise-operation` etc. <span class="badge badge-pill badge-success">FREE</span>
     - some paid: `backpack\devtools`, `backpack\figma-template` <span class="badge badge-pill badge-warning">PAID EXTRA</span>
 
-We also encourage our community to build third-party add-ons (we've made it [super-easy](/docs/{{version}}/add-ons-tutorial-using-the-addon-skeleton)). Our plan is to create more and more add-ons, as we discover more problems we can solve for Laravel freelancers & development teams.
+We also encourage our community to build third-party add-ons (we've made it [super-easy](/docs/{{version}}/add-ons-tutorial-using-the-addon-skeleton)). Our plan is to create more and more add-ons, as we discover more recurring problems, that we can solve for Laravel freelancers & development teams.
 
 For more information, see:
 - [our addons page](https://backpackforlaravel.com/addons) for more addons (including third-party addons);
