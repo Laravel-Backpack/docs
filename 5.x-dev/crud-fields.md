@@ -425,35 +425,6 @@ Input preview:
 
 <hr>
 
-<a name="easymde"></a>
-### easymde
-
-Show an [EasyMDE - Markdown Editor](https://easy-markdown-editor.tk/) to the user. EasyMDE is a well-maintained fork of SimpleMDE.
-
-```php
-[   // easymde
-    'name'  => 'description',
-    'label' => 'Description',
-    'type'  => 'easymde',
-    // optional
-    // 'easymdeAttributes' => [
-    //   'promptURLs'   => true,
-    //   'status'       => false,
-    //   'spellChecker' => false,
-    //   'forceSync'    => true,
-    // ],
-    // 'easymdeAttributesRaw' => $some_json
-],
-```
-
-> NOTE: The contents displayed in this editor are NOT stripped, sanitized or escaped by default. Whenever you store Markdown or HTML inside your database, it's HIGHLY recommended that you sanitize the input or output. Laravel makes it super-easy to do that on the model using [accessors](https://laravel.com/docs/8.x/eloquent-mutators#accessors-and-mutators). If you do NOT trust the admins who have access to this field (or end-users can also store information to this db column), please make sure this attribute is always escaped, before it's shown. You can do that by running the value through `strip_tags()` in an accessor on the model (here's [an example](https://github.com/Laravel-Backpack/demo/commit/509c0bf0d8b9ee6a52c50f0d2caed65f1f986385)) or better yet, using an [HTML Purifier package](https://github.com/mewebstudio/Purifier) (here's [an example](https://github.com/Laravel-Backpack/demo/commit/7342cffb418bb568b9e4ee279859685ddc0456c1)). 
-
-Input preview: 
-
-![CRUD Field - easymde](https://backpackforlaravel.com/uploads/docs-4-2/fields/easymde.png)
-
-<hr>
-
 <a name="email"></a>
 ### email
 
@@ -772,6 +743,42 @@ Display a select with the values you want:
 Input preview:
 
 ![CRUD Field - select_from_array](https://backpackforlaravel.com/uploads/docs-4-2/fields/select_from_array.png)
+
+<hr>
+
+<a name="summernote"></a>
+### summernote
+
+Show a [Summernote wysiwyg editor](http://summernote.org/) to the user.
+
+```php
+[   // Summernote
+    'name'  => 'description',
+    'label' => 'Description',
+    'type'  => 'summernote',
+    'options' => [],
+],
+
+// the summernote field works with the default configuration options but allow developer to configure to his needs
+// optional configuration check https://summernote.org/deep-dive/ for a list of available configs
+[
+    'name'  => 'description',
+    'label' => 'Description',
+    'type'  => 'summernote',
+    'options' => [
+        'toolbar' => [
+            ['font', ['bold', 'underline', 'italic']]
+        ]
+    ],
+],
+
+```
+
+> NOTE: Summernote does NOT sanitize the input. If you do not trust the users of this field, you should sanitize the input or output using something like HTML Purifier. Personally we like to use install [mewebstudio/Purifier](https://github.com/mewebstudio/Purifier) and add an [accessor or mutator](https://laravel.com/docs/8.x/eloquent-mutators#accessors-and-mutators) on the Model, so that wherever the model is created from (admin panel or app), the output will always be clean. [Example here](https://github.com/Laravel-Backpack/demo/commit/7342cffb418bb568b9e4ee279859685ddc0456c1).
+
+Input preview:
+
+![CRUD Field - summernote](https://backpackforlaravel.com/uploads/docs-4-2/fields/summernote.png)
 
 <hr>
 
@@ -1358,6 +1365,34 @@ Input preview:
 
 ![CRUD Field - datetime_picker](https://backpackforlaravel.com/uploads/docs-4-2/fields/datetime_picker.png)
 
+<hr>
+
+<a name="easymde"></a>
+### easymde <span class="badge badge-pill badge-info">PRO</span>
+
+Show an [EasyMDE - Markdown Editor](https://easy-markdown-editor.tk/) to the user. EasyMDE is a well-maintained fork of SimpleMDE.
+
+```php
+[   // easymde
+    'name'  => 'description',
+    'label' => 'Description',
+    'type'  => 'easymde',
+    // optional
+    // 'easymdeAttributes' => [
+    //   'promptURLs'   => true,
+    //   'status'       => false,
+    //   'spellChecker' => false,
+    //   'forceSync'    => true,
+    // ],
+    // 'easymdeAttributesRaw' => $some_json
+],
+```
+
+> NOTE: The contents displayed in this editor are NOT stripped, sanitized or escaped by default. Whenever you store Markdown or HTML inside your database, it's HIGHLY recommended that you sanitize the input or output. Laravel makes it super-easy to do that on the model using [accessors](https://laravel.com/docs/8.x/eloquent-mutators#accessors-and-mutators). If you do NOT trust the admins who have access to this field (or end-users can also store information to this db column), please make sure this attribute is always escaped, before it's shown. You can do that by running the value through `strip_tags()` in an accessor on the model (here's [an example](https://github.com/Laravel-Backpack/demo/commit/509c0bf0d8b9ee6a52c50f0d2caed65f1f986385)) or better yet, using an [HTML Purifier package](https://github.com/mewebstudio/Purifier) (here's [an example](https://github.com/Laravel-Backpack/demo/commit/7342cffb418bb568b9e4ee279859685ddc0456c1)).
+
+Input preview:
+
+![CRUD Field - easymde](https://backpackforlaravel.com/uploads/docs-4-2/fields/easymde.png)
 
 <hr>
 
@@ -2208,43 +2243,6 @@ Input preview:
             return City::findMany($request->input('keys'));
         }
 ```
-
-
-<hr>
-
-<a name="summernote"></a>
-### summernote <span class="badge badge-pill badge-info">PRO</span>
-
-Show a [Summernote wysiwyg editor](http://summernote.org/) to the user.
-
-```php
-[   // Summernote
-    'name'  => 'description',
-    'label' => 'Description',
-    'type'  => 'summernote',
-    'options' => [],
-],
-
-// the summernote field works with the default configuration options but allow developer to configure to his needs
-// optional configuration check https://summernote.org/deep-dive/ for a list of available configs
-[
-    'name'  => 'description',
-    'label' => 'Description',
-    'type'  => 'summernote',
-    'options' => [
-        'toolbar' => [
-            ['font', ['bold', 'underline', 'italic']]
-        ]
-    ],
-],
-
-```
-
-> NOTE: Summernote does NOT sanitize the input. If you do not trust the users of this field, you should sanitize the input or output using something like HTML Purifier. Personally we like to use install [mewebstudio/Purifier](https://github.com/mewebstudio/Purifier) and add an [accessor or mutator](https://laravel.com/docs/8.x/eloquent-mutators#accessors-and-mutators) on the Model, so that wherever the model is created from (admin panel or app), the output will always be clean. [Example here](https://github.com/Laravel-Backpack/demo/commit/7342cffb418bb568b9e4ee279859685ddc0456c1).
-
-Input preview:
-
-![CRUD Field - summernote](https://backpackforlaravel.com/uploads/docs-4-2/fields/summernote.png)
 
 <hr>
 
