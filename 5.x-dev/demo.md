@@ -64,7 +64,7 @@ Once everything's installed, and your database has been set up:
 
 - Your admin panel is available at http://localhost/backpack-demo/admin
 - Login with email ```admin@example.com```, password ```admin```
-- You can register a different account, to check out the process and see your gravatar inside the admin panel. 
+- You can register a different account, to check out the process and see your Gravatar inside the admin panel. 
 - By default, registration is open only in your local environment. Check out ```config/backpack/base.php``` to change this and other preferences.
 - Check out the Monsters admin panel - it features over 50 field types.
 - Devs love Backpack not just for its standard functionality, but also for how easy it is to code your own, or customize every little bit of it. Our recommendation:

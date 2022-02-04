@@ -62,7 +62,7 @@ We heavily recommend you spend a little time to understand Backpack, and only af
 <a name="security"></a>
 ### Security
 
-Backpack has never had a critical vulnerability/hack. But there _have_ been important security updates for dependencies (including Laravel). Please [login with Github](/auth/github) or  [subscribe to our security newsletter](https://backpackforlaravel.com/newsletter), so we can reach you in case anything bad happens. No spam, no marketing emails, we promise. We only send about 2 emails per year, when there's a problem you should know about or we introduce major Backpack upgrades.
+Backpack has never had a critical vulnerability/hack. But there _have_ been important security updates for dependencies (including Laravel). Please [login with GitHub](/auth/github) or  [subscribe to our security newsletter](https://backpackforlaravel.com/newsletter), so we can reach you in case anything bad happens. No spam, no marketing emails, we promise. We only send about 2 emails per year, when there's a problem you should know about or we introduce major Backpack upgrades.
 
 <a name="maintenance"></a>
 ### Maintenance

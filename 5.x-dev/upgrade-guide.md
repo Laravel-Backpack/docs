@@ -54,7 +54,7 @@ These two packages together will help you have all the features in v4.1 and more
 ### Models
 
 <a name="step-4" href="#step-4" class="badge badge-warning text-white" style="text-decoration: none;">Step 4.</a> The `repeatable` field has been completely rewritten, in order to work with values as a nested PHP array, not a JSON. This has HUGE benefits, but it does present some small breaking changes. **If you've used the `repeatable` field in your CRUDs**
-- please make sure that db column is casted as `array` or `json` (eg. add `protected $casts = ['testimonials' => 'array'];` to your model);
+- please make sure that db column is cast as `array` or `json` (eg. add `protected $casts = ['testimonials' => 'array'];` to your model);
 - a data syntax bug has been fixed - previously, if inside `repeatable` you used a subfield with multiple values (`select_multiple` or `select2_multiple` etc.), it would not store `'categories': [1, 2]` like you'd expect, but `'categories[]': [1, 2]`; those brackets were not intentional, but we could not fix them without telling you about  it; so, when upgrading to v5:
     - if you've coded a workaround to strip those brackets, you can now remove the workaround;
     - if you use the attribute with brackets anywhere, please expect it to be either _with_ or _without_ brackets; Backpack will NOT strip all the brackets automatically, it will only strip them upon saving, when an admin edits that particular entry;
@@ -150,7 +150,7 @@ But you can also do a lot more, because you have the `$request` in that closure.
 
 ----
 
-<a name="step-13" href="#step-13" class="badge badge-secondary-soft" style="text-decoration: none;">Step 13.</a> If you're using the **Reorder operation** _and_ have overriden some of its functionality in your CrudController, please take note that the information is now passed as JSON. Replicate the [small changes here](https://github.com/Laravel-Backpack/CRUD/pull/3808/files) in your custom code too.
+<a name="step-13" href="#step-13" class="badge badge-secondary-soft" style="text-decoration: none;">Step 13.</a> If you're using the **Reorder operation** _and_ have overridden some of its functionality in your CrudController, please take note that the information is now passed as JSON. Replicate the [small changes here](https://github.com/Laravel-Backpack/CRUD/pull/3808/files) in your custom code too.
 
 ----
 
@@ -226,7 +226,7 @@ Alternatively... if you absolutely _hate_ this new behaviour and want your previ
 
 ----
 
-<a name="step-16" href="#step-16" class="badge badge-secondary-soft" style="text-decoration: none;">Step 16.</a> If you've customized the saving process of the Create or Update operations (read: you've overriden the `store()` or `update()` methods), please take into consideration that starting with Backpack v5, **when a select multiple is emptied, it will still be part of the request, as `null`**. Whereas previously (if emptied) it was missing entirely. This applies to all `select` and `select2` fields when used as `multiple`. You might need to change your saving logic accordingly, instead of expecting them to be missing, to expect them to be `null`.
+<a name="step-16" href="#step-16" class="badge badge-secondary-soft" style="text-decoration: none;">Step 16.</a> If you've customized the saving process of the Create or Update operations (read: you've overridden the `store()` or `update()` methods), please take into consideration that starting with Backpack v5, **when a select multiple is emptied, it will still be part of the request, as `null`**. Whereas previously (if emptied) it was missing entirely. This applies to all `select` and `select2` fields when used as `multiple`. You might need to change your saving logic accordingly, instead of expecting them to be missing, to expect them to be `null`.
 
 ----
 

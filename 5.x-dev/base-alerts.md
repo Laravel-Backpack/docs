@@ -5,7 +5,7 @@
 <a name="about"></a>
 ## About
 
-When building custom functionality, you'll probably need to give feedback to the admin for something that happened in the background. You can easily do that in Backpack by triggering alerts (aka notification bubbles, aka notifications). You can do that both from Javascript and from PHP - and they will look exactly the same. In fact, Backpack operations use this same API. By using Alerts in your custom pages too, you make sure your alerts look the same across your admin panel - and your UI will be consistent.
+When building custom functionality, you'll probably need to give feedback to the admin for something that happened in the background. You can easily do that in Backpack by triggering alerts (aka notification bubbles, aka notifications). You can do that both from JavaScript and from PHP - and they will look exactly the same. In fact, Backpack operations use this same API. By using Alerts in your custom pages too, you make sure your alerts look the same across your admin panel - and your UI will be consistent.
 
 
 <a name="notification-bubbles-in-php"></a>

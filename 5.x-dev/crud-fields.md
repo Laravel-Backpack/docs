@@ -95,7 +95,7 @@ Please note that `label` and `type` are not _mandatory_, just _recommended_:
 <a name="optional-field-attributes-for-presentation-purposes"></a>
 #### Optional - Field Attributes for Presentation Purposes
 
-There are a few optional attributes on most default field types, that you can use to easily achieve a few common customizations:
+There are a few optional attributes on most default field types, that you can use to easily achieve a few common customisations:
 
 ```php
 [
@@ -143,7 +143,7 @@ In case you want to store information for an entry that doesn't need a separate 
 **Step 2.** On your model, make sure the db columns where you store the JSONs (by default only ```extras```):
 - are in your ```$fillable``` property;
 - are on a new ```$fakeColumns``` property (create it now);
-- are casted as array in ```$casts```;
+- are cast as array in ```$casts```;
 
 >If you need your fakes to also be translatable, remember to also place ```extras``` in your model's ```$translatable``` property and remove it from ```$casts```.
 
@@ -1168,7 +1168,7 @@ Input preview:
 
 Upload an image and store it in the database as Base64. Notes:
 - make sure the column type is LONGBLOB;
-- detailed [instructions and customizations here](https://github.com/Laravel-Backpack/CRUD/pull/56#issue-164712261);
+- detailed [instructions and customisations here](https://github.com/Laravel-Backpack/CRUD/pull/56#issue-164712261);
 
 ```php
 // base64_image
@@ -1750,7 +1750,7 @@ Additionally, if you want to change something about the primary select, you can 
 
 #### Manage related entries in the same form (create, update, delete)
 
-Sometimes for `hasMany` and `morphMany` relationships, the secondary entry cannot stand on its own. It's so dependant on the primary entry, that you don't want it to have a Create/Update form of its own - you just want it to be managed inside its parent. Let's take `Invoice` and `InvoiceItem` as an example, with the following database structure:
+Sometimes for `hasMany` and `morphMany` relationships, the secondary entry cannot stand on its own. It's so dependent on the primary entry, that you don't want it to have a Create/Update form of its own - you just want it to be managed inside its parent. Let's take `Invoice` and `InvoiceItem` as an example, with the following database structure:
 
 ```php
 // - invoices: id, number, due_date, payment_status

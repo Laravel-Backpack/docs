@@ -102,7 +102,7 @@ $this->crud->enableResponsiveTable();
 <a name="persistent-table-api"></a>
 #### Persistent Table
 
-<small>Methods: enablePersistenTable(), disablePersistenTable()</small>
+<small>Methods: enablePersistentTable(), disablePersistentTable()</small>
 
 ```php
 $this->crud->disablePersistentTable();
@@ -112,7 +112,7 @@ $this->crud->enablePersistentTable();
 <a name="page-length"></a>
 #### Page Length
 
-<small>Methods: setDetaultPageLength(), setPageLengthMenu()</small>
+<small>Methods: setDefaultPageLength(), setPageLengthMenu()</small>
 
 ```php
 // you can define the default page length. If it does not exist we will add it to the pagination array.
@@ -139,7 +139,7 @@ $this->crud->setPageLengthMenu(10);
 <a name="action-column-api"></a>
 #### Actions Column
 
-<small>Methods: setActionColumnPriority()</small>
+<small>Methods: setActionsColumnPriority()</small>
 
 ```php
 // make the actions column (in the table view) hide when not enough space is available, by giving it an unreasonable priority

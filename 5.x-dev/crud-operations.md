@@ -337,7 +337,7 @@ In the example above, you could just do ```use \App\Http\Controllers\Admin\Custo
 ### Access to Custom Operations
 
 Since you're creating a new operation, in terms of restricting access you can:
-1. allow access to this new operation depending on access to a default operation (usually if the admin can ```update```, he's ok to perform custom operations);
+1. allow access to this new operation depending on access to a default operation (usually if the admin can ```update```, he's OK to perform custom operations);
 2. customize access to this particular operation, by just using a different key than the default ones; for example, you can allow access by using ```$this->crud->allowAccess('publish')``` in your ```setup()``` method, then check for access to that operation using ```$this->crud->hasAccess('publish')```;
 
 <a name="operation-features"></a>

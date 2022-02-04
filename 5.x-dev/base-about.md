@@ -5,7 +5,7 @@
 Backpack helps you build admin panels faster by:
 - installing our custom HTML theme, [Backstrap](https://backstrap.net), based on Bootstrap 4 and [CoreUI](https://coreui.io);
 - installing [sweetalert](https://sweetalert.js.org/) for triggering pretty Confirm modals;
-- installing [noty](https://ned.im/noty/#/) to show notification bubbles upon error/success/warning/info - triggered from Javascript;
+- installing [noty](https://ned.im/noty/#/) to show notification bubbles upon error/success/warning/info - triggered from JavaScript;
 - installing [prologue/alerts](https://github.com/prologuephp/alerts) for triggering notification bubbles from PHP (both on the same page and using flashdata);
 - providing a separate authentication system for your admins;
 - providing pretty error pages for most common errors;

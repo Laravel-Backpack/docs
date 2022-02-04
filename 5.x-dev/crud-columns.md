@@ -173,7 +173,7 @@ Show custom HTML based on a closure you specify in your EntityCrudController.
 <a name="custom_html"></a>
 ### custom_html
 
-Show the HTML that you provide in the page. You can optionaly escape the text when displaying it on page, if you don't trust the value.
+Show the HTML that you provide in the page. You can optionally escape the text when displaying it on page, if you don't trust the value.
 
 ```php
 [
@@ -195,7 +195,7 @@ Show the HTML that you provide in the page. You can optionaly escape the text wh
 ### date
 
 
-The date column will show a localized date in the default date format (as specified in the ```config/backpack/base.php``` file), whether the attribute is casted as date in the model or not.
+The date column will show a localized date in the default date format (as specified in the ```config/backpack/base.php``` file), whether the attribute is cast as date in the model or not.
 
 Note that the ```format``` attribute uses ISO date formatting parameters and not PHP ```date()``` formatters.  See <https://carbon.nesbot.com/docs/#iso-format-available-replacements> for more information.
 
@@ -214,7 +214,7 @@ Note that the ```format``` attribute uses ISO date formatting parameters and not
 ### datetime
 
 
-The date column will show a localized datetime in the default datetime format (as specified in the ```config/backpack/base.php``` file), whether the attribute is casted as datetime in the model or not.
+The date column will show a localized datetime in the default datetime format (as specified in the ```config/backpack/base.php``` file), whether the attribute is cast as datetime in the model or not.
 
 Note that the ```format``` attribute uses ISO date formatting parameters and not PHP ```date()``` formatters.  See <https://carbon.nesbot.com/docs/#iso-format-available-replacements> for more information.
 
@@ -693,7 +693,7 @@ Its definition is very similar to the [table *field type*](/docs/{{version}}/cru
 ### video <span class="badge badge-pill badge-info">PRO</span>
 
 
-Display a small screenshot for a Youtube or Vimeo video, stored in the database as JSON using the "video" field type.
+Display a small screenshot for a YouTube or Vimeo video, stored in the database as JSON using the "video" field type.
 
 ```php
 [
@@ -721,7 +721,7 @@ Examples:
 <a name="creating-a-custom-column-type"></a>
 ## Creating a Custom Column Type
 
-Columns consist of only one file - a blade file with the same name as the column type (ex: ```text.blade.php```). You can create one by placing a new blad file inside ```resources\views\vendor\backpack\crud\columns```. Be careful to choose a distinctive name, otherwise you might be overwriting a default column type (see above).
+Columns consist of only one file - a blade file with the same name as the column type (ex: ```text.blade.php```). You can create one by placing a new blade file inside ```resources\views\vendor\backpack\crud\columns```. Be careful to choose a distinctive name, otherwise you might be overwriting a default column type (see above).
 
 For example, you can create a ```markdown.blade.php```:
 ```php

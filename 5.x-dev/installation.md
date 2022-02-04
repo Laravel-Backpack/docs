@@ -36,7 +36,7 @@ composer require --dev backpack/generators
 php artisan backpack:install
 ```
 
-> Backpack install is interactive and will ask questions during instalation. You can bypass the questions by adding the `--no-interaction` argument to the install command.
+> Backpack install is interactive and will ask questions during installation. You can bypass the questions by adding the `--no-interaction` argument to the install command.
 
 Backpack assumes you already have your Eloquent Models properly set up. If you don't, **consider using something to quickly generate Migrations & Models**. You can use anything you want, but here are the options we recommend:
 
@@ -66,7 +66,7 @@ In case you want to add extra functionality that's already been built, check out
 <a name="frequently-asked-questions"></a>
 ## Frequently Asked Questions
 
-- **Error: The process X exceeded the timeout of 60 seconds.** It might mean Github or Packagist is unavailable at the moment. This usually doesn't last for more than a few minutes, so you can run ```php artisan backpack:install --timeout=600``` to increase the timeout to 10 minutes. If this doesn't work either, take a look behind the scenes with ```php artisan backpack:install --timeout=600 --debug```;
+- **Error: The process X exceeded the timeout of 60 seconds.** It might mean GitHub or Packagist is unavailable at the moment. This usually doesn't last for more than a few minutes, so you can run ```php artisan backpack:install --timeout=600``` to increase the timeout to 10 minutes. If this doesn't work either, take a look behind the scenes with ```php artisan backpack:install --timeout=600 --debug```;
 
 - **Error: SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was too long**. Your MySQL version might be a bit old. Please [apply this quick fix](https://laravel-news.com/laravel-5-4-key-too-long-error), then run ```php artisan migrate:fresh```.
 

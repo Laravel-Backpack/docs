@@ -64,7 +64,7 @@ Based on the fact that the ```fetchTag()``` method exists, the Fetch operation w
 
 **Preventing FetchOperation from guessing the searchable attributes**
 
-If not specified `searchable_attributes` will be automatically infered from model database columns. To prevent this behaviour you can setup an empty `searchable_attributes` array. For example:
+If not specified `searchable_attributes` will be automatically inferred from model database columns. To prevent this behaviour you can setup an empty `searchable_attributes` array. For example:
 
 ```php
 public function fetchUser() {

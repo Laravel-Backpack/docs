@@ -126,11 +126,11 @@ public function openGoogle($crud = false)
 
 
 <a name="adding-a-custom-button-with-a-blade-file"></a>
-### Adding a Custom Button with Javascript to the "top" stack
+### Adding a Custom Button with JavaScript to the "top" stack
 
 Let's say we want to create an ```import.blade.php``` button. For simplicity, this button would just run an AJAX call which handles everything, and shows a status report to the user through notification bubbles. 
 
-The "top" buttons are not bound to any certain entry, like buttons from the "list" stack. They can only do general things. And if they do general things, it's _generally_ recommended that you move their javascript to the bottom of the page. You can easily do that with ```@push('after_scripts')```, because the Backpack default layout has an ```after_scripts``` stack. This way, you can make sure your Javascript is moved at the bottom of the page, after all other Javascript has been loaded (jQuery, DataTables, etc). Check out the example below.
+The "top" buttons are not bound to any certain entry, like buttons from the "list" stack. They can only do general things. And if they do general things, it's _generally_ recommended that you move their JavaScript to the bottom of the page. You can easily do that with ```@push('after_scripts')```, because the Backpack default layout has an ```after_scripts``` stack. This way, you can make sure your JavaScript is moved at the bottom of the page, after all other JavaScript has been loaded (jQuery, DataTables, etc). Check out the example below.
 
 The steps would be:
 

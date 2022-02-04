@@ -44,7 +44,7 @@ We're going to use [Jeroen-G/laravel-packager](https://github.com/Jeroen-G/larav
 
 ### Generate Package Files
 
-Next up, decide what your vendor name will be. This is NOT the package name, it's the name all your packages will reside under. For example, Laravel uses "laravel". Backpack for Laravel uses "backpack". Jeffrey Way uses "way". If unsure, use your github username for the vendor name. That's what people usually do, if they don't run a company / brand.
+Next up, decide what your vendor name will be. This is NOT the package name, it's the name all your packages will reside under. For example, Laravel uses "laravel". Backpack for Laravel uses "backpack". Jeffrey Way uses "way". If unsure, use your GitHub username for the vendor name. That's what people usually do, if they don't run a company / brand.
 
 Then decide what your package name will be. Ex: ```newscrud```, ```usermanager```, etc.
 
