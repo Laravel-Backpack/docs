@@ -29,14 +29,14 @@ cd your-laravel-project-name
 
 ``` bash
 # require Backpack using Composer
-composer require backpack/crud:"5.x.x-dev as 4.1.99"
+composer require backpack/crud:"v5.x-dev"
 composer require --dev backpack/generators
 
 # run the installation command
 php artisan backpack:install
 ```
 
-> Backpack install is interactive and will ask questions during instalation, if you don't want that add the `--no-interaction` argument to the install command.
+> Backpack install is interactive and will ask questions during instalation. You can bypass the questions by adding the `--no-interaction` argument to the install command.
 
 Backpack assumes you already have your Eloquent Models properly set up. If you don't, **consider using something to quickly generate Migrations & Models**. You can use anything you want, but here are the options we recommend:
 
