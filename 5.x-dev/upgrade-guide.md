@@ -16,7 +16,7 @@ Please make sure your project respects the requirements below, before you start 
 
 **If you're running Backpack version 3.x or 4.0, please follow ALL other upgrade guides first, to incrementally get to use Backpack 4.1**. Test that your app works well with each version, after each upgrade. Only _afterwards_ can you follow this guide, to upgrade from 4.1 to v5. Previous upgrade guides:
 - [upgrade from 4.0 to 4.1](https://backpackforlaravel.com/docs/4.1/upgrade-guide);
-- [upgrade from 3.6 to 4.0](https://backpackforlaravel.com/docs/4.0/upgrade-guide); this is a major upgrade, and requires a v4 license code; if you've purchased a Backpack v3 license, but don't have a Backpack v4 license yet, [read the 4.0 Release Notes here](/docs/4.0/release-notes#backpack-v3-buyers).
+- [upgrade from 3.6 to 4.0](https://backpackforlaravel.com/docs/4.0/upgrade-guide);
 - [upgrade from 3.5 to 3.6](https://backpackforlaravel.com/docs/3.6/upgrade-guide);
 - [upgrade from 3.4 to 3.5](https://backpackforlaravel.com/docs/3.5/upgrade-guide);
 - [upgrade from 3.3 to 3.4](https://backpackforlaravel.com/docs/3.4/upgrade-guide);
@@ -24,7 +24,7 @@ Please make sure your project respects the requirements below, before you start 
 <a name="upgraade-steps"></a>
 ## Upgrade Steps
 
-The upgrade guide might seem long or intimidating, but really, it's an easy upgrade. But **most projects will only be affected by a few of the breaking changes outlined below**. And when there are changes needed, they're pretty small.
+The upgrade guide might seem long or intimidating, but really, it's an easy upgrade. **Most projects will only be affected by a few of the breaking changes outlined below**. And when there are changes needed, they're pretty small.
 
 Please **go thorough all steps**, to ensure a smooth upgrade process. The steps are color-coded by how likely we think that step is needed for your project: <span class="badge badge-danger text-white" style="text-decoration: none;">High</span>, <span class="badge badge-warning text-white" style="text-decoration: none;">Medium</span> and <span class="badge badge-secondary-soft" style="text-decoration: none;">Low</span>. **At the very least, read what's in bold**.
 
@@ -43,10 +43,10 @@ Please **go thorough all steps**, to ensure a smooth upgrade process. The steps 
         "backpack/pro": "^1.0.0",
 ```
 
-These two packages together will help you have all the features in v4.1 and more. But since `backpack/pro` is a closed-source package, to download it, you need to generate [your token and password here](https://backpackforlaravel.com/user/tokens). If no button is there for you, it means you don't have free access to `backpack/pro`, so you'll need to [purchase it](https://backpackforlaravel.com/products/pro), which will give you 12months of updates and upgrades, starting with the purchase date. [Follow the 2-step process called "Instructions" in your token](https://backpackforlaravel.test/user/tokens) to authenticate and add our private repo.
+These two packages together will help you have all the features in v4.1 and more. But since `backpack/pro` is a closed-source package, to download it, you need to generate [your token and password here](https://backpackforlaravel.com/user/tokens). If no button is there for you, it means you don't have free access to `backpack/pro`, so you'll need to [purchase it](https://backpackforlaravel.com/pricing). **[Follow the 2-step process called "Instructions" in your token](https://backpackforlaravel.test/user/tokens), if you haven't already done that on this project.**
 
 
-<a name="step-2" href="#step-2" class="badge badge-warning text-white" style="text-decoration: none;">Step 2.</a> If you have first-party addons installed (eg. Backpack\PermissionManager), there's nothing you need to do. They work without a version bump. However, if you have third-party Backpack add-ons installed, you might want to bump their versions - check each addon's page.
+<a name="step-2" href="#step-2" class="badge badge-warning text-white" style="text-decoration: none;">Step 2.</a> If you have first-party addons installed (eg. Backpack\PermissionManager), there's nothing you need to do. They all work without a version bump. However, if you have third-party Backpack add-ons installed, you might want to bump their versions - please check each addon's page.
 
 <a name="step-3" href="#step-3" class="badge badge-danger text-white" style="text-decoration: none;">Step 3.</a> Run ```composer update``` in the command line.
 
@@ -103,7 +103,7 @@ No changes needed.
 ----
 
 
-<a name="step-7" href="#step-7" class="badge badge-danger text-white" style="text-decoration: none;">Step 7.</a> **Operation configurations have been moved** from `config/backpack/crud.php`, each to its own file. That way, if an operation config value isn't present, it will fall back to Backpack's default value. To upgrade, please:
+<a name="step-7" href="#step-7" class="badge badge-danger text-white" style="text-decoration: none;">Step 7.</a> **Operation configurations have been moved from `config/backpack/crud.php`, each to its own file.** That way, if an operation config value isn't present, it will fall back to Backpack's default value. To upgrade, please:
 - run `php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag=config` - this will publish a new config file for each operation (eg. `config/backpack/operations/create.php`, `update.php` etc.);
 - if you've changed things inside your `config/backpack/crud.php`, then make the same changes inside the config files you've published above;
 - in your `config/backpack/crud.php` delete the `operations` array entirely;
@@ -139,14 +139,15 @@ But you can also do a lot more, because you have the `$request` in that closure.
 
 ----
 
-<a name="step-11" href="#step-11" class="badge badge-secondary-soft" style="text-decoration: none;">Step 11.</a> There have been some changes in how the `repeatable` field works by default:
+<a name="step-11" href="#step-11" class="badge badge-secondary-soft" style="text-decoration: none;">Step 11.</a> There have been some **changes in how the `repeatable` field works** by default:
 - it now shows no rows when empty (previously it was showing one); we believe that provides a better UX for most projects, but if you don't like it, please define `'min_rows' => 1`;
-- we're renamed the `fields` attribute to `subfields` for more clarity (but both will work);
+- we're renamed the `fields` attribute to `subfields` for more clarity;
 - if you have subfields that do NOT have their type defined, Backpack will now assume you wanted a `text` field;
+- we've fixed a bug in the unofficial "_subfield type guessing_" functionality: previously, if you added a subfield with the name `category` (for example), and your main entity happened to have a `category` relationship on it, then the repeatable field would show a relationship field, which is probably not what you wanted;
 
 ----
 
-<a name="step-12" href="#step-12" class="badge badge-danger text-white" style="text-decoration: none;">Step 12.</a> We have **removed the `simplemde` field**, since the JS library hasn't received any updates since 2016. However, there is a drop-in replacement called `easymde` which is well maintained. If you're using the `simplemde` field type anywhere in your project, please use `easymde` instead. A simple find & replace in your Controllers should do.
+<a name="step-12" href="#step-12" class="badge badge-danger text-white" style="text-decoration: none;">Step 12.</a> We have **removed the `simplemde` field**, since that JS library hasn't received any updates since 2016. However, there is a drop-in replacement called `easymde` which is well maintained. If you're using the `simplemde` field type anywhere in your project, please use `easymde` instead. A simple find & replace in your Controllers should do.
 
 ----
 
@@ -154,9 +155,9 @@ But you can also do a lot more, because you have the `$request` in that closure.
 
 ----
 
-<a name="step-14" href="#step-14" class="badge badge-danger text-white" style="text-decoration: none;">Step 14.</a> When setting up your **Show operation** in Backpack 4.1, after your `setupShowOperation()` was run, Backpack would try to add more columns. That made it difficult to delete auto-added columns. You might have used a workaround for this.
+<a name="step-14" href="#step-14" class="badge badge-danger text-white" style="text-decoration: none;">Step 14.</a> When setting up your **Show operation** in Backpack 4.1, after your `setupShowOperation()` was run, Backpack would try to add more columns. That made it very difficult to delete auto-added columns. You might have used a workaround for this.
 
-Starting with Backpack v5, the operation will no longer do any "_automatic setup_" inside `setupShowOperation()` or after it. Instead, if you want Backpack to guess column names, you have to manually call a new method, `$this->autoSetupShowOperation()`. To upgrade:
+Starting with Backpack v5, the operation will no longer do any "_automatic setup_" inside `setupShowOperation()`... nor after it. Instead, if you want Backpack to guess column names, you have to manually call a new method, `$this->autoSetupShowOperation()`. To upgrade:
 - if you _do not_ have a `setupShowOperation()` in your CrudControllers, you are not affected by this - don't worry;
 - if you _do_ have a `setupShowOperation()` method in your CrudControllers:
     - **to keep the same behaviour as before (guess columns), please run `$this->autoSetupShowOperation();` wherever you want inside your `setupShowOperation()`;** add it to the end of your `setupShowOperation()` to keep the same behaviour as before;
@@ -164,9 +165,9 @@ Starting with Backpack v5, the operation will no longer do any "_automatic setup
 
 ----
 
-<a name="step-15" href="#step-15" class="badge badge-warning text-white" style="text-decoration: none;">Step 15.</a> The **Create and Update operations** no longer save the `request()`, they save your `ProductFormRequest` (the one that contains the validation). If you have NOT modified the `request()` or `CRUD::getRequest()` in any of your CrudControllers, you will not be affected by this, move on.
+<a name="step-15" href="#step-15" class="badge badge-warning text-white" style="text-decoration: none;">Step 15.</a> The **Create and Update operations** no longer save the `request()`, they save your `ProductFormRequest` (the one that contains the validation). **If you have NOT modified the `request()` or `CRUD::getRequest()` in any of your CrudControllers, you will not be affected by this, move on.**
 
-However, **if you _have_ modified the request (most likely to add or remove inputs)**, those changes will never reach the database now. To give you an example, if you've over overridden the `store()` or `update()` methods to add an input, it might look something like this:
+However, **if you _have_ modified the request (most likely to add or remove inputs)**, those changes will never reach the database now. To give you an example, if you've ever overridden the `store()` or `update()` methods to add an input, it might look something like this:
 ```php
 use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as traitStore; }
 
@@ -250,7 +251,9 @@ Alternatively... if you absolutely _hate_ this new behaviour and want your previ
 
 ----
 
-<a name="step-19" href="#step-19" class="badge badge-danger text-white" style="text-decoration: none;">Step 19.</a> We've updated most CSS & JS dependencies to their latest versions. There are two ways to publish the latest styles and scripts for these dependencies:
+<a name="step-19" href="#step-19" class="badge badge-danger text-white" style="text-decoration: none;">Step 19.</a> We've updated a lot of CSS & JS dependencies to their latest versions - with one notable exception - Bootstrap. Since not all dependencies support Bootstrap 5 yet, we'll still be using Bootstrap 4 for a while. But as soon as that changes, we'll release a new version for that upgrade alone. This will also make it easier to upgrade - no worries that the interface breaks now, since we haven't upgraded Bootstrap. And thanks to our new business model - you'll most likely have access to the next Backpack version too.
+
+There are two ways to publish the latest styles and scripts for these dependencies:
 - (A) If you have NOT touched you ```public/packages``` folder, or placed anything custom inside it:
         - delete the ```public/packages``` directory and all its contents;
         - run ```php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag=public```
@@ -260,7 +263,7 @@ Alternatively... if you absolutely _hate_ this new behaviour and want your previ
 <a name="views"></a>
 ### Views
 
-<a name="step-20" href="#step-20" class="badge badge-secondary-soft" style="text-decoration: none;">Step 20.</a> **Have you developed any custom fields or columns?** Rephrased: do you have anything inside your `resources/views/vendor/backpack/crud/fields` or `resources/views/vendor/backpack/crud/fields`? If so, and those fields or columns load any external CSS or JS, we recommended you load them using `@loadOnce('path/to/file.css')` and `@loadOnce('path/to/file.js')` instead of `<link href="path/to/file.css">` and `<script src="path/to/file.js"></script>`. This will make sure that piece of JS/CSS/code is only loaded once per pageload. You can find [more info about it here](https://github.com/digitallyhappy/assets) (and why it's more than `@once`).
+<a name="step-20" href="#step-20" class="badge badge-secondary-soft" style="text-decoration: none;">Step 20.</a> **Have you developed any custom fields or columns?** Rephrased: do you have anything inside your `resources/views/vendor/backpack/crud/fields` or `resources/views/vendor/backpack/crud/fields`? If so, and those fields or columns load any external CSS or JS, we recommended you load them using `@loadOnce('path/to/file.css')` and `@loadOnce('path/to/file.js')` instead of `<link href="path/to/file.css">` and `<script src="path/to/file.js"></script>`. This will make sure that piece of JS/CSS/code is only loaded once per pageload. You can find [more info about it here](https://github.com/digitallyhappy/assets) (and why it's more than `@once`). Your custom fields should still work without this change, but it's such an easy one.
 
 ----
 

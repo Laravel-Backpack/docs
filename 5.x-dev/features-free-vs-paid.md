@@ -8,12 +8,12 @@ Starting with Backpack v5, our software is open-core. That means there are featu
 
 You do not _need to_ purchase anything from us. But we hope that:
 - if you're making money from your project, as soon as you need _one_ paid feature, you can justify its cost, to save the time it takes to build that yourself;
-- if you're _not_ making money from your project yet, as the project grows and starts making a profit, you'll _want to_ purchase, to get access to paid features and support its development;
+- if you're _not_ making money from your project yet, as the project grows and starts making a profit, you'll _want to_ purchase, to get access to paid features and support its maintenance;
 
 <a name="feature-list"></a>
 ## Features
 
-Everywhere in our docs, you'll see the <span class="badge badge-pill badge-info">PRO</span> label if it needs the `backpack\pro` add-on. Everything else... is free, as part of `backpack\crud`. But here's a comparison table of all features, so you can easily understand what will be a good fit for you:
+Everywhere in our docs, you'll see the <span class="badge badge-pill badge-info">PRO</span> label if it needs the `backpack\pro` add-on. Everything else... is free, as part of `backpack\crud`. Here's a comparison table of all features, so you can easily understand what will be a good fit for you:
 
 <table class="table table-sm table-striped table-hover">
   <thead>
@@ -71,26 +71,14 @@ Everywhere in our docs, you'll see the <span class="badge badge-pill badge-info"
     </tr>
     <tr>
       <td> &nbsp; &nbsp; &nbsp; - Columns &nbsp; <a href="/docs/5.x-dev/crud-columns"><i class="fe fe-book-open icon-small"></i></a></td>
-      <td class="text-center"><span class="badge badge-success">25 column types</span></td>
-      <td class="text-center"><a href="/docs/5.x-dev/crud-columns#pro-column-types" class="badge badge-info text-white" data-toggle="tooltip" title="Easily show arrays, markdown, relationships, tables and videos!">31+ column types</a></td>
-    </tr>
-    <tr>
-      <td> &nbsp; &nbsp; &nbsp; - Filters &nbsp; <a href="/docs/5.x-dev/crud-filters"><i class="fe fe-book-open icon-small"></i></a></td>
-      <td class="text-center">-</td>
-      <td class="text-center"><a href="/docs/5.x-dev/crud-filters" class="badge badge-info text-white" data-toggle="tooltip" title="Help your admin easily filter their table view - by date, text, options, date range... and more!">10+ filter types</a></td>
+      <td class="text-center"><span class="badge badge-success">25 columns types</span></td>
+      <td class="text-center">
+        <span class="badge badge-success">25 free</span> +
+        <a href="/docs/5.x-dev/crud-columns#pro-column-types" class="badge badge-info text-white" data-toggle="tooltip" title="Easily show arrays, markdown, relationships, tables and videos!">6 pro columns</a>
+      </td>
     </tr>
     <tr>
       <td> &nbsp; &nbsp; &nbsp; - Buttons &nbsp; <a href="/docs/5.x-dev/crud-buttons"><i class="fe fe-book-open icon-small"></i></a></td>
-      <td class="text-center"><span class="badge badge-success">FREE</span></td>
-      <td class="text-center"><span class="badge badge-success">FREE</span></td>
-    </tr>
-    <tr>
-      <td> &nbsp; &nbsp; &nbsp; - Export Buttons &nbsp; <a href="/docs/5.x-dev/crud-operation-list-entries#export-buttons"><i class="fe fe-book-open icon-small"></i></a></td>
-      <td class="text-center"><span class="badge badge-success">FREE</span></td>
-      <td class="text-center"><span class="badge badge-success">FREE</span></td>
-    </tr>
-    <tr>
-      <td> &nbsp; &nbsp; &nbsp; - Details Row &nbsp; <a href="/docs/5.x-dev/crud-operation-list-entries#details-row"><i class="fe fe-book-open icon-small"></i></a></td>
       <td class="text-center"><span class="badge badge-success">FREE</span></td>
       <td class="text-center"><span class="badge badge-success">FREE</span></td>
     </tr>
@@ -100,6 +88,21 @@ Everywhere in our docs, you'll see the <span class="badge badge-pill badge-info"
       <td class="text-center"><span class="badge badge-success">FREE</span></td>
     </tr>
     <tr>
+      <td> &nbsp; &nbsp; &nbsp; - Filters &nbsp; <a href="/docs/5.x-dev/crud-filters"><i class="fe fe-book-open icon-small"></i></a></td>
+      <td class="text-center">-</td>
+      <td class="text-center"><a href="/docs/5.x-dev/crud-filters" class="badge badge-info text-white" data-toggle="tooltip" title="Help your admin easily filter their table view - by date, text, options, date range... and more!">10+ filter types</a></td>
+    </tr>
+    <tr>
+      <td> &nbsp; &nbsp; &nbsp; - Export Buttons &nbsp; <a href="/docs/5.x-dev/crud-operation-list-entries#export-buttons"><i class="fe fe-book-open icon-small"></i></a></td>
+      <td class="text-center">-</td>
+      <td class="text-center"><span class="badge badge-info">PRO</span></td>
+    </tr>
+    <tr>
+      <td> &nbsp; &nbsp; &nbsp; - Details Row &nbsp; <a href="/docs/5.x-dev/crud-operation-list-entries#details-row"><i class="fe fe-book-open icon-small"></i></a></td>
+      <td class="text-center">-</td>
+      <td class="text-center"><span class="badge badge-info">PRO</span></td>
+    </tr>
+    <tr>
       <td> &nbsp; - <strong><a href="/docs/5.x-dev/crud-operation-create">Create</a> & <a href="/docs/5.x-dev/crud-operation-update">Update</a> Operations</strong></td>
       <td class="text-center"><span class="badge badge-success">FREE</span></td>
       <td class="text-center"><span class="badge badge-success">FREE</span></td>
@@ -107,12 +110,15 @@ Everywhere in our docs, you'll see the <span class="badge badge-pill badge-info"
     <tr>
       <td> &nbsp; &nbsp; &nbsp; - Fields &nbsp; <a href="/docs/5.x-dev/crud-fields"><i class="fe fe-book-open icon-small"></i></a></td>
       <td class="text-center"><span class="badge badge-success">29 field types</span></td>
-      <td class="text-center"><a href="/docs/5.x-dev/crud-fields#pro-field-types" class="badge badge-info text-white" data-toggle="tooltip" title="For relationships with a lot of entries, complex relationships, fields with subfields, WYSIWYGs, addresses, videos, images and A LOT more!">57+ field types</a></td>
+      <td class="text-center">
+        <span class="badge badge-success">29 free</span> +
+        <a href="/docs/5.x-dev/crud-fields#pro-field-types" class="badge badge-info text-white" data-toggle="tooltip" title="For relationships with a lot of entries, complex relationships, fields with subfields, WYSIWYGs, addresses, videos, images and A LOT more!">28 pro fields</a>
+      </td>
     </tr>
     <tr>
       <td> &nbsp; &nbsp; &nbsp; - Validation &nbsp; <a href="/docs/5.x-dev/crud-operation-create#validation"><i class="fe fe-book-open icon-small"></i></a></td>
-      <td class="text-center"><span class="badge badge-success">FREE</span></td>
-      <td class="text-center"><span class="badge badge-success">FREE</span></td>
+      <td class="text-center"><span class="badge badge-success">3 ways</span></td>
+      <td class="text-center"><span class="badge badge-success">3 ways</span></td>
     </tr>
     <tr>
       <td> &nbsp; &nbsp; &nbsp; - Multiple fields per line &nbsp; <a href="/docs/5.x-dev/crud-fluent-syntax#chained-methods"><i class="fe fe-book-open icon-small"></i></a></td>
@@ -142,7 +148,10 @@ Everywhere in our docs, you'll see the <span class="badge badge-pill badge-info"
     <tr>
       <td> &nbsp; &nbsp; &nbsp; - Columns &nbsp; <a href="/docs/5.x-dev/crud-columns"><i class="fe fe-book-open icon-small"></i></a></td>
       <td class="text-center"><span class="badge badge-success">25 column types</span></td>
-      <td class="text-center"><a href="/docs/5.x-dev/crud-columns#pro-column-types" class="badge badge-info text-white" data-toggle="tooltip" title="Easily show arrays, markdown, relationships, tables and videos!">31+ column types</a></td>
+      <td class="text-center">
+        <span class="badge badge-success">25 free</span> +
+        <a href="/docs/5.x-dev/crud-columns#pro-column-types" class="badge badge-info text-white" data-toggle="tooltip" title="Easily show arrays, markdown, relationships, tables and videos!">6 pro columns</a>
+      </td>
     </tr>
     <tr>
       <td> &nbsp; - <a href="/docs/5.x-dev/crud-operation-delete" class="font-weight-bold">Delete Operation</a></td>
@@ -188,7 +197,7 @@ Everywhere in our docs, you'll see the <span class="badge badge-pill badge-info"
 </table>
 
 <br><br>
-Both `backpack/crud` and `backpack/pro` will keep receiving active attention, maintenance and care from us, for many years going forward - this is our job. But in principle, new features will _not_ be added to `backpack/crud`. We will keep adding new features to `backpack/pro`, though. If you have suggestions, please [open an issue here](https://github.com/laravel-backpack/ideas).
+Both `backpack/crud` and `backpack/pro` will keep receiving active attention, maintenance and care from us, for many years going forward - this is our job. But in principle, new features will _not_ be added to `backpack/crud`. We will keep adding new features to `backpack/pro`, though. If you have suggestions, please [vote on top new features](https://github.com/Laravel-Backpack/CRUD/discussions/3960) or [open a new suggestion](https://github.com/laravel-backpack/ideas).
 
 <a name="no-license-needed-on-localhost"></a>
 ## Add-ons
@@ -201,4 +210,4 @@ We also encourage our community to build third-party add-ons (we've made it [sup
 
 For more information, see:
 - [our addons page](https://backpackforlaravel.com/addons) for more addons (including third-party addons);
-- [our products page](https://backpackforlaravel.com/products) for the first-party addons that we think are _so good_, that they're worth paying for;
+- [our pricing page](https://backpackforlaravel.com/pricing) for the first-party addons that we think are _so good_, that they're worth paying for;

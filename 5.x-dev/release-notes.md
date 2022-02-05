@@ -4,12 +4,14 @@
 
 **Launch date:** (expected) Feb 9th, 2022
 
-Backpack v5 is a major release, but NOT a huge upgrade. Think of it as a "4.2" release, that we've had to name "v5", because we've also changed our pricing. We have added new features and major improvements, but also kept the upgrading process as easy as possible. Plus...
+Backpack v5 is a major release, but NOT a huge time-consuming upgrade. Think of it as a "4.2" release, that we've had to name "v5", because we've also changed our business model. We have added new features and major improvements, but also kept the upgrading process as easy as possible. Plus...
 
 > 🎉 &nbsp; 🎉 &nbsp; 🎉 &nbsp; **Backpack v5 is a FREE upgrade, for everybody who's purchased a Backpack v4 license after 9 Feb 2021.** Please read on to understand why.  &nbsp;  🎉 &nbsp; 🎉 &nbsp; 🎉
 
 
-But yes, **Backpack v5 is a MAJOR new version**, with 8+ months of work put into it, and major improvements under-the-hood. It is the current and recommended version of Backpack and it's got so many cool new things... that we couldn't fit them all inside this page. Here's what Backpack v5 brings to the table and why you should upgrade from [Backpack 4.1](/docs/4.1) to v5:
+But yes, **Backpack v5 is a MAJOR new version**, with 8+ months of work put into it, and major improvements under-the-hood. It is the current and recommended version of Backpack and it's got so many cool new things... that we couldn't fit them all here.
+
+Here are the big things Backpack v5 brings to the table and why you should upgrade from [Backpack 4.1](/docs/4.1) to v5. But first...
 
 <a name="new-pricing"></a>
 ## New Pricing
@@ -20,15 +22,15 @@ But yes, **Backpack v5 is a MAJOR new version**, with 8+ months of work put into
 - even after those 12 months go buy, you'll still have access to those versions, for ever;
 - you can [generate a token & password for v5 automatically, in your Backpack acount](https://backpackforlaravel.com/user/tokens);
 
-Basically, if you expected your updates to end soon... they don't. We've made sure that you receive at least 12 months of updates & upgrades, even though you purchased towards the end of Backpack's release cycle. We believe that's the _fair_ thing to do - give you guarantees that whenever you buy Backpack, you'll receive updates for a reasonable amount of time. It's one of the reasons we changed our pricing.
+Basically, if you expected your updates to end... because we launched a new version... they don't. We think it's important that when you purchase Backpack, you get an extraordinary bang-for-buck. So if you've purchased towards the end of Backpack's release cycle, we've made sure that you receive at least 12 months of updates & upgrades... which means... free upgrade to v5. We believe that's the _fair_ thing to do - give you guarantees that whenever you buy Backpack, you'll receive updates for a reasonable amount of time. It's one of the reasons we changed our pricing.
 
-**The bad news**... it's a little more difficult to understand WHY we've done that. Please read on, it makes perfect sense, we promise.
+**The bad news**... it's a little more difficult to _really_ understand why we've done that. If you're interested, please read on, it makes perfect sense, we promise. If not, just read what's in **bold**.
 
 ### Backpack is now open-core
 
-We try not to make a big fuss out of this, but this is HUGE - we consider it a _bug fix_. A _licensing bug fix_.
+We try not to make a big fuss out of this, but this is HUGE deal. One that we consider a _bug fix_. Yes, it's a _licensing bug fix_.
 
-Previously, when you were buying a Backpack v4 license, you didn't know how many updates you're getting. Depending on _when_ you purchased, you could get 2 years of updates or 2 days. You'd then have to purchase the next version (using the limited-time discount we always give when launching). We consider that a stressful experience, both for you and us, so we've found a way to eliminate that stress too.
+Previously, when you were buying a Backpack v4 license, you didn't know how many updates you're getting. Depending on _when_ you purchased, you could get 2 years of updates or 2 days. You'd then have to purchase the next version (using the limited-time discount we always give when launching). We consider that a stressful experience, both for you and us, so we've found a way to eliminate that stress, and make the whole buying, maintaining, updating and upgrading process a lot more _fair_, for all parties involved:
 
 **Starting with v5, the features that were previously in "Backpack\CRUD" are now split between two packages:**
 - **[Backpack\CRUD](https://github.com/laravel-backpack/crud) is the free & open-source core**, released under the [MIT License](https://github.com/Laravel-Backpack/CRUD/blob/master/LICENSE.md); <span class="badge badge-pill badge-success">FREE</span>
@@ -42,11 +44,11 @@ We're very happy with this new pricing, because we believe it is _fair to everyo
 - Open-source devs - you can now use Backpack for open-source projects;
 - Devs with low/no budget - you can now use Backpack\CRUD: no strings attached, no application form;
 - Professionals - when you buy `backpack/pro`, you get 12 months of updates and upgrades, _guaranteed_; no more worries about where we are in the release cycle; it's _always_ a good time to buy Backpack;
-- Maintainers - only people who purchase `backpack/pro` can now use the most complex features we've built and maintain; we hope that'll mean less piracy _and_ fewer reported issues;
+- Maintainers - less piracy, more time & resources to spend on adding new features;
 
-You can read more about this on [our pricing page](https://backpackforlaravel.com/pricing). We hope now you understand _why_ we're giving free access to v5 to everyone who purchased after 9 Feb 2021. We consider it _a bug fix_. We think it's only _fair_ for devs who have bought in 2021 to the same a dev that buys in 2022 gets (12 months of updates & upgrades).
+You can see the result of this change on [our pricing page](https://backpackforlaravel.com/pricing). We hope now you understand _why_ we're giving free access to v5 to everyone who purchased after 9 Feb 2021. We consider it _a bug fix_. We think it's only _fair_ for a dev who purchased in 2021 to _also_ get what we offer now...  which is 12 months of updates & upgrades. So we're activating this policy retroactively.
 
-**After this open-core split, we no longer offer non-commercial licenses for free. We've disabled our application form.** But... if you've previously received a free non-commercial Backpack v4 license, we've got your back. Reach out by email, we'll give you access to `backpack/pro` if your project is still non-commercial.
+**After this open-core split, we no longer offer non-commercial licenses for free, because our core offering is now free. So we've disabled our application form.** But... if you've previously received a free non-commercial Backpack v4 license, we've got your back. Reach out by email, we'll give you access to `backpack/pro` if your project is still non-commercial.
 
 
 <a name="added"></a>
@@ -122,7 +124,7 @@ This is particularly useful if you've ever overriden your `create()` or `store()
 
 #### Define validation rules directly on fields
 
-In addition to the array validation above... Backpack v5 has one more trick up its sleeve. You can now also define the validation rules and vlidation messages right when you define the field. No more `FormRequest`, no more defining the validation rules separately:
+In addition to the array validation above... Backpack v5 has one more trick up its sleeve. You can now also define the validation rules and validation messages right when you define the field. No more `FormRequest`, not even defining a validation array separately:
 
 ```php
 protected function setupCreateOperation()
@@ -206,7 +208,7 @@ We've spent _months_ building up and polishing the `relationship` field. It's no
 - ✅ `morphMany` (1-n) - shows a select2_multiple OR a subform if you define `subfields`
 - ✅ `morphToMany` (n-n) - shows a select2_multiple OR a subform if you define `subfields` for pivot extras
 
-One HUGE addition we've made in v5 is... 🥁🥁🥁 subfields. For complex relationship, you just need to define `subfields` and the select2 will be turned into a subform, allowing your admin to define extra attributes. This will save you _hours_ or even _days_ when you have complex relationships. Because right in the current form, your admin can now easily:
+**One HUGE addition we've made in v5 is... 🥁🥁🥁 subfields.** For complex relationship, just define `subfields` and the select2 will be turned into a subform, allowing your admin to define extra attributes. This will save you _hours_ or even _days_ when you have complex relationships. Because right in the current form, your admin can now easily:
 - [create/update/delete a related 1-1 entry](/docs/{{version}}/crud-how-to#hasone-1-1-relationship) (`hasOne` and `morphOne`, eg. User and UserDetail)
 - [create/update/delete related 1-n entries](/docs/{{version}}/crud-fields#manage-related-entries-in-the-same-form-create-update-delete) (`hasMany` and `morphMany`, eg. Invoice and InvoiceItem)
 - [edit columns on the pivot table of n-n relationships](/docs/{{version}}/crud-fields#save-additional-data-to-pivot-table) (`belongsToMany` and `morphToMany`, eg. 'position' on company_user)
@@ -214,6 +216,8 @@ One HUGE addition we've made in v5 is... 🥁🥁🥁 subfields. For complex rel
 Check out the links above for more info, but in short, `subfields` will look and work just as you'd expect, like a `repeatable` field (because, under the hood, that's what it uses):
 
 ![](https://backpackforlaravel.com/uploads/docs-4-2/fields/repeatable_hasMany_entries.png)
+
+Achieving this feature in a "general" way was crazy-difficult. All the credit here goes to our team member Pedro Martins (@pxpm) - he's been a real hero, working on this for _months_, so that you can do it in _seconds_.
 
 <hr>
 

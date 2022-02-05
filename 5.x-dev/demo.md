@@ -8,7 +8,7 @@ We've put together a working Laravel app (backend-only), that you can install on
 - change stuff in code, to see how easy it is to customize Backpack; 
 
 In this [Demo repository](https://github.com/laravel-backpack/demo), we've:
-- installed Laravel 9;
+- installed Laravel 8;
 - installed Backpack\CRUD; <span class="badge badge-pill badge-success">FREE</span>
 - installed Backpack\PRO; <span class="badge badge-pill badge-info">PRO</span>
 - created a few demo models and admin panels for them, using dozens of field types, column types, filters, etc - to show off most of Backpack CRUD + PRO features;
