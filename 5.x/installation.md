@@ -29,7 +29,7 @@ cd your-laravel-project-name
 
 ``` bash
 # require Backpack using Composer
-composer require backpack/crud:"v5.x-dev"
+composer require backpack/crud:"^5.0"
 composer require --dev backpack/generators
 
 # run the installation command
