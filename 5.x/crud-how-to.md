@@ -389,7 +389,7 @@ CRUD::field('phone.type')->type('select_from_array')->options(['mobile' => 'Mobi
     - the foreign key is stored on the Phone (`user_id` on `phones` table)
 - how to use:
     - [the `belongsTo` relationship should be properly defined](https://laravel.com/docs/eloquent-relationships#one-to-many-inverse) in the Phone model;
-    - you can easily add a dropdown to let the admin pick which User the Phone belongs; you can use any of the dropdown fields, but for convenience we've made a list here, and broken them down depending on aproximately how many entries the dropdown will have:
+    - you can easily add a dropdown to let the admin pick which User the Phone belongs; you can use any of the dropdown fields, but for convenience we've made a list here, and broken them down depending on approximately how many entries the dropdown will have:
         - for 0-10 dropdown items - we recommend you use the [`relationship`](#relationship) or [`select`](#select) field;
         - for 0-500 dropdown items - we recommend you use the [`relationship`](#relationship) or [`select2`](#select2) field;
         - for 500-1.000.000+ dropdown items - we recommend you load the dropdown items using AJAX, by using the [`relationship`](#relationship) field and Fetch operation (alternatively, use the [`select2_from_ajax`](#select2-from-ajax) field);
@@ -472,7 +472,7 @@ CRUD::field('users');
 - notes:
     - if you choose to use the [`relationship`](#relationship) field type, you can also use [the InlineCreate operation](/docs/{{version}}/crud-operation-inline-create), which will add a `[+ Add Item]` button next to the dropdown, to let the admin create a User/Role in a modal, without leaving the current Create User/Role form;
 
-##### EXTRA: Saving aditional attributes to the pivot table
+##### EXTRA: Saving additional attributes to the pivot table
 
 If your pivot table has additional database columns (eg. not only `user_id` and `role_id` but also `notes` or `supervisor`, you can use the `relationship` field to show a subform, instead of a `select2`, and show `subfields` for each of those attributes you want edited on the pivot table. For the example above (`User -> BelongsToMany -> Roles`) you should do the following:
 
@@ -601,11 +601,11 @@ Please read the relationship [BelongsToMany](#belongstomany) documentation, ever
 
 #### MorphTo (n-1 relationship)
 
-- We do not provide an interface to edit this relationship. We never needed it, nobody ever asked for it and it would be very difficult to create an interface that is easy-to-use and easy-to-understand for the admin. If you find yourself needing this, please let us know by opening an issue on Github.
+- We do not provide an interface to edit this relationship. We never needed it, nobody ever asked for it and it would be very difficult to create an interface that is easy-to-use and easy-to-understand for the admin. If you find yourself needing this, please let us know by opening an issue on GitHub.
 
 #### MorphedByMany (n-n inverse relationship)
 
-- We do not provide an interface to edit this relationship. We never needed it, nobody ever asked for it and it would be very difficult to create an interface that is easy-to-use and easy-to-understand for the admin. If you find yourself needing this, please let us know by opening an issue on Github.
+- We do not provide an interface to edit this relationship. We never needed it, nobody ever asked for it and it would be very difficult to create an interface that is easy-to-use and easy-to-understand for the admin. If you find yourself needing this, please let us know by opening an issue on GitHub.
 
 
 <a name="operations"></a>
@@ -617,7 +617,7 @@ Please read the relationship [BelongsToMany](#belongstomany) documentation, ever
 
 You might want to add a new attribute to the Model that gets saved. Let's say you want to add an `updated_by` indicator to the Update operation, containing the ID of the user currently logged in (`backpack_user()->id`).
 
-**Option 1.** Sure, in your `ProductCrudController::setupUpdateOperation()` can do `CRUD::field('updated_by')->type('hidden')->value(backpack_user()->id);`, but because that hidden field is inside the HTML, it opens up the possiblity that a malicious actor will edit the value of the input, in the browser.
+**Option 1.** Sure, in your `ProductCrudController::setupUpdateOperation()` can do `CRUD::field('updated_by')->type('hidden')->value(backpack_user()->id);`, but because that hidden field is inside the HTML, it opens up the possibility that a malicious actor will edit the value of the input, in the browser.
 
 
 **Option 2.** You can change the `strippedRequest` closure inside your `ProductCrudController::setup()`:

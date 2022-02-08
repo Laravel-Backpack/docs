@@ -139,14 +139,14 @@ An admin panel for user authentication on Laravel 5, using Backpack\CRUD. Add, e
 
 An admin panel for menu items on Laravel 5, using Backpack\CRUD. Add, edit, reorder, nest, rename menu items and link them to Backpack\PageManager pages, external link or custom internal link.
 
-[>> Github](https://github.com/Laravel-Backpack/MenuCRUD)
+[>> GitHub](https://github.com/Laravel-Backpack/MenuCRUD)
 
 <a name="news-crud"></a>
 ## NewsCrud
 
 Since NewsCRUD does not provide any extra functionality other than Backpack\CRUD, it is not a package. It's just a tutorial to show you how this can be achieved. In the future, CRUD examples like this one will be easily installed from the command line, from a central repository. Until then, you will need to manually create the files.
 
-[>> Github](https://github.com/Laravel-Backpack/NewsCRUD)
+[>> GitHub](https://github.com/Laravel-Backpack/NewsCRUD)
 
 
 <a name="file-manager"></a>

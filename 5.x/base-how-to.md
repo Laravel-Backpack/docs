@@ -108,7 +108,7 @@ White top menu, dark sidebar.
 ```
 
 <a href="inspired-by-github"></a>
-#### Inspired by Github
+#### Inspired by GitHub
 
 Black top menu, white sidebar.
 
@@ -301,7 +301,7 @@ You can use child themes to:
 
 
 <a name="add-custom-javascript"></a>
-### Add custom Javascript to all admin panel pages
+### Add custom JavaScript to all admin panel pages
 
 In ```config/backpack/base.php``` you'll notice this config option:
 

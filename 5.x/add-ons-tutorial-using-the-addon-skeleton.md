@@ -42,14 +42,14 @@ php artisan packager:new --i --skeleton="https://github.com/Laravel-Backpack/add
 ```
 
 It will then ask you some basic information about the package. Keep in mind:
-- the ```vendor-name``` should probably be your Github handle (or organisation), in kebab-case (ex: `company-name`); it will be used for folder names, but also for Github and Packagist links;
+- the ```vendor-name``` should probably be your GitHub handle (or organisation), in kebab-case (ex: `company-name`); it will be used for folder names, but also for GitHub and Packagist links;
 - the ```package-name``` should be in `kebab-case` too (ex: ```moderate-operation```);
 - the `skeleton`, if you haven't copied the entire command above, should probably be the one we provide: `https://github.com/Laravel-Backpack/addon-skeleton/archive/master.zip`, which has everything you need to quickly create a Backpack add-on, including an innovative `AddonServiceProvider` that "_just works_"; 
 - the ```website``` should be a valid URL, so include the protocol too: ```http://example.com```;
 - the ```description``` should be pretty short; you can change it later in `composer.json`;
 - the ```license``` is just the license name, if it's a common one (ex: ```MIT```, ```GPLv2```); our skeleton assumes you want `MIT` but you can easily change it;
 
-Ok great. The command has:
+OK great. The command has:
 - created a ```/packages/vendor-name/package-name``` folder in your root directory;
 - modified your project's ```composer.json``` file to load the files in this new folder;
 
@@ -148,7 +148,7 @@ If you _will_ be using config files, to let the users of your package publish it
 - you already have a file generated in `/packages/vendor-name/package-name/config/package-name.php`;
 - cut&paste any config values you want over here; if you add for example `config_key`, it'll be available in your classes using `config('vendor-name.package-name.config_key')`;
 
-If you don't have any configs right now, but will want to add later, that's ok too. Do it later.
+If you don't have any configs right now, but will want to add later, that's OK too. Do it later.
 
 #### Files inside your project's `database` directory
 
@@ -174,7 +174,7 @@ If it will, notice you already have a lang file created for English, in your pac
 
 #### Files inside your project's `routes` directory
 
-If your package only adds a view (ex: a field, a column, a filter, a widget) then it probably wont't need a route, you can just delete the entire `routes` directory in your package.
+If your package only adds a view (ex: a field, a column, a filter, a widget) then it probably won't need a route, you can just delete the entire `routes` directory in your package.
 
 If you package _does_ need routes (like when it provides an entire CRUD), you'll find there's already a file in your `/packages/vendor-name/package-name/route/package-name.php`, waiting for your routes, with a few helpful comments. Just cut&paste the routes from your project inside that file.
 
@@ -214,9 +214,9 @@ If you plan to make this package public, take the `README.md` seriously, because
 ## Part C. Put The Package Online
 
 
-First, [create a new Github Repository](https://github.com/new) for it. Remember to use the same name you defined in your package's ```composer.json```. If in doubt, double-check.
+First, [create a new GitHub Repository](https://github.com/new) for it. Remember to use the same name you defined in your package's ```composer.json```. If in doubt, double-check.
 
-Second, add that new Github Repo as a remote, and push your code to your new Github repo.
+Second, add that new GitHub Repo as a remote, and push your code to your new GitHub repo.
 
 ```bash
 # save your working files to Git
@@ -239,7 +239,7 @@ The tags are the way you will version your package, so it's important you do it.
 
 In order for people to be able to install your package using Composer, your package needs to be registered with [Packagist.org](https://packagist.org/), Composer's free package registry.
 
-On [Packagist.org](https://packagist.org/), submit a new package. Enter your package's GitHub URL and click Check. If any errors occur, follow the onscreen instructions. When you're done, you're taken to your package's packagist page.
+On [Packagist.org](https://packagist.org/), submit a new package. Enter your package's GitHub URL and click Check. If any errors occur, follow the onscreen instructions. When you're done, you're taken to your package's Packagist page.
 
 **Congrats, you have a working package online**, you can now install it using Composer.
 
@@ -247,7 +247,7 @@ Note: On the package page, you might get a notice like this: _This package is no
 
 
 <a name="install-the-repo-from-github"></a>
-## Part E. Install the repo from Github 
+## Part E. Install the repo from GitHub 
 
 If you look close to your project's `composer.json` file, you'll notice your project is loading the package from `packages/vendor-name/package-name`. Which is fine, it's worked fine until now. But it's now time to install the package like your users will, and have it in `vendor/vendor-name/package-name`. That way:
 - you test that your users are able to install the package;
@@ -264,7 +264,7 @@ php artisan packager:remove vendor-name package-name
 ```
 
 And now install it exactly the same as your users will:
-- if it's closed-source, add the Github repo to your `composer.json` then move on to the next step; do NOT do this if your package is open-source:
+- if it's closed-source, add the GitHub repo to your `composer.json` then move on to the next step; do NOT do this if your package is open-source:
 
 ```json
     "repositories": {
@@ -275,13 +275,13 @@ And now install it exactly the same as your users will:
     }
 ```
 
-- both for closed-source and open-source (on Packagist), install it using Composer's `--prefer-source` flag, so that it pulls the actual Github repo:
+- both for closed-source and open-source (on Packagist), install it using Composer's `--prefer-source` flag, so that it pulls the actual GitHub repo:
 
 ```bash
 composer require vendor-name/package-name --prefer-source
 ```
 
-That's it. It should be working fine now, but from the `vendor/vendor-name/package-name` directory. You can `cd vendor/vendor-name/package-name` and you'll see that you can `git checkout master`, make changes, tag releases, push to github, everything.
+That's it. It should be working fine now, but from the `vendor/vendor-name/package-name` directory. You can `cd vendor/vendor-name/package-name` and you'll see that you can `git checkout master`, make changes, tag releases, push to GitHub, everything.
 
 
 <a name="feedback-and-promotion"></a>
@@ -291,7 +291,7 @@ Congratulations on your new Backpack addon!
 
 To get feedback, ask people to try it on:
 - [our addons repo](https://github.com/laravel-backpack/addons)
-- [our subredddit](https://www.reddit.com/r/BackpackForLaravel/)
+- [our subreddit](https://www.reddit.com/r/BackpackForLaravel/)
 - [our Gitter chatroom](https://gitter.im/BackpackForLaravel/Lobby)
 
 Make sure you write something nice, so people are interested to click.

@@ -20,7 +20,7 @@ Here are the big things Backpack v5 brings to the table and why you should upgra
 - you have access to all v5.x.x updates for 12 months from your purchase date;
 - if we release a v6 in those 12 months, you'll also have access to the v6 upgrade;
 - even after those 12 months go buy, you'll still have access to those versions, for ever;
-- you can [generate a token & password for v5 automatically, in your Backpack acount](https://backpackforlaravel.com/user/tokens);
+- you can [generate a token & password for v5 automatically, in your Backpack account](https://backpackforlaravel.com/user/tokens);
 
 Basically, if you expected your updates to end... because we launched a new version... they don't. We think it's important that when you purchase Backpack, you get an extraordinary bang-for-buck. So if you've purchased towards the end of Backpack's release cycle, we've made sure that you receive at least 12 months of updates & upgrades... which means... free upgrade to v5. We believe that's the _fair_ thing to do - give you guarantees that whenever you buy Backpack, you'll receive updates for a reasonable amount of time. It's one of the reasons we changed our pricing.
 
@@ -116,7 +116,7 @@ public function setupCreateOperation()
 }
 ```
 
-This is particularly useful if you've ever overriden your `create()` or `store()` methods in your CrudController. Now... you don't really have to do that any more, you can do stuff directy on the model, upon an event. But it's not limited to that use case, since it supports [all Eloquent events](https://laravel.com/docs/master/eloquent#events).
+This is particularly useful if you've ever overridden your `create()` or `store()` methods in your CrudController. Now... you don't really have to do that any more, you can do stuff directly on the model, upon an event. But it's not limited to that use case, since it supports [all Eloquent events](https://laravel.com/docs/master/eloquent#events).
 
 <hr>
 
@@ -257,7 +257,7 @@ Of course, Backpack now uses this directive in all views that could get repeated
 
 Starting with v5, Backpack will throttle password request attempts. This will prevent malicious actors from using the "reset password" functionality of your admin panel to send unsolicited emails.
 
-In addition, most column types now escape the output by default. This will better prevent your admins from XSS attacks, in case where you do not trust the information in the database to not contain javascript payloads.
+In addition, most column types now escape the output by default. This will better prevent your admins from XSS attacks, in case where you do not trust the information in the database to not contain JavaScript payloads.
 
 <a name="removed"></a>
 ## Removed

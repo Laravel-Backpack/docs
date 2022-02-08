@@ -24,7 +24,7 @@ php artisan packager:new MyName SomeCustomOperation --i
 ```
 
 Keep in mind:
-- the ```MyName``` should be your Github handle (or organisation), in studly case (```CompanyName```);
+- the ```MyName``` should be your GitHub handle (or organisation), in studly case (```CompanyName```);
 - the ```SomeCustomOperation``` should be the package name you want, in studly case (```ModerateOperation```);
 - the ```website``` should be a valid URL, so include the protocol too: ```http://example.com```;
 - the ```description``` should be pretty short;
@@ -106,7 +106,7 @@ That way, developers define config values for your custom operation the same way
 
 **Translations**
 
-If your Operation has an inteface, it most likely also needs a translation file, so that strings are translatable. To add a translation file:
+If your Operation has an interface, it most likely also needs a translation file, so that strings are translatable. To add a translation file:
 - inside your ServiceProvider's ```boot()``` method, include:
 ```bash
 $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'backpack');
@@ -154,11 +154,11 @@ git commit -m "first commit"
 
 
 <a name="put-it-on-github"></a>
-### Put it on Github
+### Put it on GitHub
 
-First, [create a new Github Repository](https://github.com/new) for it. Remember to use the same name you defined in your package's ```composer.json```. If in doubt, double-check.
+First, [create a new GitHub Repository](https://github.com/new) for it. Remember to use the same name you defined in your package's ```composer.json```. If in doubt, double-check.
 
-Second, add that new Github Repo as a remote, and push your code to your new Github repo.
+Second, add that new GitHub Repo as a remote, and push your code to your new GitHub repo.
 
 ```bash
 git remote add origin git@github.com:yourusername/yourrepository.git
@@ -186,7 +186,7 @@ Note: On the package page, you might get a notice like this: _This package is no
 Congratulations on your new Backpack addon! 
 
 To get feedback, ask people to try it on:
-- [our subredddit](https://www.reddit.com/r/BackpackForLaravel/)
+- [our subreddit](https://www.reddit.com/r/BackpackForLaravel/)
 - [our Gitter chatroom](https://gitter.im/BackpackForLaravel/Lobby)
 
 Make sure you write something nice, so people are interested to click.
