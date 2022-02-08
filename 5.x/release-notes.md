@@ -19,8 +19,8 @@ Here are the big things Backpack v5 brings to the table and why you should upgra
 **The good news** - if you've purchased Backpack v4 after 9 Feb 2021:
 - you have access to all v5.x.x updates for 12 months from your purchase date;
 - if we release a v6 in those 12 months, you'll also have access to the v6 upgrade;
-- even after those 12 months go buy, you'll still have access to those versions, for ever;
-- you can [generate a token & password for v5 automatically, in your Backpack account](https://backpackforlaravel.com/user/tokens);
+- even after those 12 months go by, you'll still have access to those versions, for ever;
+- you can [generate a token & password for v5 automatically, in your Backpack acount](https://backpackforlaravel.com/user/tokens);
 
 Basically, if you expected your updates to end... because we launched a new version... they don't. We think it's important that when you purchase Backpack, you get an extraordinary bang-for-buck. So if you've purchased towards the end of Backpack's release cycle, we've made sure that you receive at least 12 months of updates & upgrades... which means... free upgrade to v5. We believe that's the _fair_ thing to do - give you guarantees that whenever you buy Backpack, you'll receive updates for a reasonable amount of time. It's one of the reasons we changed our pricing.
 
