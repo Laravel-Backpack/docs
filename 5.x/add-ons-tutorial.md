@@ -7,13 +7,13 @@
 
 So you've created a custom field, column, filter, or an entire CRUD. Great! If you want to re-use it across projects, or you think _other people_ would like to use it too, there's a good way to do that. 
 
-The process below will involve creating a new package on Github, Composer & Packagist - which is a little challenging to wrap your head around, the first time you do it. But if you were able to create a custom field, you will be able to do that too. And in doing this, you'll learn the basics of creating and maintaining a PHP package. That's something that not all PHP developers can do, so it's pretty cool, I think. 
+The process below will involve creating a new package on GitHub, Composer & Packagist - which is a little challenging to wrap your head around, the first time you do it. But if you were able to create a custom field, you will be able to do that too. And in doing this, you'll learn the basics of creating and maintaining a PHP package. That's something that not all PHP developers can do, so it's pretty cool, I think. 
 
 > If you already know how to create & maintain a PHP package, this tutorial might be too easy for you. Try to skim it, because we give useful tips. But you can also just go to [:DigitallyHappy/toggle-field-for-backpack](https://github.com/DigitallyHappy/toggle-field-for-backpack), clone the repo and make the changes you see fit.
 
 Requirements:
 - a working installation of Laravel & Backpack 4 (alternative: you can install the [Backpack demo](https://github.com/laravel-backpack/demo));
-- a Github account (free or paid);
+- a GitHub account (free or paid);
 - 15-30 minutes;
 
 
@@ -34,7 +34,7 @@ Once you know what you're building, there are a few constants which you need to 
 - Bad Examples: ```custom-field``` (too general), ```cbf``` (too cryptic), ```aurora``` (this is not the place to be creative :smile: );
 Since in this example we're trying to build a package for the new ```dummy``` field type, we'll choose ```dummy-field-for-backpack``` as the package name.
 
-**Vendor Name.** You noticed how every time you install a composer package, it's ```composer install something/package-name```? Well that's what that "something" is - the _vendor name_. It's usually the name of the company or person behind the project. The easiest to remember would be your github username, or your company's github username. But, if you're not happy with those, you _can_ choose a different vendor name - basically a brand name, under which you build packages. This could be the place to be creative :smile:, if you don't have a company name already. In the example below we'll use ```company-name```.
+**Vendor Name.** You noticed how every time you install a composer package, it's ```composer install something/package-name```? Well that's what that "something" is - the _vendor name_. It's usually the name of the company or person behind the project. The easiest to remember would be your GitHub username, or your company's GitHub username. But, if you're not happy with those, you _can_ choose a different vendor name - basically a brand name, under which you build packages. This could be the place to be creative :smile:, if you don't have a company name already. In the example below we'll use ```company-name```.
 
 **Class Namespace.** When people reference your package's classes, this is what they see first. It's a good practice to use VendorName/PackageName as the namespace for your package. But notice it's no longer kebab-case (using dashes - ```my-company/dummy-field-for-backpack```), it is PascalCase (```MyCompany/DummyFieldForBackpack```).
 
@@ -51,7 +51,7 @@ To get your package online ASAP, we've prepared a few "skeleton" packages, that 
 - TODO - multiple CRUD add-on example;
 - TODO - CRUD with dependencies add-on example;
 
-Pick the skeleton package that's as similar as possible to what you want to build. On its Github page, under if you click the green **Clone or Download** button, you'll get the path to that repo. In your project, let's clone that repo:
+Pick the skeleton package that's as similar as possible to what you want to build. On its GitHub page, under if you click the green **Clone or Download** button, you'll get the path to that repo. In your project, let's clone that repo:
 ```bash
 # git clone {REPO URL} packages/{VENDOR NAME}/{PACKAGE NAME}
 git clone git@github.com:DigitallyHappy/toggle-field-for-backpack.git packages/my-company/dummy-field-for-backpack
@@ -74,7 +74,7 @@ Take a look at all of them and modify to fit your needs. It should be faster to 
 - **vendor name** - find ```digitallyhappy``` and replace with your _vendor-name_ (ex: ```my-company```);
 - **author name** - find ```Cristian Tabacitu``` and replace with your name (ex: ```John Doe```);
 - **author email** - find ```hello@tabacitu.ro``` and replace with your email (ex: ```john@example.com```);
-- **author website** - find ```https://tabacitu.ro``` and replace with your website or Github page (ex: ```http://example.com```);
+- **author website** - find ```https://tabacitu.ro``` and replace with your website or GitHub page (ex: ```http://example.com```);
 - open ```changelog.md``` and keep only the 1.0.0 version; put today's date;
 - open ```composer.json``` and change the description of your package;
 - open ```readme.md``` and change the text to better describe _your_ package; don't worry about the screenshot, we'll change that one in a future step;
@@ -127,7 +127,7 @@ You might not have used git tags until now. Tags are the way you will version yo
 
 On [Packagist.org](http://packagist.org), create an account if you don't have one already, then click "Submit package" in the top-right corner. Enter your package's GitHub URL and click Check. If any errors occur, follow the onscreen instructions.
 
-When you're done, you'll be taken to your packagist page, where you'll probably get a notice like this:
+When you're done, you'll be taken to your Packagist page, where you'll probably get a notice like this:
 
 >This package is not auto-updated. Please set up the [GitHub Service Hook](https://packagist.org/profile/) for Packagist so that it gets updated whenever you push!
 
@@ -172,7 +172,7 @@ After your package is online and ready to use, double-check that it's working we
 ### Your README is your home page
 Afterwards go to your README file again, and make sure it's the best it can be. Remember, your README file is the first thing people see when they find your package. If it's not appealing, they won't use it. If it doesn't do a good job of explaining how to use it, they won't use it. Take this seriously. This is where A LOT of packages go wrong - the authors do not spend the right amount of time on their README page.
 
-IMPORTANT. Make sure your README has a nice screenshot of the functionality you're offering. The easier it is for a developer to see the benefit of using your package, the more likely it is for them to install it. There's a trick in uploading images to Github, then using them in your README file. Go to your package's Github page, and add an issue. In that issue's body, drag&drop the screenshot image. Github will upload it, and give it an URL. Copy-paste that URL, submit the issue (you can also already close the issue), then use that image URL inside your README file. Boom! Free image hosting.
+IMPORTANT. Make sure your README has a nice screenshot of the functionality you're offering. The easier it is for a developer to see the benefit of using your package, the more likely it is for them to install it. There's a trick in uploading images to GitHub, then using them in your README file. Go to your package's GitHub page, and add an issue. In that issue's body, drag&drop the screenshot image. GitHub will upload it, and give it an URL. Copy-paste that URL, submit the issue (you can also already close the issue), then use that image URL inside your README file. Boom! Free image hosting.
 
 By now you should have made some changes to your files, inside your ```vendor/my-company/dummy-field-for-backpack``` directory.
 
@@ -194,7 +194,7 @@ git push origin master --tags
 Congratulations on your new Backpack addon! 
 
 To get feedback, ask people to try it on:
-- [our subredddit](https://www.reddit.com/r/BackpackForLaravel/)
+- [our subreddit](https://www.reddit.com/r/BackpackForLaravel/)
 - [our Gitter chatroom](https://gitter.im/BackpackForLaravel/Lobby)
 
 Make sure you write something nice, so people are interested to click.

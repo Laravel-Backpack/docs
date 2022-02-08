@@ -82,7 +82,7 @@ php artisan backpack:crud tag #use singular, not plural
 
 In both cases, what we're getting is a simple CRUD panel, which you should now be able to see in the Sidebar.
 
-For a simple entry like this, the generated CRUD panel will even work "as is", no need for customizations. But don't expect this for more complex entities. They will usually have particularities and need customization. That's where Backpack shines - modifying anything in the CRUD Panel is easy and intuitive, once you understand how it works.
+For a simple entry like this, the generated CRUD panel will even work "as is", no need for customisations. But don't expect this for more complex entities. They will usually have particularities and need customization. That's where Backpack shines - modifying anything in the CRUD Panel is easy and intuitive, once you understand how it works.
 
 The methods above will generate:
 - a **migration** file
