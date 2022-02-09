@@ -43,7 +43,7 @@ Please **go thorough all steps**, to ensure a smooth upgrade process. The steps 
         "backpack/pro": "^1.0.0",
 ```
 
-These two packages together will help you have all the features in v4.1 and more. But since `backpack/pro` is a closed-source package, to download it, you need to generate [your token and password here](https://backpackforlaravel.com/user/tokens). If no button is there for you, it means you don't have free access to `backpack/pro`, so you'll need to [purchase it](https://backpackforlaravel.com/pricing). **[Follow the 2-step process called "Instructions" in your token](https://backpackforlaravel.test/user/tokens), if you haven't already done that on this project.**
+These two packages together will help you have all the features in v4.1 and more. But since `backpack/pro` is a closed-source package, to download it, you need to generate [your token and password here](https://backpackforlaravel.com/user/tokens). If no button is there for you, it means you don't have free access to `backpack/pro`, so you'll need to [purchase it](https://backpackforlaravel.com/pricing). **[Follow the 2-step process called "Instructions" in your token](https://backpackforlaravel.com/user/tokens), if you haven't already done that on this project.**
 
 
 <a name="step-2" href="#step-2" class="badge badge-warning text-white" style="text-decoration: none;">Step 2.</a> If you have first-party addons installed (eg. Backpack\PermissionManager), there's nothing you need to do. They all work without a version bump. However, if you have third-party Backpack add-ons installed, you might want to bump their versions - please check each addon's page.
