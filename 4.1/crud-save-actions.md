@@ -10,7 +10,7 @@
 <a name="defaults"></a>
 ## Default Save Actions
 
-There are three save actions registered by Backpack by default. They are:
+There are four save actions registered by Backpack by default. They are:
   - ```save_and_back``` (Save your entity and go back to previous URL)
   - ```save_and_edit``` (Save and edit the current entry)
   - ```save_and_new``` (Save and go to create new entity page)
