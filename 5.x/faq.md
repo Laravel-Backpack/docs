@@ -37,7 +37,7 @@ Backpack PRO is a closed-source add-on, which requires payment in order to recei
 
 
 <a name="backpack-pro-for-non-commercial-projects"></a>
-### Can I get use Backpack PRO for free in a non-commercial project?
+### Can I get Backpack PRO for free, to use in a non-commercial project?
 
 No, sorry, we're no longer giving away free licenses. But we _have_ released [Backpack CRUD v5](https://github.com/laravel-backpack/crud) under MIT License, which means it's free & open-source. It has fewer features, but you can do absolutely anything you want with it.
 
