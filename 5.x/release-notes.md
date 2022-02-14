@@ -34,7 +34,7 @@ Previously, when you were buying a Backpack v4 license, you didn't know how many
 
 **Starting with v5, the features that were previously in "Backpack\CRUD" are now split between two packages:**
 - **[Backpack\CRUD](https://github.com/laravel-backpack/crud) is the free & open-source core**, released under the [MIT License](https://github.com/Laravel-Backpack/CRUD/blob/master/LICENSE.md); <span class="badge badge-pill badge-success">FREE</span>
-- **[Backpack\PRO](https://backpackforlaravel.com/products/pro) is a paid closed-source Backpack add-on**, released under our [EULA](https://backpackforlaravel.com/eula); <span class="badge badge-pill badge-info">PRO</span>
+- **[Backpack\PRO](https://backpackforlaravel.com/products/pro-for-unlimited-projects) is a paid closed-source Backpack add-on**, released under our [EULA](https://backpackforlaravel.com/eula); <span class="badge badge-pill badge-info">PRO</span>
 
 Since `backpack/pro` is released under the same terms of our `backpack/devtools` package:
 - you get 12 months of updates _and upgrades_, guaranteed;

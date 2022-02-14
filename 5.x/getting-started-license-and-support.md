@@ -20,11 +20,11 @@ Take a look at:
 Starting with v5, Backpack has become open-core. The main features are now split into two packages:
 
 - [Backpack\CRUD](https://github.com/laravel-backpack/crud) is the core, released under the [MIT License](https://github.com/Laravel-Backpack/CRUD/blob/master/LICENSE.md) (free, open-source); <span class="badge badge-pill badge-success">FREE</span>
-- [Backpack\PRO](https://backpackforlaravel.com/products/pro) is a Backpack add-on, released under our [EULA](https://backpackforlaravel.com/eula) (paid, closed-source); <span class="badge badge-pill badge-info">PRO</span>
+- [Backpack\PRO](https://backpackforlaravel.com/products/pro-for-unlimited-projects) is a Backpack add-on, released under our [EULA](https://backpackforlaravel.com/eula) (paid, closed-source); <span class="badge badge-pill badge-info">PRO</span>
 
 Backpack\CRUD is perfect if you're building a simple admin panel - it's packed with features! It's also perfect if you're building an open-source project, the permissive license allows you to do whatever you want.
 
-When your admin panel grows and your needs become more complex, you can purchase our [Backpack\PRO](https://backpackforlaravel.com/products/pro) add-on, which adds A LOT of features for complex use-cases (see [list here]([Backpack\Pro](https://backpackforlaravel.com/products/pro))). Our documentation includes instructions on how to use both Backpack\CRUD and Backpack\PRO, with all the PRO features clearly labeled <span class="badge badge-pill badge-info">PRO</span>
+When your admin panel grows and your needs become more complex, you can purchase our [Backpack\PRO](https://backpackforlaravel.com/products/pro-for-unlimited-projects) add-on, which adds A LOT of features for complex use-cases (see [list here]([Backpack\Pro](https://backpackforlaravel.com/products/pro-for-unlimited-projects))). Our documentation includes instructions on how to use both Backpack\CRUD and Backpack\PRO, with all the PRO features clearly labeled <span class="badge badge-pill badge-info">PRO</span>
 
 
 <a name="support"></a>

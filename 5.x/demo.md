@@ -27,7 +27,7 @@ If you just want to take a look at the Backpack interface and click around, you 
 <a name="installation"></a>
 ## Demo Installation
 
-If you _do_ want to install the Demo and play around, it's easy to do so. But because the demo uses [Backpack/PRO](https://backpackforlaravel.com/products/pro), you need to [purchase that addon first](https://backpackforlaravel.com/products/pro). If you don't like it, we'll happily give you a refund.
+If you _do_ want to install the Demo and play around, it's easy to do so. But because the demo uses [Backpack/PRO](https://backpackforlaravel.com/products/pro-for-unlimited-projects), you need to [purchase that addon first](https://backpackforlaravel.com/products/pro-for-unlimited-projects). If you don't like it, we'll happily give you a refund.
 
 1) In your ```Projects``` or ```www``` directory, wherever you host your apps:
 

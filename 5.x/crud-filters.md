@@ -11,7 +11,7 @@ Backpack CRUD allows you to show a filters bar right above the entries table. Wh
 
 Just like with fields, columns or buttons, you can add existing filters or create a custom filter that fits to your particular needs. Everything's done inside your ```EntityCrudController::setupListOperation()```. 
 
-This is a <span class="badge badge-info">PRO</span> feature. It requires that you have [purchased access to `backpack/pro`](https://backpackforlaravel.com/products/pro).
+This is a <span class="badge badge-info">PRO</span> feature. It requires that you have [purchased access to `backpack/pro`](https://backpackforlaravel.com/products/pro-for-unlimited-projects).
 
 <a name="methods"></a>
 ### Filters API

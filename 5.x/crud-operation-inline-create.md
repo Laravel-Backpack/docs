@@ -20,7 +20,7 @@ For example:
 ## Requirements
 
 
-This is a <span class="badge badge-info">PRO</span> operation. It requires that you have [purchased access to `backpack/pro`](https://backpackforlaravel.com/products/pro).
+This is a <span class="badge badge-info">PRO</span> operation. It requires that you have [purchased access to `backpack/pro`](https://backpackforlaravel.com/products/pro-for-unlimited-projects).
 
 In addition, it needs:
 - a working Create operation;
