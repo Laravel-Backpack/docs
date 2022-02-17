@@ -165,11 +165,7 @@ To create a new page for your admin panel, you can follow the same process you w
 
 ```php
 
-# Step 1. Create a route for it (we recommend you place it in your `routes/backpack/custom.php` for simplicity)
-
-Route::get('example-page', 'PageController@example');
-
-# Step 2. Create the controller (we recommend you place it in your `app/Http/Controllers/Admin`)
+# Step 1. Create the controller (we recommend you place it in your `app/Http/Controllers/Admin`)
 
 <?php
 
@@ -186,6 +182,10 @@ class PageController extends Controller
         return view('admin.example_page', $data);
     }
 }
+
+# Step 2. Create a route for it (we recommend you place it in your `routes/backpack/custom.php` for simplicity)
+
+Route::get('example-page', 'PageController@example');
 
 # Step 3. Create the view (we recommend you place it in your `resources/views/admin`:
 
