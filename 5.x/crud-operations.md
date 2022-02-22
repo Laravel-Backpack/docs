@@ -299,7 +299,7 @@ If you intend to reuse this operation across multiple controllers, you can group
 ```php
 <?php
 
-namespace App\Http\Controllers\Admin\CustomOperations;
+namespace App\Http\Controllers\Admin\Operations;
 
 use Illuminate\Support\Facades\Route;
 
@@ -331,7 +331,7 @@ trait PublishOperation
 }
 ```
 
-In the example above, you could just do ```use \App\Http\Controllers\Admin\CustomOperations\PublishOperation;``` on any EntityCrudController, and your operation will be added - complete with routes, buttons, access, actions, everything.
+In the example above, you could just do ```use \App\Http\Controllers\Admin\Operations\PublishOperation;``` on any EntityCrudController, and your operation will be added - complete with routes, buttons, access, actions, everything.
 
 <a name="access-to-custom-operations"></a>
 ### Access to Custom Operations
