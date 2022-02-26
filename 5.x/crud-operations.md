@@ -462,7 +462,7 @@ Let's say we have a ```UserCrudController``` and we want to create a simple ```C
 1. Create a route for this operation - as we've learned above we can do that in a ```setupXxxRoutes()``` method:
 
 ```php
-    protected function setupPublishRoutes($segment, $routeName, $controller)
+    protected function setupCloneRoutes($segment, $routeName, $controller)
     {
         Route::get($segment.'/{id}/clone', [
             'as'        => $routeName.'.clone',
