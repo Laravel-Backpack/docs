@@ -2,7 +2,7 @@
 
 ---
 
-**Launch date:** (expected) Feb 9th, 2022
+**Launch date:** Feb 9th, 2022
 
 Backpack v5 is a major release, but NOT a huge time-consuming upgrade. Think of it as a "4.2" release, that we've had to name "v5", because we've also changed our business model. We have added new features and major improvements, but also kept the upgrading process as easy as possible. Plus...
 
