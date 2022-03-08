@@ -1473,6 +1473,8 @@ $this->crud->addField([
 ]);
 ```
 
+**NOTE:** If you prefer to use a mutator to save your image as we instructed in previous versions, please [have a look in this docs from 4.1.](https://backpackforlaravel.com/docs/4.1/crud-fields#image-1)
+
 > **The uploaded images are not deleted for you.** If you delete an entry (using the CRUD or anywhere inside your app), the image file won't be deleted from the disk.
 > If you're NOT using soft deletes on that Model and want the image to be deleted at the same time the entry is, just specify that in your Model's ```deleting``` event:
 > ```php
