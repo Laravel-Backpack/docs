@@ -1423,11 +1423,11 @@ Input preview:
 <a name="image"></a>
 ### image <span class="badge badge-pill badge-info">PRO</span>
 
-Upload an image and store it on the disk.
+Upload an image and store it on the disk. Allow the end-user to manipulate the image before saving (crop, zoom, rotate). 
+[Are you looking to use an image field inside a repeatable ? Follow me.](https://backpackforlaravel.com/docs/5.x/how-to#how-to-use-image-field-inside-repeatable)
 
 **Step 1.** Show the field.
 ```php
-// image
 $this->crud->addField([
     'label' => "Profile Image",
     'name' => "image",
@@ -1436,68 +1436,43 @@ $this->crud->addField([
     'aspect_ratio' => 1, // omit or set to 0 to allow any aspect ratio
     // 'disk'      => 's3_bucket', // in case you need to show images from a different disk
     // 'prefix'    => 'uploads/images/profile_pictures/' // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
+    'events' => [
+        'saving' => function($entry) {
+        // the code below requires that you have intervention/image installed. 
+        // if you don't, please do: composer require intervention/image 
+        
+            // if the image was erased
+            if (!request('image') && $entry->image) {
+                // delete the previous image from disk
+                \Storage::disk('public')->delete($entry->image);
+
+                $entry->image = null;
+            }
+
+            // if a base64 was sent, store it in the db
+            if (\Str::startsWith(request('image'), 'data:image'))
+            {
+                // 0. Make the image
+                $image = \Image::make(request('image'))->encode('jpg', 90);
+
+                // 1. Generate a filename.
+                $filename = md5(request('image').time()).'.jpg';
+
+                // 2. Store the image on disk.
+                \Storage::disk('public')->put($filename, $image->stream());
+
+                // 3. Delete the previous image, if there was one.
+                if($entry->image) {
+                    \Storage::disk('public')->delete($entry->image);
+                }
+
+                $entry->image = $filename;
+            }
+        }
+    ]
 ]);
 ```
 
-**Step 2.** Add a [mutator](https://laravel.com/docs/7.x/eloquent-mutators#defining-a-mutator) to your Model, where you pick up the uploaded file and store it wherever you want. You can use this boilerplate code and modify it to match your use case.
-
-**NOTE: The code below requires that you have ```intervention/image``` installed. If you don't, please do ```composer require intervention/image``` first.**
-
-```php
-// ..
-
-use Illuminate\Support\Str;
-use Intervention\Image\ImageManagerStatic as Image;
-
-// ..
-
-Class Product extends Model
-{
-    // ..
-
-    public function setImageAttribute($value)
-    {
-        $attribute_name = "image";
-        // or use your own disk, defined in config/filesystems.php
-        $disk = config('backpack.base.root_disk_name');
-        // destination path relative to the disk above
-        $destination_path = "public/uploads/folder_1/folder_2";
-
-        // if the image was erased
-        if ($value==null) {
-            // delete the image from disk
-            \Storage::disk($disk)->delete($this->{$attribute_name});
-
-            // set null in the database column
-            $this->attributes[$attribute_name] = null;
-        }
-
-        // if a base64 was sent, store it in the db
-        if (Str::startsWith($value, 'data:image'))
-        {
-            // 0. Make the image
-            $image = \Image::make($value)->encode('jpg', 90);
-
-            // 1. Generate a filename.
-            $filename = md5($value.time()).'.jpg';
-
-            // 2. Store the image on disk.
-            \Storage::disk($disk)->put($destination_path.'/'.$filename, $image->stream());
-
-            // 3. Delete the previous image, if there was one.
-            \Storage::disk($disk)->delete($this->{$attribute_name});
-
-            // 4. Save the public path to the database
-            // but first, remove "public/" from the path, since we're pointing to it
-            // from the root folder; that way, what gets saved in the db
-            // is the public URL (everything that comes after the domain name)
-            $public_destination_path = Str::replaceFirst('public/', '', $destination_path);
-            $this->attributes[$attribute_name] = $public_destination_path.'/'.$filename;
-        }
-    }
-
-// ..
-```
 > **The uploaded images are not deleted for you.** If you delete an entry (using the CRUD or anywhere inside your app), the image file won't be deleted from the disk.
 > If you're NOT using soft deletes on that Model and want the image to be deleted at the same time the entry is, just specify that in your Model's ```deleting``` event:
 > ```php
@@ -1505,7 +1480,7 @@ Class Product extends Model
 >   {
 >       parent::boot();
 >       static::deleted(function($obj) {
->           \Storage::disk('public_folder')->delete($obj->image);
+>           \Storage::disk('public')->delete($obj->image);
 >       });
 >   }
 > ```

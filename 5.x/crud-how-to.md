@@ -761,5 +761,74 @@ $this->app->extend('crud', function () {
 
 Details and implementation [here](https://github.com/Laravel-Backpack/CRUD/pull/1990).
 
+<a name="how-to-use-image-field-inside-repeatable"></a>
+### Use image field inside repeatable
+Some fields, like image or upload require a litle bit more of thinkering when used inside repeatable. 
+Following the setup of a regular [image field](https://backpackforlaravel.com/docs/5.x/crud-fields#image-pro) you just need to change the saving process, so we endup with:
 
+```php
+$this->crud->addField([
+    'label' => "Profile Image",
+    'name' => "image",
+    'type' => 'image',
+    'crop' => true, // set to true to allow cropping, false to disable
+    'aspect_ratio' => 1, // omit or set to 0 to allow any aspect ratio
+    // 'disk'      => 's3_bucket', // in case you need to show images from a different disk
+    // 'prefix'    => 'uploads/images/profile_pictures/' // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
+    'events' => [
+        'saving' => function($entry) {
+        // the code below requires that you have intervention/image installed. 
+        // if you don't, please do: composer require intervention/image 
 
+            // get previous files in the system. you can also get the files here by doing a DB query
+            // but if you optimize and store this repeatable images inside a specific folder 
+            // like `banner_images`, you can safely rely on the files inside that folder instead
+            // of doing a DB query. Your choice :-)
+            // NOTE: the array_filter() here is an example on how to filter the files in a folder
+            $currentImages = array_filter(\Storage::disk('public')->files(), function($file) {
+                return \Str::endsWith($file, '.jpg');
+            });
+            
+            // repeatable is empty, delete all previous images
+            if (!request('text')) {
+                // delete the images from disk
+                foreach($currentImages as $image) {
+                    \Storage::disk('public')->delete($image);
+                }
+            }
+
+            $sentValue = $entry->text;
+    
+            $createdImages = [];
+            foreach($entry->text ?? [] as  $key => $row) {
+                // if a base64 was sent, store it in the db
+                if (\Str::startsWith($row['image'], 'data:image'))
+                {
+                    // 0. Make the image
+                    $image = \Image::make($row['image'])->encode('jpg', 90);
+
+                    // 1. Generate a filename.
+                    $filename = md5($image.time()).'.jpg';
+
+                    $createdImages[] = $filename;
+                    // 2. Store the image on disk.
+                    \Storage::disk('public')->put($filename, $image->stream());
+
+                    $sentValue[$key]['image'] = $filename;
+
+                }else{
+                    $createdImages[] = \Str::after($row['image'], 'http://l9v5.test/storage/');
+                }
+            }
+            
+            $toDelete = array_diff($currentImages, $createdImages);
+            
+            foreach($toDelete as $image) {
+                \Storage::disk('public')->delete($image);
+            }
+
+            $entry->text = $sentValue;
+        }
+    ]
+]);
+```
