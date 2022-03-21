@@ -211,11 +211,11 @@ When a field works with related entities (relationships like `BelongsTo`, `HasOn
 
 But if you want to overwrite any of the relationship attributes Backpack guesses, here they are:
 - `entity` - points to the method on the model that contains the relationship; having this defined, Backpack will try to guess from it all other field attributes; ex: `category` or `tags`;
-- `model` - the classname (including namespace) of the related model (ex: `App\Models\Category`); usually deducted from the relationship function in the model;
-- `attribute` - the attribute on the related model (aka foreign attribute) that will be show to the user; for example, you wouldn't want a dropdown of categories showing IDs - no, you'd want to show the category names; in this case, the `attribute` will be `name`; usually deducted using the [identifiable attribute functionality explained below](#identifiable-attribute);
-- `multiple` - boolean, allows the user to pick one or multiple items; usually deducted depending on whether it's a 1-to-n or n-n relationship;
-- `pivot` - boolean, instructs Backpack to store the information inside a pivot table; usually deducted depending on whether it's a 1-to-n or n-n relationship;
-- `relation_type` - text, deducted from `entity`; not a good idea to overwrite;
+- `model` - the classname (including namespace) of the related model (ex: `App\Models\Category`); usually deduced from the relationship function in the model;
+- `attribute` - the attribute on the related model (aka foreign attribute) that will be show to the user; for example, you wouldn't want a dropdown of categories showing IDs - no, you'd want to show the category names; in this case, the `attribute` will be `name`; usually deduced using the [identifiable attribute functionality explained below](#identifiable-attribute);
+- `multiple` - boolean, allows the user to pick one or multiple items; usually deduced depending on whether it's a 1-to-n or n-n relationship;
+- `pivot` - boolean, instructs Backpack to store the information inside a pivot table; usually deduced depending on whether it's a 1-to-n or n-n relationship;
+- `relation_type` - text, deduced from `entity`; not a good idea to overwrite;
 
 If you do need a field that contains relationships to behave a certain way, it's usually enough to just specify a different `entity`. However, you _can_ specify any of the attributes above, and Backpack will take your value for it, instead of trying to guess one.
 
