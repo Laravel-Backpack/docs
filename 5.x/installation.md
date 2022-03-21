@@ -50,7 +50,7 @@ Take note that:
 - By default all users are considered admins; If that's not what you want in your application (you have both users and admins), please:
     - Change ```app/Http/Middleware/CheckIfAdmin.php```, particularly ```checkIfUserIsAdmin($user)```, to make sure you only allow admins to access the admin panel;
     - Change ```app/Providers/RouteServiceProvider::HOME```, which will send logged in (but not admin) users to `/home`, to something that works for your app;
-- You should the configuration values in ```config/backpack/base.php``` to make the admin panel your own. Backpack is white label, so you can change everything: menu color, project name, developer name etc.
+- You should add the configuration values in ```config/backpack/base.php``` to make the admin panel your own. Backpack is white label, so you can change everything: menu color, project name, developer name etc.
 - If your User model has been moved (it is not ```App\Models\User.php```), please change ```config/backpack/base.php``` to use the correct user model using the ```user_model_fqn``` config key.
 
 That's it. If you already know how to use Backpack, next up you'll probably want to [create CRUD Panels](/docs/{{version}}/crud-tutorial#generate-files).
