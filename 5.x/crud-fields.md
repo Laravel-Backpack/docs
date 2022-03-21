@@ -963,7 +963,7 @@ protected $casts = [
 ];
 ```
 
-**Step 4.** Validation - If you need to validate the field within your `EntityRequest.php`, Laravel allows the validation of multiple entry fields, you may use the following sintax:
+**Step 4.** Validation - If you need to validate the field within your `EntityRequest.php`, you can use Laravel's built-in array validation (notice the asterisk):
 
 ```php
 return [
