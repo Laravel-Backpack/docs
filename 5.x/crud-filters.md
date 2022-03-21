@@ -66,7 +66,9 @@ function() { // if the filter is active (the GET parameter "draft" exits)
 <a name="simple"></a>
 ### Simple
 
-Only shows a label and can be toggled on/off. Useful for things like active/inactive and easily paired with [Eloquent Scopes](https://laravel.com/docs/5.3/eloquent#local-scopes). The "Draft" and "Has Video" filters in the screenshot above are simple filters.
+Only shows a label and can be toggled on/off. Useful for things like active/inactive and easily paired with [Eloquent Scopes](https://laravel.com/docs/5.3/eloquent#local-scopes). The "Draft" and "Has Video" filters in the screenshot below are simple filters.
+
+![Backpack CRUD Simple Filter](https://user-images.githubusercontent.com/1838187/159197347-e38fc63b-ceb8-4806-98dc-1e10773a57cd.png)
 
 ```php
 // simple filter
