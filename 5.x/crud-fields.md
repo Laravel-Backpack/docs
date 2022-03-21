@@ -947,22 +947,33 @@ Shows a multiple file input to the user and stores the values as a JSON array in
 **Step 2.** In order to save/update/delete the files from disk&db, we need to create [a mutator](https://laravel.com/docs/5.3/eloquent-mutators#defining-a-mutator) on your model:
 ```php
 public function setPhotosAttribute($value)
-    {
-    	$attribute_name = "photos";
-    	$disk = "public";
-    	$destination_path = "folder_1/subfolder_1";
+{
+    $attribute_name = "photos";
+    $disk = "public";
+    $destination_path = "folder_1/subfolder_1";
 
-    	$this->uploadMultipleFilesToDisk($value, $attribute_name, $disk, $destination_path);
-    }
+    $this->uploadMultipleFilesToDisk($value, $attribute_name, $disk, $destination_path);
+}
 ```
 
 **Step 3.** Since the filenames are stored in the database as a JSON array, we're going to use [attribute casting](https://laravel.com/docs/5.3/eloquent-mutators#attribute-casting) on your model, so every time we get the filenames array from the database it's converted from a JSON array to a PHP array:
 ```php
-    protected $casts = [
-    	'photos' => 'array'
-    ];
+protected $casts = [
+    'photos' => 'array'
+];
 ```
 
+**Step 4.** Validation - If you need to validate the field within your `EntityRequest.php`, you can use Laravel's built-in array validation (notice the asterisk):
+
+```php
+return [
+    'upload_multiple.*' => [
+        'nullable',
+        'max:2048', // file size in KB
+        'mimetypes:image/jpeg', // allow only some mimetypes
+    ],
+];
+```
 **How it works:**
 
 The field sends the files, through a Request, to the Controller. The Controller then tries to create/update the Model. That's when the mutator on your model will run. That also means we can do any [file validation](https://laravel.com/docs/5.3/validation#rule-file) (```file```, ```image```, ```mimetypes```, ```mimes```) in the Request, before the files are stored on the disk.
@@ -971,15 +982,15 @@ The field sends the files, through a Request, to the Controller. The Controller 
 
 ```
 /**
-     * Handle multiple file upload and DB storage:
-     * - if files are sent
-     *     - stores the files at the destination path
-     *     - generates random names
-     *     - stores the full path in the DB, as JSON array;
-     * - if a hidden input is sent to clear one or more files
-     *     - deletes the file
-     *     - removes that file from the DB.
-     * /
+ * Handle multiple file upload and DB storage:
+ * - if files are sent
+ *     - stores the files at the destination path
+ *     - generates random names
+ *     - stores the full path in the DB, as JSON array;
+ * - if a hidden input is sent to clear one or more files
+ *     - deletes the file
+ *     - removes that file from the DB.
+ */
 public function uploadMultipleFilesToDisk($value, $attribute_name, $disk, $destination_path) {}
 ```
 
@@ -1007,6 +1018,8 @@ You might notice the field is using a ```clear_photos``` variable. Don't worry, 
 Input preview:
 
 ![CRUD Field - upload_multiple](https://backpackforlaravel.com/uploads/docs-4-2/fields/upload_multiple.png)
+
+<hr>
 
 <a name="url"></a>
 ### url
