@@ -287,6 +287,8 @@ php artisan cache:clear
 php artisan view:clear
 ```
 
+If the table view still looks wonky (search bar out of place, big + instead of ellipsis), then do a hard-reload in your browser (Cmd+Shift+R or Ctrl+Shift+F5) to purge the browser cache too.
+
 ---
 
 **You're done! Good job.** Thank you for taking the time to upgrade. Now you can:
