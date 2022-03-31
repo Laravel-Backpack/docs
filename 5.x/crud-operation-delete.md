@@ -83,7 +83,7 @@ In case you need to change how this operation works, just create a ```bulkDelete
 ```php
 use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation { bulkDelete as traitBulkDelete; }
 
-public function bulkDelete($id)
+public function bulkDelete()
 {
     // your custom code here
 }
