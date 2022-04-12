@@ -735,7 +735,7 @@ If the automatic installation doesn't work for you and you need to manually inst
 1) In your terminal:
 
 ``` bash
-composer require backpack/crud:"5.x-dev as 4.1.99"
+composer require backpack/crud
 ```
 
 2) Instead of running ```php artisan backpack:install``` you can run:
