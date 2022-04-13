@@ -69,6 +69,7 @@ You can use anything you want to generate the Migration and Model, so in this ca
 ```zsh
 # STEP 0. install a 3d party tool to generate migrations
 composer require --dev laracasts/generators
+composer require --dev backpack/generators
 
 # STEP 1. create a migration
 php artisan make:migration:schema create_tags_table --model=0 --schema="name:string:unique,slug:string:unique"
