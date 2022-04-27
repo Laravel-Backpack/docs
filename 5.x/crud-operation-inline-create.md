@@ -100,6 +100,7 @@ class TagCrudController extends CrudController
         'modal_route' => route('tag-inline-create'), // InlineCreate::getInlineCreateModal()
         'create_route' =>  route('tag-inline-create-save'), // InlineCreate::storeInlineCreate()
         'include_main_form_fields' => ['field1', 'field2'], // pass certain fields from the main form to the modal
+	'add_button_label' => 'New tag' // configure the text for the `+ Add` inline button
     ]
 ```
 
