@@ -43,6 +43,8 @@ Please **go thorough all steps**, to ensure a smooth upgrade process. The steps 
         "backpack/pro": "^1.0.0",
 ```
 
+> If the spit between these two packages is news to you, please [read the open-core section of the release notes](https://backpackforlaravel.com/docs/5.x/release-notes#backpack-is-now-open-core), to understand how this affects you.
+
 These two packages together will help you have all the features in v4.1 and more. But since `backpack/pro` is a closed-source package, to download it, you need to generate [your token and password here](https://backpackforlaravel.com/user/tokens). If no button is there for you, it means you don't have free access to `backpack/pro`, so you'll need to [purchase it](https://backpackforlaravel.com/pricing). **[Follow the 2-step process called "Instructions" in your token](https://backpackforlaravel.com/user/tokens), if you haven't already done that on this project.**
 
 
