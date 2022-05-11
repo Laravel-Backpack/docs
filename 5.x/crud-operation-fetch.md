@@ -46,6 +46,7 @@ class ProductCrudController extends CrudController
             'model' => \App\Models\Tag::class, // required
             'searchable_attributes' => ['name', 'description'],
             'paginate' => 10, // items to show per page
+            'searchOperator' => 'LIKE',
             'query' => function($model) {
                 return $model->active();
             } // to filter the results that are returned
@@ -113,9 +114,27 @@ function($value) { // if the filter is active
 
 In case you need to change how this operation works, it's best to take a look at the ```FetchOperation.php``` trait to understand how it works. It's a pretty simple operation. Most common ways to overwrite the Fetch operation are documented below:
 
+**Change the fetch database search operator**
+
+You can customize the search operator for `FetchOperation` as much as you can in ListOperation, by default it's `LIKE`. 
+- The `searchOperator` can be defined individually for each `fetchEntity` using `searchOperator => 'ILIKE'` in the fetch configuration. 
+- Can be defined for all FetchOperations inside that CrudPanel:
+```php 
+public function setupFetchOperationOperation() {
+        $this->crud->setOperationSetting('searchOperator', 'ILIKE');
+    }
+```
+- Globally in your project by creating a config file in `config/backpack/operations/fetch.php` and add the following:
+```php
+<?php
+return [
+    'searchOperator' => 'ILIKE',
+];
+```
+
 **Custom behaviour for one fetch method**
 
-To make a ```fetchCategory()``` method behave differently, you can copy-paste the logic inside the ```FetchOperation::fetch()``` and change it to do whatever you need. Instead of returning ```$this->fetch()``` you can return your own results.
+To make a ```fetchCategory()``` method behave differently, you can copy-paste the logic inside the ```FetchOperation::fetch()``` and change it to do whatever you need. Instead of returning ```$this->fetch()``` you can return your own results, in this case fetch will only setup the ajax route for you. 
 
 **Custom behaviour for multiple fetch methods inside a Controller**
 
