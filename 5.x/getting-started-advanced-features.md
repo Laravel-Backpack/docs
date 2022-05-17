@@ -30,8 +30,8 @@ Here are some other cool things Backpack makes easy for you. We recommend going 
 --
 
 - **ListEntries**
-    - you can add a "+" button next to each entry, to allow the admin to easily preview some quick information that was too big to fit inside a columns - we call it [details row](/docs/{{version}}/crud-operation-list-entries#details-row) <span class="badge badge-pill badge-success">FREE</span>
-    - export all visible items in the table by adding [export buttons](/docs/{{version}}/crud-operation-list-entries#export-buttons) <span class="badge badge-pill badge-success">FREE</span>
+    - you can add a "+" button next to each entry, to allow the admin to easily preview some quick information that was too big to fit inside a columns - we call it [details row](/docs/{{version}}/crud-operation-list-entries#details-row) <span class="badge badge-pill badge-info">PRO</span>
+    - export all visible items in the table by adding [export buttons](/docs/{{version}}/crud-operation-list-entries#export-buttons) <span class="badge badge-pill badge-info">PRO</span>
     - [custom search logic](/docs/{{version}}/crud-columns#custom-search-logic) for the columns in the list view <span class="badge badge-pill badge-success">FREE</span>
 
 
