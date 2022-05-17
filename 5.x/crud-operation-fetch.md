@@ -116,15 +116,15 @@ In case you need to change how this operation works, it's best to take a look at
 
 **Change the fetch database search operator**
 
-You can customize the search operator for `FetchOperation` as much as you can in ListOperation, by default it's `LIKE`. 
-- The `searchOperator` can be defined individually for each `fetchEntity` using `searchOperator => 'ILIKE'` in the fetch configuration. 
-- Can be defined for all FetchOperations inside that CrudPanel:
+You can customize the search operator for `FetchOperation` just like you can in ListOperation. By default it's `LIKE`, but you can: 
+- change the operator individually for each `fetchEntity` using `searchOperator => 'ILIKE'` in the fetch configuration;
+- change the operator for all FetchOperations inside that CrudPanel by doing:
 ```php 
 public function setupFetchOperationOperation() {
         $this->crud->setOperationSetting('searchOperator', 'ILIKE');
     }
 ```
-- Globally in your project by creating a config file in `config/backpack/operations/fetch.php` and add the following:
+- change the operator globally in your project, by creating a config file in `config/backpack/operations/fetch.php` and add the following:
 ```php
 <?php
 return [
