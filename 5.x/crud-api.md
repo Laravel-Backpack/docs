@@ -409,6 +409,10 @@ $this->crud->set('create.view', 'crud::yourfolder.yourview');
 $this->crud->set('create.view', 'resources.vendor.backpack.crud.yourfolder.yourview');
 ```
 
+This is great that you explain that you can make a custom view - but very important documentation is missing here!!! Once you create a custom view, how on earth can I display a crud field?
+Ie: I have a time field calledc "start_time" how do I display it in the custom view.  Please update the documentation to show an example!!!  Thanks!
+
+
 ### Content Class
 
 - **setShowContentClass()**, **setEditContentClass()**, **setCreateContentClass()**, **setListContentClass()**, **setReorderContentClass()**, **setRevisionsContentClass()**, **setRevisionsTimelineContentClass()** - set the CSS class for an operation view, to make the main area bigger or smaller:
