@@ -262,7 +262,7 @@ class Category
     }
 }
 ```
-
+**IMPORTANT NOTE**: If you are using acessors as the identifiable attribute, you need to add it to the `$appends` property of your model. https://laravel.com/docs/9.x/eloquent-serialization#appending-values-to-json
 
 <a name="default-field-types"></a>
 ## FREE Field Types
