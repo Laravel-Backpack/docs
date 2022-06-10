@@ -1,4 +1,4 @@
-# CrudFields JavaScript Library
+# CrudField JavaScript Library
 
 ---
 
