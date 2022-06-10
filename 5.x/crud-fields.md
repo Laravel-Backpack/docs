@@ -2441,3 +2441,11 @@ Inside your custom field type, you can use these variables:
 If your field type uses JavaScript, we recommend you:
 - put a ```data-init-function="bpFieldInitMyCustomField"``` attribute on your input;
 - place your logic inside the scripts section mentioned above, inside ```function bpFieldInitMyCustomField(element) {}```; of course, you choose the name of the function but it has to match whatever you specified as data attribute on the input, and it has to be pretty unique; inside this method, you'll find that ```element``` is jQuery-wrapped object of the element where you specified ```data-init-function```; this should be enough for you to not have to use IDs, or any other tricks, to determine other elements inside the DOM - determine them in relation to the main element; if you want, you can choose to put the ```data-init-function``` attribute on a different element, like the wrapping div;
+
+
+<a name="manipulating-fields-with-javascript"></a>
+## Manipulating Fields with JavaScript
+
+When you need to add custom interactions (if field is X then do Y), we have just the thing for you. You can easily add custom interactions, using our **CrudField JavaScript API**. It's already loaded on our Create / Update pages, in the global `crud` object, and it makes it dead-simple to select a field - `crud.field('title')` - using a syntax that's very familiar to our PHP syntax, then do the most common things on it.
+
+For more information, please see the dedicated page about our [CrudField Javascript API](/docs/{{version}}/crud-fields-javascript-api).

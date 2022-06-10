@@ -35,6 +35,7 @@
         + [Filters](/docs/{{version}}/crud-filters)
     + [Create](/docs/{{version}}/crud-operation-create) & [Update](/docs/{{version}}/crud-operation-update)
         + [Fields](/docs/{{version}}/crud-fields)
+        + [CrudField Javascript API](/docs/{{version}}/crud-fields-javascript-api)
         + [Save Actions](/docs/{{version}}/crud-save-actions)
     + [Delete](/docs/{{version}}/crud-operation-delete)
     + [Show](/docs/{{version}}/crud-operation-show)
