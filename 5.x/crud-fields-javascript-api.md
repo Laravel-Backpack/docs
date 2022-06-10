@@ -45,7 +45,13 @@ The beauty of this solution is that... it's flexibility. Since it's only a JS li
 **Step 2.** Load that script file in your CrudController, within `setupCreateOperation()` or `setupUpdateOperation()`, depending on when you want it loaded:
 
 ```php
-    Widget::add()->type('script')->content('public/assets/js/admin/forms/product.js');
+    Widget::add()->type('script')->content('assets/js/admin/forms/product.js');
+```
+
+or 
+
+```php
+    Widget::add()->type('script')->content(asset('assets/js/admin/forms/product.js'));
 ```
 
 **Step 3.** Inside that JS file, use the CrudField JS Library to manipulate fields, in any way you want. For example:
