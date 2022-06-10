@@ -2259,6 +2259,53 @@ Input preview:
 
 <hr>
 
+### slug  <span class="badge badge-pill badge-info">PRO</span>
+
+Track the value of a different text input and turn it into a valid URL segment (aka. slug), as you type, using JS:
+
+```php
+[   // Text
+    'name'  => 'slug',
+    'target'  => 'title', // will turn the title input into a slug
+    'label' => "Slug",
+    'type'  => 'slug',
+
+    // optional
+    //'prefix'     => '',
+    //'suffix'     => '',
+    //'default'    => 'some value', // default value
+    //'hint'       => 'Some hint text', // helpful text, show up after input
+    //'attributes' => [
+       //'placeholder' => 'Some text when empty',
+       //'class' => 'form-control some-class',
+       //'readonly'  => 'readonly',
+       //'disabled'  => 'disabled',
+     //], // extra HTML attributes and values your input might need
+     //'wrapper'   => [
+       //'class' => 'form-group col-md-12'
+     //], // extra HTML attributes for the field wrapper - mostly for resizing fields
+
+],
+```
+
+Input preview:
+![CleanShot 2022-06-04 at 13 13 40](https://user-images.githubusercontent.com/1032474/171994919-cbdd8b9d-6823-4b26-82ed-7c2868c0cee8.gif)
+
+
+By default, it will also slugify when the target input is edited. If you want to stop that behaviour, you can do that by removing the `target` on your edit operation. For example:
+
+```php
+    protected function setupUpdateOperation()
+    {
+        $this->setupCreateOperation();
+
+        // disable editing the slug when editing
+        $this->crud->field('slug')->target('')->attributes(['readonly' => 'readonly']);
+    }
+```
+
+<hr>
+
 <a name="table"></a>
 ### table <span class="badge badge-pill badge-info">PRO</span>
 
