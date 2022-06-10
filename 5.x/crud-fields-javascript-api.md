@@ -1,16 +1,16 @@
-# CrudFields JavaScript API
+# CrudFields JavaScript Library
 
 ---
 
 <a name="about"></a>
 ## About
 
-If you need to add custom interactions (if field is X then do Y), we have just the thing for you. You can easily add custom interactions, using our **CrudField JavaScript API**. It's already loaded on our Create / Update pages, in the global `crud` object, and it makes it dead-simple to select a field - `crud.field('title')` - using a syntax that's very familiar to our PHP syntax, then do the most common things on it.
+If you need to add custom interactions (if field is X then do Y), we have just the thing for you. You can easily add custom interactions, using our **CrudField JavaScript Library**. It's already loaded on our Create / Update pages, in the global `crud` object, and it makes it dead-simple to select a field - `crud.field('title')` - using a syntax that's very familiar to our PHP syntax, then do the most common things on it.
 
 <a name="syntax"></a>
 ## Syntax
 
-Here's everything our **CrudField JavaScript API** provides:
+Here's everything our **CrudField JavaScript Library** provides:
 - selectors:
     - `crud.field('title')` -> returns the `CrudField` object for a field with the name `title`;
     - `crud.field('testimonials').subfield('text')` -> returns the `CrudField` for the `text` subfield within the `testimonials` repeatable field;
@@ -48,7 +48,7 @@ The beauty of this solution is that... it's flexibility. Since it's only a JS li
     Widget::add()->type('script')->content('public/assets/js/admin/forms/product.js');
 ```
 
-**Step 3.** Inside that JS file, use the CrudField JS API to manipulate fields, in any way you want. For example:
+**Step 3.** Inside that JS file, use the CrudField JS Library to manipulate fields, in any way you want. For example:
 
 ```javascript
  crud.field('agree_to_terms').onChange(function(field) {
