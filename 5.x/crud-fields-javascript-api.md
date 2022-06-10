@@ -248,6 +248,8 @@ crud.fields(['full_price', 'discounted_price']).forEach(function(field) {
 });
 ```
 
+![Scenario 10 - update a total field](https://backpackforlaravel.com/uploads/docs-5-0/fields/js-api/scenario_10.gif)
+
 <a name="example-11"></a>
 #### (11) When a repeatable subfield changes, disable another subfield
 
