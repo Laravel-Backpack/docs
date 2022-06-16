@@ -2259,6 +2259,53 @@ Input preview:
 
 <hr>
 
+### slug  <span class="badge badge-pill badge-info">PRO</span>
+
+Track the value of a different text input and turn it into a valid URL segment (aka. slug), as you type, using JS:
+
+```php
+[   // Text
+    'name'  => 'slug',
+    'target'  => 'title', // will turn the title input into a slug
+    'label' => "Slug",
+    'type'  => 'slug',
+
+    // optional
+    //'prefix'     => '',
+    //'suffix'     => '',
+    //'default'    => 'some value', // default value
+    //'hint'       => 'Some hint text', // helpful text, show up after input
+    //'attributes' => [
+       //'placeholder' => 'Some text when empty',
+       //'class' => 'form-control some-class',
+       //'readonly'  => 'readonly',
+       //'disabled'  => 'disabled',
+     //], // extra HTML attributes and values your input might need
+     //'wrapper'   => [
+       //'class' => 'form-group col-md-12'
+     //], // extra HTML attributes for the field wrapper - mostly for resizing fields
+
+],
+```
+
+Input preview:
+![CleanShot 2022-06-04 at 13 13 40](https://user-images.githubusercontent.com/1032474/171994919-cbdd8b9d-6823-4b26-82ed-7c2868c0cee8.gif)
+
+
+By default, it will also slugify when the target input is edited. If you want to stop that behaviour, you can do that by removing the `target` on your edit operation. For example:
+
+```php
+    protected function setupUpdateOperation()
+    {
+        $this->setupCreateOperation();
+
+        // disable editing the slug when editing
+        $this->crud->field('slug')->target('')->attributes(['readonly' => 'readonly']);
+    }
+```
+
+<hr>
+
 <a name="table"></a>
 ### table <span class="badge badge-pill badge-info">PRO</span>
 
@@ -2441,3 +2488,11 @@ Inside your custom field type, you can use these variables:
 If your field type uses JavaScript, we recommend you:
 - put a ```data-init-function="bpFieldInitMyCustomField"``` attribute on your input;
 - place your logic inside the scripts section mentioned above, inside ```function bpFieldInitMyCustomField(element) {}```; of course, you choose the name of the function but it has to match whatever you specified as data attribute on the input, and it has to be pretty unique; inside this method, you'll find that ```element``` is jQuery-wrapped object of the element where you specified ```data-init-function```; this should be enough for you to not have to use IDs, or any other tricks, to determine other elements inside the DOM - determine them in relation to the main element; if you want, you can choose to put the ```data-init-function``` attribute on a different element, like the wrapping div;
+
+
+<a name="manipulating-fields-with-javascript"></a>
+## Manipulating Fields with JavaScript
+
+When you need to add custom interactions (if field is X then do Y), we have just the thing for you. You can easily add custom interactions, using our **CrudField JavaScript API**. It's already loaded on our Create / Update pages, in the global `crud` object, and it makes it dead-simple to select a field - `crud.field('title')` - using a syntax that's very familiar to our PHP syntax, then do the most common things on it.
+
+For more information, please see the dedicated page about our [CrudField Javascript API](/docs/{{version}}/crud-fields-javascript-api).
