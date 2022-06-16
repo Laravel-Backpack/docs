@@ -265,6 +265,7 @@ $theme-colors: map-merge(
 
 @import "node_modules/@coreui/coreui/scss/coreui";
 @import "node_modules/@digitallyhappy/backstrap/src/scss/_custom";
+@import "node_modules/@digitallyhappy/backstrap/src/scss/_noty";
 @import "node_modules/animate.css/source/_base";
 @import "node_modules/noty/src/noty";
 ```
