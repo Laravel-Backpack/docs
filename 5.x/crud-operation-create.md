@@ -146,11 +146,8 @@ protected function setupCreateOperation()
 	        'min' => 'More than 10 characters, bro. Wtf... You can do this!',
 	    ]
 	]);
-	$this->crud->setValidation(); // This MUST be called AFTER the fields are defined, NEVER BEFORE
 }
 ```
-
-You must then call `setValidation()` without a parameter, and Backpack will go through all defined fields, get their `validationRules` and validate them. It is VERY IMPORTANT to call `setValidation()` _after_ you've defined the fields! Otherwise Backpack won't find any `validationRules`.
 
 <a name="callbacks"></a>
 ### Callbacks
