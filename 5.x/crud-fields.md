@@ -221,14 +221,17 @@ If you do need a field that contains relationships to behave a certain way, it's
 
 
 <a name="identifiable-attribute"></a>
-** Identifiable Attribute for Relationship Fields**
+**Identifiable Attribute for Relationship Fields**
 
 Fields that work with relationships will allow you to select which ```attribute``` on the related entry you want to show to the user. All relationship fields (relationship, select, select2, select_multiple, select2_multiple, select2_from_ajax, select2_from_ajax_multiple) let you define the ```attribute``` for this specific purpose.
 
 For example, when the admin creates an ```Article``` they'll have to select a ```Category``` from a dropdown. It's important to show an attribute for ```Category``` that will help the admin easily identify the category, even if it's not the ID. In this example, it would probably be the category name - that's what you'd like the dropdown to show.
 
 In Backpack, you can explicitly define this, by giving the field an ```attribute```. But you can also NOT explicitly define this - Backpack will try to guess it. If you don't like what Backpack guessed would be a good identifiable attribute, you can either:
-- (A) explicitly define an ```attribute``` for that field, or
+- (A) explicitly define an ```attribute``` for that field
+
+>**Note**: If the attribute you want to show is an acessor in Model, you need to add it to the `$appends` property of the said Model. https://laravel.com/docs/9.x/eloquent-serialization#appending-values-to-json
+
 - (B) you can specify the identifiable attribute in your model, and all fields will pick this up:
 
 ```php
@@ -262,8 +265,6 @@ class Category
     }
 }
 ```
-
-
 <a name="default-field-types"></a>
 ## FREE Field Types
 
