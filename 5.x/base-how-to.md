@@ -274,7 +274,7 @@ Now add the command to your `webpack.mix.js` file to compile this new SASS file:
 
 ```js
 // create a custom Backpack bundle CSS, with custom colors
-mix.sass('resources/scss/custom-backpack-bundle.scss', 'public/packages/backpack/base/css/')
+mix.sass('resources/scss/custom-backpack-bundle.scss', 'public/css/')
     .options({
       processCssUrls: false
     });
