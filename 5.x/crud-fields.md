@@ -783,6 +783,30 @@ Input preview:
 
 <hr>
 
+<a name="switch"></a>
+### switch
+
+Switch for true/false.
+
+```php
+[   // Switch
+    'name'  => 'switch',
+    'type'  => 'switch'
+    'label'    => 'I have not read the terms and conditions and I never will',
+
+    // optional
+    'color'    => 'primary', // May be any bootstrap color class or an hex color
+    'onLabel' => '✓',
+    'offLabel' => '✕',
+],
+```
+
+Input preview: 
+
+![CRUD Field - switch](https://user-images.githubusercontent.com/1838187/177004339-a1e80fe8-0148-47fe-8c7b-11ed75be5a66.png)
+
+<hr>
+
 <a name="text"></a>
 ### text
 
