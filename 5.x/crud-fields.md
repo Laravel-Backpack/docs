@@ -803,7 +803,7 @@ Show a switch (aka toggle) for boolean attributes (true/false). It's an alternat
 
 Input preview: 
 
-![CRUD Field - switch](https://user-images.githubusercontent.com/1838187/177004339-a1e80fe8-0148-47fe-8c7b-11ed75be5a66.png)
+![CRUD Field - switch](https://backpackforlaravel.com/uploads/docs-5-0/fields/switch.png)
 
 <hr>
 
