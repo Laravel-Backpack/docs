@@ -786,7 +786,7 @@ Input preview:
 <a name="switch"></a>
 ### switch
 
-Switch for true/false.
+Show a switch (aka toggle) for boolean attributes (true/false). It's an alternative to the `checkbox` field type - prettier and more customizable: it allows the dev to choose the background color and what shows up on the on/off sides of the switch.
 
 ```php
 [   // Switch
