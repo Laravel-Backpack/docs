@@ -250,7 +250,7 @@ function calculate_discount_percentage() {
 }
 
 crud.fields(['full_price', 'discounted_price']).forEach(function(field) {
-  field.onChange(calculate_discount_percentage());
+  field.onChange(calculate_discount_percentage);
 });
 ```
 
