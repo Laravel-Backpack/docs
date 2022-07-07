@@ -259,7 +259,10 @@ class ArticleController extends Controller
 {
     public function index(Request $request)
     {
-        $search_term = $request->input('q');
+        $search_term = $request->input('q'); // the search term in the select2 input
+        
+        // if you are inside a repeatable we will send some aditional data to help you
+        $triggeredBy = $request->input('triggeredBy'); // you will have the `fieldName` and the `rowNumber` of the element that triggered the ajax
 
         // NOTE: this is a Backpack helper that parses your form input into an usable array.
         // you still have the original request as `request('form')`
