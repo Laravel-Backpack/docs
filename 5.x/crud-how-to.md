@@ -615,15 +615,14 @@ Please read the relationship [BelongsToMany](#belongstomany) documentation, ever
 ## Operations
 
 
-<a name="overwrite-a-method-on-the-crud-panel-object"></a>
-### Add an Uneditable Input inside Create or Update Operation
+<a name="add-non-editable-input-inside-create-or-update-operation-stripped-request"></a>
+### Add an Uneditable Input inside Create or Update Operation - Stripped Request
 
 You might want to add a new attribute to the Model that gets saved. Let's say you want to add an `updated_by` indicator to the Update operation, containing the ID of the user currently logged in (`backpack_user()->id`).
 
-**Option 1.** Sure, in your `ProductCrudController::setupUpdateOperation()` can do `CRUD::field('updated_by')->type('hidden')->value(backpack_user()->id);`, but because that hidden field is inside the HTML, it opens up the possibility that a malicious actor will edit the value of the input, in the browser.
+Backpack uses the `strippedRequest` configuration to determine the fields that should be saved. **By default it will only save fields that have a corresponding CRUD field defined**
 
-
-**Option 2.** You can change the `strippedRequest` closure inside your `ProductCrudController::setup()`:
+**Option 1.** You can change the `strippedRequest` closure inside your `ProductCrudController::setup()`:
 ```php
 public function setupUpdateOperation()
 {
@@ -638,11 +637,11 @@ public function setupUpdateOperation()
 }
 ```
 
-**Option 3.** You can change the same `strippedRequest` closure inside the `ProductFormRequest` that contains your validation:
+**Option 2.** You can change the same `strippedRequest` closure inside the `ProductFormRequest` that contains your validation:
 ```php
     protected function prepareForValidation()
     {
-        \CRUD::set('update.strippedRequest', function ($request) {
+        \CRUD::set('update.strippedRequest', function ($request) { //notice here that update is refering to update operation, change accordingly
             // keep the recommended Backpack stripping (remove anything that doesn't have a field)
             // but add 'updated_by' too
             $input = $request->only(\CRUD::getAllFieldNames());
@@ -651,6 +650,36 @@ public function setupUpdateOperation()
             return $input;
         });
     }
+```
+
+**Option 3.** You can create an `invokable` class strippedRequest will use, acting like a closure, but can also used in config files. 
+
+Create the invokable class:
+```php
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Http\Request;
+
+class StripBackpackRequest
+{
+    public function __invoke(Request $request)
+    {
+        return $request->except('_token', '_method', '_http_referrer', '_current_tab', '_save_action');
+    }
+}
+```
+
+and use it in your controller:
+
+```php
+use App\Http\Requests\StripBackpackRequest;
+
+public function setupUpdateOperation()
+{
+    CRUD::setOperationSetting('strippedRequest', StripBackpackRequest::class);
+}
 ```
 
 
