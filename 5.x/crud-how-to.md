@@ -652,9 +652,9 @@ public function setupUpdateOperation()
     }
 ```
 
-**Option 3.** You can create an `invokable` class strippedRequest will use, acting like a closure, but can also used in config files. 
+**Option 3.** You can create an `invokable` class strippedRequest will use, acting like a closure.
 
-Create the invokable class:
+#####Create the invokable class:
 ```php
 <?php
 
@@ -666,12 +666,14 @@ class StripBackpackRequest
 {
     public function __invoke(Request $request)
     {
-        return $request->except('_token', '_method', '_http_referrer', '_current_tab', '_save_action');
+        $input = $request->only(\CRUD::getAllFieldNames());
+        $input['updated_by'] = backpack_user()->id;
+        return $input;
     }
 }
 ```
 
-and use it in your controller:
+#####Use it in your controller:
 
 ```php
 use App\Http\Requests\StripBackpackRequest;
@@ -681,6 +683,7 @@ public function setupUpdateOperation()
     CRUD::setOperationSetting('strippedRequest', StripBackpackRequest::class);
 }
 ```
+>**Note**: You can also add this class in your `config/backpack/crud/operations/update.php` or create file and make it a global setting for all update/create operations.
 
 
 <a name="how-to-make-the-form-smaller-or-bigger"></a>
