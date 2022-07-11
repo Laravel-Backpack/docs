@@ -615,15 +615,21 @@ Please read the relationship [BelongsToMany](#belongstomany) documentation, ever
 ## Operations
 
 
-<a name="overwrite-a-method-on-the-crud-panel-object"></a>
-### Add an Uneditable Input inside Create or Update Operation
+<a name="add-non-editable-input-inside-create-or-update-operation-stripped-request"></a>
+### Add an Uneditable Input inside Create or Update Operation - Stripped Request
 
 You might want to add a new attribute to the Model that gets saved. Let's say you want to add an `updated_by` indicator to the Update operation, containing the ID of the user currently logged in (`backpack_user()->id`).
 
-**Option 1.** Sure, in your `ProductCrudController::setupUpdateOperation()` can do `CRUD::field('updated_by')->type('hidden')->value(backpack_user()->id);`, but because that hidden field is inside the HTML, it opens up the possibility that a malicious actor will edit the value of the input, in the browser.
+**By default, Backpack it will only save inputs that have a corresponding CRUD field defined.** But you can override this behaviour, by using the setting called `strippedRequest`, which determine the which fields should actually be saved, and which fields should be "stripped" from the request.
 
+Here's how you can use `strippedRequest` to add an `updated_by` item to be saved (but this will work for any changes you want to make to the request, really). You can change the request at various points in the request:
+- (a) in your CrudController (eg. `CRUD::setOperationSetting('strippedRequest', StripBackpackRequest::class);` in your `setup()`);
+- (b) in your Request (eg. same as above, inside `prepareForValidation()`);
+- (c) in your config, if you want it to apply for all CRUDs (eg. inside `config/backpack/operations/update.php`);
 
-**Option 2.** You can change the `strippedRequest` closure inside your `ProductCrudController::setup()`:
+Let's demonstrate each one of the above:
+
+**Option 1.** In the controller. You can change the `strippedRequest` closure inside your `ProductCrudController::setup()`:
 ```php
 public function setupUpdateOperation()
 {
@@ -638,11 +644,11 @@ public function setupUpdateOperation()
 }
 ```
 
-**Option 3.** You can change the same `strippedRequest` closure inside the `ProductFormRequest` that contains your validation:
+**Option 2.** In the request. You can change the same `strippedRequest` closure inside the `ProductFormRequest` that contains your validation:
 ```php
     protected function prepareForValidation()
     {
-        \CRUD::set('update.strippedRequest', function ($request) {
+        \CRUD::set('update.strippedRequest', function ($request) { //notice here that update is refering to update operation, change accordingly
             // keep the recommended Backpack stripping (remove anything that doesn't have a field)
             // but add 'updated_by' too
             $input = $request->only(\CRUD::getAllFieldNames());
@@ -651,6 +657,26 @@ public function setupUpdateOperation()
             return $input;
         });
     }
+```
+
+**Option 3.** In the config file. You cannot use a closure (because closures don't get cached). But you can create an invokable class, and use that as your `strippedRequest`, in your `config/backpack/operations/update.php` (for example). Then it will apply to ALL update operations, on all entities:
+
+```php
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Http\Request;
+
+class StripBackpackRequest
+{
+    public function __invoke(Request $request)
+    {
+        $input = $request->only(\CRUD::getAllFieldNames());
+        $input['updated_by'] = backpack_user()->id;
+        return $input;
+    }
+}
 ```
 
 

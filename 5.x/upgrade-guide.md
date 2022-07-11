@@ -116,23 +116,36 @@ No changes needed.
 
 <a name="step-8" href="#step-8" class="badge badge-secondary-soft" style="text-decoration: none;">Step 8.</a> Inside `config/backpack/crud.php`, you were previously able to change what inputs are stripped from the request before saving, by configuring `saveAllInputsExcept` for the Create and Update operations. We have moved the configuration to `config/backpack/operations/create.php` & `config/backpack/operations/update.php`, then:
 - renamed it to `strippedRequest`;
-- given you the possibility to do whatever you want to the request, by using a `closure` instead of `array`;
+- given you the possibility to do whatever you want to the request,by allowing you to add an `invokable` class, acting like a closure, that backpack will run to strip the request.
 - kept the default behaviour; if `strippedRequest` is undefined or false, Backpack will strip all inputs that don't have fields, which we consider is the safest approach;
 
 **If in your `config/backpack/operations/create.php` or `config/backpack/operations/update.php` you've copied `saveAllInputsExcept` as `null` or `false`, you don't have to do anything.**
 
-However, **if you have an array for your `saveAllInputsExcept`**, you can now achieve the same thing by stripping the request yourself in a closure. Basically:
+However, **if you have an array for your `saveAllInputsExcept`**, you can now achieve the same thing by stripping the request yourself in an invokable class. Basically you first create the invokable class and then add it into the config:
+```php
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Http\Request;
+
+class StripBackpackRequest
+{
+    public function __invoke(Request $request)
+    {
+        return $request->except('_token', '_method', '_http_referrer', '_current_tab', '_save_action');
+    }
+}
+```
 ```diff
 -    'saveAllInputsExcept' => ['_token', '_method', 'http_referrer', 'current_tab', 'save_action'],
-+    'strippedRequest' => (function ($request) {
-+        return $request->except('_token', '_method', '_http_referrer', '_current_tab', '_save_action');
++    'strippedRequest' => '\App\Http\Requests\StripBackpackRequest',
 +    }),
 ```
-But you can also do a lot more, because you have the `$request` in that closure. See more info in PR #[3987](https://github.com/Laravel-Backpack/CRUD/pull/3987). In addition, please notice that **all hidden parameters are now prefixed by an underscore**. Starting with v5, if it starts with an underscore, you know it's not an actual database column.
-
+But you can also do a lot more, because you have the `$request` in that class. You can see [an example here]( https://backpackforlaravel.com/docs/5.x/crud-how-to#add-non-editable-input-inside-create-or-update-operation-stripped-request).
+In addition, please notice that **all hidden parameters are now prefixed by an underscore**. Starting with v5, if it starts with an underscore, you know it's not an actual database column.
 
 ----
-
 
 <a name="step-9" href="#step-9" class="badge badge-secondary-soft" style="text-decoration: none;">Step 9.</a> The **Show operation** will now show `created_at`, `updated_at` columns by default, if they exist. In most cases, this is what you want - show as many things as possible inside the Show operation - and `created_at` and `updated_at` provide some useful information about the entry. So it should NOT negatively affect you. But if you _don't_ want to show those columns, you can turn off this new default behavior in your `config/backpack/operations/show.php`, by defining `'timestamps' => false,`. You can also do `'softDeletes' => true,` if you want to show that column, by the way.
 
