@@ -142,7 +142,7 @@ class StripBackpackRequest
 +    'strippedRequest' => '\App\Http\Requests\StripBackpackRequest',
 +    }),
 ```
-But you can also do a lot more, because you have the `$request` in that class. See examples here: https://backpackforlaravel.com/docs/5.x/crud-how-to#add-non-editable-input-inside-create-or-update-operation-stripped-request
+But you can also do a lot more, because you have the `$request` in that class. You can see [an example here]( https://backpackforlaravel.com/docs/5.x/crud-how-to#add-non-editable-input-inside-create-or-update-operation-stripped-request).
 In addition, please notice that **all hidden parameters are now prefixed by an underscore**. Starting with v5, if it starts with an underscore, you know it's not an actual database column.
 
 ----

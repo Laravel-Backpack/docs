@@ -620,7 +620,7 @@ Please read the relationship [BelongsToMany](#belongstomany) documentation, ever
 
 You might want to add a new attribute to the Model that gets saved. Let's say you want to add an `updated_by` indicator to the Update operation, containing the ID of the user currently logged in (`backpack_user()->id`).
 
-Backpack uses the `strippedRequest` configuration to determine the fields that should be saved. **By default it will only save fields that have a corresponding CRUD field defined**
+Backpack uses the `strippedRequest` configuration to determine the fields that should be saved. **By default it will only save inputs that have a corresponding CRUD field defined.**
 
 **Option 1.** You can change the `strippedRequest` closure inside your `ProductCrudController::setup()`:
 ```php
