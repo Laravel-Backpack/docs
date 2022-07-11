@@ -1500,8 +1500,9 @@ Class Product extends Model
             \Storage::disk($disk)->put($destination_path.'/'.$filename, $image->stream());
 
             // 3. Delete the previous image, if there was one.
-            if (isset($this->{$attribute_name}) && !empty($this->{$attribute_name}))
+            if (isset($this->{$attribute_name}) && !empty($this->{$attribute_name})) {
                 \Storage::disk($disk)->delete($this->{$attribute_name});
+            }
 
             // 4. Save the public path to the database
             // but first, remove "public/" from the path, since we're pointing to it
@@ -1509,7 +1510,7 @@ Class Product extends Model
             // is the public URL (everything that comes after the domain name)
             $public_destination_path = Str::replaceFirst('public/', '', $destination_path);
             $this->attributes[$attribute_name] = $public_destination_path.'/'.$filename;
-        }elseif(!empty($value)){
+        } elseif (!empty($value)) {
             // if value isn't empty, but it's not an image, assume it's the model value for that attribute.
             $this->attributes[$attribute_name] = $this->{$attribute_name};
         }
