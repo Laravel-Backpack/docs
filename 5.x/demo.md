@@ -2,7 +2,7 @@
 
 ---
 
-We've put together a working Laravel app (backend-only), that you can install on your machine. This should make it easier to:
+We've put together a working Laravel app (backend-only). This should make it easier to:
 - see how it looks & feels;
 - see how it works;
 - change stuff in code, to see how easy it is to customize Backpack; 
@@ -11,6 +11,7 @@ In this [Demo repository](https://github.com/laravel-backpack/demo), we've:
 - installed Laravel 8;
 - installed Backpack\CRUD; <span class="badge badge-pill badge-success">FREE</span>
 - installed Backpack\PRO; <span class="badge badge-pill badge-info">PRO</span>
+- installed Backpack\Editable-Columns; <span class="badge badge-pill badge-warning">PREMIUM</span>
 - created a few demo models and admin panels for them, using dozens of field types, column types, filters, etc - to show off most of Backpack CRUD + PRO features;
 - installed a few Backpack extensions: PermissionManager, PageManager, LogManager, BackupManager, Settings, MenuCRUD, NewsCRUD;
 
@@ -27,7 +28,7 @@ If you just want to take a look at the Backpack interface and click around, you 
 <a name="installation"></a>
 ## Demo Installation
 
-If you _do_ want to install the Demo and play around, it's easy to do so. But because the demo uses [Backpack/PRO](https://backpackforlaravel.com/products/pro-for-unlimited-projects), you need to [purchase that addon first](https://backpackforlaravel.com/products/pro-for-unlimited-projects). If you don't like it, we'll happily give you a refund.
+If you _do_ want to install the Demo and play around, it's easy to do so. But because the demo uses [Backpack/PRO](https://backpackforlaravel.com/products/pro-for-unlimited-projects) and [Backpack/Editable-Columns]([https://backpackforlaravel.com/products/pro-for-unlimited-projects](https://backpackforlaravel.com/products/editable-columns)), you need to [purchase "Everything" first](https://backpackforlaravel.com/pricing), or those addons individually. If you don't like it, we'll happily give you a refund.
 
 1) In your ```Projects``` or ```www``` directory, wherever you host your apps:
 
