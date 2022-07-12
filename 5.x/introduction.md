@@ -56,7 +56,7 @@ We heavily recommend you spend a little time to understand Backpack, and only af
 <a name="how-does-it-look"></a>
 ### How does it look?
 
-**Take a look at our [live demo](https://demo.backpackforlaravel.com/admin/login).** If you've purchased [Backpack/PRO](https://backpackforlaravel.com/pricing) you can even [install the demo](/docs/{{version}}/demo) and fiddle with the code. Otherwise, you can just start a new Laravel project, [install Backpack\CRUD](/docs/{{version}}/installation) on top, and [follow our text course](/docs/{{version}}/getting-started-basics) to create a few CRUDs.
+**Take a look at our [live demo](https://demo.backpackforlaravel.com/admin/login).** If you've purchased ["Everything"](https://backpackforlaravel.com/pricing) you can even [install the demo](/docs/{{version}}/demo) and fiddle with the code. Otherwise, you can just start a new Laravel project, [install Backpack\CRUD](/docs/{{version}}/installation) on top, and [follow our text course](/docs/{{version}}/getting-started-basics) to create a few CRUDs.
 
 <a name="security"></a>
 ### Security
