@@ -1607,18 +1607,19 @@ If your related entry has hundreds, thousands or millions of entries, it's not p
     'ajax' => true,
 
     // OPTIONALS:
-    // 'label' => "Category",
-    // 'attribute' => "name", // foreign key attribute that is shown to user (identifiable attribute)
-    // 'entity' => 'category', // the method that defines the relationship in your Model
-    // 'model' => "App\Models\Category", // foreign key Eloquent model
+    // 'label'       => "Category",
+    // 'attribute'   => "name", // foreign key attribute that is shown to user (identifiable attribute)
+    // 'entity'      => 'category', // the method that defines the relationship in your Model
+    // 'model'       => "App\Models\Category", // foreign key Eloquent model
     // 'placeholder' => "Select a category", // placeholder for the select2 input
 
     // AJAX OPTIONALS:
-    // 'delay' => 500, // the minimum amount of time between ajax requests when searching in the field
-    // 'data_source' => url("fetch/category"), // url to controller search function (with /{id} should return model)
-    // 'minimum_input_length' => 2, // minimum characters to type before querying results
-    // 'dependencies'         => ['category'], // when a dependency changes, this select2 is reset to null
-    // 'include_all_form_fields'  => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
+    // 'delay'                   => 500, // the minimum amount of time between ajax requests when searching in the field
+    // 'data_source'             => url("fetch/category"), // url to controller search function (with /{id} should return model)
+    // 'minimum_input_length'    => 2, // minimum characters to type before querying results
+    // 'dependencies'            => ['category'], // when a dependency changes, this select2 is reset to null
+    // 'method'                  => 'POST', // optional - HTTP method to use for the AJAX call (GET, POST)
+    // 'include_all_form_fields' => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
  ],
 ```
 
@@ -2124,12 +2125,12 @@ Display a select2 that takes its values from an AJAX call.
     'data_source' => url("api/category"), // url to controller search function (with /{id} should return model)
 
     // OPTIONAL
-    // 'delay' => 500, // the minimum amount of time between ajax requests when searching in the field
+    // 'delay'                   => 500, // the minimum amount of time between ajax requests when searching in the field
     // 'placeholder'             => "Select a category", // placeholder for the select
     // 'minimum_input_length'    => 2, // minimum characters to type before querying results
     // 'model'                   => "App\Models\Category", // foreign key model
     // 'dependencies'            => ['category'], // when a dependency changes, this select2 is reset to null
-    // 'method'                  => 'GET', // optional - HTTP method to use for the AJAX call (GET, POST)
+    // 'method'                  => 'POST', // optional - HTTP method to use for the AJAX call (GET, POST)
     // 'include_all_form_fields' => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
 ],
 ```
@@ -2201,11 +2202,12 @@ Display a select2 that takes its values from an AJAX call. Same as [select2_from
     'pivot'       => true, // on create&update, do you need to add/delete pivot table entries?
 
     // OPTIONAL
-    'delay' => 500, // the minimum amount of time between ajax requests when searching in the field
-    'model'                => "App\Models\City", // foreign key model
-    'placeholder'          => "Select a city", // placeholder for the select
-    'minimum_input_length' => 2, // minimum characters to type before querying results
-    // 'include_all_form_fields'  => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
+    'delay'                      => 500, // the minimum amount of time between ajax requests when searching in the field
+    'model'                      => "App\Models\City", // foreign key model
+    'placeholder'                => "Select a city", // placeholder for the select
+    'minimum_input_length'       => 2, // minimum characters to type before querying results
+    // 'method'                  => 'POST', // optional - HTTP method to use for the AJAX call (GET, POST)
+    // 'include_all_form_fields' => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
 ],
 ```
 

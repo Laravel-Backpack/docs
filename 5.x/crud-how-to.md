@@ -199,9 +199,9 @@ function () { // if the filter is active (the GET parameter "draft" exits)
 This will make Backpack look for the ```resources/views/custom_filters/complex.blade.php```, and pick that up before anything else.
 
 <a name="how-to-add-a-select-that-depends-on-another-field"></a>
-### How to add a select2 field that depends on another field
+### How to add a relationship field that depends on another field
 
-The ```select2_from_ajax``` and ```select2_from_ajax_multiple``` fields allow you to filter the results of a select2, depending on what has already been selected in a form. Say you have to select2 fields. When the AJAX call is made to the second field, all other variables in the page also get passed - that means you can filter the results of the second select2.
+The `relationship`, `select2_from_ajax` and `select2_from_ajax_multiple` fields allow you to filter the results depending on what has already been written or selected in a form. Say you have two `select2` fields, when the AJAX call is made to the second field, all other variables in the page also get passed - that means you can filter the results of the second `select2`.
 
 Say you want to show two selects:
 - the first one shows Categories
@@ -210,7 +210,8 @@ Say you want to show two selects:
 1. In your CrudController you would do:
 
 ```php
-$this->crud->addField([    // SELECT2
+// select2
+$this->crud->addField([
     'label'         => 'Category',
     'type'          => 'select',
     'name'          => 'category',
@@ -218,22 +219,25 @@ $this->crud->addField([    // SELECT2
     'attribute'     => 'name',
 ]);
 
-$this->crud->addField([ // select2_from_ajax: 1-n relationship
-    'label'                => "Article", // Table column heading
-    'type'                 => 'select2_from_ajax_multiple',
-    'name'                 => 'articles', // the column that contains the ID of that connected entity;
-    'entity'               => 'article', // the method that defines the relationship in your Model
-    'attribute'            => 'title', // foreign key attribute that is shown to user
-    'data_source'          => url('api/article'), // url to controller search function (with /{id} should return model)
-    'placeholder'          => 'Select an article', // placeholder for the select
+// select2_from_ajax: 1-n relationship
+$this->crud->addField([
+    'label'                   => "Article", // Table column heading
+    'type'                    => 'select2_from_ajax_multiple',
+    'name'                    => 'articles', // the column that contains the ID of that connected entity;
+    'entity'                  => 'article', // the method that defines the relationship in your Model
+    'attribute'               => 'title', // foreign key attribute that is shown to user
+    'data_source'             => url('api/article'), // url to controller search function (with /{id} should return model)
+    'placeholder'             => 'Select an article', // placeholder for the select
     'include_all_form_fields' => true, //sends the other form fields along with the request so it can be filtered.
-    'minimum_input_length' => 0, // minimum characters to type before querying results
-    'dependencies'         => ['category'], // when a dependency changes, this select2 is reset to null
-    // 'method'                    => 'GET', // optional - HTTP method to use for the AJAX call (GET, POST)
+    'minimum_input_length'    => 0, // minimum characters to type before querying results
+    'dependencies'            => ['category'], // when a dependency changes, this select2 is reset to null
+    // 'method'               => 'POST', // optional - HTTP method to use for the AJAX call (GET, POST)
 ]);
 ```
 
 **DIFFERENT HERE**: ```minimum_input_length```,  ```dependencies``` and ```include_all_form_fields```.
+
+Note: if you are going to use `include_all_form_fields` we recommend you to set the method to `POST`, and to properly setup that in your routes. Since all the fields in the form are going to be sent in the request, `POST` support more data.
 
 2. That second select points to routes that need to be registered:
 
