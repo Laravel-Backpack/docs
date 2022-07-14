@@ -38,15 +38,23 @@ $this->crud->addColumn()->makeFirstColumn();
 <a name="buttons-api"></a>
 #### Buttons
 
-<small>Methods: addButton(), addButtonFromModelFunction(), addButtonFromView(), removeButton(), removeButtonFromStack()</small>
+<small>Methods: buttons(), addButton(), addButtonFromModelFunction(), addButtonFromView(), removeButton(), removeButtonFromStack(), removeButtons(), removeAllButtons(), removeAllButtonsFromStack(), modifyButton(), moveButton()</small>
 
 ```php
+// possible stacks: 'top', 'line', 'bottom';
 // possible positions: 'beginning' and 'end'; defaults to 'beginning' for the 'line' stack, 'end' for the others;
-$this->crud->addButton($stack, $name, $type, $content, $position); // add a button; possible types are: view, model_function
+$this->crud->buttons(); // collection of all buttons
+$this->crud->addButton($stack, $name, $type, $content, $position); // possible types are: 'view', 'model_function'
 $this->crud->addButtonFromModelFunction($stack, $name, $model_function_name, $position); // add a button whose HTML is returned by a method in the CRUD model
 $this->crud->addButtonFromView($stack, $name, $view, $position); // add a button whose HTML is in a view placed at resources\views\vendor\backpack\crud\buttons
 $this->crud->removeButton($name);
 $this->crud->removeButtonFromStack($name, $stack);
+$this->crud->removeButtons($names, $stack);
+$this->crud->removeAllButtons();
+$this->crud->removeAllButtonsFromStack($stack);
+$this->crud->orderButtons($stack, $order); // order is an array with button names in the new order
+$this->crud->modifyButton($name, $modifications); // modifications are the attributes and their new values
+$this->crud->moveButton($target, $where, $destination); // move the target button to the destination position, target and destion are the button names, where is 'before' or 'after'
 ```
 
 <a name="filters-api"></a>
