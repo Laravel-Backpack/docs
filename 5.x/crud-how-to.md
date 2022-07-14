@@ -242,8 +242,8 @@ Note: if you are going to use `include_all_form_fields` we recommend you to set 
 2. That second select points to routes that need to be registered:
 
 ```php
-Route::get('api/article', 'App\Http\Controllers\Api\ArticleController@index');
-Route::get('api/article/{id}', 'App\Http\Controllers\Api\ArticleController@show');
+Route::post('api/article', 'App\Http\Controllers\Api\ArticleController@index');
+Route::post('api/article/{id}', 'App\Http\Controllers\Api\ArticleController@show');
 ```
 
 **DIFFERENT HERE**: Nothing.

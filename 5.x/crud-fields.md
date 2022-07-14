@@ -2140,7 +2140,7 @@ For more information about the optional attributes that fields use when they int
 Of course, you also need to create make the data_source above respond to AJAX calls. You can use the [FetchOperation](https://backpackforlaravel.com/docs/4.1/crud-operation-fetch) to quickly do that in your current CrudController, or you can set up your custom API by creating a custom Route and Controller. Here's an example:
 
 ```php
-Route::get('/api/category', 'Api\CategoryController@index');
+Route::post('/api/category', 'Api\CategoryController@index');
 ```
 
 ```php
@@ -2216,8 +2216,8 @@ For more information about the optional attributes that fields use when they int
 Of course, you also need to create a controller and routes for the data_source above. Here's an example:
 
 ```php
-Route::get('/api/city', 'Api\CityController@index');
-Route::get('/api/city/{id}', 'Api\CityController@show');
+Route::post('/api/city', 'Api\CityController@index');
+Route::post('/api/city/{id}', 'Api\CityController@show');
 ```
 
 ```php
