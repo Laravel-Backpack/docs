@@ -783,6 +783,30 @@ Input preview:
 
 <hr>
 
+<a name="switch"></a>
+### switch
+
+Show a switch (aka toggle) for boolean attributes (true/false). It's an alternative to the `checkbox` field type - prettier and more customizable: it allows the dev to choose the background color and what shows up on the on/off sides of the switch.
+
+```php
+[   // Switch
+    'name'  => 'switch',
+    'type'  => 'switch',
+    'label'    => 'I have not read the terms and conditions and I never will',
+
+    // optional
+    'color'    => 'primary', // May be any bootstrap color class or an hex color
+    'onLabel' => '✓',
+    'offLabel' => '✕',
+],
+```
+
+Input preview: 
+
+![CRUD Field - switch](https://backpackforlaravel.com/uploads/docs-5-0/fields/switch.png)
+
+<hr>
+
 <a name="text"></a>
 ### text
 
