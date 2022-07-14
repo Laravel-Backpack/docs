@@ -288,7 +288,7 @@ There are two ways to publish the latest styles and scripts for these dependenci
 
 ----
 
-<a name="step-22" href="#step-21" class="badge badge-secondary-soft" style="text-decoration: none;">Step 22.</a> If you've overwritten `resources/views/crud/form_content.blade.php` you may need to update it.
+<a name="step-22" href="#step-22" class="badge badge-secondary-soft" style="text-decoration: none;">Step 22.</a> If you've overwritten `resources/views/crud/form_content.blade.php` you may need to update it.
 JS Fields API is now imported on that file, the easiest way is to add that include directly near the end of the file.
 In most of the cases you won't be affected by this, but if you have this file in your project source, please make sure it includes the following line.
 
