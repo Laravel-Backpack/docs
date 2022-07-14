@@ -791,7 +791,7 @@ Show a switch (aka toggle) for boolean attributes (true/false). It's an alternat
 ```php
 [   // Switch
     'name'  => 'switch',
-    'type'  => 'switch'
+    'type'  => 'switch',
     'label'    => 'I have not read the terms and conditions and I never will',
 
     // optional
