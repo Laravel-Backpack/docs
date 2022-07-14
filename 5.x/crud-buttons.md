@@ -34,7 +34,11 @@ Default buttons are invisible if an operation has been disabled. For example, yo
 Here are a few things you can call in your EntityCrudController's ```setupListOperation()``` method, to manipulate buttons:
 
 ```php
+// possible stacks: 'top', 'line', 'bottom';
 // possible positions: 'beginning' and 'end'; defaults to 'beginning' for the 'line' stack, 'end' for the others;
+
+// collection of all buttons
+$this->crud->buttons();
 
 // add a button; possible types are: view, model_function
 $this->crud->addButton($stack, $name, $type, $content, $position);
@@ -48,9 +52,28 @@ $this->crud->addButtonFromView($stack, $name, $view, $position);
 // remove a button
 $this->crud->removeButton($name);
 
-// remove a button for a certain stack (top, line, bottom)
+// remove a button for a certain stack
 $this->crud->removeButtonFromStack($name, $stack);
+
+// remove multiple buttons
+$this->crud->removeButtons($names, $stack);
+
+// remove all buttons
+$this->crud->removeAllButtons();
+
+// remove all buttons for a certain stack
+$this->crud->removeAllButtonsFromStack($stack);
+
+// order buttons in a stack, order is an array with the ordered names of the buttons
+$this->crud->orderButtons($stack, $order);
+
+// modify button, modifications are the attributes and their new values.
+$this->crud->modifyButton($name, $modifications);
+
+// Move the target button to the destination position, target and destion are the button names, where is 'before' or 'after'
+$this->crud->moveButton($target, $where, $destination);
 ```
+
 <a name="overwriting-a-default-button"></a>
 ### Overwriting a Default Button
 
@@ -199,4 +222,16 @@ public function import()
 - Now we can actually add this button to any of ```UserCrudController::setupListOperation()```:
 ```php
 $this->crud->addButtonFromView('top', 'import', 'import', 'end');
+```
+
+### Reorder buttons
+
+The default order of line stack buttons is 'edit', 'delete'. Let's say you are using the `ShowOperation`, by default the preview button gets placed in the beggining of that stack, if you want to move it to the end of the stack you may use `orderButtons` or `moveButton`.
+
+```php
+CRUD::orderButtons('line', ['update', 'delete', 'show']);
+```
+
+```php
+CRUD::moveButton('show', 'after', 'delete');
 ```
