@@ -286,10 +286,24 @@ There are two ways to publish the latest styles and scripts for these dependenci
 
 <a name="step-21" href="#step-21" class="badge badge-secondary-soft" style="text-decoration: none;">Step 21.</a> If you've overwritten any of the default operations in any way (blade files or PHP classes), take note that we've renamed the system GET/POST parameters (aka hidden inputs) - they're all prefixed by underscore now, to differentiate them from actual database columns. Please replace `http_referrer`, `locale`, `current_tab` with `_http_referrer`, `_locale`, `_current_tab`, respectively. [Take a look at the PR](https://github.com/Laravel-Backpack/CRUD/pull/3955/files) to see the affected files. In 99% of all cases you won't be affected by this, there's little reason to overwrite the default operations. This also applies if you've overridden the `SaveActions` or `form_content`.
 
+----
+
+<a name="step-22" href="#step-21" class="badge badge-secondary-soft" style="text-decoration: none;">Step 22.</a> If you've overwritten `resources/views/crud/form_content.blade.php` you may need to update it.
+JS Fields API is now imported on that file, the easiest way is to add that include directly near the end of the file.
+In most of the cases you won't be affected by this, but if you have this file in your project source, please make sure it includes the following line.
+
+```diff
+    ...
+    </script>
+
++    @include('crud::inc.form_fields_script')
+@endsection
+```
+
 <a name="security"></a>
 ### Security
 
-<a name="step-22" href="#step-22" class="badge badge-danger" style="text-decoration: none;">Step 22.</a> By default, all columns now echo using `{{ }}` instead of `{!! !!}`. That means they "_escape the output_", assuming they contain strings, not HTML. This was done to increase _default security_, to protect the admin from any malicious strings that might have been stored in the database. There are two exceptions to this, two columns that are not `escaped` by default: `custom_html` and `markdown`, where Backpack assumes you store HTML. To upgrade:
+<a name="step-23" href="#step-23" class="badge badge-danger" style="text-decoration: none;">Step 23.</a> By default, all columns now echo using `{{ }}` instead of `{!! !!}`. That means they "_escape the output_", assuming they contain strings, not HTML. This was done to increase _default security_, to protect the admin from any malicious strings that might have been stored in the database. There are two exceptions to this, two columns that are not `escaped` by default: `custom_html` and `markdown`, where Backpack assumes you store HTML. To upgrade:
 - If you've been showing HTML using the `array`, `array_count`, `closure`, `model_function`, `model_function_attribute`, `relationship_count` or `textarea` columns, you can use `'escaped' => false` on those columns to go back to the previous behaviour. But please [read more about this](/docs/{{version}}/crud-columns#escape-column-output), it might be a good idea to sanitize your input/output if you've forgotten to do so.
 - If you're using the `markdown` or `custom_html` columns, please note that they still DO NOT escape the output by default (since they most likely store HTML); make sure you've properly sanitized your input or output - it's super-easy using an [HTML Purifier package](https://github.com/mewebstudio/Purifier) (you can do that by casting the attribute to `CleanHtmlOutput::class` in your Model or [manually](https://github.com/Laravel-Backpack/demo/commit/7342cffb418bb568b9e4ee279859685ddc0456c1));
 
@@ -297,7 +311,7 @@ There are two ways to publish the latest styles and scripts for these dependenci
 <a name="cache"></a>
 ### Cache
 
-<a name="step-23" href="#step-23" class="badge badge-danger text-white" style="text-decoration: none;">Step 23.</a> Clear your app's cache:
+<a name="step-24" href="#step-24" class="badge badge-danger text-white" style="text-decoration: none;">Step 24.</a> Clear your app's cache:
 ```
 php artisan config:clear
 php artisan cache:clear
