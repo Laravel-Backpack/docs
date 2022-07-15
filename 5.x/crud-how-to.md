@@ -796,3 +796,43 @@ Details and implementation [here](https://github.com/Laravel-Backpack/CRUD/pull/
 
 
 
+<a name="error-failed-to-download-backpack-pro"></a>
+### Error: Failed to Download Backpack PRO
+
+When trying to install Backpack\PRO (or any of our closed-source add-ons, really), you might run into the following error message:
+
+```bash
+Downloading backpack/pro (1.1.1)
+Failed to download backpack/pro from dist: The "https://backpackforlaravel.com/satis/download/dist/backpack/pro/backpack-pro-xxx-zip-zzz.zip" file could not be downloaded (HTTP/2 402 )
+```
+
+Or maybe:
+
+```bash
+Syncing backpack/pro (1.1.1) into cache
+Cloning failed using an ssh key for authentication, enter your GitHub credentials to access private repos
+Head to https://github.com/settings/tokens/new?scopes=repo&description=Composer+on+DESKTOP-BLABLA+2022-07-14+1559
+to retrieve a token.
+```
+
+What's happening there? That is a general Composer error - "file could not be downloaded". The error itself doesn't give too much information, but we can make an educated guess.
+
+**99% of the people who report this error have the same problem - they do not have access to that package version.** They bought updates until 1.0.13 (for example), so they DO NOT have access to the latest version (1.1.1 in this example). What you can do, in that case, is **lock the installation to the latest you have access to**, for example 
+
+```bash
+composer require backpack/pro:"1.0.13"
+```
+
+Alternatively, you can purchase more access on the [Backpack website](https://backpackforlaravel.com/pricing). Or contact the team if there's a mistake.
+
+--
+
+How do you find out what's the last version you have access to?
+
+(1) **Whenever the error above happens, Backpack will send you an email**, with details and instructions. **Check your email**, it will also include the latest version you have access to.
+
+(2) [Your Tokens page](https://backpackforlaravel.com/user/tokens) will show more details. For each token you have, it will say when it stops giving you access to updates. If it doesn't say the last version directly, you can corroborate that last day with [the changelog](https://backpackforlaravel.com/products/pro-for-unlimited-projects/changelog.md), to determine what's the last version that _you_ have access to.
+
+--
+
+Why the ugly, general error? Because Composer doesn't allow vendors to customize the error, unfortunately. Backpack's server returns a better error message, but Composer doesn't show it.
