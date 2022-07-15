@@ -130,3 +130,12 @@ $this->crud->orderSaveActions(['save_action_one' => 3,'save_action_two' => 2]);
 #### setSaveActions(array $saveActions)
 
 Alias for ```replaceSaveActions(array $saveActions)```.
+
+## Action change notification
+
+By default, a change of the save action is shown to the user with a notification. If you want to disable the notification
+you can configure this in the setup of you CRUD controller:
+
+```php
+$this->crud->setOperationSetting('showSaveActionChange', false);
+```
