@@ -32,7 +32,7 @@ php artisan backpack:build
 
 If you have NOT created your Eloquent models yet, you can use whatever you want for that. We recommend:
 - FREE - [`laracasts/generators`](https://github.com/laracasts/Laravel-5-Generators-Extended) as the best **command-line tool** for this;
-- FREE - [`laravel-shift/blueprint`](https://github.com/laravel-shift/blueprint) as the best **JSON-based tool** for this;
+- FREE - [`laravel-shift/blueprint`](https://github.com/laravel-shift/blueprint) as the best **YAML-based tool** for this;
 - PAID - [`backpack/devtools`](https://backpackforlaravel.com/products/devtools) as the best **web interface** for this; it makes it dead-simple to create Eloquent models, from the comfort of your web browser;
 
 ---
