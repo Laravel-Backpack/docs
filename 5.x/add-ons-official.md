@@ -1,10 +1,12 @@
 # Official Add-ons
 
-In addition to our core packages (Base and CRUD), we've developed a few packages you can install or download, that treat common use cases. 
+In addition to our core packages (CRUD and PRO), we've developed a few packages you can install or download, that treat common use cases. 
 
-Premium add-ons (paid separately, on top of your [Backpack license](https://backpackforlaravel.com/pricing)):
+Premium add-ons (paid separately):
+- [Backpack PRO](https://backpackforlaravel.com/products/pro-for-unlimited-projects) - adds 5 more operations, 10 filters, 28 more fields, 6 more columns and 1 more widget to your admin panel toolbelt; we believe it's everything you need to build admin panels... of any complexity <span class="badge badge-pill badge-warning">PAID EXTRA</span>
 - [Backpack DevTools](https://backpackforlaravel.com/products/devtools) - a GUI to easily generate Migrations, Models, Seeders, Factories and CRUDs, right from your browser window; a power user's dream come true! <span class="badge badge-pill badge-warning">PAID EXTRA</span>
 - [Backpack Figma Template](https://backpackforlaravel.com/products/figma-template) - quickly create designs and mockups, using Backpack's design, screens and components; empower your designers to design admin panels that are easy-to-code; <span class="badge badge-pill badge-warning">PAID EXTRA</span>
+- [Backpack EditableColumns](https://backpackforlaravel.com/products/editable-columns) - let admins make quick edits, right from the table view; <span class="badge badge-pill badge-warning">PAID EXTRA</span>
 
 
 Free add-ons:
