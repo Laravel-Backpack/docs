@@ -5,7 +5,9 @@
 <a name="requirements"></a>
 ## Requirements
 
-If you can run Laravel 8 or 9, you can install Backpack. Backpack does _not_ have additional requirements. For the following process, we assume:
+If you can run Laravel 8 or 9, you can install Backpack. Backpack does _not_ have additional requirements. 
+
+For the following process, we assume:
 
 - you have a [working installation of Laravel](https://laravel.com/docs/9.x#installation) (an existing project is fine, you don't need a *fresh* Laravel install);
 
@@ -17,26 +19,39 @@ If you can run Laravel 8 or 9, you can install Backpack. Backpack does _not_ hav
 ## Installation
 
 <a name="install-core-packages"></a>
-### Install Core Packages
+### Install using Composer
 
-0) Open your project folder in your terminal:
-
-```bash
-cd your-laravel-project-name
-```
-
-1) In your project's main directory:
+Go to your Laravel project's directory, in your terminal, then:
 
 ``` bash
-# require Backpack using Composer
-composer require backpack/crud:"^5.0"
-composer require --dev backpack/generators
-
-# run the installation command
+composer require backpack/crud
 php artisan backpack:install
+
+# (optional) require Backpack's tool that allows you to generate CRUDs
+composer require --dev backpack/generators
 ```
 
 > Backpack install is interactive and will ask questions during installation. You can bypass the questions by adding the `--no-interaction` argument to the install command.
+
+
+### Preview in browser
+
+In most cases, the process above should be enough for you to have a working admin panel at `your-app-name/admin`. If not, check out the configurations and FAQs below.
+
+
+> If it's your first time installing Backpack, it is **highly recommended** that you go through our [Getting Started series](/docs/{{version}}/getting-started-basics), to understand how Backpack works. That's why we created it - to help you learn how to use this admin panel framework. In ~23 minutes we'll teach you 80% of what you can do, and how.
+
+
+### Configure 
+
+In most cases, it's a good idea to look at the configuration files and make the admin panel your own:
+- You should change the configuration values in ```config/backpack/base.php``` to make the admin panel your own. Backpack is white label, so you can change everything: menu color, project name, developer name etc.
+- By default all users are considered admins; If that's not what you want in your application (you have both users and admins), please:
+    - Change ```app/Http/Middleware/CheckIfAdmin.php```, particularly ```checkIfUserIsAdmin($user)```, to make sure you only allow admins to access the admin panel;
+    - Change ```app/Providers/RouteServiceProvider::HOME```, which will send logged in (but not admin) users to `/home`, to something that works for your app;
+- If your User model has been moved from the default ```App\Models\User.php```, please change ```config/backpack/base.php``` to use the correct user model under the ```user_model_fqn``` config key;
+
+### Create your Eloquent Models
 
 Backpack assumes you already have your Eloquent Models properly set up. If you don't, **consider using something to quickly generate Migrations & Models**. You can use anything you want, but here are the options we recommend:
 
@@ -46,17 +61,21 @@ Backpack assumes you already have your Eloquent Models properly set up. If you d
 
 - c) Generate from a **YAML file** - [LaravelShift's Blueprint](https://blueprint.laravelshift.com/) - free & open-source. Enables you to create a `draft.yml` file in your repo, where you can specify the column using their custom YAML syntax. Works well for small & medium entities.
 
-Take note that:
-- By default all users are considered admins; If that's not what you want in your application (you have both users and admins), please:
-    - Change ```app/Http/Middleware/CheckIfAdmin.php```, particularly ```checkIfUserIsAdmin($user)```, to make sure you only allow admins to access the admin panel;
-    - Change ```app/Providers/RouteServiceProvider::HOME```, which will send logged in (but not admin) users to `/home`, to something that works for your app;
-- You should the configuration values in ```config/backpack/base.php``` to make the admin panel your own. Backpack is white label, so you can change everything: menu color, project name, developer name etc.
-- If your User model has been moved (it is not ```App\Models\User.php```), please change ```config/backpack/base.php``` to use the correct user model using the ```user_model_fqn``` config key.
+### Create your CRUDs
 
-That's it. If you already know how to use Backpack, next up you'll probably want to [create CRUD Panels](/docs/{{version}}/crud-tutorial#generate-files).
+For each Eloquent model you want to have an admin panel, run:
 
-> If it's your first time installing Backpack, it is **highly recommended** that you go through our [Getting Started series](/docs/{{version}}/getting-started-basics), to understand how Backpack works. That's why we created it - to help you learn how to use this admin panel framework. In ~23 minutes we'll teach you 80% of what you can do, and how.
+```bash
+php artisan backpack:crud {model} # use the model name (singular)
+```
 
+Alternatively, you can generate CRUDs for all Eloqunet models, by running:
+
+```bash
+php artisan backpack:build
+```
+
+Then go through each CRUD file (Controller, Request, Route Item, Sidebar Item) and customize as you fit. If you don't know what those are, and how you can customize them... please take go through our [Getting Started](https://backpackforlaravel.com/docs/5.x/introduction#how-to-start) section, it's important. At the very least, read our [Crash Course](https://backpackforlaravel.com/docs/5.x/crud-tutorial).
 
 <a name="install-add-ons"></a>
 ### Install Add-ons
