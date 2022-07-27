@@ -87,9 +87,9 @@ Backpack adds a few buttons by default:
 To learn more about buttons, **check out the [Buttons](/docs/{{version}}/crud-buttons) documentation page**.
 
 <a name="filters"></a>
-### Filters
+### Filters <span class="badge badge-pill badge-info">PRO</span>
 
-Filters show up right before the actual table, and provide a way for the admin to filter the results in the ListEntries table. To learn more about filters, **check out the [Filters](/docs/{{version}}/crud-filters) documentation page**.
+Filters show up right before the actual table, and provide a way for the admin to filter the results in the ListEntries table. To learn more about filters, **check out the [Filters](/docs/{{version}}/crud-filters) documentation page**. Please note that filters are a <span class="badge badge-pill badge-info">PRO</span> feature. Check out more differences in [FREE vs PRO](/docs/{{version}}/features-free-vs-paid#features).
 
 <a name="other-features"></a>
 ### Other Features
@@ -110,7 +110,7 @@ To use, inside your ```EntityCrudController```:
 Alternative for the 2nd step: overwrite ```views/backpack/crud/details_row.blade.php``` which is called by the default ```showDetailsRow($id)``` functionality.
 
 <a name="export-buttons"></a>
-#### Export Buttons
+#### Export Buttons <span class="badge badge-pill badge-info">PRO</span>
 
 Exporting the DataTable to PDF, CSV, XLS is as easy as typing ```$this->crud->enableExportButtons();``` in your constructor. 
 
