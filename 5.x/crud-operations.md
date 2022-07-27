@@ -34,7 +34,7 @@ No operations are enabled by default.
 But Backpack does provide the logic for the most common operations admins perform on Eloquent model. You just need to use it (and maybe configure it) in your controller.
 
 Operations provided by Backpack:
-- [List](/docs/{{version}}/crud-operation-list-entries) - allows the admin to see all entries for an Eloquent model, with pagination, search, filters; <span class="badge badge-pill badge-success">FREE</span>
+- [List](/docs/{{version}}/crud-operation-list-entries) - allows the admin to see all entries for a model, with pagination, search <span class="badge badge-pill badge-success">FREE</span> and filters <span class="badge badge-pill badge-info">PRO</span>
 - [Create](/docs/{{version}}/crud-operation-create) - allows the admin to add a new entry; <span class="badge badge-pill badge-success">FREE</span>
 - [Update](/docs/{{version}}/crud-operation-update) - allows the admin to edit an existing entry; <span class="badge badge-pill badge-success">FREE</span>
 - [Show](/docs/{{version}}/crud-operation-show) - allows the admin to preview an entry; <span class="badge badge-pill badge-success">FREE</span>
