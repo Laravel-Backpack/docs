@@ -74,7 +74,7 @@ The ```create()``` method will show all the fields you've defined for this opera
 
 There are three ways you can define the [validation rules](https://laravel.com/docs/validation#available-validation-rules) for your fields:
 
-#### Validating fields using FormRequests
+#### (A) Validating fields using FormRequests
 
 When you generate a CrudController, you'll notice a [Laravel FormRequest](https://laravel.com/docs/validation#form-request-validation) has also been generated, and that FormRequest is mentioned as the source of your validation rules:
 ```php
@@ -105,7 +105,7 @@ public function setupUpdateOperation()
 }
 ```
 
-#### Validating fields using a rules array
+#### (B) Validating fields using a rules array
 
 For smaller models (with just a few validation rules), creating an entire FormRequest file to hold them might be overkill. If you prefer, you can pass an array of [validation rules](https://laravel.com/docs/validation#available-validation-rules) to the same `setValidation()` method (with an optional second parameter for the validation messages):
 
@@ -117,6 +117,7 @@ protected function setupCreateOperation()
 	]);
 
 	// or maybe
+	
 	$rules = ['name' => 'required|min:2'];
 	$messages = [
 	    'name.required' => 'You gotta give it a name, man.',
@@ -128,7 +129,7 @@ protected function setupCreateOperation()
 
 This is more convenient for small and medium models. Plus, it's very easy to read.
 
-#### Validating fields using field attributes
+#### (C) Validating fields using field attributes
 
 Another good option for small & medium models is to define the [validation rules](https://laravel.com/docs/validation#available-validation-rules) directly on your fields:
 
@@ -146,6 +147,10 @@ protected function setupCreateOperation()
 	        'min' => 'More than 10 characters, bro. Wtf... You can do this!',
 	    ]
 	]);
+	
+	// or using the fluent syntax
+	
+	CRUD::field('email_address')->validationRules('required|email|unique:users.email_address');
 }
 ```
 
