@@ -1606,14 +1606,14 @@ Out of the box, it supports all common relationships:
 - ✅ `morphOne` (1-1) - shows a subform if you define `subfields`
 - ✅ `morphMany` (1-n) - shows a select2_multiple OR a subform if you define `subfields`
 - ✅ `morphToMany` (n-n) - shows a select2_multiple OR a subform if you define `subfields` for pivot extras
+- ✅ `morphTo` (n-1) - show the `_type` and `_id` selects for morphTo relations
 
 It does NOT support the following Eloquent relationships, since they don't make sense in this context:
 - ❌ `hasOneThrough` (1-1-1) - it's read-only, no sense having a field for it;
 - ❌ `hasManyThrough` (1-1-n) - it's read-only, no sense having a field for it;
 - ❌ Has One Of Many (1-n turned into 1-1) - it's read-only, no sense having a field for it;
 - ❌ Morph One Of Many (1-n turned into 1-1) - it's read-only, no sense having a field for it;
-- ❌ `morphTo` (n-1) - never needed, UI would be very difficult to understand & use;
-- ❌ `morphedByMany` (n-n inverse) - never needed, UI would be very difficult to understand & use;
+- ❌ `morphedByMany` (n-n inverse) - never needed, UI would be very difficult to understand & use at this moment.
 
 The relationship field is a plug-and-play solution, 90% of the time it will cover all you need by just pointing it to a relationship on the model. But it also has a few optional features, that will greatly help you out in more complex use cases:
 
