@@ -483,6 +483,9 @@ Include an `<input type="hidden">` in the form.
 <a name="month"></a>
 ### month
 
+**IMPORTANTE NOTICE**: This field type is not supported by all browsers. [View compatibility table](https://caniuse.com/mdn-html_elements_input_type_month)
+See `#workaround` section below for ideas on how to solve this.
+
 ```php
 [   // Month
     'name'  => 'month',
@@ -495,6 +498,19 @@ Input preview:
 
 ![CRUD Field - month](https://backpackforlaravel.com/uploads/docs-4-2/fields/month.png)
 
+###`#workaround`
+
+Since not all browsers support this input type, if you are using [Backpack PRO](https://backpackforlaravel.com/products/pro-for-one-project) you can customize the `date_picker` field to have a similar behavior:
+```php
+[   
+    'name'  => 'month',
+    'type'  => 'date_picker',
+    'date_picker_options' => [
+        'format'   => 'yyyy-mm',
+        'minViewMode' => 'months'
+    ],
+]
+```
 <hr>
 
 <a name="number"></a>
@@ -1078,6 +1094,8 @@ Load a custom view in the form.
 
 <a name="week"></a>
 ### week
+
+**IMPORTANTE NOTICE**: This field type is not supported by all browsers. [View compatibility table](https://caniuse.com/mdn-html_elements_input_type_week)
 
 ```php
 [   // Week
