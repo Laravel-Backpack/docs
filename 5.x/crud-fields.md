@@ -511,6 +511,8 @@ Since not all browsers support this input type, if you are using [Backpack PRO](
     ],
 ]
 ```
+**Important**: you should be using a date/datetime column as database column type if using `date_picker`.
+
 <hr>
 
 <a name="number"></a>
