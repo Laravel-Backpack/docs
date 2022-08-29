@@ -590,9 +590,9 @@ Please read the relationship [BelongsToMany](#belongstomany) documentation, ever
 #### MorphTo (n-1 relationship)
 
 Using this relation type Backpack will automatically manage for you both `_type` and `_id` fields of this relation. 
-Lets take as example the `comments` that can be either form `videos` or `posts`. 
-- You should have in your `CommentModel` the `morphTo` relation setup.
-- You table should have the morph columns `commentable_type` and `commentable_id` properly setup.
+Let's say we have `comments`, that can be either for `videos` or `posts`. 
+- Your `Comment` Model should have its `morphTo` relation set up.
+- Your db table should have the `commentable_type` and `commentable_id` columns.
 ```php
 // in CommentCrudController you can add the morphTo fields by naming the field the morphTo relation name
 CRUD::field('commentable')
@@ -603,7 +603,7 @@ This will generate two inputs:
 1 - A select with two options `Video` and `Post` as the `morph type field`. 
 2 - A second select that will have the options for both `Video` and `Post` models.
 
-In a real world scenario you will have other needs like using `ajax` for the `models field select` when there are alot of entries, or to customize the inputs size etc.
+In a real world scenario, you might have other needs, like using AJAX to select the actual entries or changing the inputs size etc. For that, check out the available attributes: 
 
 ```php
 // ->addMorphOption(string $model/$morphMapName, string $labelInSelect, array $options)
@@ -621,7 +621,7 @@ CRUD::field('commentable')
 
 // by defining `data_source` you are telling Backpack that the `Posts` select should be an ajax select.
 ```
-In this scenario the same two selects would be generated, but behind the scenes Backpack will switch between the `regular Video select` and the `ajax Post select`.
+In this scenario the same two selects would be generated, but for the Post, your admin see an AJAX field, instead of a static one, use POST instead of GET etc.
 
 To further customize the fields you can use `morphTypeField` and `morphIdField` to configure the select sizes etc.
 

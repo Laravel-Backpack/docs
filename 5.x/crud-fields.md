@@ -1606,7 +1606,7 @@ Out of the box, it supports all common relationships:
 - ✅ `morphOne` (1-1) - shows a subform if you define `subfields`
 - ✅ `morphMany` (1-n) - shows a select2_multiple OR a subform if you define `subfields`
 - ✅ `morphToMany` (n-n) - shows a select2_multiple OR a subform if you define `subfields` for pivot extras
-- ✅ `morphTo` (n-1) - show the `_type` and `_id` selects for morphTo relations
+- ✅ `morphTo` (n-1) - shows the `_type` and `_id` selects for morphTo relations
 
 It does NOT support the following Eloquent relationships, since they don't make sense in this context:
 - ❌ `hasOneThrough` (1-1-1) - it's read-only, no sense having a field for it;
