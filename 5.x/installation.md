@@ -26,21 +26,11 @@ Go to your Laravel project's directory, in your terminal, then:
 ``` bash
 composer require backpack/crud
 php artisan backpack:install
-
-# (optional) require Backpack's tool that allows you to generate CRUDs
-composer require --dev backpack/generators
 ```
 
-> Backpack install is interactive and will ask questions during installation. You can bypass the questions by adding the `--no-interaction` argument to the install command.
+Follow the prompts - in the end, the installer will also tell you your admin panel's URL, where you should go and login.
 
-
-### Preview in browser
-
-In most cases, the process above should be enough for you to have a working admin panel at `your-app-name/admin`. If not, check out the configurations and FAQs below.
-
-
-> If it's your first time installing Backpack, it is **highly recommended** that you go through our [Getting Started series](/docs/{{version}}/getting-started-basics), to understand how Backpack works. That's why we created it - to help you learn how to use this admin panel framework. In ~23 minutes we'll teach you 80% of what you can do, and how.
-
+> The installation command is interactive - it will ask you questions. You can bypass the questions by adding the `--no-interaction` argument to the install command. 
 
 ### Configure 
 
