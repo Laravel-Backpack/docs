@@ -25,6 +25,9 @@ $this->crud->removeFilter($name);
 $this->crud->removeAllFilters();
 
 $this->crud->filters(); // gets all the filters
+
+// aditionally you should be able to change Filter attributes by appending `->methods` in your filter definition. Eg - this would set the filter attribute `type` to be equal to `number`:
+$this->crud->addFilter($options, $values, $filter_logic)->type('number');
 ```
 
 <a name="adding-a-filter"></a>
