@@ -383,6 +383,7 @@ Allows you to insert custom HTML in the create/update forms. Usually used in for
     'value' => '<hr>'
 ],
 ```
+**NOTE** If you would like to disable the `wrapper` on this field, eg. when using a `<fieldset>` tag in your custom html, you can achieve it by using `wrapper => false` on field definition.
 
 <a name="date"></a>
 ### date
@@ -1092,6 +1093,8 @@ Load a custom view in the form.
 ```
 
 **Note:** the same functionality can be achieved using a [custom field type](/docs/{{version}}/crud-fields#creating-a-custom-field-type), or using the [custom_html field type](/docs/{{version}}/crud-fields#custom-html) (if the content is really simple).
+
+**NOTE** If you would like to disable the `wrapper` on this field, you can achieve it by using `wrapper => false` on field definition.
 
 <hr>
 
