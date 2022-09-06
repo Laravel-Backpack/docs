@@ -85,17 +85,7 @@ That means **you can overwrite an existing button simply by creating a blade fil
 ### Creating a Custom Button
 
 To create a custom button:
-#### Command-line Tool
-
-If you've installed ```backpack/generators```, you can run following command to generate a simple button, that you can edit and use on your CrudControllers.
-
-```bash
-php artisan backpack:button {button-name}
-```
-
-This will generate a new blade file in ```resources\views\vendor\backpack\crud\buttons```.
-
-- or manually create a new blade file in ```resources\views\vendor\backpack\crud\buttons```;
+- run `php artisan backpack:button new-button-name` to create a new blade file in `resources\views\vendor\backpack\crud\buttons`
 - add that button using the ```addButton()``` syntax above, in the EntityCrudControllers you want, inside the ```setupListOperation()``` method;
 
 In this blade file, you can use:
