@@ -30,7 +30,9 @@ php artisan backpack:install
 
 Follow the prompts - in the end, the installer will also tell you your admin panel's URL, where you should go and login.
 
-> The installation command is interactive - it will ask you questions. You can bypass the questions by adding the `--no-interaction` argument to the install command. 
+> **NOTE:** When the installer asks you if you would like to create and admin user, Backpack assumes that you are using the default user structure with `name, email and password` fields. If that's not the case, please reply **NO** to that question and manually create your admin user.
+
+> **NOTE:** The installation command is interactive - it will ask you questions. You can bypass the questions by adding the `--no-interaction` argument to the install command. 
 
 ### Configure 
 
