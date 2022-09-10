@@ -90,11 +90,14 @@ rm -rf app/Http/Controllers/Admin
 # You might have OTHER requests that are not Backpack-related.
 rm -rf app/Http/Requests 
 
-# (maybe) remove other Backpack dev tools you've used
-composer remove --dev laracasts/generators
+# (MUST) remove other Backpack packages that you are using, like PRO, Editable Columns, DevTools etc:
+composer remove --dev backpack/devtools
+composer remove backpack/pro
+composer remove backpack/editable-columns
 
-# remove Backpack from your composer.json requirements
-composer remove --dev backpack/generators
+etc...
+
+# After everything related to Backpack is deleted, just need to delete the crud!
 composer remove backpack/crud
 
 ```
