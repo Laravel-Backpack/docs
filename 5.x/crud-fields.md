@@ -2488,7 +2488,18 @@ To quickly publish a field blade file in your project, you can use ```php artisa
 <a name="creating-a-custom-field-type"></a>
 ## Creating a Custom Field Type
 
-If you need to extend the CRUD with a new field type, you create a new file in your application in ```/resources/views/vendor/backpack/crud/fields```. Use a name that's different from all default field types. That's it, you'll now be able to use it just like a default field type.
+If you need to extend the CRUD with a new field type, you create a new file in your application in ```/resources/views/vendor/backpack/crud/fields```. Use a name that's different from all default field types.
+
+```bash
+// to create one using Backpack\Generators, run:
+php artisan backpack:field new_field_name
+
+// alternatively, to create a new field similar an existing field, run: 
+php artisan backpack:field new_field_name --from=old_field_name
+```
+
+
+That's it, you'll now be able to use it just like a default field type.
 
 Your field definition will be something like:
 
