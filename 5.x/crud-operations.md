@@ -24,7 +24,7 @@ class ProductCrudController extends CrudController
 - default setup inside a ```setupOperationNameDefaults()``` method, that gets called automatically by CrudController when you use that operation on a controller;
 - methods that return views, or perform certain operations;
 
-Of course, you can easily [add custom operations](/#creating-a-custom-operation).
+Of course, you can easily [add custom operations](/docs/{{version}}/crud-operations#creating-a-custom-operation-1).
 
 <a name="supported-operations"></a>
 ## Standard Operations
