@@ -466,6 +466,70 @@ Input preview:
 
 <hr>
 
+<a name="google-map"></a>
+### google_map
+
+Uses the Google Places API to generate a Map where user can navigate and select a position to store `Latitude` (**lat**) and `Longitude` (**lng**). By default it saves a string in dabase with `{lat: 123, lng: 456}`. 
+**Note**: If you want two save in two separate fields continue reading below.
+
+```php
+CRUD::addField([
+    'name' => 'location',
+    'type' => 'google_map',
+
+    // optionals
+    'save_as' => ['lat' => 'lat', 'lng' => 'lng'] // save in specified fields, need further configuration
+    'map_options' => [
+        'default_lat' => 123,
+        'default_lng' => 456,
+        'locate' => false, // enable/disable the `Get my location`
+        'height' => 400 // in pixels
+    ]
+]);
+```
+
+Using Google Places API is dependent on using an API Key. Please [get an API key](https://console.cloud.google.com/apis/credentials) - you do have to configure billing, but you qualify for $200/mo free usage, which covers most use cases. Then copy-paste that key as your ```services.google_places.key``` value. So inside your ```config/services.php``` please add the items below:
+
+```php
+'google_places' => [
+    'key' => 'the-key-you-got-from-google-places'
+],
+```
+
+##### SAVING IN TWO INPUTS
+There are cases where you rather save `lat` and `lng` in two separate inputs. In that scenario you should add the following:
+```php
+// the field setup in controller
+
+// first add the two fields that represent your db fields:
+CRUD::field('latitude')->type('hidden');
+CRUD::field('longitude')->type('hidden');
+// next define the field and tell where it will be saved
+CRUD::addField([
+    'name' => 'location',
+    'type' => 'google_map',
+    'save_as' => ['lat' => 'latitude', 'lng' => 'longitude']
+]);
+
+// example in the model with `latitude` and `longitude` db columns.
+
+//add to fillable
+$fillable = ['latitude', 'longitude'];
+
+// create an acessor for your field name, in this case `location`
+public function getLocationAttribute()
+{
+    return json_encode(['lat' => $this->latitude, 'lng' => $this->longitude], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_THROW_ON_ERROR);
+}
+
+```
+
+Input preview:
+
+# ADD IMAGE HERE
+
+<hr>
+
 <a name="hidden"></a>
 ### hidden
 
