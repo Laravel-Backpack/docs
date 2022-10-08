@@ -482,6 +482,9 @@ protected $casts = ['status' => \App\Enums\StatusEnum::class]; //assumes you hav
     'name'  => 'status',
     'label' => 'Status',
     'type'  => 'enum'
+    // optional
+    //'enum_class' => 'App\Enums\StatusEnum',
+    //'enum_function' => 'readableStatus',
 ],
 ```
 
