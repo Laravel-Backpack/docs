@@ -515,11 +515,11 @@ It helps load blade files that are not specifically created to be widgets, that 
 <a name="overwriting-default-widget-types"></a>
 ## Overwriting Default Widget Types
 
-You can overwrite a widget type by placing a file with the same name in your ```resources\views\vendor\backpack\base\widgets``` directory. When a file is there, Backpack will pick that one up, instead of the one in the package. You can do that from command line using ```php artisan backpack:publish base/widgets/widget-name```
+You can overwrite a widget type by placing a file with the same name in your ```resources\views\vendor\backpack\base\widgets``` directory. When a file is there, Backpack will pick that one up, instead of the one in the package. You can do that from command line using ```php artisan backpack:widget --from=widget-name```
 
 Examples:
 - creating a ```resources\views\vendor\backpack\base\widgets\card.blade.php``` file would overwrite the ```card``` widget functionality;
-- ```php artisan backpack:publish base/widgets/card``` will take the view from the package and copy it to the directory above, so you can edit it;
+- ```php artisan backpack:widget --from=card``` will take the view from the package and copy it to the directory above, so you can edit it;
 
 >Keep in mind that when you're overwriting a default widget type, you're forfeiting any future updates for that widget. We can't push updates to a file that you're no longer using.
 
