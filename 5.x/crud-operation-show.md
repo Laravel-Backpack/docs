@@ -108,7 +108,7 @@ public function show($id)
 {
     // custom logic before
     $content = $this->traitShow($id);
-    // cutom logic after
+    // custom logic after
     return $content;
 }
 ```
