@@ -448,9 +448,9 @@ Input preview:
 <a name="enum"></a>
 ### enum
 
-Show a select with the values from the ENUM. **Support both database enums and PHP enums** (introduced in PHP 8.1). 
+Show a select with the values for an ENUM database column, or an PHP enum (introduced in PHP 8.1).
 
-##### using database enums
+##### Database ENUM
 When used with a database enum it requires that the database column type is `enum`. In case it's nullable it will also show `-` (empty) option.
 
 PLEASE NOTE the `enum` field using database enums only works for MySQL.
@@ -468,7 +468,7 @@ PLEASE NOTE the `enum` field using database enums only works for MySQL.
 ],
 ```
 
-##### using PHP enums
+##### PHP enum
 
 If you are using a `BackedEnum` your best option is to cast it in your model, and Backpack know how to handle it without aditional configuration. 
 

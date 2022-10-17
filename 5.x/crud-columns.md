@@ -248,7 +248,7 @@ The email column will output the email address in the database (truncated to 254
 <a name="enum"></a>
 ### enum
 
-The enum column will output the result from your enums (database or php enums).
+The enum column will output the value of your database ENUM column or your PHP enum attribute.
 ```php
 [
    'name'  => 'status', 
