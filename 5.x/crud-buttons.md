@@ -106,7 +106,7 @@ Let's say we want to create a simple ```moderate.blade.php``` button. This butto
 - Create the ```resources\views\vendor\backpack\crud\buttons\moderate.blade.php``` file:
 ```php
 @if ($crud->hasAccess('update'))
-  <a href="{{ url($crud->route.'/'.$entry->getKey().'/moderate') }} " class="btn btn-xs btn-default"><i class="fa fa-ban"></i> Moderate</a>
+  <a href="{{ url($crud->route.'/'.$entry->getKey().'/moderate') }} " class="btn btn-xs btn-default"><i class="la la-ban"></i> Moderate</a>
 @endif
 ```
 - Add the new route, next to ```UserCrudController```'s route (most likely inside ```routes/backpack/custom.php```):
@@ -143,7 +143,7 @@ In your ```Article``` model:
 ```php
 public function openGoogle($crud = false)
 {
-    return '<a class="btn btn-sm btn-link" target="_blank" href="http://google.com?q='.urlencode($this->text).'" data-toggle="tooltip" title="Just a demo custom button."><i class="fa fa-search"></i> Google it</a>';
+    return '<a class="btn btn-sm btn-link" target="_blank" href="http://google.com?q='.urlencode($this->text).'" data-toggle="tooltip" title="Just a demo custom button."><i class="la la-search"></i> Google it</a>';
 }
 ```
 
@@ -162,7 +162,7 @@ The steps would be:
 ```php
 @if ($crud->hasAccess('create'))
     <a href="javascript:void(0)" onclick="importTransaction(this)" data-route="{{ url($crud->route.'/import') }}" class="btn btn-sm btn-link" data-button-type="import">
-<span class="ladda-label"><i class="fa fa-plus"></i> Import {{ $crud->entity_name }}</span>
+<span class="ladda-label"><i class="la la-plus"></i> Import {{ $crud->entity_name }}</span>
 </a>
 @endif
 
