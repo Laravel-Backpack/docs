@@ -959,7 +959,7 @@ public function setImageAttribute($value)
     	$disk = "public";
     	$destination_path = "folder_1/subfolder_1";
 
-    	$this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path);
+    	$this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path, $fileName = null);
 
 	// return $this->attributes[{$attribute_name}]; // uncomment if this is a translatable field
     }
@@ -969,7 +969,7 @@ public function setImageAttribute($value)
 
 The field sends the file, through a Request, to the Controller. The Controller then tries to create/update the Model. That's when the mutator on your model will run. That also means we can do any [file validation](https://laravel.com/docs/5.3/validation#rule-file) (```file```, ```image```, ```mimetypes```, ```mimes```) in the Request, before the file is stored on the disk.
 
->NOTE: If this field is mandatory (required in validation) please use the [sometimes laravel validation rule](https://laravel.com/docs/5.8/validation#conditionally-adding-rules) together with **required** in your validation. (sometimes|required|file etc... )
+>NOTE: If this field is mandatory (required in validation) please use the [sometimes laravel validation rule](https://laravel.com/docs/9.x/validation#conditionally-adding-rules) together with **required** in your validation. (sometimes|required|file etc... )
 
 [The ```uploadFileToDisk()``` method](https://github.com/Laravel-Backpack/CRUD/blob/master/src/app/Models/Traits/HasUploadFields.php#L31-L59) will take care of everything for most use cases:
 
@@ -984,7 +984,7 @@ The field sends the file, through a Request, to the Controller. The Controller t
      *     - if the value is null, deletes the file and sets null in the DB
      *     - if the value is different, stores the different file and updates DB value
      * /
-public function uploadFileToDisk($value, $attribute_name, $disk, $destination_path) {}
+public function uploadFileToDisk($value, $attribute_name, $disk, $destination_path, $fileName = null) {}
 ```
 
 If you wish to have a different functionality, you can delete the method call from your mutator and do your own thing.
