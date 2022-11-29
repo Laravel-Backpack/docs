@@ -1649,15 +1649,14 @@ Show a telephone input and let the user choose a flag from dropdown.
     'type'  => 'phone',
 
     // OPTIONALS
-    // options offically supported and tested, this options will be prioritized to config parameters
-    // this mean if you send parameter "initialCountry" => "us" 
-    // and "config" => ["initialCountry" => "us"], "cl" value will be used
     'initialCountry' => 'cl',
     'separateDialCode' => true,
     'nationalMode' => true,
     'autoHideDialCode' => false,
     'placeholderNumberType' => 'MOBILE',
-    // options sent to intlTelInput.min.js, check documentation for details
+    // the above are some officially supported and tested options, provided by intlTelInput.js;
+    // there are more, we just haven't tested them; check out their docs - you can use any of them 
+    // inside the config attribute; take note that the directly defined attributes will override anything defined in the config;
     'config' => [
         'onlyCountries' => ['pt', 'ro'],
     ]
@@ -1668,10 +1667,9 @@ Please note it is recommended that you check [official documentation](https://gi
 
 Your end result will look like this:
 
-Input preview:
-
 ![CRUD Field - phone](https://user-images.githubusercontent.com/1032474/204588174-48935030-54e6-4a30-b34c-7e94220ae242.png)
 
+> NOTE: you can validate this using Laravel's default **numeric** or if you want something advanced, we recommend [Laravel Phone](https://github.com/Propaganistas/Laravel-Phone)
 
 <hr>
 
