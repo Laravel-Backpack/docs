@@ -1635,6 +1635,43 @@ Input preview:
 
 > NOTE: if you are having trouble uploading big images, please check your php extensions **apcu** and/or **opcache**, users have reported some issues with these extensions when trying to upload very big images. REFS: https://github.com/Laravel-Backpack/CRUD/issues/3457
 
+<hr>
+
+<a name="phone"></a>
+### phone <span class="badge badge-pill badge-info">PRO</span>
+
+Show a telephone input and let the user choose a flag from dropdown.
+
+```php
+[   // phone
+    'name'  => 'phone', // db column for phone
+    'label' => 'Phone',
+    'type'  => 'phone',
+
+    // OPTIONALS
+    // options offically supported and tested, this options will be prioritized to config parameters
+    // this mean if you send parameter "initialCountry" => "us" 
+    // and "config" => ["initialCountry" => "us"], "cl" value will be used
+    'initialCountry' => 'cl',
+    'separateDialCode' => true,
+    'nationalMode' => true,
+    'autoHideDialCode' => false,
+    'placeholderNumberType' => 'MOBILE',
+    // options sent to intlTelInput.min.js, check documentation for details
+    'config' => [
+        'onlyCountries' => ['pt', 'ro'],
+    ]
+],
+```
+
+Please note it is recommended that you check [official documentation](https://github.com/jackocnr/intl-tel-input) to get parameters description.
+
+Your end result will look like this:
+
+Input preview:
+
+![CRUD Field - phone](https://user-images.githubusercontent.com/1032474/204588174-48935030-54e6-4a30-b34c-7e94220ae242.png)
+
 
 <hr>
 
