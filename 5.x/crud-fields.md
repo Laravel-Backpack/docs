@@ -1640,7 +1640,7 @@ Input preview:
 <a name="phone"></a>
 ### phone <span class="badge badge-pill badge-info">PRO</span>
 
-Show a telephone input and let the user choose a flag from dropdown.
+Show a telephone number input. Lets the user choose the prefix using a flag from dropdown.
 
 ```php
 [   // phone
