@@ -1664,7 +1664,7 @@ Show a telephone number input. Lets the user choose the prefix using a flag from
 ],
 ```
 
-Please note it is recommended that you check [official documentation](https://github.com/jackocnr/intl-tel-input) to get parameters description.
+For more info about parameters please see this JS plugin's [official documentation](https://github.com/jackocnr/intl-tel-input).
 
 Your end result will look like this:
 
