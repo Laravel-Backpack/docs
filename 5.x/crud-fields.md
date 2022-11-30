@@ -1635,6 +1635,40 @@ Input preview:
 
 > NOTE: if you are having trouble uploading big images, please check your php extensions **apcu** and/or **opcache**, users have reported some issues with these extensions when trying to upload very big images. REFS: https://github.com/Laravel-Backpack/CRUD/issues/3457
 
+<hr>
+
+<a name="phone"></a>
+### phone <span class="badge badge-pill badge-info">PRO</span>
+
+Show a telephone number input. Lets the user choose the prefix using a flag from dropdown.
+
+```php
+[   // phone
+    'name'  => 'phone', // db column for phone
+    'label' => 'Phone',
+    'type'  => 'phone',
+
+    // OPTIONALS
+    // most options provided by intlTelInput.js are supported, you can try them out using the `config` attribute;
+    //  take note that options defined in `config` will override any default values from the field;
+    'config' => [
+        'onlyCountries' => ['pt', 'ro'],
+        'initialCountry' => 'cl',
+        'separateDialCode' => true,
+        'nationalMode' => true,
+        'autoHideDialCode' => false,
+        'placeholderNumberType' => 'MOBILE',
+    ]
+],
+```
+
+For more info about parameters please see this JS plugin's [official documentation](https://github.com/jackocnr/intl-tel-input).
+
+Your end result will look like this:
+
+![CRUD Field - phone](https://user-images.githubusercontent.com/1032474/204588174-48935030-54e6-4a30-b34c-7e94220ae242.png)
+
+> NOTE: you can validate this using Laravel's default **numeric** or if you want something advanced, we recommend [Laravel Phone](https://github.com/Propaganistas/Laravel-Phone)
 
 <hr>
 
