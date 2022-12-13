@@ -1653,7 +1653,7 @@ Show a telephone number input. Lets the user choose the prefix using a flag from
     //  take note that options defined in `config` will override any default values from the field;
     'config' => [
         'onlyCountries' => ['bd', 'cl', 'in', 'lv', 'pt', 'ro'],
-        'initialCountry' => 'cl', // if restrict country with onlyCountries option need to be in list to work
+        'initialCountry' => 'cl', // this needs to be in the allowed country list, either in `onlyCountries` or NOT in `excludeCountries`
         'separateDialCode' => true,
         'nationalMode' => true,
         'autoHideDialCode' => false,
