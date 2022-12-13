@@ -1652,8 +1652,8 @@ Show a telephone number input. Lets the user choose the prefix using a flag from
     // most options provided by intlTelInput.js are supported, you can try them out using the `config` attribute;
     //  take note that options defined in `config` will override any default values from the field;
     'config' => [
-        'onlyCountries' => ['pt', 'ro'],
-        'initialCountry' => 'cl',
+        'onlyCountries' => ['bd', 'cl', 'in', 'lv', 'pt', 'ro'],
+        'initialCountry' => 'cl', // this needs to be in the allowed country list, either in `onlyCountries` or NOT in `excludeCountries`
         'separateDialCode' => true,
         'nationalMode' => true,
         'autoHideDialCode' => false,
