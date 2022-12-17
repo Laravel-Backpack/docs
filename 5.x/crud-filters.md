@@ -261,6 +261,7 @@ CRUD::resource('test', 'TestCrudController');
 public function categoryOptions(Request $request) {
   $term = $request->input('term');
   $options = App\Models\Category::where('name', 'like', '%'.$term.'%')->get()->pluck('name', 'id');
+  // optionally you can return a paginated instance: App\Models\Category::where('name', 'like', '%'.$term.'%')::paginate(10)
   return $options;
 }
 ```
@@ -273,9 +274,13 @@ $this->crud->addFilter([
   'name'        => 'category_id',
   'type'        => 'select2_ajax',
   'label'       => 'Category',
-  'placeholder' => 'Pick a category'
+  'placeholder' => 'Pick a category',
+  'method'      => 'POST', // by default is GET
+  // when returning a paginated instance you can specify the attribute and the key to be used:
+  'select_attribute' => 'title' // by default it's name
+  'select_key' => 'custom_key' // by default it's id
 ],
-url('admin/test/ajax-category-options'), // the ajax route
+url('admin/test/ajax-category-options'), // the ajax route, you can also use FetchOperation here, just make sure you define `'method' => 'POST'` in your filter.
 function($value) { // if the filter is active
     // $this->crud->addClause('where', 'category_id', $value);
 });
