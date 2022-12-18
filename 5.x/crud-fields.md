@@ -448,17 +448,56 @@ Input preview:
 <a name="enum"></a>
 ### enum
 
-Show a select with the values in the database for that ENUM field. Requires that the db column type is "enum". If the db column allows null, the " - " value will also show up in the select.
+Show a select with the values for an ENUM database column, or an PHP enum (introduced in PHP 8.1).
+
+##### Database ENUM
+When used with a database enum it requires that the database column type is `enum`. In case it's nullable it will also show `-` (empty) option.
+
+PLEASE NOTE the `enum` field using database enums only works for MySQL.
 
 ```php
-[   // Enum
+[
     'name'  => 'status',
     'label' => 'Status',
-    'type'  => 'enum'
+    'type'  => 'enum',
+    // optional, specify the enum options with custom display values
+    'options' => [
+        'DRAFT' => 'Is Draft',
+        'PUBLISHED' => 'Is Published'
+    ]
 ],
 ```
 
-PLEASE NOTE the enum field only works for MySQL databases.
+##### PHP enum
+
+If you are using a `BackedEnum` your best option is to cast it in your model, and Backpack know how to handle it without aditional configuration. 
+
+```php
+// in your model (eg. Article)
+
+protected $casts = ['status' => \App\Enums\StatusEnum::class]; //assumes you have this enum created
+
+// and in your controller
+[
+    'name'  => 'status',
+    'label' => 'Status',
+    'type'  => 'enum'
+    // optional
+    //'enum_class' => 'App\Enums\StatusEnum',
+    //'enum_function' => 'readableStatus',
+],
+```
+
+In case it's not a `BackedEnum` or you don't want to cast it in your Model, you should provide the enum class to the field:
+
+```php
+[
+    'name'  => 'status',
+    'label' => 'Status',
+    'type'  => 'enum',
+    'enum_class' => \App\Enums\StatusEnum::class
+],
+```
 
 Input preview: 
 
@@ -986,7 +1025,7 @@ public function setImageAttribute($value)
     	$disk = "public";
     	$destination_path = "folder_1/subfolder_1";
 
-    	$this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path);
+    	$this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path, $fileName = null);
 
 	// return $this->attributes[{$attribute_name}]; // uncomment if this is a translatable field
     }
@@ -996,7 +1035,7 @@ public function setImageAttribute($value)
 
 The field sends the file, through a Request, to the Controller. The Controller then tries to create/update the Model. That's when the mutator on your model will run. That also means we can do any [file validation](https://laravel.com/docs/5.3/validation#rule-file) (```file```, ```image```, ```mimetypes```, ```mimes```) in the Request, before the file is stored on the disk.
 
->NOTE: If this field is mandatory (required in validation) please use the [sometimes laravel validation rule](https://laravel.com/docs/5.8/validation#conditionally-adding-rules) together with **required** in your validation. (sometimes|required|file etc... )
+>NOTE: If this field is mandatory (required in validation) please use the [sometimes laravel validation rule](https://laravel.com/docs/9.x/validation#conditionally-adding-rules) together with **required** in your validation. (sometimes|required|file etc... )
 
 [The ```uploadFileToDisk()``` method](https://github.com/Laravel-Backpack/CRUD/blob/master/src/app/Models/Traits/HasUploadFields.php#L31-L59) will take care of everything for most use cases:
 
@@ -1011,7 +1050,7 @@ The field sends the file, through a Request, to the Controller. The Controller t
      *     - if the value is null, deletes the file and sets null in the DB
      *     - if the value is different, stores the different file and updates DB value
      * /
-public function uploadFileToDisk($value, $attribute_name, $disk, $destination_path) {}
+public function uploadFileToDisk($value, $attribute_name, $disk, $destination_path, $fileName = null) {}
 ```
 
 If you wish to have a different functionality, you can delete the method call from your mutator and do your own thing.
@@ -1662,6 +1701,40 @@ Input preview:
 
 > NOTE: if you are having trouble uploading big images, please check your php extensions **apcu** and/or **opcache**, users have reported some issues with these extensions when trying to upload very big images. REFS: https://github.com/Laravel-Backpack/CRUD/issues/3457
 
+<hr>
+
+<a name="phone"></a>
+### phone <span class="badge badge-pill badge-info">PRO</span>
+
+Show a telephone number input. Lets the user choose the prefix using a flag from dropdown.
+
+```php
+[   // phone
+    'name'  => 'phone', // db column for phone
+    'label' => 'Phone',
+    'type'  => 'phone',
+
+    // OPTIONALS
+    // most options provided by intlTelInput.js are supported, you can try them out using the `config` attribute;
+    //  take note that options defined in `config` will override any default values from the field;
+    'config' => [
+        'onlyCountries' => ['bd', 'cl', 'in', 'lv', 'pt', 'ro'],
+        'initialCountry' => 'cl', // this needs to be in the allowed country list, either in `onlyCountries` or NOT in `excludeCountries`
+        'separateDialCode' => true,
+        'nationalMode' => true,
+        'autoHideDialCode' => false,
+        'placeholderNumberType' => 'MOBILE',
+    ]
+],
+```
+
+For more info about parameters please see this JS plugin's [official documentation](https://github.com/jackocnr/intl-tel-input).
+
+Your end result will look like this:
+
+![CRUD Field - phone](https://user-images.githubusercontent.com/1032474/204588174-48935030-54e6-4a30-b34c-7e94220ae242.png)
+
+> NOTE: you can validate this using Laravel's default **numeric** or if you want something advanced, we recommend [Laravel Phone](https://github.com/Propaganistas/Laravel-Phone)
 
 <hr>
 
@@ -1698,14 +1771,14 @@ Out of the box, it supports all common relationships:
 - ✅ `morphOne` (1-1) - shows a subform if you define `subfields`
 - ✅ `morphMany` (1-n) - shows a select2_multiple OR a subform if you define `subfields`
 - ✅ `morphToMany` (n-n) - shows a select2_multiple OR a subform if you define `subfields` for pivot extras
+- ✅ `morphTo` (n-1) - shows the `_type` and `_id` selects for morphTo relations
 
 It does NOT support the following Eloquent relationships, since they don't make sense in this context:
 - ❌ `hasOneThrough` (1-1-1) - it's read-only, no sense having a field for it;
 - ❌ `hasManyThrough` (1-1-n) - it's read-only, no sense having a field for it;
 - ❌ Has One Of Many (1-n turned into 1-1) - it's read-only, no sense having a field for it;
 - ❌ Morph One Of Many (1-n turned into 1-1) - it's read-only, no sense having a field for it;
-- ❌ `morphTo` (n-1) - never needed, UI would be very difficult to understand & use;
-- ❌ `morphedByMany` (n-n inverse) - never needed, UI would be very difficult to understand & use;
+- ❌ `morphedByMany` (n-n inverse) - never needed, UI would be very difficult to understand & use at this moment.
 
 The relationship field is a plug-and-play solution, 90% of the time it will cover all you need by just pointing it to a relationship on the model. But it also has a few optional features, that will greatly help you out in more complex use cases:
 

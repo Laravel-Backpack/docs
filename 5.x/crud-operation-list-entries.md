@@ -194,6 +194,24 @@ To use ```persistent_table``` you can:
 
 > You can configure the persistent table duration in ``` config/backpack/crud.php ``` under `operations > list > persistentTableDuration`. False is forever. Set any amount of time you want in minutes. Note: you can configure it's expiring time on a per-crud basis using `$this->crud->setOperationSetting('persistentTableDuration', 120); in your setupListOperation()` for 2 hours persistency. The default is `false` which means forever. 
 
+<a name="large-tables"></a>
+#### Large Tables (millions of entries)
+
+By default, ListEntries uses a few features that are not appropriate for Eloquent models with millions (or billions) of records: 
+- it shows the total number of entries (which can be a very slow query for big tables);
+- it paginates using 1/2/3 page buttons, instead of just previous & next;
+
+Starting with Backpack v5.4 we have an easy way to disable both of those, in order to make the ListOperation super-fast on big database tables. You just need to do:
+
+```php
+protected function setupListOperation() 
+{
+    // ...
+    CRUD::setOperationSetting('showEntryCount', false);
+    // ...
+}
+```
+
 <a name="how-to-overwrite"></a>
 ## How to Overwrite
 
