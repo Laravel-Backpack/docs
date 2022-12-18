@@ -470,7 +470,6 @@ Input preview:
 ### google_map
 
 Shows a map and allows the user to navigate and select a position on that map (using the Google Places API). The field stores the latitude, longitude and the address string as a JSON in the database ( eg. `{lat: 123, lng: 456, formatted_address: 'Lisbon, Portugal'}`). If you want to save the info in separate db columns, continue reading below.
-**Note**: If you want two save in separate fields continue reading below.
 
 ```php
 CRUD::addField([
