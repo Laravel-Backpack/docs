@@ -1569,7 +1569,7 @@ $video = {
 }
 ```
 
-So you should use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) in your model, to cast the video as ```array``` or ```object```.
+So you should use [attribute casting](https://laravel.com/docs/9.x/eloquent-mutators#attribute-casting) in your model, to cast the video as ```array``` or ```object```.
 
 
 <a name="view"></a>
