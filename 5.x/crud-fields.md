@@ -1499,6 +1499,73 @@ Input preview:
 
 <hr>
 
+<a name="google-map"></a>
+### google_map <span class="badge badge-pill badge-info">PRO</span>
+
+Shows a map and allows the user to navigate and select a position on that map (using the Google Places API). The field stores the latitude, longitude and the address string as a JSON in the database ( eg. `{lat: 123, lng: 456, formatted_address: 'Lisbon, Portugal'}`). If you want to save the info in separate db columns, continue reading below.
+
+```php
+CRUD::addField([
+    'name' => 'location',
+    'type' => 'google_map',
+    // optionals
+    'map_options' => [
+        'default_lat' => 123,
+        'default_lng' => 456,
+        'locate' => false, // when false, only a map is displayed. No value for submition.
+        'height' => 400 // in pixels
+    ]
+]);
+```
+
+Using Google Places API is dependent on using an API Key. Please [get an API key](https://console.cloud.google.com/apis/credentials) - you do have to configure billing, but you qualify for $200/mo free usage, which covers most use cases. Then copy-paste that key as your ```services.google_places.key``` value. So inside your ```config/services.php``` please add the items below:
+
+```php
+'google_places' => [
+    'key' => 'the-key-you-got-from-google-places'
+],
+```
+
+### SAVING IN MULTIPLE INPUTS
+There are cases where you rather save the information on separate inputs in the database. 
+In that scenario you should use [Laravel mutators and accessors](https://laravel.com/docs/9.x/eloquent-mutators) .
+
+Using the same field as previously shown (**field name is `location`**), and having `latitude`, `longitude`, `full_address` as the database fields, we can save and retrieve them with the following example:
+```php
+
+//add all the fields to model fillable property, including the one that we are not going to save (location in the example)
+$fillable = ['location', 'latitude', 'longitude', 'full_address'];
+
+// 
+protected function location(): \Illuminate\Database\Eloquent\Casts\Attribute
+{
+    return \Illuminate\Database\Eloquent\Casts\Attribute::make(
+        get: function($value, $attributes) {
+            return json_encode([
+            'lat' => $attributes['lat'], 
+            'lng' => $attributes['lng'], 
+            'formatted_address' => $attributes['full_address'] ?? ''
+            ], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_THROW_ON_ERROR);
+        },
+        set: function($value) {
+            $location = json_decode($value);
+            return [
+                'lat' => $location->lat,
+                'lng' => $location->lng,
+                'full_address' => $location->formatted_address ?? ''
+            ];
+        }
+    );
+}
+
+```
+
+Input preview:
+
+![image](https://user-images.githubusercontent.com/7188159/208295372-f2dcbe71-73b7-452d-9904-428f725cdbce.png)
+
+<hr>
+
 <a name="icon-picker"></a>
 ### icon_picker <span class="badge badge-pill badge-info">PRO</span>
 
