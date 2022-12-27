@@ -373,7 +373,7 @@ class Category extends Model
 <a name="delete-button-on-update-operation"></a>
 ### Delete button on Update operation
 
-![CRUD Update Operation](https://user-images.githubusercontent.com/33960976/205296335-e075358f-90b0-48ad-a2a5-3f5a669abcbd.gif)
+![CRUD Update Operation](https://backpackforlaravel.com/uploads/docs-5-0/operations/delete_from_form.gif)
 
 If you want to display a **Delete** button right on the **Update** operation, you simply need to add a line to the `setupUpdateOperation()` method:
 
