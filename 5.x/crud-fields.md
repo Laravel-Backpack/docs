@@ -1526,11 +1526,9 @@ Using Google Places API is dependent on using an API Key. Please [get an API key
 ],
 ```
 
-### SAVING IN MULTIPLE INPUTS
-There are cases where you rather save the information on separate inputs in the database. 
-In that scenario you should use [Laravel mutators and accessors](https://laravel.com/docs/9.x/eloquent-mutators) .
+**How to save in multiple inputs?**
 
-Using the same field as previously shown (**field name is `location`**), and having `latitude`, `longitude`, `full_address` as the database fields, we can save and retrieve them with the following example:
+There are cases where you rather save the information on separate inputs in the database. In that scenario you should use [Laravel mutators and accessors](https://laravel.com/docs/9.x/eloquent-mutators). Using the same field as previously shown (**field name is `location`**), and having `latitude`, `longitude`, `full_address` as the database columns, we can save and retrieve them separately too:
 ```php
 
 //add all the fields to model fillable property, including the one that we are not going to save (location in the example)
