@@ -159,8 +159,6 @@ To create and use a new widget chart, you need to:
 composer require consoletvs/charts:"6.*"
 ```
 
-> IMPORTANT NOTE IN AUGUST 2022: The repo owner has been hit with a trademark violation, so the original repository might be down. The version we're using is not in any violation so it should be back up shortly. We're monitoring the situation and trying to help resolve it. In the meantime, if you want charts, you can install our fork instead. Please follow [the instructions here](https://github.com/Laravel-Backpack/CRUD/issues/4573#issuecomment-1204854291). 
-
 **Step 2.** Create a new ChartController:
 
 ```
