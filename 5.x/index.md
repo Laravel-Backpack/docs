@@ -50,8 +50,8 @@
     + [Cheat Sheet](/docs/{{version}}/crud-cheat-sheet)
     + [Crud API](/docs/{{version}}/crud-api)
     + [Fluent API](/docs/{{version}}/crud-fluent-syntax)
+- [Generating Code](/docs/{{version}}/generating-code)
 - [FAQ](/docs/{{version}}/crud-how-to)
-
 
 #### Add-ons
 
