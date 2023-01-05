@@ -2058,6 +2058,7 @@ You can use most field types inside the field groups, add as many subfields you 
 - some field types do not make sense as subfields inside repeatable (for example, relationship fields might not make sense; they will work if the relationship is defined on the main model, but upon save the selected entries will NOT be saved as relationships, they will be saved as JSON; you can intercept the saving if you want and do whatever you want);
 - a few fields _make sense_, but _cannot_ work inside repeatable (ex: upload, upload_multiple); [see the notes inside the PR](https://github.com/Laravel-Backpack/CRUD/pull/2266#issuecomment-559436214) for more details, and a complete list of the fields; the few fields that do not work inside repeatable have sensible alternatives;
 - **VALIDATION**: you can validate subfields the same way you validate [nested arrays in Laravel](https://laravel.com/docs/8.x/validation#validating-nested-array-input) Eg: `testimonial.*.name => 'required'`
+- **FIELD USAGE AND RELATIONSHIPS**: note that it's not possible to use a repeatable field inside other repeatable field. Relationships that use `subfields` are under the hood repeatable fields, so the relationship subfields cannot include other repeatable field.
 
 ```php
 [   // repeatable
