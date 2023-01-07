@@ -43,7 +43,7 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 
 class ProductCrudController extends CrudController
 {
-    use \Backpack\CRUD\app\Http\Controllers\Operations\TrashOperation;
+    use \Backpack\PRO\Http\Controllers\Operations\TrashOperation;
 }
 ```
 
