@@ -13,7 +13,7 @@ This CRUD operation allows your admins to soft delete, restore and permanently d
 This is a <span class="badge badge-info">PRO</span> operation. It requires that you have [purchased access to `backpack/pro`](https://backpackforlaravel.com/products/pro-for-unlimited-projects).
 
 In addition, it needs:
-- Your entity must use SoftDeletes to utilize this Operation.
+- Your entity must use Laravel's `SoftDeletes` trait, for this Operation to work
 
 <a name="trash-a-single-item"></a>
 ## Trash a Single Item <span class="badge badge-info">PRO</span>
