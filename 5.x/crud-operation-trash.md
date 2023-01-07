@@ -111,7 +111,7 @@ Using AJAX, a DELETE request is performed towards ```/entity-name/{id}/bulk-dele
 <a name="enabling"></a>
 ### How to Use
 
-You need to ```use \Backpack\CRUD\app\Http\Controllers\Operations\BulkTrashOperation;``` on your EntityCrudController.
+You need to ```use \Backpack\PRO\Http\Controllers\Operations\BulkTrashOperation;``` on your EntityCrudController.
 
 <a name="how-to-overwrite"></a>
 ### How to Overwrite
