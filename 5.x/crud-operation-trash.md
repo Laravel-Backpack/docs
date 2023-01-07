@@ -32,7 +32,7 @@ Using AJAX, a DELETE request is performed towards ```/entity-name/{id}/delete-pe
 <a name="enabling"></a>
 ### How to Use
 
-To enable it, you need to ```use \Backpack\CRUD\app\Http\Controllers\Operations\TrashOperation;``` on your EntityCrudController. For example:
+To enable it, you need to ```use \Backpack\PRO\Http\Controllers\Operations\TrashOperation;``` on your EntityCrudController. For example:
 
 ```php
 <?php
