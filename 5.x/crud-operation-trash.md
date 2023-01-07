@@ -119,7 +119,7 @@ You need to ```use \Backpack\PRO\Http\Controllers\Operations\BulkTrashOperation;
 In case you need to change how this operation works, just create a ```bulkTrash()``` method in your EntityCrudController:
 
 ```php
-use \Backpack\CRUD\app\Http\Controllers\Operations\BulkTrashOperation { bulkTrash as traitBulkTrash; }
+use \Backpack\PRO\Http\Controllers\Operations\BulkTrashOperation { bulkTrash as traitBulkTrash; }
 
 public function bulkTrash($id)
 {
