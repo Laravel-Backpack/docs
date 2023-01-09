@@ -79,7 +79,7 @@ public function restore($id)
 }
 ```
 
-You can also overwrite the buttons by creating a file with the same name inside your ```resources/views/vendor/backpack/crud/buttons/```. You can easily publish the buttons there to make changes using:
+You can also override the buttons by creating a file with the same name inside your ```resources/views/vendor/backpack/crud/buttons/```. You can easily publish the buttons there to make changes using:
 
 ```zsh
 php artisan backpack:button --from=trash
@@ -143,7 +143,7 @@ public function bulkDelete($id)
 }
 ```
 
-You can also overwrite the buttons by creating a file with the same name inside your ```resources/views/vendor/backpack/crud/buttons/```. You can easily publish the buttons there to make changes using:
+You can also override the buttons by creating a file with the same name inside your ```resources/views/vendor/backpack/crud/buttons/```. You can easily publish the buttons there to make changes using:
 
 ```zsh
 php artisan backpack:button --from=trash
