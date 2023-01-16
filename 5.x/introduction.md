@@ -82,7 +82,7 @@ Backpack v5 is the current version, and is being actively maintained by the Back
 
 Starting with v5, Backpack has become open-core. Its features have been separated into two packages:
 - **Backpack CRUD is licensed under the [MIT License](LICENSE.md)** (open-source free software); it is perfect if you're building a simple admin panel - it's packed with features! it's also perfect if you're building an open-source project, the permissive license allows you to do whatever you want;
-- **Backpack PRO is licensed under our [EULA](https://backpackforlaravel.com/eula)**; it is a closed-source, paid add-on; [PRO](https://backpackforlaravel.com/products/pro) will be useful when your admin panel needs grow, because it adds adds A LOT of features for complex use cases (see our [FREE vs PRO comparison](https://backpackforlaravel.com/docs/5.x/features-free-vs-paid));
+- **Backpack PRO is licensed under our [EULA](https://backpackforlaravel.com/eula)**; it is a closed-source, paid add-on; [PRO](https://backpackforlaravel.com/products/pro-for-unlimited-projects) will be useful when your admin panel needs grow, because it adds adds A LOT of features for complex use cases (see our [FREE vs PRO comparison](https://backpackforlaravel.com/docs/5.x/features-free-vs-paid));
 
 [Our documentation](https://backpackforlaravel.com/docs) covers both CRUD and PRO, with all the PRO features clearly labeled <span class="badge badge-pill badge-info">PRO</span>.
 
@@ -105,7 +105,7 @@ When you buy a premium Backpack addon, you get access to not only _updates_, but
 Backpack's core is open-source and free (Backpack\CRUD). <span class="badge badge-pill badge-success">FREE</span>
 
 The reason we've been able to build and maintain Backpack since 2016 is that Laravel professionals have supported us, by buying our paid products. As of 2022, these are all Backpack add-ons, which we highly recommend:
-- [Backpack PRO](/pricing) - a crazy amount of added features <span class="badge badge-pill badge-warning">PAID</span>
+- [Backpack PRO](/products/pro-for-unlimited-projects) - a crazy amount of added features <span class="badge badge-pill badge-warning">PAID</span>
 - [Backpack DevTools](/products/devtools) - a developer UI for generating migrations, models and CRUDs; <span class="badge badge-pill badge-warning">PAID</span>
 - [Backpack FigmaTemplate](/products/figma-template) - quickly create designs and mockups, using Backpack's design; <span class="badge badge-pill badge-warning">PAID</span>
 - [Backpack EditableColumns](/products/editable-columns) - let your admins do quick edits, right in the table view; <span class="badge badge-pill badge-warning">PAID</span>
