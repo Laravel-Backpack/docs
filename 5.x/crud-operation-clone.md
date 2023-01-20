@@ -93,6 +93,10 @@ In addition to the button for each entry, you can show checkboxes next to each e
 
 Using AJAX, a POST request is performed towards ```/entity-name/bulk-clone```, which points to the ```bulkClone()``` method in your EntityCrudController.
 
+**`NOTES:`** 
+- The bulk checkbox is added inside the first column defined in the table. For that reason the first column should be visible on table to display the bulk actions checkbox next to it.
+- `Bulk Actions` also disable all click events for the first column, so make sure the first column **dont** contain any anchor tags (`<a>`), as they wont work.
+
 <a name="enabling"></a>
 ### How to Use
 

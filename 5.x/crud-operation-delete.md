@@ -70,6 +70,11 @@ In addition to the button for each entry, <span class="badge badge-info">PRO</sp
 
 Using AJAX, a DELETE request is performed towards ```/entity-name/bulk-delete```, which points to the ```bulkDelete()``` method in your EntityCrudController.
 
+**`NOTES:`** 
+- The bulk checkbox is added inside the first column defined in the table. For that reason the first column should be visible on table to display the bulk actions checkbox next to it.
+- `Bulk Actions` also disable all click events for the first column, so make sure the first column **dont** contain any anchor tags (`<a>`), as they wont work.
+
+
 <a name="enabling"></a>
 ### How to Use
 
