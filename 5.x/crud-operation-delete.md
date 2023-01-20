@@ -72,7 +72,7 @@ Using AJAX, a DELETE request is performed towards ```/entity-name/bulk-delete```
 
 **`NOTES:`** 
 - The bulk checkbox is added inside the first column defined in the table. For that reason the first column should be visible on table to display the bulk actions checkbox next to it.
-- `Bulk Actions` also disable all click events for the first column, so make sure the first column **dont** contain any anchor tags (`<a>`), as they wont work.
+- `Bulk Actions` also disable all click events for the first column, so make sure the first column **doesn't** contain an anchor tag (`<a>`), as it won't work.
 
 
 <a name="enabling"></a>
