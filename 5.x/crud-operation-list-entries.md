@@ -143,14 +143,15 @@ Using `'visibleInTable' => false` will make the field start hidden in the table.
 
 If you want a field that is not on table, user can't show it, but will **ALWAYS** be exported use the `exportOnlyField => true`. If used will ignore any other custom visibility you defined.
 
-#### Custom dataTableConfiguration
+#### How to use different separator in DataTables (eg. semicolon instead of comma)
 
 <a name="custom-dataTableConfiguration"></a>
 
-Example changing field separator in dataTable export to use semicolon (;) instead of comma (,) :
+If you want to change the separator in dataTable export to use semicolon (;) instead of comma (,) :
 
-copy vendor/backpack/crud/src/resources/views/crud/inc/export_buttons.blade.php to resources/views/vendor/backpack/crud/inc/export_buttons.blade.php
+**Step 1.** Copy vendor/backpack/crud/src/resources/views/crud/inc/export_buttons.blade.php to resources/views/vendor/backpack/crud/inc/export_buttons.blade.php
 
+**Step 2.** Change it in your `dataTableConfiguration`:
 ```php
 {
     name: 'csvHtml5',
@@ -168,7 +169,6 @@ copy vendor/backpack/crud/src/resources/views/crud/inc/export_buttons.blade.php 
         crud.responsiveToggle(dt);
     }
 },
-```
 
 #### Custom Query
 
