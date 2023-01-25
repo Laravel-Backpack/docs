@@ -169,11 +169,11 @@ If you want to change the separator in dataTable export to use semicolon (;) ins
         crud.responsiveToggle(dt);
     }
 },
-
+```
 #### Custom Query
 
 <a name="custom-query"></a>
-#### Custom Query
+
 
 By default, all entries are shown in the ListEntries table, before filtering. If you want to restrict the entries to a subset, you can use the methods below in your EntityCrudController's ```setupListOperation()``` method:
 
