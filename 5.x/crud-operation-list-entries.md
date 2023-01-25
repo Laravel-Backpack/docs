@@ -169,7 +169,6 @@ If you want to change the separator in dataTable export to use semicolon (;) ins
         crud.responsiveToggle(dt);
     }
 },
-```
 
 
 #### Custom Query
