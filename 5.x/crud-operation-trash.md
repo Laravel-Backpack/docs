@@ -37,7 +37,7 @@ Using AJAX, a DELETE request is performed towards ```/entity-name/{id}/delete-pe
 
 **Step 1.** If your EntityCrudController uses the `DeleteOperation`, remove it. `TrashOperation` is a complete alternative to Delete.
 
-**Step 2.** You need to ```use \Backpack\Pro\Http\Controllers\Operations\TrashOperation;``` inside your EntityCrudController. For example:
+**Step 2.** You need to ```use \Backpack\Pro\Http\Controllers\Operations\TrashOperation;``` inside your EntityCrudController. Ideally the TrashOperation should be the last one that gets used. For example:
 
 ```php
 class ProductCrudController extends CrudController
