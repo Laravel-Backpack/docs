@@ -53,7 +53,7 @@ class ProductCrudController extends CrudController
 }
 ```
 
-Configuration for this operation should be done inside your ```setupListOperation()``` method. **For a minimum setup, you only need to define the columns you need to show in the table.** 
+Configuration for this operation should be done inside your ```setupListOperation()``` method. **For a minimum setup, you only need to define the columns you need to show in the table.**
 
 <a name="columns"></a>
 ### Columns
@@ -80,7 +80,7 @@ The ShowList operation has 3 places where buttons can be placed:
   - ```line``` (where the Edit and Delete buttons are)
   - ```bottom``` (after the table)
 
-Backpack adds a few buttons by default: 
+Backpack adds a few buttons by default:
 - ```add``` to the ```top``` stack;
 - ```edit``` and ```delete``` to the ```line``` stack;
 
@@ -112,19 +112,19 @@ Alternative for the 2nd step: overwrite ```views/backpack/crud/details_row.blade
 <a name="export-buttons"></a>
 #### Export Buttons <span class="badge badge-pill badge-info">PRO</span>
 
-Exporting the DataTable to PDF, CSV, XLS is as easy as typing ```$this->crud->enableExportButtons();``` in your constructor. 
+Exporting the DataTable to PDF, CSV, XLS is as easy as typing ```$this->crud->enableExportButtons();``` in your constructor.
 
 ![Backpack CRUD ListEntries Details Row](https://backpackforlaravel.com/uploads/docs-4-0/operations/listEntries_export_buttons.png)
 
-**Please note that when clicked, the button will export** 
-- **the _currently visible_ table columns** (except columns marked as ```visibleInExport => false```); 
+**Please note that when clicked, the button will export**
+- **the _currently visible_ table columns** (except columns marked as ```visibleInExport => false```);
 - **the columns that are forced to export** (with ```visibleInExport => true``` or ```exportOnlyField => true```);
 
 **In the UI, the admin can use the "Visibility" button, and the "Items per page" dropdown to manipulate what is visible in the table - and consequently what will be exported.**
 
 **Export Buttons Rules**
 
-Available customization: 
+Available customization:
 ```
 'visibleInExport' => true/false
 'visibleInTable' => true/false
@@ -143,15 +143,46 @@ Using `'visibleInTable' => false` will make the field start hidden in the table.
 
 If you want a field that is not on table, user can't show it, but will **ALWAYS** be exported use the `exportOnlyField => true`. If used will ignore any other custom visibility you defined.
 
-<a name="custom-query"></a>
+#### How to use different separator in DataTables (eg. semicolon instead of comma)
+
+<a name="custom-dataTableConfiguration"></a>
+
+If you want to change the separator in dataTable export to use semicolon (;) instead of comma (,) :
+
+**Step 1.** Copy vendor/backpack/crud/src/resources/views/crud/inc/export_buttons.blade.php to resources/views/vendor/backpack/crud/inc/export_buttons.blade.php
+
+**Step 2.** Change it in your `dataTableConfiguration`:
+```php
+{
+    name: 'csvHtml5',
+    extend: 'csvHtml5',
+    fieldSeparator: ';',
+    exportOptions: {
+        columns: function ( idx, data, node ) {
+            var $column = crud.table.column( idx );
+                return  ($column.visible() && $(node).attr('data-visible-in-export') != 'false') || $(node).attr('data-force-export') == 'true';
+        }
+    },
+    action: function(e, dt, button, config) {
+        crud.responsiveToggle(dt);
+        $.fn.DataTable.ext.buttons.csvHtml5.action.call(this, e, dt, button, config);
+        crud.responsiveToggle(dt);
+    }
+},
+
+```
+
 #### Custom Query
+
+<a name="custom-query"></a>
+
 
 By default, all entries are shown in the ListEntries table, before filtering. If you want to restrict the entries to a subset, you can use the methods below in your EntityCrudController's ```setupListOperation()``` method:
 
 ```php
 // Change what entries are shown in the table view.
 // This changes all queries on the table view,
-// as opposed to filters, who only change it when that filter is applied. 
+// as opposed to filters, who only change it when that filter is applied.
 $this->crud->addClause('active'); // apply a local scope
 $this->crud->addClause('type', 'car'); // apply local dynamic scope
 $this->crud->addClause('where', 'name', '=', 'car');
@@ -183,7 +214,7 @@ To turn off the responsive table behaviour for _just one CRUD panel_, you can us
 <a name="persistent-query"></a>
 #### Persistent Table
 
-By default, ListEntries will NOT remember your filtering, search and pagination when you leave the page. If you want ListEntries to do that, you can enable a ListEntries feature we call ```persistent_table```. 
+By default, ListEntries will NOT remember your filtering, search and pagination when you leave the page. If you want ListEntries to do that, you can enable a ListEntries feature we call ```persistent_table```.
 
 **This will take the user back to the _filtered table_ after adding an item, previewing an item, creating an item or just browsing around**, preserving the table just like he/she left it - with the same filtering, pagination and search applied. It does so by saving the pagination, search and filtering for an arbitrary amount of time (by default: forever).
 
@@ -192,19 +223,19 @@ To use ```persistent_table``` you can:
 - enable it inside a particular crud controller with ```$this->crud->enablePersistentTable();```
 - disable it inside a particular crud controller with ```$this->crud->disablePersistentTable();```
 
-> You can configure the persistent table duration in ``` config/backpack/crud.php ``` under `operations > list > persistentTableDuration`. False is forever. Set any amount of time you want in minutes. Note: you can configure it's expiring time on a per-crud basis using `$this->crud->setOperationSetting('persistentTableDuration', 120); in your setupListOperation()` for 2 hours persistency. The default is `false` which means forever. 
+> You can configure the persistent table duration in ``` config/backpack/crud.php ``` under `operations > list > persistentTableDuration`. False is forever. Set any amount of time you want in minutes. Note: you can configure it's expiring time on a per-crud basis using `$this->crud->setOperationSetting('persistentTableDuration', 120); in your setupListOperation()` for 2 hours persistency. The default is `false` which means forever.
 
 <a name="large-tables"></a>
 #### Large Tables (millions of entries)
 
-By default, ListEntries uses a few features that are not appropriate for Eloquent models with millions (or billions) of records: 
+By default, ListEntries uses a few features that are not appropriate for Eloquent models with millions (or billions) of records:
 - it shows the total number of entries (which can be a very slow query for big tables);
 - it paginates using 1/2/3 page buttons, instead of just previous & next;
 
 Starting with Backpack v5.4 we have an easy way to disable both of those, in order to make the ListOperation super-fast on big database tables. You just need to do:
 
 ```php
-protected function setupListOperation() 
+protected function setupListOperation()
 {
     // ...
     CRUD::setOperationSetting('showEntryCount', false);

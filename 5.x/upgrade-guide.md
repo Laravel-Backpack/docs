@@ -206,8 +206,8 @@ That actually means it's easier to change the request now inside a CrudControlle
 ```php
 public function store()
 {
-    $this->crud->set('strippedRequest', function($request) {
-        $request->add([ 'updated_by' => backpack_user()->id ]);
+    $this->crud->setOperationSetting('strippedRequest', function($request) {
+        $request->request->add([ 'updated_by' => backpack_user()->id ]);
         return $request->except(['_save_action', '_token', '_http_referrer']);
     });
         
