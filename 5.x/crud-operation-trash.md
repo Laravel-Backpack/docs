@@ -10,10 +10,13 @@ This CRUD operation allows your admins to soft delete, restore and permanently d
 <a name="requirements"></a>
 ## Requirements
 
-This is a <span class="badge badge-info">PRO</span> operation. It requires that you have [purchased access to `backpack/pro`](https://backpackforlaravel.com/products/pro-for-unlimited-projects).
+1. This is a <span class="badge badge-info">PRO</span> operation. It requires that you have [purchased access to `backpack/pro`](https://backpackforlaravel.com/products/pro-for-unlimited-projects).
 
-In addition, it needs:
-- Your entity must use Laravel's `SoftDeletes` trait, for this Operation to work
+2. In addition, it needs that your Model uses Laravel's `SoftDeletes` trait. To have your Model use SoftDeles, you should:
+- generate a migration to add the `deleted_at` column to your table, eg. `php artisan make:migration add_soft_deletes_to_products --table=products`;
+- inside that file's `Schema::table()` closure, add `$table->softDeletes();`
+- run `php artisan migrate`
+- add `use SoftDeletes` on the corresponding model (and import that class namespace);  
 
 <a name="trash-a-single-item"></a>
 ## Trash a Single Item <span class="badge badge-info">PRO</span>
@@ -32,7 +35,7 @@ Using AJAX, a DELETE request is performed towards ```/entity-name/{id}/delete-pe
 <a name="enabling"></a>
 ### How to Use
 
-To enable it, you need to ```use \Backpack\PRO\Http\Controllers\Operations\TrashOperation;``` on your EntityCrudController. For example:
+To enable it, you need to ```use \Backpack\Pro\Http\Controllers\Operations\TrashOperation;``` on your EntityCrudController. For example:
 
 ```php
 <?php
@@ -43,7 +46,7 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 
 class ProductCrudController extends CrudController
 {
-    use \Backpack\PRO\Http\Controllers\Operations\TrashOperation;
+    use \Backpack\Pro\Http\Controllers\Operations\TrashOperation;
 }
 ```
 
@@ -55,7 +58,7 @@ This will make a Trash button and Trashed filter show up in the list view, and w
 In case you need to change how this operation works, just create ```trash()```, ```restore()```,```deletePermanently()``` methods in your EntityCrudController:
 
 ```php
-use \Backpack\CRUD\app\Http\Controllers\Operations\TrashOperation { trash as traitTrash; }
+use \Backpack\Pro\Http\Controllers\Operations\TrashOperation { trash as traitTrash; }
 
 public function deletePermanently($id)
 {
@@ -111,7 +114,7 @@ Using AJAX, a DELETE request is performed towards ```/entity-name/{id}/bulk-dele
 <a name="enabling"></a>
 ### How to Use
 
-You need to ```use \Backpack\PRO\Http\Controllers\Operations\BulkTrashOperation;``` on your EntityCrudController.
+You need to ```use \Backpack\Pro\Http\Controllers\Operations\BulkTrashOperation;``` on your EntityCrudController.
 
 <a name="how-to-overwrite"></a>
 ### How to Overwrite
@@ -119,7 +122,7 @@ You need to ```use \Backpack\PRO\Http\Controllers\Operations\BulkTrashOperation;
 In case you need to change how this operation works, just create a ```bulkTrash()``` method in your EntityCrudController:
 
 ```php
-use \Backpack\PRO\Http\Controllers\Operations\BulkTrashOperation { bulkTrash as traitBulkTrash; }
+use \Backpack\Pro\Http\Controllers\Operations\BulkTrashOperation { bulkTrash as traitBulkTrash; }
 
 public function bulkTrash($id)
 {
