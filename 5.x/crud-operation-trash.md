@@ -35,22 +35,17 @@ Using AJAX, a DELETE request is performed towards ```/entity-name/{id}/delete-pe
 <a name="enabling"></a>
 ### How to Use
 
-To enable it, you need to ```use \Backpack\Pro\Http\Controllers\Operations\TrashOperation;``` on your EntityCrudController. For example:
+**Step 1.** If your EntityCrudController uses the `DeleteOperation`, remove it. `TrashOperation` is a complete alternative to Delete.
+
+**Step 2.** You need to ```use \Backpack\Pro\Http\Controllers\Operations\TrashOperation;``` inside your EntityCrudController. For example:
 
 ```php
-<?php
-
-namespace App\Http\Controllers\Admin;
-
-use Backpack\CRUD\app\Http\Controllers\CrudController;
-
 class ProductCrudController extends CrudController
 {
+    // ... other operations
     use \Backpack\Pro\Http\Controllers\Operations\TrashOperation;
-}
-```
-
-This will make a Trash button and Trashed filter show up in the list view, and will enable the routes and functionality needed for the operation.
+}```
+This will make a Trash button and Trashed filter show up in the list view, and will enable the routes and functionality needed for the operation. If you're getting a "Trait not found" exception, make sure in the namespace you have typed `Backpack\Pro`, not `Backpack\PRO`. 
 
 
 <a name="how-to-configure"></a>
