@@ -52,6 +52,41 @@ class ProductCrudController extends CrudController
 
 This will make a Trash button and Trashed filter show up in the list view, and will enable the routes and functionality needed for the operation.
 
+
+<a name="how-to-configure"></a>
+### How to configure
+
+You can easily disable the default trash filter:
+```php
+public function setupTrashOperation() 
+{
+    CRD::setOperationSetting('withTrashFilter', false);
+}
+```
+
+Disabling the filter also will make the trashed items show in your List view.  Note that, by default, the `Delete Permanently` button is only shown in _trashed items_. If you want to allow your admins to _permanently delete_ without sending first to trash... you can achieve that by defining in your operation setup:
+
+```php
+// in the setupTrashOperation method
+CRUD::setOperationSetting('allowDeleteWithoutTrash', true);
+```
+
+<a name="how-to-control-access-to-operation-actions"></a>
+### How to control access to operation actions
+
+When used, `TrashOperation` each action inside this operation (`trash`, `restore` and `delete_permanently`) checks for access, before being performed.  Likewise, `BulkTrashOperation` checks for access to `bulkTrash`, `bulkRestore` and `bulkDeletePermanently`. 
+
+That means you can revoke access to some operations, depending on user roles or anything else you want:
+```php
+// if user is not superadmin, don't allow permanently delete
+public function setupTrashOperation() 
+{
+    if(! backpack_user()->hasRole('superadmin') {
+         $this->crud->denyAccess('delete_permanently');
+    }
+}
+```
+
 <a name="how-to-overwrite"></a>
 ### How to Overwrite
 
