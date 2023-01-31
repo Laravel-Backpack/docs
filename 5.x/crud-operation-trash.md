@@ -5,14 +5,14 @@
 <a name="about"></a>
 ## About
 
-This CRUD operation allows your admins to soft delete, restore and permanently delete entries from the table.
+This CRUD operation allows your admins to soft delete, restore and permanently delete entries from the table. In other words, admins can send entries to the trash, recover them from trash or completely destroy them.
 
 <a name="requirements"></a>
 ## Requirements
 
 1. This is a <span class="badge badge-info">PRO</span> operation. It requires that you have [purchased access to `backpack/pro`](https://backpackforlaravel.com/products/pro-for-unlimited-projects).
 
-2. In addition, it needs that your Model uses Laravel's `SoftDeletes` trait. To have your Model use SoftDeles, you should:
+2. In addition, it needs that your Model uses Laravel's `SoftDeletes` trait. For that, you should:
 - generate a migration to add the `deleted_at` column to your table, eg. `php artisan make:migration add_soft_deletes_to_products --table=products`;
 - inside that file's `Schema::table()` closure, add `$table->softDeletes();`
 - run `php artisan migrate`
@@ -29,7 +29,7 @@ Using AJAX, a DELETE request is performed towards ```/entity-name/{id}/trash```,
 - **Restore**:
 Using AJAX, a PUT request is performed towards ```/entity-name/{id}/restore```, which points to the ```restore()``` method in your EntityCrudController.
 
-- **Delete**:
+- **Destroy**:
 Using AJAX, a DELETE request is performed towards ```/entity-name/{id}/destroy```, which points to the ```destroy()``` method in your EntityCrudController.
 
 <a name="enabling"></a>
@@ -83,8 +83,8 @@ public function setupTrashOperation()
 }
 ```
 
-<a name="how-to-overwrite"></a>
-### How to Overwrite
+<a name="how-to-override"></a>
+### How to Override
 
 In case you need to change how this operation works, just create ```trash()```, ```restore()```,```destroy()``` methods in your EntityCrudController, and they will be used instead of the default ones. For example for `trash()`:
 
@@ -110,7 +110,7 @@ php artisan backpack:button --from=destroy
 ```
 
 <a name="trash-multiple-items-bulk-trash"></a>
-## Trash Multiple Items (Bulk Trash) <span class="badge badge-info">PRO</span>
+## BulkTrash (Trash Multiple Items) <span class="badge badge-info">PRO</span>
 
 In addition to the button for each entry, <span class="badge badge-info">PRO</span> developers can show checkboxes next to each element, to allow their admin to trash, restore & delete multiple entries at once.
 
@@ -118,23 +118,22 @@ In addition to the button for each entry, <span class="badge badge-info">PRO</sp
 <a name="how-it-works"></a>
 ### How it Works
 
-### How it Works
-- **Trash**:
+- **BulkTrash**:
 Using AJAX, a DELETE request is performed towards ```/entity-name/{id}/bulk-trash```, which points to the ```bulkTrash()``` method in your EntityCrudController.
 
-- **Restore**:
+- **BulkRestore**:
 Using AJAX, a PUT request is performed towards ```/entity-name/{id}/bulk-restore```, which points to the ```bulkRestore()``` method in your EntityCrudController.
 
-- **Delete**:
+- **BulkDestroy**:
 Using AJAX, a DELETE request is performed towards ```/entity-name/{id}/bulk-destroy```, which points to the ```bulkDestroy()``` method in your EntityCrudController.
 
 <a name="enabling"></a>
 ### How to Use
 
-You need to ```use \Backpack\Pro\Http\Controllers\Operations\BulkTrashOperation;``` on your EntityCrudController.
+Assuming your Model already uses Larave's `SoftDeletes`, you just need to ```use \Backpack\Pro\Http\Controllers\Operations\BulkTrashOperation;``` on your EntityCrudController.
 
-<a name="how-to-overwrite"></a>
-### How to Overwrite
+<a name="how-to-override"></a>
+### How to Override
 
 In case you need to change how this operation works, just create a ```bulkTrash()```, `bulkRestore()` or `bulkDestroy()`  methods in your EntityCrudController:
 
