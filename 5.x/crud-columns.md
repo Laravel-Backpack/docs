@@ -591,6 +591,14 @@ The text column will just output the text value of a db column (or model attribu
 ],
 ```
 
+**Advanced use case:** The ```text``` column type can also show the attribute of a 1-1 relationship. If you have a relationship (like ```parent()```) set up in your Model, you can use relationship and attribute in the ```name```, using dot notation:
+```php
+[
+    'name'  => 'parent.title',
+    'label' => 'Title',
+    'type'  => 'text'
+],
+```
 <hr>
 
 <a name="url"></a>
