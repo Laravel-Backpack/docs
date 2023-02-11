@@ -5,7 +5,7 @@
 <a name="about"></a>
 ## About
 
-A column shows the information of an Eloquent attribute, in a user-friendly format. 
+A column shows the information of an Eloquent attribute, in a user-friendly format.
 
 It's used inside default operations to:
 - show a table cell in **ListEntries**;
@@ -257,7 +257,7 @@ The enum column will output the value of your database ENUM column or your PHP e
 ],
 ```
 
-By default, in case it's a `BackedEnum` it will show the `value` of the enum (when casted), in `database` or `UnitEnum` it will show the the enum value without parsing the value. 
+By default, in case it's a `BackedEnum` it will show the `value` of the enum (when casted), in `database` or `UnitEnum` it will show the the enum value without parsing the value.
 
 If you want to output something different than what your enum stores you have two options:
 - For `database enums` you need to provide the `options` that translates the enums you store in database.
@@ -460,9 +460,9 @@ Show a pretty text instead of the database value, according to an associative ar
 ],
 ```
 
-This example will show: 
+This example will show:
 - "Draft" when the value stored in the db is 0;
-- "Published" when the value stored in the db is 1;  
+- "Published" when the value stored in the db is 1;
 
 <hr>
 
@@ -591,14 +591,20 @@ The text column will just output the text value of a db column (or model attribu
 ],
 ```
 
-**Advanced use case:** The ```text``` column type can also show the attribute of a 1-1 relationship. If you have a relationship (like ```parent()```) set up in your Model, you can use relationship and attribute in the ```name```, using dot notation:
+<hr>
+
+<a name="url"></a>
+### url
+
+The text column will just output the url value of a db column. Its definition is:
 ```php
 [
-    'name'  => 'parent.title',
-    'label' => 'Title',
-    'type'  => 'text'
+   'name'      => 'destination_url', // The db column name
+   'type'      => 'url',
+   'label'     => 'Destination Url', // Table column heading
+   // 'limit'  => 50, // character limit; default is 32,
 ],
-```
+``` 
 
 <hr>
 
@@ -876,7 +882,7 @@ $this->crud->addColumn([
 
 
 <a name="custom-wrapper-for-columns"></a>
-### Wrap Column Text in an HTML Element 
+### Wrap Column Text in an HTML Element
 
 Sometimes the text that the column echoes is not enough. You want to add interactivity to it, by adding a link to that column. Or you want to show the value in a green/yellow/red badge so it stands out. You can do both of that - with the ```wrapper``` attribute, which most columns support.
 
@@ -901,7 +907,7 @@ $this->crud->addColumn([
 ]);
 ```
 
-If you specify ```wrapper``` to a column, the entries in that column will be wrapped in the element you specify. Note that: 
+If you specify ```wrapper``` to a column, the entries in that column will be wrapped in the element you specify. Note that:
 - To get an HTML anchor (a link), you can specify ```a``` for the element (but that's also the default); to get a paragraph you'd specify ```p``` for the element; to get an inline element you'd specify ```span``` for the element; etc;
 - Anything you declare in the ```wrapper``` array (other than ```element```) will be used as HTML attributes for that element (ex: ```class```, ```style```, ```target``` etc);
 - Each wrapper attribute, including the element itself, can be declared as a string OR as a callback;
