@@ -319,7 +319,7 @@ class Product extends Model
 
 Change the languages available to translate to/from, in your crud config file (```config/backpack/crud.php```). By default there are quite a few enabled (English, French, German, Italian, Romanian).
 
-Additionally, if you have slugs (but only if you need translatable slugs), you'll need to use backpack's classes instead of the ones provided by cviebrock/eloquent-sluggable and you should install `cviebrock/eloquent-sluggable` as well with `require install cviebrock/eloquent-sluggable`:
+Additionally, if you have slugs (but only if you need translatable slugs), you'll need to use backpack's classes instead of the ones provided by cviebrock/eloquent-sluggable and you should install `cviebrock/eloquent-sluggable` as well with `require require cviebrock/eloquent-sluggable`:
 
 ```php
 <?php
