@@ -599,20 +599,6 @@ The text column will just output the text value of a db column (or model attribu
     'type'  => 'text'
 ],
 ```
-<hr>
-
-<a name="url"></a>
-### url
-
-The `url` column will just output the url value of a db column. Its definition is:
-```php
-[
-   'name'      => 'destination_url', // The db column name
-   'type'      => 'url',
-   'label'     => 'Destination Url', // Table column heading
-   // 'limit'  => 50, // character limit; default is 32,
-],
-``` 
 
 <hr>
 
@@ -646,6 +632,20 @@ Its definition is very similar to the [upload_multiple *field type*](/docs/{{ver
     // 'disk' => 'public', // filesystem disk if you're using S3 or something custom
 ],
 ```
+<hr>
+
+<a name="url"></a>
+### url
+
+The `url` column will just output the url value of a db column. Its definition is:
+```php
+[
+   'name'      => 'destination_url', // The db column name
+   'type'      => 'url',
+   'label'     => 'Destination Url', // Table column heading
+   // 'limit'  => 50, // character limit; default is 32,
+],
+``` 
 
 <hr>
 
