@@ -604,7 +604,7 @@ The text column will just output the text value of a db column (or model attribu
 <a name="url"></a>
 ### url
 
-The text column will just output the url value of a db column. Its definition is:
+The `url` column will just output the url value of a db column. Its definition is:
 ```php
 [
    'name'      => 'destination_url', // The db column name
