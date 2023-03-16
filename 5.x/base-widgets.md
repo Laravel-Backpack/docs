@@ -159,8 +159,6 @@ To create and use a new widget chart, you need to:
 composer require consoletvs/charts:"6.*"
 ```
 
-> IMPORTANT NOTE IN AUGUST 2022: The repo owner has been hit with a trademark violation, so the original repository might be down. The version we're using is not in any violation so it should be back up shortly. We're monitoring the situation and trying to help resolve it. In the meantime, if you want charts, you can install our fork instead. Please follow [the instructions here](https://github.com/Laravel-Backpack/CRUD/issues/4573#issuecomment-1204854291). 
-
 **Step 2.** Create a new ChartController:
 
 ```
@@ -515,11 +513,11 @@ It helps load blade files that are not specifically created to be widgets, that 
 <a name="overwriting-default-widget-types"></a>
 ## Overwriting Default Widget Types
 
-You can overwrite a widget type by placing a file with the same name in your ```resources\views\vendor\backpack\base\widgets``` directory. When a file is there, Backpack will pick that one up, instead of the one in the package. You can do that from command line using ```php artisan backpack:publish base/widgets/widget-name```
+You can overwrite a widget type by placing a file with the same name in your ```resources\views\vendor\backpack\base\widgets``` directory. When a file is there, Backpack will pick that one up, instead of the one in the package. You can do that from command line using ```php artisan backpack:widget --from=widget-name```
 
 Examples:
 - creating a ```resources\views\vendor\backpack\base\widgets\card.blade.php``` file would overwrite the ```card``` widget functionality;
-- ```php artisan backpack:publish base/widgets/card``` will take the view from the package and copy it to the directory above, so you can edit it;
+- ```php artisan backpack:widget --from=card``` will take the view from the package and copy it to the directory above, so you can edit it;
 
 >Keep in mind that when you're overwriting a default widget type, you're forfeiting any future updates for that widget. We can't push updates to a file that you're no longer using.
 

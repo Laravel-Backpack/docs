@@ -56,7 +56,7 @@ public function destroy($id)
 You can also overwrite the delete button by creating a file with the same name inside your ```resources/views/vendor/backpack/crud/buttons/```. You can easily publish the delete button there to make changes using:
 
 ```zsh
-php artisan backpack:publish crud/buttons/delete
+php artisan backpack:button --from=delete
 ```
 
 <a name="delete-multiple-items-bulk-delete"></a>
@@ -69,6 +69,11 @@ In addition to the button for each entry, <span class="badge badge-info">PRO</sp
 ### How it Works
 
 Using AJAX, a DELETE request is performed towards ```/entity-name/bulk-delete```, which points to the ```bulkDelete()``` method in your EntityCrudController.
+
+**`NOTES:`** 
+- The bulk checkbox is added inside the first column defined in the table. For that reason the first column should be visible on table to display the bulk actions checkbox next to it.
+- `Bulk Actions` also disable all click events for the first column, so make sure the first column **doesn't** contain an anchor tag (`<a>`), as it won't work.
+
 
 <a name="enabling"></a>
 ### How to Use
@@ -92,5 +97,5 @@ public function bulkDelete()
 You can also overwrite the bulk delete button by creating a file with the same name inside your ```resources/views/vendor/backpack/crud/buttons/```. You can easily publish the delete button there to make changes using:
 
 ```zsh
-php artisan backpack:publish crud/buttons/bulk_delete
+php artisan backpack:button --from=bulk_delete
 ```

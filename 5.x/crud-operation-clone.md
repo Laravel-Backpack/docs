@@ -79,7 +79,7 @@ public function clone($id)
 You can also overwrite the clone button by creating a file with the same name inside your ```resources/views/vendor/backpack/crud/buttons/```. You can easily publish the clone button there to make changes using:
 
 ```zsh
-php artisan backpack:publish crud/buttons/clone
+php artisan backpack:button --from=clone
 ```
 
 <a name="clone-multiple-items-bulk-clone"></a>
@@ -92,6 +92,10 @@ In addition to the button for each entry, you can show checkboxes next to each e
 ### How it Works
 
 Using AJAX, a POST request is performed towards ```/entity-name/bulk-clone```, which points to the ```bulkClone()``` method in your EntityCrudController.
+
+**`NOTES:`** 
+- The bulk checkbox is added inside the first column defined in the table. For that reason the first column should be visible on table to display the bulk actions checkbox next to it.
+- `Bulk Actions` also disable all click events for the first column, so make sure the first column **doesn't** contain an anchor tag (`<a>`), as it won't work.
 
 <a name="enabling"></a>
 ### How to Use
@@ -118,7 +122,7 @@ public function bulkClone($id)
 You can also overwrite the bulk clone button by creating a file with the same name inside your ```resources/views/vendor/backpack/crud/buttons/```. You can easily publish the clone button there to make changes using:
 
 ```zsh
-php artisan backpack:publish crud/buttons/bulk_clone
+php artisan backpack:button --from=bulk_clone
 ```
 
 <a name="exempt-attribute-when-cloning"></a>

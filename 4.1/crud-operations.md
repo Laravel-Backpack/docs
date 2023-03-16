@@ -490,7 +490,7 @@ public function clone($id)
 
 ```php
 @if ($crud->hasAccess('create'))
-	<a href="javascript:void(0)" onclick="cloneEntry(this)" data-route="{{ url($crud->route.'/'.$entry->getKey().'/clone') }}" class="btn btn-xs btn-default" data-button-type="clone"><i class="fa fa-clone"></i> Clone</a>
+	<a href="javascript:void(0)" onclick="cloneEntry(this)" data-route="{{ url($crud->route.'/'.$entry->getKey().'/clone') }}" class="btn btn-xs btn-default" data-button-type="clone"><i class="la la-copy"></i> Clone</a>
 @endif
 
 {{-- Button Javascript --}}
@@ -638,7 +638,7 @@ public function postModerateForm(Request $request = null)
         <small>{!! $crud->getSubheading() ?? 'Moderate '.$crud->entity_name !!}.</small>
 
         @if ($crud->hasAccess('list'))
-          <small><a href="{{ url($crud->route) }}" class="hidden-print font-sm"><i class="fa fa-angle-double-left"></i> {{ trans('backpack::crud.back_to_all') }} <span>{{ $crud->entity_name_plural }}</span></a></small>
+          <small><a href="{{ url($crud->route) }}" class="hidden-print font-sm"><i class="la la-angle-double-left"></i> {{ trans('backpack::crud.back_to_all') }} <span>{{ $crud->entity_name_plural }}</span></a></small>
         @endif
     </h2>
   </section>
@@ -670,7 +670,7 @@ public function postModerateForm(Request $request = null)
 
 ```php
 @if ($crud->hasAccess('moderate'))
-    <a href="{{ url($crud->route.'/'.$entry->getKey().'/moderate') }}" class="btn btn-sm btn-link"><i class="fa fa-list"></i> Moderate</a>
+    <a href="{{ url($crud->route.'/'.$entry->getKey().'/moderate') }}" class="btn btn-sm btn-link"><i class="la la-list"></i> Moderate</a>
 @endif
 ```
 
@@ -771,7 +771,7 @@ Say we want to create a ```BulkClone``` operation, with a button which clones mu
 
 ```html
 @if ($crud->hasAccess('bulkClone') && $crud->get('list.bulkActions'))
-  <a href="javascript:void(0)" onclick="bulkCloneEntries(this)" class="btn btn-sm btn-secondary bulk-button"><i class="fa fa-clone"></i> Clone</a>
+  <a href="javascript:void(0)" onclick="bulkCloneEntries(this)" class="btn btn-sm btn-secondary bulk-button"><i class="la la-copy"></i> Clone</a>
 @endif
 
 @push('after_scripts')
@@ -890,7 +890,7 @@ protected function setupBulkCloneDefaults()
 
     $this->crud->operation('list', function () {
         $this->crud->enableBulkActions();
-        $this->crud->addButton('bottom', 'bulk_clone', 'view', 'bulk_clone', 'beginning');
+        $this->crud->addButton('bottom', 'bulk_clone', 'view', 'crud::buttons.bulk_clone', 'beginning');
     });
 }
 ```
@@ -902,7 +902,7 @@ The button makes one call for all entries, and only triggers one notification. I
 
 ```html
 @if ($crud->hasAccess('create') && $crud->bulk_actions)
-  <a href="javascript:void(0)" onclick="bulkCloneEntries(this)" class="btn btn-sm btn-secondary bulk-button"><i class="fa fa-clone"></i> Clone</a>
+  <a href="javascript:void(0)" onclick="bulkCloneEntries(this)" class="btn btn-sm btn-secondary bulk-button"><i class="la la-copy"></i> Clone</a>
 @endif
 
 @push('after_scripts')

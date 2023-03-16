@@ -197,7 +197,7 @@ Use [Algolia Places autocomplete](https://community.algolia.com/places/) to help
 ],
 ```
 
-> **Use attribute casting.** For information stored as JSON in the database, it's recommended that you use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) to ```array``` or ```object```. That way, every time you get the info from the database you'd get it in a usable format.
+> **Use attribute casting.** For information stored as JSON in the database, it's recommended that you use [attribute casting](https://laravel.com/docs/eloquent-mutators#attribute-casting) to ```array``` or ```object```. That way, every time you get the info from the database you'd get it in a usable format.
 
 
 Input preview: 
@@ -227,7 +227,7 @@ Using Google Places API is dependant on using an API Key. Please [get an API key
     ],
 ```
 
-> **Use attribute casting.** For information stored as JSON in the database, it's recommended that you use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) to ```array``` or ```object```. That way, every time you get the info from the database you'd get it in a usable format.
+> **Use attribute casting.** For information stored as JSON in the database, it's recommended that you use [attribute casting](https://laravel.com/docs/eloquent-mutators#attribute-casting) to ```array``` or ```object```. That way, every time you get the info from the database you'd get it in a usable format.
 
 Input preview: 
 
@@ -478,7 +478,7 @@ Show a pretty [Bootstrap Datepicker](http://bootstrap-datepicker.readthedocs.io/
 ],
 ```
 
-Please note it is recommended that you use [attribute casting](https://laravel.com/docs/5.3/eloquent-mutators#attribute-casting) on your model (cast to date).
+Please note it is recommended that you use [attribute casting](https://laravel.com/docs/eloquent-mutators#attribute-casting) on your model (cast to date).
 
 
 Input preview: 
@@ -509,7 +509,7 @@ Show a DateRangePicker and let the user choose a start date and end date.
         ]
 ```
 
-Please note it is recommended that you use [attribute casting](https://laravel.com/docs/5.3/eloquent-mutators#attribute-casting) on your model (cast to date).
+Please note it is recommended that you use [attribute casting](https://laravel.com/docs/eloquent-mutators#attribute-casting) on your model (cast to date).
 
 Your end result will look like this:
 
@@ -528,7 +528,7 @@ Input preview:
 ],
 ```
 
-**Please note:** if you're using datetime [attribute casting](https://laravel.com/docs/5.3/eloquent-mutators#attribute-casting) on your model, you also need to place this mutator inside your model:
+**Please note:** if you're using datetime [attribute casting](https://laravel.com/docs/eloquent-mutators#attribute-casting) on your model, you also need to place this mutator inside your model:
 ```php
 	public function setDatetimeAttribute($value) {
 		$this->attributes['datetime'] = \Carbon\Carbon::parse($value);
@@ -1299,7 +1299,7 @@ Show a table with multiple inputs per row and store the values as JSON in the da
 ],
 ```
 
->It's highly recommended that you use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) on your model when working with JSON stored in database columns, and cast your this attribute to either ```object``` or ```array```.
+>It's highly recommended that you use [attribute casting](https://laravel.com/docs/eloquent-mutators#attribute-casting) on your model when working with JSON stored in database columns, and cast your this attribute to either ```object``` or ```array```.
 
 Input preview: 
 
@@ -1480,7 +1480,7 @@ public function setPhotosAttribute($value)
     }
 ```
 
-**Step 3.** Since the filenames are stored in the database as a JSON array, we're going to use [attribute casting](https://laravel.com/docs/5.3/eloquent-mutators#attribute-casting) on your model, so every time we get the filenames array from the database it's converted from a JSON array to a PHP array:
+**Step 3.** Since the filenames are stored in the database as a JSON array, we're going to use [attribute casting](https://laravel.com/docs/eloquent-mutators#attribute-casting) on your model, so every time we get the filenames array from the database it's converted from a JSON array to a PHP array:
 ```php
     protected $casts = [
     	'photos' => 'array'
@@ -1569,7 +1569,7 @@ $video = {
 }
 ```
 
-So you should use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) in your model, to cast the video as ```array``` or ```object```.
+So you should use [attribute casting](https://laravel.com/docs/eloquent-mutators#attribute-casting) in your model, to cast the video as ```array``` or ```object```.
 
 
 <a name="view"></a>

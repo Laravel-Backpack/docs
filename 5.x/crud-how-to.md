@@ -127,7 +127,7 @@ In order to insert two columns with the same name, use the ```key``` attribute o
 
 All Backpack packages allow you to easily overwrite and customize the views. If you want Backpack to pick up _your_ file, instead of the one in the package, you can do that by just placing a file with the same name in your views. So if you want to overwrite the select2 field (```vendor/backpack/crud/src/resources/views/fields/select2.blade.php```) to change some functionality, you need to create ```resources/views/vendor/backpack/crud/fields/select2.blade.php```. You can do that manually, or use this command:
 ```shell
-php artisan backpack:publish crud/fields/select2
+php artisan backpack:field --from=select2
 ```
 This will look for the blade file and copy it inside the folder, so you can edit it.
 
@@ -329,6 +329,8 @@ With so many field types, it can be a little overwhelming to understand what fie
 - **[morphToMany (n-n)](#morphtomany-n-n-polymorphic-relationship)** ✅
     - (A) show a select2_multiple - add a `relationship` field
     - (B) show a subform - add a `relationship` field and define `subfields`
+- **[morphTo (n-1)](#morphto-n-1-relationship)** ✅
+    - Manage both `_type` and `_id` of the morphTo relation;
 - **[hasOneThrough (1-1-1)](#hasonethrough-1-1-1-relationship)** ❌
     - it's read-only, no sense having a field for it;
 - **[hasManyThrough (1-1-n)](#hasmanythrough-1-1-n-relationship)** ❌
@@ -337,8 +339,6 @@ With so many field types, it can be a little overwhelming to understand what fie
     - it's read-only, no sense having a field for it;
 - **[Morph One Of Many (1-n turned into 1-1)](#morph-one-of-many-1-1-relationship-out-of-1-n-relationship)** ❌
     - it's read-only, no sense having a field for it;
-- **[morphTo (n-1)](#morphto-n-1-relationship)** ❌
-    - never needed, UI would be very difficult to understand & use;
 - **[morphedByMany (n-n inverse)](#morphedbymany-n-n-inverse-relationship)** ❌
     - never needed, UI would be very difficult to understand & use;
 
@@ -529,7 +529,7 @@ CRUD::field('users')->subfields([ ['name' => 'notes'] ])
 You can add a subform for the related entry to be created/edited/deleted from the main form:
 
 ```php
-CRUD::field('video.description')->type('relationship')->subfields([
+CRUD::field('video')->type('relationship')->subfields([
     'url',
     [
         'name' => 'description',
@@ -586,6 +586,80 @@ This is in all aspects similar to [BelongsToMany](#belongstomany) relation, the 
 
 Please read the relationship [BelongsToMany](#belongstomany) documentation, everything is the same in regards to fields definition and Backpack will take care of the morphable relation saving.
 
+<a name="morphto"></a>
+#### MorphTo (n-1 relationship)
+
+Using this relation type Backpack will automatically manage for you both `_type` and `_id` fields of this relation. 
+Let's say we have `comments`, that can be either for `videos` or `posts`. 
+- Your `Comment` Model should have its `morphTo` relation set up.
+- Your db table should have the `commentable_type` and `commentable_id` columns.
+```php
+// in CommentCrudController you can add the morphTo fields by naming the field the morphTo relation name
+CRUD::field('commentable')
+    ->addMorphOption('App\Models\Video');
+    ->addMorphOption('App\Models\Post');
+```
+This will generate two inputs:
+1 - A select with two options `Video` and `Post` as the `morph type field`. 
+2 - A second select that will have the options for both `Video` and `Post` models.
+
+In a real world scenario, you might have other needs, like using AJAX to select the actual entries or changing the inputs size etc. For that, check out the available attributes: 
+
+```php
+// ->addMorphOption(string $model/$morphMapName, string $labelInSelect, array $options)
+CRUD::field('commentable')
+    ->addMorphOption('App\Models\Video')
+    ->addMorphOption('App\Models\Post', 'Posts', [
+        [
+            'data_source'          => backpack_url('comment/fetch/post'),
+            'minimum_input_length' => 2,
+            'placeholder'          => 'select an amazing post',
+            'method'               => 'POST',
+            'attribute'            => 'title',
+        ]
+    ]);
+
+// by defining `data_source` you are telling Backpack that the `Posts` select should be an ajax select.
+```
+In this scenario the same two selects would be generated, but for the Post, your admin see an AJAX field, instead of a static one, use POST instead of GET etc.
+
+To further customize the fields you can use `morphTypeField` and `morphIdField` to configure the select sizes etc.
+
+```php
+CRUD::field('commentable')
+    ->addMorphOption('App\Models\Video')
+    ->addMorphOption('App\Models\Post', 'Posts')
+    ->morphTypeField(['wrapper' => ['class' => 'form-group col-sm-4']])
+    ->morphIdField(['wrapper' => [
+        'class' => 'form-group col-sm-8'], 
+        'attributes' => ['my_custom_attribute' => 'custom_value']
+    ]);
+```
+
+Here is an example using array field definition:
+
+```php
+$this->crud->addField([
+    'name' => 'commentable',
+    'morphOptions' => [
+        ['App\Models\PetShop\Owner', 'Owners'],
+        ['monster', 'Monsters', [
+            'placeholder' => 'Select a little monster'
+        ]],
+        ['App\Models\PetShop\Pet', 'Pets', [
+            'data_source' => backpack_url('pet-shop/comment/fetch/pets'),
+            'minimum_input_length' => 2,
+            'placeholder' => 'select a fluffy pet'
+        ]],
+    ],
+    'morphTypeField' => [
+        'wrapper' => ['class' => 'form-group col-md-6']
+    ],
+    'morphIdField' => [
+        'wrapper' => ['class' => 'form-group col-md-6']
+    ]
+]);
+```
 
 #### hasOneThrough (1-1-1 relationship)
 
@@ -605,10 +679,6 @@ Please read the relationship [BelongsToMany](#belongstomany) documentation, ever
 #### Morph One of Many (1-1 relationship out of 1-n relationship)
 
 - This is a "read-only" relationship. It does not make sense to add a field for it. Please use the general-purpose relationship towards this entity (the 1-n relationship, without `latestOfMany()` or `oldestOfMany()`).
-
-#### MorphTo (n-1 relationship)
-
-- We do not provide an interface to edit this relationship. We never needed it, nobody ever asked for it and it would be very difficult to create an interface that is easy-to-use and easy-to-understand for the admin. If you find yourself needing this, please let us know by opening an issue on GitHub.
 
 #### MorphedByMany (n-n inverse relationship)
 

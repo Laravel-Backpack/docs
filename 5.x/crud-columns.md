@@ -245,6 +245,63 @@ The email column will output the email address in the database (truncated to 254
 
 <hr>
 
+<a name="enum"></a>
+### enum
+
+The enum column will output the value of your database ENUM column or your PHP enum attribute.
+```php
+[
+   'name'  => 'status', 
+   'label' => 'Status', 
+   'type'  => 'enum',
+],
+```
+
+By default, in case it's a `BackedEnum` it will show the `value` of the enum (when casted), in `database` or `UnitEnum` it will show the the enum value without parsing the value. 
+
+If you want to output something different than what your enum stores you have two options:
+- For `database enums` you need to provide the `options` that translates the enums you store in database.
+- For PHP enums you can provide the same `options` or provide a `enum_function` from the enum to gather the final result.
+
+```php
+// for database enums
+[
+   'name'  => 'status', 
+   'label' => 'Status', 
+   'type'  => 'enum',
+   'options' => [
+       'DRAFT' => 'Is draft',
+       'PUBLISHED' => 'Is published'
+   ]
+],
+
+// for PHP enums, given the following enum example
+
+enum StatusEnum
+{
+    case DRAFT;
+    case PUBLISHED;
+
+    public function readableText(): string
+    {
+        return match ($this) {
+            StatusEnum::DRAFT => 'Is draft',
+            StatusEnum::PUBLISHED => 'Is published',
+        };
+    }
+}
+
+[
+   'name'  => 'status', 
+   'label' => 'Status', 
+   'type'  => 'enum',
+   'enum_function' => 'readableText',
+   'enum_class' => 'App\Enums\StatusEnum'
+],
+```
+
+<hr>
+
 <a name="image"></a>
 ### image
 
@@ -422,6 +479,12 @@ Shows the number of items that are related to the current entry, for a particula
    'label'     => 'Tags', // Table column heading
    // OPTIONAL
    // 'suffix' => ' tags', // to show "123 tags" instead of "123 items"
+   
+   // if you need that column to be orderable in table, you need to manually provide the orderLogic
+   // 'orderable' => true,
+   // 'orderLogic' => function ($query, $column, $columnDirection) {
+                $query->orderBy('tags_count', $columnDirection);
+            },
 ],
 ```
 
@@ -708,11 +771,11 @@ Display a small screenshot for a YouTube or Vimeo video, stored in the database 
 <a name="overwriting-default-column-types"></a>
 ## Overwriting Default Column Types
 
-You can overwrite a column type by placing a file with the same name in your ```resources\views\vendor\backpack\crud\columns``` directory. When a file is there, Backpack will pick that one up, instead of the one in the package. You can do that from command line using ```php artisan backpack:publish crud/columns/column-file-name```
+You can overwrite a column type by placing a file with the same name in your ```resources\views\vendor\backpack\crud\columns``` directory. When a file is there, Backpack will pick that one up, instead of the one in the package. You can do that from command line using ```php artisan backpack:column --from=column-file-name```
 
 Examples:
 - creating a ```resources\views\vendor\backpack\crud\columns\number.blade.php``` file would overwrite the ```number``` column functionality;
-- ```php artisan backpack:publish crud/columns/text``` will take the view from the package and copy it to the directory above, so you can edit it;
+- ```php artisan backpack:column --from=text``` will take the view from the package and copy it to the directory above, so you can edit it;
 
 >Keep in mind that when you're overwriting a default column type, you're forfeiting any future updates for that column. We can't push updates to a file that you're no longer using.
 

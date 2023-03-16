@@ -448,17 +448,56 @@ Input preview:
 <a name="enum"></a>
 ### enum
 
-Show a select with the values in the database for that ENUM field. Requires that the db column type is "enum". If the db column allows null, the " - " value will also show up in the select.
+Show a select with the values for an ENUM database column, or an PHP enum (introduced in PHP 8.1).
+
+##### Database ENUM
+When used with a database enum it requires that the database column type is `enum`. In case it's nullable it will also show `-` (empty) option.
+
+PLEASE NOTE the `enum` field using database enums only works for MySQL.
 
 ```php
-[   // Enum
+[
     'name'  => 'status',
     'label' => 'Status',
-    'type'  => 'enum'
+    'type'  => 'enum',
+    // optional, specify the enum options with custom display values
+    'options' => [
+        'DRAFT' => 'Is Draft',
+        'PUBLISHED' => 'Is Published'
+    ]
 ],
 ```
 
-PLEASE NOTE the enum field only works for MySQL databases.
+##### PHP enum
+
+If you are using a `BackedEnum` your best option is to cast it in your model, and Backpack know how to handle it without aditional configuration. 
+
+```php
+// in your model (eg. Article)
+
+protected $casts = ['status' => \App\Enums\StatusEnum::class]; //assumes you have this enum created
+
+// and in your controller
+[
+    'name'  => 'status',
+    'label' => 'Status',
+    'type'  => 'enum'
+    // optional
+    //'enum_class' => 'App\Enums\StatusEnum',
+    //'enum_function' => 'readableStatus',
+],
+```
+
+In case it's not a `BackedEnum` or you don't want to cast it in your Model, you should provide the enum class to the field:
+
+```php
+[
+    'name'  => 'status',
+    'label' => 'Status',
+    'type'  => 'enum',
+    'enum_class' => \App\Enums\StatusEnum::class
+],
+```
 
 Input preview: 
 
@@ -920,7 +959,7 @@ public function setImageAttribute($value)
     	$disk = "public";
     	$destination_path = "folder_1/subfolder_1";
 
-    	$this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path);
+    	$this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path, $fileName = null);
 
 	// return $this->attributes[{$attribute_name}]; // uncomment if this is a translatable field
     }
@@ -930,7 +969,7 @@ public function setImageAttribute($value)
 
 The field sends the file, through a Request, to the Controller. The Controller then tries to create/update the Model. That's when the mutator on your model will run. That also means we can do any [file validation](https://laravel.com/docs/5.3/validation#rule-file) (```file```, ```image```, ```mimetypes```, ```mimes```) in the Request, before the file is stored on the disk.
 
->NOTE: If this field is mandatory (required in validation) please use the [sometimes laravel validation rule](https://laravel.com/docs/5.8/validation#conditionally-adding-rules) together with **required** in your validation. (sometimes|required|file etc... )
+>NOTE: If this field is mandatory (required in validation) please use the [sometimes laravel validation rule](https://laravel.com/docs/9.x/validation#conditionally-adding-rules) together with **required** in your validation. (sometimes|required|file etc... )
 
 [The ```uploadFileToDisk()``` method](https://github.com/Laravel-Backpack/CRUD/blob/master/src/app/Models/Traits/HasUploadFields.php#L31-L59) will take care of everything for most use cases:
 
@@ -945,7 +984,7 @@ The field sends the file, through a Request, to the Controller. The Controller t
      *     - if the value is null, deletes the file and sets null in the DB
      *     - if the value is different, stores the different file and updates DB value
      * /
-public function uploadFileToDisk($value, $attribute_name, $disk, $destination_path) {}
+public function uploadFileToDisk($value, $attribute_name, $disk, $destination_path, $fileName = null) {}
 ```
 
 If you wish to have a different functionality, you can delete the method call from your mutator and do your own thing.
@@ -1460,6 +1499,71 @@ Input preview:
 
 <hr>
 
+<a name="google-map"></a>
+### google_map <span class="badge badge-pill badge-info">PRO</span>
+
+Shows a map and allows the user to navigate and select a position on that map (using the Google Places API). The field stores the latitude, longitude and the address string as a JSON in the database ( eg. `{lat: 123, lng: 456, formatted_address: 'Lisbon, Portugal'}`). If you want to save the info in separate db columns, continue reading below.
+
+```php
+CRUD::addField([
+    'name' => 'location',
+    'type' => 'google_map',
+    // optionals
+    'map_options' => [
+        'default_lat' => 123,
+        'default_lng' => 456,
+        'locate' => false, // when false, only a map is displayed. No value for submition.
+        'height' => 400 // in pixels
+    ]
+]);
+```
+
+Using Google Places API is dependent on using an API Key. Please [get an API key](https://console.cloud.google.com/apis/credentials) - you do have to configure billing, but you qualify for $200/mo free usage, which covers most use cases. Then copy-paste that key as your ```services.google_places.key``` value. So inside your ```config/services.php``` please add the items below:
+
+```php
+'google_places' => [
+    'key' => 'the-key-you-got-from-google-places'
+],
+```
+
+**How to save in multiple inputs?**
+
+There are cases where you rather save the information on separate inputs in the database. In that scenario you should use [Laravel mutators and accessors](https://laravel.com/docs/9.x/eloquent-mutators). Using the same field as previously shown (**field name is `location`**), and having `latitude`, `longitude`, `full_address` as the database columns, we can save and retrieve them separately too:
+```php
+
+//add all the fields to model fillable property, including the one that we are not going to save (location in the example)
+$fillable = ['location', 'latitude', 'longitude', 'full_address'];
+
+// 
+protected function location(): \Illuminate\Database\Eloquent\Casts\Attribute
+{
+    return \Illuminate\Database\Eloquent\Casts\Attribute::make(
+        get: function($value, $attributes) {
+            return json_encode([
+            'lat' => $attributes['lat'], 
+            'lng' => $attributes['lng'], 
+            'formatted_address' => $attributes['full_address'] ?? ''
+            ], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_THROW_ON_ERROR);
+        },
+        set: function($value) {
+            $location = json_decode($value);
+            return [
+                'lat' => $location->lat,
+                'lng' => $location->lng,
+                'full_address' => $location->formatted_address ?? ''
+            ];
+        }
+    );
+}
+
+```
+
+Input preview:
+
+![image](https://user-images.githubusercontent.com/7188159/208295372-f2dcbe71-73b7-452d-9904-428f725cdbce.png)
+
+<hr>
+
 <a name="icon-picker"></a>
 ### icon_picker <span class="badge badge-pill badge-info">PRO</span>
 
@@ -1596,6 +1700,40 @@ Input preview:
 
 > NOTE: if you are having trouble uploading big images, please check your php extensions **apcu** and/or **opcache**, users have reported some issues with these extensions when trying to upload very big images. REFS: https://github.com/Laravel-Backpack/CRUD/issues/3457
 
+<hr>
+
+<a name="phone"></a>
+### phone <span class="badge badge-pill badge-info">PRO</span>
+
+Show a telephone number input. Lets the user choose the prefix using a flag from dropdown.
+
+```php
+[   // phone
+    'name'  => 'phone', // db column for phone
+    'label' => 'Phone',
+    'type'  => 'phone',
+
+    // OPTIONALS
+    // most options provided by intlTelInput.js are supported, you can try them out using the `config` attribute;
+    //  take note that options defined in `config` will override any default values from the field;
+    'config' => [
+        'onlyCountries' => ['bd', 'cl', 'in', 'lv', 'pt', 'ro'],
+        'initialCountry' => 'cl', // this needs to be in the allowed country list, either in `onlyCountries` or NOT in `excludeCountries`
+        'separateDialCode' => true,
+        'nationalMode' => true,
+        'autoHideDialCode' => false,
+        'placeholderNumberType' => 'MOBILE',
+    ]
+],
+```
+
+For more info about parameters please see this JS plugin's [official documentation](https://github.com/jackocnr/intl-tel-input).
+
+Your end result will look like this:
+
+![CRUD Field - phone](https://user-images.githubusercontent.com/1032474/204588174-48935030-54e6-4a30-b34c-7e94220ae242.png)
+
+> NOTE: you can validate this using Laravel's default **numeric** or if you want something advanced, we recommend [Laravel Phone](https://github.com/Propaganistas/Laravel-Phone)
 
 <hr>
 
@@ -1632,14 +1770,14 @@ Out of the box, it supports all common relationships:
 - ✅ `morphOne` (1-1) - shows a subform if you define `subfields`
 - ✅ `morphMany` (1-n) - shows a select2_multiple OR a subform if you define `subfields`
 - ✅ `morphToMany` (n-n) - shows a select2_multiple OR a subform if you define `subfields` for pivot extras
+- ✅ `morphTo` (n-1) - shows the `_type` and `_id` selects for morphTo relations
 
 It does NOT support the following Eloquent relationships, since they don't make sense in this context:
 - ❌ `hasOneThrough` (1-1-1) - it's read-only, no sense having a field for it;
 - ❌ `hasManyThrough` (1-1-n) - it's read-only, no sense having a field for it;
 - ❌ Has One Of Many (1-n turned into 1-1) - it's read-only, no sense having a field for it;
 - ❌ Morph One Of Many (1-n turned into 1-1) - it's read-only, no sense having a field for it;
-- ❌ `morphTo` (n-1) - never needed, UI would be very difficult to understand & use;
-- ❌ `morphedByMany` (n-n inverse) - never needed, UI would be very difficult to understand & use;
+- ❌ `morphedByMany` (n-n inverse) - never needed, UI would be very difficult to understand & use at this moment.
 
 The relationship field is a plug-and-play solution, 90% of the time it will cover all you need by just pointing it to a relationship on the model. But it also has a few optional features, that will greatly help you out in more complex use cases:
 
@@ -1920,6 +2058,7 @@ You can use most field types inside the field groups, add as many subfields you 
 - some field types do not make sense as subfields inside repeatable (for example, relationship fields might not make sense; they will work if the relationship is defined on the main model, but upon save the selected entries will NOT be saved as relationships, they will be saved as JSON; you can intercept the saving if you want and do whatever you want);
 - a few fields _make sense_, but _cannot_ work inside repeatable (ex: upload, upload_multiple); [see the notes inside the PR](https://github.com/Laravel-Backpack/CRUD/pull/2266#issuecomment-559436214) for more details, and a complete list of the fields; the few fields that do not work inside repeatable have sensible alternatives;
 - **VALIDATION**: you can validate subfields the same way you validate [nested arrays in Laravel](https://laravel.com/docs/8.x/validation#validating-nested-array-input) Eg: `testimonial.*.name => 'required'`
+- **FIELD USAGE AND RELATIONSHIPS**: note that it's not possible to use a repeatable field inside other repeatable field. Relationships that use `subfields` are under the hood repeatable fields, so the relationship subfields cannot include other repeatable field.
 
 ```php
 [   // repeatable
@@ -2481,7 +2620,7 @@ Show a wysiwyg (CKEditor) to the user.
 
 The actual field types are stored in the Backpack/CRUD package in ```/resources/views/fields```. If you need to change an existing field, you don't need to modify the package, you just need to add a blade file in your application in ```/resources/views/vendor/backpack/crud/fields```, with the same name. The package checks there first, and only if there's no file there, will it load it from the package.
 
-To quickly publish a field blade file in your project, you can use ```php artisan backpack:publish crud/fields/field_name```. For example, to publish the number field type, you'd type ```php artisan backpack:publish crud/fields/number```
+To quickly publish a field blade file in your project, you can use ```php artisan backpack:field --from=field_name```. For example, to publish the number field type, you'd type ```php artisan backpack:field --from=number```
 
 >Please keep in mind that if you're using _your_ file for a field type, you're not using the _package file_. So any updates we push to that file, you're not getting them. In most cases, it's recommended you create a custom field type for your use case, instead of overwriting default field types.
 

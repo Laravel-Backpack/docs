@@ -57,6 +57,64 @@ Where:
 
 The ```/reorder``` route points to a ```reorder()``` method in your ```EntityCrudController```.
 
+<a name="widget"></a>
+## How to add custom sections(aka. Widgets)
+
+[Widgets](https://backpackforlaravel.com/docs/{{version}}/base-widgets) (aka cards, aka charts, aka graphs) provide a simple way to insert blade files into admin panel pages. You can use them to insert cards, charts, notices or custom content into pages. You can use the [default widget types](https://backpackforlaravel.com/docs/{{version}}/base-widgets#default-widget-types) or [create your own custom widgets](https://backpackforlaravel.com/docs/{{version}}/base-widgets#creating-a-custom-widget-type).
+
+Backpack's default template includes two [sections](https://backpackforlaravel.com/docs/{{version}}/base-widgets#requirements-1) where you can push widgets:
+
+* `before_content`
+* `after_content`
+
+To use widgets on reorder operation, define them inside `setupReorderOperation()` function.
+
+```php
+public function setupReorderOperation()
+{    
+    // dynamic data to render in the following widget
+    $userCount = \App\Models\User::count();
+
+    //add div row using 'div' widget and make other widgets inside it to be in a row
+    Widget::add()->to('before_content')->type('div')->class('row')->content([
+        
+        //widget made using fluent syntax
+        Widget::make()
+            ->type('progress')
+            ->class('card border-0 text-white bg-primary')
+            ->progressClass('progress-bar')
+            ->value($userCount)
+            ->description('Registered users.')
+            ->progress(100 * (int)$userCount / 1000)
+            ->hint(1000 - $userCount . ' more until next milestone.'),
+
+        //widget made using the array definition 
+        Widget::make(
+            [
+                'type'       => 'card',
+                'class'   => 'card bg-dark text-white',
+                'wrapper' => ['class' => 'col-sm-3 col-md-3'],
+                'content'    => [
+                    'header' => 'Example Widget',
+                    'body'   => 'Widget placed at "before_content" secion in same row',
+                ]
+            ]
+        ),
+    ]);
+
+    //you can also add Script & CSS to your page using 'script' & 'style' widget
+    Widget::add()->type('script')->stack('after_scripts')->content('https://code.jquery.com/ui/1.12.0/jquery-ui.min.js');
+    Widget::add()->type('style')->stack('after_styles')->content('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.58/dist/themes/light.css');
+}
+```
+
+#### Output:
+* Using `before_content`:
+
+![](https://i.imgur.com/MF9ePIM.png)
+* Using `after_content`
+
+![](https://i.imgur.com/AxC3lAZ.png)
 
 <a name="how-to-overwrite"></a>
 ## How to Overwrite
@@ -78,5 +136,5 @@ public function reorder()
 You can also overwrite the reorder button by creating a file with the same name inside your ```resources/views/vendor/backpack/crud/buttons/```. You can easily publish the reorder button there to make changes using:
 
 ```zsh
-php artisan backpack:publish crud/buttons/reorder
+php artisan backpack:button --from=reorder
 ```

@@ -46,12 +46,13 @@
     + [Revise](/docs/{{version}}/crud-operation-revisions)
     + [Fetch](/docs/{{version}}/crud-operation-fetch)
     + [InlineCreate](/docs/{{version}}/crud-operation-inline-create)
+    + [Trash](/docs/{{version}}/crud-operation-trash)
 - [API](/docs/{{version}}/crud-cheat-sheet)
     + [Cheat Sheet](/docs/{{version}}/crud-cheat-sheet)
     + [Crud API](/docs/{{version}}/crud-api)
     + [Fluent API](/docs/{{version}}/crud-fluent-syntax)
+- [Generating Code](/docs/{{version}}/generating-code)
 - [FAQ](/docs/{{version}}/crud-how-to)
-
 
 #### Add-ons
 
