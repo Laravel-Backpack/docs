@@ -335,3 +335,21 @@ An AJAX call is made to the ```search()``` method:
 - when pagination is performed on the table;
 
 You can of course overwrite this ```search()``` method by just creating one with the same name in your ```EntityCrudController```. In addition, you can overwrite what a specific column is searching through (and how), by [using the searchLogic attribute](/docs/{{version}}/crud-columns#custom-search-logic) on columns.
+
+
+<a name="how-to-debug"></a>
+## How to Debug
+
+Because the entries are fetched using AJAX requests, debugging the ListOperation can be a little difficult. Fortunately, we've thought of that. 
+
+<a name="errors-in-ajax-requests"></a>
+### Errors in AJAX requests
+
+If an error is thrown during the AJAX request, Backpack will show that error in a modal. Easy-peasy.
+
+<a name="see-query-models-views-exceptions-in-ajax-requests"></a>
+### See query, models, views, exceptions in AJAX requests
+
+If you want to see or optimize database queries, you can do that using any Laravel tool that analyzes AJAX request. For example, here's how to analyze AJAX requests using the excellent [barryvdh/laravel-debugbar](https://github.com/barryvdh/laravel-debugbar). You just click the Folder icon to the right, and you select the latest request. Debugbar will then show you all info for that last AJAX request:
+
+![How to use DebugBar with Backpack's ListOperation](https://user-images.githubusercontent.com/1032474/227514264-0a95ac8f-1bfa-4009-86c4-3c8313ca3399.gif)
