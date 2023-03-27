@@ -383,6 +383,9 @@ If you want to display a **Delete** button right on the **Update** operation, yo
         // your code...
         
         $this->crud->setOperationSetting('showDeleteButton', true); // <--- add this!
+        
+        // alternatively you can pass an URL to where user should be redirected after entry is deleted:
+        // $this->crud->setOperationSetting('showDeleteButton', 'https://someurl.com');
     }
 ```
 
