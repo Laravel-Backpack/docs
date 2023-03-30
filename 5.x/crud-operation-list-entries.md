@@ -91,6 +91,7 @@ Backpack adds a few buttons by default:
 This is done by setting the `actionsColumnAsDropdown` setting in list operation to `true`.
 
 a) You can change it globally for all CrudControllers in `config/backpack/operations/list.php` file.
+
 b) For a specific CrudController in `setupListOperation()` define: CRUD::setOperationSetting('actionsColumnAsDropdown', true);
 
 To learn more about buttons, **check out the [Buttons](/docs/{{version}}/crud-buttons) documentation page**.
