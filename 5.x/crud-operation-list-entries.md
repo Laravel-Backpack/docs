@@ -88,11 +88,11 @@ Backpack adds a few buttons by default:
 **NOTE**: The `line` stack buttons can be converted into a dropdown to improve the available table space.
 ![Backpack List Operation Dropdown ](https://user-images.githubusercontent.com/33960976/228809544-0d5a0d94-9195-4f45-9e20-e9ea32932f49.png)
 
-This is done by setting the `actionsColumnAsDropdown` setting in list operation to `true`.
+This is done by setting the `lineButtonsAsDropdown` setting in list operation to `true`.
 
-a) You can change it globally for all CrudControllers in `config/backpack/operations/list.php` file.
+a) For all CrudController (globally) in the `config/backpack/operations/list.php` file.
 
-b) For a specific CrudController in `setupListOperation()` define: CRUD::setOperationSetting('actionsColumnAsDropdown', true);
+b) For a specific CrudController, in its `setupListOperation()` define `CRUD::setOperationSetting('lineButtonsAsDropdown', true);`
 
 To learn more about buttons, **check out the [Buttons](/docs/{{version}}/crud-buttons) documentation page**.
 
