@@ -75,7 +75,7 @@ Backpack has 22+ [column types](/docs/{{version}}/crud-columns) you can use. Plu
 
 Buttons are used to trigger other operations. Some point to entirely new routes (```create```, ```update```, ```show```), others perform the operation on the current page using AJAX (```delete```).
 
-The ShowList operation has 3 places where buttons can be placed:
+The List/Show operations have 3 places where buttons can be placed:
   - ```top``` (where the Add button is)
   - ```line``` (where the Edit and Delete buttons are)
   - ```bottom``` (after the table)
@@ -83,6 +83,15 @@ The ShowList operation has 3 places where buttons can be placed:
 Backpack adds a few buttons by default:
 - ```add``` to the ```top``` stack;
 - ```edit``` and ```delete``` to the ```line``` stack;
+
+
+**NOTE**: The `line` stack buttons can be converted into a dropdown to improve the available table space.
+![Backpack List Operation Dropdown ](https://user-images.githubusercontent.com/33960976/228809544-0d5a0d94-9195-4f45-9e20-e9ea32932f49.png)
+
+This is done by setting the `actionsColumnAsDropdown` setting in list operation to `true`.
+
+a) You can change it globally for all CrudControllers in `config/backpack/operations/list.php` file.
+b) For a specific CrudController in `setupListOperation()` define: CRUD::setOperationSetting('actionsColumnAsDropdown', true);
 
 To learn more about buttons, **check out the [Buttons](/docs/{{version}}/crud-buttons) documentation page**.
 
