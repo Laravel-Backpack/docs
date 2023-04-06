@@ -5,11 +5,11 @@
 <a name="requirements"></a>
 ## Requirements
 
-If you can run Laravel 8 or 9, you can install Backpack. Backpack does _not_ have additional requirements. 
+If you can run Laravel 10, you can install Backpack. Backpack does _not_ have additional requirements. 
 
 For the following process, we assume:
 
-- you have a [working installation of Laravel](https://laravel.com/docs/9.x#installation) (an existing project is fine, you don't need a *fresh* Laravel install);
+- you have a [working installation of Laravel](https://laravel.com/docs/10.x#installation) (an existing project is fine, you don't need a *fresh* Laravel install);
 
 - you have configured your .ENV file with your database and mail information;
 
@@ -21,10 +21,12 @@ For the following process, we assume:
 <a name="install-core-packages"></a>
 ### Install using Composer
 
-Go to your Laravel project's directory, in your terminal, then:
+While `v6` is in alpha:
+- Step 1. Please set your `composer.json`'s `minimum-stability` to `dev`.
+- Step 2. Go to your Laravel project's directory, then in your terminal, run:
 
 ``` bash
-composer require backpack/crud
+composer require backpack/crud:"v6.x-dev"
 php artisan backpack:install
 ```
 

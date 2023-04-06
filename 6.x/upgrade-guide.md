@@ -31,7 +31,7 @@ Please **go thorough all steps**, to ensure a smooth upgrade process. The steps 
 <br>
 
 
-<a name="step-0" href="#step-0" class="badge badge-danger" style="text-decoration: none;">Step 0.</a> **[Upgrade to Laravel 8](https://laravel.com/docs/8.x/upgrade) if you don't use it yet, then test to confirm your app is working fine.** If you also want to upgrade to [Laravel 9](https://laravel.com/docs/9.x/upgrade), we recommend you do that _after_ you've upgraded Backpack to v5. It'll be easier that way.
+<a name="step-0" href="#step-0" class="badge badge-danger" style="text-decoration: none;">Step 0.</a> **[Upgrade to Laravel 8](https://laravel.com/docs/8.x/upgrade) if you don't use it yet, then test to confirm your app is working fine.** If you also want to upgrade to [Laravel 9](https://laravel.com/docs/10.x/upgrade), we recommend you do that _after_ you've upgraded Backpack to v5. It'll be easier that way.
 
 <a name="composer"></a>
 ### Composer

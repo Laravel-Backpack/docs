@@ -230,7 +230,7 @@ For example, when the admin creates an ```Article``` they'll have to select a ``
 In Backpack, you can explicitly define this, by giving the field an ```attribute```. But you can also NOT explicitly define this - Backpack will try to guess it. If you don't like what Backpack guessed would be a good identifiable attribute, you can either:
 - (A) explicitly define an ```attribute``` for that field
 
->**Note**: If the attribute you want to show is an acessor in Model, you need to add it to the `$appends` property of the said Model. https://laravel.com/docs/9.x/eloquent-serialization#appending-values-to-json
+>**Note**: If the attribute you want to show is an acessor in Model, you need to add it to the `$appends` property of the said Model. https://laravel.com/docs/10.x/eloquent-serialization#appending-values-to-json
 
 - (B) you can specify the identifiable attribute in your model, and all fields will pick this up:
 
@@ -969,7 +969,7 @@ public function setImageAttribute($value)
 
 The field sends the file, through a Request, to the Controller. The Controller then tries to create/update the Model. That's when the mutator on your model will run. That also means we can do any [file validation](https://laravel.com/docs/5.3/validation#rule-file) (```file```, ```image```, ```mimetypes```, ```mimes```) in the Request, before the file is stored on the disk.
 
->NOTE: If this field is mandatory (required in validation) please use the [sometimes laravel validation rule](https://laravel.com/docs/9.x/validation#conditionally-adding-rules) together with **required** in your validation. (sometimes|required|file etc... )
+>NOTE: If this field is mandatory (required in validation) please use the [sometimes laravel validation rule](https://laravel.com/docs/10.x/validation#conditionally-adding-rules) together with **required** in your validation. (sometimes|required|file etc... )
 
 [The ```uploadFileToDisk()``` method](https://github.com/Laravel-Backpack/CRUD/blob/master/src/app/Models/Traits/HasUploadFields.php#L31-L59) will take care of everything for most use cases:
 
@@ -1528,7 +1528,7 @@ Using Google Places API is dependent on using an API Key. Please [get an API key
 
 **How to save in multiple inputs?**
 
-There are cases where you rather save the information on separate inputs in the database. In that scenario you should use [Laravel mutators and accessors](https://laravel.com/docs/9.x/eloquent-mutators). Using the same field as previously shown (**field name is `location`**), and having `latitude`, `longitude`, `full_address` as the database columns, we can save and retrieve them separately too:
+There are cases where you rather save the information on separate inputs in the database. In that scenario you should use [Laravel mutators and accessors](https://laravel.com/docs/10.x/eloquent-mutators). Using the same field as previously shown (**field name is `location`**), and having `latitude`, `longitude`, `full_address` as the database columns, we can save and retrieve them separately too:
 ```php
 
 //add all the fields to model fillable property, including the one that we are not going to save (location in the example)
