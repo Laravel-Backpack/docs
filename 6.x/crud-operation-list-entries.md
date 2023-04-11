@@ -31,16 +31,6 @@ For views, it uses:
 - ```columns/```
 - ```buttons/```
 
-**NOTE**: If not added by developer, Backpack will append the `model key`(usually **id**) as an hidden column and order it by `DESC`. 
-You can modify this behavior by applying yourself an id order:
-```php
-protected function setupListOperation()
-{
-  $this->crud->orderBy('id', 'asc');
-}
-```
-Note that this is a `query constrain`, not a `table constrain`, so the reset button will not reset this order, it becomes the `base query` for that operation, so any filters etc you add on table will be applied AFTER the `query orders/constrains` you define on your setup operation.
-
 <a name="how-to-use"></a>
 ## How to Use
 
@@ -216,7 +206,6 @@ $this->crud->limit();
 $this->crud->orderBy();
 // please note it's generally a good idea to use crud->orderBy() inside "if (!$this->crud->getRequest()->has('order')) {}"; that way, your custom order is applied ONLY IF the user hasn't forced another order (by clicking a column heading)
 ```
-**NOTE:** we call this constrains `query constrains`, and when you filter or search we call it `table constrains`. All the `query constrains` added on the setup operation cannot be reseted by `Reset Button`, and all the `table constrains` are applied on top of the `query constrains`.
 
 <a name="responsive-table"></a>
 #### Responsive Table
