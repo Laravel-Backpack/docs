@@ -31,16 +31,6 @@ For views, it uses:
 - ```columns/```
 - ```buttons/```
 
-**NOTE**: If not added by developer, Backpack will append the `model key`(usually **id**) as an hidden column and order it by `DESC`. 
-You can modify this behavior by applying yourself an id order:
-```php
-protected function setupListOperation()
-{
-  $this->crud->orderBy('id', 'asc');
-}
-```
-Note that this is a `query constrain`, not a `table constrain`, so the reset button will not reset this order, it becomes the `base query` for that operation, so any filters etc you add on table will be applied AFTER the `query orders/constrains` you define on your setup operation.
-
 <a name="how-to-use"></a>
 ## How to Use
 
@@ -218,6 +208,22 @@ $this->crud->orderBy();
 ```
 **NOTE:** we call this constrains `query constrains`, and when you filter or search we call it `table constrains`. All the `query constrains` added on the setup operation cannot be reseted by `Reset Button`, and all the `table constrains` are applied on top of the `query constrains`.
 
+#### Custom Order
+
+<a name="custom-order"></a>
+
+List operation uses the `model key`(usually **id**) as default to order entries by `DESC`. You can modify this behavior by applying an order key:
+```php
+protected function setupListOperation()
+{
+    //change default order key if not passed by datatable
+    if (!$this->crud->getRequest()->has('order')){
+        $this->crud->orderBy('updated_at', 'desc');
+    }
+}
+```
+**NOTE**: This is a `query constrain`, not a `table constrain`, so the reset button will not reset this order if applied without `has('order')` check. It becomes the `base query` for that operation, so any filters etc you add on table will be applied AFTER the `query orders/constrains` you define on your setup operation.
+
 <a name="responsive-table"></a>
 #### Responsive Table
 
@@ -278,13 +284,13 @@ To use widgets on list operation, define them inside `setupListOperation()` func
 
 ```php
 public function setupListOperation()
-{    
+{
     // dynamic data to render in the following widget
     $userCount = \App\Models\User::count();
 
     //add div row using 'div' widget and make other widgets inside it to be in a row
     Widget::add()->to('before_content')->type('div')->class('row')->content([
-        
+
         //widget made using fluent syntax
         Widget::make()
             ->type('progress')
@@ -295,7 +301,7 @@ public function setupListOperation()
             ->progress(100 * (int)$userCount / 1000)
             ->hint(1000 - $userCount . ' more until next milestone.'),
 
-        //widget made using the array definition 
+        //widget made using the array definition
         Widget::make(
             [
                 'type'       => 'card',
@@ -361,7 +367,7 @@ You can of course overwrite this ```search()``` method by just creating one with
 <a name="how-to-debug"></a>
 ## How to Debug
 
-Because the entries are fetched using AJAX requests, debugging the ListOperation can be a little difficult. Fortunately, we've thought of that. 
+Because the entries are fetched using AJAX requests, debugging the ListOperation can be a little difficult. Fortunately, we've thought of that.
 
 <a name="errors-in-ajax-requests"></a>
 ### Errors in AJAX requests
