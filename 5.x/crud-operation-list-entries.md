@@ -203,6 +203,12 @@ $this->crud->addClause('whereHas', 'posts', function($query) {
 $this->crud->groupBy();
 $this->crud->limit();
 
+// The above will change the used query, so the ListOperation will say
+// "Showing 140 entries, filtered from 1.000 entries". If you want to 
+// that, and make it look like only those entries are in the databse,
+// you can change the baseQuery instead, by using:
+$this->crud->addBaseClause('where', 'name', '=', 'car');
+
 $this->crud->orderBy();
 // please note it's generally a good idea to use crud->orderBy() inside "if (!$this->crud->getRequest()->has('order')) {}"; that way, your custom order is applied ONLY IF the user hasn't forced another order (by clicking a column heading)
 ```
