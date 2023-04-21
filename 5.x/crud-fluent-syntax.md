@@ -191,10 +191,9 @@ Sometimes you may need a method to be chained on a field based on another condit
 
 ```php
 CRUD::field('email')
-    ->when($condition, function ($crud) {
-        $crud->unless($anothercondition, function ($crud) {
-            $crud->hint('My conditioned hint');
-        })
+    ->label('Email')
+    ->when($condition, function ($field) {
+        $field->hint('My hint');
     });
 ```
 
