@@ -262,8 +262,8 @@ CRUD::column('name')->makeLast();
 Sometimes you may need a method to be chained on a column based on another condition. Backpack takes advantage of <a href="https://laravel.com/docs/10.x/queries#conditional-clauses" target="_blank">Laravel Conditionable</a> to easily let you accomplish that. You can either use ```->when()``` or ```unless()```:
 ```php
 CRUD::column('name')
-    ->unless($condition, function ($crud) {
-        $crud->wrapper([
+    ->unless($condition, function ($column) {
+        $column->wrapper([
             'href' => function ($crud, $column, $entry, $related_key) {
                 return backpack_url('category/'.$related_key.'/show');
             },
