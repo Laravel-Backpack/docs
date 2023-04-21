@@ -615,8 +615,8 @@ Sometimes you may need a method to be chained on a filter based on another condi
 
 ```php
 CRUD::filter('name')
-    ->when($condition, function ($crud) {
-        $crud->->remove();
+    ->when($condition, function ($filter) {
+        $filter->remove();
     });
 ```
 
