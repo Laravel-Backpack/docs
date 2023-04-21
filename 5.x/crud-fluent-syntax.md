@@ -410,10 +410,10 @@ Sometimes you may need a method to be chained on a button based on another condi
 
 ```php
 CRUD::button('name')
-    ->unless($condition, function ($crud) {
-        $crud->before('description')
-            ->when($secondCondition, , function ($crud) {
-                $crud->forget('suffix');
+    ->unless($condition, function ($button) {
+        $button->before('description')
+            ->when($secondCondition, , function ($button) {
+                $button->forget('suffix');
             });
     });
 ```
