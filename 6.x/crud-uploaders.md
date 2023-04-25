@@ -10,14 +10,12 @@ Uploading and managing files is a common task in Admin Panels. Starting with Bac
 <a name="upload-how-it-works"></a>
 ## How it works
 
-When adding an upload field (`upload`, `upload_multiple`, `image` or `dropzone`) to your operations, you can now tell Backpack that you want it to upload those files to a specific disk, path and customize some aditional things. Get to know `withFiles()`. 
+When adding an upload field (`upload`, `upload_multiple`, `image` or `dropzone`) to your operations, you can now tell Backpack that you want it to upload those files to a specific disk, path and customize some additional things. How? Using `withFiles()`:
     
 ```php
-CRUD::field('avatar')
-    ->type('upload')
-    ->withFiles();
+CRUD::field('avatar')->type('upload')->withFiles();
 ```
-> **IMPORTANT**: make sure you linked the `storage` folder to your `public` folder. You can do that by running `php artisan storage:link` in your terminal.
+> **IMPORTANT**: make sure you've linked the `storage` folder to your `public` folder. You can do that by running `php artisan storage:link` in your terminal.
 
 That's it. Backpack will now handle the upload, storage and deletion of the files for you. By default it will use `public` disk, and will delete the files when the entry is deleted.
 
@@ -39,13 +37,12 @@ CRUD::field('avatar')
         'expiration' => 1 // the corresponding temporary url expiration time in minutes
 ]);
 ```
-**Note**: `disk` and `prefix` (called `path` in withFiles() configuration), when defined in the field as attributes, will take precedence over the definition in `withFiles()` configuration. 
-Make sure you are not defining those attributes in both places.
+**Note**: If you've defined `disk` or `prefix` on the field, you no longer need to define `path` within `withFiles()` - it will pick those up. Make sure you are not defining both.
 
 <a name="upload-name-files"></a>
 #### Naming uploaded files
 
-Backpack implements a default naming strategy for uploaded files that we have found out to work well in majority of scenarios. 
+Backpack implements a default naming strategy for uploaded files that we have found out to work well in most scenarios. 
 
 For `upload`, `upload_multiple` and `dropzone` fields, the file name will be the original file name slugged and with a random 4 character string appended to it. This is to avoid name collisions. Eg: `my file.pdf` becomes `my-file-aY5x.pdf`.
 
@@ -54,9 +51,7 @@ For `image` it will generate a unique name for the file, and will keep the origi
 You can customize the naming strategy by creating a class that implements `FileNameGeneratorInterface` and pass it to the upload configuration (the default used by Backpack).
 
 ```php
-CRUD::field('avatar')
-    ->type('upload')
-    ->withFiles([
+CRUD::field('avatar')->type('upload')->withFiles([
         'fileNamer' => \Backpack\CRUD\app\Library\Uploaders\Support\FileNameGenerator::class,
 ]);
 
