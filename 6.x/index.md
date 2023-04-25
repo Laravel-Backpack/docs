@@ -37,6 +37,7 @@
         + [Fields](/docs/{{version}}/crud-fields)
         + [Save Actions](/docs/{{version}}/crud-save-actions)
         + [CrudField JS Library](/docs/{{version}}/crud-fields-javascript-api)
+        + [Handling File Uploads](/docs/{{version}}/crud-uploaders)
     + [Delete](/docs/{{version}}/crud-operation-delete)
     + [Show](/docs/{{version}}/crud-operation-show)
         + [Columns](/docs/{{version}}/crud-columns)
