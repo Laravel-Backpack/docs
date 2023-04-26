@@ -18,7 +18,7 @@ The `ValidUpload` rule is used to validate the `upload` field type. Using the cu
 CRUD::field('avatar')->type('upload');
 
 // you can write the validation rule as
-'avatar' => ValidUpload::fileRules(['required', File::types(['jpg','png'])->max(2048)])
+'avatar' => ValidUpload::fileRules(File::types(['jpg','png'])->max(2048))->attributeRules('required'),
 ```
 
 The uploader will automatically handle the `sometimes` case for you and will only validate the field if it's present in the request.
@@ -33,9 +33,9 @@ The `ValidUploadMultiple` rule helps developer by having two sets of specific va
 CRUD::field('attachments')->type('upload_multiple');
 
 // you can write the validation rule as
-'attachments' => ValidUploadMultiple::make()
+'attachments' => ValidUploadMultiple::fileRules(File::types(['pdf'])->max(10000))
             ->arrayRules(['required_if:other_field,test_value', 'min:2', 'max:5'])
-            ->itemRules(File::types(['pdf'])->max(10000)),    
+            ,    
 
 ```
 
@@ -58,12 +58,10 @@ CRUD::field('gallery')->type('repeatable')->subfields([
 ]);
 
 // you can write the validation rule as
-'gallery' => ValidRepeatable::make()
-            ->arrayRules(['min:1', 'max:3'])
-            ->namedRules([
-                'title' => ['required', 'min:5'],
-                'image' => [ValidUpload::arrayRules('required')
-                    ->fileRules(File::types(['jpg','png'])->max(2048))]
+'gallery' => ValidRepeatable::fieldRules(['min:1', 'max:3'])
+            ->itemRules([
+                'title' => 'required',
+                'image' => ValidUpload::fileRules(File::types(['jpg','png'])->max(2048))
             ])      
 
 ```
