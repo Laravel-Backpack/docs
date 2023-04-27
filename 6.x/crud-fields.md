@@ -961,6 +961,19 @@ To know more about the `withFiles`, how it works and how to configure it, [ clic
 
 - **Option 2.** Handle the upload process yourself. This is what happened in v5, so if you want to handle the upload by yourself you can [read the v5 upload docs here](https://backpackforlaravel.com/docs/5.x/crud-fields#upload-1).
 
+#### Validation
+
+Starting v6 there is now an easy way to validate `upload` fields with [Custom Validation Rules](/docs/{{version}}/custom-validation-rules).
+
+The `ValidUpload` validation rule works by separating the `fieldRules()` - the input rules, independant of the content, from the `fileRules()` - the rules that apply to the sent file. 
+
+```php
+use Backpack\CRUD\app\Library\Validation\Rules\ValidUpload;
+
+'image' => ValidUpload::fieldRules('required')
+                ->fileRules('file|mimes:jpeg,png,jpg,gif,svg|max:2048'),
+```
+
 Input preview:
 
 ![CRUD Field - upload](https://backpackforlaravel.com/uploads/docs-4-2/fields/upload.png)
@@ -996,6 +1009,19 @@ Shows a multiple file input to the user and stores the values as a JSON array in
 To know more about the `withFiles`, how it works and how to configure it, [ click here to read the documentation ](https://backpackforlaravel.com/docs/6.x/crud-uploaders).
 
 - **Option 2.** Handle the upload process yourself. This is what happened in v5, so if you want to handle the upload by yourself you can [read the v5 upload docs here](https://backpackforlaravel.com/docs/5.x/crud-fields#upload_multiple).
+
+#### Validation
+
+Starting v6 there is now an easy way to validate `upload_multiple` fields with [Custom Validation Rules](/docs/{{version}}/custom-validation-rules).
+
+The `ValidUploadMultiple` rule works by separating the `fieldRules()` (array of items) from the `fileRules()` (each file, each item from the array). 
+
+```php
+use Backpack\CRUD\app\Library\Validation\Rules\ValidUploadMultiple;
+
+'photos' => ValidUploadMultiple::fieldRules('required|min:2|max:5')
+                ->fileRules('file|mimes:jpeg,png,jpg,gif,svg|max:2048'),
+```
 
 **NOTE**: This field uses a `clear_{fieldName}` input to send the deleted files from the frontend to the backend. In case you are using `$guarded` add it there. 
 Eg: `protected $guarded = ['id', 'clear_photos'];`
