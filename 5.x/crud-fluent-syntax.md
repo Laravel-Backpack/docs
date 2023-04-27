@@ -184,6 +184,19 @@ CRUD::field('products')
         ->tab('Others');
 ```
 
+<a name="fluent-fields-conditionable-methods"></a>
+### Conditionable methods
+
+Sometimes you may need a method to be chained on a field based on another condition. Backpack takes advantage of <a href="https://laravel.com/docs/10.x/queries#conditional-clauses" target="_blank">Laravel Conditionable</a> to easily let you accomplish that. You can either use ```->when()``` or ```unless()```:
+
+```php
+CRUD::field('email')
+    ->label('Email')
+    ->when($condition, function ($field) {
+        $field->hint('My hint');
+    });
+```
+
 <a name="fluent-columns-api"></a>
 ## Fluent Columns
 
@@ -242,6 +255,20 @@ CRUD::column('name')->makeFirst();
 CRUD::column('name')->makeLast();
 ```
 
+<a name="fluent-columns-conditionable-methods"></a>
+### Conditionable methods
+
+Sometimes you may need a method to be chained on a column based on another condition. Backpack takes advantage of <a href="https://laravel.com/docs/10.x/queries#conditional-clauses" target="_blank">Laravel Conditionable</a> to easily let you accomplish that. You can either use ```->when()``` or ```unless()```:
+```php
+CRUD::column('name')
+    ->unless($condition, function ($column) {
+        $column->wrapper([
+            'href' => function ($crud, $column, $entry, $related_key) {
+                return backpack_url('category/'.$related_key.'/show');
+            },
+        ])
+    });
+```
 
 <a name="fluent-columns-examples"></a>
 ### Examples
@@ -373,6 +400,21 @@ CRUD::button('name')->makeFirst();
 
 ```php
 CRUD::button('name')->makeLast();
+```
+
+<a name="fluent-buttons-conditionable-methods"></a>
+### Conditionable methods
+
+Sometimes you may need a method to be chained on a button based on another condition. Backpack takes advantage of <a href="https://laravel.com/docs/10.x/queries#conditional-clauses" target="_blank">Laravel Conditionable</a> to easily let you accomplish that. You can either use ```->when()``` or ```unless()```:
+
+```php
+CRUD::button('name')
+    ->unless($condition, function ($button) {
+        $button->before('description')
+            ->when($secondCondition, , function ($button) {
+                $button->forget('suffix');
+            });
+    });
 ```
 
 
@@ -565,6 +607,17 @@ CRUD::filter('name')->makeFirst();
 CRUD::filter('name')->makeLast();
 ```
 
+<a name="fluent-filters-conditionable-methods"></a>
+### Conditionable methods
+
+Sometimes you may need a method to be chained on a filter based on another condition. Backpack takes advantage of <a href="https://laravel.com/docs/10.x/queries#conditional-clauses" target="_blank">Laravel Conditionable</a> to easily let you accomplish that. You can either use ```->when()``` or ```unless()```:
+
+```php
+CRUD::filter('name')
+    ->when($condition, function ($filter) {
+        $filter->remove();
+    });
+```
 
 <a name="fluent-filters-examples"></a>
 ### Examples
