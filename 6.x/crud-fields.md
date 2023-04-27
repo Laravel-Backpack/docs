@@ -963,9 +963,11 @@ To know more about the `withFiles`, how it works and how to configure it, [ clic
 
 #### Validation
 
-Starting v6 there is now an easy way to validate `upload` fields with [Custom Validation Rules](/docs/{{version}}/custom-validation-rules).
+You can use standard Laravel validation rules. But we've also made it easy for you to validate the `upload` fields, using a [Custom Validation Rule](/docs/{{version}}/custom-validation-rules). The `ValidUpload` validation rule allows you to define two sets of rules: 
+- `fieldRules()` - the input rules, independant of the content;
+- `fileRules()` - rules that apply to the sent file;
 
-The `ValidUpload` validation rule works by separating the `fieldRules()` - the input rules, independant of the content, from the `fileRules()` - the rules that apply to the sent file. 
+This helps you avoid most quirks when validating file uploads using Laravel's validation rules.
 
 ```php
 use Backpack\CRUD\app\Library\Validation\Rules\ValidUpload;
@@ -1012,9 +1014,11 @@ To know more about the `withFiles`, how it works and how to configure it, [ clic
 
 #### Validation
 
-Starting v6 there is now an easy way to validate `upload_multiple` fields with [Custom Validation Rules](/docs/{{version}}/custom-validation-rules).
+You can use standard Laravel validation rules. But we've also made it easy for you to validate the `upload` fields, using a [Custom Validation Rule](/docs/{{version}}/custom-validation-rules). The `ValidUploadMultiple` validation rule allows you to define two sets of rules: 
+- `fieldRules()` - the input rules, independant of the content;
+- `fileRules()` - rules that apply to each file that gets sent;
 
-The `ValidUploadMultiple` rule works by separating the `fieldRules()` (array of items) from the `fileRules()` (each file, each item from the array). 
+This will help you avoid most quirks of using Laravel's standard validation rules alone.
 
 ```php
 use Backpack\CRUD\app\Library\Validation\Rules\ValidUploadMultiple;
