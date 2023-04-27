@@ -5,8 +5,7 @@
 <a name="about"></a>
 ## About
 
-Along with the provided Laravel validation rules, we created a few custom validation rules that you can use to validate Backpack fields in an easier way.
-No more messing with `.*` and such on validation rules. Just define fluently what you want to validate.
+Some Backpack fields are more difficult to validate using standard Laravel validation rules. So we've created a few custom validation rules, that will make validation them dead-simple.
 
 <a name="valid-upload-validation-rule"></a>
 ## `ValidUpload` for `upload` field type
@@ -26,7 +25,9 @@ The uploader will automatically handle the `sometimes` case for you and will onl
 <a name="valid-upload-multiple-validation-rule"></a>
 ## `ValidUploadMultiple` for `upload_multiple` field type
 
-The `ValidUploadMultiple` rule helps developer by having two sets of specific validation, one that applies to the "global array of files", and the "file validation" for the uploaded files.
+The `ValidUploadMultiple` rule helps you define two sets of validation rules, in one go:
+- `arrayRules()` for the entire field (the array of entries);
+- `fileRules()` for each uploaded file;
 
 ```php
 // for the field
@@ -42,7 +43,9 @@ CRUD::field('attachments')->type('upload_multiple');
 <a name="valid-repeatable-validation-rule"></a>
 ## `ValidRepeatable` for `repeatable` field type
 
-The `ValidRepeatable` (works the same for relationships managed through the repeatable interface), is a validation rule that eases developer work by validating the repeatable fields in a more convinient way.
+The `ValidRepeatable` makes it easy to validate fields that have subfields (the `repeatable` field, but also the `relationship` field when you define subfields). You can define two sets of validation:
+- `fieldRules()` to define rules on the field itself;
+- `itemRules()` to define rules on the sub-items (rows);
 
 ```php
 // for the field
