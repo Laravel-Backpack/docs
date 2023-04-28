@@ -964,16 +964,16 @@ To know more about the `withFiles`, how it works and how to configure it, [ clic
 #### Validation
 
 You can use standard Laravel validation rules. But we've also made it easy for you to validate the `upload` fields, using a [Custom Validation Rule](/docs/{{version}}/custom-validation-rules). The `ValidUpload` validation rule allows you to define two sets of rules: 
-- `fieldRules()` - the input rules, independant of the content;
-- `fileRules()` - rules that apply to the sent file;
+- `::field()` - the input rules, independant of the content;
+- `file()` - rules that apply to the sent file;
 
 This helps you avoid most quirks when validating file uploads using Laravel's validation rules.
 
 ```php
 use Backpack\CRUD\app\Library\Validation\Rules\ValidUpload;
 
-'image' => ValidUpload::fieldRules('required')
-                ->fileRules('file|mimes:jpeg,png,jpg,gif,svg|max:2048'),
+'image' => ValidUpload::field('required')
+                ->file('file|mimes:jpeg,png,jpg,gif,svg|max:2048'),
 ```
 
 Input preview:
@@ -1015,16 +1015,16 @@ To know more about the `withFiles`, how it works and how to configure it, [ clic
 #### Validation
 
 You can use standard Laravel validation rules. But we've also made it easy for you to validate the `upload` fields, using a [Custom Validation Rule](/docs/{{version}}/custom-validation-rules). The `ValidUploadMultiple` validation rule allows you to define two sets of rules: 
-- `fieldRules()` - the input rules, independant of the content;
-- `fileRules()` - rules that apply to each file that gets sent;
+- `::field()` - the input rules, independant of the content;
+- `file()` - rules that apply to each file that gets sent;
 
 This will help you avoid most quirks of using Laravel's standard validation rules alone.
 
 ```php
 use Backpack\CRUD\app\Library\Validation\Rules\ValidUploadMultiple;
 
-'photos' => ValidUploadMultiple::fieldRules('required|min:2|max:5')
-                ->fileRules('file|mimes:jpeg,png,jpg,gif,svg|max:2048'),
+'photos' => ValidUploadMultiple::field('required|min:2|max:5')
+                ->file('file|mimes:jpeg,png,jpg,gif,svg|max:2048'),
 ```
 
 **NOTE**: This field uses a `clear_{fieldName}` input to send the deleted files from the frontend to the backend. In case you are using `$guarded` add it there. 
