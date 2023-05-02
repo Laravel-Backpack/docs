@@ -20,18 +20,17 @@ CRUD::field('avatar')->type('upload');
 
 use Backpack\CRUD\app\Library\Validation\Rules\ValidUpload;
 
-'avatar' => ValidUpload::field('required')->file(File::types(['jpg','png'])->max(2048)),
+'avatar' => ValidUpload::field('required')->file('mimes:jpg,png|max:2048'),
 ```
 
-The `::field()` constructor accepts the rules for the field, while `->file()` accepts the specific rules for files sent in field.
-This helps the uploader to automatically handle the `sometimes` case for you.
+The `::field()` constructor accepts the rules for the field, while `->file()` accepts the specific rules for files sent in field. The validation rule handles the `sometimes` case for you.
 
 <a name="valid-upload-multiple-validation-rule"></a>
 ## `ValidUploadMultiple` for `upload_multiple` field type
 
-This rule replaces the definitions of  `attribute` and `attribute.*` rules, plus handling the scenario of create vs. update.
-
-The `::field()` constructor accepts the rules for the field, while `->file()` accepts the specific rules for files sent in field.
+You can use this validation rule to handle validation for you `upload_multiple` field - both for the Create and the Update operation in one go:
+- use the `::field()` constructor to define the rules for the field;
+- use the `->file()` method for rules specific to the files sent in field;
 
 ```php
 // for the field
@@ -41,6 +40,6 @@ CRUD::field('attachments')->type('upload_multiple');
 
 use Backpack\CRUD\app\Library\Validation\Rules\ValidUploadMultiple;
 
-'attachments' => ValidUploadMultiple::field(['required_if:other_field,test_value', 'min:2', 'max:5'])->file(File::types(['pdf'])->max(10000)),    
+'attachments' => ValidUploadMultiple::field(['min:2', 'max:5'])->file('mimes:pdf|max:10000'),    
 
 ```
