@@ -964,8 +964,8 @@ To know more about the `withFiles`, how it works and how to configure it, [ clic
 #### Validation
 
 You can use standard Laravel validation rules. But we've also made it easy for you to validate the `upload` fields, using a [Custom Validation Rule](/docs/{{version}}/custom-validation-rules). The `ValidUpload` validation rule allows you to define two sets of rules: 
-- `::field()` - the input rules, independant of the content;
-- `file()` - rules that apply to the sent file;
+- `::field()` - the field rules (independent of the file content);
+- `->file()` - rules that apply to the sent file;
 
 This helps you avoid most quirks when validating file uploads using Laravel's validation rules.
 
