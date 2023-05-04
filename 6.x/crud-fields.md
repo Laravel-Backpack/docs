@@ -1401,6 +1401,43 @@ Input preview:
 
 <hr>
 
+<a name="dropzone"></a>
+### dropzone <span class="badge badge-pill badge-info">PRO</span>
+
+Show a [Dropzone JS Input](https://docs.dropzone.dev/).
+
+```php
+[   
+    'name'  => 'photos',
+    'label' => 'Photos',
+    'type'  => 'dropzone',
+
+    // optional configuration.
+    // check available options in https://docs.dropzone.dev/configuration/basics/configuration-options
+    'configuration' => [
+        'parallelUploads' => 2,
+    ]
+],
+```
+
+**IMPORTANT NOTE:** Altough you can do some "validation" in Javascript, we highly advise you to don't disregard server validation. Check the following [dropzone validation docs](#dropzone-validation)
+
+<a name="dropzone-validation"></a>
+#### Validation
+The proper validation of dropzone should be done in two steps:
+1 - Files should be validated on the file upload endpoint
+2 - Field in general should be validated on form submission. 
+
+To make things easy on your side we created `ValidDropzone` validation rule. It's a [Custom Validation Rule](/docs/{{version}}/custom-validation-rules) that allow you to define those set of rules:
+- `::field()` - the field rules (independent of the file content);
+- `->file()` - rules that apply to the sent files;
+
+Input preview:
+
+![CRUD Field - dropzone](https://user-images.githubusercontent.com/7188159/236273902-ca7fb5a5-e7ce-4a03-91a7-2af81598331c.png)
+
+<hr>
+
 <a name="easymde"></a>
 ### easymde <span class="badge badge-pill badge-info">PRO</span>
 
