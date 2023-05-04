@@ -943,63 +943,37 @@ Input preview:
 [   // Upload
     'name'      => 'image',
     'label'     => 'Image',
-    'type'      => 'upload',
-    'upload'    => true,
-    'disk'      => 'uploads', // if you store files in the /public folder, please omit this; if you store them in /storage or S3, please specify it;
-    // optional:
-    'temporary' => 10 // if using a service, such as S3, that requires you to make temporary URLs this will make a URL that is valid for the number of minutes specified
+    'type'      => 'upload',   
 ],
 ```
 
-**Step 2.** In order to save/update/delete the file from disk&db, we need to create [a mutator](https://laravel.com/docs/5.3/eloquent-mutators#defining-a-mutator) on your model:
+**Step 2.** Choose how to handle the file upload process. Starting v6, you have two options:
+- **Option 1.** Let Backpack handle the upload process for you. This is by far the most convenient option, because it's the easiest to implement and fully customizable. All you have to do is add the `withFiles => true` attribute to your field definition:
 ```php
-public function setImageAttribute($value)
-    {
-    	$attribute_name = "image";
-    	$disk = "public";
-    	$destination_path = "folder_1/subfolder_1";
-
-    	$this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path, $fileName = null);
-
-	// return $this->attributes[{$attribute_name}]; // uncomment if this is a translatable field
-    }
+[   // Upload
+    'name'      => 'image',
+    'label'     => 'Image',
+    'type'      => 'upload',  
+    'withFiles' => true 
+],
 ```
+To know more about the `withFiles`, how it works and how to configure it, [ click here to read the documentation ](https://backpackforlaravel.com/docs/6.x/crud-uploaders).
 
-**How it works:**
+- **Option 2.** Handle the upload process yourself. This is what happened in v5, so if you want to handle the upload by yourself you can [read the v5 upload docs here](https://backpackforlaravel.com/docs/5.x/crud-fields#upload-1).
 
-The field sends the file, through a Request, to the Controller. The Controller then tries to create/update the Model. That's when the mutator on your model will run. That also means we can do any [file validation](https://laravel.com/docs/5.3/validation#rule-file) (```file```, ```image```, ```mimetypes```, ```mimes```) in the Request, before the file is stored on the disk.
+#### Validation
 
->NOTE: If this field is mandatory (required in validation) please use the [sometimes laravel validation rule](https://laravel.com/docs/10.x/validation#conditionally-adding-rules) together with **required** in your validation. (sometimes|required|file etc... )
+You can use standard Laravel validation rules. But we've also made it easy for you to validate the `upload` fields, using a [Custom Validation Rule](/docs/{{version}}/custom-validation-rules). The `ValidUpload` validation rule allows you to define two sets of rules: 
+- `::field()` - the field rules (independent of the file content);
+- `->file()` - rules that apply to the sent file;
 
-[The ```uploadFileToDisk()``` method](https://github.com/Laravel-Backpack/CRUD/blob/master/src/app/Models/Traits/HasUploadFields.php#L31-L59) will take care of everything for most use cases:
+This helps you avoid most quirks when validating file uploads using Laravel's validation rules.
 
 ```php
-/**
-     * Handle file upload and DB storage for a file:
-     * - on CREATE
-     *     - stores the file at the destination path
-     *     - generates a name
-     *     - stores the full path in the DB;
-     * - on UPDATE
-     *     - if the value is null, deletes the file and sets null in the DB
-     *     - if the value is different, stores the different file and updates DB value
-     * /
-public function uploadFileToDisk($value, $attribute_name, $disk, $destination_path, $fileName = null) {}
-```
+use Backpack\CRUD\app\Library\Validation\Rules\ValidUpload;
 
-If you wish to have a different functionality, you can delete the method call from your mutator and do your own thing.
-
->**The uploaded files are not deleted for you.** When you delete an entry (whether through CRUD or the application), the uploaded files will not be deleted.
-
-If you're NOT using soft deletes on that Model and want the file to be deleted at the same time the entry is, just specify that in your Model's ```deleting``` event:
-```php
-	public static function boot()
-	{
-		parent::boot();
-		static::deleting(function($obj) {
-			\Storage::disk('public_folder')->delete($obj->image);
-		});
-	}
+'image' => ValidUpload::field('required')
+                ->file('file|mimes:jpeg,png,jpg,gif,svg|max:2048'),
 ```
 
 Input preview:
@@ -1013,91 +987,48 @@ Input preview:
 
 Shows a multiple file input to the user and stores the values as a JSON array in the database.
 
-**Step 0.** Make sure the db column can hold the amount of text this field will have. For example, for MySQL, VARCHAR(255) might not be enough all the time (for 3+ files), so it's better to go with TEXT. Make sure you're using a big column type in your migration or db.
+**Step 0.** Make sure the db column can hold the amount of text this field will have. For example, for MySQL, `VARCHAR(255)` might not be enough all the time (for 3+ files), so it's better to go with `TEXT`. Make sure you're using a big column type in your migration or db.
 
 **Step 1.** Show a multiple file input to the user:
 ```php
-[   // Upload
+[
     'name'      => 'photos',
     'label'     => 'Photos',
     'type'      => 'upload_multiple',
-    'upload'    => true,
-    'disk'      => 'uploads', // if you store files in the /public folder, please omit this; if you store them in /storage or S3, please specify it;
-    // optional:
-    'temporary' => 10 // if using a service, such as S3, that requires you to make temporary URLs this will make a URL that is valid for the number of minutes specified
 ],
 ```
 
-**Step 2.** In order to save/update/delete the files from disk&db, we need to create [a mutator](https://laravel.com/docs/5.3/eloquent-mutators#defining-a-mutator) on your model:
+**Step 2.** Choose how to handle the file upload process. Starting v6, you have two options:
+- **Option 1.** Let Backpack handle the upload process for you. This is by far the most convenient option, because it's the easiest to implement and fully customizable. All you have to do is add the `withFiles => true` attribute to your field definition:
 ```php
-public function setPhotosAttribute($value)
-{
-    $attribute_name = "photos";
-    $disk = "public";
-    $destination_path = "folder_1/subfolder_1";
-
-    $this->uploadMultipleFilesToDisk($value, $attribute_name, $disk, $destination_path);
-}
+[   
+    'name'      => 'photos',
+    'label'     => 'Photos',
+    'type'      => 'upload_multiple', 
+    'withFiles' => true 
+],
 ```
+To know more about the `withFiles`, how it works and how to configure it, [ click here to read the documentation ](https://backpackforlaravel.com/docs/6.x/crud-uploaders).
 
-**Step 3.** Since the filenames are stored in the database as a JSON array, we're going to use [attribute casting](https://laravel.com/docs/5.3/eloquent-mutators#attribute-casting) on your model, so every time we get the filenames array from the database it's converted from a JSON array to a PHP array:
+- **Option 2.** Handle the upload process yourself. This is what happened in v5, so if you want to handle the upload by yourself you can [read the v5 upload docs here](https://backpackforlaravel.com/docs/5.x/crud-fields#upload_multiple).
+
+#### Validation
+
+You can use standard Laravel validation rules. But we've also made it easy for you to validate the `upload` fields, using a [Custom Validation Rule](/docs/{{version}}/custom-validation-rules). The `ValidUploadMultiple` validation rule allows you to define two sets of rules: 
+- `::field()` - the input rules, independant of the content;
+- `file()` - rules that apply to each file that gets sent;
+
+This will help you avoid most quirks of using Laravel's standard validation rules alone.
+
 ```php
-protected $casts = [
-    'photos' => 'array'
-];
+use Backpack\CRUD\app\Library\Validation\Rules\ValidUploadMultiple;
+
+'photos' => ValidUploadMultiple::field('required|min:2|max:5')
+                ->file('file|mimes:jpeg,png,jpg,gif,svg|max:2048'),
 ```
 
-**Step 4.** Validation - If you need to validate the field within your `EntityRequest.php`, you can use Laravel's built-in array validation (notice the asterisk):
-
-```php
-return [
-    'upload_multiple.*' => [
-        'nullable',
-        'max:2048', // file size in KB
-        'mimetypes:image/jpeg', // allow only some mimetypes
-    ],
-];
-```
-**How it works:**
-
-The field sends the files, through a Request, to the Controller. The Controller then tries to create/update the Model. That's when the mutator on your model will run. That also means we can do any [file validation](https://laravel.com/docs/5.3/validation#rule-file) (```file```, ```image```, ```mimetypes```, ```mimes```) in the Request, before the files are stored on the disk.
-
-[The ```uploadMultipleFilesToDisk()``` method](https://github.com/Laravel-Backpack/CRUD/blob/master/src/app/Models/Traits/HasUploadFields.php#L76-L113) will take care of everything for most use cases:
-
-```
-/**
- * Handle multiple file upload and DB storage:
- * - if files are sent
- *     - stores the files at the destination path
- *     - generates random names
- *     - stores the full path in the DB, as JSON array;
- * - if a hidden input is sent to clear one or more files
- *     - deletes the file
- *     - removes that file from the DB.
- */
-public function uploadMultipleFilesToDisk($value, $attribute_name, $disk, $destination_path) {}
-```
-
-If you wish to have a different functionality, you can delete the method call from your mutator and do your own thing.
-
->**The uploaded files are not deleted for you.** When you delete an entry (whether through CRUD or the application), the uploaded files will not be deleted.
-
-If you're NOT using soft deletes on that Model and want the files to be deleted at the same time the entry is, just specify that in your Model's ```deleting``` event:
-```php
-	public static function boot()
-	{
-		parent::boot();
-		static::deleting(function($obj) {
-			if (count((array)$obj->photos)) {
-				foreach ($obj->photos as $file_path) {
-					\Storage::disk('public_folder')->delete($file_path);
-				}
-			}
-		});
-	}
-```
-
-You might notice the field is using a ```clear_photos``` variable. Don't worry, you don't need it in your db table. That's just used to delete photos upon "update". If you use ```$fillable``` on your model, just don't include it. If you use ```$guarded``` on your model, place it in guarded.
+**NOTE**: This field uses a `clear_{fieldName}` input to send the deleted files from the frontend to the backend. In case you are using `$guarded` add it there. 
+Eg: `protected $guarded = ['id', 'clear_photos'];`
 
 Input preview:
 
@@ -1597,102 +1528,28 @@ Upload an image and store it on the disk.
 ```php
 // image
 $this->crud->addField([
-    'label' => "Profile Image",
-    'name' => "image",
+    'label' => 'Profile Image',
+    'name' => 'image',
     'type' => 'image',
     'crop' => true, // set to true to allow cropping, false to disable
     'aspect_ratio' => 1, // omit or set to 0 to allow any aspect ratio
-    // 'disk'      => 's3_bucket', // in case you need to show images from a different disk
-    // 'prefix'    => 'uploads/images/profile_pictures/' // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
 ]);
 ```
+**NOTE:** `aspect_ratio` is a float that represents the ratio of the cropping rectangle height and width. Eg: Square = 1, Landscape = 2, Portrait = 0.5. You can, of course, use any value for more extreme rectangles.
 
-**Step 2.** Add a [mutator](https://laravel.com/docs/7.x/eloquent-mutators#defining-a-mutator) to your Model, where you pick up the uploaded file and store it wherever you want. You can use this boilerplate code and modify it to match your use case.
-
-**NOTE: The code below requires that you have ```intervention/image``` installed. If you don't, please do ```composer require intervention/image``` first.**
-
+**Step 2.** Choose how to handle the file upload process. Starting v6, you have two options:
+- **Option 1.** Let Backpack handle the upload process for you. This is by far the most convenient option, because it's the easiest to implement and fully customizable. All you have to do is add the `withFiles => true` attribute to your field definition:
 ```php
-// ..
-
-use Illuminate\Support\Str;
-use Intervention\Image\ImageManagerStatic as Image;
-
-// ..
-
-Class Product extends Model
-{
-    // ..
-
-    public function setImageAttribute($value)
-    {
-        $attribute_name = "image";
-        // or use your own disk, defined in config/filesystems.php
-        $disk = config('backpack.base.root_disk_name');
-        // destination path relative to the disk above
-        $destination_path = "public/uploads/folder_1/folder_2";
-
-        // if the image was erased
-        if (empty($value)) {
-            // delete the image from disk
-            if (isset($this->{$attribute_name}) && !empty($this->{$attribute_name})) {
-                \Storage::disk($disk)->delete($this->{$attribute_name});  
-            }
-            // set null on database column
-            $this->attributes[$attribute_name] = null;
-        }
-
-
-        // if a base64 was sent, store it in the db
-        if (Str::startsWith($value, 'data:image'))
-        {
-            // 0. Make the image
-            $image = \Image::make($value)->encode('jpg', 90);
-
-            // 1. Generate a filename.
-            $filename = md5($value.time()).'.jpg';
-
-            // 2. Store the image on disk.
-            \Storage::disk($disk)->put($destination_path.'/'.$filename, $image->stream());
-
-            // 3. Delete the previous image, if there was one.
-            if (isset($this->{$attribute_name}) && !empty($this->{$attribute_name})) {
-                \Storage::disk($disk)->delete($this->{$attribute_name});
-            }
-
-            // 4. Save the public path to the database
-            // but first, remove "public/" from the path, since we're pointing to it
-            // from the root folder; that way, what gets saved in the db
-            // is the public URL (everything that comes after the domain name)
-            $public_destination_path = Str::replaceFirst('public/', '', $destination_path);
-            $this->attributes[$attribute_name] = $public_destination_path.'/'.$filename;
-        } elseif (!empty($value)) {
-            // if value isn't empty, but it's not an image, assume it's the model value for that attribute.
-            $this->attributes[$attribute_name] = $this->{$attribute_name};
-        }
-    }
-
-// ..
+[   
+    'label' => 'Profile Image',
+    'name' => 'image',
+    'type' => 'image',
+    'withFiles' => true 
+],
 ```
-> **The uploaded images are not deleted for you.** If you delete an entry (using the CRUD or anywhere inside your app), the image file won't be deleted from the disk.
-> If you're NOT using soft deletes on that Model and want the image to be deleted at the same time the entry is, just specify that in your Model's ```deleting``` event:
-> ```php
->   public static function boot()
->   {
->       parent::boot();
->       static::deleted(function($obj) {
->           \Storage::disk('public_folder')->delete($obj->image);
->       });
->   }
-> ```
+To know more about the `withFiles`, how it works and how to configure it, [ click here to read the documentation ](https://backpackforlaravel.com/docs/6.x/crud-uploaders).
 
-**A note about aspect_ratio**
-The value for aspect ratio is a float that represents the ratio of the cropping rectangle height and width. By way of example,
-
-- Square = 1
-- Landscape = 2
-- Portrait = 0.5
-
-And you can, of course, use any value for more extreme rectangles.
+- **Option 2.** Handle the upload process yourself. This is what happened in v5, so if you want to handle the upload by yourself you can [read the v5 upload docs here](https://backpackforlaravel.com/docs/5.x/crud-fields#image-pro).
 
 Input preview:
 
