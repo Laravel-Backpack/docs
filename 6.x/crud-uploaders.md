@@ -30,14 +30,28 @@ CRUD::field('avatar')
     ->withFiles([
         'disk' => 'public', // the disk where file will be stored
         'path' => 'uploads', // the path inside the disk where file will be stored
-        'deleteWhenEntryIsDeleted' => true, // if the files should be deleted when entry is deleted
-
-        // cloud disks like s3 allow the usage of temporary urls
-        'temporary' => false, 
-        'expiration' => 1 // the corresponding temporary url expiration time in minutes
 ]);
 ```
 **Note**: If you've defined `disk` or `prefix` on the field, you no longer need to define `path` within `withFiles()` - it will pick those up. Make sure you are not defining both.
+
+
+##### Configuration options
+
+- **`disk`** - default: **`public`**
+The disk where the file will be stored. You can use any disk defined in your `config/filesystems.php` file.
+- **`path`** - default: **`/`**
+The path inside the disk where the file will be stored. It maps to `prefix` in field definition.
+- **`deleteWhenEntryIsDeleted`** - default: **`true`**
+The files will be deleted when the entry is deleted. Please take into consideration that `soft deleted models` don't delete the files.
+- **`temporaryUrl`** - default: **`false`**
+Some cloud disks like `s3` support the usage of temporary urls for display. Set this option to true if you want to use them.
+- **`temporaryUrlExpirationTime`** - default: **`1`**
+When `temporaryUrl` is set to `true`, this configures the amount of time in minutes the temporary url will be valid for.
+- **`uploader`** - default: **null**
+This allows you to overwrite or set the uploader class for this field. You can use any class that implements `UploaderInterface`.
+- **`fileNamer`** - default: **null**
+It accepts a `FileNameGeneratorInterface` instance or a closure. As the name implies, this will be used to generate the file name. If you don't set it, Backpack will use the default naming strategy.
+
 
 <a name="upload-name-files"></a>
 #### Naming uploaded files
