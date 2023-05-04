@@ -50,8 +50,7 @@ When `temporaryUrl` is set to `true`, this configures the amount of time in minu
 - **`uploader`** - default: **null**
 This allows you to overwrite or set the uploader class for this field. You can use any class that implements `UploaderInterface`.
 - **`fileNamer`** - default: **null**
-It accepts a `FileNameGeneratorInterface` instance or a closure. As the name implies, this will be used to generate the file name. If you don't set it, Backpack will use the default naming strategy.
-
+It accepts a `FileNameGeneratorInterface` instance or a closure. As the name implies, this will be used to generate the file name. Read more about in the [Naming uploaded files](#upload-name-files) section.
 
 <a name="upload-name-files"></a>
 #### Naming uploaded files
@@ -74,33 +73,25 @@ CRUD::field('avatar')->type('upload')->withFiles([
     'fileNamer' => function($file, $uploader) { return 'the_file_name.png'; },
 ])
 ```
-<a name="upload-subfields-array"></a>
-#### Subfields and array field definition
+<a name="uploads-in-subfields"></a>
+#### Subfields
 
-Subfields and array defined fields are also supported. You can use the `withFiles` as an attribute on them too.
+You can also use uploaders in subfields. The configuration is the same as for regular fields, just use the same `withFiles` key and pass it `true` if no further configuration is required.
 
 ```php
-$this->crud->addField([
-    'name' => 'attachments',
-    'type' => 'upload_multiple',
-    'withFiles' => true,
-]);
-
-// subfields
-'subfields' => [
+// subfields array
+[
     [
         'name' => 'avatar',
         'type' => 'upload', 
-        'withFiles' => true
-    ]
-]
-
-// or if you need to configure the upload pass the configuration array:
-$this->crud->addField([
-    'name' => 'profile_picture',
-    'type' => 'image',
-    'withFiles' => [
-        'path' => 'uploads/profile_pictures',
+        'withFiles' => true 
     ],
-]);
+    [
+        'name' => 'attachments',
+        'type' => 'upload_multiple', 
+        'withFiles' => [
+            'path' => 'attachments',
+        ],
+    ],
+]
 ```
