@@ -28,7 +28,7 @@ The `::field()` constructor accepts the rules for the field, while `->file()` ac
 <a name="valid-upload-multiple-validation-rule"></a>
 ## `ValidUploadMultiple` for `upload_multiple` field type
 
-You can use this validation rule to handle validation for you `upload_multiple` field - both for the Create and the Update operation in one go:
+You can use this validation rule to handle validation for your `upload_multiple` field - both for the Create and the Update operation in one go:
 - use the `::field()` constructor to define the rules for the field;
 - use the `->file()` method for rules specific to the files sent in field;
 
@@ -41,5 +41,24 @@ CRUD::field('attachments')->type('upload_multiple');
 use Backpack\CRUD\app\Library\Validation\Rules\ValidUploadMultiple;
 
 'attachments' => ValidUploadMultiple::field(['min:2', 'max:5'])->file('mimes:pdf|max:10000'),    
+
+```
+
+<a name="valid-dropzone-validation-rule"></a>
+## `ValidDropzone` for `dropzone` field type
+
+You can use this validation rule to handle validation for your `dropzone` field - both for the Create and the Update operation in one go:
+- use the `::field()` constructor to define the rules for the field;
+- use the `->file()` method for rules specific to the files sent in field;
+
+```php
+// for the field
+CRUD::field('photos')->type('dropzone');
+
+// you can write the validation rule as
+
+use Backpack\Pro\Uploads\Validation\ValidDropzone;
+
+'attachments' => ValidDropzone::field('min:2|max:5')->file('file|mimes:jpg,png,gif|max:10000'),    
 
 ```
