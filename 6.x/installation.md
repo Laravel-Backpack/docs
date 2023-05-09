@@ -27,6 +27,7 @@ While `v6` is in alpha:
 
 ``` bash
 composer require backpack/crud:"v6.x-dev"
+php artisan storage:link
 php artisan backpack:install
 ```
 
