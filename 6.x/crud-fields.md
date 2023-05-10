@@ -1469,6 +1469,13 @@ To make things easy on your side we created `ValidDropzone` validation rule. It'
 - `::field()` - the field rules (independent of the file content);
 - `->file()` - rules that apply to the sent files;
 
+```php
+use Backpack\Pro\Uploads\Validation\ValidDropzone;
+
+'photos' => ValidDropzone::field('required|min:2|max:5')
+                ->file('file|mimes:jpeg,png,jpg,gif,svg|max:2048'),
+```
+
 Input preview:
 
 ![CRUD Field - dropzone](https://user-images.githubusercontent.com/7188159/236273902-ca7fb5a5-e7ce-4a03-91a7-2af81598331c.png)
