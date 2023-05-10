@@ -42,7 +42,7 @@ The disk where the file will be stored. You can use any disk defined in your `co
 - **`path`** - default: **`/`**
 The path inside the disk where the file will be stored. It maps to `prefix` in field definition.
 - **`deleteWhenEntryIsDeleted`** - default: **`true`**
-The files will be deleted when the entry is deleted. Please take into consideration that `soft deleted models` don't delete the files.
+The files will be deleted when the entry is deleted. This setting needs aditional configuration to properly work. Please see: [configuring file deletion on uploaders](#deleting-uploaded-files) 
 - **`temporaryUrl`** - default: **`false`**
 Some cloud disks like `s3` support the usage of temporary urls for display. Set this option to true if you want to use them.
 - **`temporaryUrlExpirationTime`** - default: **`1`**
@@ -94,4 +94,26 @@ You can also use uploaders in subfields. The configuration is the same as for re
         ],
     ],
 ]
+```
+
+<a name="uploads-delete-files"></a>
+#### Deleting uploaded files
+
+Uploaders provide the `deleteWhenEntryIsDeleted` configuration option, but it requires a little bit of help to properly work.
+
+We need to tell the `DeleteOperation` that it should setup the CRUD fields where we registered the uploaders:
+
+```php
+public function setup() {
+    // ... your setup method
+    $this->crud->operation('delete', function () {
+        $this->setupCreateOperation();
+    });
+
+    // alternatively if your setupCreateOperation does alot of stuff your can
+    // extract your fields to a $variable and add them here:
+    $this->crud->operation('delete', function () {
+        $this->crud->addFields($myCreateOperationFields);
+    });  
+}
 ```
