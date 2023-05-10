@@ -1406,6 +1406,8 @@ Input preview:
 
 Show a [Dropzone JS Input](https://docs.dropzone.dev/).
 
+**Step 0.** Make sure the db column can hold the amount of text this field will have. For example, for MySQL, `VARCHAR(255)` might not be enough all the time (for 3+ files), so it's better to go with `TEXT`. Make sure you're using a big column type in your migration or db.
+
 **Step 1:** Add the `DropzoneOperation` to your `CrudController`
 
 ```php
