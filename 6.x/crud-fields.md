@@ -1406,8 +1406,21 @@ Input preview:
 
 Show a [Dropzone JS Input](https://docs.dropzone.dev/).
 
+**Step 1:** Add the `DropzoneOperation` to your `CrudController`
+
 ```php
-[   
+class UserCrudController extends CrudController
+{
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+    // ... other operations
+    use Backpack\Pro\Http\Controllers\Operations\DropzoneOperation;
+}
+```
+
+**Step 2:** Add the field in CrudController
+
+```php
+$this->crud->addField([   
     'name'  => 'photos',
     'label' => 'Photos',
     'type'  => 'dropzone',
@@ -1417,13 +1430,35 @@ Show a [Dropzone JS Input](https://docs.dropzone.dev/).
     'configuration' => [
         'parallelUploads' => 2,
     ]
+]);
+```
+
+**Step 3:** Configure the file upload process.
+
+At this point you have the dropzone field showing up, and the ajax routes setup to upload/delete files, but the process is not complete. 
+Your files are now only uploaded to the temporary folder, they need to be moved to the permanent location and their paths stored in the database.
+
+You can manually implement the saving process yourself using model events, mutators or any other flavor that suits you, or use the `AjaxUploader` that we developed to help you with this task. 
+
+To enable the `AjaxUploader` just add `withFiles => true` to your field definition:
+
+```php
+[   
+    'name'  => 'photos',
+    'label' => 'Photos',
+    'type'  => 'dropzone',
+    'withFiles' => true
 ],
 ```
 
-**IMPORTANT NOTE:** Altough you can do some "validation" in Javascript, we highly advise you to don't disregard server validation. Check the following [dropzone validation docs](#dropzone-validation)
+To know more about the `withFiles`, how it works and how to configure it, [ click here to read the documentation ](https://backpackforlaravel.com/docs/6.x/crud-uploaders).
+
 
 <a name="dropzone-validation"></a>
 #### Validation
+
+**IMPORTANT NOTE:** Altough you can do some "validation" in Javascript, we highly advise you to don't disregard server validation.
+
 The proper validation of dropzone should be done in two steps:
 1 - Files should be validated on the file upload endpoint
 2 - Field in general should be validated on form submission. 
