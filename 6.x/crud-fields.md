@@ -1437,12 +1437,7 @@ $this->crud->addField([
 
 **Step 3:** Configure the file upload process.
 
-At this point you have the dropzone field showing up, and the ajax routes setup to upload/delete files, but the process is not complete. 
-Your files are now only uploaded to the temporary folder, they need to be moved to the permanent location and their paths stored in the database.
-
-You can manually implement the saving process yourself using model events, mutators or any other flavor that suits you, or use the `AjaxUploader` that we developed to help you with this task. 
-
-To enable the `AjaxUploader` just add `withFiles => true` to your field definition:
+At this point you have the dropzone field showing up, and the ajax routes setup to upload/delete files, but the process is not complete. Your files are now only uploaded to the temporary folder, they need to be moved to the permanent location and their paths stored in the database. The easiest way to fix that is to add `withFiles => true` to your field definition, this will use the standard `AjaxUploader` that Backpack provides:
 
 ```php
 [   
@@ -1451,9 +1446,6 @@ To enable the `AjaxUploader` just add `withFiles => true` to your field definiti
     'type'  => 'dropzone',
     'withFiles' => true
 ],
-```
-
-To know more about the `withFiles`, how it works and how to configure it, [ click here to read the documentation ](https://backpackforlaravel.com/docs/6.x/crud-uploaders).
 
 
 <a name="dropzone-validation"></a>
