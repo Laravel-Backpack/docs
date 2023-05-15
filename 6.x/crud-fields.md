@@ -1406,7 +1406,7 @@ Input preview:
 
 Show a [Dropzone JS Input](https://docs.dropzone.dev/).
 
-**Step 0.** Make sure the db column can hold the amount of text this field will have. For example, for MySQL, `VARCHAR(255)` might not be enough all the time (for 3+ files), so it's better to go with `TEXT`. Make sure you're using a big column type in your migration or db.
+**Step 0.** Make sure the model attribute can hold all the information needed. Ideally, your model should cast this attribute as `array` and your migration should make the db column either `TEXT` or `JSON`. Other db column types such as `VARCHAR(255)` might not be enough all the time (for 3+ files).
 
 **Step 1:** Add the `DropzoneOperation` to your `CrudController`
 
