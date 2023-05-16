@@ -1418,7 +1418,7 @@ class UserCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     // ... other operations
-    use Backpack\Pro\Http\Controllers\Operations\DropzoneOperation;
+    use \Backpack\Pro\Http\Controllers\Operations\DropzoneOperation;
 }
 ```
 
