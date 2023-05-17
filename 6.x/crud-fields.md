@@ -1494,7 +1494,7 @@ The process of file **deletion** does **not happen** automatically.
 In case of Dropzone we manually call the `PurgeTemporaryFolder` job whenever new files are uploaded so that we keep the dropzone temporary upload folder clean.
 
 To make the cleanup process more general, we created a command that you can run periodically, `backpack:purge-temporary-files`. 
-It accepts the following optional parameter: 
+It accepts the following optional parameters: 
 `--older-than=24`: the number of hours after which temporary files are deleted.
 `--disk=public`: the disk used by the temporary files.
 `--path="backpack/temp"`: the folder inside the disk where files will be stored.
