@@ -1446,6 +1446,7 @@ At this point you have the dropzone field showing up, and the ajax routes setup 
     'type'  => 'dropzone',
     'withFiles' => true
 ],
+```
 
 Alternatively, you can manually implement the saving process yourself using model events, mutators or any other solution that suits you. To know more about the `withFiles`, how it works and how to configure it, [read its documentation](https://backpackforlaravel.com/docs/6.x/crud-uploaders).
 
