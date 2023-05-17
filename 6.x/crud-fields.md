@@ -1446,8 +1446,9 @@ At this point you have the dropzone field showing up, and the ajax routes setup 
     'type'  => 'dropzone',
     'withFiles' => true
 ],
+```
 
-Alternatively, you can manually implement the saving process yourself using model events, mutators or any other solution that suits you. To know more about the `withFiles`, how it works and how to configure it, [read its documentation](https://backpackforlaravel.com/docs/6.x/crud-uploaders).
+Alternatively, you can manually implement the saving process yourself using model events, mutators or any other solution that suits you. To know more about the `withFiles`, how it works and how to configure it, [read its documentation](https://backpackforlaravel.com/docs/{{version}}/crud-uploaders).
 
 <a name="dropzone-validation"></a>
 #### Validation
@@ -1479,7 +1480,7 @@ You can publish this configuration file using `php artisan vendor:publish --prov
 ```php
     'temporary_disk' => 'local',
     'temporary_folder' => 'backpack/temp',
-    'purge_temporary_files_older_than' => 72 // hours
+    'purge_temporary_files_older_than' => 72 // minutes
 ```
 It can also be configured on a "per crud" basis with: 
 ```php
@@ -1488,19 +1489,19 @@ CRUD::setOperationSetting('temporary_folder', 'backpack/temp');
 CRUD::setOperationSetting('purge_temporary_files_older_than', 72);
 ```
 
-The first two options are self-explanatory. The third one is the number of hours after which temporary files are deleted and requires further atention and configuration.
+The first two options are self-explanatory. The third one is the number of minutes after which temporary files are deleted and requires further atention and configuration.
 
 The process of file **deletion** does **not happen** automatically.
 In case of Dropzone we manually call the `PurgeTemporaryFolder` job whenever new files are uploaded so that we keep the dropzone temporary upload folder clean.
 
 To make the cleanup process more general, we created a command that you can run periodically, `backpack:purge-temporary-files`. 
 It accepts the following optional parameter: 
-`--older-than=24`: the number of hours after which temporary files are deleted.
+`--older-than=24`: the number of minutes after which temporary files are deleted.
 `--disk=public`: the disk used by the temporary files.
 `--path="backpack/temp"`: the folder inside the disk where files will be stored.
 
 ```bash
-php artisan backpack:purge-temporary-files --older-than=24 --disk=public --path="backpack/temp"
+php artisan backpack:purge-temporary-files --older-than=360 --disk=public --path="backpack/temp"
 ```
 
 You can use any strategy to run this command periodically, like a cron job, a scheduled task or hooking into application termination hooks.
@@ -1510,7 +1511,7 @@ Laravel provides a very easy way to setup your scheduled tasks, if you are on bo
 As an example, you can run the command every hour by adding the following line to your `app/Console/Kernel.php` file in the `schedule()` method:
 ```php
 // app/Console/Kernel.php
-$schedule->command('backpack:purge-temporary-files')->hourly();
+$schedule->command('backpack:purge-temporary-files')->everyMinute();
 ```
 
 After adding this, you need to setup a cron job that will process the Laravel scheduler. You can manually run it in development with `php artisan schedule:run`, for production, you can setup a cron job take care of it for you. You can read more about it [here](https://laravel.com/docs/10.x/scheduling#running-the-scheduler).
