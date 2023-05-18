@@ -464,7 +464,7 @@ Let's say we have a ```UserCrudController``` and we want to create a simple ```C
 ```php
     protected function setupCloneRoutes($segment, $routeName, $controller)
     {
-        Route::get($segment.'/{id}/clone', [
+        Route::post($segment.'/{id}/clone', [
             'as'        => $routeName.'.clone',
             'uses'      => $controller.'@clone',
             'operation' => 'clone',
