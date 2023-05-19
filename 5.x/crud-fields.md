@@ -177,6 +177,14 @@ In this example, these 3 fields will show up in the create & update forms, the C
 
 If the ```store_in``` attribute wasn't used, they would have been stored in the ```extras``` column.
 
+Mutators will be against the ```store_in``` attribute, for the default ```extras``` value you would need a mutator such as:
+```php
+public function setExtrasAttribute($value)
+{
+	// Your code
+}
+```
+
 <a name="split-fields-into-tabs"></a>
 #### Optional - Tab Attribute Splits Forms into Tabs
 
