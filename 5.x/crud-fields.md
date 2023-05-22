@@ -177,6 +177,13 @@ In this example, these 3 fields will show up in the create & update forms, the C
 
 If the ```store_in``` attribute wasn't used, they would have been stored in the ```extras``` column.
 
+If you need to perform any manipulation of the data before storing the fake fields, you should define a mutator for the column used to store the fake attributes, by default it's `extras`. It can be any other column you define in `store_in`. 
+```php
+// in YourModel.php
+public function setExtrasAttribute($value)
+{
+	// Your code
+}
 <a name="split-fields-into-tabs"></a>
 #### Optional - Tab Attribute Splits Forms into Tabs
 
