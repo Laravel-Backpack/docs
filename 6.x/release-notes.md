@@ -61,13 +61,13 @@ If you've made TONS of customizations to your blade files... it might be too tim
 
 Sounds interesting? [Read more here](https://github.com/Laravel-Backpack/theme-coreuiv2).
 
-#### Dark Mode (in Tabler theme)
+#### Dark Mode
 
 You wanted it, you've got it! Starting v6, Backpack's default theme ([Tabler](https://github.com/Laravel-Backpack/theme-tabler)) has dark mode... out of the box! And not only that... we've spent a lot of time polishing our dark mode, to make sure it's beautiful, legible and usable. Take a look:
 
 ![Backpack v6 Tabler theme with dark mode](https://user-images.githubusercontent.com/1032474/240271611-b028aa6c-eb53-495a-b7bb-66b10880fce9.gif)
 
-#### Layouts (in Tabler theme)
+#### Layouts
 
 One regular need we've identified was needing to change the layout _slightly_. In Backpack v5 some customization was possible using classes, but now, in Backpack v6 and specifically in the Tabler theme, we've overhauled it, and we offer:
 - the 9 most common layouts out-of-the-box (vertical, horizontal, horizontal overlap, right vertical etc.);
@@ -77,7 +77,7 @@ One regular need we've identified was needing to change the layout _slightly_. I
 
 Go head, check out the new layouts in [our online demo](http://v6demo.backpackforlaravel.com/).
 
-#### Auth layouts (in Tabler theme)
+#### Auth Layouts
 
 One other customization we've often seen people make is changing the way the login/register screens look. To make that easier, in our new default theme, we've created a few alternative auth layouts. You can choose between `default`, `illustration` and `cover`... or create your own. Of course, all of them have dark mode too:
 
@@ -85,9 +85,9 @@ One other customization we've often seen people make is changing the way the log
 
 For details, check out the [Tabler theme docs](https://github.com/Laravel-Backpack/theme-tabler).
 
-#### Basset - an innovative new way to load CSS and JS assets
+#### Basset - a better way to load CSS and JS assets
 
-We've never been happy with "traditional" ways of loading CSS and JS assets in Laravel (link tags, script tags), nor with using NPM. That's why we've invented a new way, which makes it dead-simple to load assets... either from your device... or from a CDN... but fixing all the privacy problems you might have. We've made that solution open-source, and we call this better assets solution... [Basset](https://github.com/Laravel-Backpack/basset). Now it's easy to:
+We've never been happy with "traditional" ways of loading CSS and JS assets in Laravel (link tags, script tags), nor with using NPM. That's why we've invented a new dead-simple way to load assets... either from your machine or from a CDN. But don't worry, we've fixed all the privacy problems CDNs might have. Plus, we've made that solution fully open-source. We call this better assets solution... [Basset](https://github.com/Laravel-Backpack/basset). Now it's easy to:
 
 ```php
 // just do
@@ -110,12 +110,6 @@ TODO before launch
 <hr>
 
 ### CRUD
-
-#### Spatie MediaLibrary Support
-
-One popular way to add media (pictures, videos etc) to your Laravel models is to use [Spatie MediaLibrary](https://github.com/spatie/laravel-medialibrary). We're happy to announce that Backpack now has first-party support for this very popular Laravel package. In short, **all you need to do is to [install our add-on](https://github.com/laravel-backpack/medialibrary-uploaders) and call `withMedia()` on your Backpack fields and columns**. And that's it, files will get uploaded using MediaLibrary, fetched using MediaLibrary etc. Uploads just became dead-simple!
-
-Interested? [Read more about it here](https://github.com/laravel-backpack/medialibrary-uploaders).
 
 #### 23 New Column Types
 
@@ -145,6 +139,12 @@ CRUD::field('document')->type('upload')->hasFiles();
 ```
 
 And that is all 🤯 That's crazy-easy, right? Of course, we have a bunch of configurations for the most common scenarios. And you can create your own Uploader class if you want. [Read more about Uploader classes here](/docs/{{version}}/crud-uploaders).
+
+#### Spatie MediaLibrary Support
+
+One popular way to add media (pictures, videos etc) to your Laravel models is to use [Spatie MediaLibrary](https://github.com/spatie/laravel-medialibrary). We're happy to announce that Backpack now has first-party support for this very popular Laravel package. In short, **all you need to do is to [install our add-on](https://github.com/laravel-backpack/medialibrary-uploaders) and call `withMedia()` on your Backpack fields and columns**. And that's it, files will get uploaded using MediaLibrary, fetched using MediaLibrary etc. Uploads just became dead-simple!
+
+Interested? [Read more about it here](https://github.com/laravel-backpack/medialibrary-uploaders).
 
 #### Custom form operations, now easy!
 
