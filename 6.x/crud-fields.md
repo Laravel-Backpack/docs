@@ -321,7 +321,7 @@ Input preview:
     'label'             => 'User Role Permissions',
     'field_unique_name' => 'user_role_permission',
     'type'              => 'checklist_dependency',
-    'name'              => ['roles', 'permissions'], // the methods that define the relationship in your Models
+    'name'              => 'roles,permissions', // the methods that define the relationship in your Models
     'subfields'         => [
         'primary' => [
             'label'            => 'Roles',
@@ -1304,7 +1304,7 @@ Show a DateRangePicker and let the user choose a start date and end date.
 
 ```php
 [   // date_range
-    'name'  => ['start_date', 'end_date'], // db columns for start_date & end_date
+    'name'  => 'start_date,end_date', // db columns for start_date & end_date
     'label' => 'Event Date Range',
     'type'  => 'date_range',
 
