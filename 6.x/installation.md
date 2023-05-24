@@ -30,6 +30,7 @@ composer require backpack/crud:"v6.x-dev"
 php artisan storage:link
 php artisan basset:internalize
 php artisan backpack:install
+php artisan basset:internalize
 ```
 
 Follow the prompts - in the end, the installer will also tell you your admin panel's URL, where you should go and login.
