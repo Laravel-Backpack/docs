@@ -6,8 +6,8 @@ Backpack is a collection of Laravel packages that help you **build custom admini
 
 In a nutshell:
 
-- Backpack will provide you with a _visual interface_ for the admin panel (the HTML, the CSS, the JS); it pulls in the excellent [CoreUI](https://coreui.io/) theme, with our own design called [Backstrap](https://backstrap.net), and adds authentication functionality & bubble notifications; when you decide to build a custom feature for your admin panel, you already have the HTML blocks for the UI, and it will look good;
-- Backpack will also help you build _sections where your admins can manipulate entries for Eloquent models_; we call them _CRUD Panels_ after the most basic operations: Create, Read, Update & Delete; after [understanding Backpack](/docs/{{version}}/getting-started-basics), you'll be able to create a CRUD panel in a few minutes per model:
+- UI - Backpack will provide you with a _visual interface_ for the admin panel (the HTML, the CSS, the JS), authentication functionality & global bubble notifications; you can choose from one of the 3 themes we have developed (powered by Tabler, CoreUI v4 or CoreUI v2), a third-party theme or create your own theme; the enormous advantage of using a Bootstrap-based HTML theme is that... when you need custom pages, you already have the HTML blocks for the UI, you don't have to desing them yourself;
+- CRUDs - Backpack will also help you build _sections where your admins can manipulate entries for Eloquent models_; we call them _CRUD Panels_ after the most basic operations: Create, Read, Update & Delete; after [understanding Backpack](/docs/{{version}}/getting-started-basics), you'll be able to create a CRUD panel in a few minutes per model:
 
 ![](https://user-images.githubusercontent.com/1032474/86720524-c5a1d480-c02d-11ea-87ed-d03b0197eb25.gif)
 
@@ -31,7 +31,6 @@ php artisan backpack:build
 ```
 
 If you have NOT created your Eloquent models yet, you can use whatever you want for that. We recommend:
-- FREE - [`laracasts/generators`](https://github.com/laracasts/Laravel-5-Generators-Extended) as the best **command-line tool** for this;
 - FREE - [`laravel-shift/blueprint`](https://github.com/laravel-shift/blueprint) as the best **YAML-based tool** for this;
 - PAID - [`backpack/devtools`](https://backpackforlaravel.com/products/devtools) as the best **web interface** for this; it makes it dead-simple to create Eloquent models, from the comfort of your web browser;
 
@@ -65,7 +64,7 @@ We heavily recommend you spend a little time to understand Backpack, and only af
 <a name="how-does-it-look"></a>
 ### How does it look?
 
-**Take a look at our [live demo](https://demo.backpackforlaravel.com/admin/login).** If you've purchased ["Everything"](https://backpackforlaravel.com/pricing) you can even [install the demo](/docs/{{version}}/demo) and fiddle with the code. Otherwise, you can just start a new Laravel project, [install Backpack\CRUD](/docs/{{version}}/installation) on top, and [follow our text course](/docs/{{version}}/getting-started-basics) to create a few CRUDs.
+**Take a look at our [live demo](https://demo-v6.backpackforlaravel.com/admin/login).** If you've purchased ["Everything"](https://backpackforlaravel.com/pricing) you can even [install the demo](/docs/{{version}}/demo) and fiddle with the code. Otherwise, you can just start a new Laravel project, [install Backpack\CRUD](/docs/{{version}}/installation) on top, and [follow our text course](/docs/{{version}}/getting-started-basics) to create a few CRUDs.
 
 <a name="security"></a>
 ### Security
@@ -75,14 +74,15 @@ Backpack has never had a critical vulnerability/hack. But there _have_ been impo
 <a name="maintenance"></a>
 ### Maintenance
 
-Backpack v6 is the current version, and is being actively maintained by the Backpack team, with the help of a wonderful community of Backpack veterans. [See all contributors](https://github.com/Laravel-Backpack/CRUD/graphs/contributors).
+Backpack v6 is the current version, and is actively maintained by the Backpack team, with the help of a wonderful community of Backpack veterans. [See all contributors](https://github.com/Laravel-Backpack/CRUD/graphs/contributors).
 
 <a name="license"></a>
 ### License
 
-Starting with v5, Backpack has become open-core. Its features have been separated into two packages:
-- **Backpack CRUD is licensed under the [MIT License](LICENSE.md)** (open-source free software); it is perfect if you're building a simple admin panel - it's packed with features! it's also perfect if you're building an open-source project, the permissive license allows you to do whatever you want;
-- **Backpack PRO is licensed under our [EULA](https://backpackforlaravel.com/eula)**; it is a closed-source, paid add-on; [PRO](https://backpackforlaravel.com/products/pro-for-unlimited-projects) will be useful when your admin panel needs grow, because it adds adds A LOT of features for complex use cases (see our [FREE vs PRO comparison](https://backpackforlaravel.com/docs/5.x/features-free-vs-paid));
+Backpack is open-core:
+- **Backpack CRUD is free & open-source, licensed under the [MIT License](LICENSE.md)**; it is perfect if you're building a simple admin panel - it's packed with features! it's also perfect if you're building an open-source project, the permissive license allows you to do whatever you want;
+- **Backpack PRO is a paid, closed-source add-on, licensed under our [EULA](https://backpackforlaravel.com/eula)**; [PRO](https://backpackforlaravel.com/products/pro-for-unlimited-projects) add additional functionality to CRUD, that will be useful when your admin panel grows (see our [FREE vs PRO comparison](https://backpackforlaravel.com/docs/5.x/features-free-vs-paid));
+- the other add-ons we've created are some FREE, some PAID; please see [our add-ons list](https://backpackforlaravel.test/docs/6.x/add-ons-official) for more info;
 
 [Our documentation](https://backpackforlaravel.com/docs) covers both CRUD and PRO, with all the PRO features clearly labeled <span class="badge badge-pill badge-info">PRO</span>.
 
@@ -90,14 +90,14 @@ Starting with v5, Backpack has become open-core. Its features have been separate
 <a name="versioning"></a>
 ### Versioning, Updates and Upgrades
 
-Starting with Backpack v5, all our packages follow [semantic versioning](https://semver.org/). Here's what `major.minor.patch` (eg. `6.0.1`) means for us:
+Starting with the previous version, all our packages follow [semantic versioning](https://semver.org/). Here's what `major.minor.patch` (eg. `6.0.1`) means for us:
 - `major` - breaking changes, major new features, complete rewrites; released **once a year**, in February; it adds features that were previously impossible and upgrades our dependencies; upgrading is done by following our clear and detailed upgrade guides;
 - `minor` - new features, released in backwards-compatible ways; **every few months**; update takes seconds;
 - `patch` - bug fixes & small non-breaking changes; historically **every week**; update takes seconds;
 
-When we release a new Backpack\CRUD version, all paid addons receive support for it the same day. 
+When we release a new Backpack\CRUD version, all paid addons receive support for it the same day.
 
-When you buy a premium Backpack addon, you get access to not only _updates_, but also _upgrades_ (for 12mo), that means that... **any time you buy a Backpack addon, it is very likely that you're not only buying the _current_ version** (`v5` at the moment), **but also the upgrade to the _next version_** (`v6` for example).
+When you buy a premium Backpack addon, you get access to not only _updates_, but also _upgrades_ (for 12mo), that means that... **any time you buy a Backpack addon, it is very likely that you're not only buying the _current_ version** (`v6` at the moment), **but also the upgrade to the _next version_** (`v7` for example).
 
 <a name="add-ons"></a>
 ### Add-ons
