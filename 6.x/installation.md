@@ -28,8 +28,8 @@ While `v6` is in beta:
 ``` bash
 composer require backpack/crud:"v6.x-dev"
 php artisan storage:link
-php artisan backpack:install
 php artisan basset:internalize
+php artisan backpack:install
 ```
 
 Follow the prompts - in the end, the installer will also tell you your admin panel's URL, where you should go and login.
