@@ -2,271 +2,206 @@
 
 ---
 
-**Launch date:** Feb 9th, 2022
+**Launch date:** <span class="badge badge-danger">PUBLIC BETA</span> on May 31st, 2023
 
-Backpack v5 is a major release, but NOT a huge time-consuming upgrade. Think of it as a "4.2" release, that we've had to name "v5", because we've also changed our business model. We have added new features and major improvements, but also kept the upgrading process as easy as possible. Plus...
+Backpack v6 is a major release, with major changes. But don't worry, we've kept MOST changes backwards-compatible. And even for the things that are hugely breaking, we have provided 3 different upgrade paths, so that you can _easily_ use the latest version of Backpack, even if you've _heavily_ customized it. But first, a reminder:
 
-> 🎉 &nbsp; 🎉 &nbsp; 🎉 &nbsp; **Backpack v5 is a FREE upgrade, for everybody who's purchased a Backpack v4 license after 9 Feb 2021.** Please read on to understand why.  &nbsp;  🎉 &nbsp; 🎉 &nbsp; 🎉
+> **If you've purchased a Backpack add-on after 1st of July 2022  (eg. PRO, DevTools), you get free access to the version that supports Backpack v6.** All purchases get you 12 months of updates _and_ upgrades.
 
+Here are the BIG things Backpack v6 brings to the table and why you should upgrade from [Backpack v5](/docs/5.x) to v6... in both video and text:
 
-But yes, **Backpack v5 is a MAJOR new version**, with 8+ months of work put into it, and major improvements under-the-hood. It is the current and recommended version of Backpack and it's got so many cool new things... that we couldn't fit them all here.
-
-Here are the big things Backpack v5 brings to the table and why you should upgrade from [Backpack 4.1](/docs/4.1) to v5. But first...
-
-<a name="new-pricing"></a>
-## New Pricing
-
-**The good news** - if you've purchased Backpack v4 after 9 Feb 2021:
-- you have access to all v5.x.x updates for 12 months from your purchase date;
-- if we release a v6 in those 12 months, you'll also have access to the v6 upgrade;
-- even after those 12 months go by, you'll still have access to those versions, for ever;
-- you can [generate a token & password for v5 automatically, in your Backpack acount](https://backpackforlaravel.com/user/tokens);
-
-Basically, if you expected your updates to end... because we launched a new version... they don't. We think it's important that when you purchase Backpack, you get an extraordinary bang-for-buck. So if you've purchased towards the end of Backpack's release cycle, we've made sure that you receive at least 12 months of updates & upgrades... which means... free upgrade to v5. We believe that's the _fair_ thing to do - give you guarantees that whenever you buy Backpack, you'll receive updates for a reasonable amount of time. It's one of the reasons we changed our pricing.
-
-**The bad news**... it's a little more difficult to _really_ understand why we've done that. If you're interested, please read on, it makes perfect sense, we promise. If not, just read what's in **bold**.
-
-### Backpack is now open-core
-
-We try not to make a big fuss out of this, but this is HUGE deal. One that we consider a _bug fix_. Yes, it's a _licensing bug fix_.
-
-Previously, when you were buying a Backpack v4 license, you didn't know how many updates you're getting. Depending on _when_ you purchased, you could get 2 years of updates or 2 days. You'd then have to purchase the next version (using the limited-time discount we always give when launching). We consider that a stressful experience, both for you and us, so we've found a way to eliminate that stress, and make the whole buying, maintaining, updating and upgrading process a lot more _fair_, for all parties involved:
-
-**Starting with v5, the features that were previously in "Backpack\CRUD" are now split between two packages:**
-- **[Backpack\CRUD](https://github.com/laravel-backpack/crud) is the free & open-source core**, released under the [MIT License](https://github.com/Laravel-Backpack/CRUD/blob/master/LICENSE.md); <span class="badge badge-pill badge-success">FREE</span>
-- **[Backpack\PRO](https://backpackforlaravel.com/products/pro-for-unlimited-projects) is a paid closed-source Backpack add-on**, released under our [EULA](https://backpackforlaravel.com/eula); <span class="badge badge-pill badge-info">PRO</span>
-
-Since `backpack/pro` is released under the same terms of our `backpack/devtools` package:
-- you get 12 months of updates _and upgrades_, guaranteed;
-- after those 12 months you still have access to all versions you purchased;
-
-We're very happy with this new pricing, because we believe it is _fair to everyone_:
-- Open-source devs - you can now use Backpack for open-source projects;
-- Devs with low/no budget - you can now use Backpack\CRUD: no strings attached, no application form;
-- Professionals - when you buy `backpack/pro`, you get 12 months of updates and upgrades, _guaranteed_; no more worries about where we are in the release cycle; it's _always_ a good time to buy Backpack;
-- Maintainers - less piracy, more time & resources to spend on adding new features;
-
-You can see the result of this change on [our pricing page](https://backpackforlaravel.com/pricing). We hope now you understand _why_ we're giving free access to v5 to everyone who purchased after 9 Feb 2021. We consider it _a bug fix_. We think it's only _fair_ for a dev who purchased in 2021 to _also_ get what we offer now...  which is 12 months of updates & upgrades. So we're activating this policy retroactively.
-
-**After this open-core split, we no longer offer non-commercial licenses for free, because our core offering is now free. So we've disabled our application form.** But... if you've previously received a free non-commercial Backpack v4 license, we've got your back. Reach out by email, we'll give you access to `backpack/pro` if your project is still non-commercial.
+![Backpack v6 new features and changes](https://placehold.co/1280x900?text=TODO+video+casual+screencast+5-10+min)
 
 
 <a name="added"></a>
 ## Added
 
-### Operations
+### User Interface
 
-#### Warning before leaving the Create or Update form
+Backpack v6 brings a MAJOR overhaul of the user interface. We've:
+- upgraded from Bootstrap v4 to Bootstrap v5
+- invented a whole new way to use CSS and JS assets in Laravel projects
+- added the ability to easily create new themes for Backpack
+- created 3 themes: Tabler, CoreUIv4 and CoreUIv2
 
-For large forms, it's often smart to ask the user if they really want to lose their form changes, before they leave the page. That's exactly what `warnBeforeLeaving` will do. Just call it in your `setup()` method for all operations that use a form: `CRUD::set('warnBeforeLeaving', true)`. Or if you want only in specific operations like `setupCreateOperation()` or `setupUpdateOperation()` set it as a setting for the operation: `CRUD::setOperationSetting('warnBeforeLeaving', true)`.
+Read on to find out more.
 
+#### Themes
 
-#### Quickly validate forms inside CrudController, no FormRequest needed
+Done, TODO: describe; mention Tabler, CoreUI v4, CoreUI v2 and ability to easily create new themes
 
-Previously, you could validate the Create & Update forms in one way - by telling Backpack which FormRequest holds the validation rules: `CRUD::setValidation(TagRequest::class)`. Which works very well for large models. But for very simple models... like Tags... do you really _need_ a `TagRequest` to say the name is required? If you've found that inconvenient, we have good news:
+Starting with Backpack v6, themes are first-class citizens:
+- we have an official, documented way to create Backpack themes;
+- our 1st party themes use that system themselves; even the default Backpack theme can now be uninstalled completely, it's an add-on;
+- it's reasonably fast to create new themes (5 hours max for any Boostrap admin panel template);
+- we have developed 3 themes for you: [Tabler](https://github.com/Laravel-Backpack/theme-tabler), [CoreUI v4](https://github.com/Laravel-Backpack/theme-coreuiv4) and [CoreUI v2](https://github.com/Laravel-Backpack/theme-coreuiv2);
+
+##### Tabler Theme (new default)
+
+We've been working with [Tabler](https://tabler.io/) for a long time, and it is _spectactular_. It's by far the best Bootstrap-based HTML template we've worked with: it's open-source, well-maintained, has a great team and a great community around it. And it has TONS of components baked-in, and tons of layouts too (horizontal, vertical etc.). It's by far the best open-source, Bootstrap-based admin template in 2023... which is why we've chosen it for the _default_ Backpack v6 theme.
+There's lots and lots to love here:
+
+![Backpack v6 Tabler theme - layouts horizontal vertical etc](https://user-images.githubusercontent.com/1032474/240274915-f45460a7-b876-432c-82c3-b0b3c60a39f2.png)
+
+Sounds interesting? [Read more here](https://github.com/Laravel-Backpack/theme-tabler).
+
+##### CoreUI v4 Theme (easy upgrade)
+
+If you have lots of customizations... but would still like to upgrade to Booststrap v5, we've developed a theme for you too. You can use the CoreUI v4, which uses the latest version of Bootstrap and CoreUI, but without bringing too many breaking changes:
+
+![Backpack v6 CoreUI v4 theme](https://user-images.githubusercontent.com/1032474/240274314-184d328e-0e6c-4d67-942b-4e4d4efd96c8.png)
+
+Sounds interesting? [Read more here](https://github.com/Laravel-Backpack/theme-coreuiv4).
+
+##### CoreUI v2 Theme (for maximum backwards compatibility)
+
+If you've made TONS of customizations to your blade files... it might be too time-consuming for you to upgrade to Tabler and Bootstrap v5. It's sad... but we understand that use case. Which is why we've developed a Backpack v6 theme specifically for you, where... not a lot changes. We use the new asset-loading system but other than that... no changes. This theme should allow you to easily upgrade to Backpack v6 and keep you custom pages, changes etc. because we're prioritized backwards-compatibility over adding new features and modernizing:
+
+![Backpack v6 CoreUI v2 theme](https://user-images.githubusercontent.com/1032474/240272550-456499a0-ef31-48a1-a985-1de3ff6107e5.png)
+
+Sounds interesting? [Read more here](https://github.com/Laravel-Backpack/theme-coreuiv2).
+
+#### Dark Mode
+
+You wanted it, you've got it! Starting v6, Backpack's default theme ([Tabler](https://github.com/Laravel-Backpack/theme-tabler)) has dark mode... out of the box! And not only that... we've spent a lot of time polishing our dark mode, to make sure it's beautiful, legible and usable. Take a look:
+
+![Backpack v6 Tabler theme with dark mode](https://user-images.githubusercontent.com/1032474/240271611-b028aa6c-eb53-495a-b7bb-66b10880fce9.gif)
+
+#### Layouts
+
+One regular need we've identified was needing to change the layout _slightly_. In Backpack v5 some customization was possible using classes, but now, in Backpack v6 and specifically in the Tabler theme, we've overhauled it, and we offer:
+- the 9 most common layouts out-of-the-box (vertical, horizontal, horizontal overlap, right vertical etc.);
+- an easy way for you to create your own layout, and have all Backpack pages use _your custom layout_;
+
+![Backpack v6 Tabler theme now has layouts](https://user-images.githubusercontent.com/1032474/240273221-8d5f5d53-ead0-4242-b83c-7dbb56028085.gif)
+
+Go head, check out the new layouts in [our online demo](http://v6demo.backpackforlaravel.com/).
+
+#### Auth Layouts
+
+One other customization we've often seen people make is changing the way the login/register screens look. To make that easier, in our new default theme, we've created a few alternative auth layouts. You can choose between `default`, `illustration` and `cover`... or create your own. Of course, all of them have dark mode too:
+
+![Backpack v6 Tabler theme auth layouts](https://user-images.githubusercontent.com/1032474/240278320-df379c68-0d37-4f7a-a8e0-ec2b1175e67f.gif)
+
+For details, check out the [Tabler theme docs](https://github.com/Laravel-Backpack/theme-tabler).
+
+#### Basset - a better way to load CSS and JS assets
+
+We've never been happy with "traditional" ways of loading CSS and JS assets in Laravel (link tags, script tags), nor with using NPM. That's why we've invented a new dead-simple way to load assets... either from your machine or from a CDN. But don't worry, we've fixed all the privacy problems CDNs might have. Plus, we've made that solution fully open-source. We call this better assets solution... [Basset](https://github.com/Laravel-Backpack/basset). Now it's easy to:
 
 ```php
-protected function setupCreateOperation()
-{
-    // instead of these (which still work, btw)
-    $this->crud->setValidation(TagRequest::class);
-    $this->crud->setValidation('App\Http\Requests\TagRequest');
+// just do
+@basset('https://unpkg.com/vue@3/dist/vue.global.js')
 
-    // you can now also do this
-    $this->crud->setValidation([
-        'name' => 'required|min:2',
-    ]);
-
-    // you even define custom validation messages, using the second parameter
-    $rules = ['name' => 'required|min:2'];
-    $messages = [
-        'name.required' => 'You gotta give it a name, man.',
-        'name.min' => 'You came up short. Try more than 2 characters.',
-    ];
-    $this->crud->setValidation($rules, $messages);
-}
+// and the system will internalize it and output something like
+<script src="https://your-app.com/bassets/vue@3/dist/vue.global.js"></script>
 ```
 
-#### Use Model Events inside CrudControllers
+This means you don't have to compile or bundle assets. You don't have to publish assets. Backpack's core uses this system behind-the-hood, and it's made our CRUD repo go from 90.3 MB... down to 1.9 MB 🤯 Crazy, right?! And with the improvements in HTTP... most of the time the assets get loaded at the same time... so pageload times have improved considerably too!
 
-You can now define closures to be run when Model Events get triggered, right inside your CrudController:
+![Backpack Basset for asset loading](https://user-images.githubusercontent.com/1032474/240285417-786c4cd4-d51c-49ba-a90a-8f1cade965f3.png)
 
-```php
-public function setup() {
-    // this will get run for all operations that trigger the "deleting" model event
-    // by default, that's the Delete operation
-    Monster::deleting(function ($entry) {
-        // TODO: delete that entry's files from the disk
-    });
+Sounds interesting? [Read more about Basset](https://github.com/Laravel-Backpack/basset).
 
-    // this will get run on all operations that trigger the "saving" model event
-    // by default, that's the Create and Update operations
-    Monster::saving(function ($entry) {
-        // TODO: change one value to another or something
-    });
-}
+#### CSS hook classes
 
-public function setupCreateOperation()
-{
-    // this will only get triggered inside the Create operation because
-    // that's where we've defined it
-    Monster::creating(function ($entry) {
-        // TODO: something to the entry
-    });
-}
-```
-
-This is particularly useful if you've ever overridden your `create()` or `store()` methods in your CrudController. Now... you don't really have to do that any more, you can do stuff directly on the model, upon an event. But it's not limited to that use case, since it supports [all Eloquent events](https://laravel.com/docs/master/eloquent#events).
+TODO before launch
 
 <hr>
 
-### Fields
+### CRUD
 
-#### Define validation rules directly on fields
+#### 23 New Column Types
 
-In addition to the array validation above... Backpack v5 has one more trick up its sleeve. You can now also define the validation rules and validation messages right when you define the field. No more `FormRequest`, not even defining a validation array separately:
+We've hunkered down and created a column type... for every field type we have, both FREE and PAID. So yes, starting with Backpack v6... all fields now have corresponding column types. That makes it MUCH easier to use the equivalent of a field... in the List or Show operation.
 
-```php
-protected function setupCreateOperation()
-{
-    $this->crud->addField([
-        'name' => 'content',
-        'label' => 'Content',
-        'type' => 'ckeditor',
-        'placeholder' => 'Your text here',
-        'validationRules' => 'required|min:10',
-        'validationMessages' => [
-            'required' => 'You gotta write smth man.',
-            'min' => 'More than 10 characters, bro. Wtf... You can do this!',
-        ]
-    ]);
-    // This MUST be called AFTER the fields are defined, never before.
-    $this->crud->setValidation();
-}
-```
+Interested? [See all the column types we have, here](https://backpackforlaravel.com/docs/{{version}}/crud-columns).
 
-In short, just call `CRUD::setValidation()` without passing anything and it will validate all the fields that have `validationRules` defined. But be careful - you have to call `setValidation()` _after_ you've defined your fields.
+#### New Field: Dropzone
 
+Backpack v5 provided you with a few ways to upload files: `upload`, `upload_multiple`, `browse`, `browse_multiple`. They are perfectly fine for most use cases, but they had technical limitations, due to their dependencies (how HTML works or elFinder).
 
-#### Define Model Events directly on fields
+That's why we've created _one upload field to rule them all_... the `dropzone` field. This field was a difficult one to achieve, so big BIG thanks to Jorge and Pedro for working 3+ months at it. This new PRO field will allow your admins to drag&drop files to upload them... using AJAX. This means they can:
+- upload bigger files
+- upload more files than ever
+- no longer "_wait for the form to load_"
 
-Previously, if you wanted to change the value of a field when retrieving it or storing in the database, Backpack encouraged you to use Accessors and Mutators. You can still do that, they're stock Laravel features and they'll work fine. But sometimes... you might not want to change the Model itself.
+And as a developer, it means you hava an upload field... that you can use as a subfield, in your `repeatable` and `relationship` fields 🤯 We are super-excited about this field, because it covers so much more ground than our previous upload fields. We think you'll love it too - in fact we think this will become your _default_ upload field. It has already become ours:
 
-Now, you can define closures to run when standard Eloquent events are triggered, right on your fields:
+![Backpack v6 Dropzone field](https://placehold.co/1280x900?text=TODO+GIF+with+dropzone+field)
+
+#### Uploaders - making upload fields easier than ever
+
+Backpack v5 already made uploads pretty easy - by using model mutators or model events. With Backpack v6, uploads take another huge leap forward. You can now attach Uploaders to fields and columns. And those uploaders encapsulate all the logic needed to do the upload & retrieval. That way... we can provide you with some standard uploaders, that cover 90% of all use cases. To be brief, in order to have a field upload a file, the only thing you need to do is:
 
 ```php
-// using the ARRAY SYNTAX, define an array of events and closures
-CRUD::addField([
-    'name' => 'name',
-    'events' => [
-        'saving' => function ($entry) {
-            $entry->name = strtoupper($entry->name);
-        },
-    ],
-]);
-
-// using the FLUENT SYNTAX, you can define the same array
-CRUD::field('name')->events([
-    'saving' => function ($entry) {
-        $entry->name = strtoupper($entry->name);
-    },
-]);
-
-// BUT you can also use the convenience method "on" to define just ONE event
-CRUD::field('name')->on('saving', function ($entry) {
-    $entry->name = strtoupper($entry->name);
-});
+CRUD::field('document')->type('upload')->hasFiles();
 ```
 
-It supports [all Eloquent events](https://laravel.com/docs/master/eloquent#events), but... the ones that make sense are just: ~~`retrieved`~~, `creating`, `created`, `updating`, `updated`, `saving`, `saved`, ~~`deleting`~~, ~~`deleted`~~, ~~`restoring`~~, ~~`restored`~~, and ~~`replicating`~~, because those are the events that actually take place inside the Create and Update operations.
+And that is all 🤯 That's crazy-easy, right? Of course, we have a bunch of configurations for the most common scenarios. And you can create your own Uploader class if you want. [Read more about Uploader classes here](/docs/{{version}}/crud-uploaders).
 
-We think you'll find this particularly useful for the `image`, `upload` and `upload_multiple` fields. Previously, they required you to create Mutators for them to work. Which meant you had to go to the Model to do that. But now... you can just do that in your CrudController:
+#### Spatie MediaLibrary Support
+
+One popular way to add media (pictures, videos etc) to your Laravel models is to use [Spatie MediaLibrary](https://github.com/spatie/laravel-medialibrary). We're happy to announce that Backpack now has first-party support for this very popular Laravel package. In short, **all you need to do is to [install our add-on](https://github.com/laravel-backpack/medialibrary-uploaders) and call `withMedia()` on your Backpack fields and columns**. And that's it, files will get uploaded using MediaLibrary, fetched using MediaLibrary etc. Uploads just became dead-simple!
+
+Interested? [Read more about it here](https://github.com/laravel-backpack/medialibrary-uploaders).
+
+#### Custom form operations, now easy!
+
+Another thing that was possible in Backpack v5, but not very easy, was to create a custom operation that included a custom form. You could do it... but you had to re-do a lot of the things we do in the Create & Update operations. No longer! Now we've changed the way Create & Update work, so that you can re-use the form they use. That means you can easily create a custom operation, that has Backpack fields, and has _nothing_ to do with Create or Update. For more info, see [the docs here](#).
+
+TODO: feature + docs
+
+#### Custom buttons, now one-line
+
+Another thing that's ridiculously easy now... is for you custom operation to provide simple buttons. Previously you had to create a blade file just to hold that simple button (bleah). Now, it's as easy as:
 
 ```php
-CRUD::field('attachment')->on('saving', function ($entry) {
-    $value = request()->file('upload');
+CRUD::addLineButton($name, $icon, $label, $position, $url, $access);
+CRUD::addTopButton($name, $icon, $label, $position, $url, $access);
+CRUD::addBulkButton($name, $icon, $label, $position, $url, $access);
 
-    if (!is_null($value)) {
-        $entry->uploadFileToDisk($value, 'upload', 'public', 'uploads/monsters/upload_field');
-    }
-});
+// for example:
+CRUD::addLineButton('refund', 'la la-cash-register', 'Refund', 'beginning', 'https://stripe.com/refund', true);
 ```
-
-#### Simple validation for `repeatable` entries
-
-Previously, in order to validate the contents of a subfield in `repeatable`, you had to write your own custom validation, which could take you quite some time. Now, you can just do `'testimonial.*.name' => 'required|min:5|max:256'` and use [Laravel's nested array validation](https://laravel.com/docs/8.x/validation#validating-nested-array-input).
-
-
-#### Better than ever `relationship` field, now with `subfields` too
-
-We've spent _months_ building up and polishing the `relationship` field. It's now a one-stop-shop for all your needs, when creating/editing a relationship. Because it supports all common Eloquent relationships:
-- ✅ `hasOne` (1-1) - shows subform if you define `subfields`
-- ✅ `belongsTo` (n-1) - shows a select2 (single)
-- ✅ `hasMany` (1-n) - shows a select2_multiple OR a subform if you define `subfields`
-- ✅ `belongsToMany` (n-n) - shows a select2_multiple OR a subform if you define `subfields` for pivot extras
-- ✅ `morphOne` (1-1) - shows a subform if you define `subfields`
-- ✅ `morphMany` (1-n) - shows a select2_multiple OR a subform if you define `subfields`
-- ✅ `morphToMany` (n-n) - shows a select2_multiple OR a subform if you define `subfields` for pivot extras
-
-**One HUGE addition we've made in v5 is... 🥁🥁🥁 subfields.** For complex relationship, just define `subfields` and the select2 will be turned into a subform, allowing your admin to define extra attributes. This will save you _hours_ or even _days_ when you have complex relationships. Because right in the current form, your admin can now easily:
-- [create/update/delete a related 1-1 entry](/docs/{{version}}/crud-how-to#hasone-1-1-relationship) (`hasOne` and `morphOne`, eg. User and UserDetail)
-- [create/update/delete related 1-n entries](/docs/{{version}}/crud-fields#manage-related-entries-in-the-same-form-create-update-delete) (`hasMany` and `morphMany`, eg. Invoice and InvoiceItem)
-- [edit columns on the pivot table of n-n relationships](/docs/{{version}}/crud-fields#save-additional-data-to-pivot-table) (`belongsToMany` and `morphToMany`, eg. 'position' on company_user)
-
-Check out the links above for more info, but in short, `subfields` will look and work just as you'd expect, like a `repeatable` field (because, under the hood, that's what it uses):
-
-![](https://backpackforlaravel.com/uploads/docs-4-2/fields/repeatable_hasMany_entries.png)
-
-Achieving this feature in a "general" way was crazy-difficult. All the credit here goes to our team member Pedro Martins (@pxpm) - he's been a real hero, working on this for _months_, so that you can do it in _seconds_.
-
-<hr>
-
-### Widgets
-
-#### New widget - `script`
-
-You can now easily "push" a JS file to any page you want, straight from a Controller or view. This is particularly useful when you want something custom done inside a CRUD Operation. See [the `script` widget docs](/docs/{{version}}/base-widgets#script-1) for more details.
-
-#### New widget - `style`
-
-You can now easily "push" a CSS file to any page you want, straight from a Controller or view. This is particularly useful when you want something custom done inside a CRUD Operation. See [the `script` widget docs](/docs/{{version}}/base-widgets#style-1) for more details.
-
-<hr>
-
-### Developer Experience
-
-#### Easily Debug AJAX Errors using the Error Frame Modal
-
-Did your AJAX request error? No need to dig into your Chrome Devtools and read that awful output. When you have your APP_DEBUG to `true`, Backpack will show that error in a modal. This seems like a small thing, but it makes it _much_ easier to work with some complex Backpack features, like [ListOperation](https://backpackforlaravel.com/docs/4.1/crud-operation-list-entries), [InlineCreateOperation](https://backpackforlaravel.com/docs/4.1/crud-operation-inline-create), [filters](https://backpackforlaravel.com/docs/4.1/crud-filters), [`select2_from_ajax`](https://backpackforlaravel.com/docs/4.1/crud-fields#select2_from_ajax) field, [`relationship`](https://backpackforlaravel.com/docs/4.1/crud-fields#relationship-1) field. During development, if something goes wrong, Backpack will show it to you - it's that simple:
-
-![image](https://user-images.githubusercontent.com/1838187/141500871-039ef53f-4207-4018-ac93-c41b547b62a5.png)
-
-<hr>
-
 
 <a name="changed"></a>
 ## Changed
 
-#### Easily Include CSS and JS Assets Only Once Per Page
+#### We've merged the fluent and array syntaxes
 
-Backpack now ships with a new `@loadOnce()` directive, which makes sure that piece of JS/CSS/code is only loaded once per pageload. You can see [more info about it here](https://github.com/digitallyhappy/assets) (and why it's more than `@once`).
+In 2018-2022, we had one way of adding fields & columns, the array syntax:
+```php
+CRUD::addField([
+    'name'  => 'description',
+    'label' => 'Article Description',
+    'type'  => 'textarea',
+]);
+```
 
-Of course, Backpack now uses this directive in all views that could get repeatedly loaded, so for example if you're loading in a single form a `select2`, a `select2_multiple` and a `select2_from_ajax`... you won't be getting the assets three times... but once.
+In 2022, we added a new (fluent) way of defining fields and columns:
+```php
+CRUD::field('description')->label('Article Description')->type('textarea');
+```
 
-#### Increased Default Security
+In 2023, we're merging the two syntaxes. You can now use them together, first the array syntax then the fluent syntax:
+```php
+CRUD::field([
+    'name'  => 'description',
+    'label' => 'Article Description',
+    'type'  => 'textarea',
+])->label('Overriden Description');
+```
 
-Starting with v5, Backpack will throttle password request attempts. This will prevent malicious actors from using the "reset password" functionality of your admin panel to send unsolicited emails.
-
-In addition, most column types now escape the output by default. This will better prevent your admins from XSS attacks, in case where you do not trust the information in the database to not contain JavaScript payloads.
+This means you have all the benefits of the array syntax... and all the benefits of the fluent syntax (chaining), in one simple `CRUD::field()` call.
 
 <a name="removed"></a>
 ## Removed
 
-- Support for Laravel 6;
-- Support for Laravel 7;
-- Support for PHP lower than 7.3 (since Laravel 8 does not support them);
-- `simplemde` field, in favor of `easymde`;
+- Support for Laravel 8 and 9;
+- Support for PHP lower than 8.1 (since Laravel 10 does not support them);
+- `address_algolia` field, since their API got discontinued;
 
 ---
 
-In order to get all of the features above (and a few more hidden gems), please [follow the upgrade guide](/docs/{{version}}/upgrade-guide), to get from Backpack 4.1 to Backpack v5.
+If you like what you see, please help us out - share what you like on social media or tell a friend. To get all of the features above (and a lot more), please [follow the upgrade guide](/docs/{{version}}/upgrade-guide).
