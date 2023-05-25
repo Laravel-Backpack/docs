@@ -2,7 +2,7 @@
 
 ---
 
-Backpack\CRUD provides a fast way to build administration panels - places where your administrators can Create, Read, Update, Delete entries for a specific Eloquent model. **One CRUD Panel provides functionality for one Eloquent Model.** 
+Backpack\CRUD provides a fast way to build administration panels - places where your administrators can Create, Read, Update, Delete entries for a specific Eloquent model. **One CRUD Panel provides functionality for one Eloquent Model.**
 
 <a name="requirements"></a>
 ## Requirements
@@ -17,30 +17,30 @@ If you don't already have the models, don't worry, Backpack also includes a fast
 ## Architecture
 
 A Backpack CRUD Panel uses _the same elements_ you would have created for an administration panel, if you were doing it from scratch:
-- a **controller** - holds the logic for the all operations an admin can perform on that Eloquent model; will be generated in ```app/Http/Controllers/Admin```;
-- a **request** file - used to validate Create and Update forms; will be generated in ```app/Http/Requests```;
-- a resource **route** - points to the controller above; will be generated in ```routes/backpack/custom.php```;
+- a custom **route** - will be generated in ```routes/backpack/custom.php```; points to a controller;
+- a custom **controller** - will be generated in ```app/Http/Controllers/Admin```; holds the logic for the all operations an admin can perform on that Eloquent model;
+- a **request** file (optional) - will be generated in ```app/Http/Requests```; used to validate Create/Update forms;
 
-**The only difference** between building it from scratch and using Backpack\CRUD** is that:
-- your controller will be extending ```Backpack\CRUD\app\Http\Controllers\CrudController```**, which allow you to easily add traits that handle the most common operations: Create, Update, Delete, List, Show,  Reorder, Revisions. 
+**The only differences** between building it from scratch and using Backpack\CRUD are that:
+- your controller will be extending ```Backpack\CRUD\app\Http\Controllers\CrudController```, which allows you to easily add traits to handle the already-built operations: Create, Update, Delete, List, Show,  Reorder, Revisions etc.
 - your model will ```use \Backpack\CRUD\CrudTrait```;
 
 This simple architecture (```ProductCrudController extends CrudController```) means:
 - **your CRUD Panel will not be a _black box_**; you can easily see the logic for each operation, by checking the methods on this controller, or the traits you'll be using;
-- **you can _easily_ overwrite what happens inside each operation**; 
-- **you can _easily_ add custom operations**;
+- **you can _easily_ override what happens inside each operation**;
+- **you can _easily_ create custom operations**;
 
 For example:
-- want to change how a single ```Product``` is shown to the admin? just create a method called ```show()``` in your ```ProductCrudController```; simple OOP dictates that your method will be picked up, instead of the one in CrudController; some goes for ```create()```, ```store()```, etc - you have complete control;
+- want to change how a single ```Product``` is shown to the admin? just create a method called ```show()``` in your ```ProductCrudController```; simple OOP dictates that your method will be picked up, instead of the one in the `ShowOperation` trait; some goes for ```create()```, ```store()```, etc - you have complete control;
 - want to create a new "Publish" operation on a ```Product```? your ```ProductCrudController``` is a great place for that logic; just create a custom ```publish()``` method and a route that points to it;
 
 <a name="files"></a>
-## Files
+## Example Files
 
 For a ```Tag``` entity, your CRUD Panel would consist of:
+- your existing model (```app/Models/Tag.php```);
+- a route inside ```routes/backpack/custom.php```;
 - a controller (```app/Http/Controllers/Admin/TagCrudController.php```);
 - a request (```app/Http/Requests/TagCrudRequest.php```);
-- a route inside ```routes/backpack/custom.php```;
-- your existing model (```app/Models/Tag.php```);
 
 To further your understanding  of how a CRUD Panel works, [read more about this example in the tutorial](/docs/{{version}}/crud-tutorial).
