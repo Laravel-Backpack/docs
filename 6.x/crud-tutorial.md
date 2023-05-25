@@ -172,21 +172,19 @@ class TagCrudController extends CrudController
 
 ```
 
-#### The Basics
-
 What we should notice inside this TagCrudController is that:
 - ```TagCrudController extends CrudController```;
 - ```TagCrudController``` has a ```setup()``` method, where we must define the basics of our CRUD panel; everything we write here is applied on ALL operations;
 - All operations are enabled by using that operation's trait on the controller;
 - Each operation is set up inside a ```setupXxxOperation()``` method;
 
-#### Option 1. SetupXxxOperation Methods
+#### Operation Setup Methods
 
-The best way to configure opterations is to define each operation inside its ```setupXxxOperation()``` method, like the generated file above does. Over there the `setupXxxOperation()` methods:
+The best way to configure operations is to define each operation inside its ```setupXxxOperation()``` method, like the generated file above does. Over there the `setupXxxOperation()` methods:
 - add a simple ```text``` column for our ```name``` attribute for the List operation (the table view);
 - add a simple ```text``` field for our ```name``` attribute to the Create and Update forms;
 
-#### Option 2. Operation Closures
+#### Operation Setup Closures
 
 An alternative to defining operations inside ```setupXxxOperation()``` methods is to do everything inside the ```setup()``` method. However, as we've mentioned before, everything you run in your ```setup()``` method is run for ALL operations. So you can easily end up bloating your operation with unnecessary operations. If you don't like having a method to configure each operation, and want to define everything in ```setup()```, you should do so inside an ```operation()``` closure. Whatever's inside that closure will only be run for that operation. For example, everything we've done above would look like this if done inside operation closures:
 
