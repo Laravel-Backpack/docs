@@ -42,12 +42,12 @@ Backpack loads its views through a double-fallback mechanism:
 - if you've included views with the exact same name in your ```resources/views/vendor/backpack/crud``` folder, it will pick up those instead; you can use this method to overwrite a blade file for all CRUDs;
 - alternatively, if you only want to change a blade file for one CRUD, you can use the methods below in your ```setup()``` method, to change a particular view:
 ```php
-$this->crud->setShowView('your-view');
-$this->crud->setEditView('your-view');
-$this->crud->setCreateView('your-view');
-$this->crud->setListView('your-view');
-$this->crud->setReorderView('your-view');
-$this->crud->setDetailsRowView('your-view');
+CRUD::setShowView('your-view');
+CRUD::setEditView('your-view');
+CRUD::setCreateView('your-view');
+CRUD::setListView('your-view');
+CRUD::setReorderView('your-view');
+CRUD::setDetailsRowView('your-view');
 ```
 
 <a name="how-to-customize-css-and-js-for-default-crud-operations"></a>
@@ -95,7 +95,7 @@ If you try to add multiple columns with the same ```name```, by default Backpack
 In order to insert two columns with the same name, use the ```key``` attribute on the second column (or both columns). If this attribute is present for a column, Backpack will use ```key``` instead of ```name```. Example:
 
 ```diff
-        $this->crud->addColumn([
+        CRUD::column([
            'label' => "Location",
            'type' => 'select',
            'name' => 'location_id',
@@ -104,7 +104,7 @@ In order to insert two columns with the same name, use the ```key``` attribute o
            'model' => "App\Models\Location"
         ]);
 
-        $this->crud->addColumn([
+        CRUD::column([
            'label' => "Location Type",
            'type' => 'radio_location_type',
            'options' => [
@@ -185,7 +185,7 @@ If you're developing a package, you might need Backpack to pick up fields from y
 Fields, Columns and Filters all have a ```view_namespace``` parameter you can use. Type your folder there, and Backpack will check that folder first, then where the views are published, then Backpack's package folder. Example:
 
 ```php
-$this->crud->addFilter([ // add a "simple" filter called Draft
+CRUD::addFilter([ // add a "simple" filter called Draft
   'type'  => 'complex',
   'name'  => 'checkbox',
   'label' => 'Checked',
@@ -193,7 +193,7 @@ $this->crud->addFilter([ // add a "simple" filter called Draft
 ],
 false, // the simple filter has no values, just the "Draft" label specified above
 function () { // if the filter is active (the GET parameter "draft" exits)
-    $this->crud->addClause('where', 'checkbox', '1');
+    CRUD::addClause('where', 'checkbox', '1');
 });
 ```
 This will make Backpack look for the ```resources/views/custom_filters/complex.blade.php```, and pick that up before anything else.
@@ -211,7 +211,7 @@ Say you want to show two selects:
 
 ```php
 // select2
-$this->crud->addField([
+CRUD::addField([
     'label'         => 'Category',
     'type'          => 'select',
     'name'          => 'category',
@@ -220,7 +220,7 @@ $this->crud->addField([
 ]);
 
 // select2_from_ajax: 1-n relationship
-$this->crud->addField([
+CRUD::addField([
     'label'                   => "Article", // Table column heading
     'type'                    => 'select2_from_ajax_multiple',
     'name'                    => 'articles', // the column that contains the ID of that connected entity;
@@ -264,7 +264,7 @@ class ArticleController extends Controller
     public function index(Request $request)
     {
         $search_term = $request->input('q'); // the search term in the select2 input
-        
+
         // if you are inside a repeatable we will send some aditional data to help you
         $triggeredBy = $request->input('triggeredBy'); // you will have the `fieldName` and the `rowNumber` of the element that triggered the ajax
 
@@ -589,8 +589,8 @@ Please read the relationship [BelongsToMany](#belongstomany) documentation, ever
 <a name="morphto"></a>
 #### MorphTo (n-1 relationship)
 
-Using this relation type Backpack will automatically manage for you both `_type` and `_id` fields of this relation. 
-Let's say we have `comments`, that can be either for `videos` or `posts`. 
+Using this relation type Backpack will automatically manage for you both `_type` and `_id` fields of this relation.
+Let's say we have `comments`, that can be either for `videos` or `posts`.
 - Your `Comment` Model should have its `morphTo` relation set up.
 - Your db table should have the `commentable_type` and `commentable_id` columns.
 ```php
@@ -600,10 +600,10 @@ CRUD::field('commentable')
     ->addMorphOption('App\Models\Post');
 ```
 This will generate two inputs:
-1 - A select with two options `Video` and `Post` as the `morph type field`. 
+1 - A select with two options `Video` and `Post` as the `morph type field`.
 2 - A second select that will have the options for both `Video` and `Post` models.
 
-In a real world scenario, you might have other needs, like using AJAX to select the actual entries or changing the inputs size etc. For that, check out the available attributes: 
+In a real world scenario, you might have other needs, like using AJAX to select the actual entries or changing the inputs size etc. For that, check out the available attributes:
 
 ```php
 // ->addMorphOption(string $model/$morphMapName, string $labelInSelect, array $options)
@@ -631,7 +631,7 @@ CRUD::field('commentable')
     ->addMorphOption('App\Models\Post', 'Posts')
     ->morphTypeField(['wrapper' => ['class' => 'form-group col-sm-4']])
     ->morphIdField(['wrapper' => [
-        'class' => 'form-group col-sm-8'], 
+        'class' => 'form-group col-sm-8'],
         'attributes' => ['my_custom_attribute' => 'custom_value']
     ]);
 ```
@@ -639,7 +639,7 @@ CRUD::field('commentable')
 Here is an example using array field definition:
 
 ```php
-$this->crud->addField([
+CRUD::field([
     'name' => 'commentable',
     'morphOptions' => [
         ['App\Models\PetShop\Owner', 'Owners'],
@@ -795,12 +795,12 @@ If you want to make the contents of an operation take more / less space from the
 (B) for a single CRUD, by using:
 
 ```php
-$this->crud->setCreateContentClass('col-md-8 col-md-offset-2');
-$this->crud->setUpdateContentClass('col-md-8 col-md-offset-2');
-$this->crud->setListContentClass('col-md-8 col-md-offset-2');
-$this->crud->setShowContentClass('col-md-8 col-md-offset-2');
-$this->crud->setReorderContentClass('col-md-8 col-md-offset-2');
-$this->crud->setRevisionsTimelineContentClass('col-md-8 col-md-offset-2');
+CRUD::setCreateContentClass('col-md-8 col-md-offset-2');
+CRUD::setUpdateContentClass('col-md-8 col-md-offset-2');
+CRUD::setListContentClass('col-md-8 col-md-offset-2');
+CRUD::setShowContentClass('col-md-8 col-md-offset-2');
+CRUD::setReorderContentClass('col-md-8 col-md-offset-2');
+CRUD::setRevisionsTimelineContentClass('col-md-8 col-md-offset-2');
 ```
 
 
@@ -887,7 +887,7 @@ to retrieve a token.
 
 What's happening there? That is a general Composer error - "file could not be downloaded". The error itself doesn't give too much information, but we can make an educated guess.
 
-**99% of the people who report this error have the same problem - they do not have access to that package version.** They bought updates until 1.0.13 (for example), so they DO NOT have access to the latest version (1.1.1 in this example). What you can do, in that case, is **lock the installation to the latest you have access to**, for example 
+**99% of the people who report this error have the same problem - they do not have access to that package version.** They bought updates until 1.0.13 (for example), so they DO NOT have access to the latest version (1.1.1 in this example). What you can do, in that case, is **lock the installation to the latest you have access to**, for example
 
 ```bash
 composer require backpack/pro:"1.0.13"

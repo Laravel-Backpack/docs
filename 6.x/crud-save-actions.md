@@ -26,7 +26,7 @@ Inside your CrudController, inside your ```setupCreateOperation()``` or ```setup
 Adds a new SaveAction to the "Save" button/dropdown.
 
 ```php
-$this->crud->addSaveAction([
+CRUD::addSaveAction([
     'name' => 'save_action_one',
     'redirect' => function($crud, $request, $itemId) {
         return $crud->route;
@@ -51,7 +51,7 @@ $this->crud->addSaveAction([
 The same principle of `addSaveAction([])` but for adding multiple actions with only one crud call.
 
 ```php
-$this->crud->addSaveActions([
+CRUD::addSaveActions([
     [
         'name' => 'save_action_one',
         'visible' => function($crud) {
@@ -71,14 +71,14 @@ $this->crud->addSaveActions([
         },
     ],
 ]);
-``` 
+```
 
 #### replaceSaveActions(array $saveActions)
 
-This allows you to replace the current save actions with the ones provided in an array. 
+This allows you to replace the current save actions with the ones provided in an array.
 
 ```php
-$this->crud->replaceSaveActions(
+CRUD::replaceSaveActions(
     [
         'name' => 'save_action_one',
         'visible' => function($crud) {
@@ -89,21 +89,21 @@ $this->crud->replaceSaveActions(
         },
     ],
 );
-``` 
+```
 
 
 #### removeSaveAction(string $saveAction)
 
 This allows you to remove a specific save action from the save actions array. Provide the name of the save action that you would like to remove.
 ```php
-$this->crud->removeSaveAction('save_action_one');
+CRUD::removeSaveAction('save_action_one');
 ```
 
 #### removeSaveActions(array $saveActions)
 
 The same principle as `removeSaveAction()` but to remove multiple actions at same time. You should provide an array with save action names.
 ```php
-$this->crud->removeSaveActions(['save_action_one','save_action_two']);
+CRUD::removeSaveActions(['save_action_one','save_action_two']);
 ```
 
 #### orderSaveAction(string $saveAction, int $wantedOrder)
@@ -111,7 +111,7 @@ $this->crud->removeSaveActions(['save_action_one','save_action_two']);
 You can specify a certain order for a certain save action.
 
 ```php
-$this->crud->orderSaveAction('save_action_one', 1);
+CRUD::orderSaveAction('save_action_one', 1);
 ```
 
 We will setup the save action in the desired order and try to re-order the other save actions accordingly. If you want more granular control over all save actions order, you can define ```order``` when creating the save action, or use ```orderSaveActions()```
@@ -122,9 +122,9 @@ Allows you to reorder multiple save actions at same time. You can use it by eith
 
 ```php
 // make save actions show up in this order
-$this->crud->orderSaveActions(['save_action_one','save_action_two']);
+CRUD::orderSaveActions(['save_action_one','save_action_two']);
 // or
-$this->crud->orderSaveActions(['save_action_one' => 3,'save_action_two' => 2]);
+CRUD::orderSaveActions(['save_action_one' => 3,'save_action_two' => 2]);
 ```
 
 #### setSaveActions(array $saveActions)
@@ -137,5 +137,5 @@ By default, a change of the save action is shown to the user with a notification
 you can configure this in the setup of you CRUD controller:
 
 ```php
-$this->crud->setOperationSetting('showSaveActionChange', false);
+CRUD::setOperationSetting('showSaveActionChange', false);
 ```

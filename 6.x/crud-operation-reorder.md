@@ -34,11 +34,11 @@ class ProductCrudController extends CrudController
 
     protected function setupReorderOperation()
     {
-    	// define which model attribute will be shown on draggable elements 
-        $this->crud->set('reorder.label', 'name');
+    	// define which model attribute will be shown on draggable elements
+        CRUD::set('reorder.label', 'name');
         // define how deep the admin is allowed to nest the items
         // for infinite levels, set it to 0
-        $this->crud->set('reorder.max_level', 2);
+        CRUD::set('reorder.max_level', 2);
     }
 }
 ```
@@ -71,13 +71,13 @@ To use widgets on reorder operation, define them inside `setupReorderOperation()
 
 ```php
 public function setupReorderOperation()
-{    
+{
     // dynamic data to render in the following widget
     $userCount = \App\Models\User::count();
 
     //add div row using 'div' widget and make other widgets inside it to be in a row
     Widget::add()->to('before_content')->type('div')->class('row')->content([
-        
+
         //widget made using fluent syntax
         Widget::make()
             ->type('progress')
@@ -88,7 +88,7 @@ public function setupReorderOperation()
             ->progress(100 * (int)$userCount / 1000)
             ->hint(1000 - $userCount . ' more until next milestone.'),
 
-        //widget made using the array definition 
+        //widget made using the array definition
         Widget::make(
             [
                 'type'       => 'card',
@@ -127,7 +127,7 @@ use \Backpack\CRUD\app\Http\Controllers\Operations\ReorderOperation { reorder as
 public function reorder()
 {
     // your custom code here
-    
+
     // call the method in the trait
     return $this->traitReorder();
 }

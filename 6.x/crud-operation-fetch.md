@@ -89,10 +89,10 @@ public function fetchUser() {
 
 The FetchOperation can also be used as the source URL for the `select2_ajax` filter. To do that, we need to:
 - change the `select2_ajax` filter method from `GET` (its default) to `POST` (what FetchOperation uses);
-- tell the filter what attribute we want to show to the user; 
+- tell the filter what attribute we want to show to the user;
 
 ```
-$this->crud->addFilter([
+CRUD::addFilter([
   'name'        => 'category_id',
   'type'        => 'select2_ajax',
   'label'       => 'Category',
@@ -101,9 +101,9 @@ $this->crud->addFilter([
   // 'select_attribute' => 'name' // the attribute that will be shown to the user by default 'name'
   // 'select_key' => 'id' // by default is ID, change it if your model uses some other key
 ],
-backpack_url('product/fetch/category'), // the fetch route on the ProductCrudController 
+backpack_url('product/fetch/category'), // the fetch route on the ProductCrudController
 function($value) { // if the filter is active
-    // $this->crud->addClause('where', 'category_id', $value);
+    // CRUD::addClause('where', 'category_id', $value);
 });
 
 ```
@@ -116,12 +116,12 @@ In case you need to change how this operation works, it's best to take a look at
 
 **Change the fetch database search operator**
 
-You can customize the search operator for `FetchOperation` just like you can in ListOperation. By default it's `LIKE`, but you can: 
+You can customize the search operator for `FetchOperation` just like you can in ListOperation. By default it's `LIKE`, but you can:
 - change the operator individually for each `fetchEntity` using `searchOperator => 'ILIKE'` in the fetch configuration;
 - change the operator for all FetchOperations inside that CrudPanel by doing:
-```php 
+```php
 public function setupFetchOperationOperation() {
-        $this->crud->setOperationSetting('searchOperator', 'ILIKE');
+        CRUD::setOperationSetting('searchOperator', 'ILIKE');
     }
 ```
 - change the operator globally in your project, by creating a config file in `config/backpack/operations/fetch.php` and add the following:
@@ -134,7 +134,7 @@ return [
 
 **Custom behaviour for one fetch method**
 
-To make a ```fetchCategory()``` method behave differently, you can copy-paste the logic inside the ```FetchOperation::fetch()``` and change it to do whatever you need. Instead of returning ```$this->fetch()``` you can return your own results, in this case fetch will only setup the ajax route for you. 
+To make a ```fetchCategory()``` method behave differently, you can copy-paste the logic inside the ```FetchOperation::fetch()``` and change it to do whatever you need. Instead of returning ```$this->fetch()``` you can return your own results, in this case fetch will only setup the ajax route for you.
 
 **Custom behaviour for multiple fetch methods inside a Controller**
 
@@ -159,7 +159,7 @@ use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation { fetch as tra
 public function fetch($arg)
 {
     // your custom code here
-    
+
     // call the method in the trait
     return $this->traitFetch();
 }

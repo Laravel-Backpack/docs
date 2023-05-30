@@ -5,7 +5,7 @@
 <a name="about"></a>
 ## About
 
-This CRUD operation allows your admins to remove one or more entries from the table. 
+This CRUD operation allows your admins to remove one or more entries from the table.
 
 >In case your entity has SoftDeletes, it will perform a soft delete. The admin will _not_ know that his entry has been hard or soft deleted, since it will no longer show up in the ListEntries view.
 
@@ -47,9 +47,9 @@ use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation { destroy as 
 
 public function destroy($id)
 {
-    $this->crud->hasAccessOrFail('delete');
+    CRUD::hasAccessOrFail('delete');
 
-    return $this->crud->delete($id);
+    return CRUD::delete($id);
 }
 ```
 
@@ -70,7 +70,7 @@ In addition to the button for each entry, <span class="badge badge-info">PRO</sp
 
 Using AJAX, a DELETE request is performed towards ```/entity-name/bulk-delete```, which points to the ```bulkDelete()``` method in your EntityCrudController.
 
-**`NOTES:`** 
+**`NOTES:`**
 - The bulk checkbox is added inside the first column defined in the table. For that reason the first column should be visible on table to display the bulk actions checkbox next to it.
 - `Bulk Actions` also disable all click events for the first column, so make sure the first column **doesn't** contain an anchor tag (`<a>`), as it won't work.
 

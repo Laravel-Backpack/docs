@@ -45,11 +45,11 @@ class ProductCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\CloneOperation;
 
-    public function setup() 
+    public function setup()
     {
-        $this->crud->setModel(\App\Models\Product::class);
-        $this->crud->setRoute(backpack_url('product'));
-        $this->crud->setEntityNameStrings('product', 'products');
+        CRUD::setModel(\App\Models\Product::class);
+        CRUD::setRoute(backpack_url('product'));
+        CRUD::setEntityNameStrings('product', 'products');
     }
 }
 ```
@@ -66,11 +66,11 @@ use \Backpack\CRUD\app\Http\Controllers\Operations\CloneOperation { clone as tra
 
 public function clone($id)
 {
-    $this->crud->hasAccessOrFail('clone');
-    $this->crud->setOperation('clone');
+    CRUD::hasAccessOrFail('clone');
+    CRUD::setOperation('clone');
 
     // whatever you want
-    
+
     // if you still want to call the old clone method
     $this->traitClone($id);
 }
@@ -93,7 +93,7 @@ In addition to the button for each entry, you can show checkboxes next to each e
 
 Using AJAX, a POST request is performed towards ```/entity-name/bulk-clone```, which points to the ```bulkClone()``` method in your EntityCrudController.
 
-**`NOTES:`** 
+**`NOTES:`**
 - The bulk checkbox is added inside the first column defined in the table. For that reason the first column should be visible on table to display the bulk actions checkbox next to it.
 - `Bulk Actions` also disable all click events for the first column, so make sure the first column **doesn't** contain an anchor tag (`<a>`), as it won't work.
 
@@ -113,7 +113,7 @@ use \Backpack\CRUD\app\Http\Controllers\Operations\BulkCloneOperation { bulkClon
 public function bulkClone($id)
 {
     // your custom code here
-    // 
+    //
     // then you can call the old bulk clone if you want
     $this->traitBulkClone($id);
 }
@@ -131,7 +131,7 @@ If you have attributes that should not be cloned (eg. a SKU with an unique const
 
 ```php
     public function replicate(array $except = null) {
-    
+
         return parent::replicate(['sku']);
     }
 ```

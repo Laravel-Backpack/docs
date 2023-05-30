@@ -11,7 +11,7 @@ Think of the field type as the type of input: ```<input type="text" />```. But f
 
 We have a lot of default field types, detailed below. If you don't find what you're looking for, you can [create a custom field type](/docs/{{version}}/crud-fields#creating-a-custom-field-type). Or if you just want to tweak a default field type a little bit, you can [overwrite default field types](/docs/{{version}}/crud-fields#overwriting-default-field-types).
 
-> NOTE: Starting with Backpack 4.1, if the _field name_ is the exact same as a relation method in the model, Backpack will assume you're adding a field for that relationship and infer relation attributes from it. To disable this behaviour, you can use `'entity' => false` in your field definition. 
+> NOTE: If the _field name_ is the exact same as a relation method in the model, Backpack will assume you're adding a field for that relationship and infer relation attributes from it. To disable this behaviour, you can use `'entity' => false` in your field definition.
 
 <a name="fields-api"></a>
 ### Fields API
@@ -19,44 +19,32 @@ We have a lot of default field types, detailed below. If you don't find what you
 To manipulate fields, you can use the methods below. The action will be performed on the currently running operation. So make sure you run these methods inside ```setupCreateOperation()```, ```setupUpdateOperation()``` or in ```setup()``` inside operation blocks:
 
 ```php
-// add a field 
-$this->crud->addField($field_definition_array);
+// to add a field with this name
+CRUD::field('price');
 
-// shorthand: add a text field 
-$this->crud->addField('db_column_name');
+ // or directly with the type attribute on it
+CRUD::field('price')->type('number');
 
-// add multiple fields
-$this->crud->addFields([$field_definition_array_1, $field_definition_array_2]);
+// or set multiple attributes in one go
+CRUD::field([
+    'name' => 'price',
+    'type' => 'number',
+]);
 
-// change the attributes of a field
-$this->crud->modifyField($name, $modifs_array);
+// to change an attribute on a field, you can target it at any point
+CRUD::field('price')->prefix('$');
 
-// remove a field from both operations
-$this->crud->removeField('name');
+// to move fields before or after other fields
+CRUD::field('price')->before('name');
+CRUD::field('price')->after('name');
 
-// remove multiple fields from both operations
-$this->crud->removeFields($array_of_names);
+// to remove a field from both operations
+CRUD::field('name')->remove();
 
-// remove all fields from all operations
-$this->crud->removeAllFields();
+// to perform bulk actions
+CRUD::removeAllFields();
+CRUD::addFields([$field_definition_array_1, $field_definition_array_2]);
 
-// FIELD ORDER
-
-// add a field before a given field
-$this->crud->addField($field_definition_array)->beforeField('name');
-
-// add a field after a given field
-$this->crud->addField($field_definition_array)->afterField('name');
-
-
-// -------------------
-// New in Backpack 4.1
-// -------------------
-// add a field with this name
-$this->crud->field('price');
-
-// change the type attribute on the 'price' field
-$this->crud->field('price')->type('number');
 ```
 
 <a name="field-attributes"></a>
@@ -67,9 +55,9 @@ $this->crud->field('price')->type('number');
 
 **The only attribute that's mandatory when you define a field is its `name`**, which will be used:
 - inside the inputs, as `<input name='your_db_column' />`;
-- to store the information in the database, so your `name` should correspond to a database column (if the field type doesn't have different instructions); 
+- to store the information in the database, so your `name` should correspond to a database column (if the field type doesn't have different instructions);
 
-Every other field attribute other than `name`, Backpack 4.1+ will try to guess.
+This also means the `name` attribute is UNIQUE. You cannot add multiple fields with the same `name` - because if more inputs are added with the same name in an HTML form... only the last input will actually be submitted. That's just how HTML forms work.
 
 <a name="recommended-field-attributes"></a>
 #### Recommended Field Attributes
@@ -81,16 +69,16 @@ Usually developers define the following attributes for all fields:
 
 So at minimum, a field definition array usually looks like:
 ```php
-[
+CRUD::field([
     'name'  => 'description',
     'label' => 'Article Description',
     'type'  => 'textarea',
-]
+]);
 ```
 
 Please note that `label` and `type` are not _mandatory_, just _recommended_:
 - `label` can be omitted, and Backpack will try to construct it from the `name`;
-- `type` can be omitted, and Backpack will try to guess it from the column type, or if there's a relationship on the Model with the same `name`;
+- `type` can be omitted, and Backpack will try to guess it from the database column type, or if there's a relationship on the Model with the same `name`;
 
 <a name="optional-field-attributes-for-presentation-purposes"></a>
 #### Optional - Field Attributes for Presentation Purposes
@@ -109,9 +97,9 @@ There are a few optional attributes on most default field types, that you can us
        'readonly'    => 'readonly',
        'disabled'    => 'disabled',
      ], // change the HTML attributes of your input
-     'wrapper'   => [ 
+     'wrapper'   => [
         'class'      => 'form-group col-md-12'
-     ], // change the HTML attributes for the field wrapper - mostly for resizing fields 
+     ], // change the HTML attributes for the field wrapper - mostly for resizing fields
 ]
 ```
 
@@ -122,7 +110,7 @@ These will help you:
 - **default** - specify a default value for the input, on create;
 - **hint** - add descriptive text for this input;
 - **attributes** - change or add actual HTML attributes of the input (ex: readonly, disabled, class, placeholder, etc);
-- **wrapper** - change or add actual HTML attributes to the div that contains the input; 
+- **wrapper** - change or add actual HTML attributes to the div that contains the input;
 
 <a name="fake-fields"></a>
 #### Optional - Fake Field Attributes (stores fake attributes as JSON in the database)
@@ -131,13 +119,13 @@ In case you want to store information for an entry that doesn't need a separate 
 
 **Step 1.** Use the fake attribute on your field:
 ```php
-[
+CRUD::field([
     'name'     => 'name', // JSON variable name
     'label'    => "Tag Name", // human-readable label for the input
-    
+
     'fake'     => true, // show the field, but don't store it in the database column above
-    'store_in' => 'extras' // [optional] the database column name where you want the fake fields to ACTUALLY be stored as a JSON array 
-],
+    'store_in' => 'extras' // [optional] the database column name where you want the fake fields to ACTUALLY be stored as a JSON array
+]);
 ```
 
 **Step 2.** On your model, make sure the db columns where you store the JSONs (by default only ```extras```):
@@ -149,24 +137,24 @@ In case you want to store information for an entry that doesn't need a separate 
 
 Example:
 ```php
-[
+CRUD::field([
     'name'     => 'meta_title',
-    'label'    => "Meta Title", 
-    'fake'     => true, 
+    'label'    => "Meta Title",
+    'fake'     => true,
     'store_in' => 'metas' // [optional]
-],
-[
+]);
+CRUD::field([
     'name'     => 'meta_description',
-    'label'    => "Meta Description", 
-    'fake'     => true, 
+    'label'    => "Meta Description",
+    'fake'     => true,
     'store_in' => 'metas' // [optional]
-],
-[
+]);
+CRUD::field([
     'name'     => 'meta_keywords',
-    'label'    => "Meta Keywords", 
-    'fake'     => true, 
+    'label'    => "Meta Keywords",
+    'fake'     => true,
     'store_in' => 'metas' // [optional]
-],
+]);
 ```
 
 In this example, these 3 fields will show up in the create & update forms, the CRUD will process as usual, but in the database these values won't be stored in the ```meta_title```, ```meta_description``` and ```meta_keywords``` columns. They will be stored in the ```metas``` column as a JSON array:
@@ -187,16 +175,7 @@ You can now split your create/edit inputs into multiple tabs.
 In order to use this feature, you just need to specify the tab name for each of your fields. Example:
 
 ```php
-// select_from_array
-$this->crud->addField([
-    'name'            => 'select_from_array',
-    'label'           => "Select from array",
-    'type'            => 'select_from_array',
-    'options'         => ['one' => 'One', 'two' => 'Two', 'three' => 'Three'],
-    'allows_null'     => false,
-    'allows_multiple' => true,
-    'tab'             => 'Tab name here',
-]);
+CRUD::field('price')->tab('Tab name here');
 ```
 
 If you forget to specify a tab name for a field, Backpack will place it above all tabs.
@@ -207,7 +186,7 @@ If you forget to specify a tab name for a field, Backpack will place it above al
 
 When a field works with related entities (relationships like `BelongsTo`, `HasOne`, `HasMany`, `BelongsToMany`, etc), Backpack needs to know how the current model (being create/edited) and the other model (that shows up in the field) are related. And it stores that information in a few additional field attributes, right after you add the field.
 
-*Normally, Backpack 4.1+ will guess all this relationship information for you.* If you have your relationships properly defined in your Models, you can just use a relationship field the same way you would a normal field. Pretend that _the method in your Model that defines your relationship_ is a real column, and Backpack will do all the work for you.
+*Normally, Backpack will guess all this relationship information for you.* If you have your relationships properly defined in your Models, you can just use a relationship field the same way you would a normal field. Pretend that _the method in your Model that defines your relationship_ is a real column, and Backpack will do all the work for you.
 
 But if you want to overwrite any of the relationship attributes Backpack guesses, here they are:
 - `entity` - points to the method on the model that contains the relationship; having this defined, Backpack will try to guess from it all other field attributes; ex: `category` or `tags`;
@@ -252,7 +231,7 @@ class Category
     protected $identifiableAttribute = 'title';
 
     // or for more complicated use cases you can do
-    
+
     /**
      * Get the attribute shown on the element to identify this model.
      *
@@ -274,14 +253,14 @@ class Category
 Checkbox for true/false.
 
 ```php
-[   // Checkbox
+CRUD::field([   // Checkbox
     'name'  => 'active',
     'label' => 'Active',
     'type'  => 'checkbox'
-],
+]);
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - checkbox](https://backpackforlaravel.com/uploads/docs-4-2/fields/checkbox.png)
 
@@ -293,7 +272,7 @@ Input preview:
 Show a list of checkboxes, for the user to check one or more of them.
 
 ```php
-[   // Checklist
+CRUD::field([   // Checklist
     'label'     => 'Roles',
     'type'      => 'checklist',
     'name'      => 'roles',
@@ -302,12 +281,12 @@ Show a list of checkboxes, for the user to check one or more of them.
     'model'     => "Backpack\PermissionManager\app\Models\Role",
     'pivot'     => true,
     // 'number_of_columns' => 3,
-],
+]);
 ```
 
 **Note: If you don't use a pivot table (pivot = false), you need to cast your db column as `array` in your model,by adding your column to your model's `$casts`. **
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - checklist](https://backpackforlaravel.com/uploads/docs-4-2/fields/checklist.png)
 
@@ -317,7 +296,7 @@ Input preview:
 ### checklist_dependency
 
 ```php
-[   // two interconnected entities
+CRUD::field([   // two interconnected entities
     'label'             => 'User Role Permissions',
     'field_unique_name' => 'user_role_permission',
     'type'              => 'checklist_dependency',
@@ -344,10 +323,10 @@ Input preview:
             'number_columns' => 3, //can be 1,2,3,4,6
         ],
     ],
-],
+]);
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - checklist_dependency](https://backpackforlaravel.com/uploads/docs-4-2/fields/checklist_dependency.png)
 
@@ -357,15 +336,15 @@ Input preview:
 ### color
 
 ```php
-[   // Color
+CRUD::field([   // Color
     'name'    => 'background_color',
     'label'   => 'Background Color',
     'type'    => 'color',
     'default' => '#000000',
-],
+]);
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - color](https://backpackforlaravel.com/uploads/docs-4-2/fields/color.png)
 
@@ -377,11 +356,11 @@ Input preview:
 Allows you to insert custom HTML in the create/update forms. Usually used in forms with a lot of fields, to separate them using h1-h5, hr, etc, but can be used for any HTML.
 
 ```php
-[   // CustomHTML
+CRUD::field([   // CustomHTML
     'name'  => 'separator',
     'type'  => 'custom_html',
     'value' => '<hr>'
-],
+]);
 ```
 **NOTE** If you would like to disable the `wrapper` on this field, eg. when using a `<fieldset>` tag in your custom html, you can achieve it by using `wrapper => false` on field definition.
 
@@ -389,14 +368,14 @@ Allows you to insert custom HTML in the create/update forms. Usually used in for
 ### date
 
 ```php
-[   // Date
+CRUD::field([   // Date
     'name'  => 'birthday',
     'label' => 'Birthday',
     'type'  => 'date'
-],
+]);
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - date](https://backpackforlaravel.com/uploads/docs-4-2/fields/date.png)
 
@@ -406,11 +385,11 @@ Input preview:
 ### datetime
 
 ```php
-[   // DateTime
+CRUD::field([   // DateTime
     'name'  => 'start',
     'label' => 'Event start',
     'type'  => 'datetime'
-],
+]);
 ```
 
 **Please note:** if you're using datetime [attribute casting](https://laravel.com/docs/5.3/eloquent-mutators#attribute-casting) on your model, you also need to place this mutator inside your model:
@@ -421,7 +400,7 @@ Input preview:
 ```
 Otherwise the input's datetime-local format will cause some errors.
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - datetime](https://backpackforlaravel.com/uploads/docs-4-2/fields/datetime.png)
 
@@ -431,14 +410,14 @@ Input preview:
 ### email
 
 ```php
-[   // Email
+CRUD::field([   // Email
     'name'  => 'email',
     'label' => 'Email Address',
     'type'  => 'email'
-],
+]);
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - email](https://backpackforlaravel.com/uploads/docs-4-2/fields/email.png)
 
@@ -456,7 +435,7 @@ When used with a database enum it requires that the database column type is `enu
 PLEASE NOTE the `enum` field using database enums only works for MySQL.
 
 ```php
-[
+CRUD::field([
     'name'  => 'status',
     'label' => 'Status',
     'type'  => 'enum',
@@ -465,12 +444,12 @@ PLEASE NOTE the `enum` field using database enums only works for MySQL.
         'DRAFT' => 'Is Draft',
         'PUBLISHED' => 'Is Published'
     ]
-],
+]);
 ```
 
 ##### PHP enum
 
-If you are using a `BackedEnum` your best option is to cast it in your model, and Backpack know how to handle it without aditional configuration. 
+If you are using a `BackedEnum` your best option is to cast it in your model, and Backpack know how to handle it without aditional configuration.
 
 ```php
 // in your model (eg. Article)
@@ -478,28 +457,28 @@ If you are using a `BackedEnum` your best option is to cast it in your model, an
 protected $casts = ['status' => \App\Enums\StatusEnum::class]; //assumes you have this enum created
 
 // and in your controller
-[
+CRUD::field([
     'name'  => 'status',
     'label' => 'Status',
     'type'  => 'enum'
     // optional
     //'enum_class' => 'App\Enums\StatusEnum',
     //'enum_function' => 'readableStatus',
-],
+]);
 ```
 
 In case it's not a `BackedEnum` or you don't want to cast it in your Model, you should provide the enum class to the field:
 
 ```php
-[
+CRUD::field([
     'name'  => 'status',
     'label' => 'Status',
     'type'  => 'enum',
     'enum_class' => \App\Enums\StatusEnum::class
-],
+]);
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - enum](https://backpackforlaravel.com/uploads/docs-4-2/fields/enum.png)
 
@@ -511,11 +490,11 @@ Input preview:
 Include an `<input type="hidden">` in the form.
 
 ```php
-[   // Hidden
+CRUD::field([   // Hidden
     'name'  => 'status',
     'type'  => 'hidden',
     'value' => 'active',
-],
+]);
 ```
 
 <hr>
@@ -528,14 +507,14 @@ Include an `<input type="month">` in the form.
 **Important**: This input type is supported by most modern browsers, but not all. [See compatibility table here](https://caniuse.com/mdn-html_elements_input_type_month). We have a workaround below.
 
 ```php
-[   // Month
+CRUD::field([   // Month
     'name'  => 'month',
     'label' => 'Month',
     'type'  => 'month'
-],
+]);
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - month](https://backpackforlaravel.com/uploads/docs-4-2/fields/month.png)
 
@@ -543,14 +522,14 @@ Input preview:
 
 Since not all browsers support this input type, if you are using [Backpack PRO](https://backpackforlaravel.com/products/pro-for-one-project) you can customize the `date_picker` field to have a similar behavior:
 ```php
-[   
+CRUD::field([
     'name'  => 'month',
     'type'  => 'date_picker',
     'date_picker_options' => [
         'format'   => 'yyyy-mm',
         'minViewMode' => 'months'
     ],
-]
+]);
 ```
 **Important**: you should be using a date/datetime column as database column type if using `date_picker`.
 
@@ -562,7 +541,7 @@ Since not all browsers support this input type, if you are using [Backpack PRO](
 Shows an input type=number to the user, with optional prefix and suffix:
 
 ```php
-[   // Number
+CRUD::field([   // Number
     'name' => 'number',
     'label' => 'Number',
     'type' => 'number',
@@ -571,7 +550,7 @@ Shows an input type=number to the user, with optional prefix and suffix:
     // 'attributes' => ["step" => "any"], // allow decimals
     // 'prefix'     => "$",
     // 'suffix'     => ".00",
-],
+]);
 ```
 
 Input preview:
@@ -584,11 +563,11 @@ Input preview:
 ### password
 
 ```php
-[   // Password
+CRUD::field([   // Password
     'name'  => 'password',
     'label' => 'Password',
     'type'  => 'password'
-],
+]);
 ```
 
 Input preview:
@@ -610,13 +589,13 @@ public function setPasswordAttribute($value) {
 
 ```php
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as traitStore; }
-    
+
     public function store()
     {
-        $this->crud->setRequest($this->crud->validateRequest());
-    
+        CRUD::setRequest(CRUD::validateRequest());
+
         /** @var \Illuminate\Http\Request $request */
-        $request = $this->crud->getRequest();
+        $request = CRUD::getRequest();
 
         // Encrypt password if specified.
         if ($request->input('password')) {
@@ -625,8 +604,8 @@ public function setPasswordAttribute($value) {
             $request->request->remove('password');
         }
 
-        $this->crud->setRequest($request);
-        $this->crud->unsetValidation(); // Validation has already been run
+        CRUD::setRequest($request);
+        CRUD::unsetValidation(); // Validation has already been run
 
         return $this->traitStore();
     }
@@ -641,21 +620,21 @@ public function setPasswordAttribute($value) {
 Show radios according to an associative array you give the input and let the user pick from them. You can choose for the radio options to be displayed inline or one-per-line.
 
 ```php
-[   // radio
+CRUD::field([   // radio
     'name'        => 'status', // the name of the db column
     'label'       => 'Status', // the input label
     'type'        => 'radio',
     'options'     => [
-        // the key will be stored in the db, the value will be shown as label; 
+        // the key will be stored in the db, the value will be shown as label;
         0 => "Draft",
         1 => "Published"
     ],
     // optional
     //'inline'      => false, // show the radios all on the same line?
-],
+]);
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - radio](https://backpackforlaravel.com/uploads/docs-4-2/fields/radio.png)
 
@@ -667,7 +646,7 @@ Input preview:
 Shows an HTML5 range element, allowing the user to drag a cursor left-right, to pick a number from a defined range.
 
 ```php
-[   // Range
+CRUD::field([   // Range
     'name'  => 'range',
     'label' => 'Range',
     'type'  => 'range',
@@ -676,10 +655,10 @@ Shows an HTML5 range element, allowing the user to drag a cursor left-right, to 
         'min' => 0,
         'max' => 10,
     ],
-],
+]);
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - range](https://backpackforlaravel.com/uploads/docs-4-2/fields/range.png)
 
@@ -692,7 +671,7 @@ Show a Select with the names of the connected entity and let the user select one
 Your relationships should already be defined on your models as hasOne() or belongsTo().
 
 ```php
-[  // Select
+CRUD::field([  // Select
    'label'     => "Category",
    'type'      => 'select',
    'name'      => 'category_id', // the db column for the foreign key
@@ -710,7 +689,7 @@ Your relationships should already be defined on your models as hasOne() or belon
    'options'   => (function ($query) {
         return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
     }), //  you can use this to filter the results show in the select
-],
+]);
 ```
 
 For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
@@ -729,7 +708,7 @@ Input preview:
 Display a select where the options are grouped by a second entity (like Categories).
 
 ```php
-[   // select_grouped
+CRUD::field([   // select_grouped
     'label'     => 'Articles grouped by categories',
     'type'      => 'select_grouped', //https://github.com/Laravel-Backpack/CRUD/issues/502
     'name'      => 'article_id',
@@ -738,7 +717,7 @@ Display a select where the options are grouped by a second entity (like Categori
     'group_by'  => 'category', // the relationship to entity you want to use for grouping
     'group_by_attribute' => 'name', // the attribute on related model, that you want shown
     'group_by_relationship_back' => 'articles', // relationship from related model back to this model
-],
+]);
 ```
 
 For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
@@ -756,7 +735,7 @@ Show a Select with the names of the connected entity and let the user select any
 Your relationship should already be defined on your models as belongsToMany().
 
 ```php
-[   // SelectMultiple = n-n relationship (with pivot table)
+CRUD::field([   // SelectMultiple = n-n relationship (with pivot table)
     'label'     => "Tags",
     'type'      => 'select_multiple',
     'name'      => 'tags', // the method that defines the relationship in your Model
@@ -771,7 +750,7 @@ Your relationship should already be defined on your models as belongsToMany().
     'options'   => (function ($query) {
         return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
     }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
-],
+]);
 ```
 
 For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
@@ -789,7 +768,7 @@ Input preview:
 Display a select with the values you want:
 
 ```php
-[   // select_from_array
+CRUD::field([   // select_from_array
     'name'        => 'template',
     'label'       => "Template",
     'type'        => 'select_from_array',
@@ -797,7 +776,7 @@ Display a select with the values you want:
     'allows_null' => false,
     'default'     => 'one',
     // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
-],
+]);
 ```
 
 Input preview:
@@ -812,16 +791,16 @@ Input preview:
 Show a [Summernote wysiwyg editor](http://summernote.org/) to the user.
 
 ```php
-[   // Summernote
+CRUD::field([   // Summernote
     'name'  => 'description',
     'label' => 'Description',
     'type'  => 'summernote',
     'options' => [],
-],
+]);
 
 // the summernote field works with the default configuration options but allow developer to configure to his needs
 // optional configuration check https://summernote.org/deep-dive/ for a list of available configs
-[
+CRUD::field([
     'name'  => 'description',
     'label' => 'Description',
     'type'  => 'summernote',
@@ -830,8 +809,7 @@ Show a [Summernote wysiwyg editor](http://summernote.org/) to the user.
             ['font', ['bold', 'underline', 'italic']]
         ]
     ],
-],
-
+]);
 ```
 
 > NOTE: Summernote does NOT sanitize the input. If you do not trust the users of this field, you should sanitize the input or output using something like HTML Purifier. Personally we like to use install [mewebstudio/Purifier](https://github.com/mewebstudio/Purifier) and add an [accessor or mutator](https://laravel.com/docs/8.x/eloquent-mutators#accessors-and-mutators) on the Model, so that wherever the model is created from (admin panel or app), the output will always be clean. [Example here](https://github.com/Laravel-Backpack/demo/commit/7342cffb418bb568b9e4ee279859685ddc0456c1).
@@ -848,7 +826,7 @@ Input preview:
 Show a switch (aka toggle) for boolean attributes (true/false). It's an alternative to the `checkbox` field type - prettier and more customizable: it allows the dev to choose the background color and what shows up on the on/off sides of the switch.
 
 ```php
-[   // Switch
+CRUD::field([   // Switch
     'name'  => 'switch',
     'type'  => 'switch',
     'label'    => 'I have not read the terms and conditions and I never will',
@@ -857,10 +835,10 @@ Show a switch (aka toggle) for boolean attributes (true/false). It's an alternat
     'color'    => 'primary', // May be any bootstrap color class or an hex color
     'onLabel' => '✓',
     'offLabel' => '✕',
-],
+]);
 ```
 
-Input preview: 
+Input preview:
 
 ![CRUD Field - switch](https://backpackforlaravel.com/uploads/docs-5-0/fields/switch.png)
 
@@ -872,12 +850,12 @@ Input preview:
 The basic field type, all it needs is the two mandatory parameters: name and label.
 
 ```php
-[   // Text
+CRUD::field([   // Text
     'name'  => 'title',
     'label' => "Title",
     'type'  => 'text',
 
-    // optional
+    // OPTIONAL
     //'prefix'     => '',
     //'suffix'     => '',
     //'default'    => 'some value', // default value
@@ -891,8 +869,7 @@ The basic field type, all it needs is the two mandatory parameters: name and lab
      //'wrapper'   => [
        //'class' => 'form-group col-md-12'
      //], // extra HTML attributes for the field wrapper - mostly for resizing fields
-
-],
+]);
 ```
 
 You can use the optional 'prefix' and 'suffix' attributes to display something before and after the input, like icons, path prefix, etc:
@@ -909,11 +886,11 @@ Input preview:
 Show a textarea to the user.
 
 ```php
-[   // Textarea
+CRUD::field([   // Textarea
     'name'  => 'description',
     'label' => 'Description',
     'type'  => 'textarea'
-],
+]);
 ```
 
 Input preview:
@@ -926,11 +903,11 @@ Input preview:
 ### time
 
 ```php
-[   // Time
+CRUD::field([   // Time
     'name'  => 'start',
     'label' => 'Start time',
     'type'  => 'time'
-],
+]);
 ```
 
 <hr>
@@ -940,30 +917,30 @@ Input preview:
 
 **Step 1.** Show a file input to the user:
 ```php
-[   // Upload
+CRUD::field([   // Upload
     'name'      => 'image',
     'label'     => 'Image',
-    'type'      => 'upload',   
-],
+    'type'      => 'upload',
+]);
 ```
 
 **Step 2.** Choose how to handle the file upload process. Starting v6, you have two options:
 - **Option 1.** Let Backpack handle the upload process for you. This is by far the most convenient option, because it's the easiest to implement and fully customizable. All you have to do is add the `withFiles => true` attribute to your field definition:
 ```php
-[   // Upload
+CRUD::field([   // Upload
     'name'      => 'image',
     'label'     => 'Image',
-    'type'      => 'upload',  
-    'withFiles' => true 
-],
+    'type'      => 'upload',
+    'withFiles' => true
+]);
 ```
 To know more about the `withFiles`, how it works and how to configure it, [ click here to read the documentation ](https://backpackforlaravel.com/docs/6.x/crud-uploaders).
 
 - **Option 2.** Handle the upload process yourself. This is what happened in v5, so if you want to handle the upload by yourself you can [read the v5 upload docs here](https://backpackforlaravel.com/docs/5.x/crud-fields#upload-1).
 
-#### Validation
+**Upload Field Validation**
 
-You can use standard Laravel validation rules. But we've also made it easy for you to validate the `upload` fields, using a [Custom Validation Rule](/docs/{{version}}/custom-validation-rules). The `ValidUpload` validation rule allows you to define two sets of rules: 
+You can use standard Laravel validation rules. But we've also made it easy for you to validate the `upload` fields, using a [Custom Validation Rule](/docs/{{version}}/custom-validation-rules). The `ValidUpload` validation rule allows you to define two sets of rules:
 - `::field()` - the field rules (independent of the file content);
 - `->file()` - rules that apply to the sent file;
 
@@ -991,30 +968,30 @@ Shows a multiple file input to the user and stores the values as a JSON array in
 
 **Step 1.** Show a multiple file input to the user:
 ```php
-[
+CRUD::field([
     'name'      => 'photos',
     'label'     => 'Photos',
     'type'      => 'upload_multiple',
-],
+]);
 ```
 
 **Step 2.** Choose how to handle the file upload process. Starting v6, you have two options:
 - **Option 1.** Let Backpack handle the upload process for you. This is by far the most convenient option, because it's the easiest to implement and fully customizable. All you have to do is add the `withFiles => true` attribute to your field definition:
 ```php
-[   
+CRUD::field([
     'name'      => 'photos',
     'label'     => 'Photos',
-    'type'      => 'upload_multiple', 
-    'withFiles' => true 
-],
+    'type'      => 'upload_multiple',
+    'withFiles' => true
+]);
 ```
 To know more about the `withFiles`, how it works and how to configure it, [ click here to read the documentation ](https://backpackforlaravel.com/docs/6.x/crud-uploaders).
 
 - **Option 2.** Handle the upload process yourself. This is what happened in v5, so if you want to handle the upload by yourself you can [read the v5 upload docs here](https://backpackforlaravel.com/docs/5.x/crud-fields#upload_multiple).
 
-#### Validation
+**Validation**
 
-You can use standard Laravel validation rules. But we've also made it easy for you to validate the `upload` fields, using a [Custom Validation Rule](/docs/{{version}}/custom-validation-rules). The `ValidUploadMultiple` validation rule allows you to define two sets of rules: 
+You can use standard Laravel validation rules. But we've also made it easy for you to validate the `upload` fields, using a [Custom Validation Rule](/docs/{{version}}/custom-validation-rules). The `ValidUploadMultiple` validation rule allows you to define two sets of rules:
 - `::field()` - the input rules, independant of the content;
 - `file()` - rules that apply to each file that gets sent;
 
@@ -1027,7 +1004,7 @@ use Backpack\CRUD\app\Library\Validation\Rules\ValidUploadMultiple;
                 ->file('file|mimes:jpeg,png,jpg,gif,svg|max:2048'),
 ```
 
-**NOTE**: This field uses a `clear_{fieldName}` input to send the deleted files from the frontend to the backend. In case you are using `$guarded` add it there. 
+**NOTE**: This field uses a `clear_{fieldName}` input to send the deleted files from the frontend to the backend. In case you are using `$guarded` add it there.
 Eg: `protected $guarded = ['id', 'clear_photos'];`
 
 Input preview:
@@ -1040,11 +1017,11 @@ Input preview:
 ### url
 
 ```php
-[   // URL
+CRUD::field([   // URL
     'name'  => 'link',
     'label' => 'Link to video file',
     'type'  => 'url'
-],
+]);
 ```
 
 <hr>
@@ -1055,11 +1032,11 @@ Input preview:
 Load a custom view in the form.
 
 ```php
-[   // view
+CRUD::field([   // view
     'name' => 'custom-ajax-button',
     'type' => 'view',
     'view' => 'partials/custom-ajax-button'
-],
+]);
 ```
 
 **Note:** the same functionality can be achieved using a [custom field type](/docs/{{version}}/crud-fields#creating-a-custom-field-type), or using the [custom_html field type](/docs/{{version}}/crud-fields#custom-html) (if the content is really simple).
@@ -1076,11 +1053,11 @@ Include an `<input type="week">` in the form.
 **Important**: This input type is supported by most modern browsers, not all. [See compatibility table here](https://caniuse.com/mdn-html_elements_input_type_week).
 
 ```php
-[   // Week
+CRUD::field([   // Week
     'name'  => 'first_week',
     'label' => 'First week',
     'type'  => 'week'
-],
+]);
 ```
 
 Input preview:
@@ -1093,43 +1070,19 @@ Input preview:
 ## PRO Field Types
 
 
-<a name="address_algolia"></a>
-### address_algolia <span class="badge badge-pill badge-info">PRO</span>
-
-Use [Algolia Places autocomplete](https://community.algolia.com/places/) to help users type their address faster. With the ```store_as_json``` option, it will store the address, postcode, city, country, latitude and longitude in a JSON in the database. Without it, it will just store the address string. For information stored as JSON in the database, it's recommended that you use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) to ```array``` or ```object```. That way, every time you get the info from the database you'd get it in a usable format.
-
-```php
-[   // Address algolia
-    'name'          => 'address',
-    'label'         => 'Address',
-    'type'          => 'address_algolia',
-    // optional
-    'store_as_json' => true
-],
-```
-
-> **Algolia is killing Places.** Please note that Algolia Places **will stop working in May 2022**, as reported in [this announcement](https://www.algolia.com/blog/product/sunseting-our-places-feature/). For that reason, it's probably a good idea to use the `address_google` field instead (it's right after this one).
-
-
-Input preview:
-
-![CRUD Field - address](https://backpackforlaravel.com/uploads/docs-4-2/fields/address.png)
-
-<hr>
-
 <a name="address_google"></a>
 ### address_google <span class="badge badge-pill badge-info">PRO</span>
 
 Use [Google Places Search](https://developers.google.com/places/web-service/search) to help users type their address faster. With the ```store_as_json``` option, it will store the address, postcode, city, country, latitude and longitude in a JSON in the database. Without it, it will just store the complete address string.
 
 ```php
-[   // Address google
+CRUD::field([   // Address google
     'name'          => 'address',
     'label'         => 'Address',
     'type'          => 'address_google',
     // optional
     'store_as_json' => true
-],
+]);
 ```
 
 Using Google Places API is dependent on using an API Key. Please [get an API key](https://console.cloud.google.com/apis/credentials) - you do have to configure billing, but you qualify for $200/mo free usage, which covers most use cases. Then copy-paste that key as your ```services.google_places.key``` value. So inside your ```config/services.php``` please add the items below:
@@ -1154,11 +1107,11 @@ Input preview:
 This button allows the admin to open [elFinder](http://elfinder.org/) and select a file from there. Run ```composer require backpack/filemanager && php artisan backpack:filemanager:install``` to install [FileManager](https://github.com/laravel-backpack/filemanager), then you can use the field:
 
 ```php
-[   // Browse
+CRUD::field([   // Browse
     'name'  => 'image',
     'label' => 'Image',
     'type'  => 'browse'
-],
+]);
 ```
 
 
@@ -1178,14 +1131,14 @@ Onclick preview:
 Open elFinder and select multiple files from there. Run ```composer require backpack/filemanager && php artisan backpack:filemanager:install``` to install [FileManager](https://github.com/laravel-backpack/filemanager), then you can use the field:
 
 ```php
-[   // Browse multiple
+CRUD::field([   // Browse multiple
     'name'          => 'files',
     'label'         => 'Files',
     'type'          => 'browse_multiple',
     // 'multiple'   => true, // enable/disable the multiple selection functionality
     // 'sortable'   => false, // enable/disable the reordering with drag&drop
     // 'mime_types' => null, // visible mime prefixes; ex. ['image'] or ['application/pdf']
-],
+]);
 ```
 
 The field assumes you've cast your attribute as ```array``` on your model.  That way, when you do ```$entry->files``` you get a nice array.
@@ -1206,7 +1159,7 @@ Upload an image and store it in the database as Base64. Notes:
 
 ```php
 // base64_image
-$this->crud->addField([
+CRUD::field([
     'label'        => "Profile Image",
     'name'         => "image",
     'filename'     => "image_filename", // set to null if not needed
@@ -1229,7 +1182,7 @@ Input preview:
 Show a wysiwyg CKEditor to the user.
 
 ```php
-[   // CKEditor
+CRUD::field([   // CKEditor
     'name'          => 'description',
     'label'         => 'Description',
     'type'          => 'ckeditor',
@@ -1241,7 +1194,7 @@ Show a wysiwyg CKEditor to the user.
         'autoGrow_bottomSpace' => 50,
         'removePlugins'        => 'resize,maximize',
     ]
-],
+]);
 ```
 
 If you'd like to be able to select files from elFinder, you need to also run ```composer require backpack/filemanager``` to install elFinder.
@@ -1258,7 +1211,7 @@ Input preview:
 Show a pretty colour picker using [Bootstrap Colorpicker](https://itsjavi.com/bootstrap-colorpicker/).
 
 ```php
-[   // color_picker
+CRUD::field([   // color_picker
     'label'                => 'Background Color',
     'name'                 => 'background_color',
     'type'                 => 'color_picker',
@@ -1288,7 +1241,7 @@ Show a pretty colour picker using [Bootstrap Colorpicker](https://itsjavi.com/bo
             ]
         ]
     ]
-],
+]);
 ```
 
 Input preview:
@@ -1303,7 +1256,7 @@ Input preview:
 Show a DateRangePicker and let the user choose a start date and end date.
 
 ```php
-[   // date_range
+CRUD::field([   // date_range
     'name'  => ['start_date', 'end_date'], // db columns for start_date & end_date
     'label' => 'Event Date Range',
     'type'  => 'date_range',
@@ -1317,7 +1270,7 @@ Show a DateRangePicker and let the user choose a start date and end date.
         'timePicker' => true,
         'locale' => ['format' => 'DD/MM/YYYY HH:mm']
     ]
-],
+]);
 ```
 
 Please note it is recommended that you use [attribute casting](https://laravel.com/docs/5.3/eloquent-mutators#attribute-casting) on your model (cast to date).
@@ -1422,7 +1375,7 @@ class UserCrudController extends CrudController
 **Step 2:** Add the field in CrudController
 
 ```php
-$this->crud->addField([   
+$this->crud->addField([
     'name'  => 'photos',
     'label' => 'Photos',
     'type'  => 'dropzone',
@@ -1440,7 +1393,7 @@ $this->crud->addField([
 At this point you have the dropzone field showing up, and the ajax routes setup to upload/delete files, but the process is not complete. Your files are now only uploaded to the temporary folder, they need to be moved to the permanent location and their paths stored in the database. The easiest way to fix that is to add `withFiles => true` to your field definition, this will use the standard `AjaxUploader` that Backpack provides:
 
 ```php
-[   
+[
     'name'  => 'photos',
     'label' => 'Photos',
     'type'  => 'dropzone',
@@ -1457,7 +1410,7 @@ Alternatively, you can manually implement the saving process yourself using mode
 
 The proper validation of dropzone should be done in two steps:
 1 - Files should be validated on the file upload endpoint
-2 - Field in general should be validated on form submission. 
+2 - Field in general should be validated on form submission.
 
 To make things easy on your side we created `ValidDropzone` validation rule. It's a [Custom Validation Rule](/docs/{{version}}/custom-validation-rules) that allow you to define those set of rules:
 - `::field()` - the field rules (independent of the file content);
@@ -1482,7 +1435,7 @@ You can publish this configuration file using `php artisan vendor:publish --prov
     'temporary_folder' => 'backpack/temp',
     'purge_temporary_files_older_than' => 72 // hours
 ```
-It can also be configured on a "per crud" basis with: 
+It can also be configured on a "per crud" basis with:
 ```php
 CRUD::setOperationSetting('temporary_disk', 'public');
 CRUD::setOperationSetting('temporary_folder', 'backpack/temp');
@@ -1494,8 +1447,8 @@ The first two options are self-explanatory. The third one is the number of hours
 The process of file **deletion** does **not happen** automatically.
 In case of Dropzone we manually call the `PurgeTemporaryFolder` job whenever new files are uploaded so that we keep the dropzone temporary upload folder clean.
 
-To make the cleanup process more general, we created a command that you can run periodically, `backpack:purge-temporary-files`. 
-It accepts the following optional parameters: 
+To make the cleanup process more general, we created a command that you can run periodically, `backpack:purge-temporary-files`.
+It accepts the following optional parameters:
 `--older-than=24`: the number of hours after which temporary files are deleted.
 `--disk=public`: the disk used by the temporary files.
 `--path="backpack/temp"`: the folder inside the disk where files will be stored.
@@ -1586,14 +1539,14 @@ There are cases where you rather save the information on separate inputs in the 
 //add all the fields to model fillable property, including the one that we are not going to save (location in the example)
 $fillable = ['location', 'latitude', 'longitude', 'full_address'];
 
-// 
+//
 protected function location(): \Illuminate\Database\Eloquent\Casts\Attribute
 {
     return \Illuminate\Database\Eloquent\Casts\Attribute::make(
         get: function($value, $attributes) {
             return json_encode([
-            'lat' => $attributes['lat'], 
-            'lng' => $attributes['lng'], 
+            'lat' => $attributes['lat'],
+            'lng' => $attributes['lng'],
             'formatted_address' => $attributes['full_address'] ?? ''
             ], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_THROW_ON_ERROR);
         },
@@ -1661,11 +1614,11 @@ $this->crud->addField([
 **Step 2.** Choose how to handle the file upload process. Starting v6, you have two options:
 - **Option 1.** Let Backpack handle the upload process for you. This is by far the most convenient option, because it's the easiest to implement and fully customizable. All you have to do is add the `withFiles => true` attribute to your field definition:
 ```php
-[   
+[
     'label' => 'Profile Image',
     'name' => 'image',
     'type' => 'image',
-    'withFiles' => true 
+    'withFiles' => true
 ],
 ```
 To know more about the `withFiles`, how it works and how to configure it, [ click here to read the documentation ](https://backpackforlaravel.com/docs/6.x/crud-uploaders).
@@ -2304,7 +2257,7 @@ Display a select2 that takes its values from an AJAX call.
 
 For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
 
-Of course, you also need to create make the data_source above respond to AJAX calls. You can use the [FetchOperation](https://backpackforlaravel.com/docs/4.1/crud-operation-fetch) to quickly do that in your current CrudController, or you can set up your custom API by creating a custom Route and Controller. Here's an example:
+Of course, you also need to create make the data_source above respond to AJAX calls. You can use the [FetchOperation](https://backpackforlaravel.com/docs/{{version}}/crud-operation-fetch) to quickly do that in your current CrudController, or you can set up your custom API by creating a custom Route and Controller. Here's an example:
 
 ```php
 Route::post('/api/category', 'Api\CategoryController@index');
@@ -2524,10 +2477,10 @@ Show a wysiwyg (TinyMCE) to the user.
     'label' => 'Description',
     'type'  => 'tinymce',
     // optional overwrite of the configuration array
-    // 'options' => [ 
-        //'selector' => 'textarea.tinymce',  
-        //'skin' => 'dick-light', 
-        //'plugins' => 'image link media anchor' 
+    // 'options' => [
+        //'selector' => 'textarea.tinymce',
+        //'skin' => 'dick-light',
+        //'plugins' => 'image link media anchor'
     // ],
 ],
 ```
@@ -2611,7 +2564,7 @@ If you need to extend the CRUD with a new field type, you create a new file in y
 // to create one using Backpack\Generators, run:
 php artisan backpack:field new_field_name
 
-// alternatively, to create a new field similar an existing field, run: 
+// alternatively, to create a new field similar an existing field, run:
 php artisan backpack:field new_field_name --from=old_field_name
 ```
 

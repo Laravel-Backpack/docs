@@ -16,7 +16,7 @@ This CRUD operation allows your admins to soft delete, restore and permanently d
 - generate a migration to add the `deleted_at` column to your table, eg. `php artisan make:migration add_soft_deletes_to_products --table=products`;
 - inside that file's `Schema::table()` closure, add `$table->softDeletes();`
 - run `php artisan migrate`
-- add `use SoftDeletes` on the corresponding model (and import that class namespace);  
+- add `use SoftDeletes` on the corresponding model (and import that class namespace);
 
 <a name="trash-a-single-item"></a>
 ## Trash a Single Item <span class="badge badge-info">PRO</span>
@@ -46,7 +46,7 @@ class ProductCrudController extends CrudController
     use \Backpack\Pro\Http\Controllers\Operations\TrashOperation;
 }
 ```
-This will make a Trash button and Trashed filter show up in the list view, and will enable the routes and functionality needed for the operation. If you're getting a "Trait not found" exception, make sure in the namespace you have typed `Backpack\Pro`, not `Backpack\PRO`. 
+This will make a Trash button and Trashed filter show up in the list view, and will enable the routes and functionality needed for the operation. If you're getting a "Trait not found" exception, make sure in the namespace you have typed `Backpack\Pro`, not `Backpack\PRO`.
 
 
 <a name="how-to-configure"></a>
@@ -54,7 +54,7 @@ This will make a Trash button and Trashed filter show up in the list view, and w
 
 You can easily disable the default trash filter:
 ```php
-public function setupTrashOperation() 
+public function setupTrashOperation()
 {
     CRUD::setOperationSetting('withTrashFilter', false);
 }
@@ -70,15 +70,15 @@ CRUD::setOperationSetting('canDestroyNonTrashedItems', true);
 <a name="how-to-control-access-to-operation-actions"></a>
 ### How to control access to operation actions
 
-When used, `TrashOperation` each action inside this operation (`trash`, `restore` and `destroy`) checks for access, before being performed.  Likewise, `BulkTrashOperation` checks for access to `bulkTrash`, `bulkRestore` and `bulkDestroy`. 
+When used, `TrashOperation` each action inside this operation (`trash`, `restore` and `destroy`) checks for access, before being performed.  Likewise, `BulkTrashOperation` checks for access to `bulkTrash`, `bulkRestore` and `bulkDestroy`.
 
 That means you can revoke access to some operations, depending on user roles or anything else you want:
 ```php
 // if user is not superadmin, don't allow permanently delete items
-public function setupTrashOperation() 
+public function setupTrashOperation()
 {
     if(! backpack_user()->hasRole('superadmin')) {
-         $this->crud->denyAccess('destroy');
+         CRUD::denyAccess('destroy');
     }
 }
 ```
@@ -93,7 +93,7 @@ use \Backpack\Pro\Http\Controllers\Operations\TrashOperation { trash as traitTra
 
 public function trash($id)
 {
-    $this->crud->hasAccessOrFail('trash');
+    CRUD::hasAccessOrFail('trash');
 
     // your custom code here
 }
@@ -142,7 +142,7 @@ use \Backpack\Pro\Http\Controllers\Operations\BulkTrashOperation { bulkTrash as 
 
 public function bulkTrash($id)
 {
-    $this->crud->hasAccessOrFail('bulkTrash');
+    CRUD::hasAccessOrFail('bulkTrash');
 
     // your custom code here
 }

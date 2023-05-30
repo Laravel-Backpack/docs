@@ -14,7 +14,7 @@ In case your entity is translatable, it will show a multi-language dropdown, jus
 <a name="how-it-works"></a>
 ## How it Works
 
-The ```/entity-name/{id}/show``` route points to the ```show()``` method in your EntityCrudController, which shows all columns that have been set up using [column types](/docs/{{version}}/crud-columns), by showing a ```show.blade.php``` blade file. 
+The ```/entity-name/{id}/show``` route points to the ```show()``` method in your EntityCrudController, which shows all columns that have been set up using [column types](/docs/{{version}}/crud-columns), by showing a ```show.blade.php``` blade file.
 
 <a name="enabling"></a>
 ## How to Use
@@ -35,7 +35,7 @@ class ProductCrudController extends CrudController
 ```
 
 This will:
-- make a Preview button appear inside the List view; 
+- make a Preview button appear inside the List view;
 - allow access to the show view;
 
 By default, the operation tries to show all db columns in the database, but _remove_ any columns and buttons that it thinks you _wouldn't want_ shown. Which works great for simple Eloquent Models, it'll _just work_. But for more complex Models, it might be preferrable to define your own columns, using the same syntax you're using when defining the ListOperation.
@@ -63,14 +63,14 @@ But you can also do both - let Backpack guess columns, and do stuff before or af
     protected function setupShowOperation()
     {
         // MAYBE: do stuff before the autosetup
-        
+
         // automatically add the columns
         $this->autoSetupShowOperation();
-    
+
         // MAYBE: do stuff after the autosetup
-        
+
         // for example, let's add some new columns
-        $this->crud->addColumn([
+        CRUD::column([
             'name' => 'table',
             'label' => 'Table',
             'type' => 'table',
@@ -80,7 +80,7 @@ But you can also do both - let Backpack guess columns, and do stuff before or af
                 'price' => 'Price',
             ]
         ]);
-        $this->crud->addColumn([
+        CRUD::column([
             'name' => 'fake_table',
             'label' => 'Fake Table',
             'type' => 'table',
@@ -90,9 +90,9 @@ But you can also do both - let Backpack guess columns, and do stuff before or af
                 'price' => 'Price',
             ],
         ]);
-        
+
         // or maybe remove a column
-        $this->crud->removeColumn('text');
+        CRUD::column('text')->remove();
     }
 ```
 ### Tabs - display columns in tabs
@@ -102,14 +102,13 @@ Adding the `tab` attribute to a column, will make the operation display the colu
 ```php
 public function setupShowOperation()
 {
-    $this->crud->addColumn([
+    // using the array syntax
+    CRUD::column([
         'name' => 'name',
         'tab' => 'General',
     ]);
-    $this->crud->addColumn([
-        'name' => 'description',
-        'tab' => 'Another tab',
-    ]);
+    // or using the fluent syntax
+    CRUD::column('description')->tab('Another tab');
 }
 ```
 
@@ -132,13 +131,13 @@ To use widgets on show operation, define them inside `setupShowOperation()` func
 
 ```php
 public function setupShowOperation()
-{    
+{
     // dynamic data to render in the following widget
     $userCount = \App\Models\User::count();
 
     //add div row using 'div' widget and make other widgets inside it to be in a row
     Widget::add()->to('before_content')->type('div')->class('row')->content([
-        
+
         //widget made using fluent syntax
         Widget::make()
             ->type('progress')
@@ -149,7 +148,7 @@ public function setupShowOperation()
             ->progress(100 * (int)$userCount / 1000)
             ->hint(1000 - $userCount . ' more until next milestone.'),
 
-        //widget made using the array definition 
+        //widget made using the array definition
         Widget::make(
             [
                 'type'       => 'card',
