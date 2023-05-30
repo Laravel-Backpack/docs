@@ -1256,7 +1256,7 @@ Input preview:
 Show a DateRangePicker and let the user choose a start date and end date.
 
 ```php
-[   // date_range
+CRUD::field([   // date_range
     'name'  => 'start_date,end_date', // db columns for start_date & end_date
     'label' => 'Event Date Range',
     'type'  => 'date_range',
@@ -1291,7 +1291,7 @@ Input preview:
 Show a pretty [Bootstrap Datepicker](http://bootstrap-datepicker.readthedocs.io/en/latest/).
 
 ```php
-[   // date_picker
+CRUD::field([   // date_picker
    'name'  => 'date',
    'type'  => 'date_picker',
    'label' => 'Date',
@@ -1302,7 +1302,7 @@ Show a pretty [Bootstrap Datepicker](http://bootstrap-datepicker.readthedocs.io/
       'format'   => 'dd-mm-yyyy',
       'language' => 'fr'
    ],
-],
+]);
 ```
 
 Please note it is recommended that you use [attribute casting](https://laravel.com/docs/5.3/eloquent-mutators#attribute-casting) on your model (cast to date).
@@ -1320,7 +1320,7 @@ Input preview:
 Show a [Bootstrap Datetime Picker](https://eonasdan.github.io/bootstrap-datetimepicker/).
 
 ```php
-[   // DateTime
+CRUD::field([   // DateTime
     'name'  => 'start',
     'label' => 'Event start',
     'type'  => 'datetime_picker',
@@ -1337,7 +1337,7 @@ Show a [Bootstrap Datetime Picker](https://eonasdan.github.io/bootstrap-datetime
     ],
     'allows_null' => true,
     // 'default' => '2017-05-12 11:59:59',
-],
+]);
 ```
 
 **Please note:** if you're using date [attribute casting](https://laravel.com/docs/5.3/eloquent-mutators#attribute-casting) on your model, you may also need to place this mutator inside your model:
@@ -1375,7 +1375,7 @@ class UserCrudController extends CrudController
 **Step 2:** Add the field in CrudController
 
 ```php
-$this->crud->addField([
+CRUD::field([
     'name'  => 'photos',
     'label' => 'Photos',
     'type'  => 'dropzone',
@@ -1393,12 +1393,12 @@ $this->crud->addField([
 At this point you have the dropzone field showing up, and the ajax routes setup to upload/delete files, but the process is not complete. Your files are now only uploaded to the temporary folder, they need to be moved to the permanent location and their paths stored in the database. The easiest way to fix that is to add `withFiles => true` to your field definition, this will use the standard `AjaxUploader` that Backpack provides:
 
 ```php
-[
+CRUD::field([
     'name'  => 'photos',
     'label' => 'Photos',
     'type'  => 'dropzone',
     'withFiles' => true
-],
+]);
 ```
 
 Alternatively, you can manually implement the saving process yourself using model events, mutators or any other solution that suits you. To know more about the `withFiles`, how it works and how to configure it, [read its documentation](https://backpackforlaravel.com/docs/6.x/crud-uploaders).
@@ -1481,7 +1481,7 @@ Input preview:
 Show an [EasyMDE - Markdown Editor](https://easy-markdown-editor.tk/) to the user. EasyMDE is a well-maintained fork of SimpleMDE.
 
 ```php
-[   // easymde
+CRUD::field([   // easymde
     'name'  => 'description',
     'label' => 'Description',
     'type'  => 'easymde',
@@ -1493,7 +1493,7 @@ Show an [EasyMDE - Markdown Editor](https://easy-markdown-editor.tk/) to the use
     //   'forceSync'    => true,
     // ],
     // 'easymdeAttributesRaw' => $some_json
-],
+]);
 ```
 
 > NOTE: The contents displayed in this editor are NOT stripped, sanitized or escaped by default. Whenever you store Markdown or HTML inside your database, it's HIGHLY recommended that you sanitize the input or output. Laravel makes it super-easy to do that on the model using [accessors](https://laravel.com/docs/8.x/eloquent-mutators#accessors-and-mutators). If you do NOT trust the admins who have access to this field (or end-users can also store information to this db column), please make sure this attribute is always escaped, before it's shown. You can do that by running the value through `strip_tags()` in an accessor on the model (here's [an example](https://github.com/Laravel-Backpack/demo/commit/509c0bf0d8b9ee6a52c50f0d2caed65f1f986385)) or better yet, using an [HTML Purifier package](https://github.com/mewebstudio/Purifier) (here's [an example](https://github.com/Laravel-Backpack/demo/commit/7342cffb418bb568b9e4ee279859685ddc0456c1)).
@@ -1510,7 +1510,7 @@ Input preview:
 Shows a map and allows the user to navigate and select a position on that map (using the Google Places API). The field stores the latitude, longitude and the address string as a JSON in the database ( eg. `{lat: 123, lng: 456, formatted_address: 'Lisbon, Portugal'}`). If you want to save the info in separate db columns, continue reading below.
 
 ```php
-CRUD::addField([
+CRUD::field([
     'name' => 'location',
     'type' => 'google_map',
     // optionals
@@ -1577,12 +1577,12 @@ Show an icon picker. Supported icon sets are fontawesome, lineawesome, glyphicon
 The stored value will be the class name (ex: fa-home).
 
 ```php
-[   // icon_picker
+CRUD::field([   // icon_picker
     'label'   => "Icon",
     'name'    => 'icon',
     'type'    => 'icon_picker',
     'iconset' => 'fontawesome' // options: fontawesome, lineawesome, glyphicon, ionicon, weathericon, mapicon, octicon, typicon, elusiveicon, materialdesign
-],
+]);
 ```
 
 Your input will look like button, with a dropdown where the user can search or pick an icon:
@@ -1601,7 +1601,7 @@ Upload an image and store it on the disk.
 **Step 1.** Show the field.
 ```php
 // image
-$this->crud->addField([
+CRUD::field([
     'label' => 'Profile Image',
     'name' => 'image',
     'type' => 'image',
@@ -1614,12 +1614,12 @@ $this->crud->addField([
 **Step 2.** Choose how to handle the file upload process. Starting v6, you have two options:
 - **Option 1.** Let Backpack handle the upload process for you. This is by far the most convenient option, because it's the easiest to implement and fully customizable. All you have to do is add the `withFiles => true` attribute to your field definition:
 ```php
-[
-    'label' => 'Profile Image',
+CRUD::field([
     'name' => 'image',
+    'label' => 'Profile Image',
     'type' => 'image',
     'withFiles' => true
-],
+]);
 ```
 To know more about the `withFiles`, how it works and how to configure it, [ click here to read the documentation ](https://backpackforlaravel.com/docs/6.x/crud-uploaders).
 
@@ -1639,7 +1639,7 @@ Input preview:
 Show a telephone number input. Lets the user choose the prefix using a flag from dropdown.
 
 ```php
-[   // phone
+CRUD::field([   // phone
     'name'  => 'phone', // db column for phone
     'label' => 'Phone',
     'type'  => 'phone',
@@ -1655,7 +1655,7 @@ Show a telephone number input. Lets the user choose the prefix using a flag from
         'autoHideDialCode' => false,
         'placeholderNumberType' => 'MOBILE',
     ]
-],
+]);
 ```
 
 For more info about parameters please see this JS plugin's [official documentation](https://github.com/jackocnr/intl-tel-input).
@@ -1680,7 +1680,7 @@ Input preview (for both 1-n and n-n relationships):
 To achieve the above, you just need to point the field to the relationship method on your Model (eg. `category`, not `category_id`):
 
 ```php
-[   // relationship
+CRUD::field([   // relationship
     'name' => 'category', // the method on your model that defines the relationship
     'type' => "relationship",
 
@@ -1688,7 +1688,7 @@ To achieve the above, you just need to point the field to the relationship metho
     // 'label' => "Category",
     // 'attribute' => "title", // attribute on model that is shown to user
     // 'placeholder' => "Select a category", // placeholder for the select2 input
- ],
+ ]);
 ```
 
 More more optional attributes on relationship fields [look here](#optional-attributes-for-fields-containing-related-entries).
@@ -1720,7 +1720,7 @@ If your related entry has hundreds, thousands or millions of entries, it's not p
 **Step 1.** Add `'ajax' => true` to your relationship field definition:
 
 ```php
-[   // relationship
+CRUD::field([   // relationship
     'type' => "relationship",
     'name' => 'category', // the method on your model that defines the relationship
     'ajax' => true,
@@ -1739,7 +1739,7 @@ If your related entry has hundreds, thousands or millions of entries, it's not p
     // 'dependencies'            => ['category'], // when a dependency changes, this select2 is reset to null
     // 'method'                  => 'POST', // optional - HTTP method to use for the AJAX call (GET, POST)
     // 'include_all_form_fields' => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
- ],
+ ]);
 ```
 
 **Step 2.** Create the route and method that responds to the AJAX calls. Fortunately, the `FetchOperation` allows you to easily do just that. Inside the same CrudController where you've defined the `relationship` field, use the `FetchOperation` trait, and define a new method that will respond to AJAX queries for that entity:
@@ -1771,19 +1771,19 @@ If you are using the Fetch operation to get the entries, you're already halfway 
 
 ```php
 // for 1-n relationships (ex: category)
-[
+CRUD::field([
     'type'          => "relationship",
     'name'          => 'category',
     'ajax'          => true,
     'inline_create' => true, // <--- THIS
-],
+]);
 // for n-n relationships (ex: tags)
-[
+CRUD::field([
     'type'          => "relationship",
     'name'          => 'tags', // the method on your model that defines the relationship
     'ajax'          => true,
     'inline_create' => [ 'entity' => 'tag' ]  // <--- OR THIS
-],
+]);
 // in this second example, the relation is called `tags` (plural),
 // but we need to define the entity as "tag" (singural)
 ```
@@ -1846,7 +1846,7 @@ public function companies()
 
 ```php
 // Inside PersonCrudController
-[
+CRUD::field([
     'name'          => 'companies',
     'type'          => "relationship",
      // ..
@@ -1866,7 +1866,7 @@ public function companies()
             ],
         ],
     ],
-],
+]);
 ```
 
 **That's it.** Backpack now will save those additional inputs on the pivot table.
@@ -1874,7 +1874,7 @@ public function companies()
 Additionally, if you want to change something about the primary select, you can do that using the `pivotSelect` attribute:
 
 ```php
-[
+CRUD::field([
     'name'          => 'companies',
     'type'          => "relationship",
     'subfields'   => [ ... ],
@@ -1886,7 +1886,7 @@ Additionally, if you want to change something about the primary select, you can 
             'class' => 'col-md-6',
         ],
     ],
-]
+]);
 ```
 
 #### Manage related entries in the same form (create, update, delete)
@@ -1905,7 +1905,7 @@ Most likely, what you _really_ want is to be able to create/update/delete `Invoi
 To achieve the above, you just need to add a `relationship` field for your `hasMany` or `morphMany` relationship and define the `subfields` you want for that secondary Model:
 
 ```php
-[
+CRUD::field([
     'name'          => 'items',
     'type'          => "relationship",
     'subfields'   => [
@@ -1948,7 +1948,7 @@ To achieve the above, you just need to add a `relationship` field for your `hasM
             ],
         ],
     ],
-]
+]);
 ```
 
 Backpack will then take care of the creating/updating/deleting of the secondary model, after the "Save" button is clicked on the form.
@@ -1961,14 +1961,14 @@ Normally, when the admin removes a relationship from the "select", only the rela
 
 ```php
 // Inside ArticleCrudController
-[
+CRUD::field([
     'type'          => "relationship",
     'name'          => 'comments',
     // when removed, use fallback_id
     'fallback_id'   => 3, // will relate to the comment with ID "3"
     // when removed, delete the entry
     'force_delete'  => true, // will delete that comment
-],
+]);
 ```
 
 <hr>
@@ -1992,7 +1992,7 @@ You can use most field types inside the field groups, add as many subfields you 
 - **FIELD USAGE AND RELATIONSHIPS**: note that it's not possible to use a repeatable field inside other repeatable field. Relationships that use `subfields` are under the hood repeatable fields, so the relationship subfields cannot include other repeatable field.
 
 ```php
-[   // repeatable
+CRUD::field([   // repeatable
     'name'  => 'testimonials',
     'label' => 'Testimonials',
     'type'  => 'repeatable',
@@ -2032,7 +2032,7 @@ You can use most field types inside the field groups, add as many subfields you 
     'reorder' => true, // show up&down arrows next to each row
     'reorder' => 'order', // show arrows AND add a hidden subfield with that name (value gets updated when rows move)
     'reorder' => ['name' => 'order', 'type' => 'number', 'attributes' => ['data-reorder-input' => true]], // show arrows AND add a visible number subfield
-],
+]);
 ```
 
 <hr>
@@ -2044,7 +2044,7 @@ Works just like the SELECT field, but prettier. Shows a Select2 with the names o
 Your relationships should already be defined on your models as hasOne() or belongsTo().
 
 ```php
-[  // Select2
+CRUD::field([  // Select2
    'label'     => "Category",
    'type'      => 'select2',
    'name'      => 'category_id', // the db column for the foreign key
@@ -2059,7 +2059,7 @@ Your relationships should already be defined on your models as hasOne() or belon
    'options'   => (function ($query) {
         return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
     }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
-],
+]);
 ```
 
 For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
@@ -2080,7 +2080,7 @@ Shows a Select2 with the names of the connected entity and let the user select a
 Your relationship should already be defined on your models as belongsToMany().
 
 ```php
-[    // Select2Multiple = n-n relationship (with pivot table)
+CRUD::field([    // Select2Multiple = n-n relationship (with pivot table)
      'label'     => "Tags",
      'type'      => 'select2_multiple',
      'name'      => 'tags', // the method that defines the relationship in your Model
@@ -2096,7 +2096,7 @@ Your relationship should already be defined on your models as belongsToMany().
      'options'   => (function ($query) {
          return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
      }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
-],
+]);
 ```
 
 For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
@@ -2115,7 +2115,7 @@ Display a select2 with the values ordered hierarchically and indented, for an en
 - the usual ```lft```, ```rgt```, ```depth``` attributes;
 
 ```php
-[   // select2_nested
+CRUD::field([   // select2_nested
     'name'      => 'category_id',
     'label'     => "Category",
     'type'      => 'select2_nested',
@@ -2124,7 +2124,7 @@ Display a select2 with the values ordered hierarchically and indented, for an en
 
     // optional
     'model'     => "App\Models\Category", // force foreign key model
-],
+]);
 ```
 
 For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
@@ -2141,7 +2141,7 @@ Input preview:
 Display a select2 where the options are grouped by a second entity (like Categories).
 
 ```php
-[   // select2_grouped
+CRUD::field([   // select2_grouped
     'label'     => 'Articles grouped by categories',
     'type'      => 'select2_grouped', //https://github.com/Laravel-Backpack/CRUD/issues/502
     'name'      => 'article_id',
@@ -2150,7 +2150,7 @@ Display a select2 where the options are grouped by a second entity (like Categor
     'group_by'  => 'category', // the relationship to entity you want to use for grouping
     'group_by_attribute' => 'name', // the attribute on related model, that you want shown
     'group_by_relationship_back' => 'articles', // relationship from related model back to this model
-],
+]);
 ```
 
 For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
@@ -2178,7 +2178,7 @@ protected $casts = [
 Definition:
 
 ```php
-[   // select_and_order
+CRUD::field([   // select_and_order
     'name'  => 'featured',
     'label' => "Featured",
     'type'  => 'select_and_order',
@@ -2186,18 +2186,18 @@ Definition:
         1 => "Option 1",
         2 => "Option 2"
     ]
-],
+]);
 ```
 
 Also possible:
 
 ```php
-[   // select_and_order
+CRUD::field([   // select_and_order
     'name'    => 'featured',
     'label'   => 'Featured',
     'type'    => 'select_and_order',
     'options' => Product::get()->pluck('title','id')->toArray(),
-],
+]);
 ```
 
 Input preview:
@@ -2213,7 +2213,7 @@ Input preview:
 Display a select2 with the values you want:
 
 ```php
-[   // select2_from_array
+CRUD::field([   // select2_from_array
     'name'        => 'template',
     'label'       => "Template",
     'type'        => 'select2_from_array',
@@ -2221,7 +2221,7 @@ Display a select2 with the values you want:
     'allows_null' => false,
     'default'     => 'one',
     // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
-],
+]);
 ```
 
 Input preview:
@@ -2236,7 +2236,7 @@ Input preview:
 Display a select2 that takes its values from an AJAX call.
 
 ```php
-[   // 1-n relationship
+CRUD::field([   // 1-n relationship
     'label'       => "End", // Table column heading
     'type'        => "select2_from_ajax",
     'name'        => 'category_id', // the column that contains the ID of that connected entity
@@ -2252,7 +2252,7 @@ Display a select2 that takes its values from an AJAX call.
     // 'dependencies'            => ['category'], // when a dependency changes, this select2 is reset to null
     // 'method'                  => 'POST', // optional - HTTP method to use for the AJAX call (GET, POST)
     // 'include_all_form_fields' => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
-],
+]);
 ```
 
 For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
@@ -2312,7 +2312,7 @@ Input preview:
 Display a select2 that takes its values from an AJAX call. Same as [select2_from_ajax](#section-select2_from_ajax) above, but allows for multiple items to be selected. The only difference in the field definition is the "pivot" attribute.
 
 ```php
-[   // n-n relationship
+CRUD::field([   // n-n relationship
     'label'       => "Cities", // Table column heading
     'type'        => "select2_from_ajax_multiple",
     'name'        => 'cities', // a unique identifier (usually the method that defines the relationship in your Model)
@@ -2328,7 +2328,7 @@ Display a select2 that takes its values from an AJAX call. Same as [select2_from
     'minimum_input_length'       => 2, // minimum characters to type before querying results
     // 'method'                  => 'POST', // optional - HTTP method to use for the AJAX call (GET, POST)
     // 'include_all_form_fields' => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
-],
+]);
 ```
 
 For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
@@ -2394,7 +2394,7 @@ Input preview:
 Track the value of a different text input and turn it into a valid URL segment (aka. slug), as you type, using JS:
 
 ```php
-[   // Text
+CRUD::field([   // Text
     'name'  => 'slug',
     'target'  => 'title', // will turn the title input into a slug
     'label' => "Slug",
@@ -2414,8 +2414,7 @@ Track the value of a different text input and turn it into a valid URL segment (
      //'wrapper'   => [
        //'class' => 'form-group col-md-12'
      //], // extra HTML attributes for the field wrapper - mostly for resizing fields
-
-],
+]);
 ```
 
 Input preview:
@@ -2430,7 +2429,7 @@ By default, it will also slugify when the target input is edited. If you want to
         $this->setupCreateOperation();
 
         // disable editing the slug when editing
-        $this->crud->field('slug')->target('')->attributes(['readonly' => 'readonly']);
+        CRUD::field('slug')->target('')->attributes(['readonly' => 'readonly']);
     }
 ```
 
@@ -2442,7 +2441,7 @@ By default, it will also slugify when the target input is edited. If you want to
 Show a table with multiple inputs per row and store the values as JSON array of objects in the database. The user can add more rows and reorder the rows as they please.
 
 ```php
-[   // Table
+CRUD::field([   // Table
     'name'            => 'options',
     'label'           => 'Options',
     'type'            => 'table',
@@ -2454,7 +2453,7 @@ Show a table with multiple inputs per row and store the values as JSON array of 
     ],
     'max' => 5, // maximum rows allowed in the table
     'min' => 0, // minimum rows allowed in the table
-],
+]);
 ```
 
 >It's highly recommended that you use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) on your model when working with JSON arrays stored in database columns, and cast this attribute to either ```object``` or ```array``` in your Model.
@@ -2472,7 +2471,7 @@ Input preview:
 Show a wysiwyg (TinyMCE) to the user.
 
 ```php
-[   // TinyMCE
+CRUD::field([   // TinyMCE
     'name'  => 'description',
     'label' => 'Description',
     'type'  => 'tinymce',
@@ -2482,7 +2481,7 @@ Show a wysiwyg (TinyMCE) to the user.
         //'skin' => 'dick-light',
         //'plugins' => 'image link media anchor'
     // ],
-],
+]);
 ```
 
 Input preview:
@@ -2506,12 +2505,12 @@ Allow the user to paste a YouTube/Vimeo link. That will get the video informatio
 
 Field definition:
 ```php
-[   // URL
+CRUD::field([   // URL
     'name'            => 'video',
     'label'           => 'Link to video file on YouTube or Vimeo',
     'type'            => 'video',
     'youtube_api_key' => 'AIzaSycLRoVwovRmbIf_BH3X12IcTCudAErRlCE',
-],
+]);
 ```
 
 An entry stored in the database will look like this:
@@ -2538,11 +2537,11 @@ Vimeo does not require an API key in order to query their DB, but YouTube does, 
 Show a wysiwyg (CKEditor) to the user.
 
 ```php
-[   // WYSIWYG Editor
+CRUD::field([   // WYSIWYG Editor
     'name'  => 'description',
     'label' => 'Description',
     'type'  => 'wysiwyg'
-],
+]);
 ```
 
 
@@ -2574,12 +2573,12 @@ That's it, you'll now be able to use it just like a default field type.
 Your field definition will be something like:
 
 ```php
-[   // Custom Field
+CRUD::field([   // Custom Field
     'name'  => 'address',
     'label' => 'Home address',
     'type'  => 'address'
     /// 'view_namespace' => 'yourpackage' // use a custom namespace of your package to load views within a custom view folder.
-],
+]);
 ```
 
 And your blade file something like:
@@ -2600,25 +2599,20 @@ And your blade file something like:
     @endif
 @include('crud::fields.inc.wrapper_end')
 
-
-@if ($crud->fieldTypeNotLoaded($field))
-    @php
-        $crud->markFieldTypeAsLoaded($field);
-    @endphp
-
-    {{-- FIELD EXTRA CSS  --}}
-    {{-- push things in the after_styles section --}}
-    @push('crud_fields_styles')
-        <!-- no styles -->
-    @endpush
+{{-- FIELD EXTRA CSS  --}}
+{{-- push things in the after_styles section --}}
+@push('crud_fields_styles')
+    <!-- @basset('public_path_to_file') -->
+    <!-- @basset(base_path('path_to_file')) -->
+@endpush
 
 
-    {{-- FIELD EXTRA JS --}}
-    {{-- push things in the after_scripts section --}}
-    @push('crud_fields_scripts')
-        <!-- no scripts -->
-    @endpush
-@endif
+{{-- FIELD EXTRA JS --}}
+{{-- push things in the after_scripts section --}}
+@push('crud_fields_scripts')
+    <!-- @basset('public_path_to_file') -->
+    <!-- @basset(base_path('path_to_file')) -->
+@endpush
 ```
 
 Inside your custom field type, you can use these variables:

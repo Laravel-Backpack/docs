@@ -24,32 +24,24 @@ class TagCrudController extends CrudController {
   use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
   use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
 
-  public function setup() 
+  public function setup()
   {
-      $this->crud->setModel("App\Models\Tag");
-      $this->crud->setRoute("admin/tag");
-      $this->crud->setEntityNameStrings('tag', 'tags');
+      CRUD::setModel('App\Models\Tag');
+      CRUD::setRoute('admin/tag');
+      CRUD::setEntityNameStrings('tag', 'tags');
   }
 
   public function setupListOperation()
   {
-      $this->crud->setColumns(['name', 'slug']);
+      CRUD::setColumns(['name', 'slug']);
   }
 
   public function setupCreateOperation()
   {
-      $this->crud->setValidation(TagCrudRequest::class);
+      CRUD::setValidation(TagCrudRequest::class);
 
-      $this->crud->addField([
-        'name' => 'name',
-        'type' => 'text',
-        'label' => "Tag name"
-      ]);
-      $this->crud->addField([
-        'name' => 'slug',
-        'type' => 'text',
-        'label' => "URL Segment (slug)"
-      ]);
+      CRUD::field('name');
+      CRUD::field('name')->type('text')->label('URL Segment (slug)');
   }
 
   public function setupUpdateOperation()
@@ -63,10 +55,10 @@ In the example above, we've enabled the most common operations:
 - **Create** - using a create form (aka "*add form*")
 - **List** - using AJAX DataTables (aka "*list view*", aka "*table view*")
 - **Update** - using an update form (aka "*edit form*")
-- **Delete** - using a *button* in the *list view* 
-- **Show** - using a *button* in the *list view* 
+- **Delete** - using a *button* in the *list view*
+- **Show** - using a *button* in the *list view*
 
-These are the basic operations an admin can execute on an Eloquent model, thanks to Backpack. We do have additional operations (Reorder, Revisions, Clone, BulkDelete, BulkClone), and you can easily _create a custom operation_, but let's not get ahead of ourselves. Baby steps. **Let's go through the most important features of the operations you'll be using _all the time_: ListEntries, Create and Update**.
+These are the basic operations an admin can execute on an Eloquent model, thanks to Backpack. We do have additional operations (Reorder, Revisions, Clone, BulkDelete, BulkClone), and you can easily _create a custom operation_, but let's not get ahead of ourselves. Baby steps. **Let's go through the most important features of the operations you'll be using _all the time_: List, Create and Update**.
 
 <a name="create-and-update-operations"></a>
 ## Create & Update Operations
@@ -76,23 +68,32 @@ These are the basic operations an admin can execute on an Eloquent model, thanks
 <a name="fields"></a>
 ### Fields
 
-Inside your Controller's ```setupCreateOperation()``` or ```setupUpdateOperation()``` method, you'll be able to define what fields you want the admin to see, when creating/updating entries. In the example above, we only have two fields, both using the ```text``` field type. So that's what's shown to the admin. When the admin presses _Save_, assuming your model has those two attributes as ```$fillable```, Backpack will save the entry and take you back to the ListEntries view. Keep in mind we're using a _pure_ Eloquent model. So of course, inside the model you could use accessors, mutators, events, etc.
+Inside your Controller's ```setupCreateOperation()``` or ```setupUpdateOperation()``` method, you'll be able to define what fields you want the admin to see, when creating/updating entries. In the example above, we only have two fields, both using the ```text``` field type. So that's what's shown to the admin. When the admin presses _Save_, assuming your model has those two attributes as ```$fillable```, Backpack will save the entry and take you back to the List view. Keep in mind we're using a _pure_ Eloquent model. So of course, inside the model you could use accessors, mutators, events, etc.
 
 
 But a lot of times, you won't just need text inputs. You'll need datepickers, upload buttons, 1-n relationship, n-n relationships, textareas, etc. For each field, you only need to define it properly in the Controller. Here are the most used methods to manipulate fields:
 
 ```php
-$this->crud->addField($field_definition_array);
-$this->crud->addFields([$field_definition_array_1, $field_definition_array_2]);
-$this->crud->removeField('name');
-$this->crud->removeFields(['name_1', 'name_2']);
+CRUD::field('price');
+CRUD::field('price')->prefix('$'); // set the "prefix" attribute to "$"
+CRUD::field('price')->remove(); // delete a field from the form
+CRUD::field('price')->after('name'); // move a field after a different field
 
-// pro tip:
-// a quick way to add simple fields: let the CRUD decide what field type it is
-$this->crud->addField('db_column_name'); 
+// you can of course chain these calls:
+CRUD::field('price')->label('Product price')->prefix('$')->after('name');
+
+// you can also add multiple attribute in one go, by creating
+// a field using an array, instead of just its name (a string);
+// we call this the array syntax:
+CRUD::field([
+  'name' => 'price',
+  'type' => 'number',
+  'label' => 'Product price',
+  'prefix' => '$',
+]);
 ```
 
-A typical *field definition array* will need at least three things:
+A typical *field definition* will need at least three things:
 - ```name``` - the attribute (column in the database), which will also become the name of the input;
 - ```type``` - the kind of field we'd like to use (text, number, select2, etc);
 - ```label``` - the human-readable label for the input (will be generated from ```name``` if not given);
@@ -112,7 +113,7 @@ Let's take another example, slightly more complicated than the ```text``` fields
 We could use the code below to add a ```select2_multiple``` field to the Tag update forms:
 
 ```php
-$this->crud->addField([
+CRUD::field([
     'type' => 'select2_multiple',
     'name' => 'articles', // the relationship name in your Model
     'entity' => 'articles', // the relationship name in your Model
@@ -128,7 +129,7 @@ $this->crud->addField([
 If we had an Articles CRUD, and the reverse relationship defined on the ```Article``` model too, we could also add a ```select2_multiple``` field in the Article CRUD, to allow the admin to choose which tags apply to each article. This actually makes more sense than the above :-)
 
 ```php
-$this->crud->addField([
+CRUD::field([
     'label' => "Tags",
     'type' => 'select2_multiple',
     'name' => 'tags', // the method that defines the relationship in your Model
@@ -138,20 +139,30 @@ $this->crud->addField([
 ]);
 ```
 
-> When generating a CrudController, you might be using the ```$this->crud->setFromDb();``` method by default, which tries to figure out what fields you might need in your create/update forms and what columns in your list view, but - as you'd expect - it only works for the simple field types. You can:
-> 
-> (1) choose to keep using ```setFromDb()``` and add/remove/change additional fields
-> 
->   or 
-> 
-> (2) delete ```setFromDb()``` and manually define each field and column;
-> 
-> **Our recommendation**, for anything but the simplest CRUDs, **is to manually define each field** - much easier to understand and customize, for your future self and any other developer that comes after you.
-
 <a name="callbacks"></a>
 ### Callbacks
 
-Developers coming from GroceryCRUD on CodeIgniter or other CRUD systems will be looking for callbacks to run ```before_insert```, ```before_update```, ```after_insert```, ```after_update```. **There are no callbacks in Backpack**. The ```store()``` and ```update()``` code is inside a trait, so you can easily overwrite that method, and call it inside your new method. For example, here's how we can do things before/after an item is saved in the Create operation:
+Developers coming from other CRUD systems will be looking for callbacks to run ```before_insert```, ```before_update```, ```after_insert```, ```after_update```. **There are no callbacks in Backpack**.
+
+Remember that Backpack is using Eloquent models. That means you can do X when Y is happening, by using the [Laravel Eloquent model events](https://laravel.com/docs/10.x/eloquent#events). For example, in your CrudController you can do:
+
+```php
+public function setup() {
+    // this will get run for all operations that trigger the "deleting" model event
+    // by default, that's the Delete operation
+    Monster::deleting(function ($entry) {
+        // TODO: delete that entry's files from the disk
+    });
+
+    // this will get run on all operations that trigger the "saving" model event
+    // by default, that's the Create and Update operations
+    Monster::saving(function ($entry) {
+        // TODO: change one value to another or something
+    });
+}
+```
+
+Alternatively, if you do need to change how an operation does something... that's dead-simple too. The ```store()``` and ```update()``` code is inside a trait, so you can easily override that method, and call it inside your new method. For example, here's how we can do things before/after an item is saved in the Create operation:
 
 ```php
 <?php
@@ -165,7 +176,7 @@ class ProductCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as traitStore; }
 
     // ...
-    
+
     public function store()
     {
       // do something before validation, before save, before everything
@@ -181,7 +192,7 @@ class ProductCrudController extends CrudController
 <a name="list-entries-operation"></a>
 ## List Operation
 
-List shows the admin a table with all entries. On the front-end, the information is pulled using AJAX calls, and shown using DataTables. It's the most feature-packed operation in Backpack, but right now we're just going through the most important features you need to know about: columns, filters and buttons. 
+List shows the admin a table with all entries. On the front-end, the information is pulled using AJAX calls, and shown using DataTables. It's the most feature-packed operation in Backpack, but right now we're just going through the most important features you need to know about: columns, filters and buttons.
 
 You should configure the List operation inside the ```setupListOperation()``` method.
 
@@ -191,27 +202,30 @@ You should configure the List operation inside the ```setupListOperation()``` me
 Columns help you specify *which* attributes are shown in the table and *in which order*. **Their syntax is super-similar to fields**:
 
 ```php
-$this->crud->addColumn($column_definition_array); // add a single column, at the end of the table
-$this->crud->addColumns([$column_definition_array_1, $column_definition_array_2]); // add multiple columns, at the end of the table
-$this->crud->removeColumn('column_name'); // remove a column from the table
-$this->crud->removeColumns(['column_name_1', 'column_name_2']); // remove an array of columns from the table
-$this->crud->setColumnDetails('column_name', ['attribute' => 'value']);
-$this->crud->setColumnsDetails(['column_1', 'column_2'], ['attribute' => 'value']);
+CRUD::column($column_definition_array); // add a single column, at the end of the table
+CRUD::column('price')->type('number');
+CRUD::column('price')->type('number')->prefix('$');
+CRUD::column('price')->after('name'); // move column after another column
+CRUD::column('price')->remove(); // move column after another column
 
-$this->crud->setColumns([$column_definition_array_1, $column_definition_array_2]); // make these the only columns in the table
+// bulk actions
+CRUD::addColumns([$column_definition_array_1, $column_definition_array_2]); // add multiple columns, at the end of the table
+CRUD::setColumns([$column_definition_array_1, $column_definition_array_2]); // make these the only columns in the table
+CRUD::removeColumns(['column_name_1', 'column_name_2']); // remove an array of columns from the table
+CRUD::setColumnsDetails(['column_1', 'column_2'], ['attribute' => 'value']);
 ```
 
-You can use one of the [14+ column types](/docs/{{version}}/crud-columns#default-column-types) to show information to the user in the table, or easily [create a custom column type](/docs/{{version}}/crud-columns#creating-a-custom-column-type), if you have a super-specific need. Here's an example of using the methods above:
+You can use one of the [44+ column types](/docs/{{version}}/crud-columns#default-column-types) to show information to the user in the table, or easily [create a custom column type](/docs/{{version}}/crud-columns#creating-a-custom-column-type), if you have a super-specific need. Here's an example of using the methods above:
 
 ```php
-$this->crud->addColumn([
+CRUD::column([
     'name' => 'published_at',
     'type' => 'date',
     'label' => 'Publish_date',
 ]);
 
 // PRO TIP: to quickly add a text column, just pass the name string instead of an array
-$this->crud->addColumn('text'); // adds a text column, at the end of the stack
+CRUD::column('text'); // adds a text column, at the end of the stack
 ```
 
 <a name="filters"></a>
@@ -219,12 +233,12 @@ $this->crud->addColumn('text'); // adds a text column, at the end of the stack
 
 ![Monster CRUD - List Entries Filters](https://backpackforlaravel.com/uploads/docs-4-0/getting_started/backpack_filters.png)
 
-Filters provide an easy way for the admin to well… _filter_ the ListEntries table. The syntax is very similar to Fields and Columns and you can use one of the [existing 8 filter types](/docs/{{version}}/crud-filters) or easily [create a custom filter](/docs/{{version}}/crud-filters#creating-custom-filters). 
+Filters provide an easy way for the admin to well… _filter_ the List table. The syntax is very similar to Fields and Columns and you can use one of the [existing 8 filter types](/docs/{{version}}/crud-filters) or easily [create a custom filter](/docs/{{version}}/crud-filters#creating-custom-filters). Note that this is a PRO feature.
 
 ```php
-$this->crud->addFilter($options, $values, $filter_logic);
-$this->crud->removeFilter($name);
-$this->crud->removeAllFilters();
+CRUD::addFilter($options, $values, $filter_logic);
+CRUD::removeFilter($name);
+CRUD::removeAllFilters();
 ```
 
 For more on this, check out the [filters documentation page](/docs/{{version}}/crud-filters), when you need them.
@@ -234,15 +248,15 @@ For more on this, check out the [filters documentation page](/docs/{{version}}/c
 
 ![Tag CRUD - List Entries Buttons](https://backpackforlaravel.com/uploads/docs-4-0/getting_started/backpack_buttons.png)
 
-If you want to add a custom button to an entry, you can do that. If you want to remove a button, you can also do that. Look for the [buttons documentation](/docs/{{version}}/crud-buttons) when you need it.  
+If you want to add a custom button to an entry, you can do that. If you want to remove a button, you can also do that. Look for the [buttons documentation](/docs/{{version}}/crud-buttons) when you need it.
 
 ```php
 // positions: 'beginning' and 'end'
 // stacks: 'line', 'top', 'bottom'
 // types: view, model_function
-$this->crud->addButton($stack, $name, $type, $content, $position);
-$this->crud->removeButton($name);
-$this->crud->removeButtonFromStack($name, $stack);
+CRUD::addButton($stack, $name, $type, $content, $position);
+CRUD::removeButton($name);
+CRUD::removeButtonFromStack($name, $stack);
 ```
 
 **That's it for today!** Thanks for sticking with us this long. This has been the most important and longest lesson. You can go ahead and [install Backpack](/docs/{{version}}/installation) now, as you've already gone through the most important features. Or [read the next lesson](/docs/{{version}}/getting-started-advanced-features), about advanced features.

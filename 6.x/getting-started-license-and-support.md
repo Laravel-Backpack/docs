@@ -7,7 +7,7 @@
 <a name="add-ons"></a>
 ## Add-ons
 
-In addition to our core packages (Base and CRUD), we have quite a few packages you can install or download, that treat common use cases. Some have been developed by our core team, some by our wonderful community. For example, we have plug&play interfaces to manage [site-wide settings](https://github.com/Laravel-Backpack/Settings), [the default Laravel users table](https://github.com/eduardoarandah/UserManager), [users, groups & permissions](https://github.com/Laravel-Backpack/PermissionManager), [content for custom pages, using page templates](https://github.com/Laravel-Backpack/PageManager), [news articles, categories and tags](https://github.com/Laravel-Backpack/NewsCRUD), etc.
+In addition to our core package (CRUD), we have quite a few packages you can install or download, that treat common use cases. Some have been developed by our core team, some by our wonderful community. For example, we have plug&play interfaces to manage [site-wide settings](https://github.com/Laravel-Backpack/Settings), [the default Laravel users table](https://github.com/eduardoarandah/UserManager), [users, groups & permissions](https://github.com/Laravel-Backpack/PermissionManager), [content for custom pages, using page templates](https://github.com/Laravel-Backpack/PageManager), [news articles, categories and tags](https://github.com/Laravel-Backpack/NewsCRUD), etc.
 
 Take a look at:
 - [all official add-ons](/docs/{{version}}/add-ons-official)
@@ -17,7 +17,7 @@ Take a look at:
 ## License
 
 
-Starting with v5, Backpack has become open-core. The main features are now split into two packages:
+Backpack is open-core. The features you'll find in our docs are split into two packages:
 
 - [Backpack\CRUD](https://github.com/laravel-backpack/crud) is the core, released under the [MIT License](https://github.com/Laravel-Backpack/CRUD/blob/master/LICENSE.md) (free, open-source); <span class="badge badge-pill badge-success">FREE</span>
 - [Backpack\PRO](https://backpackforlaravel.com/products/pro-for-unlimited-projects) is a Backpack add-on, released under our [EULA](https://backpackforlaravel.com/eula) (paid, closed-source); <span class="badge badge-pill badge-info">PRO</span>
@@ -30,14 +30,14 @@ When your admin panel grows and your needs become more complex, you can purchase
 <a name="support"></a>
 ## Support
 
-With thousands of developers using Backpack, a lot of them non-commercial, and such a small price, **we can't offer official support for the packages**. We've been doing this since 2016, we actively maintain the packages, we try to squash any bugs ASAP and add new features all the time, but we unfortunately can't spend time on back-and-forth on implementation issues in your project. But. We do have good documentation and have been blessed with a **great community**, where people help each other out. If Backpack becomes your tool of preference, I highly recommend you join our gang. Help others get started, create cool stuff, or even influence the direction of Backpack: 
+We offer free support for all our packages. If you report a bug, we will do our best to fix it in a timely manner. We publish a new patch version weekly, launch new featuers every month and major versions yearly. But please note that support does _not_ mean we can help with debugging, implementation issues specific to your project, brainstorming on solutions for your project, jumping on Zoom/Meet calls etc. We just cannot do that, With thousands of developers using Backpack, a lot of them non-commercial, and such a small price. But. We do have good documentation and have been blessed with a **great community**, where people help each other out. If Backpack becomes your tool of choice, I highly recommend you join our gang. Help others get started, report bugs, create cool stuff, or even influence the direction of Backpack:
 
 - **[StackOverflow tag](https://stackoverflow.com/questions/tagged/backpack-for-laravel) for support requests** (If you need help creating something using Backpack, post your question on StackOverflow using the ```backpack-for-laravel``` tag. We've been blessed with a great community that is happy to help. Who doesn't like getting StackOverflow points?)
 - **[Gitter Chatroom](https://gitter.im/BackpackForLaravel/Lobby) for quick questions** (If you have an urgent matter that won't take much time to answer, use our 24/7 Gitter chatroom. Be considerate, everyone's probably working on their own project right now.)
-- **[GitHub Issues](https://github.com/laravel-backpack/) for bugs** (Found a bug? Great! Please search for it on GitHub first - someone might have already found it. If not, open an issue, we're happy to learn about it and make Backpack better. )
-- **[/r/BackpackForLaravel subreddit](https://www.reddit.com/r/BackpackForLaravel/) for showing off your work, asking for opinions on implementation, sharing tips, packages, etc.**
- 
-Thank you for sticking up with us for so long. This is the last Backpack lesson we can give you. **Now you have absolutely no excuse not to start your first Backpack project :-)** Here are a few links for if you still don't think you're ready:
+- **[GitHub Community Forum](https://github.com/laravel-backpack/community-forum) for bugs** (Found a bug? Great! Please search for it on GitHub first - someone might have already found it. If not, open an issue, we're happy to make Backpack better.)
+- **[GitHub Community Forum](https://github.com/laravel-backpack/community-forum) for showing off your work, asking for opinions on implementation, sharing tips, packages, etc.**
+
+Thank you for sticking up with us for so long. This is the last Backpack lesson we can give you. **Now you have absolutely no excuse - time to start your first Backpack project :-)** Here are a few links for if you still don't think you're ready:
 
 - [Go through the demo](/docs/{{version}}/demo) and play around
 - Read this [CRUD Crash Course](/docs/{{version}}/crud-tutorial) and do the steps yourself

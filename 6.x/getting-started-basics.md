@@ -9,7 +9,7 @@
 
 <a name="what-is-backpack"></a>
 ## What is Backpack?
-A software that helps Laravel professionals build administration panels - secure areas where administrators login and create, read, update and delete application information. It is *not* a CMS, it is more a framework that lets you *build your own* CMS. You can install it in your existing project or in a totally new project. 
+A software that helps Laravel professionals build administration panels - secure areas where administrators login and create, read, update and delete application information. It is *not* a CMS, it is more a framework that lets you *build your own* CMS. You can install it in your existing project or in a totally new project.
 
 It's designed to be flexible enough to allow you to **build admin panels for everything from simple presentation websites to CRMs, ERPs, eCommerce, eLearning, etc**. We can vouch for that, because we have built all that stuff using Backpack already.
 
@@ -34,9 +34,11 @@ Mind that you will _almost never_ use all of Backpack's features in one CRUD. Bu
 <a name="backpack-design"></a>
 ### Front-End Design
 
-Backpack installs the [CoreUI](https://coreui.io) HTML theme, and our own design on top - [Backstrap](https://backstrap.net). It uses Bootstrap 4, and has many HTML blocks ready for you to use. When you're building a custom page in your admin panel, it's easy to just copy-paste the HTML from our [Backstrap demo](https://backstrap.net), or from the [CoreUI documentation](https://coreui.io/docs/getting-started/introduction/) and it will look good, without you having to design anything.
+New Backpack installs come with the [Tabler](https://tabler.io) HTML theme installed. It uses Bootstrap 5, and has many HTML blocks ready for you to use. When you're building a custom page in your admin panel, it's easy to just copy-paste the HTML from our [the tabler website](https://tabler.io/preview), or from the [Tabler documentation](https://tabler.io/docs) and it will look good, without you having to design anything.
 
 It also installs Noty for triggering JS notification bubbles, and SweetAlerts. So you can easily use these across your admin panel. You can [trigger notification bubbles in PHP](/docs/{{version}}/base-about#triggering-notification-bubbles-in-php) or [trigger notification bubbles in JavaScript](/docs/{{version}}/base-about#triggering-notification-bubbles-in-javascript).
+
+But [Tabler Theme](https://github.com/Laravel-Backpack/theme-tabler) is just the _default_ theme in Backpack. You can uninstall it and use other themes, like [CoreUI v4](https://github.com/Laravel-Backpack/theme-coreuiv4) or [CoreUI v2](https://github.com/Laravel-Backpack/theme-tabler) (which still provides IE support). You can of course also create your own custom theme. In fact, we've built our theming system in such a way that if you buy a Bootstrap-based HTML template from Envato / GetBootstrap / WrapBootstrap, it should take you no more than 5 hours to  create a Backpack theme that's using that HTML template.
 
 
 <a name="backpack-authentication"></a>
@@ -44,7 +46,7 @@ It also installs Noty for triggering JS notification bubbles, and SweetAlerts. S
 
 Backpack comes with a basic authentication system that's separate from Laravel's. This way, you can have different login screens for users & admins, if you need. If not, you can choose to use only one authentication - either Laravel's, or Backpack's.
 
-![Backpack 3.5 Authentication Screens](https://backpackforlaravel.com/uploads/docs-4-0/getting_started/auth_screens.png)
+![Backpack Authentication Screens](https://backpackforlaravel.com/uploads/docs-4-0/getting_started/auth_screens.png)
 
 After you [install Backpack](/docs/{{version}}/installation) (don't do it now), you'll be able to log into your admin panel at ```http://yourapp/admin```. You can change the URL prefix from ```admin``` to something else in your ```config/backpack/base.php``` file, along with a bunch of other configuration options. [Click here](https://github.com/Laravel-Backpack/CRUD/blob/master/src/config/backpack/base.php) to browse the configuration file and see what it can do for you.
 
@@ -69,7 +71,6 @@ You can use anything you want to generate the Migration and Model, so in this ca
 ```zsh
 # STEP 0. install a 3d party tool to generate migrations
 composer require --dev laracasts/generators
-composer require --dev backpack/generators
 
 # STEP 1. create a migration
 php artisan make:migration:schema create_tags_table --model=0 --schema="name:string:unique,slug:string:unique"
@@ -114,32 +115,25 @@ class TagCrudController extends CrudController {
   use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
   use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
 
-  public function setup() 
+  public function setup()
   {
-      $this->crud->setModel("App\Models\Tag");
-      $this->crud->setRoute("admin/tag");
-      $this->crud->setEntityNameStrings('tag', 'tags');
+      CRUD::setModel("App\Models\Tag");
+      CRUD::setRoute("admin/tag");
+      CRUD::setEntityNameStrings('tag', 'tags');
   }
 
   public function setupListOperation()
   {
-      $this->crud->setColumns(['name', 'slug']);
+      CRUD::column('name');
+      CRUD::column('slug');
   }
 
   public function setupCreateOperation()
   {
-      $this->crud->setValidation(TagCrudRequest::class);
+      CRUD::setValidation(TagCrudRequest::class);
 
-      $this->crud->addField([
-        'name' => 'name',
-        'type' => 'text',
-        'label' => "Tag name"
-      ]);
-      $this->crud->addField([
-        'name' => 'slug',
-        'type' => 'text',
-        'label' => "URL Segment (slug)"
-      ]);
+      CRUD::field('name')->type('text');
+      CRUD::field('slug')->type('text')->label('URL Segment (slug)');
   }
 
   public function setupUpdateOperation()
