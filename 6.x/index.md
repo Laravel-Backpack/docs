@@ -5,7 +5,7 @@
 - [Installation](/docs/{{version}}/installation)
 - [Features (Free vs Paid)](/docs/{{version}}/features-free-vs-paid)
 - [Release Notes](/docs/{{version}}/release-notes)
-- [Upgrade Guide](/docs/{{version}}/upgrade-guide) ❌
+- [Upgrade Guide](/docs/{{version}}/upgrade-guide) 🚧
 - [FAQ](/docs/{{version}}/faq)
 
 #### Getting Started
@@ -18,10 +18,11 @@
 
 #### Admin UI
 
-- [About](/docs/{{version}}/base-about) 🟨
+- [About](/docs/{{version}}/base-about)
 - [Alerts](/docs/{{version}}/base-alerts)
 - [Breadcrumbs](/docs/{{version}}/base-breadcrumbs)
-- [Widgets](/docs/{{version}}/base-widgets) 🟨
+- [Themes](/docs/{{version}}/base-themes)
+- [Widgets](/docs/{{version}}/base-widgets)
 - [FAQ](/docs/{{version}}/base-how-to) 🟨
 
 #### CRUD Panels
@@ -29,7 +30,7 @@
 - [Basics](/docs/{{version}}/crud-basics)
 - [Crash Course](/docs/{{version}}/crud-tutorial)
 - [Operations](/docs/{{version}}/crud-operations)
-    + [List](/docs/{{version}}/crud-operation-list-entries) 🟨
+    + [List](/docs/{{version}}/crud-operation-list-entries)
         + [Columns](/docs/{{version}}/crud-columns) 🟨
         + [Buttons](/docs/{{version}}/crud-buttons) 🟨
         + [Filters](/docs/{{version}}/crud-filters) 🟨
