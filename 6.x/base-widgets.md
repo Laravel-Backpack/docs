@@ -41,7 +41,7 @@ When passing a widget array, you need to specify at least these attributes:
 ```php
 [
    'type' => 'card' // the kind of widget to show
-   'content' => null // the content of that widget (some are string, some are array) 
+   'content' => null // the content of that widget (some are string, some are array)
 ],
 ```
 
@@ -154,7 +154,7 @@ Shows a pie chart / line chart / bar chart inside a Bootstrap card, with the hea
 
 To create and use a new widget chart, you need to:
 
-**Step 1.** Install laravel-charts, that offers a single PHP syntax for 6 different charting libraries: 
+**Step 1.** Install laravel-charts, that offers a single PHP syntax for 6 different charting libraries:
 ```
 composer require consoletvs/charts:"6.*"
 ```
@@ -172,24 +172,24 @@ This will create:
 
 **Step 3.** Add the widget that points to that ChartController you just created:
 ```php
-Widget::add([ 
+Widget::add([
     'type'       => 'chart',
     'controller' => \App\Http\Controllers\Admin\Charts\WeeklyUsersChartController::class,
 
     // OPTIONALS
-    
+
     // 'class'   => 'card mb-2',
     // 'wrapper' => ['class'=> 'col-md-6'] ,
     // 'content' => [
-         // 'header' => 'New Users', 
+         // 'header' => 'New Users',
          // 'body'   => 'This chart should make it obvious how many new users have signed up in the past 7 days.<br><br>',
     // ],
 ]);
-``` 
+```
 
 **Step 4.** Configure the ChartController you just created:
 - ```public function setup()``` (MANDATORY)
-    - initialize and configure ```$this->chart```, using the methods detailed in the [laravel-charts documentation](https://v6.charts.erik.cat); 
+    - initialize and configure ```$this->chart```, using the methods detailed in the [laravel-charts documentation](https://v6.charts.erik.cat);
     - you _can_ define your dataset here, if you want your DB queries to be called upon page load;
 - ```public function data()``` (OPTIONAL, but recommended)
     - use ```$this->chart->dataset()``` to configure what the chart should contain;
@@ -218,7 +218,7 @@ public function getLibraryFilePath()
     return asset('path/to/your/js/file');
 
     // or
-    
+
     return [
         asset('path/to/first/js/file'),
         asset('path/to/second/js/file'),
@@ -260,7 +260,7 @@ class NewEntriesChartController extends ChartController
         }
         $this->chart->labels($labels);
 
-        // RECOMMENDED. 
+        // RECOMMENDED.
         // Set URL that the ChartJS library should call, to get its data using AJAX.
         $this->chart->load(backpack_url('charts/new-entries'));
 
@@ -359,7 +359,7 @@ Allows you to include multiple widgets in the div attributes of your choice. For
 [
     'type'    => 'div',
     'class'   => 'row',
-    'content' => [ // widgets 
+    'content' => [ // widgets
         [ 'type' => 'card', 'content' => ['body' => 'One'] ],
         [ 'type' => 'card', 'content' => ['body' => 'Two'] ],
         [ 'type' => 'card', 'content' => ['body' => 'Three'] ],
@@ -506,17 +506,17 @@ Loads a blade view from a location you specify. Any attributes you give it will 
 ]
 ```
 
-It helps load blade files that are not specifically created to be widgets, that live in a different path than ```resources/views/vendor/backpack/base/widgets```, as if they were widgets.
+It helps load blade files that are not specifically created to be widgets, that live in a different path than ```resources/views/vendor/backpack/ui/widgets```, as if they were widgets.
 
 <hr>
 
 <a name="overwriting-default-widget-types"></a>
-## Overwriting Default Widget Types
+## Overriding Default Widget Types
 
-You can overwrite a widget type by placing a file with the same name in your ```resources\views\vendor\backpack\base\widgets``` directory. When a file is there, Backpack will pick that one up, instead of the one in the package. You can do that from command line using ```php artisan backpack:widget --from=widget-name```
+You can override a widget type by placing a file with the same name in your ```resources\views\vendor\backpack\ui\widgets``` directory. When a file is there, Backpack will pick that one up, instead of the one in the package. You can do that from command line using ```php artisan backpack:widget --from=widget-name```
 
 Examples:
-- creating a ```resources\views\vendor\backpack\base\widgets\card.blade.php``` file would overwrite the ```card``` widget functionality;
+- creating a ```resources\views\vendor\backpack\ui\widgets\card.blade.php``` file would overwrite the ```card``` widget functionality;
 - ```php artisan backpack:widget --from=card``` will take the view from the package and copy it to the directory above, so you can edit it;
 
 >Keep in mind that when you're overwriting a default widget type, you're forfeiting any future updates for that widget. We can't push updates to a file that you're no longer using.
@@ -524,7 +524,7 @@ Examples:
 <a name="creating-a-custom-widget-type"></a>
 ## Creating a Custom Widget Type
 
-Widgets consist of only one file - a blade file with the same name as the widget type (ex: ```card.blade.php```). You can create one by placing a new blade file inside ```resources\views\vendor\backpack\base\widgets```. Be careful to choose a distinctive name, otherwise you might be overwriting a default widget type (see above).
+Widgets consist of only one file - a blade file with the same name as the widget type (ex: ```card.blade.php```). You can create one by placing a new blade file inside ```resources\views\vendor\backpack\ui\widgets```. Be careful to choose a distinctive name, otherwise you might be overwriting a default widget type (see above).
 
 For example, you can create a ```well.blade.php```:
 ```php
@@ -617,4 +617,4 @@ Widget::add([
 
 ```
 
-Similarly, if you want to create widgets somewhere else than in ```resources/views/vendor/backpack/base/widgets```, you can pass that directory as the namespace of your widget. For example, ```resources/views/admin/widgets``` would have ```admin.widgets``` as the namespace.
+Similarly, if you want to create widgets somewhere else than in ```resources/views/vendor/backpack/ui/widgets```, you can pass that directory as the namespace of your widget. For example, ```resources/views/admin/widgets``` would have ```admin.widgets``` as the namespace.
