@@ -48,7 +48,7 @@ class ProductCrudController extends CrudController
 
     protected function setupListOperation()
     {
-       // $this->crud->addColumn();
+       // CRUD::column('something');
     }
 }
 ```
@@ -61,7 +61,7 @@ Configuration for this operation should be done inside your ```setupListOperatio
 The List operation uses "columns" to determine how to show the attributes of an entry to the user. All column types must have their ```name```, ```label``` and ```type``` specified, but some could require some additional attributes.
 
 ```php
-$this->crud->addColumn([
+CRUD::column([
   'name' => 'name', // The db column name
   'label' => "Tag Name", // Table column heading
   'type' => 'Text'
@@ -84,6 +84,7 @@ Backpack adds a few buttons by default:
 - ```add``` to the ```top``` stack;
 - ```edit``` and ```delete``` to the ```line``` stack;
 
+#### Merging line buttons into a dropdown
 
 **NOTE**: The `line` stack buttons can be converted into a dropdown to improve the available table space.
 ![Backpack List Operation Dropdown ](https://user-images.githubusercontent.com/33960976/228809544-0d5a0d94-9195-4f45-9e20-e9ea32932f49.png)
@@ -114,7 +115,7 @@ The details row functionality allows you to present more information in the tabl
 On click, an AJAX request is sent to the ```entity/{id}/details``` route, which calls the ```showDetailsRow()``` method on your EntityCrudController. Everything returned by that method is then shown in the details row. You'll want to overwrite that method to show anything you'd like in the details row.
 
 To use, inside your ```EntityCrudController```:
-1. Enable the functionality: ```$this->crud->enableDetailsRow();```
+1. Enable the functionality: ```CRUD::enableDetailsRow();```
 2. Overwrite the ```showDetailsRow($id)``` method;
 
 Alternative for the 2nd step: overwrite ```views/backpack/crud/details_row.blade.php``` which is called by the default ```showDetailsRow($id)``` functionality.
@@ -122,7 +123,7 @@ Alternative for the 2nd step: overwrite ```views/backpack/crud/details_row.blade
 <a name="export-buttons"></a>
 #### Export Buttons <span class="badge badge-pill badge-info">PRO</span>
 
-Exporting the DataTable to PDF, CSV, XLS is as easy as typing ```$this->crud->enableExportButtons();``` in your constructor.
+Exporting the DataTable to PDF, CSV, XLS is as easy as typing ```CRUD::enableExportButtons();``` in your constructor.
 
 ![Backpack CRUD ListEntries Details Row](https://backpackforlaravel.com/uploads/docs-4-0/operations/listEntries_export_buttons.png)
 
@@ -193,22 +194,22 @@ By default, all entries are shown in the ListEntries table, before filtering. If
 // Change what entries are shown in the table view.
 // This changes all queries on the table view,
 // as opposed to filters, who only change it when that filter is applied.
-$this->crud->addClause('active'); // apply a local scope
-$this->crud->addClause('type', 'car'); // apply local dynamic scope
-$this->crud->addClause('where', 'name', '=', 'car');
-$this->crud->addClause('whereName', 'car');
-$this->crud->addClause('whereHas', 'posts', function($query) {
+CRUD::addClause('active'); // apply a local scope
+CRUD::addClause('type', 'car'); // apply local dynamic scope
+CRUD::addClause('where', 'name', '=', 'car');
+CRUD::addClause('whereName', 'car');
+CRUD::addClause('whereHas', 'posts', function($query) {
      $query->activePosts();
  });
-$this->crud->groupBy();
-$this->crud->limit();
-$this->crud->orderBy(); // please note it's generally a good idea to use crud->orderBy() inside "if (!$this->crud->getRequest()->has('order')) {}"; that way, your custom order is applied ONLY IF the user hasn't forced another order (by clicking a column heading)
+CRUD::groupBy();
+CRUD::limit();
+CRUD::orderBy(); // please note it's generally a good idea to use crud->orderBy() inside "if (!CRUD::getRequest()->has('order')) {}"; that way, your custom order is applied ONLY IF the user hasn't forced another order (by clicking a column heading)
 
 // The above will change the used query, so the ListOperation will say
-// "Showing 140 entries, filtered from 1.000 entries". If you want to 
+// "Showing 140 entries, filtered from 1.000 entries". If you want to
 // that, and make it look like only those entries are in the databse,
 // you can change the baseQuery instead, by using:
-$this->crud->addBaseClause('where', 'name', '=', 'car');
+CRUD::addBaseClause('where', 'name', '=', 'car');
 ```
 
 <a name="responsive-table"></a>
@@ -223,7 +224,7 @@ If you do not like this, you can **toggle off the responsive behaviour for all C
     'responsive_table' => true
 ```
 
-To turn off the responsive table behaviour for _just one CRUD panel_, you can use ```$this->crud->disableResponsiveTable()``` in your ```setupListOperation()``` method.
+To turn off the responsive table behaviour for _just one CRUD panel_, you can use ```CRUD::disableResponsiveTable()``` in your ```setupListOperation()``` method.
 
 <a name="persistent-query"></a>
 #### Persistent Table
@@ -234,10 +235,10 @@ By default, ListEntries will NOT remember your filtering, search and pagination 
 
 To use ```persistent_table``` you can:
 - enable it for all CRUDs with the config option ```'persistent_table' => true``` in your ```config/backpack/crud.php```;
-- enable it inside a particular crud controller with ```$this->crud->enablePersistentTable();```
-- disable it inside a particular crud controller with ```$this->crud->disablePersistentTable();```
+- enable it inside a particular crud controller with ```CRUD::enablePersistentTable();```
+- disable it inside a particular crud controller with ```CRUD::disablePersistentTable();```
 
-> You can configure the persistent table duration in ``` config/backpack/crud.php ``` under `operations > list > persistentTableDuration`. False is forever. Set any amount of time you want in minutes. Note: you can configure it's expiring time on a per-crud basis using `$this->crud->setOperationSetting('persistentTableDuration', 120); in your setupListOperation()` for 2 hours persistency. The default is `false` which means forever.
+> You can configure the persistent table duration in ``` config/backpack/crud.php ``` under `operations > list > persistentTableDuration`. False is forever. Set any amount of time you want in minutes. Note: you can configure it's expiring time on a per-crud basis using `CRUD::setOperationSetting('persistentTableDuration', 120); in your setupListOperation()` for 2 hours persistency. The default is `false` which means forever.
 
 <a name="large-tables"></a>
 #### Large Tables (millions of entries)
@@ -271,13 +272,13 @@ To use widgets on list operation, define them inside `setupListOperation()` func
 
 ```php
 public function setupListOperation()
-{    
+{
     // dynamic data to render in the following widget
     $userCount = \App\Models\User::count();
 
     //add div row using 'div' widget and make other widgets inside it to be in a row
     Widget::add()->to('before_content')->type('div')->class('row')->content([
-        
+
         //widget made using fluent syntax
         Widget::make()
             ->type('progress')
@@ -288,7 +289,7 @@ public function setupListOperation()
             ->progress(100 * (int)$userCount / 1000)
             ->hint(1000 - $userCount . ' more until next milestone.'),
 
-        //widget made using the array definition 
+        //widget made using the array definition
         Widget::make(
             [
                 'type'       => 'card',
@@ -354,7 +355,7 @@ You can of course overwrite this ```search()``` method by just creating one with
 <a name="how-to-debug"></a>
 ## How to Debug
 
-Because the entries are fetched using AJAX requests, debugging the ListOperation can be a little difficult. Fortunately, we've thought of that. 
+Because the entries are fetched using AJAX requests, debugging the ListOperation can be a little difficult. Fortunately, we've thought of that.
 
 <a name="errors-in-ajax-requests"></a>
 ### Errors in AJAX requests
