@@ -153,8 +153,8 @@ It's as easy as using an asset from a CDN, but it's much _much_ better than that
 
 <a name="step-21" href="#step-21" class="badge badge-danger" style="text-decoration: none;">Step 21.</a> If you have any other blade files in this new `ui` directory, please note that those files have been moved to themes. Backpack v6 offers three themes right from the start:
 - [`backpack/theme-coreuiv2`](https://github.com/Laravel-Backpack/theme-coreuiv2) - maximum backwards-compatibility (basically no breaking changes)
-- [`backpack/theme-coreuiv4`](https://github.com/Laravel-Backpack/theme-coreuiv2) - medium backwards-compatibility (some BC from upgrading to Bootstrap 5)
-- [`backpack/theme-tabler`](https://github.com/Laravel-Backpack/theme-coreuiv2) - for new projects, and projects who have NOT overridden too many blade files;
+- [`backpack/theme-coreuiv4`](https://github.com/Laravel-Backpack/theme-coreuiv4) - medium backwards-compatibility (some BC from upgrading to Bootstrap 5)
+- [`backpack/theme-tabler`](https://github.com/Laravel-Backpack/theme-tabler) - for new projects, and projects who have NOT overridden too many blade files;
 
 Depending on how many files are there, you might want to use `theme-coreuiv2` to check everything still working, THEN change themes to `theme-coreuiv4` or `theme-tabler`. If you want to use any of the new themes, but stuff is breaking, look at the differences between _that_ theme's files and _your_ files, and do the changes needed.
 
