@@ -38,7 +38,7 @@ Please make sure your project respects the requirements below, before you start 
         "backpack/crud": "^6.0.0",
 ```
 
-<a name="step-2" href="#step-2" class="badge badge-danger text-white" style="text-decoration: none;">Step 2.</a> **Bump the version of any first-party Backpack add-ons you have installed (eg. `backpack/pro`, `backpack/editable-columns` etc.)**. For third-party add-ons, please check each add-on's Github page.
+<a name="step-2" href="#step-2" class="badge badge-danger text-white" style="text-decoration: none;">Step 2.</a> **Bump the version of any first-party Backpack add-ons you have installed (eg. `backpack/pro`, `backpack/editable-columns` etc.) to `v6.x-dev`**. For third-party add-ons, please check each add-on's Github page.
 
 <a name="step-3" href="#step-3" class="badge badge-danger text-white" style="text-decoration: none;">Step 3.</a> Run ```composer update``` in the command line. If you get any conflicts with **Backpack 1st party add-ons**, most of the time you just need to move one version up, eg: from `backpack/menucrud: ^3.0` to `backpack/menucrud: ^4.0`.
 
