@@ -69,8 +69,8 @@ No changes needed.
 ### Config
 
 <a name="step-8" href="#step-8" class="badge badge-danger" style="text-decoration: none;">Step 6.</a> We've moved all user-interface-related configs from `config/backpack/base.php` to `config/backpack/ui.php`. Please:
-- re-do any modifications you've made in `base.php` to `ui.php`;
-- delete all the configs that have been moved to `ui.php` from `base.php`; you should end up with a `base.php` file that has [these options only](https://github.com/Laravel-Backpack/CRUD/blob/v6/src/config/backpack/base.php);
+- re-do any modifications you've made in `base.php` to `ui.php`; start by copying the content from [here](https://github.com/Laravel-Backpack/CRUD/blob/v6/src/config/backpack/ui.php).
+- delete all the configs that have been moved to `ui.php` from `base.php`; you should end up with a `base.php` file that has [these options only](https://github.com/Laravel-Backpack/CRUD/blob/v6/src/config/backpack/base.php).
 
 ----
 
