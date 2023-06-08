@@ -47,18 +47,18 @@ Please make sure your project respects the requirements below, before you start 
 
 **No changes needed.** But there are a few improvements you _could_ make, if you want, that will help clean up your Models and move a bit of logic that might be admin-panel-only to the admin panel files:
 
-<a name="step-10" href="#step-10" class="badge badge-secondary-soft" style="text-decoration: none;">Step 10.</a> (OPTIONAL) If you use acessors and mutators for upload fields, you can now use Uploaders instead. TODO: link to migration steps
+<a name="step-4" href="#step-4" class="badge badge-secondary-soft" style="text-decoration: none;">Step 10.</a> (OPTIONAL) If you use acessors and mutators for upload fields, you can now use Uploaders instead. TODO: link to migration steps
 
-<a name="step-10" href="#step-10" class="badge badge-secondary-soft" style="text-decoration: none;">Step 10.</a> (OPTIONAL) If you use accessors and mutators any other fields, you can [use Eloquent model events on fields](/docs/{{version}}/crud-operation-create#use-events-in-your-field-definition).
+<a name="step-5" href="#step-5" class="badge badge-secondary-soft" style="text-decoration: none;">Step 10.</a> (OPTIONAL) If you use accessors and mutators any other fields, you can [use Eloquent model events on fields](/docs/{{version}}/crud-operation-create#use-events-in-your-field-definition).
 
 <a name="form-requests"></a>
 ### Form Requests
 
 **No changes needed.** But there are a few improvements you _could_ make, if you want
 
-<a name="step-10" href="#step-10" class="badge badge-secondary-soft" style="text-decoration: none;">Step 10.</a> (OPTIONAL) If any of your requests have only a few attributes, you can delete the request file and move the validation to the CrudController; you can specify the [validation rules as an array](/docs/{{version}}/crud-operation-create#b-validating-fields-using-a-rules-array) or [validate directly on fields](/docs/{{version}}/crud-operation-create#c-validating-fields-using-field-attributes);
+<a name="step-6" href="#step-6" class="badge badge-secondary-soft" style="text-decoration: none;">Step 10.</a> (OPTIONAL) If any of your requests have only a few attributes, you can delete the request file and move the validation to the CrudController; you can specify the [validation rules as an array](/docs/{{version}}/crud-operation-create#b-validating-fields-using-a-rules-array) or [validate directly on fields](/docs/{{version}}/crud-operation-create#c-validating-fields-using-field-attributes);
 
-<a name="step-10" href="#step-10" class="badge badge-secondary-soft" style="text-decoration: none;">Step 10.</a> (OPTIONAL) If you were manually validating the `upload`, `upload_multiple` or `image` field to do complex stuff, v6 provides an easier way to do it; check [the `upload` field docs](/docs/{{version}}/crud-fields#upload), [`upload_multiple` field docs](/docs/{{version}}/crud-fields#upload_ultiple_) for the new validation classes we've introduced - `ValidUpload` and `ValidUploadMultiple`;
+<a name="step-7" href="#step-7" class="badge badge-secondary-soft" style="text-decoration: none;">Step 10.</a> (OPTIONAL) If you were manually validating the `upload`, `upload_multiple` or `image` field to do complex stuff, v6 provides an easier way to do it; check [the `upload` field docs](/docs/{{version}}/crud-fields#upload), [`upload_multiple` field docs](/docs/{{version}}/crud-fields#upload_ultiple_) for the new validation classes we've introduced - `ValidUpload` and `ValidUploadMultiple`;
 
 <a name="routes"></a>
 ### Routes
@@ -68,13 +68,13 @@ No changes needed.
 <a name="config"></a>
 ### Config
 
-<a name="step-6" href="#step-6" class="badge badge-danger" style="text-decoration: none;">Step 6.</a> We've moved all user-interface-related configs from `config/backpack/base.php` to `config/backpack/ui.php`. Please:
+<a name="step-8" href="#step-8" class="badge badge-danger" style="text-decoration: none;">Step 6.</a> We've moved all user-interface-related configs from `config/backpack/base.php` to `config/backpack/ui.php`. Please:
 - re-do any modifications you've made in `base.php` to `ui.php`;
 - delete all the configs that have been moved to `ui.php` from `base.php`; you should end up with a `base.php` file that has [these options only](https://github.com/Laravel-Backpack/CRUD/blob/v6/src/config/backpack/base.php);
 
 ----
 
-<a name="step-6" href="#step-6" class="badge badge-danger" style="text-decoration: none;">Step 6.</a> Backpack v6 comes with brand new themes! And the default theme is `theme-tabler`, a competely new theme, that introduces quite a few breaking changes. It'll be easier to upgrade if you don't use Tabler from the start, but use `theme-coreuiv2` instead. That theme is there for maximum backwards compatiblity. So please do `composer require backpack/theme-coreuiv2`, then go to `config/backpack/ui.php` and change your view namespace to use that theme:
+<a name="step-9" href="#step-9" class="badge badge-danger" style="text-decoration: none;">Step 6.</a> Backpack v6 comes with brand new themes! And the default theme is `theme-tabler`, a competely new theme, that introduces quite a few breaking changes. It'll be easier to upgrade if you don't use Tabler from the start, but use `theme-coreuiv2` instead. That theme is there for maximum backwards compatiblity. So please do `composer require backpack/theme-coreuiv2`, then go to `config/backpack/ui.php` and change your view namespace to use that theme:
 
 ```php
     'view_namespace'          => 'backpack.theme-coreuiv2::',
@@ -88,11 +88,11 @@ No changes needed.
 
 ----
 
-<a name="step-10" href="#step-10" class="badge badge-secondary-soft" style="text-decoration: none;">Step 10.</a> (OPTIONAL) We have added column types for all field types (33+ new columns). If previously you weren't showing an attribute in your List and Show operation, because we didn't have a column for it... now we do. Feel free to use the same name for the column as you're using for the field.
+<a name="step-11" href="#step-11" class="badge badge-secondary-soft" style="text-decoration: none;">Step 10.</a> (OPTIONAL) We have added column types for all field types (33+ new columns). If previously you weren't showing an attribute in your List and Show operation, because we didn't have a column for it... now we do. Feel free to use the same name for the column as you're using for the field.
 
 ----
 
-<a name="step-10" href="#step-10" class="badge badge-secondary-soft" style="text-decoration: none;">Step 10.</a> (OPTIONAL) We've merged the array and fluent syntaxes. If you're using `$this->crud->addField()` and `$this->crud->addColumn()`, then using the fluent syntax to modify that field or column, you can now do them in one go. Both `CRUD::field()` and `CRUD::column()` methods now support an array too, so you can do:
+<a name="step-12" href="#step-12" class="badge badge-secondary-soft" style="text-decoration: none;">Step 10.</a> (OPTIONAL) We've merged the array and fluent syntaxes. If you're using `$this->crud->addField()` and `$this->crud->addColumn()`, then using the fluent syntax to modify that field or column, you can now do them in one go. Both `CRUD::field()` and `CRUD::column()` methods now support an array too, so you can do:
 
 ```php
 CRUD::field([
@@ -103,16 +103,16 @@ CRUD::field([
 
 ----
 
-<a name="step-10" href="#step-10" class="badge badge-warning" style="text-decoration: none;">Step 10.</a> When defining multi-input fields, use comma instead of array. If you're using the `date_range` or `checklist_dependency` fields, change the name definition from `['first_input', 'second_input']` to `'first_input,second_input'`.
+<a name="step-13" href="#step-13" class="badge badge-warning" style="text-decoration: none;">Step 10.</a> When defining multi-input fields, use comma instead of array. If you're using the `date_range` or `checklist_dependency` fields, change the name definition from `['first_input', 'second_input']` to `'first_input,second_input'`.
 
 ----
 
-<a name="step-10" href="#step-10" class="badge badge-secondary-soft" style="text-decoration: none;">Step 10.</a> (OPTIONAL) If you have your `store()` or `update()` methods overriden just as callbacks, to do stuff when entries are `created` or `updated`, we have a suggestion for you that will clean up your code. Instead of overriding those methods, you can use Eloquent model events to achieve the same thing. See [the updated callbacks docs](/docs/6.x/crud-operation-create#callbacks) for all the options available.
+<a name="step-14" href="#step-14" class="badge badge-secondary-soft" style="text-decoration: none;">Step 10.</a> (OPTIONAL) If you have your `store()` or `update()` methods overriden just as callbacks, to do stuff when entries are `created` or `updated`, we have a suggestion for you that will clean up your code. Instead of overriding those methods, you can use Eloquent model events to achieve the same thing. See [the updated callbacks docs](/docs/6.x/crud-operation-create#callbacks) for all the options available.
 
 <a href="assets"></a>
 ### CSS & JS Assets
 
-<a name="step-18" href="#step-18" class="badge badge-warning text-white" style="text-decoration: none;">Step 18.</a> We have invented a whole new way of using CSS & JS assets in Laravel projects. We heavily recommend you use it too for you custom assets. Instead of installing assets using NPM, then minimizing and compiling them:
+<a name="step-15" href="#step-15" class="badge badge-warning text-white" style="text-decoration: none;">Step 18.</a> We have invented a whole new way of using CSS & JS assets in Laravel projects. We heavily recommend you use it too for you custom assets. Instead of installing assets using NPM, then minimizing and compiling them:
 
 ```php
 // you can now do
@@ -125,7 +125,7 @@ It's as easy as using an asset from a CDN, but it's much _much_ better than that
 
 ----
 
-<a name="step-18" href="#step-18" class="badge badge-danger text-white" style="text-decoration: none;">Step 18.</a> Since all Backpack packages are now using Basset, assets are no longer picked up from the `public/packages` directory. If you haven't added any custom files to it, **you can now remove that directory using `rm -rf public/packages`**. If you _have_ added or modified things in `public/packages`, please:
+<a name="step-16" href="#step-16" class="badge badge-danger text-white" style="text-decoration: none;">Step 18.</a> Since all Backpack packages are now using Basset, assets are no longer picked up from the `public/packages` directory. If you haven't added any custom files to it, **you can now remove that directory using `rm -rf public/packages`**. If you _have_ added or modified things in `public/packages`, please:
 - move the custom assets to a different directory
 - load them using `@basset(public_path('path/to/file.css'))`
 - then remove the `public/packages` directory
@@ -133,21 +133,21 @@ It's as easy as using an asset from a CDN, but it's much _much_ better than that
 <a name="views"></a>
 ### Views
 
-<a name="step-20" href="#step-20" class="badge badge-secondary-soft" style="text-decoration: none;">Step 20.</a> **Have you developed any custom fields, columns, operations etc?** Rephrased: do you have anything inside your `resources/views/vendor/backpack/crud` directory? If so, we recommended you load your CSS & JS assets using `@basset('path/to/file.css')` instead of `@loadonce('path/to/file.css')` or `<link href="path/to/file.css">`. This will not only make sure that piece of JS/CSS/code is only loaded once per pageload, but it will also help serve all assets from one central location (your `storage/app/public` directory) which can be easily cleared using `php artisan basset:clear` to force cache-busting. You can find [more info about it here](https://github.com/laravel-backpack/basset).
+<a name="step-17" href="#step-17" class="badge badge-secondary-soft" style="text-decoration: none;">Step 20.</a> **Have you developed any custom fields, columns, operations etc?** Rephrased: do you have anything inside your `resources/views/vendor/backpack/crud` directory? If so, we recommended you load your CSS & JS assets using `@basset('path/to/file.css')` instead of `@loadonce('path/to/file.css')` or `<link href="path/to/file.css">`. This will not only make sure that piece of JS/CSS/code is only loaded once per pageload, but it will also help serve all assets from one central location (your `storage/app/public` directory) which can be easily cleared using `php artisan basset:clear` to force cache-busting. You can find [more info about it here](https://github.com/laravel-backpack/basset).
 
 ----
 
-<a name="step-21" href="#step-21" class="badge badge-danger" style="text-decoration: none;">Step 21.</a> If you've published and overriden any CRUD blade files, please take a look at the changes, and re-do them in your files too. We've done quite a few changes, to account for different themes in v6. // TODO: link to diff
-
-
-----
-
-<a name="step-21" href="#step-21" class="badge badge-danger" style="text-decoration: none;">Step 21.</a> Please rename `resources/views/vendor/backpack/base` directory, from `base` to `ui`.
+<a name="step-18" href="#step-18" class="badge badge-danger" style="text-decoration: none;">Step 21.</a> If you've published and overriden any CRUD blade files, please take a look at the changes, and re-do them in your files too. We've done quite a few changes, to account for different themes in v6. For custom components, a good way to make them pretty would be to copy-paste HTML from [Tabler](https://tabler.io/preview), [CoreUIv4](https://coreui.io/demos/bootstrap/4.2/free/), [Backstrap](https://backstrap.net/) (depending on what theme you've chosen to use) or straight out [Bootstrap](https://getbootstrap.com/docs/5.3/examples/). // TODO: link to diff
 
 
 ----
 
-<a name="step-21" href="#step-21" class="badge badge-danger" style="text-decoration: none;">Step 21.</a> Please rename `resources/views/vendor/backpack/ui/inc/sidebar_content.blade.php` from `sidebar_content.blade.php` to `menu_items.blade.php`.
+<a name="step-19" href="#step-19" class="badge badge-danger" style="text-decoration: none;">Step 21.</a> Please rename `resources/views/vendor/backpack/base` directory, from `base` to `ui`.
+
+
+----
+
+<a name="step-20" href="#step-20" class="badge badge-danger" style="text-decoration: none;">Step 21.</a> Please rename `resources/views/vendor/backpack/ui/inc/sidebar_content.blade.php` from `sidebar_content.blade.php` to `menu_items.blade.php`.
 
 ----
 
