@@ -160,12 +160,12 @@ Another thing that's ridiculously easy now... is for you custom operation to pro
 // by default, the quick button will figure out the Name and Label from the button name
 $this->crud->button('email')->stack('line')->view('crud::buttons.quick');
 
-// but you can easily customize Name, Label, Icon and the attributes of the <a> element in metas
+// but you can easily customize Name, Label, Icon and the attributes of the <a> element in meta
 $this->crud->button('email')->stack('line')->view('crud::buttons.quick')->meta([
     'access' => 'Email',
     'label' => 'Email',
     'icon' => 'la la-envelope',
-    'meta' => [
+    'wrapper' => [
         'href' => url('something'),
         'target' => '_blank',
         'title' => 'Create a new email to this user',
