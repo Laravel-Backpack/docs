@@ -152,17 +152,25 @@ Another thing that was possible in Backpack v5, but not very easy, was to create
 
 TODO: feature + docs
 
-#### Custom buttons, now one-line
+#### Quick buttons, now one-line
 
-Another thing that's ridiculously easy now... is for you custom operation to provide simple buttons. Previously you had to create a blade file just to hold that simple button (bleah). Now, it's as easy as:
+Another thing that's ridiculously easy now... is for you custom operation to provide simple buttons. Previously you had to create a blade file just to hold that simple button (bleah). Now, CRUD comes with a quick button you can use for most simple use cases:
 
 ```php
-CRUD::addLineButton($name, $icon, $label, $position, $url, $access);
-CRUD::addTopButton($name, $icon, $label, $position, $url, $access);
-CRUD::addBulkButton($name, $icon, $label, $position, $url, $access);
+// by default, the quick button will figure out the Name and Label from the button name
+$this->crud->button('email')->stack('line')->view('crud::buttons.quick');
 
-// for example:
-CRUD::addLineButton('refund', 'la la-cash-register', 'Refund', 'beginning', 'https://stripe.com/refund', true);
+// but you can easily customize Name, Label, Icon and the attributes of the <a> element in metas
+$this->crud->button('email')->stack('line')->view('crud::buttons.quick')->meta([
+    'access' => 'Email',
+    'label' => 'Email',
+    'icon' => 'la la-envelope',
+    'meta' => [
+        'href' => url('something'),
+        'target' => '_blank',
+        'title' => 'Create a new email to this user',
+    ]
+]);
 ```
 
 <a name="changed"></a>

@@ -28,6 +28,7 @@ Default buttons are invisible if an operation has been disabled. For example, yo
 - hide the "delete" button using ```$this->crud->denyAccess('delete')```;
 - show a "preview" button by using ```$this->crud->allowAccess('show')```;
 
+
 <a name="buttons-api"></a>
 ### Buttons API
 
@@ -94,6 +95,31 @@ In this blade file, you can use:
 - ```$button``` - the button you're currently showing;
 
 Note: If you've opted to add a button from a model function (not a blade file), inside your model function you can use `$this` to get the current entry (so for example, you can do `$this->id`.
+
+
+<a name="creating-a-quick-button"></a>
+#### Creating a Quick Button
+
+Most of the times, the buttons you want to create aren't complex at all. They're just an `<a>` element, with a `href` and `class` that is show if the admin has access to that particular operation. That's why we've created the `quick.blade.php` button, that allows you to _quickly_ create a button, right from your Operation or CrudController. This covers most simple use cases:
+
+```php
+// by default, the quick button will figure out the Name and Label from the button name
+$this->crud->button('email')->stack('line')->view('crud::buttons.quick');
+
+// but you can easily customize Access, Name, Label, Icon 
+// and the attributes of the <a> element in metas
+$this->crud->button('email')->stack('line')->view('crud::buttons.quick')->meta([
+    'access' => 'Email',
+    'label' => 'Email',
+    'icon' => 'la la-envelope',
+    'meta' => [
+        // 'element' => 'a',
+        'href' => url('something'),
+        'target' => '_blank',
+        'title' => 'Create a new email to this user',
+    ]
+]);
+```
 
 <a name="examples"></a>
 ## Examples
