@@ -154,9 +154,11 @@ Another thing that was possible in Backpack v5, but not very easy, was to create
 php artisan backpack:crud-form-operation Comment
 ```
 
-That will create a CommentOperation trait that works right away. You just customize the logic, use it on your CrudControllers and you're done. 
+That will create a CommentOperation trait that works right away: 
 
-For more information, please see [the docs](/docs/{{version}}/crud-operations#creating-a-new-operation-with-a-form).
+![Custom form operation in Backpack v6](https://github.com/Laravel-Backpack/CRUD/assets/1032474/0bc88660-70d5-41c8-a298-b8a971fd9539)
+
+You just customize the logic, use it on your CrudControllers and you're done. For more information, please see [the docs](/docs/{{version}}/crud-operations#creating-a-new-operation-with-a-form).
 
 #### Quick buttons, now one-line
 
