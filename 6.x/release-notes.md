@@ -148,9 +148,15 @@ Interested? [Read more about it here](https://github.com/laravel-backpack/medial
 
 #### Custom form operations, now easy!
 
-Another thing that was possible in Backpack v5, but not very easy, was to create a custom operation that included a custom form. You could do it... but you had to re-do a lot of the things we do in the Create & Update operations. No longer! Now we've changed the way Create & Update work, so that you can re-use the form they use. That means you can easily create a custom operation, that has Backpack fields, and has _nothing_ to do with Create or Update. For more info, see [the docs here](#).
+Another thing that was possible in Backpack v5, but not very easy, was to create a custom operation that included a Backpack form. You could do it... but you had to re-do a lot of the things we do in the Create & Update operations. No longer! Creating a custom form operation now is as easy as doing:
 
-TODO: feature + docs
+```
+php artisan backpack:crud-form-operation Comment
+```
+
+That will create a CommentOperation trait that works right away. You just customize the logic, use it on your CrudControllers and you're done. 
+
+For more information, please see [the docs](/docs/{{version}}/crud-operations#creating-a-new-operation-with-a-form).
 
 #### Quick buttons, now one-line
 
