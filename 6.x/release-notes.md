@@ -28,8 +28,6 @@ Read on to find out more.
 
 #### Themes
 
-Done, TODO: describe; mention Tabler, CoreUI v4, CoreUI v2 and ability to easily create new themes
-
 Starting with Backpack v6, themes are first-class citizens:
 - we have an official, documented way to create Backpack themes;
 - our 1st party themes use that system themselves; even the default Backpack theme can now be uninstalled completely, it's an add-on;
