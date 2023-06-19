@@ -28,7 +28,7 @@ While `v6` is in beta:
 ``` bash
 composer require backpack/crud:"v6.x-dev"
 php artisan storage:link
-php artisan basset:internalize
+php artisan basset:cache
 php artisan backpack:install
 ```
 

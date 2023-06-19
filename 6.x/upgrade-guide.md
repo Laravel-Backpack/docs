@@ -183,7 +183,7 @@ If the table view still looks wonky (search bar out of place, big + instead of e
 
 ---
 
-<a name="step-24" href="#step-24" class="badge badge-danger text-white" style="text-decoration: none;">Step 24.</a> If your pages are slow to load, that's because Basset caching the assets as you load the pages, so your first pageload will be quite slow. If you find that annoying, run `php artisan basset:internalize` to cache all CSS and JS assets. Alternatively, if you want Basset NOT to run because you're making changes to CSS and JS files, you can add `BASSET_DEV_MODE=true` to your `.ENV` file.
+<a name="step-24" href="#step-24" class="badge badge-danger text-white" style="text-decoration: none;">Step 24.</a> If your pages are slow to load, that's because Basset caching the assets as you load the pages, so your first pageload will be quite slow. If you find that annoying, run `php artisan basset:cache` to cache all CSS and JS assets. Alternatively, if you want Basset NOT to run because you're making changes to CSS and JS files, you can add `BASSET_DEV_MODE=true` to your `.ENV` file.
 
 ---
 
