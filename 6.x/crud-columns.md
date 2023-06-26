@@ -5,7 +5,7 @@
 <a name="about"></a>
 ## About
 
-A column shows the information of an Eloquent attribute, in a user-friendly format. 
+A column shows the information of an Eloquent attribute, in a user-friendly format.
 
 It's used inside default operations to:
 - show a table cell in **ListEntries**;
@@ -150,6 +150,37 @@ $this->crud->addColumn([
 
 <hr>
 
+<a name="checklist"></a>
+### checklist
+
+The checklist column will output its connected entity. Used for relationships like hasOne() and belongsTo(). Its name and definition is the same as for the checklist field type:
+
+```php
+[
+   // 1-n relationship
+   'label'     => 'Parent', // Table column heading
+   'type'      => 'checklist',
+   'name'      => 'parent_id', // the column that contains the ID of that connected entity;
+   'entity'    => 'parent', // the method that defines the relationship in your Model
+   'attribute' => 'name', // foreign key attribute that is shown to user
+   'model'     => "App\Models\Category", // foreign key model
+   // OPTIONALS
+   // 'limit' => 32, // Limit the number of characters shown
+   // 'escaped' => false, // echo using {!! !!} instead of {{ }}, in order to render HTML
+   // 'prefix' => 'Foo: ',
+   // 'suffix' => '(bar)',
+],
+```
+
+<hr>
+
+<a name="checklist_dependency"></a>
+### checklist_dependency
+
+// TODO
+
+<hr>
+
 <a name="closure"></a>
 ### closure
 
@@ -167,6 +198,23 @@ Show custom HTML based on a closure you specify in your EntityCrudController.
 ```
 
 > **DEPRECATED**: closure column will be removed in a future version of Backpack, since the same thing can now be achieved using any column (including the `text` column) and the `value` attribute - just pass the same closure to the `value` attribute of any column type.
+
+<hr>
+
+<a name="color"></a>
+### color
+
+Show color with hex code.
+
+```php
+[
+    'name'  => 'color',
+    'type'  => 'color',
+    'label' => 'Color',
+    // OPTIONALS
+    // 'showColorHex' => false //show or hide hex code
+]
+```
 
 <hr>
 
@@ -251,13 +299,13 @@ The email column will output the email address in the database (truncated to 254
 The enum column will output the value of your database ENUM column or your PHP enum attribute.
 ```php
 [
-   'name'  => 'status', 
-   'label' => 'Status', 
+   'name'  => 'status',
+   'label' => 'Status',
    'type'  => 'enum',
 ],
 ```
 
-By default, in case it's a `BackedEnum` it will show the `value` of the enum (when casted), in `database` or `UnitEnum` it will show the the enum value without parsing the value. 
+By default, in case it's a `BackedEnum` it will show the `value` of the enum (when casted), in `database` or `UnitEnum` it will show the the enum value without parsing the value.
 
 If you want to output something different than what your enum stores you have two options:
 - For `database enums` you need to provide the `options` that translates the enums you store in database.
@@ -266,8 +314,8 @@ If you want to output something different than what your enum stores you have tw
 ```php
 // for database enums
 [
-   'name'  => 'status', 
-   'label' => 'Status', 
+   'name'  => 'status',
+   'label' => 'Status',
    'type'  => 'enum',
    'options' => [
        'DRAFT' => 'Is draft',
@@ -292,11 +340,29 @@ enum StatusEnum
 }
 
 [
-   'name'  => 'status', 
-   'label' => 'Status', 
+   'name'  => 'status',
+   'label' => 'Status',
    'type'  => 'enum',
    'enum_function' => 'readableText',
    'enum_class' => 'App\Enums\StatusEnum'
+],
+```
+
+<hr>
+
+<a name="hidden"></a>
+### hidden
+
+The text column will output the text value of a db column (or model attribute). Its definition is:
+
+```php
+[
+   'name'      => 'name', // The db column name
+   'label'     => 'Tag Name', // Table column heading
+   'type'      => 'hidden',
+   // 'prefix' => 'Name: ',
+   // 'suffix' => '(user)',
+   // 'limit'  => 120, // character limit; default is 50,
 ],
 ```
 
@@ -315,7 +381,7 @@ Show a thumbnail image.
     'type'      => 'image',
     // 'prefix' => 'folder/subfolder/',
     // image from a different disk (like s3 bucket)
-    // 'disk'   => 'disk-name', 
+    // 'disk'   => 'disk-name',
     // optional width/height if 25px is not ok with you
     // 'height' => '30px',
     // 'width'  => '30px',
@@ -387,6 +453,23 @@ If the function you're trying to use returns an object, not a string, you can us
 
 <hr>
 
+<a name="month"></a>
+### month
+
+Show month and year with default format `MMMM Y`. You can also change to your format using `format` attribute.
+
+```php
+[
+    'name'  => 'month',
+    'type'  => 'month',
+    'label' => 'Month',
+    //OPTIONAL
+    'format' => 'MMMM Y'
+],
+```
+
+<hr>
+
 <a name="multidimensional_array"></a>
 ### multidimensional_array
 
@@ -427,6 +510,21 @@ The text column will just output the number value of a db column (or model attri
 
 <hr>
 
+<a name="password"></a>
+### password
+
+Show asterisk symbols `******` representing hidden value.
+
+```php
+[
+    'name'  => 'password',
+    'label' => 'Password',
+    'type'  => 'password'
+    //'limit' => 4, // limit number of asterisk symbol
+],
+```
+<hr>
+
 <a name="phone"></a>
 ### phone
 
@@ -460,9 +558,31 @@ Show a pretty text instead of the database value, according to an associative ar
 ],
 ```
 
-This example will show: 
+This example will show:
 - "Draft" when the value stored in the db is 0;
-- "Published" when the value stored in the db is 1;  
+- "Published" when the value stored in the db is 1;
+
+<hr>
+
+<a name="range"></a>
+### range
+
+Show progress bar
+
+```php
+[
+    'name'  => 'range',
+    'type'  => 'range',
+    'label' => 'Range',
+    //OPTIONALS
+    'max' => 100,// change default max value
+    'min' => 0, // change default min value
+    'showMaxValue' => false, // show/hide max value
+    'showValue' => false, // show only progress bar without value
+    'progressColor' => 'bg-success', // change progress bar color using class
+    'striped' => true, // set stripes to progress bar
+]
+```
 
 <hr>
 
@@ -475,11 +595,11 @@ Shows the number of items that are related to the current entry, for a particula
 [
    // relationship count
    'name'      => 'tags', // name of relationship method in the model
-   'type'      => 'relationship_count', 
+   'type'      => 'relationship_count',
    'label'     => 'Tags', // Table column heading
    // OPTIONAL
    // 'suffix' => ' tags', // to show "123 tags" instead of "123 items"
-   
+
    // if you need that column to be orderable in table, you need to manually provide the orderLogic
    // 'orderable' => true,
    // 'orderLogic' => function ($query, $column, $columnDirection) {
@@ -493,7 +613,7 @@ Shows the number of items that are related to the current entry, for a particula
 $this->crud->query->withCount('tags'); // this will add a tags_count column to the results
 $this->crud->addColumn([
    'name'      => 'tags_count', // name of relationship method in the model
-   'type'      => 'text', 
+   'type'      => 'text',
    'label'     => 'Tags', // Table column heading
    'suffix'    => ' tags', // to show "123 tags" instead of "123"
 ]);
@@ -559,6 +679,25 @@ Show a particular text depending on the value of the attribute.
 
 <hr>
 
+<a name="select_grouped"></a>
+### select_grouped
+
+The `select_grouped` column will output its connected entity. Used for relationships like hasOne() and belongsTo(). Its name and definition is the same as for the select field type:
+
+```php
+[
+   // 1-n relationship
+   'label'     => 'Parent', // Table column heading
+   'type'      => 'select_grouped',
+   'name'      => 'parent_id', // the column that contains the ID of that connected entity;
+   'entity'    => 'parent', // the method that defines the relationship in your Model
+   'attribute' => 'name', // foreign key attribute that is shown to user
+   'model'     => "App\Models\Category", // foreign key model
+],
+```
+
+<hr>
+
 <a name="select_multiple"></a>
 ### select_multiple
 
@@ -572,6 +711,36 @@ The select_multiple column will output a comma separated list of its connected e
    'entity'    => 'tags', // the method that defines the relationship in your Model
    'attribute' => 'name', // foreign key attribute that is shown to user
    'model'     => 'App\Models\Tag', // foreign key model
+],
+```
+
+<hr>
+
+<a name="summernote"></a>
+### summernote
+
+The summernote column will output the non-escaped text value of a db column (or model attribute). Its definition is:
+
+```php
+[
+   'name'      => 'name', // The db column name
+   'label'     => 'Tag Name', // Table column heading
+   'type'      => 'summernote',
+],
+```
+
+<hr>
+
+<a name="switch"></a>
+### switch
+
+Show a favicon with a checked or unchecked box, depending on the given boolean.
+
+```php
+[
+   'name'  => 'featured', // The db column name
+   'label' => 'Featured', // Table column heading
+   'type'  => 'switch'
 ],
 ```
 
@@ -616,11 +785,45 @@ The text column will just output the text value of a db column (or model attribu
 ],
 ```
 
+<hr>
+
+<a name="time"></a>
+### time
+
+Show time in 24-Hour format `H:mm` by default . You are also free to change the format.
+
+```php
+[
+    'name'  => 'time', // The db column name
+    'label' => 'time', // Table column heading
+    'type'  => 'time',
+    // 'format' => 'H:mm', // use something else than the default.
+],
+```
+
+<hr>
+
+<a name="upload"></a>
+### upload
+
+Show link to the file which let's you open it in the new tab.
+
+```php
+[
+    'name'   => 'upload',
+    'type'   => 'upload',
+    'label'  => 'Upload',
+    'disk'   => 'uploads',
+]
+```
+
+<hr>
+
 <a name="upload_multiple"></a>
 ### upload_multiple
 
 
-The ```table``` column will output a list of files and links, when used on an attribute that stores a JSON array of file paths. It is meant to be used inside the show functionality (not list, though it also works there), to preview files uploaded with the ```upload_multiple``` field type.
+The ```upload_multiple``` column will output a list of files and links, when used on an attribute that stores a JSON array of file paths. It is meant to be used inside the show functionality (not list, though it also works there), to preview files uploaded with the ```upload_multiple``` field type.
 
 Its definition is very similar to the [upload_multiple *field type*](/docs/{{version}}/crud-fields#upload_multiple).
 
@@ -630,6 +833,22 @@ Its definition is very similar to the [upload_multiple *field type*](/docs/{{ver
     'label'   => 'Photos',
     'type'    => 'upload_multiple',
     // 'disk' => 'public', // filesystem disk if you're using S3 or something custom
+],
+```
+
+<hr>
+
+<a name="url"></a>
+### url
+
+Show a link which opens in the new tab by default.
+
+```php
+[
+    'name'  => 'url',
+    'type'  => 'url',
+    'label' => 'URL',
+    //'target' => '_blank' // let's you change link target window.
 ],
 ```
 
@@ -651,9 +870,38 @@ Display any custom column type you want. Usually used by Backpack package develo
 
 <hr>
 
+<a name="week"></a>
+### week
+
+Show the ISO-8601 week number of **year** (weeks starting on Monday). Example: `Week 25 2023`
+
+```php
+[
+    'name'  => 'week',
+    'type'  => 'week',
+    'label' => 'Week',
+],
+```
+
+<hr>
 
 <a name="pro-column-types"></a>
 ## PRO Column Types
+
+<a name="address_google"></a>
+### address_google <span class="badge badge-pill badge-info">PRO</span>
+
+Show `value` attribute as text stored in the db column as JSON array created by `address_google` field. Example: Jaipur, India.
+
+```php
+[
+    'name'  => 'address_google',
+    'type'  => 'address_google',
+    'label' => 'Address Google',
+],
+```
+
+<hr>
 
 <a name="array"></a>
 ### array <span class="badge badge-pill badge-info">PRO</span>
@@ -682,6 +930,170 @@ Count the items in an array stored in the db column as JSON.
    // 'suffix' => 'options', // if you want it to show "2 options" instead of "2 items"
 ],
 ```
+
+<hr>
+
+<a name="base64_image"></a>
+### base64_image <span class="badge badge-pill badge-info">PRO</span>
+
+Show a thumbnail image stored in the db column as `base64` image string.
+
+```php
+[
+    'name'      => 'profile_image', // The db column name
+    'label'     => 'Profile image', // Table column heading
+    'type'      => 'base64_image',
+    // optional width/height if 25px is not ok with you
+    // 'height' => '30px',
+    // 'width'  => '30px',
+],
+```
+
+<hr>
+
+<a name="browse"></a>
+### browse <span class="badge badge-pill badge-info">PRO</span>
+
+Show link to the selected file.
+
+```php
+[
+    'name'  => 'browse',
+    'type'  => 'browse',
+    'label' => 'Browse',
+],
+```
+
+<hr>
+
+<a name="browse_multiple"></a>
+### browse_multiple <span class="badge badge-pill badge-info">PRO</span>
+
+// TODO
+
+<hr>
+
+<a name="ckeditor"></a>
+### ckeditor <span class="badge badge-pill badge-info">PRO</span>
+
+The ckeditor column will just output the non-escaped text value of a db column (or model attribute). Its definition is:
+
+```php
+[
+   'name'      => 'info', // The db column name
+   'label'     => 'Info', // Table column heading
+   'type'      => 'ckeditor',
+],
+```
+
+<hr>
+
+<a name="color_picker"></a>
+### color_picker <span class="badge badge-pill badge-info">PRO</span>
+
+Show color with hex code.
+
+```php
+[
+    'name'  => 'color',
+    'type'  => 'color_picker',
+    'label' => 'Color',
+    // OPTIONALS
+    // 'showColorHex' => false //show or hide hex code
+]
+```
+
+<hr>
+
+<a name="date_picker"></a>
+### date_picker <span class="badge badge-pill badge-info">PRO</span>
+
+It's the same [date](#date-1) column with an alias, named after it's field name `date_picker`.
+
+```php
+[
+    'name'  => 'name', // The db column name
+    'label' => 'Tag Name', // Table column heading
+    'type'  => 'date',
+    // 'format' => 'l j F Y', // use something else than the base.default_date_format config value
+],
+```
+
+<hr>
+
+<a name="datetime_picker"></a>
+### datetime_picker <span class="badge badge-pill badge-info">PRO</span>
+
+It's the same [datetime](#datetime-1) column with an alias, named after [datetime_picker *field type*](/docs/{{version}}/crud-fields#datetime_picker-pro)..
+
+```php
+[
+    'name'  => 'name', // The db column name
+    'label' => 'Tag Name', // Table column heading
+    'type'  => 'datetime',
+    // 'format' => 'l j F Y H:i:s', // use something else than the base.default_datetime_format config value
+],
+```
+
+<hr>
+
+<a name="date_range"></a>
+### date_range <span class="badge badge-pill badge-info">PRO</span>
+
+Show two date columns in a single column as a date range. Example: `18 Mar 2000 - 30 Nov 1985`
+
+Its definition is very similar to the [date_range *field type*](/docs/{{version}}/crud-fields#date_range-pro).
+
+```php
+[ // Date_range
+    'name'       => 'start_date,end_date', // two columns with a comma
+    'label'      => 'Date Range',
+    'type'       => 'date_range',
+]
+```
+
+<hr>
+
+<a name="dropzone"></a>
+### dropzone <span class="badge badge-pill badge-info">PRO</span>
+
+The ```dropzone``` column will output a list of files and links, when used on an attribute that stores a JSON array of file paths. It is meant to be used inside the show functionality (not list, though it also works there), to preview files uploaded with the ```dropzone``` field type.
+
+Its definition is very similar to the [dropzone *field type*](/docs/{{version}}/crud-fields#dropzone-pro).
+
+
+```php
+[
+    'name'  => 'dropzone', // The db column name
+    'label' => 'Images', // Table column heading
+    'type'  => 'dropzone',
+    // 'disk'  => 'public', specify disk name
+]
+```
+
+<hr>
+
+<a name="easymde"></a>
+### easymde <span class="badge badge-pill badge-info">PRO</span>
+
+Convert easymde generated markdown string to HTML, using Illuminate\Mail\Markdown. Since Markdown is usually used for long texts, this column is most helpful in the "Show" operation - not so much in the "ListEntries" operation, where only short snippets make sense.
+
+It's the same [markdown](#markdown-pro) column with an alias, the field name.
+
+```php
+[
+   'name'      => 'info', // The db column name
+   'label'     => 'Info', // Table column heading
+   'type'      => 'easymde',
+],
+```
+
+<hr>
+
+<a name="icon_picker"></a>
+### icon_picker <span class="badge badge-pill badge-info">PRO</span>
+
+// TODO
 
 <hr>
 
@@ -728,6 +1140,172 @@ Backpack tries to guess which attribute to show for the related item. Something 
 
 <hr>
 
+<a name="repeatable"></a>
+### repeatable <span class="badge badge-pill badge-info">PRO</span>
+
+// TODO
+
+<hr>
+
+<a name="select2"></a>
+### select2 <span class="badge badge-pill badge-info">PRO</span>
+
+The select2 column will output its connected entity. Used for relationships like hasOne() and belongsTo(). Its name and definition is the same as for the select field type:
+```php
+[
+   // 1-n relationship
+   'label'     => 'Parent', // Table column heading
+   'type'      => 'select2',
+   'name'      => 'parent_id', // the column that contains the ID of that connected entity;
+   'entity'    => 'parent', // the method that defines the relationship in your Model
+   'attribute' => 'name', // foreign key attribute that is shown to user
+   'model'     => "App\Models\Category", // foreign key model
+],
+```
+
+<hr>
+
+<a name="select2_multiple"></a>
+### select2_multiple <span class="badge badge-pill badge-info">PRO</span>
+
+The select2_multiple column will output a comma separated list of its connected entities. Used for relationships like hasMany() and belongsToMany(). Its name and definition is the same as the select2_multiple field:
+
+```php
+[
+   // n-n relationship (with pivot table)
+   'label'     => 'Tags', // Table column heading
+   'type'      => 'select2_multiple',
+   'name'      => 'tags', // the method that defines the relationship in your Model
+   'entity'    => 'tags', // the method that defines the relationship in your Model
+   'attribute' => 'name', // foreign key attribute that is shown to user
+   'model'     => 'App\Models\Tag', // foreign key model
+],
+```
+
+<hr>
+
+<a name="select2_nested"></a>
+### select2_nested <span class="badge badge-pill badge-info">PRO</span>
+
+The select2_nested column will output its connected entity. Used for relationships like hasOne() and belongsTo(). Its name and definition is the same as for the select field type:
+```php
+[
+   // 1-n relationship
+   'label'     => 'Parent', // Table column heading
+   'type'      => 'select2_nested',
+   'name'      => 'parent_id', // the column that contains the ID of that connected entity;
+   'entity'    => 'parent', // the method that defines the relationship in your Model
+   'attribute' => 'name', // foreign key attribute that is shown to user
+   'model'     => "App\Models\Category", // foreign key model
+],
+```
+<hr>
+
+<a name="select2_grouped"></a>
+### select2_grouped <span class="badge badge-pill badge-info">PRO</span>
+
+The select2_grouped column will output its connected entity. Used for relationships like hasOne() and belongsTo(). Its name and definition is the same as for the select field type:
+```php
+[
+   // 1-n relationship
+   'label'     => 'Parent', // Table column heading
+   'type'      => 'select2_grouped',
+   'name'      => 'parent_id', // the column that contains the ID of that connected entity;
+   'entity'    => 'parent', // the method that defines the relationship in your Model
+   'attribute' => 'name', // foreign key attribute that is shown to user
+   'model'     => "App\Models\Category", // foreign key model
+],
+```
+<hr>
+
+<a name="select_and_order"></a>
+### select_and_order <span class="badge badge-pill badge-info">PRO</span>
+
+Show selected values in the order they are saved.
+
+Its definition is very similar to the [select_and_order *field type*](/docs/{{version}}/crud-fields#select_and_order-pro).
+
+```php
+[
+    // select_from_array
+    'name'    => 'status',
+    'label'   => 'Status',
+    'type'    => 'select_and_order',
+    'options' => ['draft' => 'Draft (invisible)', 'published' => 'Published (visible)'],
+],
+```
+
+<hr>
+
+<a name="select2_from_array"></a>
+### select2_from_array <span class="badge badge-pill badge-info">PRO</span>
+
+Show a particular text depending on the value of the attribute.
+
+```php
+[
+    // select_from_array
+    'name'    => 'status',
+    'label'   => 'Status',
+    'type'    => 'select2_from_array',
+    'options' => ['draft' => 'Draft (invisible)', 'published' => 'Published (visible)'],
+],
+```
+
+<hr>
+
+<a name="select2_from_ajax"></a>
+### select2_from_ajax <span class="badge badge-pill badge-info">PRO</span>
+
+The select2_from_ajax column will output its connected entity. Used for relationships like hasOne() and belongsTo(). Its name and definition is the same as for the select field type:
+```php
+[
+   // 1-n relationship
+   'label'     => 'Parent', // Table column heading
+   'type'      => 'select2_from_ajax',
+   'name'      => 'parent_id', // the column that contains the ID of that connected entity;
+   'entity'    => 'parent', // the method that defines the relationship in your Model
+   'attribute' => 'name', // foreign key attribute that is shown to user
+   'model'     => "App\Models\Category", // foreign key model
+],
+```
+
+<hr>
+
+<a name="select2_from_ajax_multiple"></a>
+### select2_from_ajax_multiple <span class="badge badge-pill badge-info">PRO</span>
+
+The select2_from_ajax_multiple column will output a comma separated list of its connected entities. Used for relationships like hasMany() and belongsToMany(). Its name and definition is the same as the select2_multiple field:
+
+```php
+[
+   // n-n relationship (with pivot table)
+   'label'     => 'Tags', // Table column heading
+   'type'      => 'select2_from_ajax_multiple',
+   'name'      => 'tags', // the method that defines the relationship in your Model
+   'entity'    => 'tags', // the method that defines the relationship in your Model
+   'attribute' => 'name', // foreign key attribute that is shown to user
+   'model'     => 'App\Models\Tag', // foreign key model
+],
+```
+
+<hr>
+
+<a name="slug"></a>
+### slug <span class="badge badge-pill badge-info">PRO</span>
+
+Show stored text value of slug.
+
+```php
+[
+    'name'  => 'slug',
+    'type'  => 'slug',
+    'label' => 'Slug',
+]
+```
+
+<hr>
+
 <a name="table"></a>
 ### table <span class="badge badge-pill badge-info">PRO</span>
 
@@ -752,6 +1330,21 @@ Its definition is very similar to the [table *field type*](/docs/{{version}}/cru
 
 <hr>
 
+<a name="tinymce"></a>
+### tinymce <span class="badge badge-pill badge-info">PRO</span>
+
+The tinymce column will just output the non-escaped text value of a db column (or model attribute). Its definition is:
+
+```php
+[
+   'name'      => 'info', // The db column name
+   'label'     => 'Info', // Table column heading
+   'type'      => 'tinymce',
+],
+```
+
+<hr>
+
 <a name="video"></a>
 ### video <span class="badge badge-pill badge-info">PRO</span>
 
@@ -763,6 +1356,21 @@ Display a small screenshot for a YouTube or Vimeo video, stored in the database 
    'name'  => 'name', // The db column name
    'label' => 'Tag Name', // Table column heading
    'type'  => 'video',
+],
+```
+
+<hr>
+
+<a name="wysiwyg"></a>
+### wysiwyg <span class="badge badge-pill badge-info">PRO</span>
+
+The wysiwyg column will just output the non-escaped text value of a db column (or model attribute). Its definition is:
+
+```php
+[
+   'name'      => 'info', // The db column name
+   'label'     => 'Info', // Table column heading
+   'type'      => 'wysiwyg',
 ],
 ```
 
@@ -876,7 +1484,7 @@ $this->crud->addColumn([
 
 
 <a name="custom-wrapper-for-columns"></a>
-### Wrap Column Text in an HTML Element 
+### Wrap Column Text in an HTML Element
 
 Sometimes the text that the column echoes is not enough. You want to add interactivity to it, by adding a link to that column. Or you want to show the value in a green/yellow/red badge so it stands out. You can do both of that - with the ```wrapper``` attribute, which most columns support.
 
@@ -901,7 +1509,7 @@ $this->crud->addColumn([
 ]);
 ```
 
-If you specify ```wrapper``` to a column, the entries in that column will be wrapped in the element you specify. Note that: 
+If you specify ```wrapper``` to a column, the entries in that column will be wrapped in the element you specify. Note that:
 - To get an HTML anchor (a link), you can specify ```a``` for the element (but that's also the default); to get a paragraph you'd specify ```p``` for the element; to get an inline element you'd specify ```span``` for the element; etc;
 - Anything you declare in the ```wrapper``` array (other than ```element```) will be used as HTML attributes for that element (ex: ```class```, ```style```, ```target``` etc);
 - Each wrapper attribute, including the element itself, can be declared as a string OR as a callback;
@@ -939,7 +1547,7 @@ $this->crud->addColumn([
    'visibleInTable'  => false, // no point, since it's a large text
    'visibleInModal'  => false, // would make the modal too big
    'visibleInExport' => false, // not important enough
-   'visibleInShow'   => true, // boolean or closure - function($entry) { return $entry->isAdmin(); } 
+   'visibleInShow'   => true, // boolean or closure - function($entry) { return $entry->isAdmin(); }
 ]);
 ```
 
