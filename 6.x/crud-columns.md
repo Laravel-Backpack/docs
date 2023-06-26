@@ -822,7 +822,6 @@ Show link to the file which let's you open it in the new tab.
 <a name="upload_multiple"></a>
 ### upload_multiple
 
-
 The ```upload_multiple``` column will output a list of files and links, when used on an attribute that stores a JSON array of file paths. It is meant to be used inside the show functionality (not list, though it also works there), to preview files uploaded with the ```upload_multiple``` field type.
 
 Its definition is very similar to the [upload_multiple *field type*](/docs/{{version}}/crud-fields#upload_multiple).
@@ -969,7 +968,18 @@ Show link to the selected file.
 <a name="browse_multiple"></a>
 ### browse_multiple <span class="badge badge-pill badge-info">PRO</span>
 
-// TODO
+The ```browse_multiple``` column will output a list of files and links, when used on an attribute that stores a JSON array of file paths. It is meant to be used inside the show functionality (not list, though it also works there), to preview files uploaded with the ```browse_multiple``` field type.
+
+Its definition is very similar to the [browse_multiple *field type*](/docs/{{version}}/crud-fields#browse_multiple-pro).
+
+```php
+[
+    'name'    => 'photos',
+    'label'   => 'Photos',
+    'type'    => 'browse_multiple',
+    // 'disk' => 'public', // filesystem disk if you're using S3 or something custom
+],
+```
 
 <hr>
 
@@ -1093,7 +1103,18 @@ It's the same [markdown](#markdown-pro) column with an alias, the field name.
 <a name="icon_picker"></a>
 ### icon_picker <span class="badge badge-pill badge-info">PRO</span>
 
-// TODO
+Show the selected icon. Supported icon sets are fontawesome, lineawesome, glyphicon, ionicon, weathericon, mapicon, octicon, typicon, elusiveicon, materialdesign as per the jQuery plugin, [bootstrap-iconpicker](http://victor-valencia.github.io/bootstrap-iconpicker/).
+
+It's definition is totally similar to the [icon_picker *field type*](/docs/{{version}}/crud-fields#icon_picker-pro).
+
+```php
+[
+    'name'    => 'icon_picker',
+    'type'    => 'icon_picker',
+    'label'   => 'Icon Picker',
+    'iconset' => 'fontawesome' // options: fontawesome, lineawesome, glyphicon, ionicon, weathericon, mapicon, octicon, typicon, elusiveicon, materialdesign
+]
+```
 
 <hr>
 
@@ -1143,7 +1164,36 @@ Backpack tries to guess which attribute to show for the related item. Something 
 <a name="repeatable"></a>
 ### repeatable <span class="badge badge-pill badge-info">PRO</span>
 
-// TODO
+Show stored JSON in a table. It's definition is similar to the [repeatable *field type*](/docs/{{version}}/crud-fields#repeatable-pro).
+
+```php
+[
+    'name'      => 'features',
+    'label'     => 'Features',
+    'type'      => 'repeatable',
+    'subfields' => [
+        [
+            'name'    => 'feature',
+            'wrapper' => [
+                'class' => 'col-md-3',
+            ],
+        ],
+        [
+            'name'    => 'value',
+            'wrapper' => [
+                'class' => 'col-md-6',
+            ],
+        ],
+        [
+            'name'    => 'quantity',
+            'type'    => 'number',
+            'wrapper' => [
+                'class' => 'col-md-3',
+            ],
+        ],
+    ],
+]
+```
 
 <hr>
 
