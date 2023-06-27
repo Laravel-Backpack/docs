@@ -8,10 +8,7 @@
 <a name="intro"></a>
 <h2 class="mb-7">Intro</h2>
 
-
-Meet your teacher, [Cristian Tabacitu](https://twitter.com/tabacitu), the founder of Backpack for Laravel.
-
-<div class='mx-sm-n5 mx-md-n6 mx-lg-n7 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/424693910' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+<div class='mx-sm-n5 mx-md-n6 mx-lg-n7 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/839973614' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
 <br>
 Mentioned in this video:
