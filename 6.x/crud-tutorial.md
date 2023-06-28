@@ -336,12 +336,12 @@ Here, we can see that our routes have been placed:
 <a name="the-menu-item"></a>
 ### The Menu Item
 
-We've previously generated a menu item in the ```views/vendor/backpack/ui/inc/menu_items.php``` file. You'll see this file is pure HTML. This will allow you to customize the menu as much as you want. The "active" state of the menu is done with JavaScript, based on the ```href``` attribute.
+We've previously generated a menu item in the ```views/vendor/backpack/ui/inc/menu_items.php``` file. That is using our menu item Blade components. The "active" state of the menu is done with JavaScript, based on the ```href``` attribute.
 
 This is the bit that has been generated for you:
 
 ```php
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('tag') }}'><i class='nav-icon la la-question'></i> Tags</a></li>
+<x-backpack::menu-item title="Tags" icon="la la-question" :link="backpack_url('tag')" />
 ```
 
 You can of course change anything here, if you want. For example, change `la la-question` to `la la-tag`.
