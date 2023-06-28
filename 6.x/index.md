@@ -5,11 +5,11 @@
 - [Installation](/docs/{{version}}/installation)
 - [Features (Free vs Paid)](/docs/{{version}}/features-free-vs-paid)
 - [Release Notes](/docs/{{version}}/release-notes) 🚧
-- [Upgrade Guide](/docs/{{version}}/upgrade-guide) 🚧
+- [Upgrade Guide](/docs/{{version}}/upgrade-guide)
 - [FAQ](/docs/{{version}}/faq)
 
 #### Getting Started
-- [Video Course](/docs/{{version}}/getting-started-videos) 🚧
+- [Video Course](/docs/{{version}}/getting-started-videos)
 - [Text Course](/docs/{{version}}/getting-started-basics)
     - [1. Basics](/docs/{{version}}/getting-started-basics)
     - [2. CRUD Operations](/docs/{{version}}/getting-started-crud-operations)
