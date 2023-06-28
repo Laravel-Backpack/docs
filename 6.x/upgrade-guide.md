@@ -154,6 +154,23 @@ It's as easy as using an asset from a CDN, but it's much _much_ better than that
 
 <a name="step-20" href="#step-20" class="badge badge-danger" style="text-decoration: none;">Step 21.</a> Please rename `resources/views/vendor/backpack/ui/inc/sidebar_content.blade.php` from `sidebar_content.blade.php` to `menu_items.blade.php`.
 
+
+----
+
+<a name="step-20" href="#step-20" class="badge badge-warning" style="text-decoration: none;">Step 21.</a> (OPTIONAL) If you want to be able to switch between different themes, but keep your current menu, you need to  write your menu in a way that is theme-agnostic. Fortunately Backpack has a very simple solution to that. We've developed a few Blade components you can use in your `menu_items.blade.php`. Just rewrite your menu items HTML, and they will look pretty across all Backpack themes:
+
+```html
+<x-backpack::menu-item title="Dashboard" icon="la la-dashboard" :link="backpack_url('dashboard')" />
+
+<x-backpack::menu-dropdown title="News" icon="la la-newspaper-o">
+    <x-backpack::menu-dropdown-item title="Articles" icon="la la-newspaper-o" :link="backpack_url('article')" />
+    <x-backpack::menu-dropdown-item title="Categories" icon="la la-list" :link="backpack_url('category')" />
+    <x-backpack::menu-dropdown-item title="Tags" icon="la la-tag" :link="backpack_url('tag')" />
+</x-backpack::menu-dropdown>
+
+<x-backpack::menu-separator title="Admin Stuff Below" />
+```
+
 ----
 
 <a name="step-21" href="#step-21" class="badge badge-danger" style="text-decoration: none;">Step 21.</a> If you have any other blade files in this new `ui` directory, please note that those files have been moved to themes. Backpack v6 offers three themes right from the start:

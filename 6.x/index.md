@@ -4,7 +4,7 @@
 - [Demo](/docs/{{version}}/demo)
 - [Installation](/docs/{{version}}/installation)
 - [Features (Free vs Paid)](/docs/{{version}}/features-free-vs-paid)
-- [Release Notes](/docs/{{version}}/release-notes)
+- [Release Notes](/docs/{{version}}/release-notes) 🚧
 - [Upgrade Guide](/docs/{{version}}/upgrade-guide) 🚧
 - [FAQ](/docs/{{version}}/faq)
 
@@ -23,6 +23,7 @@
 - [Breadcrumbs](/docs/{{version}}/base-breadcrumbs)
 - [Themes](/docs/{{version}}/base-themes)
 - [Widgets](/docs/{{version}}/base-widgets)
+- [Components](/docs/{{version}}/base-components)
 - [FAQ](/docs/{{version}}/base-how-to) 🟨
 
 #### CRUD Panels
@@ -31,7 +32,7 @@
 - [Crash Course](/docs/{{version}}/crud-tutorial)
 - [Operations](/docs/{{version}}/crud-operations)
     + [List](/docs/{{version}}/crud-operation-list-entries)
-        + [Columns](/docs/{{version}}/crud-columns) 🟨
+        + [Columns](/docs/{{version}}/crud-columns)
         + [Buttons](/docs/{{version}}/crud-buttons) 🟨
         + [Filters](/docs/{{version}}/crud-filters) 🟨
     + [Create](/docs/{{version}}/crud-operation-create) & [Update](/docs/{{version}}/crud-operation-update)
@@ -41,7 +42,7 @@
         + [CrudField JS Library](/docs/{{version}}/crud-fields-javascript-api)
     + [Delete](/docs/{{version}}/crud-operation-delete)
     + [Show](/docs/{{version}}/crud-operation-show)
-        + [Columns](/docs/{{version}}/crud-columns) 🟨
+        + [Columns](/docs/{{version}}/crud-columns)
 - [Additional Operations](/docs/{{version}}/crud-operations)
     + [Clone](/docs/{{version}}/crud-operation-clone)
     + [Reorder](/docs/{{version}}/crud-operation-reorder)
