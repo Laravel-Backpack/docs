@@ -2,11 +2,13 @@
 
 ---
 
-**Total Duration:** 31 minutes
+**Total Duration:** 59 minutes
 
 
-<a name="intro"></a>
-<h2 class="mb-7">Intro</h2>
+<a name="video-1"></a>
+<h2 class="mb-7">1. Intro</h2>
+
+Let's get to know Mauro Martinez, one of the Backpack maintainers and your teacher for this series.
 
 <div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/839973614' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
@@ -18,75 +20,137 @@ Mentioned in this video:
 
 ----
 
-<a name="the-admin-interface"></a>
-<h2 class="mb-7">The Admin Interface</h2>
+<a name="video-2"></a>
+<h2 class="mb-7">2. Installation & Setup</h2>
 
-Before we go deep into the PHP features offered by Backpack, it's important to understand the HTML & CSS it uses, and how that can make your life easier when building admin panels. This is often an afterthought in admin panels, but Backpack makes it really really easy to create admin pages that are 100% custom.
-
-<div class='mx-sm-n5 mx-md-n6 mx-lg-n7 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/424698837' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+<div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840026719' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
 <br>
-Mentioned in this video:
-- [Laravel docs - installation](https://laravel.com/docs/7.x)
-- [Backpack docs - installation](/docs/{{version}}/installation)
-- [Backpack docs - how to customize the user interface](/docs/{{version}}/base-how-to#customizing-the-design-of-the-menu-sidebar-footer)
-- [Backpack docs - widgets](/docs/{{version}}/base-widgets)
-- [Backpack docs - add-ons](/addons)
-- [Bootstrap 4 docs](https://getbootstrap.com/)
-- [Backstrap.net - the default HTML template & UI blocks](https://backstrap.net/)
+Mentioned in this video: // TODO
+- xx
+- yy
+
 
 ----
 
-<a name="generating-and-understanding-cruds"></a>
-<h2 class="mb-7">Generating and Understanding CRUDs</h2>
+<a name="video-3"></a>
+<h2 class="mb-7">3. Look & Feel - Introduction to Backpack Themes</h2>
 
-Let's generate a few Backpack CRUDs - places where the admin can Create, Read, Update or Delete entries. CRUDs will make it easy for you to build admin panels, 10x faster than before.
-
-<div class='mx-sm-n5 mx-md-n6 mx-lg-n7 mt-7 embed-container mb-4'><iframe src='https://player.vimeo.com/video/424701595' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
-
-
-> **NEW!!!** Starting with Aug 2021, there's a much simpler way to generate everything 🎉 Instead of using Blueprint,
- **check out our new paid addon - [Backpack DevTools](https://backpackforlaravel.com/products/devtools).** It's a GUI that will help you generate Migrations, Models (complete with relationships), CRUDs from the browser 😱 It does cost extra, but it's well worth the price if you use Backpack regularly or your models are not dead-simple.
+<div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840030924' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
 <br>
-Mentioned in this video:
-- [Backpack's online demo](https://demo.backpackforlaravel.com/admin/login)
-- [laravel-shift/blueprint](https://blueprint.laravelshift.com/) - CLI tool to generate Eloquent models
-- [Laravel docs - migrations](https://laravel.com/docs/7.x/migrations#introduction)
-- [backpack/generators - CLI tool to generate CRUDs](https://github.com/laravel-backpack/generators)
-- [Fork - Git client for Mac OS & Windows](https://git-fork.com/)
-- [Backpack's List Operation](/docs/{{version}}/crud-operation-list-entries) - features [columns](/docs/{{version}}/crud-columns), [filters](/docs/{{version}}/crud-filters), [buttons](/docs/{{version}}/crud-buttons), [widgets](/docs/{{version}}/base-widgets), [other features](/docs/{{version}}/crud-operation-list-entries#other-features)
-- [Backpack's Create Operation](/docs/{{version}}/crud-operation-create) - features [fields](/docs/{{version}}/crud-fields), [widgets](/docs/{{version}}/base-widgets), [save actions](/docs/{{version}}/crud-save-actions), [split fields into tabs](/docs/{{version}}/crud-fields#split-fields-into-tabs), [add custom HTML between the fields](/docs/{{version}}/crud-fields#custom-html)
-- [Backpack's Update Operation](/docs/{{version}}/crud-operation-update)
-- [Backpack's Delete Operation](/docs/{{version}}/crud-operation-delete)
+Mentioned in this video: // TODO
+- xx
+- yy
 
-Not mentioned in this video, but heavily recommended:
-- [Backpack DevTools](https://backpackforlaravel.com/products/devtools)
 
 ----
 
-<a name="using-operations-and-features-in-cruds"></a>
-<h2 class="mb-7">Using Operations and Features in CRUDs</h2>
+<a name="video-4"></a>
+<h2 class="mb-7">4. Dashboard</h2>
 
-I'd argue the best part of Backpack is not how easy it is to generate CRUDs, but how easy it is to customize them. In this video, we'll be taking a look at the default Operations that Backpack offers, and changing things around to fit our purpose. In the process, you'll understand how they work, and just how easy it is to use, customize or overwrite Operations like Create, Update, List, Delete, Reorder, Clone, BulkClone and BulkDelete.
-
-<div class='mx-sm-n5 mx-md-n6 mx-lg-n7 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/424703257' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+<div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840032165' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
 <br>
-Mentioned in this video:
-- [Backpack operations](/docs/{{version}}/crud-operations)
-- Laravel docs - [validation using Laravel Form Requests](https://laravel.com/docs/7.x/validation#form-request-validation)
-- Laravel docs - [validation rules](https://laravel.com/docs/7.x/validation#available-validation-rules)
-- [Reorder Operation](/docs/{{version}}/crud-operation-reorder)
-- [Clone & BulkClone Operations](/docs/{{version}}/crud-operation-clone)
-- Columns - [the 20+ column types](/docs/{{version}}/crud-columns#default-column-types), [columns API](/docs/{{version}}/crud-columns#columns-api), [fluent syntax](/docs/{{version}}/crud-fluent-syntax#fluent-columns), [array syntax](/docs/{{version}}/crud-columns#about), [overwriting a column type](/docs/{{version}}/crud-columns#overwriting-default-column-types), [creating a custom column type](/docs/{{version}}/crud-columns#creating-a-custom-column-type)
-- Fields - [the 50+ field types](/docs/{{version}}/crud-fields#default-field-types), [fluent syntax](/docs/{{version}}/crud-fluent-syntax#fluent-fields-api), [array syntax](/docs/{{version}}/crud-fields#about), [overwriting a field type](/docs/{{version}}/crud-fields#overwriting-default-field-types), [custom field types](/docs/{{version}}/crud-fields#creating-a-custom-field-type)
-- [the contents of an Operation - sidebar item, routes, controller](/docs/{{version}}/crud-operations#contents-of-a-custom-operation)
+Mentioned in this video: // TODO
+- xx
+- yy
+
+
+----
+
+<a name="video-5"></a>
+<h2 class="mb-7">5. CRUDs - Intro to Operations</h2>
+
+<div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840032727' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+
+<br>
+Mentioned in this video: // TODO
+- xx
+- yy
+
+
+----
+
+<a name="video-6"></a>
+<h2 class="mb-7">6. DevTools - Generating CRUDs</h2>
+
+<div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840033334' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+
+<br>
+Mentioned in this video: // TODO
+- xx
+- yy
+
+
+----
+
+<a name="video-7"></a>
+<h2 class="mb-7">7. List & Show Operations</h2>
+
+<div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840033945' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+
+<br>
+Mentioned in this video: // TODO
+- xx
+- yy
+
+
+----
+
+<a name="video-8"></a>
+<h2 class="mb-7">8. Create & Update Operations</h2>
+
+<div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840035385' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+
+<br>
+Mentioned in this video: // TODO
+- xx
+- yy
+
+
+----
+
+<a name="video-9"></a>
+<h2 class="mb-7">9. Show & Delete Operations</h2>
+
+<div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840035558' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+
+<br>
+Mentioned in this video: // TODO
+- xx
+- yy
+
+
+----
+
+<a name="video-10"></a>
+<h2 class="mb-7">10. Reorder & BulkClone Operations</h2>
+
+<div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840059217' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+
+<br>
+Mentioned in this video: // TODO
+- xx
+- yy
+
+
+----
+
+<a name="video-11"></a>
+<h2 class="mb-7">11. Custom Operations using DevTools</h2>
+
+<div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840059347' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+
+<br>
+Mentioned in this video: // TODO
+- xx
+- yy
 
 ----
 
 
-Thank you for dedicating these 31 minutes to learning Backpack. **You should now be able to build your first admin panel.** But if you feel like you're _not quite ready yet_, here are a few more things you can do:
+Thank you for dedicating these 59 minutes to learning Backpack. **You should now be able to build your first admin panel.** But if you feel like you're _not quite ready yet_, here are a few more things you can do:
 
 - [Go through the demo](/docs/{{version}}/demo) and play around, browse the features (pay special attention to the Monsters CRUD)
 - Read this [CRUD Crash Course](/docs/{{version}}/crud-tutorial) and do the steps yourself
