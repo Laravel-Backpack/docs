@@ -309,7 +309,7 @@ In ```config/backpack/base.php``` you'll notice this config option:
 ```php
     // JS files that are loaded in all pages, using Laravel's asset() helper
     'scripts' => [
-        // Backstrap includes jQuery, Bootstrap, CoreUI, PNotify, Popper
+        // Backstrap includes jQuery, Bootstrap, CoreUI, Noty, Popper
         'packages/backpack/base/js/bundle.js?v='.\PackageVersions\Versions::getVersion('backpack/base'),
 
         // examples (everything inside the bundle, loaded from CDN)
@@ -375,7 +375,7 @@ You can add any script you want inside all Backpack's pages by just adding it in
 
     // JS files that are loaded in all pages, using Laravel's asset() helper
     'scripts' => [
-        // Backstrap includes jQuery, Bootstrap, CoreUI, PNotify, Popper
+        // Backstrap includes jQuery, Bootstrap, CoreUI, Noty, Popper
         'packages/backpack/base/js/bundle.js',
 
         // examples (everything inside the bundle, loaded from CDN)
