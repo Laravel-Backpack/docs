@@ -1018,23 +1018,6 @@ The ckeditor column will just output the non-escaped text value of a db column (
 
 <hr>
 
-<a name="color_picker"></a>
-### color_picker <span class="badge badge-pill badge-info">PRO</span>
-
-Show color with hex code.
-
-```php
-[
-    'name'  => 'color',
-    'type'  => 'color_picker',
-    'label' => 'Color',
-    // OPTIONALS
-    // 'showColorHex' => false //show or hide hex code
-]
-```
-
-<hr>
-
 <a name="date_picker"></a>
 ### date_picker <span class="badge badge-pill badge-info">PRO</span>
 
