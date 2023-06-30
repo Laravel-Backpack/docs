@@ -23,51 +23,53 @@ Mentioned in this video:
 <a name="video-2"></a>
 <h2 class="mb-7">2. Installation & Setup</h2>
 
+Let's setup a laravel project and follow the Backpack installation to get started.
+
 <div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840026719' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
 <br>
-Mentioned in this video: // TODO
-- xx
-- yy
+Mentioned in this video:
+- [Laravel docs - create project](https://laravel.com/docs/master/installation#your-first-laravel-project)
+- [Backpack docs - installation](/docs/{{version}}/installation)
 
 
 ----
 
 <a name="video-3"></a>
 <h2 class="mb-7">3. Look & Feel - Introduction to Backpack Themes</h2>
-
+Watch! how to customize the look & feel of admin panel, setup a bootstrap theme of your choice.
 <div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840030924' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
 <br>
-Mentioned in this video: // TODO
-- xx
-- yy
+Mentioned in this video:
+- [About Themes](https://backpackforlaravel.com/docs/{{version}}/base-themes)
+- [V6 Demo](https://demo-v6.backpackforlaravel.com/admin)
 
 
 ----
 
 <a name="video-4"></a>
 <h2 class="mb-7">4. Dashboard</h2>
-
+Let's place some content on the admin dashboard using backpack widgets. It's super easy.
 <div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840032165' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
 <br>
-Mentioned in this video: // TODO
-- xx
-- yy
+Mentioned in this video:
+- [Widgets](https://backpackforlaravel.com/docs/{{version}}/base-widgets)
+- [Customize dashboard](https://backpackforlaravel.com/docs/{{version}}/base-how-to#customize-the-dashboard)
 
 
 ----
 
 <a name="video-5"></a>
 <h2 class="mb-7">5. CRUDs - Intro to Operations</h2>
-
+This video shows how to setup CRUD operations for an entity. [Create](https://backpackforlaravel.com/docs/{{version}}/crud-operation-create), Read([List](https://backpackforlaravel.com/docs/{{version}}/crud-operation-list-entries) & [Show](https://backpackforlaravel.com/docs/{{version}}/crud-operation-show)), [Update](https://backpackforlaravel.com/docs/{{version}}/crud-operation-update) & [Delete](https://backpackforlaravel.com/docs/{{version}}/crud-operation-delete) are the most basic operations of every admin panel.
 <div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840032727' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
 <br>
-Mentioned in this video: // TODO
-- xx
-- yy
+Mentioned in this video:
+- [Setup CRUD - basic guide](https://backpackforlaravel.com/docs/{{version}}/getting-started-crud-operations)
+- [Operations - in depth](https://backpackforlaravel.com/docs/{{version}}/crud-operations)
 
 
 ----
@@ -75,64 +77,69 @@ Mentioned in this video: // TODO
 <a name="video-6"></a>
 <h2 class="mb-7">6. DevTools - Generating CRUDs</h2>
 
+Go from idea to full CRUD in seconds! Quickly build an admin panel for your Eloquent models using a web interface to generate migrations, models and CRUDs.
+
 <div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840033334' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
 <br>
-Mentioned in this video: // TODO
-- xx
-- yy
-
+Mentioned in this video:
+- [DevTools - about](https://backpackforlaravel.com/docs/{{version}}/generating-code#web-interface-devtools-premium)
+- [DevTools - installation](https://backpackforlaravel.com/products/devtools)
 
 ----
 
 <a name="video-7"></a>
-<h2 class="mb-7">7. List & Show Operations</h2>
+<h2 class="mb-7">7. List Operation</h2>
+
+Now we'll see, how to list records using `List Operation` & `columns`.
 
 <div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840033945' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
 <br>
-Mentioned in this video: // TODO
-- xx
-- yy
-
+Mentioned in this video:
+- [List operation](https://backpackforlaravel.com/docs/{{version}}/crud-operation-list-entries)
+- [50+ Columns](https://backpackforlaravel.com/docs/{{version}}/crud-columns)
 
 ----
 
 <a name="video-8"></a>
 <h2 class="mb-7">8. Create & Update Operations</h2>
 
+Similarly, we'll setup Create & Update Operation using `fields`.
+
 <div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840035385' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
 <br>
-Mentioned in this video: // TODO
-- xx
-- yy
-
+Mentioned in this video:
+- [Create Operation](https://backpackforlaravel.com/docs/{{version}}/crud-operation-create)
+- [Update Operation](https://backpackforlaravel.com/docs/{{version}}/crud-operation-update)
+- [50+ Fields](https://backpackforlaravel.com/docs/{{version}}/crud-fields)
 
 ----
 
 <a name="video-9"></a>
 <h2 class="mb-7">9. Show & Delete Operations</h2>
-
+To setup the Show & Delete operation, just follow the steps in the video. You'll see, they are totally similar to the above operations. Easy Peasy!
 <div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840035558' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
 <br>
-Mentioned in this video: // TODO
-- xx
-- yy
-
+Mentioned in this video:
+- [Delete operation](https://backpackforlaravel.com/docs/{{version}}/crud-operation-delete)
+- [Show operation](https://backpackforlaravel.com/docs/{{version}}/crud-operation-show)
+- [50+ Columns](https://backpackforlaravel.com/docs/{{version}}/crud-columns)
 
 ----
 
 <a name="video-10"></a>
 <h2 class="mb-7">10. Reorder & BulkClone Operations</h2>
-
+Want a ready interface to reorder or duplicate the entries? The following operations got you covered.
 <div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840059217' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
 <br>
-Mentioned in this video: // TODO
-- xx
-- yy
+Mentioned in this video:
+- [Reorder Operation](https://backpackforlaravel.com/docs/{{version}}/crud-operation-reorder)
+- [Clone Operation](https://backpackforlaravel.com/docs/{{version}}/crud-operation-clone)
+- [Available Operations](https://backpackforlaravel.com/docs/{{version}}/crud-operations#standard-operations)
 
 
 ----
@@ -140,12 +147,13 @@ Mentioned in this video: // TODO
 <a name="video-11"></a>
 <h2 class="mb-7">11. Custom Operations using DevTools</h2>
 
+This video shows how to create custom operations using `DevTools` & get more out of our premium add-on.
+
 <div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840059347' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
 <br>
-Mentioned in this video: // TODO
-- xx
-- yy
+Mentioned in this video:
+- [DevTools](https://backpackforlaravel.com/products/devtools)
 
 ----
 
@@ -160,20 +168,20 @@ Thank you for dedicating these 59 minutes to learning Backpack. **You should now
 
 
 <style>
-  .embed-container { 
-    position: relative; 
-    padding-bottom: 56.25%; 
-    height: 0; 
-    overflow: hidden; 
-    max-width: 100%; 
-  } 
-  .embed-container iframe, 
-  .embed-container object, 
-  .embed-container embed { 
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%; 
+  .embed-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+  }
+  .embed-container iframe,
+  .embed-container object,
+  .embed-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
 </style>
