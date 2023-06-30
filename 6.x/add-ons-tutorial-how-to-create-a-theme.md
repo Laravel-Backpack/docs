@@ -8,6 +8,214 @@ This tutorial will create and package a Backpack theme, so that you can use it i
 <a name="create-working-code"></a>
 ## Part A. Build the Theme in Your Project
 
+Here are the steps to easily build a **Backpack** theme using a template you got from **GetBootstrap**, **WrapBootstrap** or **ThemeForest**.
+
+### Step 1. Create theme directory
+
+Create a view folder anywhere in your `resources/views`. This is the directory where you will place all the files for your theme.
+
+```bash
+mkdir resources/views/my-cool-theme
+```
+
+### Step 2. Use that directory as your view namespace
+
+In your `config/backpack/ui.php`, add that as the primary view namespace:
+
+```php
+    'view_namespace' => 'my-cool-theme.',
+```
+
+> **Notes:**
+> - Notice the `.` at the end of the namespace, that's important.
+> - The namespace must match the name of the folder created from the previous step.
+
+### Step 3. Choose and use a fallback theme
+
+A fallback theme is needed in cases when Backpack attempts to load a view that doesn't exist in your theme. It means you don't need to create all the views in order to create a theme... Phew! You can easily rely on your fallback theme and only create the views you need to customize. In order to do so, edit your config file `config/backpack/ui.php` as it follows:
+
+```php
+    'view_namespace' => 'my-cool-theme.',
+    'view_namespace_fallback' => 'backpack.theme-coreuiv4::', // <--- this line
+```
+
+If it's your first time creating a Backpack theme, we recommend you start from our CoreUIv4 theme, and use that as your fallback. It's the simplest modern theme we have. It uses Bootstrap v5, but doesn't have any extra features you'd need to also support (like Tabler does). If you don't already have it installed, you will need to do `composer require backpack/theme-coreuiv4`
+
+### Step 4. Create the main blade files
+
+If you refresh the page right now, it will show up IDENTICAL to CoreUIv4. Why? Because you're using all the blade files from that theme (through the fallback system). How can you make _your theme_ look like _your theme_? By overriding some of blade files the fallback theme provides. Similar to how child themes work in Wordpress.
+
+Feel free to look at your fallback theme's views (eg. `vendor/backpack/theme-coreuiv4/resources/views`). If you create a file with the same file in your theme directory (eg. `resources/views/my-cool-theme`), your view will be picked up.
+
+So let's do that. Let's create _most_ of the files you'll need to customize, to provide _your theme_ with _your style_:
+```
+- my-cool-theme/
+  - assets/
+      - css/
+         ...here you can place all css files provided by your theme
+      - js/
+         ...here you can place all js files provided by your theme
+  - inc/
+      theme_styles.blade.php
+      theme_scripts.blade.php
+      ...
+  - components/
+      ...here you can override widgets with your own
+  - layouts/
+      app.blade.php
+  - widgets/
+      ...here you can override widgets with your own
+```
+
+Now let's build those files... Let's start with what makes a theme different.
+
+#### Theme styles
+
+The `my-cool-theme/inc/theme_styles.blade.php` file should hold all custom CSS that your theme needs. For example:
+
+```php
+{{-- You can load files directly from CDNs, they will get cached and loaded from local --}}
+@basset('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css')
+
+{{-- You can also load files from any place in your application directories --}}
+@basset(views_path('my-cool-theme/assets/css/extra.css'))
+
+{{-- You can also write inline CSS blocks --}}
+@bassetBlock('my-cool-theme/custom-styling')
+<style>
+.something {
+    border: 1px solid red;
+}
+</style>
+@endBassetBlock
+```
+
+Note: Don't forget to load the Bootstrap CSS. Backpack does NOT load it by default.
+
+#### Theme scripts
+
+The `my-cool-theme/inc/theme_scripts.blade.php` file should hold all custom JS that your theme needs:
+
+```php
+{{-- You can load files directly from CDNs, they will get cached and loaded from local --}}
+@basset('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js')
+
+{{-- You can also load files from any place in your application directories --}}
+@basset(views_path('my-cool-theme/assets/css/extra.js'))
+
+{{-- You can also write inline JS blocks --}}
+@bassetBlock('my-cool-theme/custom-scripting')
+<script>
+ alert('got here');
+</script>
+@endBassetBlock
+```
+
+Note: Don't forget to load the Bootstrap JS. Backpack does NOT load it by default.
+
+#### Default layout
+
+`my-cool-theme/layouts/default.blade.php` will be the primary layout for your theme. So it has to contain a full HTML page: the HTML doctype declaration, head, body components, everything. The following example will help you get started.
+
+```html
+<!DOCTYPE html>
+<html lang="{{ app()->getLocale() }}" dir="{{ backpack_theme_config('html_direction') }}">
+<head>
+    @include(backpack_view('inc.head'))
+</head>
+<body class="{{ backpack_theme_config('classes.body') }}">
+
+    @include(backpack_view('inc.sidebar'))
+
+    <div class="wrapper d-flex flex-column min-vh-100 bg-light">
+
+        @include(backpack_view('inc.main_header'))
+
+        <div class="app-body flex-grow-1 px-2">
+
+            <main class="main">
+
+                @yield('before_breadcrumbs_widgets')
+                @includeWhen(isset($breadcrumbs), backpack_view('inc.breadcrumbs'))
+                @yield('after_breadcrumbs_widgets')
+
+                @yield('header')
+
+                <div class="container-fluid animated fadeIn">
+
+                    @yield('before_content_widgets')
+                    @yield('content')
+                    @yield('after_content_widgets')
+
+                </div>
+
+            </main>
+
+        </div>{{-- ./app-body --}}
+
+        <footer class="{{ backpack_theme_config('classes.footer') }}">
+            @include(backpack_view('inc.footer'))
+        </footer>
+    </div>
+
+    @include(backpack_view('inc.bottom'))
+</body>
+</html>
+```
+
+We recommend you copy-paste your own HTML above it, then include the `@directives` where they make sense in your layout. Their names should explain pretty well what they do.
+
+Next up, we'll have to drill down. And move any custom content that's needed for the layout... for example for the sidebar, the header, the topbar... into their own respective views.
+
+
+#### Head
+
+There should be no reason for you to create and customize a `my-cool-theme/inc/head.blade.php` file.
+
+#### Sidebar
+
+Regarding `my-cool-theme/inc/sidebar.blade.php` we recommend you:
+- create the file;
+- paste the `main_header.blade.php` from your fallback theme;
+- paste the HTML content you want;
+- copy the useful things from the fallback theme to your own HTML, then delete whatever you don't want;
+
+Do not drill down to customize `sidebar_content.blade.php` too. Menu items work a little different than other views - they are _view components_. So instead of customizing `sidebar_content.blade.php` take a few minutes and customize the menu items HTML, by copy-pasting the `components` directory from your fallback theme, then customizing the files inside it (`menu-item`, `menu-dropdown`, `menu-dropdown-item`, `menu-separator` etc).
+
+#### Main header
+
+Regarding `my-cool-theme/inc/main_header.blade.php` we recommend you:
+- create the file;
+- paste the `main_header.blade.php` from your fallback theme;
+- paste the HTML content you want;
+- copy the useful things from the fallback theme to your own HTML, then delete whatever you don't want;
+
+#### Breadcrumbs
+
+Most often `my-cool-theme/inc/breadcrumbs.blade.php` is not needed - breadrcumbs will look ok out-of-box, because they use regular Bootstrap structure and style. But if you do need to customize the breadcrumbs, follow the same process above to re-use everything you need from the fallback theme file.
+
+#### Footer
+
+Most often `my-cool-theme/inc/footer.blade.php` is not needed, the footer will look ok out-of-box. But if you do need to customize the breadcrumbs, follow the same process above to re-use everything you need from the fallback theme file.
+
+#### Bottom
+
+There should be no reason for you to create and customize a `my-cool-theme/inc/bottom.blade.php` file.
+
+#### Other blade files
+
+Feel free to duplicate any blade files from your fallback theme into your own theme, to customize them. But do this with moderation - if you're only changing style (not HTML structure), it's much better to make those changes using CSS.
+
+### Step 5. Add CSS to make it pretty
+
+For any Backpack pages or components that don't look pretty in your theme, feel free to customize them using CSS. In step 4 in `theme_styles.blade.php` we have already shown you how to include a custom CSS file, to hold all your custom styles.
+
+### Step 6. Make it public
+
+If you're proud of how your theme looks and want to share it with others in the Backpack community:
+- make sure you have the rights to make the code public; if you've purchased an HTML template, you most likely _do not_ have the right to make their HTML & CSS public;
+- consider adding the rest of the views from your fallback theme to yours; there's a choice here - either you make your package depend on your fallback theme (add it to `composer.json`)... or you copy-paste their files in yours, so that your theme be independent;
+- follow the steps below to create a Backpack add-on using your theme;
 
 <a name="create-the-package"></a>
 ## Part B. Create The Package
@@ -21,10 +229,10 @@ Let's install this excellent package that will make everything a lot faster:
 composer require jeroen-g/laravel-packager --dev
 ```
 
-Let's create our package. Instead of using their skeleton, we're going to use the Backpack [addon-skeleton](https://github.com/Laravel-Backpack/addon-skeleton):
+Let's create our package. Instead of using their skeleton, we're going to use the Backpack [addon-skeleton](https://github.com/Laravel-Backpack/theme-skeleton):
 
 ```sh
-php artisan packager:new --i --skeleton="https://github.com/Laravel-Backpack/addon-skeleton/archive/master.zip"
+php artisan packager:new --i --skeleton="https://github.com/Laravel-Backpack/theme-skeleton/archive/master.zip"
 ```
 
 It will then ask you some basic information about the package. Keep in mind:
@@ -39,21 +247,7 @@ OK great. The command has:
 - created a ```/packages/vendor-name/package-name``` folder in your root directory;
 - modified your project's ```composer.json``` file to load the files in this new folder;
 
-This new folder should hold all your package files. You're off to a great start, because you're using our package skeleton (aka template), so it's already a _working package_. And it's already got a good file structure.
-
-Let's take a look at the generated files inside ```/packages/vendor-name/package-name```:
-
-![Blank Backpack addon as generated using the addon skeleton](https://user-images.githubusercontent.com/1032474/101022657-5992b080-357a-11eb-8f85-8e0718b66fb2.png)
-
-
-You'll notice that it looks _exactly_ like a Laravel project, with a few exceptions:
-- PHP classes live in `src` instead of `app`;
-- inside that `src` folder you also have an `AddonServiceProvider`; so let's take a moment to explain why it's there, and what it does:
-    - normally a package needs a ServiceProvider to tell Laravel "load the views from here", "load the migrations from here", "load configs from here", things like that; because a Composer package can also be a general PHP package (non-Laravel), normally you have to code a ServiceProvider for your package, that tells Laravel how to use your package - you have to write all that wiring logic;
-    - but thanks to `AddonServiceProvicer`, you don't have to do any of that; it's all done _automatically_ if the files are in the right directories, just like Laravel does itself, in your project's folders;
-    - the only thing you should worry about is placing your route files in `routes`, your migrations in `database/migrations` etc. and the `AddonServiceProvider` will understand and tell Laravel to load them; easy-peasy;
-
-Excited by how easy it'll be to make it work? Excellent, let's do it.
+This new folder should hold all your package files. You're off to a great start, because you're using our package skeleton (aka template), so it's already a _working package_. And it's already got a good file structure. Excited by how easy it'll be to make it work? Excellent, let's do it.
 
 > If you want to test that your package is being loaded, you can do a ```dd('got here')``` inside your package's ```AddonServiceProvider::boot``` method. If you refresh the page, you should see that ```dd()``` statement executed.
 
@@ -82,7 +276,7 @@ find . -name ".gitkeep" -exec rm -rf {} \; # deletes all .gitkeep files
 
 # commit the initially generated files
 git add .
-git commit -am "generated package code using laravel-packager and the backpack addon-skeleton"
+git commit -am "generated package code using laravel-packager and the backpack theme-skeleton"
 ```
 
 Excellent. Now we have _two_ git repos, that we can use as a progress indicator:
@@ -96,11 +290,10 @@ If you've used a git client you can even place them side-by-side, and see the pr
 <a name="define-dependencies"></a>
 ### Step 2. Define any extra dependencies
 
-Your ```/packages/vendor-name/package-name/composer.json``` file already requires the latest version of Backpack (thanks to the addon skeleton). If your package needs any third-party packages apart from Backpack and Laravel, make sure to add them to the `require` section. Normally this just means cutting&pasting the line from your project's `composer.json` to your package's `composer.json`.
-
+Your ```/packages/vendor-name/package-name/composer.json``` file already requires the latest version of Backpack (thanks to the addon skeleton). If your package needs any third-party packages apart from Backpack and Laravel, make sure to add them to the `require` section. If you theme does NOT provide all needed files, and still sues something from a fallback theme, you MUST require that theme in your package's `composer.json` and instruct people to use it as the fallback.
 
 <a name="move-the-files-needed-for-the-theme"></a>
-### Step 3. Move the functionality from your project to your package
+### Step 3. Move the blade files from your project to your package
 
 Time to move files from your _project_ to your _package_. You can use whatever you want for that - drag&drop, the command line, your IDE or editor, whatever you want.
 
@@ -111,6 +304,13 @@ As you do that, your `git status` or git client should show fewer and fewer file
 
 <a name="test-that-it-works"></a>
 ### Step 4. Test that the package works
+
+To use the blade files from your _package_ instead of your _project_, change the view namespace in `config/backpack/ui.php` to point to this new package you created:
+
+```php
+    'view_namespace' => 'vendor-name.package-name::',
+    'view_namespace_fallback' => 'backpack.theme-coreuiv4::',
+```
 
 That's pretty much it. You've created your package! 🥳 All the files your package need are inside your package, and the only remaining changes in your project (as reflected by `git status`) should be the minimal changes that users need to do to install your package.
 
