@@ -62,4 +62,4 @@
 - [Official Add-ons](/docs/{{version}}/add-ons-official)
 - [Community Add-ons](https://backpackforlaravel.com/addons)
 - [How to Create an Add-on](/docs/{{version}}/add-ons-tutorial-using-the-addon-skeleton)
-- [How to Create a Theme](/docs/{{version}}/add-ons-tutorial-how-to-create-a-theme) 🚧
+- [How to Create a Theme](/docs/{{version}}/add-ons-tutorial-how-to-create-a-theme)
