@@ -215,6 +215,7 @@ This means you have all the benefits of the array syntax... and all the benefits
 - Support for Laravel 8 and 9;
 - Support for PHP lower than 8.1 (since Laravel 10 does not support them);
 - `address_algolia` field, since their API got discontinued;
+- `color_picker` field, due to package lack of maintenaince;
 
 ---
 
