@@ -23,7 +23,7 @@ Mentioned in this video:
 <a name="video-2"></a>
 <h2 class="mb-7">2. Installation & Setup</h2>
 
-Let's setup a laravel project and follow the Backpack installation to get started.
+Let's setup a Laravel project and follow the Backpack installation.
 
 <div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840026719' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
@@ -37,7 +37,7 @@ Mentioned in this video:
 
 <a name="video-3"></a>
 <h2 class="mb-7">3. Look & Feel - Introduction to Backpack Themes</h2>
-Watch! how to customize the look & feel of admin panel, setup a bootstrap theme of your choice.
+A quick intro to Backpack themes - how to customize the look & feel of your admin panel, or use a Bootstrap theme of your choice.
 <div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840030924' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
 <br>
@@ -50,7 +50,7 @@ Mentioned in this video:
 
 <a name="video-4"></a>
 <h2 class="mb-7">4. Dashboard</h2>
-Let's place some content on the admin dashboard using backpack widgets. It's super easy.
+Let's place some content on the admin dashboard using Backpack widgets - it's super easy.
 <div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840032165' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
 <br>
@@ -63,7 +63,7 @@ Mentioned in this video:
 
 <a name="video-5"></a>
 <h2 class="mb-7">5. CRUDs - Intro to Operations</h2>
-This video shows how to setup CRUD operations for an entity. [Create](https://backpackforlaravel.com/docs/{{version}}/crud-operation-create), Read([List](https://backpackforlaravel.com/docs/{{version}}/crud-operation-list-entries) & [Show](https://backpackforlaravel.com/docs/{{version}}/crud-operation-show)), [Update](https://backpackforlaravel.com/docs/{{version}}/crud-operation-update) & [Delete](https://backpackforlaravel.com/docs/{{version}}/crud-operation-delete) are the most basic operations of every admin panel.
+Operations are a very important part of Backpack - they allow you to do things like [Create](https://backpackforlaravel.com/docs/{{version}}/crud-operation-create), Read([List](https://backpackforlaravel.com/docs/{{version}}/crud-operation-list-entries) & [Show](https://backpackforlaravel.com/docs/{{version}}/crud-operation-show)), [Update](https://backpackforlaravel.com/docs/{{version}}/crud-operation-update) & [Delete](https://backpackforlaravel.com/docs/{{version}}/crud-operation-delete). Let's understand how they work.
 <div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840032727' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
 <br>
@@ -91,7 +91,7 @@ Mentioned in this video:
 <a name="video-7"></a>
 <h2 class="mb-7">7. List Operation</h2>
 
-Now we'll see, how to list records using `List Operation` & `columns`.
+Let's take a deeper dive into the List operation and one important feature it is using - Backpack columns.
 
 <div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840033945' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
@@ -105,7 +105,7 @@ Mentioned in this video:
 <a name="video-8"></a>
 <h2 class="mb-7">8. Create & Update Operations</h2>
 
-Similarly, we'll setup Create & Update Operation using `fields`.
+Now let's do a deeper dive into Backpack form - particularly the ones in the Create & Update operations, who use Backpack fields, another important feature.
 
 <div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840035385' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
@@ -119,7 +119,7 @@ Mentioned in this video:
 
 <a name="video-9"></a>
 <h2 class="mb-7">9. Show & Delete Operations</h2>
-To setup the Show & Delete operation, just follow the steps in the video. You'll see, they are totally similar to the above operations. Easy Peasy!
+Let's also address some easy operations - Show & Delete operation. You'll see they are very similar to the ones above.
 <div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840035558' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
 <br>
@@ -132,7 +132,7 @@ Mentioned in this video:
 
 <a name="video-10"></a>
 <h2 class="mb-7">10. Reorder & BulkClone Operations</h2>
-Want a ready interface to reorder or duplicate the entries? The following operations got you covered.
+Here are two other operation you will most likely need - they will help you reorder or duplicate the entries.
 <div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840059217' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
 <br>
@@ -147,7 +147,7 @@ Mentioned in this video:
 <a name="video-11"></a>
 <h2 class="mb-7">11. Custom Operations using DevTools</h2>
 
-This video shows how to create custom operations using `DevTools` & get more out of our premium add-on.
+This video shows how to create custom operations, using our premium add-on DevTools.
 
 <div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840059347' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
