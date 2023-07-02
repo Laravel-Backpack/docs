@@ -30,17 +30,41 @@ Please make sure your project respects the requirements below, before you start 
 <a name="composer"></a>
 ### Composer
 
-<a name="step-x0" href="#step-x0" class="badge badge-info text-white" style="text-decoration: none;">Step 0x.</a> While in beta, in your `composer.json` please change `minimum-stability` to `dev`.
-
 <a name="step-1" href="#step-1" class="badge badge-danger text-white" style="text-decoration: none;">Step 1.</a> Update your ```composer.json``` file to require:
 
 ```
-        "backpack/crud": "^6.0.0",
+        "backpack/crud": "^6.0",
 ```
 
-<a name="step-2" href="#step-2" class="badge badge-danger text-white" style="text-decoration: none;">Step 2.</a> **Bump the version of any first-party Backpack add-ons you have installed (eg. `backpack/pro`, `backpack/editable-columns` etc.) to `v6.x-dev`**. For third-party add-ons, please check each add-on's Github page.
+<a name="step-2" href="#step-2" class="badge badge-danger text-white" style="text-decoration: none;">Step 2.</a> Bump the version of any first-party Backpack add-ons you have installed (eg. `backpack/pro`, `backpack/editable-columns` etc.) to the versions that support Backpack v6. For 3rd-party add-ons, please check each add-on's Github page. Here's a quick list of 1st party packages and versions:
 
-<a name="step-3" href="#step-3" class="badge badge-danger text-white" style="text-decoration: none;">Step 3.</a> Run ```composer update``` in the command line. If you get any conflicts with **Backpack 1st party add-ons**, most of the time you just need to move one version up, eg: from `backpack/menucrud: ^3.0` to `backpack/menucrud: ^4.0`.
+```js
+        "backpack/crud": "^6.0",
+        "backpack/pro": "^2.0",
+        "backpack/filemanager": "^3.0",
+        "backpack/theme-coreuiv2": "^1.0",
+        "backpack/theme-coreuiv4": "^1.0",
+        "backpack/theme-tabler": "^1.0",
+        "backpack/logmanager": "^5.0",
+        "backpack/settings": "^3.1",
+        "backpack/newscrud": "^5.0",
+        "backpack/permissionmanager": "^7.0",
+        "backpack/pagemanager": "^3.2",
+        "backpack/menucrud": "^4.0",
+        "backpack/backupmanager": "^5.0",
+        "backpack/editable-columns": "^3.0",
+        "backpack/revise-operation": "^2.0",
+        "backpack/medialibrary-uploaders": "^1.0",
+```
+
+<a name="step-3" href="#step-3" class="badge badge-danger text-white" style="text-decoration: none;">Step 3.</a> Let's get the latest Backpack and install it. If you get any conflicts with **Backpack 1st party add-ons**, most of the time you just need to move one version up, eg: from `backpack/menucrud: ^3.0` to `backpack/menucrud: ^4.0`. See the step above again. Please run:
+
+```
+composer update
+php artisan backpack:install
+```
+
+When asked to install a theme, please choose the CoreUIv2 theme. It'll be easier to upgrade using it.
 
 <a name="models"></a>
 ### Models
