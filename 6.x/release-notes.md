@@ -2,7 +2,7 @@
 
 ---
 
-**Launch date:** <span class="badge badge-danger">PUBLIC BETA</span> on May 31st, 2023
+**Launch date:** <span class="badge badge-warning">RELEASE</span> on July 1st, 2023
 
 Backpack v6 is a major release, with major changes. But don't worry, we've kept MOST changes backwards-compatible. And even for the things that are hugely breaking, we have provided 3 different upgrade paths, so that you can _easily_ use the latest version of Backpack, even if you've _heavily_ customized it. But first, a reminder:
 
@@ -215,6 +215,7 @@ This means you have all the benefits of the array syntax... and all the benefits
 - Support for Laravel 8 and 9;
 - Support for PHP lower than 8.1 (since Laravel 10 does not support them);
 - `address_algolia` field, since their API got discontinued;
+- `color_picker` field, due to package lack of maintenaince;
 
 ---
 
