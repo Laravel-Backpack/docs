@@ -21,12 +21,10 @@ For the following process, we assume:
 <a name="install-core-packages"></a>
 ### Install using Composer
 
-While `v6` is in beta:
-- Step 1. Please set your `composer.json`'s `minimum-stability` to `dev`.
-- Step 2. Go to your Laravel project's directory, then in your terminal, run:
+Go to your Laravel project's directory, then in your terminal, run:
 
 ``` bash
-composer require backpack/crud:"v6.x-dev"
+composer require backpack/crud
 php artisan backpack:install
 ```
 
