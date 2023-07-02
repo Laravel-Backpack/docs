@@ -24,7 +24,7 @@
 - [Themes](/docs/{{version}}/base-themes)
 - [Widgets](/docs/{{version}}/base-widgets)
 - [Components](/docs/{{version}}/base-components)
-- [FAQ](/docs/{{version}}/base-how-to) 🟨
+- [FAQ](/docs/{{version}}/base-how-to)
 
 #### CRUD Panels
 
@@ -33,8 +33,8 @@
 - [Operations](/docs/{{version}}/crud-operations)
     + [List](/docs/{{version}}/crud-operation-list-entries)
         + [Columns](/docs/{{version}}/crud-columns)
-        + [Buttons](/docs/{{version}}/crud-buttons) 🟨
-        + [Filters](/docs/{{version}}/crud-filters) 🟨
+        + [Buttons](/docs/{{version}}/crud-buttons)
+        + [Filters](/docs/{{version}}/crud-filters)
     + [Create](/docs/{{version}}/crud-operation-create) & [Update](/docs/{{version}}/crud-operation-update)
         + [Fields](/docs/{{version}}/crud-fields)
         + [Save Actions](/docs/{{version}}/crud-save-actions)
@@ -52,8 +52,8 @@
     + [Trash](/docs/{{version}}/crud-operation-trash)
 - [API](/docs/{{version}}/crud-cheat-sheet)
     + [Cheat Sheet](/docs/{{version}}/crud-cheat-sheet)
-    + [Crud API](/docs/{{version}}/crud-api) 🟨
-    + [Fluent API](/docs/{{version}}/crud-fluent-syntax) 🟨
+    + [Crud API](/docs/{{version}}/crud-api)
+    + [Fluent API](/docs/{{version}}/crud-fluent-syntax)
 - [Generating Code](/docs/{{version}}/generating-code)
 - [FAQ](/docs/{{version}}/crud-how-to)
 
@@ -62,4 +62,4 @@
 - [Official Add-ons](/docs/{{version}}/add-ons-official)
 - [Community Add-ons](https://backpackforlaravel.com/addons)
 - [How to Create an Add-on](/docs/{{version}}/add-ons-tutorial-using-the-addon-skeleton)
-- [How to Create a Theme](/docs/{{version}}/add-ons-tutorial-how-to-create-a-theme) 🚧
+- [How to Create a Theme](/docs/{{version}}/add-ons-tutorial-how-to-create-a-theme)

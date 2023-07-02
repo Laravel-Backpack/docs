@@ -1205,51 +1205,6 @@ Input preview:
 
 <hr>
 
-<a name="color-picker"></a>
-### color_picker <span class="badge badge-pill badge-info">PRO</span>
-
-Show a pretty colour picker using [Bootstrap Colorpicker](https://itsjavi.com/bootstrap-colorpicker/).
-
-```php
-CRUD::field([   // color_picker
-    'label'                => 'Background Color',
-    'name'                 => 'background_color',
-    'type'                 => 'color_picker',
-    'default'              => '#000000',
-
-    // optional
-    // Anything your define inside `color_picker_options` will be passed as JS
-    // to the JavaScript plugin. For more information about the options available
-    // please see the plugin docs at:
-    //  ### https://itsjavi.com/bootstrap-colorpicker/module-options.html
-    'color_picker_options' => [
-        'customClass' => 'custom-class',
-        'horizontal' => true,
-        'extensions' => [
-            [
-                'name' => 'swatches', // extension name to load
-                'options' => [ // extension options
-                    'colors' => [
-                        'primary' => '#337ab7',
-                        'success' => '#5cb85c',
-                        'info' => '#5bc0de',
-                        'warning' => '#f0ad4e',
-                        'danger' => '#d9534f'
-                    ],
-                    'namesAsValues' => false
-                ]
-            ]
-        ]
-    ]
-]);
-```
-
-Input preview:
-
-![CRUD Field - color_picker](https://backpackforlaravel.com/uploads/docs-4-2/fields/color_picker.png)
-
-<hr>
-
 <a name="date-range"></a>
 ### date_range <span class="badge badge-pill badge-info">PRO</span>
 
