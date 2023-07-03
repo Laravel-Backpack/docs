@@ -43,7 +43,7 @@ A quick intro to Backpack themes - how to customize the look & feel of your admi
 <br>
 Mentioned in this video:
 - [About Themes](https://backpackforlaravel.com/docs/{{version}}/base-themes)
-- [V6 Demo](https://demo-v6.backpackforlaravel.com/admin)
+- [Demo](https://demo.backpackforlaravel.com/admin)
 
 
 ----
