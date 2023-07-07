@@ -400,7 +400,10 @@ You should be able to load Vue.JS by just uncommenting that one line. Or providi
 <a name="customize-translations"></a>
 ### Customize the translated strings (aka overwrite the language files)
 
-Backpack uses Laravel translations across the admin panel, to easily translate strings (ex: `{{ trans('backpack::base.already_have_an_account') }}`). If you don't like a translation, you're welcome to submit a PR to correct it for all users of your language. If you only want to correct it inside your app, or need to add a new translation string, you can *create a new file in your `resources/lang/vendor/backpack/en/base.php`* (similarly, `crud.php` or any other file). Any language strings that are inside your app, in the right folder, will be preferred over the ones in the package.
+The admin panel language is set in `config/app.php` by changing the `locale` key. By default it's `en` (english). We provide translations in more than 20 languages including RTL (arabic).
+
+Backpack uses Laravel translations across the admin panel, to easily translate strings (ex: `{{ trans('backpack::base.already_have_an_account') }}`). 
+If you don't like a translation, you're welcome to submit a PR to [Backpack CRUD repository](https://github.com/Laravel-Backpack/CRUD) to correct it for all users of your language. If you only want to correct it inside your app, or need to add a new translation string, you can *create a new file in your `resources/lang/vendor/backpack/en/base.php`* (similarly, `crud.php` or any other file). Any language strings that are inside your app, in the right folder, will be preferred over the ones in the package.
 
 Alternatively, if you need to customize A LOT of strings, you can use: 
 ```bash
