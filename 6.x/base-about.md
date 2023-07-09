@@ -121,7 +121,7 @@ This will make sure you're using the model, prefix & middleware that you've defi
 <a name="admin-account"></a>
 ## Admin Account
 
-When logged in, the admin can click his/her name to go to his "account" page. There, they will be able to do a few basic operations: change name, email or password.
+When logged in, the admin can click on their name to go to their "account" page. There, they will be able to do a few basic operations: change name, email or password.
 
 <a name="change-name-and-email"></a>
 ### Change Name and Email
