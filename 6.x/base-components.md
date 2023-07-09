@@ -81,7 +81,7 @@ Note that you can further customize both components using custom attributes. If 
 <a name="overwriting-default-components"></a>
 ## Overriding Default Components
 
-You can override a widget type by placing a file with the same name in your ```resources\views\vendor\backpack\ui\components``` directory. When a file is there, Backpack will pick that one up, instead of the one in the package.
+You can override a component by placing a file with the same name in your ```resources\views\vendor\backpack\ui\components``` directory. When a file is there, Backpack will pick that one up, instead of the one in the package.
 
 >**Avoid doing this.** When you're overwriting a component, you're forfeiting any future updates for that component. We can't push updates to a file that you're no longer using.
 
