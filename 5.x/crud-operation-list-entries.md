@@ -212,7 +212,7 @@ $this->crud->orderBy();
 
 <a name="custom-order"></a>
 
-List operation uses the `model key`(usually **id**) as default to order entries by `DESC`. You can modify this behavior by applying an order key:
+By default, the List operation gets sorted by the primary key (usually `id`), descending. You can modify this behaviour by defining your own ordering:
 ```php
 protected function setupListOperation()
 {
