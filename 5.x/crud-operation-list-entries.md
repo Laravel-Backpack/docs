@@ -206,7 +206,7 @@ $this->crud->limit();
 $this->crud->orderBy();
 // please note it's generally a good idea to use crud->orderBy() inside "if (!$this->crud->getRequest()->has('order')) {}"; that way, your custom order is applied ONLY IF the user hasn't forced another order (by clicking a column heading)
 ```
-**NOTE:** we call this constrains `query constrains`, and when you filter or search we call it `table constrains`. All the `query constrains` added on the setup operation cannot be reseted by `Reset Button`, and all the `table constrains` are applied on top of the `query constrains`.
+**NOTE:** The query constraints added in the `setup()` method operation _cannot_ be reset by `Reset Button`. They are permanent for that CRUD, for all operation.
 
 #### Custom Order
 
