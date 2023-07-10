@@ -216,13 +216,15 @@ List operation uses the `model key`(usually **id**) as default to order entries 
 ```php
 protected function setupListOperation()
 {
-    //change default order key if not passed by datatable
-    if (!$this->crud->getRequest()->has('order')){
+    //change default order key
+    if (! $this->crud->getRequest()->has('order')){
         $this->crud->orderBy('updated_at', 'desc');
     }
 }
 ```
-**NOTE**: This is a `query constrain`, not a `table constrain`, so the reset button will not reset this order if applied without `has('order')` check. It becomes the `base query` for that operation, so any filters etc you add on table will be applied AFTER the `query orders/constrains` you define on your setup operation.
+**NOTE**: We only apply the `orderBy` when the request don't have an `order` key.
+This is because we need to keep the ability to order in the Datatable Columns. 
+If we didn't conditionally add the `orderBy`, it would become a __permanent order__ that can't be cleared by the Datatables `Reset` button and applied to every request. 
 
 <a name="responsive-table"></a>
 #### Responsive Table

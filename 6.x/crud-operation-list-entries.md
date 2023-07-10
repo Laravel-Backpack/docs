@@ -206,6 +206,25 @@ $this->crud->limit();
 $this->crud->orderBy();
 // please note it's generally a good idea to use crud->orderBy() inside "if (!$this->crud->getRequest()->has('order')) {}"; that way, your custom order is applied ONLY IF the user hasn't forced another order (by clicking a column heading)
 ```
+**NOTE:** The query constraints added in the `setup()` method operation _cannot_ be reset by `Reset Button`. They are permanent for that CRUD, for all operation.
+
+#### Custom Order
+
+<a name="custom-order"></a>
+
+List operation uses the `model key`(usually **id**) as default to order entries by `DESC`. You can modify this behavior by applying an order key:
+```php
+protected function setupListOperation()
+{
+    //change default order key
+    if (! $this->crud->getRequest()->has('order')){
+        $this->crud->orderBy('updated_at', 'desc');
+    }
+}
+```
+**NOTE**: We only apply the `orderBy` when the request don't have an `order` key.
+This is because we need to keep the ability to order in the Datatable Columns.
+If we didn't conditionally add the `orderBy`, it would become a __permanent order__ that can't be cleared by the Datatables `Reset` button and applied to every request.
 
 <a name="responsive-table"></a>
 #### Responsive Table
