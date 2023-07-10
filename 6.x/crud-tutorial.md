@@ -37,7 +37,7 @@ The code above will have generated:
 - a controller (```app/Http/Controllers/Admin/TagCrudController.php```);
 - a request (```app/Http/Requests/TagCrudRequest.php```);
 - a resource route, as a line inside ```routes/backpack/custom.php```;
-- a new item in the sidebar menu, in ```resources/views/vendor/backpack/base/inc/sidebar_content.blade.php```;
+- a new menu item in ```resources/views/vendor/backpack/ui/inc/menu_items.blade.php```;
 
 **Next up:** we'll need to go through the generated files, and customize for our needs.
 
