@@ -172,7 +172,7 @@ You can now split your create/edit inputs into multiple tabs.
 
 ![CRUD Fields Tabs](https://backpackforlaravel.com/uploads/docs-4-0/operations/create_tabs.png)
 
-To use this feature, just specify the tab name for each of your fields. for example:
+To use this feature, specify the tab name for each of your fields. For example:
 
 ```php
 CRUD::field('price')->tab('Tab name here');
