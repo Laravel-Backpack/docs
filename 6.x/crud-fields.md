@@ -1527,7 +1527,7 @@ Input preview:
 <a name="icon-picker"></a>
 ### icon_picker <span class="badge badge-pill badge-info">PRO</span>
 
-Show an icon picker. Supported icon sets are fontawesome, lineawesome, glyphicon, ionicon, weathericon, mapicon, octicon, typicon, elusiveicon, materialdesign as per the jQuery plugin, [bootstrap-iconpicker](http://victor-valencia.github.io/bootstrap-iconpicker/).
+Show an icon picker. Supported icon sets are fontawesome, glyphicon, ionicon, weathericon, mapicon, octicon, typicon, elusiveicon, materialdesign as per the jQuery plugin, [bootstrap-iconpicker](http://victor-valencia.github.io/bootstrap-iconpicker/).
 
 The stored value will be the class name (ex: fa-home).
 
@@ -1536,7 +1536,7 @@ CRUD::field([   // icon_picker
     'label'   => "Icon",
     'name'    => 'icon',
     'type'    => 'icon_picker',
-    'iconset' => 'fontawesome' // options: fontawesome, lineawesome, glyphicon, ionicon, weathericon, mapicon, octicon, typicon, elusiveicon, materialdesign
+    'iconset' => 'fontawesome' // options: fontawesome, glyphicon, ionicon, weathericon, mapicon, octicon, typicon, elusiveicon, materialdesign
 ]);
 ```
 
