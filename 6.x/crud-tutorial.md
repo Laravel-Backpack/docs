@@ -336,7 +336,7 @@ Here, we can see that our routes have been placed:
 <a name="the-menu-item"></a>
 ### The Menu Item
 
-We've previously generated a menu item in the ```views/vendor/backpack/ui/inc/menu_items.php``` file. That is using our menu item Blade components. The "active" state of the menu is done with JavaScript, based on the ```href``` attribute.
+We've previously generated a menu item in the ```resources/views/vendor/backpack/ui/inc/menu_items.blade.php``` file. That is using our menu item Blade components. The "active" state of the menu is done with JavaScript, based on the ```href``` attribute.
 
 This is the bit that has been generated for you:
 
