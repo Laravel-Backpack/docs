@@ -172,14 +172,19 @@ You can now split your create/edit inputs into multiple tabs.
 
 ![CRUD Fields Tabs](https://backpackforlaravel.com/uploads/docs-4-0/operations/create_tabs.png)
 
-In order to use this feature, you just need to specify the tab name for each of your fields. Example:
+To use this feature, just specify the tab name for each of your fields. for example:
 
 ```php
 CRUD::field('price')->tab('Tab name here');
 ```
 
-If you forget to specify a tab name for a field, Backpack will place it above all tabs.
+If you don't specify a tab name for a field, then Backpack will place it above all of the tabs, for example:
 
+```php
+CRUD::field('product');
+CRUD::field('description')->tab('Information');
+CRUD::field('price')->tab('Prices');
+```
 
 <a name="entity-model-and-attribute"></a>
 #### Optional - Attributes for Fields Containing Related Entries
