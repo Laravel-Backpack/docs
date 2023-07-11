@@ -353,7 +353,7 @@ class ChartjsPieController extends ChartController
 <a name="div"></a>
 ### Div
 
-Allows you to include multiple widgets in the div attributes of your choice. For example, you can include multiple widgets in a ```<div class="row"></div>``` with the code below:
+Allows you to include multiple widgets within a "div" element with the attributes of your choice. For example, you can include multiple widgets within a ```<div class="row"></div>``` with the code below:
 
 ```php
 [
@@ -368,9 +368,28 @@ Allows you to include multiple widgets in the div attributes of your choice. For
 ```
 
 Anything you specify on this widget, other than ```type``` and ```content```, has to be a string, and will be considered an attribute of the "div" element. 
-For example, in the above snippet, the "div" element will end up with a ```class``` attribute with a value of ```row```, which is a string. 
-This value has to be a string of one of more class names, for example ```row border border-4 border-danger```.
+For example, in the following snippet, ```class``` and ```custom-attribute``` are attributes of the "div" element:
 
+```php
+[
+    'type'    => 'div',
+    'class'   => 'row my-custom-widget-class',
+    'custom-attribute'   => 'my-custom-value',
+    'content' => [ // widgets
+        [ 'type' => 'card', 'content' => ['body' => 'One'] ],
+        [ 'type' => 'card', 'content' => ['body' => 'Two'] ],
+        [ 'type' => 'card', 'content' => ['body' => 'Three'] ],
+    ]
+]
+```
+
+and the generated output will be:
+
+```html
+    <div custom-attribute="my-custom-value" class="row my-custom-widget-class">
+        // The HTML code of the three card widgets will be here
+    </div>
+```
 
 <hr>
 
