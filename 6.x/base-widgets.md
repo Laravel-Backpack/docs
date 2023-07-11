@@ -367,7 +367,10 @@ Allows you to include multiple widgets in the div attributes of your choice. For
 ]
 ```
 
-Anything you specify on this widget, other than ```type``` and ```content```, has to be a string, and will be considered an attribute of the "div" element.
+Anything you specify on this widget, other than ```type``` and ```content```, has to be a string, and will be considered an attribute of the "div" element. 
+For example, in the above snippet, the "div" element will end up with a ```class``` attribute with a value of ```row```, which is a string. 
+This value has to be a string of one of more class names, for example ```row border border-4 border-danger```.
+
 
 <hr>
 
@@ -457,7 +460,7 @@ Loads a JavaScript file from a location you specify using a `<script>` element.
 ]
 ```
 
-You can also specify a link (`https://path-to-file.com/file.js`) as the content, and it will load the file from CDN. In that case you might also want to add additional attributes, which you can easily do, for example:
+You can also specify a link (`https://path-to-file.com/file.js`) as the content, and it will load the file from a CDN. In that case you might also want to add additional attributes, which you can easily do, for example:
 
 ```php
 Widget::add()->type('script')
@@ -482,7 +485,7 @@ Loads a CSS file from a location you specify using a `<link>` element.
 ]
 ```
 
-You can also specify a link (`https://path-to-file.com/file.css`) as the content, and it will load the file from CDN. In that case you might also want to add additional attributes, which you can easily do, for example:
+You can also specify a link (`https://path-to-file.com/file.css`) as the content, and it will load the file from a CDN. In that case you might also want to add additional attributes, which you can easily do, for example:
 
 ```php
 Widget::add()->type('style')
