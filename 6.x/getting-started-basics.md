@@ -34,7 +34,7 @@ Mind that you will _almost never_ use all of Backpack's features in one CRUD. Bu
 <a name="backpack-design"></a>
 ### Front-End Design
 
-New Backpack installs come with the [Tabler](https://tabler.io) HTML theme installed. It uses Bootstrap 5, and has many HTML blocks ready for you to use. When you're building a custom page in your admin panel, it's easy to just copy-paste the HTML from our [the tabler website](https://tabler.io/preview), or from the [Tabler documentation](https://tabler.io/docs) and it will look good, without you having to design anything.
+New Backpack installs come with the [Tabler](https://tabler.io) HTML theme installed. It uses Bootstrap 5, and has many HTML blocks ready for you to use. When you're building a custom page in your admin panel, it's easy to just copy-paste the HTML from [the tabler website](https://tabler.io/preview), or from the [Tabler documentation](https://tabler.io/docs) and it will look good, without you having to design anything.
 
 It also installs Noty for triggering JS notification bubbles, and SweetAlerts. So you can easily use these across your admin panel. You can [trigger notification bubbles in PHP](/docs/{{version}}/base-about#triggering-notification-bubbles-in-php) or [trigger notification bubbles in JavaScript](/docs/{{version}}/base-about#triggering-notification-bubbles-in-javascript).
 
@@ -99,7 +99,7 @@ It will also add:
 
 You might have noticed that **no views** are generated. That's because in most cases you _don't need_ custom views with Backpack. All your custom code is in the controller, model or request, so the default views are loaded, from the package. If you do, however, need to customize a view, it is [ridiculously easy](/docs/{{version}}/crud-how-to#customize-views-for-each-crud-panel).
 
-Also, we won't be covering the **migration**, **model** and **request** files here, as they are in no way custom. The only thing you need to make sure is that the Model is properly configured (db table, relationships, ```$fillable``` or ```$guarded``` properties, etc) and that it uses our ```CrudTrait```. What we _will_ be covering is ```TagCrudController``` - which is where most of your logic will reside. Here's a copy of a simple one you might use to achieve the above:
+Also, we won't be covering the **migration**, **model** and **request** files here, as they are in no way custom. The only thing you need to make sure is that the Model is properly configured (database table, relationships, ```$fillable``` or ```$guarded``` properties, etc.) and that it uses our ```CrudTrait```. What we _will_ be covering is ```TagCrudController``` - which is where most of your logic will reside. Here's a copy of a simple one you might use to achieve the above:
 
 ```php
 <?php namespace App\Http\Controllers\Admin;
@@ -144,7 +144,7 @@ class TagCrudController extends CrudController {
 ```
 
 You should notice:
-- It uses basic inheritance (```TagCrudController extends CrudController```); so if you want to modify a behaviour (save, update, reorder, etc), you can easily do that by overwriting the corresponding method in your ```TagCrudController```;
+- It uses basic inheritance (```TagCrudController extends CrudController```); so if you want to modify a behaviour (save, update, reorder, etc.), you can easily do that by overwriting the corresponding method in your ```TagCrudController```;
 - All operations are enabled by using that operation's trait on the controller;
 - The ```setup()``` method defines the basics of the CRUD panel;
 - Each operation is set up inside a ```setupXxxOperation()``` method;
