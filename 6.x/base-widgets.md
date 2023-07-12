@@ -353,7 +353,7 @@ class ChartjsPieController extends ChartController
 <a name="div"></a>
 ### Div
 
-Allows you to include multiple widgets in the div attributes of your choice. For example, you can include multiple widgets in a ```<div class="row"></div>``` with the code below:
+Allows you to include multiple widgets within a "div" element with the attributes of your choice. For example, you can include multiple widgets within a ```<div class="row"></div>``` with the code below:
 
 ```php
 [
@@ -367,7 +367,29 @@ Allows you to include multiple widgets in the div attributes of your choice. For
 ]
 ```
 
-Anything you specify on this widget, other than ```type``` and ```content```, has to be a string, and will be considered an attribute of the "div" element.
+Anything you specify on this widget, other than ```type``` and ```content```, has to be a string, and will be considered an attribute of the "div" element. 
+For example, in the following snippet, ```class``` and ```custom-attribute``` are attributes of the "div" element:
+
+```php
+[
+    'type'    => 'div',
+    'class'   => 'row my-custom-widget-class',
+    'custom-attribute'   => 'my-custom-value',
+    'content' => [ // widgets
+        [ 'type' => 'card', 'content' => ['body' => 'One'] ],
+        [ 'type' => 'card', 'content' => ['body' => 'Two'] ],
+        [ 'type' => 'card', 'content' => ['body' => 'Three'] ],
+    ]
+]
+```
+
+and the generated output will be:
+
+```html
+    <div custom-attribute="my-custom-value" class="row my-custom-widget-class">
+        // The HTML code of the three card widgets will be here
+    </div>
+```
 
 <hr>
 
@@ -457,7 +479,7 @@ Loads a JavaScript file from a location you specify using a `<script>` element.
 ]
 ```
 
-You can also specify a link (`https://path-to-file.com/file.js`) as the content, and it will load the file from CDN. In that case you might also want to add additional attributes, which you can easily do, for example:
+You can also specify a link (`https://path-to-file.com/file.js`) as the content, and it will load the file from a CDN. In that case you might also want to add additional attributes, which you can easily do, for example:
 
 ```php
 Widget::add()->type('script')
@@ -482,7 +504,7 @@ Loads a CSS file from a location you specify using a `<link>` element.
 ]
 ```
 
-You can also specify a link (`https://path-to-file.com/file.css`) as the content, and it will load the file from CDN. In that case you might also want to add additional attributes, which you can easily do, for example:
+You can also specify a link (`https://path-to-file.com/file.css`) as the content, and it will load the file from a CDN. In that case you might also want to add additional attributes, which you can easily do, for example:
 
 ```php
 Widget::add()->type('style')
