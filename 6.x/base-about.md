@@ -34,7 +34,7 @@ This  file is used to show the contents of the menu. It's been published there s
 
 **2) Middleware to ```app/Http/Middleware/CheckIfAdmin.php```**
 
-This middleware is used to test if users have access to admin panel pages. You can (and should customize it) if you have both users and admins in your app.
+This middleware is used to test if users have access to admin panel pages. You can (and should) customize it if you have both users and admins in your app.
 
 **3) Route file to ```routes/backpack/custom.php```**
 
@@ -63,7 +63,7 @@ You can create blade views from scratch, or you can use our command to publish t
 php artisan backpack:publish ui/dashboard
 ```
 
-Then inside the blade files, you can use either plain-old HTML or add dynamic content through [Backpack widgets](/docs/{{version}}/base-widgets).
+Then inside the blade files, you can use either plain old HTML or add dynamic content through [Backpack widgets](/docs/{{version}}/base-widgets).
 
 Please note that it is NOT recommended to publish and override too many theme files. If you discover you're creating many of these files, you're basically creating a new theme. So we recommend you do just that. Please follow the docs to create a new "child theme".
 
@@ -89,34 +89,34 @@ If you'll take a look inside any Backpack package, you'll notice the packages ar
 <a name="authentication"></a>
 ## Authentication
 
-When installed, Backpack provides a way for admins to login, recover password and register (don't worry, register is only enabled on ```localhost```). It does so with its own authentication controllers, models and middleware. If you have regular end-users (not admins), you can keep the _user_ authentication completely separate from _admin_ authentication. You can change which model, middleware classes Backpack uses, inside the ```config/backpack/base.php``` config file.
+When installed, Backpack provides a way for admins to login, recover a password and register (don't worry, register is only enabled on ```localhost```). It does so with its own authentication controllers, models and middleware. If you have regular end users (not admins), you can keep the _user_ authentication completely separate from the _admin_ authentication. You can change which model and middleware classes Backpack uses inside the ```config/backpack/base.php``` config file.
 
 > **Backpack uses Laravel's default ```App\Models\User``` model**. This assumes you weren't already using this model, or the ```users``` table, for anything else. Or that you plan to use it for both users & admins. Otherwise, please read below.
 
 <a name="using-a-different-user-model"></a>
 ### Using a Different User Model
 
-If you want to use a different User model than ```App\Models\User``` or you've changed its location, you can tell Backpack to use _a different_ model in ```config/backpack/base.php```. Look for ```user_model_fqn```.
+If you want to use a different User model than ```App\Models\User``` or if you've changed its location, then you can tell Backpack to use _a different_ model in ```config/backpack/base.php```. Look for ```user_model_fqn```.
 
 
 <a name="having-both-regular-users-and-admins"></a>
 ### Having Both Regular Users and Admins
 
-If you already use the ```users``` table to store end-users (not admins), you will need a way to differentiate admins from regular users. Backpack does not force one method on you. Here are two methods we recommend, below:
+If you already use the ```users``` table to store end users (not admins), you will need a way to differentiate admins from regular users. Backpack does not force one method on you. Here are two methods we recommend:
 - (A) adding an ```is_admin``` column to your ```users``` table, then changing the ```app/Http/Middleware/CheckIfAdmin::checkIfUserIsAdmin()``` method to test that attribute exists, and is true;
-- (B) using the [PermissionManager](https://github.com/Laravel-Backpack/PermissionManager) extension - this will also add groups and permissions; Then tell Backpack to use _your new permission middleware_ to check if a logged in user is an admin, inside ```config/backpack/base.php```;
+- (B) using the [PermissionManager](https://github.com/Laravel-Backpack/PermissionManager) extension - this will also add groups and permissions; then tell Backpack to use _your new permission middleware_ to check if a logged-in user is an admin, inside ```config/backpack/base.php```;
 
 <a name="routes"></a>
 ### Routes
 
-By default, all administration panel routes will be behind an ```/admin/``` prefix, and under an ```CheckIfAdmin``` middleware. You can change that inside ```config/backpack/base.php```.
+By default, all administration panel routes will be behind an ```/admin/``` prefix, and under a ```CheckIfAdmin``` middleware. You can change that inside ```config/backpack/base.php```.
 
 Inside your _admin controllers or views_, please:
 - use ```backpack_auth()``` instead of ```auth()```;
 - use ```backpack_user()``` instead of ```auth()->user```;
 - use ```backpack_url()``` instead of ```url()```;
 
-This will make sure you're using the model, prefix & middleware that you've defined in ```config/backpack/base.php```. In case you decide to make changes there later, you won't need to change anything else. There are also [other backpack helpers you can use](#helpers).
+This will make sure you're using the model, prefix and middleware that you've defined in ```config/backpack/base.php```. In case you decide to make changes there later, you won't need to change anything else. There are also [other backpack helpers you can use](#helpers).
 
 <a name="admin-account"></a>
 ## Admin Account
@@ -139,7 +139,7 @@ Password changing is done inside ```Backpack\CRUD\app\Http\Controllers\Auth\MyAc
 <a name="helpers"></a>
 ## Helpers
 
-You can use these helpers anywhere in your app (models, views, controllers, requests, etc), except the config files, since the config files are loaded _before_ the helpers.
+You can use these helpers anywhere in your app (models, views, controllers, requests, etc.), except the config files, since the config files are loaded _before_ the helpers.
 
 - **```backpack_url($path)```** - Use this helper instead of ```url()``` to generate paths with the admin prefix prepended.
 - **```backpack_auth()```** - Returns the Auth facade, using the current Backpack guard. Basically a shorthand for ```\Auth::guard(backpack_guard_name())```. Use this instead of ```auth()``` inside your admin panel pages.
@@ -153,7 +153,7 @@ You can use these helpers anywhere in your app (models, views, controllers, requ
 <a name="error-pages"></a>
 ## Error Pages
 
-When installing Backpack, a few error views are published into ```resources/views/errors```, if you don't already have other files there. This is because Laravel does not provide error pages for all HTTP error codes. Having these files in your project will make sure that, if a user gets an HTTP error, at least it will look decent. Error pages are provided for the following error codes: ```400```, ```401```, ```403```, ```404```, ```405```, ```408```, ```429```, ```500```, ```503```.
+When installing Backpack, a few error views are published into ```resources/views/errors```, if you don't already have other files there. This is because Laravel does not provide error pages for all HTTP error codes. Having these files in your project will make sure that, if a user gets an HTTP error, the error page will at least look decent. Error pages are provided for the following error codes: ```400```, ```401```, ```403```, ```404```, ```405```, ```408```, ```429```, ```500```, ```503```.
 
 
 <a name="custom-pages"></a>
