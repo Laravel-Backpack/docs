@@ -4,7 +4,7 @@
 
 **Duration:** 5 minutes
 
-> **Are you already comfortable with Laravel?** In order to understand this series and make use of Backpack, you'll need to have a decent understanding of the Laravel framework. If you don't, please go ahead and [watch this excellent intro series on Laracasts](https://laracasts.com/series/laravel-from-scratch-2018) and accommodate yourself with Laravel first.
+> **Are you already comfortable with Laravel?** In order to understand this series and make use of Backpack, you'll need to have a decent understanding of the Laravel framework. If you don't, please go ahead and [watch this excellent intro series on Laracasts](https://laracasts.com/series/laravel-8-from-scratch) and accommodate yourself with Laravel first.
 
 
 <a name="what-is-backpack"></a>
@@ -62,7 +62,7 @@ You can generate everything a CRUD needs using one of the methods below:
 
 **Option A) PAID - using our GUI, [Backpack DevTools](https://backpackforlaravel.com/products/devtools)**
 
-Just install DevTools, fill in a web form with the columns for your entity, and it'll generate all needed files. It's that simple. Check out [the images here](https://backpackforlaravel.com/products/devtools) for how it works. It's especially useful for more complex entities. It is a paid tool though, and you might not be ready to purchase yet, so let's explore a free option too.
+Just install DevTools, fill in a web form with the columns for your entity, and it'll generate all the needed files. It's that simple. Check out [the images here](https://backpackforlaravel.com/products/devtools) for how it works. It's especially useful for more complex entities. It is a paid tool though, and you might not be ready to purchase yet, so let's explore a free option too.
 
 **Option B) FREE - using the command-line interface**
 
@@ -84,7 +84,7 @@ php artisan backpack:crud tag #use singular, not plural
 
 In both cases, what we're getting is a simple CRUD panel, which you should now be able to see in the Sidebar.
 
-For a simple entry like this, the generated CRUD panel will even work "as is", no need for customisations. But don't expect this for more complex entities. They will usually have particularities and need customization. That's where Backpack shines - modifying anything in the CRUD Panel is easy and intuitive, once you understand how it works.
+For a simple entry like this, the generated CRUD panel will even work "as is", with no need for customisations. But don't expect this for more complex entities. They will usually have particularities and need customization. That's where Backpack shines - modifying anything in the CRUD Panel is easy and intuitive, once you understand how it works.
 
 The methods above will generate:
 - a **migration** file
