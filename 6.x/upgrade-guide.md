@@ -241,3 +241,4 @@ If the table view still looks wonky (search bar out of place, big + instead of e
 **You're done! Good job.** Thank you for taking the time to upgrade. Now you can:
 - thoroughly test your application and your admin panel;
 - start using the [new features in Backpack v6](/docs/{{version}}/release-notes);
+- install a new theme, by running `php artisan backpack:require:theme-tabler` or `php artisan backpack:require:theme-coreuiv4`; but please make sure you've followed [Step 22](#step-22) first, otherwise your menu items will not look good;
