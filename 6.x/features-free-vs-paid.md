@@ -198,7 +198,7 @@ Everywhere in our docs, you'll see the <span class="badge badge-pill badge-info"
 </table>
 
 <br><br>
-Both `backpack/crud` and `backpack/pro` will keep receiving active attention, maintenance and care from us, for many years going forward - this is our job. If you have suggestions, please [vote on top new features](https://github.com/Laravel-Backpack/CRUD/discussions/3960) or [open a new suggestion](https://github.com/laravel-backpack/ideas).
+Both `backpack/crud` and `backpack/pro` will keep receiving active attention, maintenance and care from us, for many years going forward - this is our job. If you have suggestions, please [tell us](https://github.com/laravel-backpack/ideas).
 
 <a name="no-license-needed-on-localhost"></a>
 ## Add-ons
