@@ -191,7 +191,7 @@ It's as easy as using an asset from a CDN, but it's much _much_ better than that
 
 ----
 
-<a name="step-22" href="#step-22" class="badge badge-danger" style="text-decoration: none;">Step 22.</a> Please remove  `resources/views/errors` directory. We now handle HTTP errors separately inside the theme template for the admin panel, which you can customize as per your fit.
+<a name="step-22" href="#step-22" class="badge badge-danger" style="text-decoration: none;">Step 22.</a> Please consider removing your  `resources/views/errors` directory. Previously Backpack used that directory to hold admin panel error views. But that meant those error views were also used by the app itself (non-admin panel). If those error views are Backpack's (not your custom error views), please delete them.
 
 ----
 
