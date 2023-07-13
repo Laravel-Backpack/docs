@@ -1204,6 +1204,8 @@ CRUD::field([   // CKEditor
 
 If you'd like to be able to select files from elFinder, you need to also run ```composer require backpack/filemanager``` to install elFinder.
 
+To add more plugins to CKEditor follow the guide [here](https://github.com/Laravel-Backpack/community-forum/issues/559#issuecomment-1630673757)
+
 Input preview:
 
 ![CRUD Field - ckeditor](https://backpackforlaravel.com/uploads/docs-4-2/fields/ckeditor.png)
