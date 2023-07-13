@@ -60,7 +60,7 @@ Please make sure your project respects the requirements below, before you start 
 <a name="step-3.1" href="#step-3.1" class="badge badge-danger text-white" style="text-decoration: none;">Step 3.1.</a> We removed `PackageVersions` and the cache busting string is now handled by `Basset`.
 To avoid errors on the next step, please remove `cachebusting_string` from `config/backpack/base.php`.
 ```diff
-- 'cachebusting_string' => \PackageVersions\Versions::getVersion('backpack/crud'), 
+- 'cachebusting_string' => \PackageVersions\Versions::getVersion('backpack/crud'),
 ```
 
 <a name="step-3.2" href="#step-3.2" class="badge badge-danger text-white" style="text-decoration: none;">Step 3.2.</a> Let's get the latest Backpack and install it. If you get any conflicts with **Backpack 1st party add-ons**, most of the time you just need to move one version up, eg: from `backpack/menucrud: ^3.0` to `backpack/menucrud: ^4.0`. See the step above again. Please run:
@@ -101,7 +101,7 @@ No changes needed.
 <a name="step-8" href="#step-8" class="badge badge-danger" style="text-decoration: none;">Step 8.</a> We've moved all user-interface-related configs from `config/backpack/base.php` to `config/backpack/ui.php`. Please:
 - change your `ui.php` to have any customizations you've done in your `base.php`;
 - change your `base.php` - delete all the configs that have been moved to `ui.php`; you should end up with a `base.php` file that has [these options only](https://github.com/Laravel-Backpack/CRUD/blob/v6/src/config/backpack/base.php).
-- make sure you remove this line from the global scripts section in `ui.php`: 
+- make sure you remove this line from the global scripts section in `ui.php`:
 
 ```php
 'packages/backpack/base/js/bundle.js',
@@ -191,7 +191,11 @@ It's as easy as using an asset from a CDN, but it's much _much_ better than that
 
 ----
 
-<a name="step-22" href="#step-22" class="badge badge-warning" style="text-decoration: none;">Step 22.</a> (OPTIONAL) If you want to be able to switch between different themes, but keep your current menu, you need to  write your menu in a way that is theme-agnostic. Fortunately Backpack has a very simple solution to that. We've developed a few Blade components you can use in your `menu_items.blade.php`. Just rewrite your menu items HTML, and they will look pretty across all Backpack themes:
+<a name="step-22" href="#step-22" class="badge badge-danger" style="text-decoration: none;">Step 22.</a> Please remove  `resources/views/errors` directory. We now handle HTTP errors separately inside the theme template for the admin panel, which you can customize as per your fit.
+
+----
+
+<a name="step-23" href="#step-23" class="badge badge-warning" style="text-decoration: none;">Step 23.</a> (OPTIONAL) If you want to be able to switch between different themes, but keep your current menu, you need to  write your menu in a way that is theme-agnostic. Fortunately Backpack has a very simple solution to that. We've developed a few Blade components you can use in your `menu_items.blade.php`. Just rewrite your menu items HTML, and they will look pretty across all Backpack themes:
 
 ```php
 <x-backpack::menu-item title="Dashboard" icon="la la-dashboard" :link="backpack_url('dashboard')" />
@@ -207,7 +211,7 @@ It's as easy as using an asset from a CDN, but it's much _much_ better than that
 
 ----
 
-<a name="step-23" href="#step-23" class="badge badge-danger" style="text-decoration: none;">Step 23.</a> If you have any other blade files in this new `ui` directory, please note that those files have been moved to themes. Backpack v6 offers three themes right from the start:
+<a name="step-24" href="#step-24" class="badge badge-danger" style="text-decoration: none;">Step 24.</a> If you have any other blade files in this new `ui` directory, please note that those files have been moved to themes. Backpack v6 offers three themes right from the start:
 - [`backpack/theme-coreuiv2`](https://github.com/Laravel-Backpack/theme-coreuiv2) - maximum backwards-compatibility (basically no breaking changes)
 - [`backpack/theme-coreuiv4`](https://github.com/Laravel-Backpack/theme-coreuiv4) - medium backwards-compatibility (some BC from upgrading to Bootstrap 5)
 - [`backpack/theme-tabler`](https://github.com/Laravel-Backpack/theme-tabler) - for new projects, and projects who have NOT overridden too many blade files;
@@ -217,13 +221,13 @@ Depending on how many files are there, you might want to use `theme-coreuiv2` to
 <a name="security"></a>
 ### Security
 
-<a name="step-24" href="#step-24" class="badge badge-danger" style="text-decoration: none;">Step 24.</a> If your error views have been published a long time ago, they might have a security bug. If you haven't done this already, please run `php artisan backpack:fix` to start escaping the error messages in those views.
+<a name="step-25" href="#step-25" class="badge badge-danger" style="text-decoration: none;">Step 25.</a> If your error views have been published a long time ago, they might have a security bug. If you haven't done this already, please run `php artisan backpack:fix` to start escaping the error messages in those views.
 
 
 <a name="cache"></a>
 ### Cache
 
-<a name="step-25" href="#step-25" class="badge badge-danger text-white" style="text-decoration: none;">Step 25.</a> Clear your app's cache:
+<a name="step-26" href="#step-26" class="badge badge-danger text-white" style="text-decoration: none;">Step 26.</a> Clear your app's cache:
 ```
 php artisan config:clear
 php artisan cache:clear
@@ -234,11 +238,11 @@ If the table view still looks wonky (search bar out of place, big + instead of e
 
 ---
 
-<a name="step-26" href="#step-26" class="badge badge-danger text-white" style="text-decoration: none;">Step 26.</a> If your pages are slow to load, that's because Basset caching the assets as you load the pages, so your first pageload will be quite slow. If you find that annoying, run `php artisan basset:cache` to cache all CSS and JS assets. Alternatively, if you want Basset NOT to run because you're making changes to CSS and JS files, you can add `BASSET_DEV_MODE=true` to your `.ENV` file.
+<a name="step-27" href="#step-27" class="badge badge-danger text-white" style="text-decoration: none;">Step 27.</a> If your pages are slow to load, that's because Basset caching the assets as you load the pages, so your first pageload will be quite slow. If you find that annoying, run `php artisan basset:cache` to cache all CSS and JS assets. Alternatively, if you want Basset NOT to run because you're making changes to CSS and JS files, you can add `BASSET_DEV_MODE=true` to your `.ENV` file.
 
 ---
 
 **You're done! Good job.** Thank you for taking the time to upgrade. Now you can:
 - thoroughly test your application and your admin panel;
 - start using the [new features in Backpack v6](/docs/{{version}}/release-notes);
-- install a new theme, by running `php artisan backpack:require:theme-tabler` or `php artisan backpack:require:theme-coreuiv4`; but please make sure you've followed [Step 22](#step-22) first, otherwise your menu items will not look good;
+- install a new theme, by running `php artisan backpack:require:theme-tabler` or `php artisan backpack:require:theme-coreuiv4`; but please make sure you've followed [Step 23](#step-23) first, otherwise your menu items will not look good;
