@@ -1055,7 +1055,7 @@ trait CommentOperation
 }
 
 ```
-> Notes : Please Keep in mind, when you set the **buttonStack** to *top* or *bottom*, dont forge to set the **routesHaveIdSegment** to *false*, otherwise it wont show your form.
+> Notes : Please Keep in mind, when you set the **buttonStack** to *top* or *bottom*, don't forget to set the **routesHaveIdSegment** to *false*, otherwise it won't show your form.
 
 **Step 2.** Now let's use this operation trait on our CrudController. For example in our UserCrudController we'd have to do this next to all other operations:
 ```php
