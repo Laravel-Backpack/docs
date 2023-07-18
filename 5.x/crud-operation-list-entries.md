@@ -212,6 +212,25 @@ $this->crud->addBaseClause('where', 'name', '=', 'car');
 $this->crud->orderBy();
 // please note it's generally a good idea to use crud->orderBy() inside "if (!$this->crud->getRequest()->has('order')) {}"; that way, your custom order is applied ONLY IF the user hasn't forced another order (by clicking a column heading)
 ```
+**NOTE:** The query constraints added in the `setup()` method operation _cannot_ be reset by `Reset Button`. They are permanent for that CRUD, for all operation.
+
+#### Custom Order
+
+<a name="custom-order"></a>
+
+By default, the List operation gets sorted by the primary key (usually `id`), descending. You can modify this behaviour by defining your own ordering:
+```php
+protected function setupListOperation()
+{
+    //change default order key
+    if (! $this->crud->getRequest()->has('order')){
+        $this->crud->orderBy('updated_at', 'desc');
+    }
+}
+```
+**NOTE**: We only apply the `orderBy` when the request don't have an `order` key.
+This is because we need to keep the ability to order in the Datatable Columns. 
+If we didn't conditionally add the `orderBy`, it would become a __permanent order__ that can't be cleared by the Datatables `Reset` button and applied to every request. 
 
 <a name="responsive-table"></a>
 #### Responsive Table
@@ -273,13 +292,13 @@ To use widgets on list operation, define them inside `setupListOperation()` func
 
 ```php
 public function setupListOperation()
-{    
+{
     // dynamic data to render in the following widget
     $userCount = \App\Models\User::count();
 
     //add div row using 'div' widget and make other widgets inside it to be in a row
     Widget::add()->to('before_content')->type('div')->class('row')->content([
-        
+
         //widget made using fluent syntax
         Widget::make()
             ->type('progress')
@@ -290,7 +309,7 @@ public function setupListOperation()
             ->progress(100 * (int)$userCount / 1000)
             ->hint(1000 - $userCount . ' more until next milestone.'),
 
-        //widget made using the array definition 
+        //widget made using the array definition
         Widget::make(
             [
                 'type'       => 'card',
@@ -356,7 +375,7 @@ You can of course overwrite this ```search()``` method by just creating one with
 <a name="how-to-debug"></a>
 ## How to Debug
 
-Because the entries are fetched using AJAX requests, debugging the ListOperation can be a little difficult. Fortunately, we've thought of that. 
+Because the entries are fetched using AJAX requests, debugging the ListOperation can be a little difficult. Fortunately, we've thought of that.
 
 <a name="errors-in-ajax-requests"></a>
 ### Errors in AJAX requests
