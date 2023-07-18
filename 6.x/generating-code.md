@@ -45,6 +45,10 @@ If you've installed Backpack, you already have access to Backpack's command line
         <td><code>php artisan backpack:crud-operation</code></td>
         <td>Generate a custom Backpack CRUD operation trait</td>
     </tr>
+    <tr>
+        <td><code>php artisan backpack:crud-form-operation</code></td>
+        <td>Generate a custom Backpack CRUD operation trait with Backpack Form</td>
+    </tr>
 </table>
 
 <a name="generate-crud-operation-components"></a>
