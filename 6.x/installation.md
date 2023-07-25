@@ -30,7 +30,7 @@ php artisan backpack:install
 
 Follow the prompts - in the end, the installer will also tell you your admin panel's URL, where you should go and login.
 
-> **NOTE:** When the installer asks you if you would like to create and admin user, Backpack assumes that you are using the default user structure with `name, email and password` fields. If that's not the case, please reply **NO** to that question and manually create your admin user.
+> **NOTE:** When the installer asks you if you would like to create an admin user, Backpack assumes that you are using the default user structure with `name, email and password` fields. If that's not the case, please reply **NO** to that question and manually create your admin user.
 
 > **NOTE:** The installation command is interactive - it will ask you questions. You can bypass the questions by adding the `--no-interaction` argument to the install command.
 
@@ -62,13 +62,13 @@ For each Eloquent model you want to have an admin panel, run:
 php artisan backpack:crud {model} # use the model name, in singular
 ```
 
-Alternatively, you can generate CRUDs for all Eloqunet models, by running:
+Alternatively, you can generate CRUDs for all Eloquent models, by running:
 
 ```bash
 php artisan backpack:build
 ```
 
-Then go through each CRUD file (Controller, Request, Route Item, Menu Item) and customize as you fit. If you don't know what those are, and how you can customize them... please take go through our [Getting Started](https://backpackforlaravel.com/docs/5.x/introduction#how-to-start) section, it's important. At the very least, read our [Crash Course](https://backpackforlaravel.com/docs/5.x/crud-tutorial).
+Then go through each CRUD file (Controller, Request, Route Item, Menu Item) and customize as you fit. If you don't know what those are, and how you can customize them... please go through our [Getting Started](https://backpackforlaravel.com/docs/5.x/introduction#how-to-start) section, it's important. At the very least, read our [Crash Course](https://backpackforlaravel.com/docs/5.x/crud-tutorial).
 
 <a name="install-add-ons"></a>
 ### Install Add-ons
