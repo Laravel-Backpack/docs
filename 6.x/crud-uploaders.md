@@ -18,7 +18,9 @@ CRUD::field('avatar')->type('upload')->withFiles();
 
 That's it. Backpack will now handle the upload, storage and deletion of the files for you. By default it will use `public` disk, and will delete the files when the entry is deleted.
 
-> **IMPORTANT**: make sure you've linked the `storage` folder to your `public` folder. You can do that by running `php artisan storage:link` in your terminal.
+> **IMPORTANT**: 
+> - make sure you've linked the `storage` folder to your `public` folder. You can do that by running `php artisan storage:link` in your terminal.
+> - If you want your files to be deleted when the entry is deleted please make sure you properly [Configure File Deletion](#deleting-files-when-entry-is-deleted)
 
 
 <a name="upload-configuration"></a>
@@ -43,7 +45,7 @@ CRUD::field('avatar')
 The disk where the file will be stored. You can use any disk defined in your `config/filesystems.php` file.
 - **`path`** - default: **`/`**
 The path inside the disk where the file will be stored. It maps to `prefix` in field definition.
-- **`deleteWhenEntryIsDeleted`** - default: **`true`**
+- **`deleteWhenEntryIsDeleted`** - default: **`true`** (**NEED ADDITIONAL CONFIGURATION**!! See: [Configure File Deletion](#deleting-files-when-entry-is-deleted))
 The files will be deleted when the entry is deleted. Please take into consideration that `soft deleted models` don't delete the files.
 - **`temporaryUrl`** - default: **`false`**
 Some cloud disks like `s3` support the usage of temporary urls for display. Set this option to true if you want to use them.
@@ -94,4 +96,19 @@ You can also use uploaders in subfields. The configuration is the same as for re
         ],
     ],
 ]
+```
+
+<a name="deleting-files-when-entry-is-deleted"></a>
+### Configure Uploaded files deletion
+
+Since `Uploaders` are part of the `Fields` definition, to automatically delete the uploaded files when the entry is deleted we need to setup the fields in the `DeleteOperation` too. 
+
+```php
+protected function setupDeleteOperation()
+{
+    CRUD::field('photo')->type('upload')->withFiles();
+
+    // Alternatively, if you are not doing much more than defining fields in your create operation:
+    // $this->setupCreateOperation();
+}
 ```
