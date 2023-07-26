@@ -899,6 +899,13 @@ Class Product extends Model
         {
             // 0. Make the image
             $image = \Image::make($value)->encode('jpg', 90);
+            
+            // resize the image so that the largest side fits within the limit;
+            // the smaller side will be scaled to maintain the original aspect ratio
+            //$image->resize(1920, null, function ($constraint) {
+            //    $constraint->aspectRatio();
+            //    $constraint->upsize();
+            //});
 
             // 1. Generate a filename.
             $filename = md5($value.time()).'.jpg';
