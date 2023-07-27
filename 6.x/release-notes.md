@@ -8,9 +8,7 @@ Backpack v6 is a major release, with major changes. But don't worry, we've kept 
 
 > **If you've purchased a Backpack add-on after 1st of July 2022  (eg. PRO, DevTools), you get free access to the version that supports Backpack v6.** All purchases get you 12 months of updates _and_ upgrades.
 
-Here are the BIG things Backpack v6 brings to the table and why you should upgrade from [Backpack v5](/docs/5.x) to v6... in both video and text:
-
-![Backpack v6 new features and changes](https://placehold.co/1280x900?text=TODO+video+casual+screencast+5-10+min)
+Here are the BIG things Backpack v6 brings to the table and why you should upgrade from [Backpack v5](/docs/5.x) to v6:
 
 
 <a name="added"></a>
