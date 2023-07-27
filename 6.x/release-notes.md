@@ -124,7 +124,7 @@ That's why we've created _one upload field to rule them all_... the `dropzone` f
 
 And as a developer, it means you hava an upload field... that you can use as a subfield, in your `repeatable` and `relationship` fields 🤯 We are super-excited about this field, because it covers so much more ground than our previous upload fields. We think you'll love it too - in fact we think this will become your _default_ upload field. It has already become ours:
 
-![Backpack v6 Dropzone field](https://placehold.co/1280x900?text=TODO+GIF+with+dropzone+field)
+![Backpack v6 Dropzone field](https://user-images.githubusercontent.com/1032474/256584669-865ef1cc-12cb-49fe-b587-7a1f746a3b8e.gif)
 
 #### Uploaders - making upload fields easier than ever
 
