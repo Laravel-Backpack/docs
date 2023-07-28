@@ -20,7 +20,7 @@ composer require backpack/backupmanager
 # Publish the config file and lang files:
 php artisan vendor:publish --provider="Backpack\BackupManager\BackupManagerServiceProvider"
 
-# [optional] Add a sidebar_content item for it
+# [optional] Add a menu item for it in resources/views/vendor/backpack/ui/inc/menu_items.blade.php:
 php artisan backpack:add-menu-content "<x-backpack::menu-item title='Backups' icon='la la-hdd-o' :link=\"backpack_url('backup')\" />"
 ```
 
@@ -91,7 +91,7 @@ or directly in your config/app.php file:
 'log' => env('APP_LOG', 'daily'),
 ```
 
-4) [optional] Add a menu item for it in resources/views/vendor/backpack/base/inc/sidebar_content.blade.php or menu.blade.php:
+4) [optional] Add a menu item for it in resources/views/vendor/backpack/ui/inc/menu_items.blade.php:
 
 ```bash
 php artisan backpack:add-menu-content "<x-backpack::menu-item title='Logs' icon='la la-terminal' :link=\"backpack_url('log')\" />"
@@ -113,7 +113,7 @@ composer require backpack/settings
 php artisan vendor:publish --provider="Backpack\Settings\SettingsServiceProvider"
 php artisan migrate
 
-# [optional] add a menu item for it to the sidebar_content file
+# [optional] add a menu item for it in resources/views/vendor/backpack/ui/inc/menu_items.blade.php:
 php artisan backpack:add-menu-content "<x-backpack::menu-item title='Settings' icon='la la-cog' :link=\"backpack_url('setting')\" />"
 
 # [optional] insert some example dummy data to the database
