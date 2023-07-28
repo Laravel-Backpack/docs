@@ -21,7 +21,7 @@ composer require backpack/backupmanager
 php artisan vendor:publish --provider="Backpack\BackupManager\BackupManagerServiceProvider"
 
 # [optional] Add a sidebar_content item for it
-php artisan backpack:add-sidebar-content "<li class='nav-item'><a class='nav-link' href='{{ backpack_url('backup') }}'><i class='nav-icon la la-hdd-o'></i> Backups</a></li>"
+php artisan backpack:add-menu-content "<x-backpack::menu-item title='Backups' icon='la la-hdd-o' :link=\"backpack_url('backup')\" />"
 ```
 
 2) Add a new "disk" to config/filesystems.php:
@@ -94,12 +94,12 @@ or directly in your config/app.php file:
 4) [optional] Add a menu item for it in resources/views/vendor/backpack/base/inc/sidebar_content.blade.php or menu.blade.php:
 
 ```bash
-php artisan backpack:add-sidebar-content "<li class='nav-item'><a class='nav-link' href='{{ backpack_url('log') }}'><i class='nav-icon la la-terminal'></i> Logs</a></li>"
+php artisan backpack:add-menu-content "<x-backpack::menu-item title='Logs' icon='la la-terminal' :link=\"backpack_url('log')\" />"
 ```
 <a name="settings-manager"></a>
 ## Settings
 
-An interface for the administrator to easily change application settings. Uses Laravel Backpack. 
+An interface for the administrator to easily change application settings. Uses Laravel Backpack.
 
 [>> See screenshots and installation](https://github.com/Laravel-Backpack/settings)
 
@@ -114,7 +114,7 @@ php artisan vendor:publish --provider="Backpack\Settings\SettingsServiceProvider
 php artisan migrate
 
 # [optional] add a menu item for it to the sidebar_content file
-php artisan backpack:add-sidebar-content "<li class='nav-item'><a class='nav-link' href='{{ backpack_url('setting') }}'><i class='nav-icon fa fa-cog'></i> Settings</a></li>"
+php artisan backpack:add-menu-content "<x-backpack::menu-item title='Settings' icon='la la-cog' :link=\"backpack_url('setting')\" />"
 
 # [optional] insert some example dummy data to the database
 php artisan db:seed --class="Backpack\Settings\database\seeds\SettingsTableSeeder"
