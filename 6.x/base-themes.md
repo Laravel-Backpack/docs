@@ -65,7 +65,7 @@ This fallback mechanism might look complex at first, but you'll quickly get used
 
 Each theme can provide its own config file. That file overrides anything that was set in `config/backpack/ui.php`, because each theme may want to do things differently, include other assets etc. So:
 - if you change `config/backpack/ui.php`, your change will apply to ALL themes, unless that theme has overriden the config in its own config file;
-- if you change `config/backpack/theme-table.php`, your change will only apply to that theme;
+- if you change `config/backpack/theme-tabler.php`, your change will only apply to that theme;
 
 Inside your files you can access a theme config by using `backpack_theme_config('something')`.
 
