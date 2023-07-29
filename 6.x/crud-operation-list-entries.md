@@ -278,7 +278,7 @@ protected function setupListOperation()
 ```
 
 <a name="widget"></a>
-## How to add custom sections(aka. Widgets)
+## How to add custom sections (aka. Widgets)
 
 [Widgets](https://backpackforlaravel.com/docs/{{version}}/base-widgets) (aka cards, aka charts, aka graphs) provide a simple way to insert blade files into admin panel pages. You can use them to insert cards, charts, notices or custom content into pages. You can use the [default widget types](https://backpackforlaravel.com/docs/{{version}}/base-widgets#default-widget-types) or [create your own custom widgets](https://backpackforlaravel.com/docs/{{version}}/base-widgets#creating-a-custom-widget-type).
 
@@ -328,7 +328,7 @@ public function setupListOperation()
 }
 ```
 
-#### Output:
+**Output:**
 * Using `before_content`:
 
 ![](https://i.imgur.com/MF9ePIM.png)

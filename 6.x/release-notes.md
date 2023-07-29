@@ -8,9 +8,7 @@ Backpack v6 is a major release, with major changes. But don't worry, we've kept 
 
 > **If you've purchased a Backpack add-on after 1st of July 2022  (eg. PRO, DevTools), you get free access to the version that supports Backpack v6.** All purchases get you 12 months of updates _and_ upgrades.
 
-Here are the BIG things Backpack v6 brings to the table and why you should upgrade from [Backpack v5](/docs/5.x) to v6... in both video and text:
-
-![Backpack v6 new features and changes](https://placehold.co/1280x900?text=TODO+video+casual+screencast+5-10+min)
+Here are the BIG things Backpack v6 brings to the table and why you should upgrade from [Backpack v5](/docs/5.x) to v6:
 
 
 <a name="added"></a>
@@ -126,7 +124,7 @@ That's why we've created _one upload field to rule them all_... the `dropzone` f
 
 And as a developer, it means you hava an upload field... that you can use as a subfield, in your `repeatable` and `relationship` fields 🤯 We are super-excited about this field, because it covers so much more ground than our previous upload fields. We think you'll love it too - in fact we think this will become your _default_ upload field. It has already become ours:
 
-![Backpack v6 Dropzone field](https://placehold.co/1280x900?text=TODO+GIF+with+dropzone+field)
+![Backpack v6 Dropzone field](https://user-images.githubusercontent.com/1032474/256584669-865ef1cc-12cb-49fe-b587-7a1f746a3b8e.gif)
 
 #### Uploaders - making upload fields easier than ever
 
