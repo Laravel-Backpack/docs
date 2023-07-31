@@ -242,6 +242,20 @@ If the table view still looks wonky (search bar out of place, big + instead of e
 
 ---
 
+<a name="addons"></a>
+### Upgrade Add-ons
+
+For any addons you might have upgraded, please double-check if they have an upgrade guide. For example, **elFinder** needs to replace it's old view files:
+
+```
+rm -rf resources/views/vendor/elfinder
+php artisan backpack:filemanager:install
+```
+
+This will remove elfinder view files and publish new ones.
+
+---
+
 **You're done! Good job.** Thank you for taking the time to upgrade. Now you can:
 - thoroughly test your application and your admin panel;
 - start using the [new features in Backpack v6](/docs/{{version}}/release-notes);
