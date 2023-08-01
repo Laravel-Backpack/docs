@@ -132,10 +132,6 @@ If you've installed Backpack, you already have access to Backpack's command line
     <td>Require Backpack Editable Columns</td>
 </tr>
 <tr>
-    <td><code>php artisan backpack:publish-assets</code></td>
-    <td>Publish new CSS and JS assets (will override existing ones).</td>
-</tr>
-<tr>
     <td><code>php artisan backpack:publish-middleware</code></td>
     <td>Publish the CheckIfAdmin middleware</td>
 </tr>
