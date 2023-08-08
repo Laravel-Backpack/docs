@@ -144,7 +144,7 @@ CRUD::field([
 
 Developers coming from other CRUD systems will be looking for callbacks to run ```before_insert```, ```before_update```, ```after_insert```, ```after_update```. **There are no callbacks in Backpack**.
 
-Remember that Backpack is using Eloquent models. That means you can do X when Y is happening, by using the [Laravel Eloquent model events](https://laravel.com/docs/10.x/eloquent#events). For example, in your CrudController you can do:
+Remember that Backpack is using Eloquent models. That means you can do X when Y is happening, by using the [model events](https://laravel.com/docs/10.x/eloquent#events). For example, in your MonsterCrudController you can do:
 
 ```php
 public function setup() {
@@ -199,7 +199,7 @@ You should configure the List operation inside the ```setupListOperation()``` me
 <a name="columns"></a>
 ### Columns
 
-Columns help you specify *which* attributes are shown in the table and *in which order*. **Their syntax is super-similar to fields**:
+Columns help you specify *which* attributes are shown in the table and *in which order*. Their syntax is a;almost identical to fields. In fact, you'll find each Backpack field has a corresponding column, with the same name and syntax:
 
 ```php
 CRUD::column($column_definition_array); // add a single column, at the end of the table

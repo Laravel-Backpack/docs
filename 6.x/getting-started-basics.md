@@ -34,17 +34,19 @@ Mind that you will _almost never_ use all of Backpack's features in one CRUD. Bu
 <a name="backpack-design"></a>
 ### Front-End Design
 
-New Backpack installs come with the [Tabler](https://tabler.io) HTML theme installed. It uses Bootstrap 5, and has many HTML blocks ready for you to use. When you're building a custom page in your admin panel, it's easy to just copy-paste the HTML from [the tabler website](https://tabler.io/preview), or from the [Tabler documentation](https://tabler.io/docs) and it will look good, without you having to design anything.
+New Backpack installs come with an HTML theme installed - you choose which theme. All themes use Bootstrap, and have many HTML blocks ready for you to use. When you're building a custom page in your admin panel, it's easy to just copy-paste the HTML from the the theme's demo or from its documentation. And the page will look good, without you having to design anything. Currently we have three first-party themes:
+- [Tabler](https://github.com/Laravel-Backpack/theme-tabler)
+- [CoreUI v4](https://github.com/Laravel-Backpack/theme-coreuiv4)
+- [CoreUI v2](https://github.com/Laravel-Backpack/theme-tabler) (which still provides IE support)
 
-It also installs Noty for triggering JS notification bubbles, and SweetAlerts. So you can easily use these across your admin panel. You can [trigger notification bubbles in PHP](/docs/{{version}}/base-about#triggering-notification-bubbles-in-php) or [trigger notification bubbles in JavaScript](/docs/{{version}}/base-about#triggering-notification-bubbles-in-javascript).
+You can also create your own custom theme. In fact, we've built our theming system in such a way that if you buy a Bootstrap-based HTML template from Envato / GetBootstrap / WrapBootstrap, it should take you no more than 5 hours to create a Backpack theme that uses that HTML template.
 
-But [Tabler Theme](https://github.com/Laravel-Backpack/theme-tabler) is just the _default_ theme in Backpack. You can uninstall it and use other themes, like [CoreUI v4](https://github.com/Laravel-Backpack/theme-coreuiv4) or [CoreUI v2](https://github.com/Laravel-Backpack/theme-tabler) (which still provides IE support). You can of course also create your own custom theme. In fact, we've built our theming system in such a way that if you buy a Bootstrap-based HTML template from Envato / GetBootstrap / WrapBootstrap, it should take you no more than 5 hours to  create a Backpack theme that's using that HTML template.
-
+All themes also install Noty for triggering JS notification bubbles, and SweetAlerts. So you can easily use these across your admin panel. You can [trigger notification bubbles in PHP](/docs/{{version}}/base-about#triggering-notification-bubbles-in-php) or [trigger notification bubbles in JavaScript](/docs/{{version}}/base-about#triggering-notification-bubbles-in-javascript).
 
 <a name="backpack-authentication"></a>
 ### Authentication
 
-Backpack comes with a basic authentication system that's separate from Laravel's. This way, you can have different login screens for users & admins, if you need. If not, you can choose to use only one authentication - either Laravel's, or Backpack's.
+Backpack comes with an authentication system that's separate from Laravel's. This way, you can have different login screens for users & admins, if you need. If not, you can choose to use only one authentication - either Laravel's, or Backpack's.
 
 ![Backpack Authentication Screens](https://backpackforlaravel.com/uploads/docs-4-0/getting_started/auth_screens.png)
 
@@ -54,7 +56,7 @@ After you [install Backpack](/docs/{{version}}/installation) (don't do it now), 
 <a name="backpack-crud"></a>
 ### CRUDs
 
-This is where it gets interesting. As soon as you [install Backpack](/docs/{{version}}/installation) in your project, you can create **CRUDs** for your admins to easily manipulate DB information. Let's browse through a simple example, of creating a CRUD administration panel for a Tag entity.
+This is where it gets interesting. As soon as you [install Backpack](/docs/{{version}}/installation) in your project, you can create **CRUDs** for your admins to easily manipulate database entries. Let's browse through a simple example, of creating a CRUD administration panel for a Tag entity.
 
 You can generate everything a CRUD needs using one of the methods below:
 

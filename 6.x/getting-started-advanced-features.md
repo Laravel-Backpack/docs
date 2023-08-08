@@ -10,12 +10,12 @@ Here are some other cool things Backpack makes easy for you. We recommend going 
 
 <a name="other-operations"></a>
 ## Other Operations
-- [Show](/docs/{{version}}/crud-operation-show) Operation - you can let your admins preview an entry <span class="badge badge-pill badge-success">FREE</span>
-- [Reorder](/docs/{{version}}/crud-operation-reorder) Operation - you can reorder and nest entries (hierarchy tree) <span class="badge badge-pill badge-success">FREE</span>
-- [Revisions](/docs/{{version}}/crud-operation-revisions) Operation - you can keep a record of all modifications to an entry, and let your admin revert changes <span class="badge badge-pill badge-success">FREE</span>
-- [Clone](/docs/{{version}}/crud-operation-clone) Operation - you can make a copy of an entry; <span class="badge badge-pill badge-info">PRO</span>
-- [BulkDelete](/docs/{{version}}/crud-operation-delete) Operation - you can delete multiple items in one go; <span class="badge badge-pill badge-info">PRO</span>
-- [BulkClone](/docs/{{version}}/crud-operation-clone) Operation - you can clone multiple items in one go; <span class="badge badge-pill badge-info">PRO</span>
+- [Show](/docs/{{version}}/crud-operation-show) Operation - helps admins preview an entry <span class="badge badge-pill badge-success">FREE</span>
+- [Reorder](/docs/{{version}}/crud-operation-reorder) Operation - helps reorder and nest entries (hierarchy tree) <span class="badge badge-pill badge-success">FREE</span>
+- [Revise](/docs/{{version}}/crud-operation-revisions) Operation - helps record all changes to an entry and undo them <span class="badge badge-pill badge-success">FREE</span>
+- [Clone](/docs/{{version}}/crud-operation-clone) Operation - helps make a copy of an entry; <span class="badge badge-pill badge-info">PRO</span>
+- [BulkDelete](/docs/{{version}}/crud-operation-delete) Operation - helps delete multiple items in one go; <span class="badge badge-pill badge-info">PRO</span>
+- [BulkClone](/docs/{{version}}/crud-operation-clone) Operation - helps clone multiple items in one go; <span class="badge badge-pill badge-info">PRO</span>
 
 ---
 
