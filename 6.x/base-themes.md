@@ -125,3 +125,12 @@ Even if you plan to use `theme-tabler` or `theme-coreuiv4`, when upgrading it's 
 ## How to Create a New Theme
 
 TODO. We're working on making this A LOT easier. On making creating a new Backpack theme take 5 hours or less. Please follow this thread for now: https://github.com/Laravel-Backpack/docs/issues/417
+
+<a name="how-to-uninstall-a-theme"></a>
+## How to Uninstall a Theme
+
+Each theme can have its own uninstallation process. So please check the theme's docs on Github. But in principle, uninstalling a Backpack theme should involve following these steps:
+
+1. Remove the composer package. Eg. `composer remove backpack/theme-coreuiv2`
+2. Delete the config file. Eg. `rm -rf config/backpack/theme-coreuiv2.php`
+3. Install a new theme (eg. `php artisan backpack:require:theme-tabler`) or change the `view_namespace` in `config/backpack/ui.php` to the theme you want to be active.
