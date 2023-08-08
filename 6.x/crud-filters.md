@@ -5,13 +5,13 @@
 <a name="about"></a>
 ## About
 
-Backpack CRUD allows you to show a filters bar right above the entries table. When selected or modified, they reload the DataTables results. The search will then search within the filtered elements.
+Backpack allows you to show a filters bar right above the entries table. When selected or modified, they reload the DataTable. The search bar will also take filters into account, only looking within filtered results.
 
 ![Backpack CRUD Filters](https://backpackforlaravel.com/uploads/docs-4-0/filters/filters.png)
 
-Just like with fields, columns or buttons, you can add existing filters or create a custom filter that fits to your particular needs. Everything's done inside your ```EntityCrudController::setupListOperation()```. 
+Just like with fields, columns or buttons, you can add existing filters or create a custom filter that fits to your particular needs. Everything's done inside your ```EntityCrudController::setupListOperation()```.
 
-This is a <span class="badge badge-info">PRO</span> feature. It requires that you have [purchased access to `backpack/pro`](https://backpackforlaravel.com/products/pro-for-unlimited-projects).
+> **Note:** This is a <span class="badge badge-info">PRO</span> feature. It requires that you have [purchased access to `backpack/pro`](https://backpackforlaravel.com/pricing).
 
 <a name="methods"></a>
 ### Filters API
@@ -19,49 +19,162 @@ This is a <span class="badge badge-info">PRO</span> feature. It requires that yo
 In order to manipulate filters, you can use:
 
 ```php
-$this->crud->addFilter($options, $values, $filter_logic);
+// on one filter
+CRUD::filter($name)
+  ->type($type)
+  ->whenActive($closure)
+  ->whenInactive($closure)
+  ->apply();
 
-$this->crud->removeFilter($name);
-$this->crud->removeAllFilters();
+CRUD::filter($name)->remove();
+CRUD::filter($name)->makeFirst();
+CRUD::filter($name)->makeLast();
+CRUD::filter($name)->before($different_filter_name);
+CRUD::filter($name)->after($different_filter_name);
 
-$this->crud->filters(); // gets all the filters
-
-// aditionally you should be able to change Filter attributes by appending `->methods` in your filter definition. Eg - this would set the filter attribute `type` to be equal to `number`:
-$this->crud->addFilter($options, $values, $filter_logic)->type('number');
+// on all filters
+CRUD::removeAllFilters(); // removes all the filters
+CRUD::filters(); // gets all the filters
 ```
 
 <a name="adding-a-filter"></a>
-### Adding a filter
+### Adding and configuring a filter
 
-When adding a filter you need to specify the 3 parameters of the ```addFilter()``` method:
-- $options - an array of options (name, type, label are most important)
-- $values - filter values - can be an array or a closure
-- $filter_logic - what should happen if the filter is applied (usually add a clause to the query) - can be a closure, a string for a simple operation or false for a simple "where";
+Inside your `setupListOperation()` you can add or select a filter using `CRUD::filter('name')`, then chain methods to completely configure it:
 
-Here's a simple example, with comments that explain what we're doing:
 ```php
-// add a "simple" filter called Draft
-$this->crud->addFilter([ 
-  'type'  => 'simple',
-  'name'  => 'draft',
-  'label' => 'Draft'
-],
-false, // the simple filter has no values, just the "Draft" label specified above
-function() { // if the filter is active (the GET parameter "draft" exits)
-  $this->crud->addClause('where', 'draft', '1'); 
-  // we've added a clause to the CRUD so that only elements with draft=1 are shown in the table
-  // an alternative syntax to this would have been
-  // $this->crud->query = $this->crud->query->where('draft', '1'); 
-  // another alternative syntax, in case you had a scopeDraft() on your model:
-  // $this->crud->addClause('draft'); 
-});
+CRUD::filter('name')
+    ->type('text')
+    ->label('The name')
+    ->whenActive(function($value) {
+        CRUD::addClause('where', 'name', 'LIKE', '%'.$value.'%');
+    })->else(function($value) {
+        // nada
+    });
 ```
-> Notes about the filter logic closure
-> - the code will only be run on the controller's ```index()``` or ```search()``` methods;
-> - you can get the filter value by specifying a parameter to the function (ex: ```$value```);
-> - you have access to other request variables using ```$this->crud->getRequest()```;
-> - you also have read/write access to public properties using ```$this->crud```;
-> - when building complicated "OR" logic, make sure the first "where" in your closure is a "where" and only the subsequent are "orWhere"; Laravel 5.3+ no longer converts the first "orWhere" into a "where";
+
+Anything you chain to the ```filter()``` method gets turned into an attribute on that filter. Except for the methods listed below. Keep in mind **in most cases you WILL need to chain ```type()```, ```whenActive()```** and maybe even ```whenInactive()``` or ```apply()```. Details below.
+
+
+<a name="fluent-filters-main-chained-methods"></a>
+#### Main Chained Methods
+
+- ```->type('date')``` - By chaining **type()** on a filter you make sure you use that filter type; it accepts a string that represents the type of filter you want to use;
+
+```php
+CRUD::filter('birthday')->type('date');
+```
+
+- ```->label('Name')``` - By chaining **label()** on a filter you define what is shown to the user as the filter label; it accepts a string;
+
+```php
+CRUD::filter('name')->label('Name');
+```
+
+- ```->whenActive(function($value) {})``` - By chaining **whenActive()** on a filter you define what should be done when that filter is active; it accepts a closure that is called when the filter is active - either immediately by further chaining ```apply()``` on the filter, or automatically after all filters are defined, by the List operation itself; you can also use ```->logic()``` or ```->ifActive()``` which are its aliases:
+
+```php
+// whenActive method, applied immediately
+CRUD::filter('active')
+	->type('simple')
+	->whenActive(function ($value) {
+	    $this->crud->addClause('where', 'active', '1');
+	})->apply();
+
+// whenActive, left to be applied by the operation itself
+CRUD::filter('active')
+	->type('simple')
+	->whenActive(function ($value) {
+	    $this->crud->addClause('where', 'active', '1');
+	});
+```
+
+- ```->whenInactive(function($value) {})``` - By chaining **whenInactive()** on a filter you define what should be done when that filter is NOT active; it accepts a closure that is called when the filter is NOT active - either immediately by further chaining ```apply()``` on the filter, or automatically after all filters are defined, by the List operation itself; you can also use ```->else()```, ```->fallbackLogic()```, ```->whenNotActive()```, ```->ifInactive()``` and ```->ifNotActive()``` which are its aliases:
+
+```php
+// fallbackLogic method, applied immediately
+CRUD::filter('active')
+	->type('simple')
+	->whenActive(function ($value) {
+	    $this->crud->addClause('where', 'active', '1');
+	})->whenInactive(function ($value) {
+	    $this->crud->addClause('where', 'active', '0');
+	})->apply();
+
+// else alias, left to be applied by the operation itself
+CRUD::filter('active')
+	->type('simple')
+	->label('Simple')
+	->whenActive(function ($value) {
+	    $this->crud->addClause('where', 'active', '1');
+	})->else(function ($value) {
+	    $this->crud->addClause('where', 'active', '0');
+	});
+```
+
+- ```->apply()``` - By chaining **apply()** on a filter after you've specified the filtering logic using `whenActive()` or `whenInactive()`, you immediately call the appropriate closure; in most cases this isn't necessary, because the List operation automatically performs an `apply()` on all filters; but in some cases, where the filtering closures want to stop or change execution, you can use `apply()` to have that logic applied before the next bits of code get executed;
+
+<a name="fluent-filters-other-chained-methods"></a>
+#### Other Chained Methods
+
+If you chain the following methods to a ```CRUD::filter('name')```, they will do something very specific instead of adding that attribute to the filter:
+
+- ```->remove()``` - By chaining **remove()** on a filter you remove it from the current operation;
+
+```php
+CRUD::filter('name')->remove();
+```
+
+- ```->forget('attribute_name')``` - By chaining **forget('attribute_name')** to a filter you remove that attribute from the filter;
+
+```php
+CRUD::filter('name')->forget('suffix');
+```
+
+- ```->after('destination')``` - By chaining **after('destination_filter_name')** you will move the current filter after the given filter;
+
+```php
+CRUD::filter('name')->after('description');
+```
+
+- ```->before('destination')``` - By chaining **before('destination_filter_name')** you will move the current filter before the given filter;
+
+```php
+CRUD::filter('name')->before('description');
+```
+
+- ```->makeFirst()``` - By chaining **makeFirst()** you will make the current filter the first one for the current operation;
+
+```php
+CRUD::filter('name')->makeFirst();
+```
+
+- ```->makeLast()``` - By chaining **makeLast()** you will make the current filter the last one for the current operation;
+
+```php
+CRUD::filter('name')->makeLast();
+```
+
+<a name="filter-logic-closures"></a>
+#### Filter logic closures
+
+Backpack filters do not contain any default filtering _logic_, because it cannot infer that. If you use a filter and don't specify a filter logic, no filtering of entries will actually happen. You have to define that, inside a _closure_.
+
+Filter logic closures are just an anonymous functions that gets executed when the filter is active. You can use any Laravel or Backpack functionality you want inside them. For example, a valid closure would be:
+
+```php
+(function($value) {
+  CRUD::addClause('where', 'draft', 1);
+})
+```
+
+Notes about the filter logic closure:
+- the code will only be run on the controller's ```index()``` or ```search()``` methods;
+- you can get the filter value by specifying a parameter to the function (ex: ```$value```);
+- you have access to other request variables using ```$this->crud->getRequest()```;
+- you also have read/write access to public properties using ```$this->crud```;
+- when building complicated "OR" logic, make sure the first "where" in your closure is a "where" and only the subsequent are "orWhere"; Laravel 5.3+ no longer converts the first "orWhere" into a "where";
+
 
 <a name="filter-types"></a>
 ## Filter Types
@@ -74,16 +187,11 @@ Only shows a label and can be toggled on/off. Useful for things like active/inac
 ![Backpack CRUD Simple Filter](https://user-images.githubusercontent.com/1838187/159197347-e38fc63b-ceb8-4806-98dc-1e10773a57cd.png)
 
 ```php
-// simple filter
-$this->crud->addFilter([
-  'type'  => 'simple',
-  'name'  => 'active',
-  'label' => 'Active'
-],
-false,
-function() { // if the filter is active
-  // $this->crud->addClause('active'); // apply the "active" eloquent scope
-} );
+CRUD::filter('active')
+    ->type('simple')
+    ->whenActive(function() {
+      // $this->crud->addClause('active'); // apply the "active" eloquent scope
+    });
 ```
 
 <hr>
@@ -96,16 +204,11 @@ Shows a text input. Most useful for letting the user filter through information 
 ![Backpack CRUD Text Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/text.png)
 
 ```php
-// simple filter
-$this->crud->addFilter([
-  'type'  => 'text',
-  'name'  => 'description',
-  'label' => 'Description'
-],
-false,
-function($value) { // if the filter is active
-  // $this->crud->addClause('where', 'description', 'LIKE', "%$value%");
-});
+CRUD::filter('description')
+    ->type('text')
+    ->whenActive(function($value) {
+      // $this->crud->addClause('where', 'description', 'LIKE', "%$value%");
+    });
 ```
 
 <hr>
@@ -119,16 +222,11 @@ Show a datepicker. The user can select one day.
 ![Backpack CRUD Date Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/date.png)
 
 ```php
-// date filter
-$this->crud->addFilter([
-  'type'  => 'date',
-  'name'  => 'date',
-  'label' => 'Date'
-],
-  false,
-function ($value) { // if the filter is active, apply these constraints
-  // $this->crud->addClause('where', 'date', $value);
-});
+CRUD::filter('birthday')
+    ->type('date')
+    ->whenActive(function($value) {
+      // $this->crud->addClause('where', 'date', $value);
+    });
 ```
 
 <hr>
@@ -141,18 +239,13 @@ Show a daterange picker. The user can select a start date and an end date.
 ![Backpack CRUD Date Range Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/date_range.png)
 
 ```php
-// daterange filter
-$this->crud->addFilter([
-  'type'  => 'date_range',
-  'name'  => 'from_to',
-  'label' => 'Date range'
-],
-false,
-function ($value) { // if the filter is active, apply these constraints
-  // $dates = json_decode($value);
-  // $this->crud->addClause('where', 'date', '>=', $dates->from);
-  // $this->crud->addClause('where', 'date', '<=', $dates->to . ' 23:59:59');
-});
+CRUD::filter('from_to')
+    ->type('date_range')
+    ->whenActive(function($value) {
+      // $dates = json_decode($value);
+      // $this->crud->addClause('where', 'date', '>=', $dates->from);
+      // $this->crud->addClause('where', 'date', '<=', $dates->to . ' 23:59:59');
+    });
 ```
 
 <hr>
@@ -165,19 +258,17 @@ Shows a list of elements (that you provide) in a dropdown. The user can only sel
 ![Backpack CRUD Dropdown Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/dropdown.png)
 
 ```php
-// dropdown filter
-$this->crud->addFilter([
-  'name'  => 'status',
-  'type'  => 'dropdown',
-  'label' => 'Status'
-], [
-  1 => 'In stock',
-  2 => 'In provider stock',
-  3 => 'Available upon ordering',
-  4 => 'Not available',
-], function($value) { // if the filter is active
-  // $this->crud->addClause('where', 'status', $value);
-});
+CRUD::filter('status')
+    ->type('dropdown')
+    ->values([
+      1 => 'In stock',
+      2 => 'In provider stock',
+      3 => 'Available upon ordering',
+      4 => 'Not available',
+    ])
+    ->whenActive(function($value) {
+      // $this->crud->addClause('where', 'status', $value);
+    });
 ```
 
 <hr>
@@ -191,24 +282,22 @@ Shows a select2 and allows the user to select one item from the list or search f
 ![Backpack CRUD Select2 Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/select2.png)
 
 ```php
-// select2 filter
-$this->crud->addFilter([
-  'name'  => 'status',
-  'type'  => 'select2',
-  'label' => 'Status'
-], function () {
-  return [
-    1 => 'In stock',
-    2 => 'In provider stock',
-    3 => 'Available upon ordering',
-    4 => 'Not available',
-  ];
-}, function ($value) { // if the filter is active
-  // $this->crud->addClause('where', 'status', $value);
-});
+CRUD::filter('status')
+    ->type('select2')
+    ->values(function () {
+      return [
+        1 => 'In stock',
+        2 => 'In provider stock',
+        3 => 'Available upon ordering',
+        4 => 'Not available',
+      ];
+    })
+    ->whenActive(function($value) {
+      // $this->crud->addClause('where', 'status', $value);
+    });
 ```
 
-**Note:** If you want to pass all entries of a Laravel model to your filter, you can do it in the second parameter (the closure), with something like ```return \Backpack\NewsCRUD\app\Models\Category::all()->keyBy('id')->pluck('name', 'id')->toArray();```;
+**Note:** If you want to pass all entries of a Laravel model to your filter, you can do it in the closure with something like `return \App\Models\Category::all()->keyBy('id')->pluck('name', 'id')->toArray();`
 
 <hr>
 
@@ -220,22 +309,22 @@ Shows a select2 and allows the user to select one or more items from the list or
 ![Backpack CRUD Select2_multiple Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/select2_multiple.png)
 
 ```php
-// select2_multiple filter
-$this->crud->addFilter([
-  'name'  => 'status',
-  'type'  => 'select2_multiple',
-  'label' => 'Status'
-], function() {
-    return [
-      1 => 'In stock',
-      2 => 'In provider stock',
-      3 => 'Available upon ordering',
-      4 => 'Not available',
-    ];
-}, function($values) { // if the filter is active
-    // $this->crud->addClause('whereIn', 'status', json_decode($values));
-});
+CRUD::filter('status')
+    ->type('select2_multiple')
+    ->values(function () {
+      return [
+        1 => 'In stock',
+        2 => 'In provider stock',
+        3 => 'Available upon ordering',
+        4 => 'Not available',
+      ];
+    })
+    ->whenActive(function($value) {
+      // $this->crud->addClause('whereIn', 'status', json_decode($values));
+    });
 ```
+
+**Note:** If you want to pass all entries of a Laravel model to your filter, you can do it in the closure with something like `return \App\Models\Category::all()->keyBy('id')->pluck('name', 'id')->toArray();`
 
 <hr>
 
@@ -244,18 +333,51 @@ $this->crud->addFilter([
 
 Shows a select2 and allows the user to select one item from the list or search for an item. This list is fetched through an AJAX call by the select2. Useful when the values list is long (over 1000 elements).
 
-<small>NOTE: if you want to setup your ajax routes using FetchOperation, have a look at: <a href="https://backpackforlaravel.com/docs/5.x/crud-operation-fetch#fetch-ajax-filter">FetchOperation with ajax filter</a></small>
-
 ![Backpack CRUD Select2_ajax Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/select2_ajax.png)
 
-1. Add a route for the ajax search, right above your usual ```CRUD::resource()``` route. Example:
+**Option (A) Use the FetchOperation to return the results**
+
+Since Backpack already provides an operation that returns results from the DB, to be shown in Select2 fields, we can use that to populate the select2_ajax filter:
+
+Step 1. In your CrudController, set up the [FetchOperation](/docs/{{version}}/crud-operation-fetch) to return the entity you want:
+
+```php
+    use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
+
+    protected function fetchCategory()
+    {
+        return $this->fetch(\App\Models\Category::class);
+    }
+```
+
+Step 2. Use this filter and make sure you specify the method as "POST":
+```php
+CRUD::filter('category_id')
+    ->type('select2_ajax')
+    ->values(backpack_url('product/fetch/category'))
+    ->method('POST')
+    ->whenActive(function($value) {
+      // $this->crud->addClause('where', 'category_id', $value);
+    });
+
+    // other methods
+    // ->placeholder('Pick a category')
+    // ->select_attribute('name') // the attribute that will be shown to the user by default 'name'
+    // ->select_key('id') // by default is ID, change it if your model uses some other key
+```
+
+**Option (B) Use a custom controller to return the results**
+
+Alternatively, you can use a completely custom endpoint, that returns the options for the select2:
+
+Step 1. Add a route for the ajax search, right above your usual ```CRUD::resource()``` route. Example:
 
 ```php
 Route::get('test/ajax-category-options', 'TestCrudController@categoryOptions');
 CRUD::resource('test', 'TestCrudController');
 ```
 
-2. Add a method to your EntityCrudController that responds to a search term. The result should be an array with ```id => value```. Example for a 1-n relationship:
+Step 2. Add a method to your EntityCrudController that responds to a search term. The result should be an array with ```id => value```. Example for a 1-n relationship:
 
 ```php
 public function categoryOptions(Request $request) {
@@ -266,24 +388,23 @@ public function categoryOptions(Request $request) {
 }
 ```
 
-3. Add the select2_ajax filter and for the second parameter ("values") specify the exact route.
+Step 3. Add the select2_ajax filter and for the second parameter ("values") specify the exact route.
 
 ```php
-// select2_ajax filter
-$this->crud->addFilter([
-  'name'        => 'category_id',
-  'type'        => 'select2_ajax',
-  'label'       => 'Category',
-  'placeholder' => 'Pick a category',
-  'method'      => 'POST', // by default is GET
-  // when returning a paginated instance you can specify the attribute and the key to be used:
-  'select_attribute' => 'title' // by default it's name
-  'select_key' => 'custom_key' // by default it's id
-],
-url('admin/test/ajax-category-options'), // the ajax route, you can also use FetchOperation here, just make sure you define `'method' => 'POST'` in your filter.
-function($value) { // if the filter is active
-    // $this->crud->addClause('where', 'category_id', $value);
-});
+CRUD::filter('category_id')
+    ->type('select2_ajax')
+    ->values(url('admin/test/ajax-category-options'))
+    ->whenActive(function($value) {
+      // $this->crud->addClause('where', 'category_id', $value);
+    });
+
+    // other methods:
+    // ->placeholder('Pick a category')
+    // ->method('POST') // by default it's GET
+
+    // when returning a paginated instance you can specify the attribute and the key to be used:
+    // ->select_attribute('title') // by default it's name
+    // ->select_key('custom_key')  // by default it's id
 ```
 
 <hr>
@@ -296,23 +417,21 @@ Shows two number inputs, for min and max.
 ![Backpack CRUD Range Filter](https://backpackforlaravel.com/uploads/docs-4-0/filters/range.png)
 
 ```php
-$this->crud->addFilter([
-  'name'       => 'number',
-  'type'       => 'range',
-  'label'      => 'Range',
-  'label_from' => 'min value',
-  'label_to'   => 'max value'
-],
-false,
-function($value) { // if the filter is active
-    $range = json_decode($value);
-    if ($range->from) {
-        $this->crud->addClause('where', 'number', '>=', (float) $range->from);
-    }
-    if ($range->to) {
-        $this->crud->addClause('where', 'number', '<=', (float) $range->to);
-    }
-});
+CRUD::filter('number')
+    ->type('range')
+    ->whenActive(function($value) {
+      $range = json_decode($value);
+      // if ($range->from) {
+      //     $this->crud->addClause('where', 'number', '>=', (float) $range->from);
+      // }
+      // if ($range->to) {
+      //     $this->crud->addClause('where', 'number', '<=', (float) $range->to);
+      // }
+    });
+
+    // other methods
+    // label_from('min value')
+    // label_to('max value)
 ```
 
 <hr>
@@ -323,18 +442,12 @@ function($value) { // if the filter is active
 Display any custom column filter you want. Usually used by Backpack package developers, to use views from within their packages, instead of having to publish them.
 
 ```php
-// custom filter view
-$this->crud->addFilter([
-  'name'        => 'category_id',
-  'type'        => 'view',
-  'view'        => 'package::columns.column_type_name', // or path to blade file
-  'label'       => 'Category',
-  'placeholder' => 'Pick a category',
-],
-false,
-function($value) { // if the filter is active
+CRUD::filter('category_id')
+    ->type('view')
+    ->view('package::columns.column_type_name')  // or path to blade file
+    ->whenActive(function($value) {
     // $this->crud->addClause('where', 'category_id', $value);
-});
+    });
 ```
 
 
@@ -435,73 +548,91 @@ Inside this file, you'll have:
 Use a dropdown to filter by the values of a MySQL ENUM column:
 
 ```php
-// select2 filter
-$this->crud->addFilter([
-  'name'  => 'published',
-  'type'  => 'select2',
-  'label' => 'Published'
-], function() {
+CRUD::filter('published')
+  ->type('select2')
+  ->values(function() {
     return \App\Models\Test::getEnumValuesAsAssociativeArray('published');
-}, function($value) { // if the filter is active
-    $this->crud->addClause('where', 'published', $value);
-});
+  })
+  ->whenActive(function($value) {
+    CRUD::addClause('where', 'published', $value);
+  });
 ```
 
 Use a select2 to filter by a 1-n relationship:
 ```php
-// select2 filter
-$this->crud->addFilter([
-  'name'  => 'category_id',
-  'type'  => 'select2',
-  'label' => 'Category'
-], function() {
-    return \App\Models\Category::all()->pluck('name', 'id')->toArray();
-}, function($value) { // if the filter is active
-    $this->crud->addClause('where', 'category_id', $value);
-});
+CRUD::filter('category_id')
+    ->type('select2')
+    ->values(function() {
+      return \App\Models\Category::all()->pluck('name', 'id')->toArray();
+    })
+    ->whenActive(function($value) {
+      CRUD::addClause('where', 'category_id', $value);
+    });
 ```
 
 Use a select2_multiple to filter Products by an n-n relationship:
 ```php
-// select2_multiple filter
-$this->crud->addFilter([
-  'name'  => 'tags',
-  'type'  => 'select2_multiple',
-  'label' => 'Tags'
-], function() { // the options that show up in the select2
-    return Product::all()->pluck('name', 'id')->toArray();
-}, function($values) { // if the filter is active
-    foreach (json_decode($values) as $key => $value) {
-        $this->crud->query = $this->crud->query->whereHas('tags', function ($query) use ($value) {
-            $query->where('tag_id', $value);
-        });
-    }
-});
+CRUD::filter('tags')
+    ->type('select2_multiple')
+    ->values(function() { // the options that show up in the select2
+      return Product::all()->pluck('name', 'id')->toArray();
+    })
+    ->whenActive(function($values) {
+      foreach (json_decode($values) as $key => $value) {
+          $this->crud->query = $this->crud->query->whereHas('tags', function ($query) use ($value) {
+              $query->where('tag_id', $value);
+          });
+      }
+    });
 ```
-    
+
 Use a simple filter to add a scope if the filter is active:
 ```php
-// add a "simple" filter called Published 
-$this->crud->addFilter([
-  'type'  => 'simple',
-  'name'  => 'published',
-  'label' => 'Published'
-], 
-false,
-function() { // if the filter is active (the GET parameter "published" exits)
-    $this->crud->addClause('published');
-});
+// add a "simple" filter called Published
+CRUD::filter('published')
+    ->type('simple')
+    ->whenActive(function() { // if the filter is active (the GET parameter "published" exits)
+        $this->crud->addClause('published');
+    });
 ```
 
 Use a simple filter to show the softDeleted items (trashed):
 ```php
+CRUD::filter('trashed')
+    ->type('simple')
+    ->whenActive(function($values) {
+        $this->crud->query = $this->crud->query->onlyTrashed();
+    });
+```
+
+<a name="tips-and-tricks"></a>
+## Tips and Tricks
+
+<a name="adding-a-filter-using-array-syntax"></a>
+### Adding a filter using array syntax
+
+In Backpack v4-v5 we used an "array syntax" to add and manipulate filters. That syntax is still supported for backwards-compatiblity. But it most cases it's easier to use the fluent syntax.
+
+When adding a filter using the array syntax you need to specify the 3 parameters of the ```addFilter()``` method:
+- `$options` - an array of options (name, type, label are most important)
+- `$values` - filter values - can be an array or a closure
+- `$filter_logic` - what should happen if the filter is applied (usually add a clause to the query) - can be a closure, a string for a simple operation or false for a simple "where";
+
+Here's a simple example, with comments that explain what we're doing:
+```php
+// add a "simple" filter called Draft
 $this->crud->addFilter([
   'type'  => 'simple',
-  'name'  => 'trashed',
-  'label' => 'Trashed'
+  'name'  => 'draft',
+  'label' => 'Draft'
 ],
-false,
-function($values) { // if the filter is active
-    $this->crud->query = $this->crud->query->onlyTrashed();
+false, // the simple filter has no values, just the "Draft" label specified above
+function() { // if the filter is active (the GET parameter "draft" exits)
+  $this->crud->addClause('where', 'draft', '1');
+  // we've added a clause to the CRUD so that only elements with draft=1 are shown in the table
+  // an alternative syntax to this would have been
+  // $this->crud->query = $this->crud->query->where('draft', '1');
+  // another alternative syntax, in case you had a scopeDraft() on your model:
+  // $this->crud->addClause('draft');
 });
 ```
