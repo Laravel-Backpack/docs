@@ -9,12 +9,21 @@
 <a name="customize-menu-or-sidebar"></a>
 ### Customize the menu or sidebar
 
-During installation, Backpack publishes a few files in you ```resources/views/vendor/backpack/base/inc``` folder. In there, you'll also find:
-- ```sidebar_content.php```
-- ```topbar_left_content.php```
-- ```topbar_right_content.php```
+During installation, Backpack publishes `resources/views/vendor/backpack/ui/inc/menu_items.blade.php`. That file is meant to contain all menu items, using [menu item components](/docs/{{version}}/base-components#available-components) for example:
 
-Change those files as you please.
+```
+<x-backpack::menu-item title="Tags" icon="la la-tag" :link="backpack_url('tags')" />
+
+<x-backpack::menu-separator title="Some text for separation" />
+
+<x-backpack::menu-dropdown title="Authentication" icon="la la-group">
+    <x-backpack::menu-dropdown-item title="Users" icon="la la-user" :link="backpack_url('user')" />
+    <x-backpack::menu-dropdown-item title="Roles" icon="la la-group" :link="backpack_url('role')" />
+    <x-backpack::menu-dropdown-item title="Permissions" icon="la la-key" :link="backpack_url('permission')" />
+</x-backpack::menu-dropdown>
+```
+
+Change that file as you please. You can also add custom HTML there, but please take note that if you change the theme, your custom HTML might not look good in that new theme.
 
 <a name="customize-dashboard"></a>
 ### Customize the dashboard
@@ -51,244 +60,9 @@ Take a look at the [widgets](/docs/{{version}}/base-widgets) we have - you can e
 <a name="customize-general-layout-design"></a>
 ### Customizing the design of the menu / sidebar / footer
 
-In ```config/backpack/base.php``` you'll notice there are variables where you can change exactly what CSS classes are placed on the HTML elements that represent the header, body, sidebar and footer:
+Starting with Backpack v6, we have multiple themes. Each theme provides some configuration options, for you to change CSS classes in the header, body, footer, tabler etc.
 
-```php
-    // Horizontal navbar classes. Helps make the admin panel look similar to your project's design.
-    'header_class' => 'app-header bg-light border-0 navbar',
-        // Try adding bg-dark, bg-primary, bg-secondary, bg-danger, bg-warning, bg-success, bg-info, bg-blue, bg-light-blue, bg-indigo, bg-purple, bg-pink, bg-red, bg-orange, bg-yellow, bg-green, bg-teal, bg-cyan
-        // You might need to add "navbar-dark" too if the background color is a dark one.
-        // Add header-fixed if you want the header menu to be sticky
-    
-    // Body element classes.
-    'body_class' => 'app aside-menu-fixed sidebar-lg-show',
-        // Try sidebar-hidden, sidebar-fixed, sidebar-compact, sidebar-lg-show
-    
-
-    // Sidebar element classes.
-    'sidebar_class' => 'sidebar sidebar-pills bg-light',
-        // Remove "sidebar-transparent" for standard sidebar look 
-        // Try "sidebar-light" or "sidebar-dark" for dark/light links
-        // You can also add a background class like bg-dark, bg-primary, bg-secondary, bg-danger, bg-warning, bg-success, bg-info, bg-blue, bg-light-blue, bg-indigo, bg-purple, bg-pink, bg-red, bg-orange, bg-yellow, bg-green, bg-teal, bg-cyan
-
-    // Footer element classes.
-    'footer_class' => 'app-footer',
-```
-
-Our default design might not be pleasant for your, or you might need to make the UI integrate better into your project. We totally understand. You can use the classes above to make it look considerably different.
-
-You'll find a few examples below - but you should use which classes you want to get the result you need.
-
-<a href="ui-with-dark-sidebar"></a>
-#### Backstrap
-
-Transparent top menu, transparent sidebar, transparent footer. This is the default. This is what _we_ think is best for most users, from our 8+ years of experience building admin panels. Prioritising _content_ over _menus_.
-
-![Backstrap design](https://backpackforlaravel.com/uploads/docs-4-0/ui/examples/default.png)
-
-```php
-    'header_class' => 'app-header bg-light border-0 navbar',
-    'body_class' => 'app aside-menu-fixed sidebar-lg-show',
-    'sidebar_class' => 'sidebar sidebar-pills bg-light',
-    'footer_class' => 'app-footer',
-```
-
-<a href="inspired-by-coreui"></a>
-#### Inspired by CoreUI
-
-White top menu, dark sidebar.
-
-![CoreUI design](https://backpackforlaravel.com/uploads/docs-4-0/ui/examples/coreui.png)
-
-```php
-    'header_class' => 'app-header navbar',
-    'body_class' => 'app aside-menu-fixed sidebar-lg-show',
-    'sidebar_class' => 'sidebar',
-    'footer_class' => 'app-footer d-none',
-```
-
-<a href="inspired-by-github"></a>
-#### Inspired by GitHub
-
-Black top menu, white sidebar.
-
-![CoreUI design](https://backpackforlaravel.com/uploads/docs-4-0/ui/examples/github.png)
-
-```php
-    'header_class' => 'app-header bg-dark navbar',
-    'body_class' => 'app aside-menu-fixed sidebar-lg-show',
-    'sidebar_class' => 'sidebar bg-white sidebar-pills',
-    'footer_class' => 'app-footer d-none',
-```
-
-<a href="blue-top-menu"></a>
-#### Blue Top Menu
-
-Blue top menu, dark sidebar.
-
-![Construction or warning design](https://backpackforlaravel.com/uploads/docs-4-0/ui/examples/blue.png)
-
-```php
-    'header_class' => 'app-header navbar navbar-color bg-primary border-0',
-    'body_class' => 'app aside-menu-fixed sidebar-lg-show',
-    'sidebar_class' => 'sidebar', // add "bg-white sidebar-pills" for light sidebar
-    'footer_class' => 'app-footer d-none',
-```
-
-
-<a href="inspired-by-contruction"></a>
-#### Construction / Warning
-
-Yellow top menu, dark sidebar.
-
-![Construction or warning design](https://backpackforlaravel.com/uploads/docs-4-0/ui/examples/construction.png)
-
-```php
-    'header_class' => 'app-header navbar navbar-light bg-warning',
-    'body_class' => 'app aside-menu-fixed sidebar-lg-show',
-    'sidebar_class' => 'sidebar', // add "bg-white sidebar-pills" for light sidebar
-    'footer_class' => 'app-footer d-none',
-```
-
-<a href="red-top-menu"></a>
-#### Red Top Menu
-
-Red top menu, dark sidebar.
-
-![Construction or warning design](https://backpackforlaravel.com/uploads/docs-4-0/ui/examples/red.png)
-
-```php
-    'header_class' => 'app-header navbar navbar-color bg-error border-0',
-    'body_class' => 'app aside-menu-fixed sidebar-lg-show',
-    'sidebar_class' => 'sidebar', // add "bg-white sidebar-pills" for light sidebar
-    'footer_class' => 'app-footer d-none',
-```
-
-<a href="pink-top-menu"></a>
-#### Pink Top Menu
-
-Pink top menu, transparent sidebar.
-
-![Construction or warning design](https://backpackforlaravel.com/uploads/docs-4-0/ui/examples/pink.png)
-
-```php
-    'header_class' => 'app-header navbar navbar-color bg-error border-0',
-    'body_class' => 'app aside-menu-fixed sidebar-lg-show',
-    'sidebar_class' => 'sidebar sidebar-pills bg-light',
-    'footer_class' => 'app-footer d-none',
-```
-
-
-<a href="green-top-menu"></a>
-#### Green Top Menu
-
-Green top menu, white sidebar.
-
-![Construction or warning design](https://backpackforlaravel.com/uploads/docs-4-0/ui/examples/green.png)
-
-```php
-    'header_class' => 'app-header navbar navbar-color bg-green border-0',
-    'body_class' => 'app aside-menu-fixed sidebar-lg-show',
-    'sidebar_class' => 'sidebar sidebar-pills bg-white',
-    'footer_class' => 'app-footer d-none',
-```
-
-
-<a name="change-colors"></a>
-### Change the colors
-
-#### Change primary color from purple to blue
-
-We thought you might want to do this. Purple isn't for everybody. That's why Backpack 4.1.57+ comes with two bundle CSS files: `bundle.css` and `blue-bundle.css`. That second file does exactly what you expect - changes the primary color from electric purple to blue. That's it. In order to use it, go to your `config/backpack/base.php` and use that file instead:
-
-```diff    
-'styles' => [
--        'packages/backpack/base/css/bundle.css',
-+        'packages/backpack/base/css/blue-bundle.css',
-```
-
-That's it. Now go to your browser and refresh, you should see blue buttons and text everywhere, instead of purple.
-
-#### Custom colors for primary, secondary, success, warning etc.
-
-This assumes you have:
-- Backpack 4.1.57+ (check with `php artisan backpack:version`) and its assets published (otherwise run `php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag=public --force`);
-- a working Laravel install with NPM and Laravel Mix;
-
-Add Backstrap, Noty and Animate.css as dev-dependencies to your project:
-```
-npm install --dev
-npm i @digitallyhappy/backstrap --save-dev
-npm i noty --save-dev
-npm i animate.css@3.7.2 --save-dev
-```
-
-Then create a SCSS file for that custom bundle you want. We recommend doing it in `resources/scss/custom-backpack-bundle.scss`. Then customize this file to your liking:
-
-```scss
-// create a bundle CSS file for the an alternative Backstrap style (blue instead of purple for primary color)
-
-@import "node_modules/@digitallyhappy/backstrap/src/scss/_backstrap_colors";
-
-$primary:       $black !default; // <--- For eg. This will make all buttons and texts black instead of purple
-$secondary:     $gray-300 !default;
-$success:       $green !default;
-$info:          $blue !default;
-$warning:       $yellow !default;
-$danger:        $red !default;
-$light:         $gray-200 !default;
-$dark:          $black !default;
-
-$hover-color: rgba(105, 171, 239, 0.12);
-$border-color: rgba(0, 40, 100, 0.12);
-$muted-bg-color: rgba(0, 0, 0, 0.02);
-
-$theme-colors: () !default;
-$theme-colors: map-merge(
-  (
-    "primary":    $primary,
-    "default":    $secondary,
-    "secondary":  $secondary,
-    "success":    $success,
-    "info":       $info,
-    "notice":     $info,
-    "warning":    $warning,
-    "danger":     $danger,
-    "error":      $danger,
-    "light":      $light,
-    "dark":       $dark
-  ),
-  $theme-colors
-);
-
-@import "node_modules/@digitallyhappy/backstrap/src/scss/_backstrap_miscellaneous";
-
-@import "node_modules/@coreui/coreui/scss/coreui";
-@import "node_modules/@digitallyhappy/backstrap/src/scss/_custom";
-@import "node_modules/@digitallyhappy/backstrap/src/scss/_noty";
-@import "node_modules/animate.css/source/_base";
-@import "node_modules/noty/src/noty";
-```
-
-Now add the command to your `webpack.mix.js` file to compile this new SASS file:
-
-```js
-// create a custom Backpack bundle CSS, with custom colors
-mix.sass('resources/scss/custom-backpack-bundle.scss', 'public/css/')
-    .options({
-      processCssUrls: false
-    });
-```
-
-And run `npm run dev`. If SASS is not a dev-requirement in your project already, Mix will add it automatically and ask you to run `npm run dev` again. Do that if necessary.
-
-Your result should say "_webpack compiled successfully_". If so, you can now use that new bundle file in all your Backpack pages by going to `config/backpack/base.php` and changing the main bundle CSS file that Backpack uses... with your own:
-
-```diff
-    'styles' => [
--        'packages/backpack/base/css/bundle.css',
-+        'css/custom-backpack-bundle.css',
-```
+Please take a look at your theme's config file or README on Github, to see what you can change and how.
 
 
 <a name="create-a-new-theme"></a>
@@ -296,15 +70,13 @@ Your result should say "_webpack compiled successfully_". If so, you can now use
 
 You can create a theme with your own HTML. Create a folder with all the views you want to overwrite, then change ```view_namespace``` inside your ```config/backpack/base.php``` to point to that folder. All views will be loaded from _that_ folder if they exist, then from ```resources/views/vendor/backpack/base```, then from the Base package.
 
-You can use child themes to:
-- create packages for your Backpack admin panels to look different (and re-use across projects)
-- use a different CSS framework (ex: Tailwind, Bulma)
+You can use child themes to create packages for your Backpack admin panels to look different (and re-use across projects). For more info on how to create a theme, see [this guide](/docs/{{version}}/add-ons-tutorial-how-to-create-a-theme).
 
 
 <a name="add-custom-javascript"></a>
 ### Add custom JavaScript to all admin panel pages
 
-In ```config/backpack/base.php``` you'll notice this config option:
+In ```config/backpack/ui.php``` you'll notice this config option:
 
 ```php
     // JS files that are loaded in all pages, using Laravel's asset() helper
@@ -333,7 +105,7 @@ You can add files to this array, and they'll be loaded in all admin panels pages
 <a name="add-custom-css"></a>
 ### Add custom CSS to all admin panel pages
 
-In ```config/backpack/base.php``` you'll notice this config option:
+In ```config/backpack/ui.php``` you'll notice this config option:
 
 ```php
     // CSS files that are loaded in all pages, using Laravel's asset() helper
@@ -353,7 +125,7 @@ You can add files to this array, and they'll be loaded in all admin panels pages
 
 If you want to change the look and feel of the admin panel, you can create a custom CSS file wherever you want. We recommend you do it inside ```public/packages/myname/mycustomthemename/css/style.css``` folder so that it's easier to turn into a theme, if you decide later to share or re-use your CSS in other projects.
 
-In ```config/backpack/base.php``` add your file to this config option:
+In ```config/backpack/ui.php``` add your file to this config option:
 
 ```php
     // CSS files that are loaded in all pages, using Laravel's asset() helper
@@ -369,7 +141,7 @@ This config option allows you to add CSS files that add style _on top_ of Backst
 <a name="how-to-add-vue-js-on-all-Backpack-pages"></a>
 ### How to add VueJS to all Backpack pages
 
-You can add any script you want inside all Backpack's pages by just adding it in your ```config/backpack/base.php``` file:
+You can add any script you want inside all Backpack's pages by just adding it in your ```config/backpack/ui.php``` file:
 
 ```php
 
@@ -400,16 +172,18 @@ You should be able to load Vue.JS by just uncommenting that one line. Or providi
 <a name="customize-translations"></a>
 ### Customize the translated strings (aka overwrite the language files)
 
-The admin panel language is set in `config/app.php` by changing the `locale` key. By default it's `en` (english). We provide translations in more than 20 languages including RTL (arabic).
+Backpack uses the default Laravel lang configuration, to choose the admin panel language. So it will use whatever you set in `config/app.php` inside the `locale` key. By default it's `en` (english). We provide translations in more than 20 languages including RTL (arabic).
 
-Backpack uses Laravel translations across the admin panel, to easily translate strings (ex: `{{ trans('backpack::base.already_have_an_account') }}`). 
+Backpack uses Laravel translations across the admin panel, to easily translate strings (ex: `{{ trans('backpack::base.already_have_an_account') }}`).
 If you don't like a translation, you're welcome to submit a PR to [Backpack CRUD repository](https://github.com/Laravel-Backpack/CRUD) to correct it for all users of your language. If you only want to correct it inside your app, or need to add a new translation string, you can *create a new file in your `resources/lang/vendor/backpack/en/base.php`* (similarly, `crud.php` or any other file). Any language strings that are inside your app, in the right folder, will be preferred over the ones in the package.
 
-Alternatively, if you need to customize A LOT of strings, you can use: 
+Alternatively, if you need to customize A LOT of strings, you can use:
 ```bash
 php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag="lang"
 ```
 which will publish ALL lang files, for ALL languages, inside `resources/lang/vendor/backpack`. But it's highly unlikely you need to modify all of them. In case you do publish all languages, please delete the ones you didn't change. That way, you only keep what's custom in your custom files, and it'll be easier to upgrade those files in the future.
+
+Please note that Backpack does NOT provide translation strings for validation errors. Those are provided by Laravel itself, and Laravel only provides the English versions. To get validation error messages in all languages you want, we highly recommend installing and using https://github.com/Laravel-Lang/lang which provides exactly that.
 
 
 <a name="use-the-same-html-and-css-for-front-end"></a>
@@ -499,7 +273,7 @@ Route::group(['middleware' => 'web', 'prefix' => config('backpack.base.route_pre
 
 This is a default in Backpack v4.
 
-Backpack's authentication uses a completely separate authentication driver, provider, guard and password broker. They're all named ```backpack```, and registered in the vendor folder, invisible to you. 
+Backpack's authentication uses a completely separate authentication driver, provider, guard and password broker. They're all named ```backpack```, and registered in the vendor folder, invisible to you.
 
 If you need a separate login for user, just go ahead and create it. [Add the Laravel authentication, like instructed in the Laravel documentation](https://laravel.com/docs/5.7/authentication#authentication-quickstart): ```php artisan make:auth```. You'll then have:
 - the user login at ```/login``` -> using the AuthenticationController Laravel provides
@@ -525,7 +299,7 @@ This is a default in Backpack v4.
 ### Login with username instead of email
 
 1. Create a ```username``` column in your users table and add it in ```$fillable``` on your ```User``` model. Best to do this with a migration.
-2. Remove the UNIQUE and NOT NULL constraints from ```email``` on your table. Best to do this with a migration. Alternatively, delete your ```email``` column and remove it from ```$fillable``` on your ```User``` model. If you already have a CRUD for users, you might also need to delete it from the Request, and from your UserCrudController. 
+2. Remove the UNIQUE and NOT NULL constraints from ```email``` on your table. Best to do this with a migration. Alternatively, delete your ```email``` column and remove it from ```$fillable``` on your ```User``` model. If you already have a CRUD for users, you might also need to delete it from the Request, and from your UserCrudController.
 3. Change your ```config/backpack/base.php``` config options:
 ```php
     // Username column for authentication
@@ -583,7 +357,7 @@ namespace App\Http\Controllers\Admin\Auth;
 
 use Backpack\CRUD\app\Http\Controllers\Auth\RegisterController as BackpackRegisterController;
 
-class RegisterController extends BackpackRegisterController 
+class RegisterController extends BackpackRegisterController
 {
     /**
      * Get a validator for an incoming registration request.
@@ -637,5 +411,5 @@ Add whatever validation rules & inputs you want, in addition to name and passwor
         return backpack_view('auth.register');
     }
 ```
-This will make the registration process pick up a view you can create, in ```resources/views/vendor/backpack/base/auth/register.blade.php```. You can copy-paste the original view, and modify as you please. Including adding your own custom inputs.
+This will make the registration process pick up a view you can create, in ```resources/views/vendor/backpack/ui/auth/register.blade.php```. You can copy-paste the original view, and modify as you please. Including adding your own custom inputs.
 
