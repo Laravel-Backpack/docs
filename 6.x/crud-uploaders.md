@@ -36,7 +36,7 @@ CRUD::field('avatar')
         'path' => 'uploads', // the path inside the disk where file will be stored
 ]);
 ```
-**Note**: If you've defined `disk` or `prefix` on the field, you no longer need to define `path` within `withFiles()` - it will pick those up. Make sure you are not defining both.
+**Note**: If you've defined `disk` or `prefix` on the field, you no longer need to define `disk` or `path` within `withFiles()` - it will pick those up. Make sure you are not defining both.
 
 
 **Configuration options:**
@@ -55,6 +55,43 @@ When `temporaryUrl` is set to `true`, this configures the amount of time in minu
 This allows you to overwrite or set the uploader class for this field. You can use any class that implements `UploaderInterface`.
 - **`fileNamer`** - default: **null**
 It accepts a `FileNameGeneratorInterface` instance or a closure. As the name implies, this will be used to generate the file name. Read more about in the [Naming uploaded files](#upload-name-files) section.
+
+<a name="handling-uploaders-in-relationship-fields"></a>
+### Handling uploads in relationship fields
+
+Some relationships require additional configuration to properly work with the Uploaders. 
+
+- **`BelongsToMany`** 
+
+In this relationships, you should create a Pivot model where Uploaders register their events. 
+
+Take for example an `Article` model has a `BelongsToMany` relationship defined with `Categories` model:
+
+```php
+// Article model
+public function categories() {
+    $this->belongsToMany(Category::class);
+}
+```
+
+To use an Uploader in this relation, you should create the `ArticleCategory` pivot model, and tell Laravel to use it. 
+
+```php
+use Illuminate\Database\Eloquent\Relations\Pivot;
+
+class ArticleCategory extends Pivot
+{
+
+}
+
+
+// and in your article/category models, update the relationship to:
+public function categories() {
+    $this->belongsToMany(Category::class)->withPivot('picture')->using(ArticleCategory::class); //assuming picture is the pivot field where you store the uploaded file.
+}
+```
+
+
 
 <a name="naming-files-when-using-uploaders"></a>
 ### Naming files when using Uploaders
