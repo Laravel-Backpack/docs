@@ -18,9 +18,9 @@ CRUD::field('avatar')->type('upload')->withFiles();
 
 That's it. Backpack will now handle the upload, storage and deletion of the files for you. By default it will use `public` disk, and will delete the files when the entry is deleted.
 
-> **IMPORTANT**: 
-> - make sure you've linked the `storage` folder to your `public` folder. You can do that by running `php artisan storage:link` in your terminal.
-> - If you want your files to be deleted when the entry is deleted please make sure you properly [Configure File Deletion](#deleting-files-when-entry-is-deleted)
+> **IMPORTANT**:
+> - Make sure you've linked the `storage` folder to your `public` folder. You can do that by running `php artisan storage:link` in your terminal.
+> - If you want your files to be deleted when the entry is deleted, please [Configure File Deletion](#deleting-files-when-entry-is-deleted)
 
 
 <a name="upload-configuration"></a>
@@ -59,8 +59,8 @@ It accepts a `FileNameGeneratorInterface` instance or a closure. As the name imp
 <a name="naming-files-when-using-uploaders"></a>
 ### Naming files when using Uploaders
 
-Backpack implements a default naming strategy for uploaded files that we have found out to work well in most scenarios.
-- For `upload`, `upload_multiple` and `dropzone` fields, the file name will be the original file name slugged and with a random 4 character string appended to it. This is to avoid name collisions. Eg: `my file.pdf` becomes `my-file-aY5x.pdf`.
+Backpack provides a naming strategy for uploaded files that works well for most scenarios:
+- For `upload`, `upload_multiple` and `dropzone` fields, the file name will be the original file name slugged and with a random 4 character string appended to it, to avoid name collisions. Eg: `my file.pdf` becomes `my-file-aY5x.pdf`.
 - For `image` it will generate a unique name for the file, and will keep the original extension. Eg: `my file.jpg` becomes `5f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c.jpg`.
 
 You can customize the naming strategy by creating a class that implements `FileNameGeneratorInterface` and pass it to the upload configuration (the default used by Backpack).
@@ -99,9 +99,9 @@ You can also use uploaders in subfields. The configuration is the same as for re
 ```
 
 <a name="deleting-files-when-entry-is-deleted"></a>
-### Configure Uploaded files deletion
+### Configure uploaded files to be automatically deteled
 
-Since `Uploaders` are part of the `Fields` definition, to automatically delete the uploaded files when the entry is deleted we need to setup the fields in the `DeleteOperation` too. 
+To automatically delete the uploaded files when the entry is deleted _in the admin panel_, we need to setup the upload fields in the `DeleteOperation` too:
 
 ```php
 protected function setupDeleteOperation()
@@ -112,3 +112,5 @@ protected function setupDeleteOperation()
     // $this->setupCreateOperation();
 }
 ```
+
+Alternatively, you can manually delete the file in your Model, using the `deleted` Eloquent model event. That would ensure the file gets deleted _even if_ the entry was deleted from outside the admin panel.

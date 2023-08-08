@@ -524,7 +524,7 @@ CRUD::field('users')->subfields([ ['name' => 'notes'] ])
 - example:
     - Post/User -> morphOne -> Video.
     - The User model and the Post model have 1 Video each.
-    - [the `morphOne` relationship should be properly defined](https://laravel.com/docs/8.x/eloquent-relationships#one-to-one-polymorphic-relations) in both the Post/User and Video models;
+    - [the `morphOne` relationship should be properly defined](https://laravel.com/docs/eloquent-relationships#one-to-one-polymorphic-relations) in both the Post/User and Video models;
 
 You can add a subform for the related entry to be created/edited/deleted from the main form:
 
@@ -547,7 +547,7 @@ Backpack will take care of the saving process and deal with the morphable relati
 - example:
     - Post/User -> morphOne -> Video.
     - The User model and the Post model have 1 Video each.
-    - [the `morphOne` relationship should be properly defined](https://laravel.com/docs/8.x/eloquent-relationships#one-to-one-polymorphic-relations) in both the Post/User and Video models;
+    - [the `morphOne` relationship should be properly defined](https://laravel.com/docs/eloquent-relationships#one-to-one-polymorphic-relations) in both the Post/User and Video models;
 
 You can add any type of field to change the attribute on the related entry, but make sure to prefix the field name with the name of the relationship:
 
@@ -566,7 +566,7 @@ This is in all aspects similar to [HasMany](#hasmany) relation, the difference i
 - example:
     - Video/Post -> morphMany -> Comment.
     - The Video model and the Post model can have multiple Comment model but the comment belongs to only one of them.
-    - [the `morphMany` relationship should be properly defined](https://laravel.com/docs/8.x/eloquent-relationships#one-to-many-polymorphic-relations) in both the Post/Video and Comment models;
+    - [the `morphMany` relationship should be properly defined](https://laravel.com/docs/eloquent-relationships#one-to-many-polymorphic-relations) in both the Post/Video and Comment models;
 
 There is no sense in using this a `select` when using a polymorphic relation because the items that could/would be select might belong to different entities. So you should setup this relation as you would setup a [HasMany creatable](#hasmany-creatable).
 
@@ -582,7 +582,7 @@ CRUD::field('comments')->subfields([['name' => 'comment_text']]); //note comment
 This is in all aspects similar to [BelongsToMany](#belongstomany) relation, the difference is that it stores the `morphable` entity in the pivot table:
     - Video/Post -> belongsToMany -> Tag.
     - The Video model and the Post model can have multiple Tag model and each Tag model can belong to one or more of them.
-    - [the `morphToMany` relationship should be properly defined](https://laravel.com/docs/8.x/eloquent-relationships#many-to-many-polymorphic-relations) in both the Post/Video and Tag models;
+    - [the `morphToMany` relationship should be properly defined](https://laravel.com/docs/eloquent-relationships#many-to-many-polymorphic-relations) in both the Post/Video and Tag models;
 
 Please read the relationship [BelongsToMany](#belongstomany) documentation, everything is the same in regards to fields definition and Backpack will take care of the morphable relation saving.
 
@@ -846,6 +846,16 @@ composer require backpack/crud
 php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag="minimum"
 php artisan migrate
 php artisan backpack:publish-middleware
+composer require --dev backpack/generators
+php artisan basset:install --no-check --no-interaction
+
+# then install ONE of the first-party themes:
+php artisan backpack:require:theme-tabler
+php artisan backpack:require:theme-coreuiv4
+php artisan backpack:require:theme-coreuiv2
+
+# then check assets can be correctly used
+php artisan basset:check
 ```
 
 
@@ -906,3 +916,53 @@ How do you find out what's the last version you have access to?
 --
 
 Why the ugly, general error? Because Composer doesn't allow vendors to customize the error, unfortunately. Backpack's server returns a better error message, but Composer doesn't show it.
+
+
+<a name="configuring-the-temporary-directory"></a>
+### Configuring the Temporary Directory
+
+The [dropzone field](/docs/{{version}}/crud-fields#dropzone-pro) and DropzoneOperation will upload the files to a temporary directory using AJAX. When an entry is saved, they move that file to the final directory. But if the user doesn't finish the saving process, the temp directory can still hold files that are not used anywhere.
+
+**Configure Temp Directory**
+
+To configure that temporary directory for ALL dropzone operations, call `php artisan vendor:publish --provider="Backpack\Pro\AddonServiceProvider" --tag="dropzone-config"` and then edit your  `config/backpack/operations/dropzone.php` to fit your needs. Here are the most important values you'll find there:
+
+```php
+    'temporary_disk' => 'local', // disk in config/filesystems.php that will be used
+    'temporary_folder' => 'backpack/temp', // the directory inside the disk above
+    'purge_temporary_files_older_than' => 72 // automatically delete files older than 72 hours
+```
+
+Alternatively, you can also configure the temp directory for the current CRUD only using:
+
+```php
+public function setupDropzoneOperation()
+{
+    CRUD::setOperationSetting('temporary_disk', 'public');
+    CRUD::setOperationSetting('temporary_folder', 'backpack/temp');
+    CRUD::setOperationSetting('purge_temporary_files_older_than', 72);
+}
+```
+
+**Delete Old Temp Files**
+
+Whenever new files are uploaded using the Dropzone operation, the operation deletes old files from the temp directory. But you can also run the `backpack:purge-temporary-files` command, to clean the temp directory.
+
+
+```bash
+php artisan backpack:purge-temporary-files --older-than=24 --disk=public --path="backpack/temp"
+```
+
+It accepts the following optional parameters:
+- `--older-than=24`: the number of hours after which temporary files are deleted.
+- `--disk=public`: the disk used by the temporary files.
+- `--path="backpack/temp"`: the folder inside the disk where files will be stored.
+
+
+You can use any strategy to run this command periodically - a cron job, a scheduled task or hooking into application termination hooks. Laravel provides a very easy way to setup your scheduled tasks. You can read more about it [here](https://laravel.com/docs/10.x/scheduling). For example, you can run the command every hour by adding the following line to your `app/Console/Kernel.php` in the `schedule()` method:
+```php
+// app/Console/Kernel.php
+$schedule->command('backpack:purge-temporary-files')->hourly();
+```
+
+After adding this, you need to setup a cron job that will process the Laravel scheduler. You can manually run it in development with `php artisan schedule:run`. For production, you can setup a cron job take care of it for you. You can read more about it [here](https://laravel.com/docs/10.x/scheduling#running-the-scheduler).

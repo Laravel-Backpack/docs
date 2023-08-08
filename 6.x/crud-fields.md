@@ -1328,7 +1328,6 @@ Show a [Dropzone JS Input](https://docs.dropzone.dev/).
 ```php
 class UserCrudController extends CrudController
 {
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     // ... other operations
     use \Backpack\Pro\Http\Controllers\Operations\DropzoneOperation;
 }
@@ -1344,37 +1343,29 @@ CRUD::field([
 
     // optional configuration.
     // check available options in https://docs.dropzone.dev/configuration/basics/configuration-options
-    'configuration' => [
-        'parallelUploads' => 2,
-    ]
+    // 'configuration' => [
+    //     'parallelUploads' => 2,
+    // ]
 ]);
 ```
 
 **Step 3:** Configure the file upload process.
 
-At this point you have the dropzone field showing up, and the ajax routes setup to upload/delete files, but the process is not complete. Your files are now only uploaded to the temporary folder, they need to be moved to the permanent location and their paths stored in the database. The easiest way to fix that is to add `withFiles => true` to your field definition, this will use the standard `AjaxUploader` that Backpack provides:
+At this point you have the dropzone field showing up, and the ajax routes setup to upload/delete files, but the process is not complete. Your files are now only uploaded to the temporary folder, they need to be moved to the permanent location and their paths stored in the database. The easiest way to do that is to add `withFiles => true` to your field definition, this will use the standard `AjaxUploader` that Backpack provides:
 
 ```php
 CRUD::field([
     'name'  => 'photos',
     'label' => 'Photos',
     'type'  => 'dropzone',
-    'withFiles' => true
+    'withFiles' => true,
 ]);
 ```
 
 Alternatively, you can manually implement the saving process yourself using model events, mutators or any other solution that suits you. To know more about the `withFiles`, how it works and how to configure it, [read its documentation](https://backpackforlaravel.com/docs/6.x/crud-uploaders).
 
-<a name="dropzone-validation"></a>
-#### Validation
 
-**IMPORTANT NOTE:** Altough you can do some "validation" in Javascript, we highly advise you to don't disregard server validation.
-
-The proper validation of dropzone should be done in two steps:
-1 - Files should be validated on the file upload endpoint
-2 - Field in general should be validated on form submission.
-
-To make things easy on your side we created `ValidDropzone` validation rule. It's a [Custom Validation Rule](/docs/{{version}}/custom-validation-rules) that allow you to define those set of rules:
+**Step 4:** Configure validation. Yes you can do some basic validation in Javascript, but we highly advise you prioritize server-side validation. To make validation easy we created `ValidDropzone` validation rule. It allows you to define two set of rules:
 - `::field()` - the field rules (independent of the file content);
 - `->file()` - rules that apply to the sent files;
 
@@ -1385,51 +1376,9 @@ use Backpack\Pro\Uploads\Validation\ValidDropzone;
                 ->file('file|mimes:jpeg,png,jpg,gif,svg|max:2048'),
 ```
 
-<a name="dropzone-temporary-folder-configuration"></a>
-#### Temporary folder configuration
 
-The temporary folder is configured in `config/backpack/operations/dropzone.php`.
+**Step 5:** (optional) Configure the temp directory. Whenever new files are uploaded using the Dropzone operation, old files are automatically deleted from the temp directory. But you can also manually clean the temp directory. For more info and temp directory configuration options, see [this link](/docs/{{version}}/crud-how-to#configuring-the-temporary-directory).
 
-You can publish this configuration file using `php artisan vendor:publish --provider="Backpack\Pro\AddonServiceProvider" --tag="dropzone-config"`
-
-```php
-    'temporary_disk' => 'local',
-    'temporary_folder' => 'backpack/temp',
-    'purge_temporary_files_older_than' => 72 // hours
-```
-It can also be configured on a "per crud" basis with:
-```php
-CRUD::setOperationSetting('temporary_disk', 'public');
-CRUD::setOperationSetting('temporary_folder', 'backpack/temp');
-CRUD::setOperationSetting('purge_temporary_files_older_than', 72);
-```
-
-The first two options are self-explanatory. The third one is the number of hours after which temporary files are deleted and requires further atention and configuration.
-
-The process of file **deletion** does **not happen** automatically.
-In case of Dropzone we manually call the `PurgeTemporaryFolder` job whenever new files are uploaded so that we keep the dropzone temporary upload folder clean.
-
-To make the cleanup process more general, we created a command that you can run periodically, `backpack:purge-temporary-files`.
-It accepts the following optional parameters:
-`--older-than=24`: the number of hours after which temporary files are deleted.
-`--disk=public`: the disk used by the temporary files.
-`--path="backpack/temp"`: the folder inside the disk where files will be stored.
-
-```bash
-php artisan backpack:purge-temporary-files --older-than=24 --disk=public --path="backpack/temp"
-```
-
-You can use any strategy to run this command periodically, like a cron job, a scheduled task or hooking into application termination hooks.
-
-Laravel provides a very easy way to setup your scheduled tasks, if you are on board with that idea. You can read more about it [here](https://laravel.com/docs/10.x/scheduling).
-
-As an example, you can run the command every hour by adding the following line to your `app/Console/Kernel.php` file in the `schedule()` method:
-```php
-// app/Console/Kernel.php
-$schedule->command('backpack:purge-temporary-files')->hourly();
-```
-
-After adding this, you need to setup a cron job that will process the Laravel scheduler. You can manually run it in development with `php artisan schedule:run`, for production, you can setup a cron job take care of it for you. You can read more about it [here](https://laravel.com/docs/10.x/scheduling#running-the-scheduler).
 
 Input preview:
 
