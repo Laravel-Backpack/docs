@@ -37,8 +37,8 @@ Follow the prompts - in the end, the installer will also tell you your admin pan
 ### Configure
 
 In most cases, it's a good idea to look at the configuration files and make the admin panel your own:
-- You should change the configuration values in ```config/backpack/base.php``` to make the admin panel your own.
-- You can also change ```config/backpack/ui.php``` to change the UI; Backpack is white label, so you can change a lot of things to better match you project's aesthetics: menu color, project name, developer name etc.
+- You should change the config values in ```config/backpack/base.php``` to make the admin panel your own.
+- You can also change ```config/backpack/ui.php``` to change the UI; Backpack is white label, so you can change configs to make it your own: project name, logo, developer name etc.
 - By default all users are considered admins; If that's not what you want in your application (you have both users and admins), please:
     - Change ```app/Http/Middleware/CheckIfAdmin.php```, particularly ```checkIfUserIsAdmin($user)```, to make sure you only allow admins to access the admin panel;
     - Change ```app/Providers/RouteServiceProvider::HOME```, which will send logged in (but not admin) users to `/home`, to something that works for your app;
@@ -82,4 +82,4 @@ In case you want to add extra functionality that's already been built, check out
 
 - **Error: SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was too long**. Your MySQL version might be a bit old. Please [apply this quick fix](https://laravel-news.com/laravel-5-4-key-too-long-error), then run ```php artisan migrate:fresh```.
 
-- **Any other installation error?** If you can't install Backpack because of a different error, you can [try the manual installation process](/docs/{{version}}/crud-how-to#manually-install-backpack), which you can tweak to your needs.
+- **Any other installation error?** If you can't install Backpack because of a different error, you can [try the manual installation process](/docs/{{version}}/crud-how-to#how-to-manually-install-backpack), which you can tweak to your needs.
