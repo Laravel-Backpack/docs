@@ -5,97 +5,84 @@
 <a name="about"></a>
 ## About
 
-Buttons are used inside the ListEdit operation, to allow the admin to trigger other operations. Some point to entirely new routes (```create```, ```update```, ```show```), others perform the operation on the current page using AJAX (```delete```).
+Buttons are used inside the [List operation](/docs/{{version}}/crud-operation-list-entries) and [Show operation](/docs/{{version}}/crud-operation-show), to allow the admin to trigger other operations. Some buttons point to entirely new routes (eg. `create`, `update`, `show`), others perform the operation on the current page using AJAX (eg. `delete`).
 
 <a name="button-stacks"></a>
 ### Button Stacks
 
 The ShowList operation has 3 places where buttons can be placed:
-  - ```top``` (where the Add button is)
-  - ```line``` (where the Edit and Delete buttons are)
-  - ```bottom``` (after the table)
+  - `top` (where the Add button is)
+  - `line` (where the Edit and Delete buttons are)
+  - `bottom` (after the table)
 
-When adding a button to the stack, you can choose whether to insert it at the ```beginning``` or ```end``` of the stack by specifying that as a last parameter.
+![](https://backpackforlaravel.com/uploads/docs-4-0/getting_started/backpack_buttons.png)
+
+When adding a button to the stack, you can choose whether to insert it at the `beginning` or `end` of the stack by specifying that as a last parameter.
 
 <a name="default-buttons"></a>
 ### Default Buttons
 
-Backpack adds a few buttons by default: 
-- ```create``` to the ```top``` stack;
-- ```update``` and ```delete``` to the ```line``` stack;
+There are no "default buttons". But each operation can add buttons to other operations. Most commonly, operations add their own button to the List operation, since that's the "home page" for performing operations on entries. So if you go to a CRUD where you're using the most common operations (Create, Update, List, Show) you will notice in the List operation that:
+- the `create` button in `top` stack;
+- the `update`, `delete` and `show` buttons in the `line` stack;
 
-Default buttons are invisible if an operation has been disabled. For example, you can: 
-- hide the "delete" button using ```$this->crud->denyAccess('delete')```;
-- show a "preview" button by using ```$this->crud->allowAccess('show')```;
+Most buttons are invisible if an operation has been disabled. For example, you can:
+- hide the "delete" button using `CRUD::denyAccess('delete')`;
+- show a "preview" button by using `CRUD::allowAccess('show')`;
 
 
 <a name="buttons-api"></a>
 ### Buttons API
 
-Here are a few things you can call in your EntityCrudController's ```setupListOperation()``` method, to manipulate buttons:
+Here are a few things you can call in your EntityCrudController's `setupListOperation()` method, to manipulate buttons:
 
 ```php
 // possible stacks: 'top', 'line', 'bottom';
 // possible positions: 'beginning' and 'end'; defaults to 'beginning' for the 'line' stack, 'end' for the others;
 
 // collection of all buttons
-$this->crud->buttons();
+CRUD::buttons();
 
 // add a button; possible types are: view, model_function
-$this->crud->addButton($stack, $name, $type, $content, $position);
+CRUD::addButton($stack, $name, $type, $content, $position);
 
 // add a button whose HTML is returned by a method in the CRUD model
-$this->crud->addButtonFromModelFunction($stack, $name, $model_function_name, $position);
+CRUD::addButtonFromModelFunction($stack, $name, $model_function_name, $position);
 
 // add a button whose HTML is in a view placed at resources\views\vendor\backpack\crud\buttons
-$this->crud->addButtonFromView($stack, $name, $view, $position);
+CRUD::addButtonFromView($stack, $name, $view, $position);
 
 // remove a button
-$this->crud->removeButton($name);
+CRUD::removeButton($name);
 
 // remove a button for a certain stack
-$this->crud->removeButtonFromStack($name, $stack);
+CRUD::removeButtonFromStack($name, $stack);
 
 // remove multiple buttons
-$this->crud->removeButtons($names, $stack);
+CRUD::removeButtons($names, $stack);
 
 // remove all buttons
-$this->crud->removeAllButtons();
+CRUD::removeAllButtons();
 
 // remove all buttons for a certain stack
-$this->crud->removeAllButtonsFromStack($stack);
+CRUD::removeAllButtonsFromStack($stack);
 
 // order buttons in a stack, order is an array with the ordered names of the buttons
-$this->crud->orderButtons($stack, $order);
+CRUD::orderButtons($stack, $order);
 
 // modify button, modifications are the attributes and their new values.
-$this->crud->modifyButton($name, $modifications);
+CRUD::modifyButton($name, $modifications);
 
 // Move the target button to the destination position, target and destion are the button names, where is 'before' or 'after'
-$this->crud->moveButton($target, $where, $destination);
+CRUD::moveButton($target, $where, $destination);
 ```
 
 <a name="overwriting-a-default-button"></a>
-### Overwriting a Default Button
+### Overriding a Button
 
-Before showing any buttons, Backpack will check your ```resources\views\vendor\backpack\crud\buttons``` directory, to see if you've overwritten any default buttons. If it finds a blade file with the same name there as the default buttons, it will use your blade file, instead of the default.
+Before showing any buttons, Backpack will check your ```resources\views\vendor\backpack\crud\buttons``` directory, to see if you've overriden any buttons. If it finds a blade file with the same name there as the operation buttons, it will use your blade file, instead of the one in the package.
 
-That means **you can overwrite an existing button simply by creating a blade file with the same name inside this directory**.
-
-<a name="creating-a-custom-button"></a>
-### Creating a Custom Button
-
-To create a custom button:
-- run `php artisan backpack:button new-button-name` to create a new blade file in `resources\views\vendor\backpack\crud\buttons`
-- add that button using the ```addButton()``` syntax above, in the EntityCrudControllers you want, inside the ```setupListOperation()``` method;
-
-In this blade file, you can use:
-- ```$entry``` - the database entry you're showing (only inside the ```line``` stack);
-- ```$crud``` - the entire CrudPanel object;
-- ```$button``` - the button you're currently showing;
-
-Note: If you've opted to add a button from a model function (not a blade file), inside your model function you can use `$this` to get the current entry (so for example, you can do `$this->id`.
-
+That means **you can override an existing button simply by creating a blade file with the same name inside this directory**.
 
 <a name="creating-a-quick-button"></a>
 ### Creating a Quick Button
@@ -104,11 +91,11 @@ Most of the times, the buttons you want to create aren't complex at all. They're
 
 ```php
 // by default, the quick button will figure out the Name and Label from the button name
-$this->crud->button('email')->stack('line')->view('crud::buttons.quick');
+CRUD::button('email')->stack('line')->view('crud::buttons.quick');
 
 // but you can easily customize Access, Name, Label, Icon in `metas`
 // and even the attributes of the <a> element in meta's `wrapper`
-$this->crud->button('email')->stack('line')->view('crud::buttons.quick')->meta([
+CRUD::button('email')->stack('line')->view('crud::buttons.quick')->meta([
     'access' => 'Email',
     'label' => 'Email',
     'icon' => 'la la-envelope',
@@ -120,6 +107,25 @@ $this->crud->button('email')->stack('line')->view('crud::buttons.quick')->meta([
     ]
 ]);
 ```
+
+<a name="creating-a-custom-button"></a>
+### Creating a Custom Button
+
+To create a completely custom button:
+- run `php artisan backpack:button new-button-name` to create a new blade file in `resources\views\vendor\backpack\crud\buttons`
+- add that button using the ```addButton()``` syntax, in the EntityCrudControllers you want, inside the ```setupListOperation()``` method;
+
+```php
+// add a button whose HTML is in a view placed at resources\views\vendor\backpack\crud\buttons
+CRUD::addButtonFromView($stack, $name, $view, $position);
+```
+
+In the blade file, you can use:
+- ```$entry``` - the database entry you're showing (only inside the ```line``` stack);
+- ```$crud``` - the entire CrudPanel object;
+- ```$button``` - the button you're currently showing;
+
+Note: If you've opted to add a button from a model function (not a blade file), inside your model function you can use `$this` to get the current entry (so for example, you can do `$this->id`.
 
 <a name="examples"></a>
 ## Examples
@@ -142,7 +148,7 @@ Route::get('user/{id}/moderate', 'UserCrudController@moderate');
 
 - We can now add a ```moderate()``` method to our ```UserCrudController```, which would moderate the user, and redirect back.
 ```php
-public function moderate() 
+public function moderate()
 {
     // show a form that does something
 }
@@ -150,7 +156,7 @@ public function moderate()
 
 - Now we can actually add this button to any of ```UserCrudController::setupListOperation()```:
 ```php
-$this->crud->addButtonFromView('line', 'moderate', 'moderate', 'beginning');
+CRUD::addButtonFromView('line', 'moderate', 'moderate', 'beginning');
 ```
 
 <a name="adding-a-custom-button-without-a-blade-file"></a>
@@ -161,7 +167,7 @@ Instead of creating a blade file for your button, you can use a function on your
 In your ```ArticleCrudController::setupListOperation()```:
 ```php
 // add a button whose HTML is returned by a method in the CRUD model
-$this->crud->addButtonFromModelFunction('line', 'open_google', 'openGoogle', 'beginning');
+CRUD::addButtonFromModelFunction('line', 'open_google', 'openGoogle', 'beginning');
 ```
 
 In your ```Article``` model:
@@ -177,7 +183,7 @@ public function openGoogle($crud = false)
 <a name="adding-a-custom-button-with-a-blade-file"></a>
 ### Adding a Custom Button with JavaScript to the "top" stack
 
-Let's say we want to create an ```import.blade.php``` button. For simplicity, this button would just run an AJAX call which handles everything, and shows a status report to the user through notification bubbles. 
+Let's say we want to create an ```import.blade.php``` button. For simplicity, this button would just run an AJAX call which handles everything, and shows a status report to the user through notification bubbles.
 
 The "top" buttons are not bound to any certain entry, like buttons from the "list" stack. They can only do general things. And if they do general things, it's _generally_ recommended that you move their JavaScript to the bottom of the page. You can easily do that with ```@push('after_scripts')```, because the Backpack default layout has an ```after_scripts``` stack. This way, you can make sure your JavaScript is moved at the bottom of the page, after all other JavaScript has been loaded (jQuery, DataTables, etc). Check out the example below.
 
@@ -239,7 +245,7 @@ Route::get('user/import', 'UserCrudController@import');
 
 - We can now add a ```import()``` method to our ```UserCrudController```, which would import the users.
 ```php
-public function import() 
+public function import()
 {
     // whatever you decide to do
 }
@@ -247,7 +253,7 @@ public function import()
 
 - Now we can actually add this button to any of ```UserCrudController::setupListOperation()```:
 ```php
-$this->crud->addButtonFromView('top', 'import', 'import', 'end');
+CRUD::addButtonFromView('top', 'import', 'import', 'end');
 ```
 
 ### Reorder buttons

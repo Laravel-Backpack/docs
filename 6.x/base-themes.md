@@ -124,7 +124,7 @@ Even if you plan to use `theme-tabler` or `theme-coreuiv4`, when upgrading it's 
 <a name="how-to-create-a-new-theme"></a>
 ## How to Create a New Theme
 
-TODO. We're working on making this A LOT easier. On making creating a new Backpack theme take 5 hours or less. Please follow this thread for now: https://github.com/Laravel-Backpack/docs/issues/417
+Creating a new Backpack theme should only take you about 5 hours. If it takes you more, please contact us and let us know what was the most time-consuming part, so we can improve the process. In order to create a new Backpack theme, please [follow the guide](/docs/{{version}}/add-ons-tutorial-how-to-create-a-theme).
 
 <a name="how-to-uninstall-a-theme"></a>
 ## How to Uninstall a Theme
