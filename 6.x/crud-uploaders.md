@@ -87,11 +87,29 @@ class ArticleCategory extends Pivot
 
 // and in your article/category models, update the relationship to:
 public function categories() {
-    $this->belongsToMany(Category::class)->withPivot('picture')->using(ArticleCategory::class); //assuming picture is the pivot field where you store the uploaded file.
+    $this->belongsToMany(Category::class)->withPivot('picture')->using(ArticleCategory::class); //assuming picture is the pivot field where you store the uploaded file path.
 }
 ```
 
+- **`MorphToMany`** 
 
+Everything like the previous `belongsToMany`, but the pivot model needs to extend `MorphPivot`.
+
+```php
+use Illuminate\Database\Eloquent\Relations\MorphPivot;
+
+class ArticleCategory extends MorphPivot
+{
+
+}
+
+
+//in your model
+public function categories() {
+    $this->morphToMany(Category::class)->withPivot('picture')->using(ArticleCategory::class); //assuming picture is the pivot field where you store the uploaded file path.
+}
+
+```
 
 <a name="naming-files-when-using-uploaders"></a>
 ### Naming files when using Uploaders
