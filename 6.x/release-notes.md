@@ -8,8 +8,17 @@ Backpack v6 is a major release, with major changes. But don't worry, we've kept 
 
 > **If you've purchased a Backpack add-on after 1st of July 2022  (eg. PRO, DevTools), you get free access to the version that supports Backpack v6.** All purchases get you 12 months of updates _and_ upgrades.
 
-Here are the BIG things Backpack v6 brings to the table and why you should upgrade from [Backpack v5](/docs/5.x) to v6:
+Here are the BIG things Backpack v6 brings to the table and why you should upgrade from [Backpack v5](/docs/5.x) to v6. But first... we should give credit where credit is due. **Big BIG thanks to**:
+- **[Pedro Martins](https://github.com/pxpm)** for creating [Uploaders](#uploaders-making-upload-fields-easier-than-ever) and [MediaLibrary Uploaders](#spatie-medialibrary-support);
+- **[Antonio Almeida](https://github.com/promatik)** for creating [Basset](#basset-a-better-way-to-load-css-and-js-assets);
+- **[Mauro Martinez](https://github.com/maurohmartinez)** for creating the [CoreUIv4](#coreui-v4-theme-easy-upgrade) & [Tabler](#tabler-theme-new-default) themes, plus our [new video course](/docs/6.x/getting-started-videos);
+- **[Jorge Castro](https://github.com/jorgetwgroup)** for creating [the dropzone field](#new-field-dropzone);
+- **[Munjal Mayank](https://github.com/munjaldevelopment)** for the [dozens of new columns](#23-new-column-types) we've added;
+- **[Karan Datwani](https://github.com/karandatwani92)** and **[Mohammad Emran](https://github.com/phpfour)** for bug fixes and docs improvements;
+- **[Cristian Tabacitu](https://github.com/tabacitu)** for [custom form operations](#custom-form-operations-now-easy), [quick buttons](#quick-buttons-now-one-line) and guidance on all of the above;
+- **our paying customers**, who have made all of this possible by supporting our work 🙏
 
+Together, our team has put in an incredible amount of work to make v6 what it is - more than 870 commits, across 6 months, all while still maintaining, bug fixing and improving v5. Again, big thanks to everybody who has helped made this happen 🙏
 
 <a name="added"></a>
 ## Added
