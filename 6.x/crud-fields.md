@@ -2535,10 +2535,37 @@ If your field type uses JavaScript, we recommend you:
 - put a ```data-init-function="bpFieldInitMyCustomField"``` attribute on your input;
 - place your logic inside the scripts section mentioned above, inside ```function bpFieldInitMyCustomField(element) {}```; of course, you choose the name of the function but it has to match whatever you specified as data attribute on the input, and it has to be pretty unique; inside this method, you'll find that ```element``` is jQuery-wrapped object of the element where you specified ```data-init-function```; this should be enough for you to not have to use IDs, or any other tricks, to determine other elements inside the DOM - determine them in relation to the main element; if you want, you can choose to put the ```data-init-function``` attribute on a different element, like the wrapping div;
 
+<hr>
+
+<a name="advanced-fields-use"></a>
+## Advanced Fields Use
 
 <a name="manipulating-fields-with-javascript"></a>
-## Manipulating Fields with JavaScript
+### Manipulating Fields with JavaScript
 
 When you need to add custom interactions (if field is X then do Y), we have just the thing for you. You can easily add custom interactions, using our **CrudField JavaScript API**. It's already loaded on our Create / Update pages, in the global `crud` object, and it makes it dead-simple to select a field - `crud.field('title')` - using a syntax that's very familiar to our PHP syntax, then do the most common things on it.
 
 For more information, please see the dedicated page about our [CrudField Javascript API](/docs/{{version}}/crud-fields-javascript-api).
+
+
+<a name="adding-new-methods-to-the-crudfield-class"></a>
+### Adding new methods to the CrudField class
+
+You can add your own methods Backpack CRUD fields, so that you can do `CRUD::field('name')->customThing()`. You can easily do that, because the `CrudField` class is Macroable. It's as easy as this:
+
+```php
+use Backpack\CRUD\app\Library\CrudPanel\CrudField;
+
+// register media upload macros on CRUD fields
+if (! CrudField::hasMacro('customThing')) {
+    CrudField::macro('customThing', function ($firstParamExample = [], $secondParamExample = null) {
+        /** @var CrudField $this */
+
+        // TODO: do anything you want to $this
+
+        return $this;
+    });
+}
+```
+
+A good place to do this would be in your AppServiceProvider, in a custom service provider. That way you have it across all your CRUD panels.

@@ -1679,3 +1679,25 @@ $this->crud->setActionsColumnPriority(10000);
 ```
 
 >Note that responsive tables adopt special behavior if the table is not able to show all columns. This includes displaying a vertical ellipsis to the left of the row, and making the row clickable to reveal more detail. This behavior is automatic and is not manually controllable via a field property.
+
+<a name="adding-new-methods-to-the-crudcolumn-class"></a>
+### Adding new methods to the CrudColumn class
+
+You can add your own methods Backpack CRUD columns, so that you can do `CRUD::column('name')->customThing()`. You can easily do that, because the `CrudColumn` class is Macroable. It's as easy as this:
+
+```php
+use Backpack\CRUD\app\Library\CrudPanel\CrudColumn;
+
+// register media upload macros on CRUD columns
+if (! CrudColumn::hasMacro('customThing')) {
+    CrudColumn::macro('customThing', function ($firstParamExample = [], $secondParamExample = null) {
+        /** @var CrudColumn $this */
+
+        // TODO: do anything you want to $this
+
+        return $this;
+    });
+}
+```
+
+A good place to do this would be in your AppServiceProvider, in a custom service provider. That way you have it across all your CRUD panels.
