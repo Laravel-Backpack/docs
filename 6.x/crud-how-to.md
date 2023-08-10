@@ -83,6 +83,33 @@ You can limit where that CSS/JS is added by making the `Widget::add()` call in t
 - if you want it to be loaded on all pages for all CRUDs, you can create a CustomCrudController that extends our CrudController, do it there and then make sure all your CRUDs extend `CustomCrudController`;
 - if you want it to be loaded on all pages (even non-CRUD like dashboards) you can add the CSS/JS file on all pages by adding it in your `config/backpack/base.php`, under `scripts` and `styles`;
 
+<a name="design"></a>
+## Design
+
+<a name="how-to-customize-crud-panel-design"></a>
+### How to customize CRUD Panel design (CSS hooks)
+
+Our CRUD panel design is the result of 7+ years of feedback, from both admins and developers. Each iteration has made it better and better, to the point where admins find it very intuitive to do everything they need, and Backpack is lauded for how intuitive its design is. So we do _not_ recommend moving components around.
+
+However, you might want to change the styling - colors, border, padding etc. Especially if you're creating a new theme. For that purpose, we have made sure all CRUD operations have the `bp-section` attributes in key elements, so you can easily and reliably target them. For example:
+
+- List operation
+    - `bp-section=page-header` for the page header (between breadcrumbs and content)
+    - `bp-section=crud-operation-reorder` for the content
+- Create operation
+    - `bp-section=page-header` for the page header (between breadcrumbs and content)
+    - `bp-section=crud-operation-create` for the content
+- Update operation
+    - `bp-section=page-header` for the page header (between breadcrumbs and content)
+    - `bp-section=crud-operation-update` for the content
+- Show operation
+    - `bp-section=page-header` for the page header (between breadcrumbs and content)
+    - `bp-section=crud-operation-show` for the content
+- Reorder operation
+    - `bp-section=page-header` for the page header (between breadcrumbs and content)
+    - `bp-section=crud-operation-reorder` for the content
+
+This is a very simple yet effective solution for your custom CSS or JS to target the header or target specific operations, since each operation has its content wrapped around an element with `bp-section=crud-operation-xxx`.
 
 <a name="columns"></a>
 ## Columns

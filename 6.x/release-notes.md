@@ -101,7 +101,12 @@ Sounds interesting? [Read more about Basset](https://github.com/Laravel-Backpack
 
 #### CSS hook classes
 
-TODO before launch
+Starting with v6, if you want change the CRUD Panel styling - colors, border, padding etc (especially if you're creating a new theme), there's an easy way to target CRUD elements. We have made sure all CRUD operations have the `bp-section` attributes in key elements, so you can easily and reliably target them. For example the List operation provides:
+
+- `bp-section=page-header` for the page header (between breadcrumbs and content)
+- `bp-section=crud-operation-reorder` for the content
+
+This is a very simple yet effective solution for your custom CSS or JS to target the header or target specific operations, since each operation has its content wrapped around an element with `bp-section=crud-operation-xxx`. For more information please check out [this section](/docs/{{version}}/crud-how-to#how-to-customize-crud-panel-design-css-hooks) in the docs.
 
 <hr>
 
