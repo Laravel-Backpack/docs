@@ -42,13 +42,11 @@ If you have NOT created your Eloquent models yet, you can use whatever you want 
 We heavily recommend you spend a little time to understand Backpack, and only afterwards install and use it. Fortunately it's super-simple to get started. Using any of the options below will get you to a point where you can use Backpack in your projects:
 - **[Video Course](/docs/{{version}}/getting-started-videos)** - 59 minutes
 - **[Text Course](/docs/{{version}}/getting-started-basics)** - 20 minutes
-- **[Email Course](https://backpackforlaravel.com/getting-started-emails)** - 1 email per day, for 4 days, 5 minutes each
 
 
 <br>
 <a href="/docs/{{version}}/getting-started-videos" class="btn btn-outline-info btn-sm shadow"><i class="fe fe-video"></i> Video Course</a>
 <a href="/docs/{{version}}/getting-started-basics" class="btn btn-outline-info btn-sm shadow"><i class="fe fe-file-text"></i> Text Course</a>
-<a href="https://backpackforlaravel.com/getting-started-emails" class="btn btn-outline-info btn-sm shadow"><i class="fe fe-inbox"></i> Email Course</a>
 
 ---
 
