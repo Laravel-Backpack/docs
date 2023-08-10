@@ -38,7 +38,7 @@
     + [Create](/docs/{{version}}/crud-operation-create) & [Update](/docs/{{version}}/crud-operation-update)
         + [Fields](/docs/{{version}}/crud-fields)
         + [Save Actions](/docs/{{version}}/crud-save-actions)
-        + [File Uploads](/docs/{{version}}/crud-uploaders)
+        + [Uploaders](/docs/{{version}}/crud-uploaders)
         + [CrudField JS Library](/docs/{{version}}/crud-fields-javascript-api)
     + [Delete](/docs/{{version}}/crud-operation-delete)
     + [Show](/docs/{{version}}/crud-operation-show)

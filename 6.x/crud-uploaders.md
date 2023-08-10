@@ -5,12 +5,12 @@
 <a name="upload-about"></a>
 ## About
 
-Uploading and managing files is a common task in Admin Panels. Starting with Backpack v6, you can fully setup your upload fields in your field definition, using purpose-built classes we call Uploaders. No more need to create mutators, manual validation of input or custom code to handle the files. Though you can still do that, if you want.
+Uploading and managing files is a common task in Admin Panels. Starting with Backpack v6, you can fully setup your upload fields in your field definition, using purpose-built classes we call Uploaders. No more need to create mutators, manual validation of input or custom code to handle the files - though you can still do that, if you want.
 
 <a name="upload-how-it-works"></a>
 ## How it works
 
-When adding an upload field (`upload`, `upload_multiple`, `image` or `dropzone`) to your operation, tell Backpack that you want it to use the appropriate Uploader, by using `withFiles()`:
+When adding an upload field (`upload`, `upload_multiple`, `image` or `dropzone`) to your operation, tell Backpack that you want to use the appropriate Uploader, by using `withFiles()`:
 
 ```php
 CRUD::field('avatar')->type('upload')->withFiles();
@@ -114,3 +114,16 @@ protected function setupDeleteOperation()
 ```
 
 Alternatively, you can manually delete the file in your Model, using the `deleted` Eloquent model event. That would ensure the file gets deleted _even if_ the entry was deleted from outside the admin panel.
+
+
+<a name="other-uploaders"></a>
+## Other Uploaders
+
+Since Uploaders are stand-alone classes, anybody can create Uploaders that better match their needs, or integrate with other third-party packages. For example...
+
+<a name="spatie-media-library"></a>
+### Uploaders for Spatie MediaLibrary
+
+The 3rd party package [`spatie/laravel-medialibrary`](https://spatie.be/docs/laravel-medialibrary/) gives you the power to easily associate files with Eloquent models. The package is incredibly popular, time-tested and well maintained.
+
+To have Backpack upload and retrieve files using this package, we've created special Uploaders. Then it will be as easy as doing `CRUD::field('avatar')->type('image')->withMedia();`. For more information and installation instructions please see the docs on Github for [`backpack/medialibrary-uploaders`](https://github.com/Laravel-Backpack/medialibrary-uploaders).
