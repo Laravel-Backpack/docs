@@ -121,9 +121,10 @@ CRUD::addButtonFromView($stack, $name, $view, $position);
 ```
 
 In the blade file, you can use:
-- ```$entry``` - the database entry you're showing (only inside the ```line``` stack);
-- ```$crud``` - the entire CrudPanel object;
-- ```$button``` - the button you're currently showing;
+- `$entry` - the database entry you're showing (only inside the `line` stack);
+- `$crud` - the entire CrudPanel object;
+- `$button` - the button you're currently showing;
+- `$meta['something']` - any custom attribute the developer has passed, using the `metas()` method;
 
 Note: If you've opted to add a button from a model function (not a blade file), inside your model function you can use `$this` to get the current entry (so for example, you can do `$this->id`.
 
