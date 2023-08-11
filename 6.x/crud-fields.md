@@ -1782,20 +1782,29 @@ CRUD::field([
 
 **That's it.** Backpack now will save those additional inputs on the pivot table.
 
-Additionally, if you want to change something about the primary select, you can do that using the `pivotSelect` attribute:
+#### Configuring the Pivot Select field
+If you want to change something about the primary select (the pivot select field created by Backpack), you can do that using the `pivotSelect` attribute:
 
 ```php
 CRUD::field([
     'name'          => 'companies',
     'type'          => "relationship",
     'subfields'   => [ ... ],
-     // ..
+     // you can use the same configurations you use in any relationship select
+     // like making it an ajax, constraining the options etc.
     'pivotSelect'=> [
-        // 'ajax' => true,
         'placeholder' => 'Pick a company',
         'wrapper' => [
             'class' => 'col-md-6',
         ],
+        // by default we call a $model->all(). you can configure it like in any other select
+        'options' => function($model) {
+            return $model->where('type', 'primary');
+        },
+        // note that just like any other select, enabling ajax will require you to provide an url for the field
+        // to fetch available options. You can use the FetchOperation or manually create the enpoint.
+        'ajax' => true,
+        'data_source' => backpack_url('fetch'),
     ],
 ]);
 ```
