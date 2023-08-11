@@ -128,7 +128,16 @@ CRUD::filter('name')->remove();
 - ```->forget('attribute_name')``` - By chaining **forget('attribute_name')** to a filter you remove that attribute from the filter;
 
 ```php
-CRUD::filter('name')->forget('suffix');
+CRUD::filter('price')->prefix('$'); // will have "$" as prefix 
+CRUD::filter('price')->forget('prefix'); // will no longer have "$" as prefix
+
+// Note: 
+// You can only call "forget" on filter attributes. Calling "forget" on "before", 
+// "after", "whenActive", "whenInactive" etc. will do nothing, because those 
+// are not attributes, they are methods. You can, however, forget filter logic 
+// or fallback logic by using their attributes:
+CRUD::filter('price')->forget('logic');
+CRUD::filter('price')->forget('fallbackLogic');
 ```
 
 - ```->after('destination')``` - By chaining **after('destination_filter_name')** you will move the current filter after the given filter;
@@ -163,9 +172,9 @@ Backpack filters do not contain any default filtering _logic_, because it cannot
 Filter logic closures are just an anonymous functions that gets executed when the filter is active. You can use any Laravel or Backpack functionality you want inside them. For example, a valid closure would be:
 
 ```php
-(function($value) {
-  CRUD::addClause('where', 'draft', 1);
-})
+CRUD::filter('draft') ->whenActive(function($value) {
+    CRUD::addClause('where', 'draft', 1);
+});
 ```
 
 Notes about the filter logic closure:
