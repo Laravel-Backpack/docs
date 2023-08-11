@@ -78,7 +78,7 @@ CRUD::filter('name')->label('Name');
 CRUD::filter('active')
 	->type('simple')
 	->whenActive(function ($value) {
-	    $this->crud->addClause('where', 'active', '1');
+	    CRUD::addClause('where', 'active', '1');
 	})->apply();
 
 // whenActive, left to be applied by the operation itself
