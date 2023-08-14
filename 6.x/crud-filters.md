@@ -48,7 +48,7 @@ CRUD::filter('name')
     ->label('The name')
     ->whenActive(function($value) {
         CRUD::addClause('where', 'name', 'LIKE', '%'.$value.'%');
-    })->else(function($value) {
+    })->else(function() {
         // nada
     });
 ```
