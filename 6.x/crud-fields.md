@@ -1793,6 +1793,7 @@ CRUD::field([
      // you can use the same configurations you use in any relationship select
      // like making it an ajax, constraining the options etc.
     'pivotSelect'=> [
+        // 'attribute' => "title", // attribute on model that is shown to user
         'placeholder' => 'Pick a company',
         'wrapper' => [
             'class' => 'col-md-6',
