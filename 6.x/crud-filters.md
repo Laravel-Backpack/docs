@@ -85,7 +85,7 @@ CRUD::filter('active')
 CRUD::filter('active')
 	->type('simple')
 	->whenActive(function ($value) {
-	    $this->crud->addClause('where', 'active', '1');
+	    CRUD::addClause('where', 'active', '1');
 	});
 ```
 
@@ -96,9 +96,9 @@ CRUD::filter('active')
 CRUD::filter('active')
 	->type('simple')
 	->whenActive(function ($value) {
-	    $this->crud->addClause('where', 'active', '1');
+	    CRUD::addClause('where', 'active', '1');
 	})->whenInactive(function ($value) {
-	    $this->crud->addClause('where', 'active', '0');
+	    CRUD::addClause('where', 'active', '0');
 	})->apply();
 
 // else alias, left to be applied by the operation itself
@@ -106,9 +106,9 @@ CRUD::filter('active')
 	->type('simple')
 	->label('Simple')
 	->whenActive(function ($value) {
-	    $this->crud->addClause('where', 'active', '1');
+	    CRUD::addClause('where', 'active', '1');
 	})->else(function ($value) {
-	    $this->crud->addClause('where', 'active', '0');
+	    CRUD::addClause('where', 'active', '0');
 	});
 ```
 
@@ -199,7 +199,7 @@ Only shows a label and can be toggled on/off. Useful for things like active/inac
 CRUD::filter('active')
     ->type('simple')
     ->whenActive(function() {
-      // $this->crud->addClause('active'); // apply the "active" eloquent scope
+      // CRUD::addClause('active'); // apply the "active" eloquent scope
     });
 ```
 
@@ -216,7 +216,7 @@ Shows a text input. Most useful for letting the user filter through information 
 CRUD::filter('description')
     ->type('text')
     ->whenActive(function($value) {
-      // $this->crud->addClause('where', 'description', 'LIKE', "%$value%");
+      // CRUD::addClause('where', 'description', 'LIKE', "%$value%");
     });
 ```
 
@@ -234,7 +234,7 @@ Show a datepicker. The user can select one day.
 CRUD::filter('birthday')
     ->type('date')
     ->whenActive(function($value) {
-      // $this->crud->addClause('where', 'date', $value);
+      // CRUD::addClause('where', 'date', $value);
     });
 ```
 
@@ -252,8 +252,8 @@ CRUD::filter('from_to')
     ->type('date_range')
     ->whenActive(function($value) {
       // $dates = json_decode($value);
-      // $this->crud->addClause('where', 'date', '>=', $dates->from);
-      // $this->crud->addClause('where', 'date', '<=', $dates->to . ' 23:59:59');
+      // CRUD::addClause('where', 'date', '>=', $dates->from);
+      // CRUD::addClause('where', 'date', '<=', $dates->to . ' 23:59:59');
     });
 ```
 
@@ -276,7 +276,7 @@ CRUD::filter('status')
       4 => 'Not available',
     ])
     ->whenActive(function($value) {
-      // $this->crud->addClause('where', 'status', $value);
+      // CRUD::addClause('where', 'status', $value);
     });
 ```
 
@@ -302,7 +302,7 @@ CRUD::filter('status')
       ];
     })
     ->whenActive(function($value) {
-      // $this->crud->addClause('where', 'status', $value);
+      // CRUD::addClause('where', 'status', $value);
     });
 ```
 
@@ -329,7 +329,7 @@ CRUD::filter('status')
       ];
     })
     ->whenActive(function($value) {
-      // $this->crud->addClause('whereIn', 'status', json_decode($values));
+      // CRUD::addClause('whereIn', 'status', json_decode($values));
     });
 ```
 
@@ -366,7 +366,7 @@ CRUD::filter('category_id')
     ->values(backpack_url('product/fetch/category'))
     ->method('POST')
     ->whenActive(function($value) {
-      // $this->crud->addClause('where', 'category_id', $value);
+      // CRUD::addClause('where', 'category_id', $value);
     });
 
     // other methods
@@ -404,7 +404,7 @@ CRUD::filter('category_id')
     ->type('select2_ajax')
     ->values(url('admin/test/ajax-category-options'))
     ->whenActive(function($value) {
-      // $this->crud->addClause('where', 'category_id', $value);
+      // CRUD::addClause('where', 'category_id', $value);
     });
 
     // other methods:
@@ -431,10 +431,10 @@ CRUD::filter('number')
     ->whenActive(function($value) {
       $range = json_decode($value);
       // if ($range->from) {
-      //     $this->crud->addClause('where', 'number', '>=', (float) $range->from);
+      //     CRUD::addClause('where', 'number', '>=', (float) $range->from);
       // }
       // if ($range->to) {
-      //     $this->crud->addClause('where', 'number', '<=', (float) $range->to);
+      //     CRUD::addClause('where', 'number', '<=', (float) $range->to);
       // }
     });
 
@@ -455,7 +455,7 @@ CRUD::filter('category_id')
     ->type('view')
     ->view('package::columns.column_type_name')  // or path to blade file
     ->whenActive(function($value) {
-    // $this->crud->addClause('where', 'category_id', $value);
+    // CRUD::addClause('where', 'category_id', $value);
     });
 ```
 
@@ -601,7 +601,7 @@ Use a simple filter to add a scope if the filter is active:
 CRUD::filter('published')
     ->type('simple')
     ->whenActive(function() { // if the filter is active (the GET parameter "published" exits)
-        $this->crud->addClause('published');
+        CRUD::addClause('published');
     });
 ```
 
@@ -637,11 +637,11 @@ $this->crud->addFilter([
 ],
 false, // the simple filter has no values, just the "Draft" label specified above
 function() { // if the filter is active (the GET parameter "draft" exits)
-  $this->crud->addClause('where', 'draft', '1');
+  CRUD::addClause('where', 'draft', '1');
   // we've added a clause to the CRUD so that only elements with draft=1 are shown in the table
   // an alternative syntax to this would have been
   // $this->crud->query = $this->crud->query->where('draft', '1');
   // another alternative syntax, in case you had a scopeDraft() on your model:
-  // $this->crud->addClause('draft');
+  // CRUD::addClause('draft');
 });
 ```
