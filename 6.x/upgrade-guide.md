@@ -55,6 +55,7 @@ Please make sure your project respects the requirements below, before you start 
         "backpack/editable-columns": "^3.0",
         "backpack/revise-operation": "^2.0",
         "backpack/medialibrary-uploaders": "^1.0",
+        "backpack/devtools": "^2.0",
 ```
 
 <a name="step-3.1" href="#step-3.1" class="badge badge-danger text-white" style="text-decoration: none;">Step 3.1.</a> We removed `PackageVersions` and the cache busting string is now handled by `Basset`.
@@ -65,8 +66,11 @@ To avoid errors on the next step, please remove `cachebusting_string` from `conf
 
 <a name="step-3.2" href="#step-3.2" class="badge badge-danger text-white" style="text-decoration: none;">Step 3.2.</a> Let's get the latest Backpack and install it. If you get any conflicts with **Backpack 1st party add-ons**, most of the time you just need to move one version up, eg: from `backpack/menucrud: ^3.0` to `backpack/menucrud: ^4.0`. See the step above again. Please run:
 
-```
+```bash
 composer update
+
+# before calling the next command make sure you have no pending migrations with `php artisan migrate:status`
+# and that your webserver is running and accessible in the URL you defined in .env `APP_URL`.
 php artisan backpack:install
 ```
 
@@ -182,6 +186,7 @@ It's as easy as using an asset from a CDN, but it's much _much_ better than that
 ----
 
 <a name="step-20" href="#step-20" class="badge badge-danger" style="text-decoration: none;">Step 20.</a> Please rename `resources/views/vendor/backpack/base` directory, from `base` to `ui`.
+**Note:** if you previously had an `ui` folder you need to rename it or delete it before doing this step.
 
 
 ----
