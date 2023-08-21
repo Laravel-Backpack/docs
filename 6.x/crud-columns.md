@@ -263,7 +263,7 @@ Show the HTML that you provide in the page. You can optionally escape the text w
 ### date
 
 
-The date column will show a localized date in the default date format (as specified in the ```config/backpack/base.php``` file), whether the attribute is cast as date in the model or not.
+The date column will show a localized date in the default date format (as specified in the ```config/backpack/ui.php``` file), whether the attribute is cast as date in the model or not.
 
 Note that the ```format``` attribute uses ISO date formatting parameters and not PHP ```date()``` formatters.  See <https://carbon.nesbot.com/docs/#iso-format-available-replacements> for more information.
 
@@ -282,7 +282,7 @@ Note that the ```format``` attribute uses ISO date formatting parameters and not
 ### datetime
 
 
-The date column will show a localized datetime in the default datetime format (as specified in the ```config/backpack/base.php``` file), whether the attribute is cast as datetime in the model or not.
+The date column will show a localized datetime in the default datetime format (as specified in the ```config/backpack/ui.php``` file), whether the attribute is cast as datetime in the model or not.
 
 Note that the ```format``` attribute uses ISO date formatting parameters and not PHP ```date()``` formatters.  See <https://carbon.nesbot.com/docs/#iso-format-available-replacements> for more information.
 
