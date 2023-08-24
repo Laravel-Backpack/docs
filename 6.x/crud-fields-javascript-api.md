@@ -291,3 +291,16 @@ crud.field('visible').onChange(field => {
 // so that if the checkbox starts checked, it's visible,
 // if the checkbox starts unchecked, it's hidden
 ```
+
+<a name="example-13"></a>
+#### (13) When a morphable_type is selected, show another field
+
+When using the `relationship` field on a morph relation, we can target the ID or TYPE inputs using brackets (the are _not_ subfields):
+
+```javascript
+crud.field('commentable[commentable_type]').onChange(field => {
+    // hide/show the other input
+    crud.field('wish').show(field.value == 'article');
+}).change(); 
+// this last change() call makes the code above also run on pageload
+```
