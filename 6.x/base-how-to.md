@@ -464,8 +464,20 @@ return new class() extends Migration {
 ```
 More info in: [Preparing database for email verification](https://laravel.com/docs/10.x/verification#database-preparation)
 
-**Step 3** - Enable the functionality by changing `setup_email_validation_routes` in `config/backpack/base.php` to `true`.
+**Step 3** - Make sure you have the `verified` and `signed` middleware alias in your `App\Http\Kernel.php` file. New Laravel 10 installations already have them, but if you came from earlier versions it's possible that they are missing.
 
-If you don't have this config there, it's a good time to add it. 
+```php
+protected $middlewareAliases = [
+        // ... other middleware aliases
+        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        // if you don't have the VaidateSignature middleware you can copy it from here: 
+        // https://github.com/laravel/laravel/blob/10.x/app/Http/Middleware/ValidateSignature.php
+        'signed' => \App\Http\Middleware\ValidateSignature::class,
+    ];
+```
+
+**Step 4** - Enable the functionality by changing `setup_email_validation_routes` in `config/backpack/base.php` to `true`.
+
+If you don't have this config key there, now it's a good time to add it. 
 
 
