@@ -476,8 +476,7 @@ protected $middlewareAliases = [
     ];
 ```
 
-**Step 4** - Enable the functionality by changing `setup_email_validation_routes` in `config/backpack/base.php` to `true`.
+**Step 4** - Enable the functionality in `config/backpack/base.php` by changing `setup_email_validation_routes` to `true`. If you don't have this config key there, now is a good time to add it.
 
-If you don't have this config key there, now it's a good time to add it. 
 
 
