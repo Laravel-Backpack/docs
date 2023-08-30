@@ -623,7 +623,7 @@ Let's say we have `comments`, that can be either for `videos` or `posts`.
 ```php
 // in CommentCrudController you can add the morphTo fields by naming the field the morphTo relation name
 CRUD::field('commentable')
-    ->addMorphOption('App\Models\Video');
+    ->addMorphOption('App\Models\Video')
     ->addMorphOption('App\Models\Post');
 ```
 This will generate two inputs:
