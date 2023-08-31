@@ -438,11 +438,9 @@ class User extends Authenticatable implements MustVerifyEmail
 ```
 More info in: [Preparing model for email verification](https://laravel.com/docs/10.x/verification#model-preparation)
 
-**Step 2** - Make sure your Authenticable model table has a `email_verified_at`timestamp column.
+**Step 2** - Make sure your user model table has a `email_verified_at` column (timestamp). New Laravel installations already have it, but if you upgraded from L8/L9 it's possible that the `email_verified_at` column is missing.
 
-New Laravel instalations already bring this column, but if you came from earlier versions it's possible that `email_verified_at` column is missing. 
-
-You can quickly create a new migration that add that column with the following code: (please adjust table name if different from default). 
+You can quickly create a new migration using `php artisan make:migration add_email_verified_at_column_to_users --table=users`, then use the code below:
 
 ```php
 <?php
@@ -475,7 +473,7 @@ return new class extends Migration
 };
 
 ```
-More info in: [Preparing database for email verification](https://laravel.com/docs/10.x/verification#database-preparation)
+Then run `php artisan migrate`. [More info](https://laravel.com/docs/10.x/verification#database-preparation).More info in: [Preparing database for email verification](https://laravel.com/docs/10.x/verification#database-preparation)
 
 **Step 3** - Make sure you have the `verified` and `signed` middleware alias in your `App\Http\Kernel.php` file. New Laravel 10 installations already have them, but if you came from earlier versions it's possible that they are missing.
 
