@@ -436,7 +436,6 @@ class User extends Authenticatable implements MustVerifyEmail
     // ...
 }
 ```
-More info in: [Preparing model for email verification](https://laravel.com/docs/10.x/verification#model-preparation)
 
 **Step 2** - Make sure your user model table has a `email_verified_at` column (timestamp). New Laravel installations already have it, but if you upgraded from L8/L9 it's possible that the `email_verified_at` column is missing.
 
