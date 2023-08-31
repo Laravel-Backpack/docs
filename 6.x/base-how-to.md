@@ -413,3 +413,80 @@ Add whatever validation rules & inputs you want, in addition to name and passwor
 ```
 This will make the registration process pick up a view you can create, in ```resources/views/vendor/backpack/ui/auth/register.blade.php```. You can copy-paste the original view, and modify as you please. Including adding your own custom inputs.
 
+<a name="enable-email-verification-in-backpack-routes"></a>
+### Enable email verification in Backpack routes
+
+In Backpack CRUD 6.2 we introduced the ability to require email verification when accessing Backpack routes. To enable this feature please do the following: 
+
+**Step 1** - Make sure your user model (usually `App\Models\User`) implements the `Illuminate\Contracts\Auth\MustVerifyEmail` contract. [More info](https://laravel.com/docs/10.x/verification#model-preparation).
+
+```php
+<?php
+ 
+namespace App\Models;
+ 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+ 
+class User extends Authenticatable implements MustVerifyEmail
+{
+    use Notifiable;
+ 
+    // ...
+}
+```
+
+**Step 2** - Make sure your user model table has a `email_verified_at` column (timestamp). New Laravel installations already have it, but if you upgraded from L8/L9 it's possible that the `email_verified_at` column is missing.
+
+You can quickly create a new migration using `php artisan make:migration add_email_verified_at_column_to_users --table=users`, then use the code below:
+
+```php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->addColumn('timestamp', 'email_verified_at', ['nullable' => true])->after('email');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn(['email_verified_at']);
+        });
+    }
+};
+
+```
+Then run `php artisan migrate`. [More info](https://laravel.com/docs/10.x/verification#database-preparation).
+
+**Step 3** - Make sure you have the `verified` and `signed` middleware alias in your `App\Http\Kernel.php` file. New Laravel 10 installations already have them, but if you came from earlier versions it's possible that they are missing.
+
+```php
+protected $middlewareAliases = [
+        // ... other middleware aliases
+        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        // if you don't have the VaidateSignature middleware you can copy it from here: 
+        // https://github.com/laravel/laravel/blob/10.x/app/Http/Middleware/ValidateSignature.php
+        'signed' => \App\Http\Middleware\ValidateSignature::class,
+    ];
+```
+
+**Step 4** - Enable the functionality in `config/backpack/base.php` by changing `setup_email_validation_routes` to `true`. If you don't have this config key there, now is a good time to add it.
+
+
+
