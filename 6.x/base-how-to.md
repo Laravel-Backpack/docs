@@ -418,7 +418,7 @@ This will make the registration process pick up a view you can create, in ```res
 
 In Backpack CRUD 6.2 we introduced the ability to require email verification when accessing Backpack routes. To enable this feature please do the following: 
 
-**Step 1** - Ensure your Authenticable model (usually `App\Models\User`) implements the `Illuminate\Contracts\Auth\MustVerifyEmail` contract.
+**Step 1** - Make sure your user model (usually `App\Models\User`) implements the `Illuminate\Contracts\Auth\MustVerifyEmail` contract. [More info](https://laravel.com/docs/10.x/verification#model-preparation).
 
 ```php
 <?php
