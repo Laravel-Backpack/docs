@@ -416,9 +416,7 @@ This will make the registration process pick up a view you can create, in ```res
 <a name="enable-email-verification-in-backpack-routes"></a>
 ### Enable email verification in Backpack routes
 
-In Backpack CRUD 6.2 we introduced the ability to require email verification when accessing Backpack routes.
-
-To enable this feature please do the following: 
+In Backpack CRUD 6.2 we introduced the ability to require email verification when accessing Backpack routes. To enable this feature please do the following: 
 
 **Step 1** - Ensure your Authenticable model (usually `App\Models\User`) implements the `Illuminate\Contracts\Auth\MustVerifyEmail` contract.
 
