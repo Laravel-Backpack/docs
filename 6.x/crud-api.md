@@ -65,6 +65,12 @@ $this->crud->setColumns();
 // sets the columns you want in the table view, either as array of column names, or multidimensional array with all columns detailed with their types
 ```
 
+- **setFromDb()** - use the public columns in the database table;
+```php
+$this->crud->setFromDb();
+// for a simple CRUD Panel, there should be no need to add/define the fields/columns. The public columns in the database will be converted to be fields
+```
+
 - **Chained - beforeColumn()** - insert current column _before_ the given column
 ```php
 // ------ REORDER COLUMNS
