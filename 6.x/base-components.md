@@ -74,7 +74,9 @@ To show a dropdown menu, with elements, you can use the `menu-dropdown` and `men
 </x-backpack::menu-dropdown>
 ```
 
-Note that you can further customize both components using custom attributes. If you define a `target` on one, that will be passed down to the `a` element.
+Notes: 
+- on `menu-dropdown` you can define `nested="true"` to flag that dropdown as nested (aka. having a parent); so you can have dropdown in dropdown in dropdown; 
+- on both components, you can also define custom attributes; eg. if you define a `target` on one, that will be passed down to the `a` element;
 
 <hr>
 
