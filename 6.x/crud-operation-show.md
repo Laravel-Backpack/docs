@@ -71,6 +71,13 @@ But you can also do both - let Backpack guess columns, and do stuff before or af
 
         // for example, let's add some new columns
         CRUD::column([
+            'name'  => 'my_custom_html',
+            'label' => 'Custom HTML',
+            'type'  => 'custom_html',
+            'value' => '<span class="text-danger">Something</span>',
+        ]);
+        // in the following examples, please note that the table type is a PRO feature
+        CRUD::column([
             'name' => 'table',
             'label' => 'Table',
             'type' => 'table',
