@@ -70,7 +70,7 @@ But you can also do both - let Backpack guess columns, and do stuff before or af
         // MAYBE: do stuff after the autosetup
 
         // for example, let's add some new columns
-        CRUD::column([
+        CRUD::addColumn([
             'name' => 'table',
             'label' => 'Table',
             'type' => 'table',
@@ -80,7 +80,7 @@ But you can also do both - let Backpack guess columns, and do stuff before or af
                 'price' => 'Price',
             ]
         ]);
-        CRUD::column([
+        CRUD::addColumn([
             'name' => 'fake_table',
             'label' => 'Fake Table',
             'type' => 'table',
@@ -92,7 +92,7 @@ But you can also do both - let Backpack guess columns, and do stuff before or af
         ]);
 
         // or maybe remove a column
-        CRUD::column('text')->remove();
+        CRUD::removeColumn('text');
     }
 ```
 ### Tabs - display columns in tabs
@@ -102,18 +102,22 @@ Adding the `tab` attribute to a column, will make the operation display the colu
 ```php
 public function setupShowOperation()
 {
+    // Enable tabs
+    CRUD::enableTabs();
+
     // using the array syntax
-    CRUD::column([
+    CRUD::addColumn([
         'name' => 'name',
         'tab' => 'General',
     ]);
+
     // or using the fluent syntax
-    CRUD::column('description')->tab('Another tab');
+    CRUD::addColumn('description')->tab('Another tab');
 }
 ```
 
 By default `horizontal` tabs are displayed. You can change them to `vertical` by adding in the setup function:
-`$this->crud->setOperationSetting('tabsType', 'vertical')`
+`CRUD::setOperationSetting('tabsType', 'vertical')`
 
 As like any other operation settings, those can be changed globaly for all CRUDs in the `config/backpack/operations/show.php` file.
 
