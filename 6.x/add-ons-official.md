@@ -19,6 +19,7 @@ Free add-ons:
   - [BackupManager](https://github.com/Laravel-Backpack/BackupManager) - interface to backup your files & db using [spatie/laravel-backup](https://github.com/spatie/laravel-backup); <span class="badge badge-pill badge-success">FREE</span>
   - [Download Operation](https://github.com/Laravel-Backpack/download-operation) - download PDFs related to your entries, using [spatie/laravel-browsershot](https://github.com/spatie/laravel-browsershot); <span class="badge badge-pill badge-success">FREE</span>
   - [MediaLibrary Uploaders](https://github.com/Laravel-Backpack/medialibrary-uploaders) - attach files to your Eloquent models using [spatie/laravel-medialibrary](https://github.com/spatie/laravel-medialibrary); <span class="badge badge-pill badge-success">FREE</span>
+  - [Activity Log](https://github.com/Laravel-Backpack/activity-log) - see who changed what, when using [spatie/laravel-activitylog](https://github.com/spatie/laravel-activitylog); <span class="badge badge-pill badge-success">FREE</span>
 
 
 >**The free add-ons only provide basic functionality.** What will be enough for _most_ projects. They do not intend to be a complete solution for all use cases. If you need to customize a package for your specific use case, you can easily do that, by copy-pasting their code in your project and modifying it. Every official package has been created with this in mind, has a very simple architecture, uses Backpack best practices. Find the "extend" section in each of their docs for more about this.
