@@ -102,10 +102,9 @@ When you buy a premium Backpack addon, you get access to not only _updates_, but
 
 Backpack's core is open-source and free (Backpack\CRUD). <span class="badge badge-pill badge-success">FREE</span>
 
-The reason we've been able to build and maintain Backpack since 2016 is that Laravel professionals have supported us, by buying our paid products. As of 2022, these are all Backpack add-ons, which we highly recommend:
+The reason we've been able to build and maintain Backpack since 2016 is that Laravel professionals have supported us, by buying our paid products. As of 2023, these are all Backpack add-ons, which we highly recommend:
 - [Backpack PRO](/products/pro-for-unlimited-projects) - a crazy amount of added features <span class="badge badge-pill badge-warning">PAID</span>
 - [Backpack DevTools](/products/devtools) - a developer UI for generating migrations, models and CRUDs; <span class="badge badge-pill badge-warning">PAID</span>
-- [Backpack FigmaTemplate](/products/figma-template) - quickly create designs and mockups, using Backpack's design; <span class="badge badge-pill badge-warning">PAID</span>
 - [Backpack EditableColumns](/products/editable-columns) - let your admins do quick edits, right in the table view; <span class="badge badge-pill badge-warning">PAID</span>
 
 

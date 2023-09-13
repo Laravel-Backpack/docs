@@ -205,7 +205,7 @@ Both `backpack/crud` and `backpack/pro` will keep receiving active attention, ma
 
 In addition the our main packages (`backpack\crud` and `backpack\pro`), whose features we've detailed above, we've also developed a series of single-purpose Backpack add-ons. Most developers won't need these, but those who do... will be grateful that we took the time:
     - some free: `backpack\permissionmanager`, `backpack\settings`, `backpack\pagemanager`, `backpack\newscrud`, `backpack\menucrud`, `backpack\filemanager`, `backpack\logmanager`, `backpack\backupmanager`, `backpack\revise-operation` etc. <span class="badge badge-pill badge-success">FREE</span>
-    - some paid: `backpack\devtools`, `backpack\figma-template` <span class="badge badge-pill badge-warning">PAID EXTRA</span>
+    - some paid: `backpack\devtools`, `backpack\editable-columns` <span class="badge badge-pill badge-warning">PAID EXTRA</span>
 
 We also encourage our community to build third-party add-ons (we've made it [super-easy](/docs/{{version}}/add-ons-tutorial-using-the-addon-skeleton)). Our plan is to create more and more add-ons, as we discover more recurring problems, that we can solve for Laravel freelancers & development teams.
 
