@@ -155,7 +155,7 @@ protected function setupUpdateOperation()
 
 This works particularly well for bigger models, because you can mention a lot of rules, messages and attributes in your `FormRequest` and it will not increase the size of your `CrudController`.
 
-**Differences between the Create and Update validations?** Then create a separate request file for each operation and instruct your EntityCrudController to use those files:
+**Do you need different Create and Update validations?** Then create a separate request file for each operation and instruct your EntityCrudController to use those files:
 
 ```php
 use App\Http\Requests\CreateTagRequest as StoreRequest;
