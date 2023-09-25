@@ -328,7 +328,7 @@ CRUD::filter('status')
         4 => 'Not available',
       ];
     })
-    ->whenActive(function($value) {
+    ->whenActive(function($values) {
       // CRUD::addClause('whereIn', 'status', json_decode($values));
     });
 ```
