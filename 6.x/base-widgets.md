@@ -419,19 +419,18 @@ Widget Preview:
 
 Add a Livewire component to a page. If you haven't created your component yet, head to [Livewire documentation](https://livewire.laravel.com/docs/components) and create the component you want to use.
 
-**Important Note**: This widget automatically load the Livewire Assets (scripts and styles) for you. If you are using Livewire in the same page as this widget and is already loading the assets, you can disable the automatic loading by setting the ```livewireAssets``` attribute to ```false```.
+**Note Livewire v2**: Livewire v2 does not automatically inject the `@livewireScripts` and `@livewireStyles` tags. If you **are NOT using** Livewire outside of this widget you can load them here by setting `livewireAssets => true`
 
 ```php
 [
     'type'        => 'livewire',
-    'content'   => 'my-livewire-component',
-    'parameters'      => ['user' => backpack_user(), 'param2' => 'value2'],
-    'livewireAssets' => true, // set false to dont load livewire assets
+    'content'   => 'my-livewire-component', // the component name
+    'parameters'      => ['user' => backpack_user(), 'param2' => 'value2'], // optional: pass parameters to the component
+    'livewireAssets' => false, // optional: set true to load livewire assets in the widget
 ]
 ```
 
 **Note:** The ```parameters``` attribute will be passed to the component on initialization, and should be present in the `mount($user, $param2)`.
-
 
 ##### HelloWord Example:
 
