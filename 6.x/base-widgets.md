@@ -414,6 +414,63 @@ Widget Preview:
 
 <hr>
 
+<a name="livewire"></a>
+### Livewire
+
+Add a Livewire component to a page. If you haven't created your component yet, head to [Livewire documentation](https://livewire.laravel.com/docs/components) and create the component you want to use.
+
+**Note Livewire v2**: Livewire v2 does not automatically inject the `@livewireScripts` and `@livewireStyles` tags. If you **are NOT using** Livewire outside of this widget you can load them here by setting `livewireAssets => true`
+
+```php
+[
+    'type'        => 'livewire',
+    'content'   => 'my-livewire-component', // the component name
+    'parameters'      => ['user' => backpack_user(), 'param2' => 'value2'], // optional: pass parameters to the component
+    'livewireAssets' => false, // optional: set true to load livewire assets in the widget
+]
+```
+
+**Note:** The ```parameters``` attribute will be passed to the component on initialization, and should be present in the `mount($user, $param2)`.
+
+##### HelloWord Example:
+
+```php
+use Livewire\Component;
+
+class HelloWorld extends Component
+{
+    public $name;
+
+    public function mount(string $name)
+    {
+        $this->name = $name;
+    }
+
+    public function render()
+    {
+        return view('livewire.hello-world');
+    }
+}
+```
+
+```blade
+<!-- livewire/hello-world.blade.php -->
+<div>
+    Hello {{ $name }}
+</div>
+```
+
+```php
+// add the widget to the page
+Widget::add()->type('livewire')->content('hello-world')->parameters(['name' => 'John Doe'])->wrapperClass('col-md-12 text-center');
+```
+
+Widget Preview:
+
+![Backpack Livewire Widget](https://github.com/Laravel-Backpack/CRUD/assets/7188159/e0aca2cb-f471-43c7-82e6-014704d576f3)
+
+<hr>
+
 <a name="progress"></a>
 ### Progress
 
@@ -576,7 +633,7 @@ You can then use the ```well``` widget in a Controller or View:
 To use information from the database, you can:
 - use the full namespace for your models, like ```\App\Models\Product::count()```;
 - load all your dashboard information using AJAX calls, if you're loading charts, reports, etc, and the DB queries might take a long time;
-- [use view composers](https://laravel.com/docs/5.7/views#view-composers) to push variables inside this view when it's loaded, Like. ```View::composer('backpack::widgets.well, 'App\Http\View\Composers\WellComposer');```
+- [use view composers](https://laravel.com/docs/10.x/views#view-composers) to push variables inside this view when it's loaded, Like. ```View::composer('backpack::widgets.well, 'App\Http\View\Composers\WellComposer');```
 
 Inside the widget blade files, you include custom CSS and JS, by pushing to the stacks in the layout:
 ```php
