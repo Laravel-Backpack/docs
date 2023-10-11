@@ -68,7 +68,7 @@ Please take a look at your theme's config file or README on Github, to see what 
 <a name="create-a-new-theme"></a>
 ### Create a new theme / child theme
 
-You can create a theme with your own HTML. Create a folder with all the views you want to overwrite, then change ```view_namespace``` inside your ```config/backpack/base.php``` to point to that folder. All views will be loaded from _that_ folder if they exist, then from ```resources/views/vendor/backpack/base```, then from the Base package.
+You can create a theme with your own HTML. Create a folder with all the views you want to overwrite, then change ```view_namespace``` inside your ```config/backpack/ui.php``` to point to that folder. All views will be loaded from _that_ folder if they exist, then from ```resources/views/vendor/backpack/base```, then from the Base package.
 
 You can use child themes to create packages for your Backpack admin panels to look different (and re-use across projects). For more info on how to create a theme, see [this guide](/docs/{{version}}/add-ons-tutorial-how-to-create-a-theme).
 
