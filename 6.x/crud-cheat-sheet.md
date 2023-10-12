@@ -298,7 +298,7 @@ CRUD::allowAccess('revisions');
 <a name="all-operations-api"></a>
 ## All Operations
 
-<small>Methods: allowAccess(), denyAccess(), hasAccess(), hasAccessOrFail(), hasAccessToAll(), hasAccessToAny(), setShowView(), setEditView(), setCreateView(), setListView(), setReorderView(), setRevisionsView, setRevisionsTimelineView(), setDetailsRowView(), getEntry(), getFields(), getColumns(), getCurrentEntry(), getTitle(), setTitle(), getHeading(), setHeading(), getSubheading(), setSubheading(), </small>
+<small>Methods: allowAccess(), denyAccess(), hasAccess(), setAccessCondition(), hasAccessOrFail(), hasAccessToAll(), hasAccessToAny(), setShowView(), setEditView(), setCreateView(), setListView(), setReorderView(), setRevisionsView, setRevisionsTimelineView(), setDetailsRowView(), getEntry(), getFields(), getColumns(), getCurrentEntry(), getTitle(), setTitle(), getHeading(), setHeading(), getSubheading(), setSubheading(), </small>
 
 ```php
 // ------
@@ -310,6 +310,9 @@ CRUD::allowAccess('list');
 CRUD::allowAccess(['list', 'create', 'delete']);
 CRUD::denyAccess('list');
 CRUD::denyAccess(['list', 'create', 'delete']);
+CRUD::setAccessCondition(['update', 'delete'], function ($entry) {
+    return backpack_user()->isSuperAdmin() ? true : false;
+});
 
 CRUD::hasAccess('add'); // returns true/false
 CRUD::hasAccessOrFail('add'); // throws 403 error
