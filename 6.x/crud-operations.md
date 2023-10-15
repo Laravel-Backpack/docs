@@ -138,6 +138,11 @@ $this->crud->allowAccess(['list', 'update', 'delete']);
 $this->crud->denyAccess('operation');
 $this->crud->denyAccess(['update', 'create', 'delete']);
 
+// allow or deny access depending on the entry
+$this->crud->setAccessCondition(['update', 'delete'], function ($entry) {
+    return $entry->id==1 ? true : false;
+});
+
 $this->crud->hasAccess('operation_name'); // returns true/false
 $this->crud->hasAccessOrFail('create'); // throws 403 error
 $this->crud->hasAccessToAll(['create', 'update']); // returns true/false
@@ -147,7 +152,7 @@ $this->crud->hasAccessToAny(['create', 'update']); // returns true/false
 <a name="operation-routes"></a>
 ### Operation Routes
 
-Starting with Backpack 4.0, routes can be defined in the CrudController. Your ```routes/backpack/custom.php``` file will have calls like ```Route::crud('product', 'ProductCrudController');```. This ```Route::crud()``` is a macro that will go to that controller and run all the methods that look like ```setupXxxRoutes()```. That means each operation can have its own method to define the routes it needs. And they do - if you check out the code of any operation, you'll see every one of them has a ```setupOperationNameRoutes()``` method. 
+Starting with Backpack 4.0, routes can be defined in the CrudController. Your ```routes/backpack/custom.php``` file will have calls like ```Route::crud('product', 'ProductCrudController');```. This ```Route::crud()``` is a macro that will go to that controller and run all the methods that look like ```setupXxxRoutes()```. That means each operation can have its own method to define the routes it needs. And they do - if you check out the code of any operation, you'll see every one of them has a ```setupOperationNameRoutes()``` method.
 
 If you want to add a new route to your controller, there are two ways to do it:
 1. Add a route in your ```routes/backpack/custom.php```;
@@ -353,7 +358,7 @@ $this->crud->setOperationSetting('show_title', true);
 $this->crud->getOperationSetting('show_title');
 $this->crud->hasOperationSetting('show_title');
 
-// for a particular operation, pass the operation name as a last parameter 
+// for a particular operation, pass the operation name as a last parameter
 $this->crud->setOperationSetting('show_title', true, 'create');
 $this->crud->getOperationSetting('show_title', 'create');
 $this->crud->hasOperationSetting('show_title', 'create');
@@ -391,9 +396,9 @@ You can do the same in custom operations. Because this call happens in setupList
 You can add static methods to this ```$this->crud``` (which is a CrudPanel object) object with ```$this->crud->macro()```, because the object is [macroable](https://unnikked.ga/understanding-the-laravel-macroable-trait-dab051f09172). So you can do:
 
 ```php
-class MonsterCrudController extends CrudController 
+class MonsterCrudController extends CrudController
 {
-   public function setup() 
+   public function setup()
    {
        $this->crud->macro('doStuff', function($something) {
             echo '<pre>'; var_dump($something); echo '</pre>';
@@ -407,14 +412,14 @@ class MonsterCrudController extends CrudController
 
        // bla-bla-bla the actual setup code
    }
-   public function sendEmail() 
+   public function sendEmail()
    {
       // ...
       $this->crud->doStuff();
       dd($this->crud->getColumnsInTheFormatIWant());
       // ...
    }
-   public function markPending() 
+   public function markPending()
    {
       // ...
       $this->crud->doStuff();
@@ -430,7 +435,7 @@ So if you define a custom operation that needs some static methods added to the 
 protected function setupPrintDefaults()
 {
     $this->crud->allowAccess('print');
-    
+
     $this->crud->operation('print', function() {
        $this->crud->macro('getColumnsInTheFormatIWant', function() {
             $columns = $this->columns();
@@ -475,7 +480,7 @@ Let's say we have a ```UserCrudController``` and we want to create a simple ```C
 2. Add the method inside ```UserCrudController```:
 
 ```php
-public function clone($id) 
+public function clone($id)
 {
     $this->crud->hasAccessOrFail('create');
     $this->crud->setOperation('Clone');
@@ -583,7 +588,7 @@ What we need to do is:
 2. Add the methods inside ```UserCrudController```:
 
 ```php
-public function getModerateForm($id) 
+public function getModerateForm($id)
 {
     $this->crud->hasAccessOrFail('update');
     $this->crud->setOperation('Moderate');
@@ -602,7 +607,7 @@ public function postModerateForm(Request $request = null)
 
     // TODO: do whatever logic you need here
     // ...
-    // You can use 
+    // You can use
     // - $this->crud
     // - $this->crud->getEntry($id)
     // - $request
@@ -678,7 +683,7 @@ public function postModerateForm(Request $request = null)
 
 ```php
 $this->crud->operation('list', function() {
-  $this->crud->addButtonFromView('line', 'moderate', 'moderate', 'beginning');  
+  $this->crud->addButtonFromView('line', 'moderate', 'moderate', 'beginning');
 });
 ```
 
@@ -690,7 +695,7 @@ protected function setupModerateDefaults()
   $this->crud->allowAccess('moderate');
 
   $this->crud->operation('list', function() {
-    $this->crud->addButtonFromView('line', 'moderate', 'moderate', 'beginning');  
+    $this->crud->addButtonFromView('line', 'moderate', 'moderate', 'beginning');
   });
 }
 ```
@@ -725,11 +730,11 @@ trait ModerateOperation
         $this->crud->allowAccess('moderate');
 
         $this->crud->operation('list', function() {
-          $this->crud->addButtonFromView('line', 'moderate', 'moderate', 'beginning');  
+          $this->crud->addButtonFromView('line', 'moderate', 'moderate', 'beginning');
         });
     }
 
-    public function getModerateForm($id) 
+    public function getModerateForm($id)
     {
         $this->crud->hasAccessOrFail('update');
         $this->crud->setOperation('Moderate');
@@ -748,7 +753,7 @@ trait ModerateOperation
 
         // TODO: do whatever logic you need here
         // ...
-        // You can use 
+        // You can use
         // - $this->crud
         // - $this->crud->getEntry($id)
         // - $request

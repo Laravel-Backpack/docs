@@ -138,7 +138,7 @@ Let's say we want to create a simple ```moderate.blade.php``` button. This butto
 
 - Create the ```resources\views\vendor\backpack\crud\buttons\moderate.blade.php``` file:
 ```php
-@if ($crud->hasAccess('update'))
+@if ($crud->hasAccess('update', $entry))
   <a href="{{ url($crud->route.'/'.$entry->getKey().'/moderate') }} " class="btn btn-xs btn-default"><i class="la la-ban"></i> Moderate</a>
 @endif
 ```
@@ -257,6 +257,36 @@ public function import()
 CRUD::addButtonFromView('top', 'import', 'import', 'end');
 ```
 
+<a name="adding-a-custom-button-that-is-visible-only-for-some-entries"></a>
+### Adding a Custom Button That Is Visible Only for Some Entries
+
+Let's say we want to create a simple ```approve.blade.php``` button. But not all entries can be approved. In that case, you will want your `approve` button to pass the `$entry` as a second parameter, when checking for access:
+```php
+// resources\views\vendor\backpack\crud\buttons\approve.blade.php
+
+@if ($crud->hasAccess('approve', $entry))
+  <a href="{{ url($crud->route.'/'.$entry->getKey().'/approve') }} " class="btn btn-xs btn-default"><i class="la la-thumbs-up"></i> Approve</a>
+@endif
+```
+
+Then in your ProductCrudController you can define the access to this `approve` operation per entry:
+
+```php
+// allow or deny access depending on the entry
+$this->crud->setAccessCondition('approve', function ($entry) {
+    return $entry->category !== 1 ? true : false;
+});
+```
+
+Similarly, you can define the access per user:
+
+```php
+// allow or deny access depending on the user
+$this->crud->setAccessCondition('approve', function ($entry) {
+    return backpack_user()->id == 1 ? true : false;
+});
+```
+
 ### Reorder buttons
 
 The default order of line stack buttons is 'edit', 'delete'. Let's say you are using the `ShowOperation`, by default the preview button gets placed in the beggining of that stack, if you want to move it to the end of the stack you may use `orderButtons` or `moveButton`.
@@ -268,3 +298,5 @@ CRUD::orderButtons('line', ['update', 'delete', 'show']);
 ```php
 CRUD::moveButton('show', 'after', 'delete');
 ```
+
+
