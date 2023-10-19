@@ -1102,7 +1102,7 @@ Alternatively you can set the key in your field definition, but we do **not reco
 ```php
 [
     'name' => 'google_field',
-    'api_key' => 'XXX-XXX-XX-XX-XX'
+    'api_key' => 'the-key-you-got-from-google-places'
 ]
 ```
 
