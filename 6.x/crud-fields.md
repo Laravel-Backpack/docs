@@ -1090,12 +1090,20 @@ CRUD::field([   // Address google
 ]);
 ```
 
-Using Google Places API is dependent on using an API Key. Please [get an API key](https://console.cloud.google.com/apis/credentials) - you do have to configure billing, but you qualify for $200/mo free usage, which covers most use cases. Then copy-paste that key as your ```services.google_places.key``` value. So inside your ```config/services.php``` please add the items below:
+Using Google Places API is dependent on using an API Key. Please [get an API key](https://console.cloud.google.com/apis/credentials) - you do have to configure billing, but you qualify for $200/mo free usage, which covers most use cases. Then copy-paste that key as your ```services.google_places.key``` value. 
 
+So inside your ```config/services.php``` please add the items below:
 ```php
 'google_places' => [
     'key' => 'the-key-you-got-from-google-places'
 ],
+```
+Alternatively you can set the key in your field definition, but we do **not recommend** it: 
+```php
+[
+    'name' => 'google_field',
+    'api_key' => 'XXX-XXX-XX-XX-XX'
+]
 ```
 
 > **Use attribute casting.** For information stored as JSON in the database, it's recommended that you use [attribute casting](https://mattstauffer.co/blog/laravel-5.0-eloquent-attribute-casting) to ```array``` or ```object```. That way, every time you get the info from the database you'd get it in a usable format. Also, it is heavily recommended that your database column can hold a large JSON - so use `text` rather than `string` in your migration (in MySQL this translates to `text` instead of `varchar`).
