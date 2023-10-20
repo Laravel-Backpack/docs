@@ -1544,10 +1544,10 @@ Sometimes the text that the column echoes is not enough. You want to add interac
 The easiest and most straightfoward way to get started with it, is using our column helper `linkTo($routeName, $target = null)`. This helper will set the `href` attribute automatically for you, **including related entries**.
 
 ```php
-CRUD::column('category')->linkTo('category.show');
+$this->crud->column('category')->linkTo('category.show');
 
 // is equivalent to:
-CRUD::column('category')->wrapper([
+$this->crud->column('category')->wrapper([
     'href' => function ($crud, $column, $entry, $related_key) {
         return backpack_url('category/'.$related_key.'/show');
     },
@@ -1557,14 +1557,14 @@ CRUD::column('category')->wrapper([
 You can also link to non-related urls, as long as the route has a name. 
 
 ```php
-CRUD::column('my_column')->linkTo('my.route.name');
+$this->crud->column('my_column')->linkTo('my.route.name');
 
 // you can also open them in a new tab
-CRUD::column('my_column')->linkTo('my.route.name', '_blank');
+$this->crud->column('my_column')->linkTo('my.route.name', '_blank');
 
 // array syntax is also supported
 
-$this->crud->addColumn([
+$this->crud->column([
     'name' => 'category',
     'linkTo' => 'category.show',
 
@@ -1577,11 +1577,12 @@ $this->crud->addColumn([
 
 ```
 
-For more complex use-cases we recommend you use the `wrapper` attribute directly. It accepts an array of HTML attributes, which will be applied to the column text. You can also use callbacks to generate the attributes dynamically.
+For more complex use-cases we recommend you use the `wrapper` attribute directly. It accepts an array of HTML attributes (except `element`), which will be applied to the column text. You can also use callbacks to generate the attributes dynamically.
 
 
 ```php
-$this->crud->addColumn([
+
+$this->crud->column([
   // Select
   'label'     => 'Category',
   'type'      => 'select',
@@ -1607,7 +1608,7 @@ If you specify ```wrapper``` to a column, the entries in that column will be wra
 Let's take another example, and wrap a boolean column into a green/red span:
 
 ```php
-$this->crud->addColumn([
+$this->crud->column([
     'name'    => 'published',
     'label'   => 'Published',
     'type'    => 'boolean',
