@@ -1541,7 +1541,44 @@ $this->crud->addColumn([
 
 Sometimes the text that the column echoes is not enough. You want to add interactivity to it, by adding a link to that column. Or you want to show the value in a green/yellow/red badge so it stands out. You can do both of that - with the ```wrapper``` attribute, which most columns support.
 
-For example, you can wrap the text in an anchor element, to point to that Article's Show operation:
+The easiest and most straightfoward way to get started with it, is using our column helper `linkTo($routeName, $target = null)`. This helper will set the `href` attribute automatically for you, **including related entries**.
+
+```php
+CRUD::column('category')->linkTo('category.show');
+
+// is equivalent to:
+CRUD::column('category')->wrapper([
+    'href' => function ($crud, $column, $entry, $related_key) {
+        return backpack_url('category/'.$related_key.'/show');
+    },
+]);
+```
+
+You can also link to non-related urls, as long as the route has a name. 
+
+```php
+CRUD::column('my_column')->linkTo('my.route.name');
+
+// you can also open them in a new tab
+CRUD::column('my_column')->linkTo('my.route.name', '_blank');
+
+// array syntax is also supported
+
+$this->crud->addColumn([
+    'name' => 'category',
+    'linkTo' => 'category.show',
+
+    // alternatively with target configuration
+    'linkTo' => [
+        'name' => 'category.show',
+        'target' => '_blank',
+    ],
+]);
+
+```
+
+For more complex use-cases we recommend you use the `wrapper` attribute directly. It accepts an array of HTML attributes, which will be applied to the column text. You can also use callbacks to generate the attributes dynamically.
+
 
 ```php
 $this->crud->addColumn([
@@ -1565,7 +1602,7 @@ $this->crud->addColumn([
 If you specify ```wrapper``` to a column, the entries in that column will be wrapped in the element you specify. Note that:
 - To get an HTML anchor (a link), you can specify ```a``` for the element (but that's also the default); to get a paragraph you'd specify ```p``` for the element; to get an inline element you'd specify ```span``` for the element; etc;
 - Anything you declare in the ```wrapper``` array (other than ```element```) will be used as HTML attributes for that element (ex: ```class```, ```style```, ```target``` etc);
-- Each wrapper attribute, including the element itself, can be declared as a string OR as a callback;
+- Each wrapper attribute, including the element itself, can be declared as a `string` OR as a `callback`;
 
 Let's take another example, and wrap a boolean column into a green/red span:
 
