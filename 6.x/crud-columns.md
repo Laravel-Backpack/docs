@@ -1621,7 +1621,7 @@ $this->crud->column([
 
     // alternatively with target configuration
     'linkTo' => [
-        'nameName' => 'category.show',
+        'routeName' => 'category.show',
         'target' => '_blank',
     ],
 ]);
