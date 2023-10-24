@@ -1541,47 +1541,7 @@ $this->crud->addColumn([
 
 Sometimes the text that the column echoes is not enough. You want to add interactivity to it, by adding a link to that column. Or you want to show the value in a green/yellow/red badge so it stands out. You can do both of that - with the ```wrapper``` attribute, which most columns support.
 
-The easiest and most straightfoward way to get started with it, is using our column helper `linkTo($routeName, $target = null)`. This helper will set the `href` attribute automatically for you, **including related entries**.
-
 ```php
-$this->crud->column('category')->linkTo('category.show');
-
-// is equivalent to:
-$this->crud->column('category')->wrapper([
-    'href' => function ($crud, $column, $entry, $related_key) {
-        return backpack_url('category/'.$related_key.'/show');
-    },
-]);
-```
-
-You can also link to non-related urls, as long as the route has a name. 
-
-```php
-$this->crud->column('my_column')->linkTo('my.route.name');
-
-// you can also open them in a new tab
-$this->crud->column('my_column')->linkTo('my.route.name', '_blank');
-
-// array syntax is also supported
-
-$this->crud->column([
-    'name' => 'category',
-    'linkTo' => 'category.show',
-
-    // alternatively with target configuration
-    'linkTo' => [
-        'name' => 'category.show',
-        'target' => '_blank',
-    ],
-]);
-
-```
-
-For more complex use-cases we recommend you use the `wrapper` attribute directly. It accepts an array of HTML attributes (except `element`), which will be applied to the column text. You can also use callbacks to generate the attributes dynamically.
-
-
-```php
-
 $this->crud->column([
   // Select
   'label'     => 'Category',
@@ -1625,6 +1585,49 @@ $this->crud->column([
     ],
 ]);
 ```
+
+
+<a name="link-column-to-routes"></a>
+### Link Column To Route
+
+To make a column link to a route URL, you can use the `linkTo($routeName, $target = null)` helper. Behind the scenes, this helper will use the `wrapper` helper to set up a link towards the route you want. See the section above for details on the `wrapper` helper.
+
+It's dead-simple to use the `linkTo()` helper to point to a route name:
+```php
+// you can do:
+$this->crud->column('category')->linkTo('category.show');
+
+// instead of:
+$this->crud->column('category')->wrapper([
+    'href' => function ($crud, $column, $entry, $related_key) {
+        return backpack_url('category/'.$related_key.'/show');
+    },
+]);
+```
+
+You can also link to non-related urls, as long as the route has a name.
+
+```php
+$this->crud->column('my_column')->linkTo('my.route.name');
+
+// you can also open them in a new tab
+$this->crud->column('my_column')->linkTo('my.route.name', '_blank');
+
+// array syntax is also supported
+
+$this->crud->column([
+    'name' => 'category',
+    'linkTo' => 'category.show',
+
+    // alternatively with target configuration
+    'linkTo' => [
+        'nameName' => 'category.show',
+        'target' => '_blank',
+    ],
+]);
+```
+
+For more complex use-cases, we recommend you use the `wrapper` attribute directly. It accepts an array of HTML attributes which will be applied to the column text. You can also use callbacks to generate the attributes dynamically.
 
 
 <a name="choose-where-columns-are-visible"></a>
