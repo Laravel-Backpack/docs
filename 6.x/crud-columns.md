@@ -1590,7 +1590,7 @@ $this->crud->column([
 <a name="link-column-to-routes"></a>
 ### Link Column To Route
 
-To make a column link to a route URL, you can use the `linkTo($routeName, $target = null)` helper. Behind the scenes, this helper will use the `wrapper` helper to set up a link towards the route you want. See the section above for details on the `wrapper` helper.
+To make a column link to a route URL, you can use the `linkTo($routeNameOrClosure, $parameters = [])` helper. Behind the scenes, this helper will use the `wrapper` helper to set up a link towards the route you want. See the section above for details on the `wrapper` helper.
 
 It's dead-simple to use the `linkTo()` helper to point to a route name:
 ```php
@@ -1603,6 +1603,9 @@ $this->crud->column('category')->wrapper([
         return backpack_url('category/'.$related_key.'/show');
     },
 ]);
+
+// or as a closure shortcut:
+$this->crud->column('category')->linkTo(fn($entry, $related_key) => backpack_url('category/'.$related_key.'/show'));
 ```
 
 You can also link to non-related urls, as long as the route has a name.
@@ -1610,21 +1613,43 @@ You can also link to non-related urls, as long as the route has a name.
 ```php
 $this->crud->column('my_column')->linkTo('my.route.name');
 
-// you can also open them in a new tab
-$this->crud->column('my_column')->linkTo('my.route.name', '_blank');
+// you can also add additional parameters in your urls
+$this->crud->column('my_column')->linkTo('my.route.name', ['myParameter' => 'value']);
+
+// you can use the closure in the parameters too
+$this->crud->column('my_column')
+            ->linkTo('my.route.name', ['myParameter' => fn($entry, $related_key) => $entry->something ? 'value' : 'fallback_value']);
 
 // array syntax is also supported
-
 $this->crud->column([
     'name' => 'category',
     'linkTo' => 'category.show',
 
-    // alternatively with target configuration
+    // alternatively with additional parameters
     'linkTo' => [
-        'routeName' => 'category.show',
-        'target' => '_blank',
+        'route' => 'category.show',
+        'parameters' => ['myParameter' => 'value'],
     ],
 ]);
+```
+
+Like we showed previously `parameters` can also be bound to the same closure as the `href`, but please notice that the parameters have a different order: 
+```php
+$this->crud->column('category')
+            ->linkTo('category.show', [
+                'myParameter' => function ($entry, $related_key, $column, $crud) {
+                    if($entry->something) {
+                        return 'value';
+                    }
+                return 'fallback_value';
+                },
+            ]);
+
+//the previous example could be rewritten the following way:
+$this->crud->column('category')
+            ->linkTo('category.show', [
+                'myParameter' => fn($entry) => $entry->something ? 'value' : 'fallback_value',
+            ]);
 ```
 
 For more complex use-cases, we recommend you use the `wrapper` attribute directly. It accepts an array of HTML attributes which will be applied to the column text. You can also use callbacks to generate the attributes dynamically.
