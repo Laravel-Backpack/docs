@@ -1541,10 +1541,8 @@ $this->crud->addColumn([
 
 Sometimes the text that the column echoes is not enough. You want to add interactivity to it, by adding a link to that column. Or you want to show the value in a green/yellow/red badge so it stands out. You can do both of that - with the ```wrapper``` attribute, which most columns support.
 
-For example, you can wrap the text in an anchor element, to point to that Article's Show operation:
-
 ```php
-$this->crud->addColumn([
+$this->crud->column([
   // Select
   'label'     => 'Category',
   'type'      => 'select',
@@ -1565,12 +1563,12 @@ $this->crud->addColumn([
 If you specify ```wrapper``` to a column, the entries in that column will be wrapped in the element you specify. Note that:
 - To get an HTML anchor (a link), you can specify ```a``` for the element (but that's also the default); to get a paragraph you'd specify ```p``` for the element; to get an inline element you'd specify ```span``` for the element; etc;
 - Anything you declare in the ```wrapper``` array (other than ```element```) will be used as HTML attributes for that element (ex: ```class```, ```style```, ```target``` etc);
-- Each wrapper attribute, including the element itself, can be declared as a string OR as a callback;
+- Each wrapper attribute, including the element itself, can be declared as a `string` OR as a `callback`;
 
 Let's take another example, and wrap a boolean column into a green/red span:
 
 ```php
-$this->crud->addColumn([
+$this->crud->column([
     'name'    => 'published',
     'label'   => 'Published',
     'type'    => 'boolean',
@@ -1587,6 +1585,59 @@ $this->crud->addColumn([
     ],
 ]);
 ```
+
+
+<a name="link-column-to-routes"></a>
+### Link Column To Route
+
+To make a column link to a route URL, you can use the `linkTo($routeNameOrClosure, $parameters = [])` helper. Behind the scenes, this helper will use the `wrapper` helper to set up a link towards the route you want. See the section above for details on the `wrapper` helper.
+
+It's dead-simple to use the `linkTo()` helper to point to a route name:
+```php
+// you can do:
+$this->crud->column('category')->linkTo('category.show');
+
+// instead of:
+$this->crud->column('category')->wrapper([
+    'href' => function ($crud, $column, $entry, $related_key) {
+        return backpack_url('category/'.$related_key.'/show');
+    },
+]);
+
+// or as a closure shortcut:
+$this->crud->column('category')->linkTo(fn($entry, $related_key) => backpack_url('category/'.$related_key.'/show'));
+```
+
+You can also link to non-related urls, as long as the route has a name.
+
+```php
+$this->crud->column('my_column')->linkTo('my.route.name');
+
+// you can also add additional parameters in your urls
+$this->crud->column('my_column')->linkTo('my.route.name', ['myParameter' => 'value']);
+
+// you can use the closure in the parameters too
+$this->crud->column('my_column')
+            ->linkTo('my.route.name', ['myParameter' => fn($entry, $related_key) => $entry->something ? 'value' : $related_key ?? 'fallback_value']);
+
+// array syntax is also supported
+$this->crud->column([
+    'name' => 'category',
+    // simple route name
+    'linkTo' => 'category.show',
+
+    // alternatively with additional parameters
+    'linkTo' => [
+        'route' => 'category.show',
+        'parameters' => ['myParameter' => 'value'],
+    ],
+
+    // or as closure
+    'linkTo' => fn($entry, $related_key) => route('category.show', ['id' => $related_key]),
+]);
+```
+
+For more complex use-cases, we recommend you use the `wrapper` attribute directly. It accepts an array of HTML attributes which will be applied to the column text. You can also use callbacks to generate the attributes dynamically.
 
 
 <a name="choose-where-columns-are-visible"></a>
