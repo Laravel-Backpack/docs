@@ -1201,22 +1201,40 @@ CRUD::field([   // CKEditor
     'type'          => 'ckeditor',
 
     // optional:
-    'extra_plugins' => ['oembed', 'widget'],
     'options'       => [
         'autoGrow_minHeight'   => 200,
         'autoGrow_bottomSpace' => 50,
-        'removePlugins'        => 'resize,maximize',
+        'removePlugins'        => ['Heading'],
+    ],
+
+    // more options available at https://ckeditor.com/docs/ckeditor5/latest/installation/getting-started/configuration.html
+]);
+```
+
+![CRUD Field - ckeditor](https://github.com/Laravel-Backpack/FileManager/assets/7188159/32e61d2c-06fa-4a6b-a321-7bef395f82e1)
+
+If you'd like to be able to select/upload files from elFinder (the File Manager), you need to also run ```composer require backpack/filemanager``` to install elFinder. Follow the instructions in the [FileManager documentation](https://github.com/Laravel-Backpack/FileManager#installation)
+
+![CRUD Field - ckeditor](https://github.com/Laravel-Backpack/FileManager/assets/7188159/04c1499c-3960-4c32-b2ba-1c98e99c7e2c)
+
+**Note:** When `ckeditor` field detects that `backpack/filemanager` is installed, it will automatically add the `ckfinder` plugin to the CKEditor instance. If you want to disable this behavior, you can set the `'elfinderOptions' => false` option to in your field definition:
+
+```php
+CRUD::field([   // CKEditor
+    'name'            => 'description',
+    'label'           => 'Description',
+    'type'            => 'ckeditor',
+    // disabling elfinder integration in the editor
+    'elfinderOptions' => false
+
+    // you can also pass an array of options to the filemanager plugin
+    'elfinderOptions' => [
+        'onlyMimes' => ['image/png']
     ]
 ]);
 ```
 
-If you'd like to be able to select files from elFinder, you need to also run ```composer require backpack/filemanager``` to install elFinder.
-
-To add more plugins to CKEditor follow the guide [here](https://github.com/Laravel-Backpack/community-forum/issues/559#issuecomment-1630673757)
-
-Input preview:
-
-![CRUD Field - ckeditor](https://backpackforlaravel.com/uploads/docs-4-2/fields/ckeditor.png)
+You can find a more compreensive list of options in [the Elfinder documentation](https://github.com/Studio-42/elFinder/wiki/Client-configuration-options).
 
 <hr>
 
