@@ -343,13 +343,7 @@ Please note that this does not allow the user to change his profile image.
 
 To add a new field to the Registration page, you should:
 
-**Step 1.** Overwrite the registration route, so it leads to _your_ controller, instead of the one in the package. We recommend you add it your ```routes/backpack/custom.php```, BEFORE the route group where you define your CRUDs:
-
-```php
-Route::get('admin/register', 'App\Http\Controllers\Admin\Auth\RegisterController')->name('backpack.auth.register');
-```
-
-**Step 2.** Create the new RegisterController somewhere in your project, that extends the RegisterController in the package, and overwrites the validation & user creation methods. For example:
+**Step 1.** Create the new RegisterController somewhere in your project, that extends the RegisterController in the package, and overwrites the validation & user creation methods. For example:
 
 ```php
 <?php
@@ -377,6 +371,7 @@ class RegisterController extends BackpackRegisterController
             'name'                             => 'required|max:255',
             backpack_authentication_column()   => 'required|'.$email_validation.'max:255|unique:'.$users_table,
             'password'                         => 'required|min:6|confirmed',
+            // add your field validation here
         ]);
     }
 
@@ -396,22 +391,39 @@ class RegisterController extends BackpackRegisterController
             'name'                             => $data['name'],
             backpack_authentication_column()   => $data[backpack_authentication_column()],
             'password'                         => bcrypt($data['password']),
+            // set your field data here
         ]);
     }
 }
 ```
 Add whatever validation rules & inputs you want, in addition to name and password.
 
-**Step 3.** Add the actual inputs to your HTML. You can easily overwrite the register view by adding this method to the same RegisterController:
+**Step 2.** Overwrite the registration controller, so it leads to _your_ controller, instead of the one in the package. We recommend you add it your ```app/Providers/AppServiceProvider.php```, in the `register()` method:
 
 ```php
-    public function showRegistrationForm()
+class AppServiceProvider extends ServiceProvider
+{
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
     {
-
-        return backpack_view('auth.register');
+        // override register controller
+        $this->app->bind(
+            \Backpack\CRUD\app\Http\Controllers\Auth\RegisterController::class,
+            \App\Http\Controllers\Admin\Auth\RegisterController::class
+        );
     }
+
+    //
+}
 ```
-This will make the registration process pick up a view you can create, in ```resources/views/vendor/backpack/ui/auth/register.blade.php```. You can copy-paste the original view, and modify as you please. Including adding your own custom inputs.
+
+**Step 3.** Add the actual inputs to your HTML. You can easily overwrite the register view by copy-pasting the original view, and modify as you please. Including adding your own custom inputs.
+
+For example, assuming you are using the **Tabler** theme, copy `vendor/backpack/theme-tabler/resources/views/auth/register/inc/form.blade.php` and place here `resources/views/vendor/backpack/theme-tabler/auth/register/inc/form.blade.php`.
 
 <a name="enable-email-verification-in-backpack-routes"></a>
 ### Enable email verification in Backpack routes
