@@ -183,7 +183,10 @@ php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --
 ```
 which will publish ALL lang files, for ALL languages, inside `resources/lang/vendor/backpack`. But it's highly unlikely you need to modify all of them. In case you do publish all languages, please delete the ones you didn't change. That way, you only keep what's custom in your custom files, and it'll be easier to upgrade those files in the future.
 
-Please note that Backpack does NOT provide translation strings for validation errors. Those are provided by Laravel itself, and Laravel only provides the English versions. To get validation error messages in all languages you want, we highly recommend installing and using https://github.com/Laravel-Lang/lang which provides exactly that.
+#### Translate the Laravel Framework strings
+
+Please note that **Backpack does NOT provide** translation strings for validation errors and other internal Laravel messages like in email templates. Those are provided by Laravel itself, and Laravel only provides the English versions. 
+To get validation error messages in all languages you want, we **highly recommend** installing and using https://github.com/Laravel-Lang/lang which provides exactly that.
 
 
 <a name="use-the-same-html-and-css-for-front-end"></a>
