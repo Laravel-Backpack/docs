@@ -87,11 +87,13 @@ That means **you can override an existing button simply by creating a blade file
 <a name="creating-a-quick-button"></a>
 ### Creating a Quick Button
 
-Most of the times, the buttons you want to create aren't complex at all. They're just an `<a>` element, with a `href` and `class` that is show if the admin has access to that particular operation. That's why we've created the `quick.blade.php` button, that allows you to _quickly_ create a button, right from your Operation or CrudController. This covers most simple use cases:
+Most of the times, the buttons you want to create aren't complex at all. They're just an `<a>` element, with a `href` and `class` that is show **if the admin has access** to that particular operation. That's why we've created the `quick.blade.php` button, that allows you to _quickly_ create a button, right from your Operation or CrudController. This covers most simple use cases:
 
 ```php
 // by default, the quick button will figure out the Name and Label from the button name
 CRUD::button('email')->stack('line')->view('crud::buttons.quick');
+// and make it accessible by the user.
+CRUD::allowAccess('Email');
 
 // but you can easily customize Access, Name, Label, Icon in `metas`
 // and even the attributes of the <a> element in meta's `wrapper`
