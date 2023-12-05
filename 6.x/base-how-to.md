@@ -185,7 +185,7 @@ which will publish ALL lang files, for ALL languages, inside `resources/lang/ven
 
 #### Translate the Laravel Framework strings
 
-Please note that **Backpack does NOT provide** translation strings for validation errors and other internal Laravel messages like in email templates. Those are provided by Laravel itself, and Laravel only provides the English versions. 
+Please note that **Backpack does NOT provide** translation strings for validation errors and other internal Laravel messages like in email templates. Those are provided by Laravel itself, and Laravel only provides the English versions.
 To get validation error messages in all languages you want, we **highly recommend** installing and using https://github.com/Laravel-Lang/lang which provides exactly that.
 
 
@@ -349,7 +349,7 @@ To add a new field to the Registration page, you should:
 **Step 1.** Overwrite the registration route, so it leads to _your_ controller, instead of the one in the package. We recommend you add it your ```routes/backpack/custom.php```, BEFORE the route group where you define your CRUDs:
 
 ```php
-Route::get('admin/register', 'App\Http\Controllers\Admin\Auth\RegisterController')->name('backpack.auth.register');
+Route::get('admin/register', 'App\Http\Controllers\Admin\Auth\RegisterController@showRegistrationForm')->name('backpack.auth.register');
 ```
 
 **Step 2.** Create the new RegisterController somewhere in your project, that extends the RegisterController in the package, and overwrites the validation & user creation methods. For example:
@@ -411,31 +411,38 @@ Add whatever validation rules & inputs you want, in addition to name and passwor
     public function showRegistrationForm()
     {
 
-        return backpack_view('auth.register');
+        // if registration is closed, deny access
+        if (! config('backpack.base.registration_open')) {
+            abort(403, trans('backpack::base.registration_closed'));
+        }
+
+        $this->data['title'] = trans('backpack::base.register'); // set the page title
+
+        return view(backpack_view('auth.register'), $this->data);
     }
 ```
-This will make the registration process pick up a view you can create, in ```resources/views/vendor/backpack/ui/auth/register.blade.php```. You can copy-paste the original view, and modify as you please. Including adding your own custom inputs.
+This will make the registration process pick up a view you can create, in ```resources/views/vendor/backpack/{theme}/auth/register.blade.php```. You can copy-paste the original view, and modify as you please. Including adding your own custom inputs. (replace {theme} with the theme you are using, by default is `theme-tabler`)
 
 <a name="enable-email-verification-in-backpack-routes"></a>
 ### Enable email verification in Backpack routes
 
-In Backpack CRUD 6.2 we introduced the ability to require email verification when accessing Backpack routes. To enable this feature please do the following: 
+In Backpack CRUD 6.2 we introduced the ability to require email verification when accessing Backpack routes. To enable this feature please do the following:
 
 **Step 1** - Make sure your user model (usually `App\Models\User`) implements the `Illuminate\Contracts\Auth\MustVerifyEmail` contract. [More info](https://laravel.com/docs/10.x/verification#model-preparation).
 
 ```php
 <?php
- 
+
 namespace App\Models;
- 
+
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
- 
+
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
- 
+
     // ...
 }
 ```
@@ -483,7 +490,7 @@ Then run `php artisan migrate`. [More info](https://laravel.com/docs/10.x/verifi
 protected $middlewareAliases = [
         // ... other middleware aliases
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        // if you don't have the VaidateSignature middleware you can copy it from here: 
+        // if you don't have the VaidateSignature middleware you can copy it from here:
         // https://github.com/laravel/laravel/blob/10.x/app/Http/Middleware/ValidateSignature.php
         'signed' => \App\Http\Middleware\ValidateSignature::class,
     ];
