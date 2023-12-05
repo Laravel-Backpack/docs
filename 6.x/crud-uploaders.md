@@ -170,11 +170,25 @@ protected function setupDeleteOperation()
 
 Alternatively, you can manually delete the file in your Model, using the `deleted` Eloquent model event. That would ensure the file gets deleted _even if_ the entry was deleted from outside the admin panel.
 
+<a name="custom-upload-fields"></a>
+### Configuring uploaders in custom fields
 
-<a name="other-uploaders"></a>
-## Other Uploaders
+When using uploads in custom fields, you need to tell Backpack what Uploader to use for that custom field type. 
 
-Since Uploaders are stand-alone classes, anybody can create Uploaders that better match their needs, or integrate with other third-party packages. For example...
+Imagine that you created a custom upload field starting from backpack `upload` field type with: `php artisan backpack:field custom_upload --from=upload`.
+
+You can tell Backpack what Uploader to use in 2 ways:
+
+- In the custom field defininiton inside the uploader configuration:
+```php
+CRUD::field('custom_upload')->withFiles([
+    'uploader' => \Backpack\CRUD\app\Library\Uploaders\SingleFile::class,
+]);
+```
+- Or you can add it globally for that field type by adding in your Service Provider `boot()` method: 
+```php
+app('UploadersRepository')->addUploaderClasses(['custom_upload' => \Backpack\CRUD\app\Library\Uploaders\SingleFile::class], 'withFiles');
+```
 
 <a name="spatie-media-library"></a>
 ### Uploaders for Spatie MediaLibrary
