@@ -87,23 +87,39 @@ That means **you can override an existing button simply by creating a blade file
 <a name="creating-a-quick-button"></a>
 ### Creating a Quick Button
 
-Most of the times, the buttons you want to create aren't complex at all. They're just an `<a>` element, with a `href` and `class` that is show if the admin has access to that particular operation. That's why we've created the `quick.blade.php` button, that allows you to _quickly_ create a button, right from your Operation or CrudController. This covers most simple use cases:
+Most of the times, the buttons you want to create aren't complex at all. They're just an `<a>` element, with a `href` and `class` that is show **if the admin has access** to that particular operation. That's why we've created the `quick.blade.php` button, that allows you to _quickly_ create a button, right from your Operation or CrudController. This covers most simple use cases:
 
 ```php
-// by default, the quick button will figure out the Name and Label from the button name
-CRUD::button('email')->stack('line')->view('crud::buttons.quick');
+// the following example will create a button for each entry in the table with: 
+// label: Email
+// access: Email
+// href: /entry/{id}/email
+CRUD::button('email')->stack('line')->view('crud::buttons.quick'); 
 
-// but you can easily customize Access, Name, Label, Icon in `metas`
+// if you need to control the access to "Email" per entry, you can do:
+CRUD::setAccessCondition('Email', function ($entry) {
+    return $entry->hasVerifiedEmail();
+});
+
+// or enable it for all entries:
+CRUD::allowAccess('Email');
+
+// directly in the button also works:
+CRUD::button('email')->stack('line')->view('crud::buttons.quick')->meta([
+    'access' => true,
+]);
+
+// you can easily customize Access, Name, Label, Icon in `metas`
 // and even the attributes of the <a> element in meta's `wrapper`
 CRUD::button('email')->stack('line')->view('crud::buttons.quick')->meta([
-    'access' => 'Email',
+    'access' => true,
     'label' => 'Email',
     'icon' => 'la la-envelope',
     'wrapper' => [
-        // 'element' => 'a',
+        'element' => 'a',
         'href' => url('something'),
         'target' => '_blank',
-        'title' => 'Create a new email to this user',
+        'title' => 'Send a new email to this user',
     ]
 ]);
 ```
