@@ -421,7 +421,7 @@ Add whatever validation rules & inputs you want, in addition to name and passwor
         return view(backpack_view('auth.register'), $this->data);
     }
 ```
-This will make the registration process pick up a view you can create, in ```resources/views/vendor/backpack/{theme}/auth/register.blade.php```. You can copy-paste the original view, and modify as you please. Including adding your own custom inputs.
+This will make the registration process pick up a view you can create, in ```resources/views/vendor/backpack/{theme}/auth/register.blade.php```. You can copy-paste the original view, and modify as you please. Including adding your own custom inputs. (replace {theme} with the theme you are using, by default is `theme-tabler`)
 
 <a name="enable-email-verification-in-backpack-routes"></a>
 ### Enable email verification in Backpack routes
