@@ -109,8 +109,6 @@ To use, inside your ```EntityCrudController```:
 
 Alternative for the 2nd step: overwrite ```views/backpack/crud/details_row.blade.php``` which is called by the default ```showDetailsRow($id)``` functionality.
 
-**NOTE:** Even when you don't `enableDetailsRow()` backpack register the necessary routes for it. If you are sure you don't want to use details row in that CrudController you can set `protected $setupDetailsRowRoutes = false;` in your CrudController. 
-
 ```php
 class EntityCrudController extends CrudController
 {
