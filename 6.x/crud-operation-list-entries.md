@@ -110,15 +110,22 @@ Filters show up right before the actual table, and provide a way for the admin t
 
 The details row functionality allows you to present more information in the table view of a CRUD. When enabled, a "+" button will show up next to every row, which on click will expand a "details row" below it, showing additional information.
 
-![Backpack CRUD ListEntries Details Row](https://backpackforlaravel.com/uploads/docs-4-0/operations/listEntries_details_row.png)
+![Backpack CRUD ListEntries Details Row](https://github.com/Laravel-Backpack/docs/assets/7188159/f71ef8e5-f198-4b87-9f11-67fb9f0e972d)
 
-On click, an AJAX request is sent to the ```entity/{id}/details``` route, which calls the ```showDetailsRow()``` method on your EntityCrudController. Everything returned by that method is then shown in the details row. You'll want to overwrite that method to show anything you'd like in the details row.
+On click, an AJAX request is sent to the `entity/{id}/details` route, which calls the `showDetailsRow()` method on your EntityCrudController. Everything returned by that method is then shown in the details row (usually a blade view).
 
-To use, inside your ```EntityCrudController```:
-1. Enable the functionality: ```CRUD::enableDetailsRow();```
-2. Overwrite the ```showDetailsRow($id)``` method;
+To use, inside your `EntityCrudController`:
+1. Enable the functionality in your `setupListOperation` with: `CRUD::enableDetailsRow();`
+2. Create a file in your resources folder, with the details row template for that entity. For example, `resources/views/admin/articles_details_row.blade.php`. You can use the `$entry` and `$crud` variables inside that view, to show information about the current entry.
+3. Tell Backpack what view to load with: `CRUD::setDetailsRowView('admin.articles_details_row')`
 
-Alternative for the 2nd step: overwrite ```views/backpack/crud/details_row.blade.php``` which is called by the default ```showDetailsRow($id)``` functionality.
+**NOTE:** Even when you don't `enableDetailsRow()`, Backpack register the necessary routes for it when using the ListOperation. If you are sure **you don't want to use details row** in that CrudController you can set `protected $setupDetailsRowRoute = false;` in your CrudController. 
+
+##### Overwrite default details row functionality
+
+Backpack ships with an empty details row template. If you want to use the same template accross all your cruds you can overwrite it by creating a `resources/views/vendor/backpack/crud/inc/details_row.blade.php` file. When doing `CRUD::enableDetailsRow()` this template will be used by default. 
+
+You can create a `showDetailsRow($id)` method in your CrudController to overwrite the default behaviour. 
 
 <a name="export-buttons"></a>
 #### Export Buttons <span class="badge badge-pill badge-info">PRO</span>
