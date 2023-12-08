@@ -41,8 +41,8 @@ Backpack PRO is a closed-source add-on, which requires payment in order to recei
 
 No - we're no longer giving away free licenses. But we _have_ released Backpack CRUD v5 and v6 under MIT License, which means it's free & open-source. It has fewer features, but you can do absolutely anything you want with it.
 
-<a name="miscellaneous"></a>
-## Miscellaneous
+<a name="Installation"></a>
+## Installation
 
 
 <a name="how-do-i-update-backpack"></a>
@@ -96,3 +96,25 @@ composer remove backpack/crud
 ```
 
 That's it! If you've decided NOT to use Backpack, we'd be super-grateful if you could <a href="mailto:hello@backpackforlaravel.com?subject=Why%20I%20decided%20against%20using%20Backpack&body=Hey%20there%20Backpack%20team%2C%0D%0A%0D%0AHopefully%20my%20experience%20will%20help%20you%20take%20Backpack%20in%20a%20direction%20where%20it'll%20be%20a%20better%20fit%20for%20me%20in%20the%20future.%0D%0A%0D%0AI've%20decided%20to%20NOT%20use%20Backpack%20in%20my%20project%20because...">send us an email</a> telling us WHY you didn't like Backpack, or it didn't fit your project. It might help us take Backpack in a different direction, one where you might want to use it. Thank you 🙏
+
+
+<a name="errors-when-installing-paid-add-ons"></a>
+### Errors when installing paid add-ons
+
+When installing our [paid add-ons](https://backpackforlaravel.com/addons):
+- Composer will add our private repository (`repo.backpackforlaravel.com`) to your `composer.json` file;
+- Composer will try to download the package the `dist` version of the package from there;
+    - if successful, you're good;
+    - if the `dist` version fails to download, Composer will throw an error (with an HTTPS code like 402); then Composer will try to download the `source` version of the package straight from our Github repo; that will 100% fail, because you do NOT have access to our private Github repo; to rephrase, you don't have access to the `source`, only to `dist`;
+
+Unfortunately we cannot customize the errors that Composer throws, so the error text might be confusing. Please take a look at the HTTP error code shown in the error to understand what happened:
+- 400 Error - Bad Request - user & password do not match; please check your auth credentials;
+- 401 Error - Unauthorized - no token username or password; please check your auth credentials;
+- 402 Error - Payment Required - you are trying to download a version newer than you have access; our system will send you an email with clear instructions on what to do to require the latest version you have access to; you can also check the latest version you have access to in your Backpack account, and require that version specifically; alternatively, please purchase the same product again, to gain access to more updates, then it will work again; 
+- 404 Error - Not Found - the package you are trying to download that does not exist;
+- 429 Error - Too Many Requests - our server has received too many requests from your IP; please wait 1 min and try again;
+
+If you still can't figure it out, please [open a new discussion in our Community Forum](https://github.com/Laravel-Backpack/community-forum/discussions/categories/q-a-help). Please make sure to:
+- mention the steps you have followed to get there (eg. `composer require backpack/pro`, `php artisan backpack:require:pro` etc);
+- include a screenshot of the console output, so we understand what happened;
+- cross out any personal data (eg. token username or password); 
