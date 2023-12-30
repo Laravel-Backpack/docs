@@ -364,10 +364,21 @@ $this->crud->allowAccess('list');
 $this->crud->allowAccess(['list', 'create', 'delete']);
 ```
 
+- **allowAccessOnlyTo()** - give users access only to one or some operations, denying the rest of them
+```php
+$this->crud->allowAccessOnlyTo('list');
+$this->crud->allowAccessOnlyTo(['list', 'create', 'delete']);
+```
+
 - **denyAccess()** - prevent users from accessing one or multiple operations
 ```php
 $this->crud->denyAccess('list');
 $this->crud->denyAccess(['list', 'create', 'delete']);
+```
+
+- **denyAllAccess()** - prevent users from accessing all operations (you may allow some operations then)
+```php
+$this->crud->denyAllAccess();
 ```
 
 - **hasAccess()** - check if the current user has access to one or multiple operations
