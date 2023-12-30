@@ -1618,7 +1618,9 @@ $this->crud->column('my_column')->linkTo('my.route.name', ['myParameter' => 'val
 
 // you can use the closure in the parameters too
 $this->crud->column('my_column')
-            ->linkTo('my.route.name', ['myParameter' => fn($entry, $related_key) => $entry->something ? 'value' : $related_key ?? 'fallback_value']);
+    ->linkTo('my.route.name', [
+        'myParameter' => fn($entry, $related_key) => $entry->something ? 'value' : $related_key ?? 'fallback_value',
+    ]);
 
 // array syntax is also supported
 $this->crud->column([
@@ -1635,6 +1637,22 @@ $this->crud->column([
     // or as closure
     'linkTo' => fn($entry, $related_key) => route('category.show', ['id' => $related_key]),
 ]);
+```
+
+If you want to have it simple and just link to the show route, you can use the `linkToShow()` helper.  
+It's just a shortcut for `linkTo('entity.show')`.
+
+```php
+$this->crud->column('category')
+    ->linkToShow();
+```
+
+If you want to open the link in a new tab, you can use the `linkTarget()` helper.
+
+```php
+$this->crud->column('category')
+    ->linkToShow()
+    ->linkTarget('_blank');
 ```
 
 For more complex use-cases, we recommend you use the `wrapper` attribute directly. It accepts an array of HTML attributes which will be applied to the column text. You can also use callbacks to generate the attributes dynamically.
