@@ -170,6 +170,19 @@ protected function setupDeleteOperation()
 
 Alternatively, you can manually delete the file in your Model, using the `deleted` Eloquent model event. That would ensure the file gets deleted _even if_ the entry was deleted from outside the admin panel.
 
+```php
+class SomeModel extends Model
+{
+    protected static function booted()
+    {
+        static::deleted(function ($model) {
+            // delete the file
+            Storage::disk('my_disk')->delete($model->photo);
+        });
+    }
+}
+```
+
 <a name="custom-upload-fields"></a>
 ### Configuring uploaders in custom fields
 
