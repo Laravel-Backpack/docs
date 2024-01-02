@@ -141,7 +141,7 @@ $this->crud->denyAccess(['update', 'create', 'delete']);
 // allow or deny access depending on the entry in the table
 $this->crud->operation('list', function() {
         $this->crud->setAccessCondition(['update', 'delete'], function ($entry) {
-            return $entry->id==1 ? true : false;
+            return $entry->id===1 ? true : false;
     });
 });
 
