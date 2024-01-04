@@ -115,3 +115,14 @@ The ```CreateInline``` operation uses two routes:
 - POST to ```/entity-name/inline/create``` - points to ```storeInlineCreate()``` which does the actual saving in the database by calling the ```store()``` method from the CreateOperation;
 
 Since this operation is just a way to allow access to the Create operation from a modal, the ```getInlineCreateModal()``` method will show all the fields you've defined for this operation using the [Fields API](/docs/{{version}}/crud-fields#fields-api), then upon Save the ```store()``` method will first check the validation from the FormRequest you've specified, then create the entry using the Eloquent model. Only attributes that are specified as fields, and are ```$fillable``` on the model will actually be stored in the database.
+
+<a name="using-widgets-in-inline-create"></a>
+## Using Widgets with Inline Create
+
+When you have Widgets in your "related entry create form", for example a script widget with some javascript, you need to tell Backpack that you want to load that Widget inline too when the form is loaded in the modal. You can do that by adding the to the widget definition `inline()`:
+
+```diff
+- Widget::add()->type('script')->content('assets/my-javascript.js');
++ Widget::add()->type('script')->inline()->content('assets/my-javascript.js');
+```
+This will load the Widget in both instances, on the create form, and in the inline create form. 
