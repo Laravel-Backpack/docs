@@ -906,7 +906,6 @@ If you specify ```wrapper``` to a column, the entries in that column will be wra
 - Anything you declare in the ```wrapper``` array (other than ```element```) will be used as HTML attributes for that element (ex: ```class```, ```style```, ```target``` etc);
 - Each wrapper attribute, including the element itself, can be declared as a string OR as a callback;
 
-
 Let's take another example, and wrap a boolean column into a green/red span:
 
 ```php
