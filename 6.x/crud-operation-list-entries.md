@@ -387,30 +387,3 @@ If an error is thrown during the AJAX request, Backpack will show that error in 
 If you want to see or optimize database queries, you can do that using any Laravel tool that analyzes AJAX request. For example, here's how to analyze AJAX requests using the excellent [barryvdh/laravel-debugbar](https://github.com/barryvdh/laravel-debugbar). You just click the Folder icon to the right, and you select the latest request. Debugbar will then show you all info for that last AJAX request:
 
 ![How to use DebugBar with Backpack's ListOperation](https://user-images.githubusercontent.com/1032474/227514264-0a95ac8f-1bfa-4009-86c4-3c8313ca3399.gif)
-
-
-<a name="access-and-permission"></a>
-## Access and Permission
-
-In this section we are going to cover the access and permission in your **ListOperation**
-So now let's imagine that we have a few roles and every role has its own permissions, so we want to check the permission before we show the form or view to the user, how can we achieve that?
-it's simple we can manipulate our **ListOperation** with this, so just add this permission check before our other code.
-
-```php
-/**
- * Define what happens when the List operation is loaded.
- * 
- * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
- * @return void
- */
-protected function setupListOperation()
-{
-    //sometimes when we install the backpack permission package we can use something like backpack_user()->can('some_permission')
-    $somePermission = true; 
-    if($somePermission){
-        $this->crud->denyAccess('list');
-        // here's the message for the user, you can change it with whatever you want
-        abort(403, 'You dont have permission to access this page'); 
-    }
-}
-```
