@@ -53,7 +53,7 @@ class ProductCrudController extends CrudController
 }
 ```
 
-Configuration for this operation should be done inside your ```setupListOperation()``` method. **For a minimum setup, you only need to define the columns you need to show in the table.** 
+Configuration for this operation should be done inside your ```setupListOperation()``` method. **For a minimum setup, you only need to define the columns you need to show in the table.**
 
 <a name="columns"></a>
 ### Columns
@@ -75,14 +75,24 @@ Backpack has 22+ [column types](/docs/{{version}}/crud-columns) you can use. Plu
 
 Buttons are used to trigger other operations. Some point to entirely new routes (```create```, ```update```, ```show```), others perform the operation on the current page using AJAX (```delete```).
 
-The ShowList operation has 3 places where buttons can be placed:
+The List/Show operations have 3 places where buttons can be placed:
   - ```top``` (where the Add button is)
   - ```line``` (where the Edit and Delete buttons are)
   - ```bottom``` (after the table)
 
-Backpack adds a few buttons by default: 
+Backpack adds a few buttons by default:
 - ```add``` to the ```top``` stack;
 - ```edit``` and ```delete``` to the ```line``` stack;
+
+
+**NOTE**: The `line` stack buttons can be converted into a dropdown to improve the available table space.
+![Backpack List Operation Dropdown ](https://user-images.githubusercontent.com/33960976/228809544-0d5a0d94-9195-4f45-9e20-e9ea32932f49.png)
+
+This is done by setting the `lineButtonsAsDropdown` setting in list operation to `true`.
+
+a) For all CrudController (globally) in the `config/backpack/operations/list.php` file.
+
+b) For a specific CrudController, in its `setupListOperation()` define `CRUD::setOperationSetting('lineButtonsAsDropdown', true);`
 
 To learn more about buttons, **check out the [Buttons](/docs/{{version}}/crud-buttons) documentation page**.
 
@@ -112,19 +122,19 @@ Alternative for the 2nd step: overwrite ```views/backpack/crud/details_row.blade
 <a name="export-buttons"></a>
 #### Export Buttons <span class="badge badge-pill badge-info">PRO</span>
 
-Exporting the DataTable to PDF, CSV, XLS is as easy as typing ```$this->crud->enableExportButtons();``` in your constructor. 
+Exporting the DataTable to PDF, CSV, XLS is as easy as typing ```$this->crud->enableExportButtons();``` in your constructor.
 
 ![Backpack CRUD ListEntries Details Row](https://backpackforlaravel.com/uploads/docs-4-0/operations/listEntries_export_buttons.png)
 
-**Please note that when clicked, the button will export** 
-- **the _currently visible_ table columns** (except columns marked as ```visibleInExport => false```); 
+**Please note that when clicked, the button will export**
+- **the _currently visible_ table columns** (except columns marked as ```visibleInExport => false```);
 - **the columns that are forced to export** (with ```visibleInExport => true``` or ```exportOnlyField => true```);
 
 **In the UI, the admin can use the "Visibility" button, and the "Items per page" dropdown to manipulate what is visible in the table - and consequently what will be exported.**
 
 **Export Buttons Rules**
 
-Available customization: 
+Available customization:
 ```
 'visibleInExport' => true/false
 'visibleInTable' => true/false
@@ -143,15 +153,46 @@ Using `'visibleInTable' => false` will make the field start hidden in the table.
 
 If you want a field that is not on table, user can't show it, but will **ALWAYS** be exported use the `exportOnlyField => true`. If used will ignore any other custom visibility you defined.
 
-<a name="custom-query"></a>
+#### How to use different separator in DataTables (eg. semicolon instead of comma)
+
+<a name="custom-dataTableConfiguration"></a>
+
+If you want to change the separator in dataTable export to use semicolon (;) instead of comma (,) :
+
+**Step 1.** Copy vendor/backpack/crud/src/resources/views/crud/inc/export_buttons.blade.php to resources/views/vendor/backpack/crud/inc/export_buttons.blade.php
+
+**Step 2.** Change it in your `dataTableConfiguration`:
+```php
+{
+    name: 'csvHtml5',
+    extend: 'csvHtml5',
+    fieldSeparator: ';',
+    exportOptions: {
+        columns: function ( idx, data, node ) {
+            var $column = crud.table.column( idx );
+                return  ($column.visible() && $(node).attr('data-visible-in-export') != 'false') || $(node).attr('data-force-export') == 'true';
+        }
+    },
+    action: function(e, dt, button, config) {
+        crud.responsiveToggle(dt);
+        $.fn.DataTable.ext.buttons.csvHtml5.action.call(this, e, dt, button, config);
+        crud.responsiveToggle(dt);
+    }
+},
+
+```
+
 #### Custom Query
+
+<a name="custom-query"></a>
+
 
 By default, all entries are shown in the ListEntries table, before filtering. If you want to restrict the entries to a subset, you can use the methods below in your EntityCrudController's ```setupListOperation()``` method:
 
 ```php
 // Change what entries are shown in the table view.
 // This changes all queries on the table view,
-// as opposed to filters, who only change it when that filter is applied. 
+// as opposed to filters, who only change it when that filter is applied.
 $this->crud->addClause('active'); // apply a local scope
 $this->crud->addClause('type', 'car'); // apply local dynamic scope
 $this->crud->addClause('where', 'name', '=', 'car');
@@ -162,9 +203,34 @@ $this->crud->addClause('whereHas', 'posts', function($query) {
 $this->crud->groupBy();
 $this->crud->limit();
 
+// The above will change the used query, so the ListOperation will say
+// "Showing 140 entries, filtered from 1.000 entries". If you want to 
+// that, and make it look like only those entries are in the databse,
+// you can change the baseQuery instead, by using:
+$this->crud->addBaseClause('where', 'name', '=', 'car');
+
 $this->crud->orderBy();
 // please note it's generally a good idea to use crud->orderBy() inside "if (!$this->crud->getRequest()->has('order')) {}"; that way, your custom order is applied ONLY IF the user hasn't forced another order (by clicking a column heading)
 ```
+**NOTE:** The query constraints added in the `setup()` method operation _cannot_ be reset by `Reset Button`. They are permanent for that CRUD, for all operation.
+
+#### Custom Order
+
+<a name="custom-order"></a>
+
+By default, the List operation gets sorted by the primary key (usually `id`), descending. You can modify this behaviour by defining your own ordering:
+```php
+protected function setupListOperation()
+{
+    //change default order key
+    if (! $this->crud->getRequest()->has('order')){
+        $this->crud->orderBy('updated_at', 'desc');
+    }
+}
+```
+**NOTE**: We only apply the `orderBy` when the request don't have an `order` key.
+This is because we need to keep the ability to order in the Datatable Columns. 
+If we didn't conditionally add the `orderBy`, it would become a __permanent order__ that can't be cleared by the Datatables `Reset` button and applied to every request. 
 
 <a name="responsive-table"></a>
 #### Responsive Table
@@ -183,7 +249,7 @@ To turn off the responsive table behaviour for _just one CRUD panel_, you can us
 <a name="persistent-query"></a>
 #### Persistent Table
 
-By default, ListEntries will NOT remember your filtering, search and pagination when you leave the page. If you want ListEntries to do that, you can enable a ListEntries feature we call ```persistent_table```. 
+By default, ListEntries will NOT remember your filtering, search and pagination when you leave the page. If you want ListEntries to do that, you can enable a ListEntries feature we call ```persistent_table```.
 
 **This will take the user back to the _filtered table_ after adding an item, previewing an item, creating an item or just browsing around**, preserving the table just like he/she left it - with the same filtering, pagination and search applied. It does so by saving the pagination, search and filtering for an arbitrary amount of time (by default: forever).
 
@@ -192,25 +258,84 @@ To use ```persistent_table``` you can:
 - enable it inside a particular crud controller with ```$this->crud->enablePersistentTable();```
 - disable it inside a particular crud controller with ```$this->crud->disablePersistentTable();```
 
-> You can configure the persistent table duration in ``` config/backpack/crud.php ``` under `operations > list > persistentTableDuration`. False is forever. Set any amount of time you want in minutes. Note: you can configure it's expiring time on a per-crud basis using `$this->crud->setOperationSetting('persistentTableDuration', 120); in your setupListOperation()` for 2 hours persistency. The default is `false` which means forever. 
+> You can configure the persistent table duration in ``` config/backpack/crud.php ``` under `operations > list > persistentTableDuration`. False is forever. Set any amount of time you want in minutes. Note: you can configure it's expiring time on a per-crud basis using `$this->crud->setOperationSetting('persistentTableDuration', 120); in your setupListOperation()` for 2 hours persistency. The default is `false` which means forever.
 
 <a name="large-tables"></a>
 #### Large Tables (millions of entries)
 
-By default, ListEntries uses a few features that are not appropriate for Eloquent models with millions (or billions) of records: 
+By default, ListEntries uses a few features that are not appropriate for Eloquent models with millions (or billions) of records:
 - it shows the total number of entries (which can be a very slow query for big tables);
 - it paginates using 1/2/3 page buttons, instead of just previous & next;
 
 Starting with Backpack v5.4 we have an easy way to disable both of those, in order to make the ListOperation super-fast on big database tables. You just need to do:
 
 ```php
-protected function setupListOperation() 
+protected function setupListOperation()
 {
     // ...
     CRUD::setOperationSetting('showEntryCount', false);
     // ...
 }
 ```
+
+<a name="widget"></a>
+## How to add custom sections(aka. Widgets)
+
+[Widgets](https://backpackforlaravel.com/docs/{{version}}/base-widgets) (aka cards, aka charts, aka graphs) provide a simple way to insert blade files into admin panel pages. You can use them to insert cards, charts, notices or custom content into pages. You can use the [default widget types](https://backpackforlaravel.com/docs/{{version}}/base-widgets#default-widget-types) or [create your own custom widgets](https://backpackforlaravel.com/docs/{{version}}/base-widgets#creating-a-custom-widget-type).
+
+Backpack's default template includes two [sections](https://backpackforlaravel.com/docs/{{version}}/base-widgets#requirements-1) where you can push widgets:
+
+* `before_content`
+* `after_content`
+
+To use widgets on list operation, define them inside `setupListOperation()` function.
+
+```php
+public function setupListOperation()
+{
+    // dynamic data to render in the following widget
+    $userCount = \App\Models\User::count();
+
+    //add div row using 'div' widget and make other widgets inside it to be in a row
+    Widget::add()->to('before_content')->type('div')->class('row')->content([
+
+        //widget made using fluent syntax
+        Widget::make()
+            ->type('progress')
+            ->class('card border-0 text-white bg-primary')
+            ->progressClass('progress-bar')
+            ->value($userCount)
+            ->description('Registered users.')
+            ->progress(100 * (int)$userCount / 1000)
+            ->hint(1000 - $userCount . ' more until next milestone.'),
+
+        //widget made using the array definition
+        Widget::make(
+            [
+                'type'       => 'card',
+                'class'   => 'card bg-dark text-white',
+                'wrapper' => ['class' => 'col-sm-3 col-md-3'],
+                'content'    => [
+                    'header' => 'Example Widget',
+                    'body'   => 'Widget placed at "before_content" secion in same row',
+                ]
+            ]
+        ),
+    ]);
+
+    //you can also add Script & CSS to your page using 'script' & 'style' widget
+    Widget::add()->type('script')->stack('after_scripts')->content('https://code.jquery.com/ui/1.12.0/jquery-ui.min.js');
+    Widget::add()->type('style')->stack('after_styles')->content('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.58/dist/themes/light.css');
+}
+```
+
+#### Output:
+* Using `before_content`:
+
+![](https://i.imgur.com/MF9ePIM.png)
+* Using `after_content`
+
+![](https://i.imgur.com/AxC3lAZ.png)
 
 <a name="how-to-overwrite"></a>
 ## How to Overwrite
@@ -245,3 +370,21 @@ An AJAX call is made to the ```search()``` method:
 - when pagination is performed on the table;
 
 You can of course overwrite this ```search()``` method by just creating one with the same name in your ```EntityCrudController```. In addition, you can overwrite what a specific column is searching through (and how), by [using the searchLogic attribute](/docs/{{version}}/crud-columns#custom-search-logic) on columns.
+
+
+<a name="how-to-debug"></a>
+## How to Debug
+
+Because the entries are fetched using AJAX requests, debugging the ListOperation can be a little difficult. Fortunately, we've thought of that.
+
+<a name="errors-in-ajax-requests"></a>
+### Errors in AJAX requests
+
+If an error is thrown during the AJAX request, Backpack will show that error in a modal. Easy-peasy.
+
+<a name="see-query-models-views-exceptions-in-ajax-requests"></a>
+### See query, models, views, exceptions in AJAX requests
+
+If you want to see or optimize database queries, you can do that using any Laravel tool that analyzes AJAX request. For example, here's how to analyze AJAX requests using the excellent [barryvdh/laravel-debugbar](https://github.com/barryvdh/laravel-debugbar). You just click the Folder icon to the right, and you select the latest request. Debugbar will then show you all info for that last AJAX request:
+
+![How to use DebugBar with Backpack's ListOperation](https://user-images.githubusercontent.com/1032474/227514264-0a95ac8f-1bfa-4009-86c4-3c8313ca3399.gif)

@@ -309,7 +309,7 @@ In ```config/backpack/base.php``` you'll notice this config option:
 ```php
     // JS files that are loaded in all pages, using Laravel's asset() helper
     'scripts' => [
-        // Backstrap includes jQuery, Bootstrap, CoreUI, PNotify, Popper
+        // Backstrap includes jQuery, Bootstrap, CoreUI, Noty, Popper
         'packages/backpack/base/js/bundle.js?v='.\PackageVersions\Versions::getVersion('backpack/base'),
 
         // examples (everything inside the bundle, loaded from CDN)
@@ -375,7 +375,7 @@ You can add any script you want inside all Backpack's pages by just adding it in
 
     // JS files that are loaded in all pages, using Laravel's asset() helper
     'scripts' => [
-        // Backstrap includes jQuery, Bootstrap, CoreUI, PNotify, Popper
+        // Backstrap includes jQuery, Bootstrap, CoreUI, Noty, Popper
         'packages/backpack/base/js/bundle.js',
 
         // examples (everything inside the bundle, loaded from CDN)
@@ -483,7 +483,7 @@ In ```config/backpack/base.php``` you'll find these configuration options:
 
 In order to completely customize the auth routes, you can change both ```setup_auth_routes``` and ```setup_dashboard_routes``` to ```false```. This means Backpack\Base won't register any routes any more, so you'll have to manually register them in your route file. Here's what you can use to get started:
 ```php
-Route::group(['middleware' => 'web', 'prefix' => config('backpack.base.route_prefix', 'namespace' => 'Backpack\Base\app\Http\Controllers')], function () {
+Route::group(['middleware' => 'web', 'prefix' => config('backpack.base.route_prefix'), 'namespace' => 'Backpack\Base\app\Http\Controllers'], function () {
     Route::auth();
     Route::get('logout', 'Auth\LoginController@logout');
     Route::get('dashboard', 'AdminController@dashboard');

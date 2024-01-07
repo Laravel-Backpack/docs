@@ -38,9 +38,9 @@ class ProductCrudController extends CrudController
         // or just do everything you've done for the Create Operation
         // $this->crud->setupCreateOperation();
 	
-	// You can also do things depending on the current entry
-	// (the database item being edited or updated)
-	// if ($this->crud->getCurrentEntry()->smth == true) {}
+        // You can also do things depending on the current entry
+        // (the database item being edited or updated)
+        // if ($this->crud->getCurrentEntry()->smth == true) {}
     }
 }
 ```
@@ -76,6 +76,64 @@ CrudController is a RESTful controller, so the ```Update``` operation uses two r
 
 The ```edit()``` method will show all the fields you've defined for this operation using the [Fields API](/docs/{{version}}/crud-fields#fields-api), then upon Save the ```update()``` method will first check the validation from the type-hinted FormRequest, then create the entry using the Eloquent model. Only attributes that have a field type added and are ```$fillable``` on the model will actually be updated in the database.
 
+<a name="widget"></a>
+## How to add custom sections(aka. Widgets)
+
+[Widgets](https://backpackforlaravel.com/docs/{{version}}/base-widgets) (aka cards, aka charts, aka graphs) provide a simple way to insert blade files into admin panel pages. You can use them to insert cards, charts, notices or custom content into pages. You can use the [default widget types](https://backpackforlaravel.com/docs/{{version}}/base-widgets#default-widget-types) or [create your own custom widgets](https://backpackforlaravel.com/docs/{{version}}/base-widgets#creating-a-custom-widget-type).
+
+Backpack's default template includes two [sections](https://backpackforlaravel.com/docs/{{version}}/base-widgets#requirements-1) where you can push widgets:
+
+* `before_content`
+* `after_content`
+
+To use widgets on update operation, define them inside `setupUpdateOperation()` function.
+
+```php
+public function setupUpdateOperation()
+{    
+    // dynamic data to render in the following widget
+    $userCount = \App\Models\User::count();
+
+    //add div row using 'div' widget and make other widgets inside it to be in a row
+    Widget::add()->to('before_content')->type('div')->class('row')->content([
+        
+        //widget made using fluent syntax
+        Widget::make()
+            ->type('progress')
+            ->class('card border-0 text-white bg-primary')
+            ->progressClass('progress-bar')
+            ->value($userCount)
+            ->description('Registered users.')
+            ->progress(100 * (int)$userCount / 1000)
+            ->hint(1000 - $userCount . ' more until next milestone.'),
+
+        //widget made using the array definition 
+        Widget::make(
+            [
+                'type'       => 'card',
+                'class'   => 'card bg-dark text-white',
+                'wrapper' => ['class' => 'col-sm-3 col-md-3'],
+                'content'    => [
+                    'header' => 'Example Widget',
+                    'body'   => 'Widget placed at "before_content" secion in same row',
+                ]
+            ]
+        ),
+    ]);
+
+    //you can also add Script & CSS to your page using 'script' & 'style' widget
+    Widget::add()->type('script')->stack('after_scripts')->content('https://code.jquery.com/ui/1.12.0/jquery-ui.min.js');
+    Widget::add()->type('style')->stack('after_styles')->content('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.58/dist/themes/light.css');
+}
+```
+
+#### Output:
+* Using `before_content`:
+
+![](https://i.imgur.com/MF9ePIM.png)
+* Using `after_content`
+
+![](https://i.imgur.com/AxC3lAZ.png)
 
 <a name="advanced-features-and-techniques"></a>
 ## Advanced Features and Techniques
@@ -247,23 +305,23 @@ class ProductCrudController extends CrudController
         // $this->crud->addField(['type' => 'hidden', 'name' => 'author_id']);
         // $this->crud->removeField('password_confirmation');
 	
-	// Note: By default Backpack ONLY saves the inputs that were added on page using Backpack fields.
-	// This is done by stripping the request of all inputs that do NOT match Backpack fields for this
-	// particular operation. This is an added security layer, to protect your database from malicious
-	// users who could theoretically add inputs using DeveloperTools or JavaScript. If you're not properly
-	// using $guarded or $fillable on your model, malicious inputs could get you into trouble.
-	
-	// However, if you know you have proper $guarded or $fillable on your model, and you want to manipulate 
-	// the request directly to add or remove request parameters, you can also do that.
-	// We have a config value you can set, either inside your operation in `config/backpack/crud.php` if
-	// you want it to apply to all CRUDs, or inside a particular CrudController:
-    	// $this->crud->setOperationSetting('saveAllInputsExcept', ['_token', '_method', 'http_referrer', 'current_tab', 'save_action']);
-	// The above will make Backpack store all inputs EXCEPT for the ones it uses for various features.
-	// So you can manipulate the request and add any request variable you'd like.
-	// $this->crud->getRequest()->request->add(['author_id'=> backpack_user()->id]);
-	// $this->crud->getRequest()->request->remove('password_confirmation');
-	// $this->crud->getRequest()->request->add(['author_id'=> backpack_user()->id]);
-	// $this->crud->getRequest()->request->remove('password_confirmation');
+        // Note: By default Backpack ONLY saves the inputs that were added on page using Backpack fields.
+        // This is done by stripping the request of all inputs that do NOT match Backpack fields for this
+        // particular operation. This is an added security layer, to protect your database from malicious
+        // users who could theoretically add inputs using DeveloperTools or JavaScript. If you're not properly
+        // using $guarded or $fillable on your model, malicious inputs could get you into trouble.
+        
+        // However, if you know you have proper $guarded or $fillable on your model, and you want to manipulate 
+        // the request directly to add or remove request parameters, you can also do that.
+        // We have a config value you can set, either inside your operation in `config/backpack/crud.php` if
+        // you want it to apply to all CRUDs, or inside a particular CrudController:
+            // $this->crud->setOperationSetting('saveAllInputsExcept', ['_token', '_method', 'http_referrer', 'current_tab', 'save_action']);
+        // The above will make Backpack store all inputs EXCEPT for the ones it uses for various features.
+        // So you can manipulate the request and add any request variable you'd like.
+        // $this->crud->getRequest()->request->add(['author_id'=> backpack_user()->id]);
+        // $this->crud->getRequest()->request->remove('password_confirmation');
+        // $this->crud->getRequest()->request->add(['author_id'=> backpack_user()->id]);
+        // $this->crud->getRequest()->request->remove('password_confirmation');
 	
         $response = $this->traitUpdate();
         // do something after save
@@ -319,7 +377,8 @@ class Product extends Model
 
 Change the languages available to translate to/from, in your crud config file (```config/backpack/crud.php```). By default there are quite a few enabled (English, French, German, Italian, Romanian).
 
-Additionally, if you have slugs (but only if you need translatable slugs), you'll need to use backpack's classes instead of the ones provided by cviebrock/eloquent-sluggable:
+Additionally, if you have slugs (but only if you need translatable slugs), you'll need to use backpack's classes instead of the ones provided by `cviebrock/eloquent-sluggable`. 
+Make sure you have `cviebrock/eloquent-sluggable` installed as well, if not, please do it with `composer require cviebrock/eloquent-sluggable`:
 
 ```php
 <?php
@@ -358,7 +417,7 @@ class Category extends Model
      *
      * @return array
      */
-    public function sluggable()
+    public function sluggable(): array
     {
         return [
             'slug' => [
@@ -369,3 +428,24 @@ class Category extends Model
 }
 ```
 > If your slugs are not translatable, use the ```cviebrock/eloquent-sluggable``` traits. The Backpack's ```Sluggable``` trait saves your slug as a JSON object, regardless of the ```slug``` field being defined inside the ```$translatable``` property.
+
+<a name="delete-button-on-update-operation"></a>
+### Delete button on Update operation
+
+![CRUD Update Operation](https://backpackforlaravel.com/uploads/docs-5-0/operations/delete_from_form.gif)
+
+If you want to display a **Delete** button right on the **Update** operation, you simply need to add a line to the `setupUpdateOperation()` method:
+
+```php
+    protected function setupUpdateOperation()
+    {
+        // your code...
+        
+        $this->crud->setOperationSetting('showDeleteButton', true); // <--- add this!
+        
+        // alternatively you can pass an URL to where user should be redirected after entry is deleted:
+        // $this->crud->setOperationSetting('showDeleteButton', 'https://someurl.com');
+    }
+```
+
+This will allow admins to remove entries right from the **Update Operation**, and it will redirect them back ot the **List Operation** afterwards.

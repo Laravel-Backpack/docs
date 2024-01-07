@@ -738,7 +738,7 @@ Input preview:
 <a name="easymde"></a>
 ### easymde
 
-Show an [EasyMDE - Markdown Editor](https://easy-markdown-editor.tk/) to the user. EasyMDE is a well-maintained fork of SimpleMDE.
+Show an [EasyMDE - Markdown Editor](https://github.com/Ionaru/easy-markdown-editor) to the user. EasyMDE is a well-maintained fork of SimpleMDE.
 
 ```php
 [   // easymde

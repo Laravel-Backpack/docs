@@ -479,6 +479,12 @@ Shows the number of items that are related to the current entry, for a particula
    'label'     => 'Tags', // Table column heading
    // OPTIONAL
    // 'suffix' => ' tags', // to show "123 tags" instead of "123 items"
+   
+   // if you need that column to be orderable in table, you need to manually provide the orderLogic
+   // 'orderable' => true,
+   // 'orderLogic' => function ($query, $column, $columnDirection) {
+                $query->orderBy('tags_count', $columnDirection);
+            },
 ],
 ```
 

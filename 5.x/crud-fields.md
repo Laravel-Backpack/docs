@@ -177,6 +177,13 @@ In this example, these 3 fields will show up in the create & update forms, the C
 
 If the ```store_in``` attribute wasn't used, they would have been stored in the ```extras``` column.
 
+If you need to perform any manipulation of the data before storing the fake fields, you should define a mutator for the column used to store the fake attributes, by default it's `extras`. It can be any other column you define in `store_in`. 
+```php
+// in YourModel.php
+public function setExtrasAttribute($value)
+{
+	// Your code
+}
 <a name="split-fields-into-tabs"></a>
 #### Optional - Tab Attribute Splits Forms into Tabs
 
@@ -1473,7 +1480,7 @@ Input preview:
 <a name="easymde"></a>
 ### easymde <span class="badge badge-pill badge-info">PRO</span>
 
-Show an [EasyMDE - Markdown Editor](https://easy-markdown-editor.tk/) to the user. EasyMDE is a well-maintained fork of SimpleMDE.
+Show an [EasyMDE - Markdown Editor](https://github.com/Ionaru/easy-markdown-editor) to the user. EasyMDE is a well-maintained fork of SimpleMDE.
 
 ```php
 [   // easymde
@@ -1496,6 +1503,71 @@ Show an [EasyMDE - Markdown Editor](https://easy-markdown-editor.tk/) to the use
 Input preview:
 
 ![CRUD Field - easymde](https://backpackforlaravel.com/uploads/docs-4-2/fields/easymde.png)
+
+<hr>
+
+<a name="google-map"></a>
+### google_map <span class="badge badge-pill badge-info">PRO</span>
+
+Shows a map and allows the user to navigate and select a position on that map (using the Google Places API). The field stores the latitude, longitude and the address string as a JSON in the database ( eg. `{lat: 123, lng: 456, formatted_address: 'Lisbon, Portugal'}`). If you want to save the info in separate db columns, continue reading below.
+
+```php
+CRUD::addField([
+    'name' => 'location',
+    'type' => 'google_map',
+    // optionals
+    'map_options' => [
+        'default_lat' => 123,
+        'default_lng' => 456,
+        'locate' => false, // when false, only a map is displayed. No value for submition.
+        'height' => 400 // in pixels
+    ]
+]);
+```
+
+Using Google Places API is dependent on using an API Key. Please [get an API key](https://console.cloud.google.com/apis/credentials) - you do have to configure billing, but you qualify for $200/mo free usage, which covers most use cases. Then copy-paste that key as your ```services.google_places.key``` value. So inside your ```config/services.php``` please add the items below:
+
+```php
+'google_places' => [
+    'key' => 'the-key-you-got-from-google-places'
+],
+```
+
+**How to save in multiple inputs?**
+
+There are cases where you rather save the information on separate inputs in the database. In that scenario you should use [Laravel mutators and accessors](https://laravel.com/docs/9.x/eloquent-mutators). Using the same field as previously shown (**field name is `location`**), and having `latitude`, `longitude`, `full_address` as the database columns, we can save and retrieve them separately too:
+```php
+
+//add all the fields to model fillable property, including the one that we are not going to save (location in the example)
+$fillable = ['location', 'latitude', 'longitude', 'full_address'];
+
+// 
+protected function location(): \Illuminate\Database\Eloquent\Casts\Attribute
+{
+    return \Illuminate\Database\Eloquent\Casts\Attribute::make(
+        get: function($value, $attributes) {
+            return json_encode([
+            'lat' => $attributes['lat'], 
+            'lng' => $attributes['lng'], 
+            'formatted_address' => $attributes['full_address'] ?? ''
+            ], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_THROW_ON_ERROR);
+        },
+        set: function($value) {
+            $location = json_decode($value);
+            return [
+                'lat' => $location->lat,
+                'lng' => $location->lng,
+                'full_address' => $location->formatted_address ?? ''
+            ];
+        }
+    );
+}
+
+```
+
+Input preview:
+
+![image](https://user-images.githubusercontent.com/7188159/208295372-f2dcbe71-73b7-452d-9904-428f725cdbce.png)
 
 <hr>
 
@@ -1652,8 +1724,8 @@ Show a telephone number input. Lets the user choose the prefix using a flag from
     // most options provided by intlTelInput.js are supported, you can try them out using the `config` attribute;
     //  take note that options defined in `config` will override any default values from the field;
     'config' => [
-        'onlyCountries' => ['pt', 'ro'],
-        'initialCountry' => 'cl',
+        'onlyCountries' => ['bd', 'cl', 'in', 'lv', 'pt', 'ro'],
+        'initialCountry' => 'cl', // this needs to be in the allowed country list, either in `onlyCountries` or NOT in `excludeCountries`
         'separateDialCode' => true,
         'nationalMode' => true,
         'autoHideDialCode' => false,
@@ -1993,6 +2065,7 @@ You can use most field types inside the field groups, add as many subfields you 
 - some field types do not make sense as subfields inside repeatable (for example, relationship fields might not make sense; they will work if the relationship is defined on the main model, but upon save the selected entries will NOT be saved as relationships, they will be saved as JSON; you can intercept the saving if you want and do whatever you want);
 - a few fields _make sense_, but _cannot_ work inside repeatable (ex: upload, upload_multiple); [see the notes inside the PR](https://github.com/Laravel-Backpack/CRUD/pull/2266#issuecomment-559436214) for more details, and a complete list of the fields; the few fields that do not work inside repeatable have sensible alternatives;
 - **VALIDATION**: you can validate subfields the same way you validate [nested arrays in Laravel](https://laravel.com/docs/8.x/validation#validating-nested-array-input) Eg: `testimonial.*.name => 'required'`
+- **FIELD USAGE AND RELATIONSHIPS**: note that it's not possible to use a repeatable field inside other repeatable field. Relationships that use `subfields` are under the hood repeatable fields, so the relationship subfields cannot include other repeatable field.
 
 ```php
 [   // repeatable

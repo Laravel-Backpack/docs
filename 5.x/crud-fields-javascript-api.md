@@ -268,3 +268,26 @@ crud.field('wish').subfield('country').onChange(function(field) {
 ```
 
 ![Scenario 11 - when a repeatable subfield changed, disable another subfield](https://backpackforlaravel.com/uploads/docs-5-0/fields/js-api/scenario_11.gif)
+
+
+<a name="example-12"></a>
+#### (12) When a checkbox is checked, hide repeatable and disable all subfields
+
+When a checkbox is checked, disable all subfields in a repeatable and hide the repetable field entirely:
+
+```javascript
+crud.field('visible').onChange(field => {
+    var subfields = $(crud.field('wish').input).parent().find('[data-repeatable-holder]').data('subfield-names');
+
+    // disable/enable all subfields
+    subfields.forEach(element => {
+        crud.field('wish').subfield(element).enable(field.value == 1);
+    });
+
+    // hide/show the repeatable entirely
+    crud.field('wish').show(field.value == 1);
+}).change(); 
+// this last change() call makes the code above also run on pageload, 
+// so that if the checkbox starts checked, it's visible,
+// if the checkbox starts unchecked, it's hidden
+```

@@ -58,7 +58,7 @@ You can see the result of this change on [our pricing page](https://backpackforl
 
 #### Warning before leaving the Create or Update form
 
-For large forms, it's often smart to ask the user if they really want to lose their form changes, before they leave the page. That's exactly what `CRUD::set('warnBeforeLeaving', true)` will do, just call it in your `setupCreateOperation()` or `setupUpdateOperation()`.
+For large forms, it's often smart to ask the user if they really want to lose their form changes, before they leave the page. That's exactly what `warnBeforeLeaving` will do. Just call it in your `setup()` method for all operations that use a form: `CRUD::set('warnBeforeLeaving', true)`. Or if you want only in specific operations like `setupCreateOperation()` or `setupUpdateOperation()` set it as a setting for the operation: `CRUD::setOperationSetting('warnBeforeLeaving', true)`.
 
 
 #### Quickly validate forms inside CrudController, no FormRequest needed
