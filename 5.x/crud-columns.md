@@ -897,17 +897,15 @@ $this->crud->addColumn([
       },
       // 'target' => '_blank',
       // 'class' => 'some-class',
-      // 'prefix' => '(',
-      // 'suffix' => ')',
   ],
 ]);
 ```
 
-If you specify ```wrapper``` to a column, the entries in that column will be wrapped in the element you specify. Note that: 
+If you specify ```wrapper``` to a column, the entries in that column will be wrapped in the element you specify. Note that:
 - To get an HTML anchor (a link), you can specify ```a``` for the element (but that's also the default); to get a paragraph you'd specify ```p``` for the element; to get an inline element you'd specify ```span``` for the element; etc;
-- Anything you declare in the ```wrapper``` array (other than ```element```, `prefix` and `suffix`) will be used as HTML attributes for that element (ex: ```class```, ```style```, ```target``` etc);
-- Each wrapper attribute, including the element itself, can be declared as a string OR as a callback;
-- Prefix and Suffix will be placed inside the wrapper element, it is particularly useful when you have a list of entries (eg. `select_multiple`) you may have a general prefix and suffix on the column, and a specific one for each element.
+- Anything you declare in the ```wrapper``` array (other than ```element```) will be used as HTML attributes for that element (ex: ```class```, ```style```, ```target``` etc);
+- Each wrapper attribute, including the element itself, can be declared as a `string` OR as a `callback`;
+
 
 Let's take another example, and wrap a boolean column into a green/red span:
 
