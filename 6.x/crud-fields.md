@@ -112,6 +112,37 @@ These will help you:
 - **attributes** - change or add actual HTML attributes of the input (ex: readonly, disabled, class, placeholder, etc);
 - **wrapper** - change or add actual HTML attributes to the div that contains the input;
 
+<a name="optional-field-attributes-for-accessibility"></a>
+#### Optional but Recommended - Field Attributes for Accessibility
+
+By default, field labels are not directly associated with input fields. To improve the accessibility of CRUD fields for screen readers and other assistive technologies (ensuring that a user entering a field will be informed of the name of the field), you can use the ```aria-label``` attribute:
+
+```php
+CRUD::field([
+    'name'  => 'email',
+    'label' => 'Email Address',
+    'type'  => 'email',
+    'attributes' => [
+        'aria-label' => 'Email Address',
+    ],
+]);
+```
+
+In most cases, the ```aria-label``` will be the same as the ```label``` but there may be times when it is helpful to provide more context to the user. For example, the field ```hint``` text appears _after_ the field itself and therefore a screen reader user will not encounter the ```hint``` until they leave the field. You might therefore want to provide a more descriptive ```aria-label```, for example:
+
+```php
+CRUD::field([
+    'name'       => 'age',
+    'label'      => 'Age',
+    'type'       => 'number',
+    'hint'       => 'Enter the exact age of the participant (as a decimal, e.g. 2.5)',
+    'attributes' => [
+        'step' => 'any',
+        'aria-label' => 'Participant Age (as a decimal number)',
+    ],
+]);
+```
+
 <a name="fake-fields"></a>
 #### Optional - Fake Field Attributes (stores fake attributes as JSON in the database)
 
