@@ -16,11 +16,11 @@ When adding an upload field (`upload`, `upload_multiple`, `image` or `dropzone`)
 CRUD::field('avatar')->type('upload')->withFiles();
 ```
 
-That's it. Backpack will now handle the upload, storage and deletion of the files for you. By default it will use `public` disk, and will delete the files when the entry is deleted.
+That's it. Backpack will now handle the upload, storage and deletion of the files for you. By default it will use `public` disk, and will delete the files when the entry is deleted(*).
 
 > **IMPORTANT**:
 > - Make sure you've linked the `storage` folder to your `public` folder. You can do that by running `php artisan storage:link` in your terminal.
-> - If you want your files to be deleted when the entry is deleted, please [Configure File Deletion](#deleting-files-when-entry-is-deleted)
+> - (*) If you want your files to be deleted when the entry is deleted, please [Configure File Deletion](#deleting-files-when-entry-is-deleted)
 
 
 <a name="upload-configuration"></a>
@@ -59,11 +59,13 @@ It accepts a `FileNameGeneratorInterface` instance or a closure. As the name imp
 <a name="handling-uploaders-in-relationship-fields"></a>
 ### Handling uploads in relationship fields
 
-Some relationships require additional configuration to properly work with the Uploaders. 
+**IMPORTANT**: Please make sure you are **NOT** casting the uploaders attributes in your model. If you need a casted attribute to work with the values somewhere else, please create a different attribute that copies the uploader attribute value and manually cast it how you need it.
+
+Some relationships require additional configuration to properly work with the Uploaders, here are some examples:
 
 - **`BelongsToMany`** 
 
-In this relationships, you should create a Pivot model where Uploaders register their events. 
+In this relationships, you should add the upload fields to the `withPivot()` method and create a Pivot model where Uploaders register their events. [Laravel Docs - Pivot Models](https://laravel.com/docs/10.x/eloquent-relationships#defining-custom-intermediate-table-models)
 
 Take for example an `Article` model has a `BelongsToMany` relationship defined with `Categories` model:
 
@@ -108,7 +110,6 @@ class ArticleCategory extends MorphPivot
 public function categories() {
     $this->morphToMany(Category::class)->withPivot('picture')->using(ArticleCategory::class); //assuming picture is the pivot field where you store the uploaded file path.
 }
-
 ```
 
 <a name="naming-files-when-using-uploaders"></a>
