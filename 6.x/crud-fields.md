@@ -2362,9 +2362,10 @@ CRUD::field([   // Text
 
     // optional
     'locale' => 'pt', // locale to use, defaults to app()->getLocale()
-    'separator' => '_', // separator to use, defaults to '-'
-    'trim' => false, // trim whitespace, defaults to true
-    'lower' => false, // convert to lowercase, defaults to true
+    'separator' => '', // separator to use
+    'trim' => true, // trim whitespace
+    'lower' => true, // convert to lowercase
+    'strict' => true, // strip special characters except replacement
     'remove' => '/[*+~.()!:@]/g', // remove characters to match regex, defaults to null
     ]);
 ```
