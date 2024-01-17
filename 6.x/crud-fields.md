@@ -2351,7 +2351,7 @@ Input preview:
 
 ### slug  <span class="badge badge-pill badge-info">PRO</span>
 
-Track the value of a different text input and turn it into a valid URL segment (aka. slug), as you type, using JS:
+Track the value of a different text input and turn it into a valid URL segment (aka. slug), as you type, using Javascript. Under the hood it uses [slugify](https://github.com/simov/slugify/blob/master/README.md) to generate the slug with some sensible defaults. 
 
 ```php
 CRUD::field([   // Text
@@ -2361,20 +2361,13 @@ CRUD::field([   // Text
     'type'  => 'slug',
 
     // optional
-    //'prefix'     => '',
-    //'suffix'     => '',
-    //'default'    => 'some value', // default value
-    //'hint'       => 'Some hint text', // helpful text, show up after input
-    //'attributes' => [
-       //'placeholder' => 'Some text when empty',
-       //'class' => 'form-control some-class',
-       //'readonly'  => 'readonly',
-       //'disabled'  => 'disabled',
-     //], // extra HTML attributes and values your input might need
-     //'wrapper'   => [
-       //'class' => 'form-group col-md-12'
-     //], // extra HTML attributes for the field wrapper - mostly for resizing fields
-]);
+    'locale' => 'pt', // locale to use, defaults to app()->getLocale()
+    'separator' => '', // separator to use
+    'trim' => true, // trim whitespace
+    'lower' => true, // convert to lowercase
+    'strict' => true, // strip special characters except replacement
+    'remove' => '/[*+~.()!:@]/g', // remove characters to match regex, defaults to null
+    ]);
 ```
 
 Input preview:
