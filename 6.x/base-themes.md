@@ -69,6 +69,16 @@ Each theme can provide its own config file. That file overrides anything that wa
 
 Inside your files you can access a theme config by using `backpack_theme_config('something')`.
 
+
+<a name="translate-theme-strings"></a>
+### Translate Theme Strings
+
+Some themes may provide languages strings that can be translated into other languages. Those themes are stored inside the `backpack.theme-{themeName}` namespace so to change any strings or create new translations you can place your files in `lang/vendor/backpack.theme-{themeName}/{language}/theme-{themeName}.php`.
+
+Replace `{themeName}` and `{language}` with the theme name and language you want to translate. For example, if you want to translate the `backpack/theme-tabler` theme into Spanish, you would create a file at `lang/vendor/backpack.theme-tabler/es/theme-tabler.php`.
+
+> Better than just creating a file, feel free to submit a PR or just open an issue with the translated keys and we may add them into the package so all users can benefit from them. We highly appreciate your efforts. Thank you!
+
 <a name="how-themes-work"></a>
 ## Official Themes
 
