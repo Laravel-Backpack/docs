@@ -96,6 +96,9 @@ Most of the times, the buttons you want to create aren't complex at all. They're
 // href: /entry/{id}/email
 CRUD::button('email')->stack('line')->view('crud::buttons.quick'); 
 
+// you can also add buttons on the "top" stack
+CRUD::button('export')->stack('top')->view('crud::buttons.quick');
+
 // if you need to control the access to "Email" per entry, you can do:
 CRUD::setAccessCondition('Email', function ($entry) {
     return $entry->hasVerifiedEmail();
@@ -109,8 +112,8 @@ CRUD::button('email')->stack('line')->view('crud::buttons.quick')->meta([
     'access' => true,
 ]);
 
-// you can easily customize Access, Name, Label, Icon in `metas`
-// and even the attributes of the <a> element in meta's `wrapper`
+// you can easily customize Access, Name, Label, Icon in `meta`
+// and even the attributes of the <a> element in meta `wrapper`
 CRUD::button('email')->stack('line')->view('crud::buttons.quick')->meta([
     'access' => true,
     'label' => 'Email',
@@ -123,6 +126,8 @@ CRUD::button('email')->stack('line')->view('crud::buttons.quick')->meta([
     ]
 ]);
 ```
+
+> You should always control the access of your buttons. The key for access by default is the button name `->studly()` with a fallback to the button name without modifications. It means that for a button named `some_button`, the access key will be either `SomeButton` or `some_button`. Eg: `CRUD::allowAccess('some_button')` or `CRUD::allowAccess('SomeButton')`.
 
 <a name="creating-a-custom-button"></a>
 ### Creating a Custom Button

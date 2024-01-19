@@ -1070,23 +1070,41 @@ trait CommentOperation
 ```
 
 **Step 3.** Now let's add the fields. We have a decision to make... who adds the fields? Does it make more sense for:
-- (a) the developer to add the fields, because they vary from CrudController to CrudController;
-- (b) the operation itself to add the fields, because the fields never change;
+- **(a)** the developer to add the fields, because they vary from CrudController to CrudController;
+- **(b)** the operation itself to add the fields, because the fields never change when you add the operation to multiple CrudControllers;
 
-If (a) made more sense, we'd just create a new function in our CrudController, called `setupCommentOperation()`, and define the fields there.
+If **(a)** made more sense, we'd just create a new function in our CrudController, called `setupCommentOperation()`, and define the fields there.
 
-In our case, (b) makes more sense, so let's change the CommentOperation trait and add this at the end of our `setupCommentDefaults()`:
+In case **(b)** makes more sense, we will define the fields at the operation itself in `setupCommentDefaults()`.
 
 ```php
-public function setupCommentDefaults(): void
-{
-    // ..
+// a) whenever we use this operation, we want to always setup the same fields
 
+// inside `ComentOperation.php`
+public function setupCommentDefaults(): void
+{  
+    // ...
 
     $this->crud->operation('comment', function () {
         $this->crud->field('message')->type('textarea');
     });
 }
+
+// b) when the operation can accept different fields for each crud controller, eg: UserCrudController may have some fields, while in PostCrudController we may have others
+
+// inside `UserCrudController.php` 
+public function setupCommentOperation(): void
+{
+    $this->crud->field('message')->type('textarea');
+}
+
+// inside `PostCrudController.php` 
+public function setupCommentOperation(): void
+{
+    $this->crud->field('message')->type('textarea');
+    $this->crud->field('rating')->type('number');
+}
+
 ```
 
 **Step 4.** Let's actually add the comment to the database. Inside the `CommentOperation` trait, if we go to `postCommentForm()` well see we have a placeholder for our logic there:
@@ -1098,7 +1116,12 @@ public function setupCommentDefaults(): void
 
         return $this->formAction($id, function ($inputs, $entry) {
             // You logic goes here...
-            // dd('got to ' . __METHOD__, $inputs, $entry);
+
+            // You can validate the inputs using the Laravel Validator, eg:
+            // $valid = Validator::make($inputs, ['message' => 'required'])->validated();
+
+            // and then save it to database
+            // $entry->comments()->create($valid);
 
             // show a success message
             \Alert::success('Something was done!')->flash();
