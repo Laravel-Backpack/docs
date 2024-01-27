@@ -284,6 +284,51 @@ protected function setupListOperation()
 }
 ```
 
+<a name="custom-views"></a>
+#### Custom Views (for ListOperation) <span class="badge badge-pill badge-info">PRO</span>
+
+If you want to use a custom view for the ListOperation, you can do so by;
+
+1) Use the `CustomViewOperation` trait in your CrudController:
+
+```php
+class YourCrudController extends CrudController
+{
+    ...
+    use \Backpack\Pro\Http\Controllers\Operations\CustomViewOperation;
+```
+
+2) Add `$this->runCustomViews()` at the end of your `setupListOperation()` method:  
+The `$this->runCustomViews()` will look for all the views you have defined. If you want to costumize the the title of your views, you can pass an array with the key being the name of the method and the value being the title of the view:
+
+```php
+public function setupListOperation()
+{
+    // ...
+
+    $this->runCustomViews();
+    // or 
+    $this->runCustomViews([
+        'setupLast12MonthsView' => __('Last 12 months'),
+        'setupLast6MonthsView' => __('Last 6 months'),
+    ]);
+}
+```
+3) Add the view logic you want to use in your CrudController.  
+This is meant to be run after all the the `setupListOperation()` columns, filters, buttons, etc. have been defined, so it should perform operations over the current state, like add or remove, columns, filters, buttons, etc, depending on your needs for that view.
+
+```php
+public function setupLast6MonthsView()
+{
+    // ...
+}
+
+public function setupLast12MonthsView()
+{
+    // ...
+}
+```
+
 <a name="widget"></a>
 ## How to add custom sections (aka. Widgets)
 
