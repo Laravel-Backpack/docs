@@ -253,7 +253,7 @@ CRUD::filter('from_to')
     ->whenActive(function($value) {
       // $dates = json_decode($value);
       // CRUD::addClause('where', 'date', '>=', $dates->from);
-      // CRUD::addClause('where', 'date', '<=', $dates->to . ' 23:59:59');
+      // CRUD::addClause('where', 'date', '<=', $dates->to);
     });
 ```
 
