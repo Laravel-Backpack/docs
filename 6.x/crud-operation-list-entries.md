@@ -287,9 +287,19 @@ protected function setupListOperation()
 <a name="custom-views"></a>
 #### Custom Views (for ListOperation) <span class="badge badge-pill badge-info">PRO</span>
 
-If you want to use a custom view for the ListOperation, you can do so by;
+You might need different "views" or "pages" for your ListOperation, where each view has some filters/columns. For example:
+- default `Product` list view - show all products;
+- different `Best Sold Products` list view;
+- different `Products for accounting` list view
 
-1) Use the `CustomViewOperation` trait in your CrudController:
+The `CustomViews` operation helps you do exactly that - create alternative "views" for your ListOperation. Your admin will get a new dropdown right next to the "Add" button, to toggle between the different list views:
+
+![Backpack PRO CustomViewsOperation](https://private-user-images.githubusercontent.com/1838187/286036856-edb3a77e-4a65-454c-a6dc-eae05837fe3b.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDY2MTgxNzQsIm5iZiI6MTcwNjYxNzg3NCwicGF0aCI6Ii8xODM4MTg3LzI4NjAzNjg1Ni1lZGIzYTc3ZS00YTY1LTQ1NGMtYTZkYy1lYWUwNTgzN2ZlM2IucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDEzMCUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDAxMzBUMTIzMTE0WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9ZDRiOTMwM2I4ZmNmMzZjMTk5ZGVkODYyMGY0ZWFjMGFlYzVhZjliNTI4ZDNjMDc1Yzc5NzA3ZGEwN2IwNzRjMCZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.vyEcs1Fm0dg89stxwIOa1DdVctD3Kt-TByMQWmbQwgg)
+
+
+To do that:
+
+1) **Use the `CustomViewOperation` trait in your CrudController**:
 
 ```php
 class YourCrudController extends CrudController
@@ -298,8 +308,7 @@ class YourCrudController extends CrudController
     use \Backpack\Pro\Http\Controllers\Operations\CustomViewOperation;
 ```
 
-2) Add `$this->runCustomViews()` at the end of your `setupListOperation()` method:  
-The `$this->runCustomViews()` will look for all the views you have defined. If you want to costumize the the title of your views, you can pass an array with the key being the name of the method and the value being the title of the view:
+2) **Add `$this->runCustomViews()` at the end of your `setupListOperation()` method.** That will look for all the views you have defined. If you want to costumize the the title of your views, you can pass an array with the key being the name of the method and the value being the title of the view:
 
 ```php
 public function setupListOperation()
@@ -314,8 +323,7 @@ public function setupListOperation()
     ]);
 }
 ```
-3) Add the view logic you want to use in your CrudController.  
-This is meant to be run after all the the `setupListOperation()` columns, filters, buttons, etc. have been defined, so it should perform operations over the current state, like add or remove, columns, filters, buttons, etc, depending on your needs for that view.
+3) **Add the view logic you want to use in your CrudController.** This is meant to be run after all the the `setupListOperation()` columns, filters, buttons, etc. have been defined, so it should perform operations over the current state, like add or remove, columns, filters, buttons, etc, depending on your needs for that view.
 
 ```php
 public function setupLast6MonthsView()
