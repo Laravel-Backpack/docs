@@ -993,3 +993,11 @@ $schedule->command('backpack:purge-temporary-files')->hourly();
 ```
 
 After adding this, you need to setup a cron job that will process the Laravel scheduler. You can manually run it in development with `php artisan schedule:run`. For production, you can setup a cron job take care of it for you. You can read more about it [here](https://laravel.com/docs/10.x/scheduling#running-the-scheduler).
+
+<a name="enable-database-transactions-for-create-and-update"></a>
+### Enable database transactions for create and update
+
+In v6.6 we introduced the ability to enable database transactions for create and update operations. This is useful if you have a lot of relationships and you want to make sure that all of them are saved or none of them are saved. 
+You can enable this feature globaly at `config/backpack/base.php` by enabling `useDatabaseTransactions`. 
+
+> **Note:** This feature will be enable by default starting `v7`
