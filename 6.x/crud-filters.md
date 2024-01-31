@@ -128,13 +128,13 @@ CRUD::filter('name')->remove();
 - ```->forget('attribute_name')``` - By chaining **forget('attribute_name')** to a filter you remove that attribute from the filter;
 
 ```php
-CRUD::filter('price')->prefix('$'); // will have "$" as prefix 
+CRUD::filter('price')->prefix('$'); // will have "$" as prefix
 CRUD::filter('price')->forget('prefix'); // will no longer have "$" as prefix
 
-// Note: 
-// You can only call "forget" on filter attributes. Calling "forget" on "before", 
-// "after", "whenActive", "whenInactive" etc. will do nothing, because those 
-// are not attributes, they are methods. You can, however, forget filter logic 
+// Note:
+// You can only call "forget" on filter attributes. Calling "forget" on "before",
+// "after", "whenActive", "whenInactive" etc. will do nothing, because those
+// are not attributes, they are methods. You can, however, forget filter logic
 // or fallback logic by using their attributes:
 CRUD::filter('price')->forget('logic');
 CRUD::filter('price')->forget('fallbackLogic');
@@ -250,6 +250,10 @@ Show a daterange picker. The user can select a start date and an end date.
 ```php
 CRUD::filter('from_to')
     ->type('date_range')
+    // set options to customize, www.daterangepicker.com/#options
+    ->date_range_options([
+       'timePicker' => true // example: enable/disable time picker
+    ])
     ->whenActive(function($value) {
       // $dates = json_decode($value);
       // CRUD::addClause('where', 'date', '>=', $dates->from);
