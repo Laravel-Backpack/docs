@@ -271,6 +271,9 @@ CRUD::addField([
 ]);
 ```
 
+> An important thing to notice when using model events in the fields is that those events will only be registered **in the same operations (create, update, etc)** where your fields are defined.
+> Take for example the `DeleteOperation`, which is ran when you delete an entry. If you define a field with a `deleting` event, that event will not be registered when you delete an entry, because the field is not defined in the `DeleteOperation`. If you want to use model events in the `DeleteOperation`, you can do that by using the `setupDeleteOperation()` method and defining the fields with the events there too, similar to how you do for create and update operations.
+
 #### Override the `store()` method
 
 The store code is inside a trait, so you can easily override it, if you want:
