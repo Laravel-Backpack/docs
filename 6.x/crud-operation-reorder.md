@@ -39,6 +39,11 @@ class ProductCrudController extends CrudController
         // define how deep the admin is allowed to nest the items
         // for infinite levels, set it to 0
         CRUD::set('reorder.max_level', 2);
+
+        // if you don't fully trust the input in your database, you can set 
+        // "escaped" to true, so that the label is escaped before being shown
+        // you can also enable it globally in config/backpack/operations/reorder.php
+        CRUD::set('reorder.escaped', true);
     }
 }
 ```
