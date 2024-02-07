@@ -56,6 +56,11 @@ This allows you to overwrite or set the uploader class for this field. You can u
 - **`fileNamer`** - default: **null**
 It accepts a `FileNameGeneratorInterface` instance or a closure. As the name implies, this will be used to generate the file name. Read more about in the [Naming uploaded files](#upload-name-files) section.
 
+<a name="upload-validation"></a>
+### Upload Validation
+
+We can't stress enough how **IMPORTANT** is to properly validate and autenticate the file uploads and the upload endpoints. We have created a set of custom validation rules that will make validation of upload fields dead-simple. Please see the [Custom Validation Rules](https://backpackforlaravel/docs/custom-validation-rules) section for more information.
+
 <a name="handling-uploaders-in-relationship-fields"></a>
 ### Handling uploads in relationship fields
 
