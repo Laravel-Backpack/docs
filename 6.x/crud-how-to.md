@@ -944,56 +944,6 @@ How do you find out what's the last version you have access to?
 
 Why the ugly, general error? Because Composer doesn't allow vendors to customize the error, unfortunately. Backpack's server returns a better error message, but Composer doesn't show it.
 
-
-<a name="configuring-the-temporary-directory"></a>
-### Configuring the Temporary Directory
-
-The [dropzone field](/docs/{{version}}/crud-fields#dropzone-pro) and DropzoneOperation will upload the files to a temporary directory using AJAX. When an entry is saved, they move that file to the final directory. But if the user doesn't finish the saving process, the temp directory can still hold files that are not used anywhere.
-
-**Configure Temp Directory**
-
-To configure that temporary directory for ALL dropzone operations, call `php artisan vendor:publish --provider="Backpack\Pro\AddonServiceProvider" --tag="dropzone-config"` and then edit your  `config/backpack/operations/dropzone.php` to fit your needs. Here are the most important values you'll find there:
-
-```php
-    'temporary_disk' => 'local', // disk in config/filesystems.php that will be used
-    'temporary_folder' => 'backpack/temp', // the directory inside the disk above
-    'purge_temporary_files_older_than' => 72 // automatically delete files older than 72 hours
-```
-
-Alternatively, you can also configure the temp directory for the current CRUD only using:
-
-```php
-public function setupDropzoneOperation()
-{
-    CRUD::setOperationSetting('temporary_disk', 'public');
-    CRUD::setOperationSetting('temporary_folder', 'backpack/temp');
-    CRUD::setOperationSetting('purge_temporary_files_older_than', 72);
-}
-```
-
-**Delete Old Temp Files**
-
-Whenever new files are uploaded using the Dropzone operation, the operation deletes old files from the temp directory. But you can also run the `backpack:purge-temporary-files` command, to clean the temp directory.
-
-
-```bash
-php artisan backpack:purge-temporary-files --older-than=24 --disk=public --path="backpack/temp"
-```
-
-It accepts the following optional parameters:
-- `--older-than=24`: the number of hours after which temporary files are deleted.
-- `--disk=public`: the disk used by the temporary files.
-- `--path="backpack/temp"`: the folder inside the disk where files will be stored.
-
-
-You can use any strategy to run this command periodically - a cron job, a scheduled task or hooking into application termination hooks. Laravel provides a very easy way to setup your scheduled tasks. You can read more about it [here](https://laravel.com/docs/10.x/scheduling). For example, you can run the command every hour by adding the following line to your `app/Console/Kernel.php` in the `schedule()` method:
-```php
-// app/Console/Kernel.php
-$schedule->command('backpack:purge-temporary-files')->hourly();
-```
-
-After adding this, you need to setup a cron job that will process the Laravel scheduler. You can manually run it in development with `php artisan schedule:run`. For production, you can setup a cron job take care of it for you. You can read more about it [here](https://laravel.com/docs/10.x/scheduling#running-the-scheduler).
-
 <a name="enable-database-transactions-for-create-and-update"></a>
 ### Enable database transactions for create and update
 

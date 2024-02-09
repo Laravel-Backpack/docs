@@ -1362,24 +1362,24 @@ Show a [Dropzone JS Input](https://docs.dropzone.dev/).
 
 **Step 0.** Make sure the model attribute can hold all the information needed. Ideally, your model should cast this attribute as `array` and your migration should make the db column either `TEXT` or `JSON`. Other db column types such as `VARCHAR(255)` might not be enough all the time (for 3+ files).
 
-**Step 1:** Add the `DropzoneOperation` to your `CrudController`
+**Step 1:** Add the `AjaxUploadOperation` to your `EntityCrudController` [read more about the ajax upload operation](https://backpackforlaravel.com/docs/crud-operation-ajax-upload).
 
 ```php
-class UserCrudController extends CrudController
+class EntityCrudController extends CrudController
 {
     // ... other operations
-    use \Backpack\Pro\Http\Controllers\Operations\DropzoneOperation;
+    use \Backpack\Pro\Http\Controllers\Operations\AjaxUploadOperation;
 }
 ```
 
-**Step 2:** Add the field in CrudController
+**Step 2:** Add the field in EntityCrudController
 
 ```php
 CRUD::field([
     'name'  => 'photos',
     'label' => 'Photos',
     'type'  => 'dropzone',
-
+    'withFiles' => true,
     // optional configuration.
     // check available options in https://docs.dropzone.dev/configuration/basics/configuration-options
     // 'configuration' => [
@@ -1388,23 +1388,10 @@ CRUD::field([
 ]);
 ```
 
-**Step 3:** Configure the file upload process.
-
-At this point you have the dropzone field showing up, and the ajax routes setup to upload/delete files, but the process is not complete. Your files are now only uploaded to the temporary folder, they need to be moved to the permanent location and their paths stored in the database. The easiest way to do that is to add `withFiles => true` to your field definition, this will use the standard `AjaxUploader` that Backpack provides:
-
-```php
-CRUD::field([
-    'name'  => 'photos',
-    'label' => 'Photos',
-    'type'  => 'dropzone',
-    'withFiles' => true,
-]);
-```
-
-Alternatively, you can manually implement the saving process yourself using model events, mutators or any other solution that suits you. To know more about the `withFiles`, how it works and how to configure it, [read its documentation](https://backpackforlaravel.com/docs/6.x/crud-uploaders).
+Alternatively, you can manually implement the saving process yourself using model events, mutators or any other solution that suits you. To know more about the `withFiles`, how it works and how to configure it, [read its documentation](https://backpackforlaravel.com/docs/crud-uploaders).
 
 
-**Step 4:** Configure validation. Yes you can do some basic validation in Javascript, but we highly advise you prioritize server-side validation. To make validation easy we created `ValidDropzone` validation rule. It allows you to define two set of rules:
+**Step 4:** **VALIDATE YOUR INPUT**. Yes you can do some basic validation in Javascript, but we highly advise you to prioritize server-side validation. To make validation easy we created `ValidDropzone` validation rule. It allows you to define two set of rules:
 - `::field()` - the field rules (independent of the file content);
 - `->file()` - rules that apply to the sent files;
 
@@ -1414,10 +1401,6 @@ use Backpack\Pro\Uploads\Validation\ValidDropzone;
 'photos' => ValidDropzone::field('required|min:2|max:5')
                 ->file('file|mimes:jpeg,png,jpg,gif,svg|max:2048'),
 ```
-
-
-**Step 5:** (optional) Configure the temp directory. Whenever new files are uploaded using the Dropzone operation, old files are automatically deleted from the temp directory. But you can also manually clean the temp directory. For more info and temp directory configuration options, see [this link](/docs/{{version}}/crud-how-to#configuring-the-temporary-directory).
-
 
 Input preview:
 
@@ -1448,6 +1431,23 @@ CRUD::field([   // easymde
 
 > NOTE: The contents displayed in this editor are NOT stripped, sanitized or escaped by default. Whenever you store Markdown or HTML inside your database, it's HIGHLY recommended that you sanitize the input or output. Laravel makes it super-easy to do that on the model using [accessors](https://laravel.com/docs/8.x/eloquent-mutators#accessors-and-mutators). If you do NOT trust the admins who have access to this field (or end-users can also store information to this db column), please make sure this attribute is always escaped, before it's shown. You can do that by running the value through `strip_tags()` in an accessor on the model (here's [an example](https://github.com/Laravel-Backpack/demo/commit/509c0bf0d8b9ee6a52c50f0d2caed65f1f986385)) or better yet, using an [HTML Purifier package](https://github.com/mewebstudio/Purifier) (here's [an example](https://github.com/Laravel-Backpack/demo/commit/7342cffb418bb568b9e4ee279859685ddc0456c1)).
 
+#### Uploading images using EasyMDE drag & drop
+
+Starting Backpack 6.7 you can now upload images using drag & drop directly into the EasyMDE editor. To enable this feature you need to follow these steps:
+
+**Step 1:** Add the `AjaxUploadOperation` to your `EntityCrudController` where you defined your easyMDE field.
+**Step 2:** Add the `withFiles => true` attribute to your field definition. You can check other available options in the [uploaders documentation](https://backpackforlaravel.com/docs/crud-uploaders).
+
+**Note:** EasyMDE provides some basic javascript file validation. By default only `jpg, jpeg, png, gif, svg, webp` are allowed and files up to 2MB. You can change this by setting the `imageMaxSize` and `imageAccept` options in the `easymdeAttributes` attribute. Eg:
+
+```php
+'easymdeAttributes' => [
+    'imageMaxSize' =>  1024 * 5, // up to 5MB
+    'imageAccept' => ['image/gif'], // to only accept gifs 
+]
+```
+
+```php
 Input preview:
 
 ![CRUD Field - easymde](https://backpackforlaravel.com/uploads/docs-4-2/fields/easymde.png)
