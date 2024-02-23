@@ -96,7 +96,7 @@ We believe Tabler is the best HTML template on the market right now, with many _
 
 For more information and installation steps, see [`backpack/theme-tabler`](https://github.com/Laravel-Backpack/theme-tabler) on Github.
 
-To get more information on Backpack specific built-in components for tabler, please check the [Tabler Theme](https://backpackforlaravel.com/docs/themes/theme-tabler) page.
+To get more information on Backpack specific built-in components for tabler, please check the [Tabler Theme](https://backpackforlaravel.com/docs/theme-tabler) page.
 
 <a name="coreuiv2-theme"></a>
 ### CoreUIv2 Theme
@@ -112,7 +112,7 @@ We do not recommend using this theme in production, long-term. We recommend usin
 
 For more information and installation steps, see [`backpack/theme-coreuiv2`](https://github.com/Laravel-Backpack/theme-coreuiv2) on Github.
 
-<a name="coreuiv4-theme"></a>
+<a name="tabler-theme"></a>
 ### CoreUIv4 Theme
 
 ![](https://user-images.githubusercontent.com/1032474/240274314-184d328e-0e6c-4d67-942b-4e4d4efd96c8.png)
