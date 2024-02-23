@@ -11,25 +11,23 @@ For more information about installation and/or configuration steps, see [`backpa
 <a name="view-components">
 ### View Components
 
-`MenuDropdownMenu` - In addition to regular menu components provided by backpack [Menu Dropdown and Menu Dropdown Item](https://backpackforlaravel.com/docs/base-components#menu-dropdown-and-menu-dropdown-item), Tabler theme provides a new component `Menu Dropdown Menu` which is used to create side by side menus on horizontal layouts. 
+`MenuDropdownMenu` - In addition to regular menu components provided by backpack [Menu Dropdown and Menu Dropdown Item](https://backpackforlaravel.com/docs/base-components#menu-dropdown-and-menu-dropdown-item), Tabler theme provides a new component `Menu Dropdown Menu` which is used to create side by side menus on horizontal layouts.
+> Backpack/CRUD `v6.6.4` or higher.
+> Backpack/theme-tabler `v1.2.1` or higher
 
-```blade
-<x-backpack::menu-dropdown title=" Documents" icon="la la-group">
-    <x-backpack::menu-dropdown-item title=" Invoices" icon="las la-euro-sign" link="https://example.com" />
-        <x-backpack::menu-separator />
-        <x-backpack::menu-dropdown title=" Accounting" icon="la la-group" nested="true">
-            <x-backpack::menu-dropdown-item title=" Process Invoice Materials" icon="las la-euro-sign" link="https://example.com" />
-            <x-backpack::menu-dropdown-item title=" Mark as Paid" icon="las la-euro-sign" link="https://example.com" />
-            <x-backpack::menu-dropdown title=" Finance" icon="la la-group" nested="true" :withColumns="true">
-                <x-theme-tabler::menu-dropdown-column>
-                    <x-backpack::menu-dropdown-item title=" Request SAD" icon="las la-caret-right" link="https://example.com" />
-                    <x-backpack::menu-dropdown-item title=" EIOL (pcam)" icon="las la-caret-right" link="https://example.com" />
-                </x-theme-tabler::menu-dropdown-column>
-                <x-theme-tabler::menu-dropdown-column>
-                    <x-backpack::menu-dropdown-item title=" SBOM" icon="las la-caret-right" link="https://example.com" />
-                    <x-backpack::menu-dropdown-item title=" BOM" icon="las la-caret-right" link="https://example.com" />
-                </x-theme-tabler::menu-dropdown-column>
-            </x-backpack::menu-dropdown>
-        </x-backpack::menu-dropdown>         
+![tabler side by side menus](https://github.com/Laravel-Backpack/docs/assets/7188159/2c65e523-a545-486a-b7b0-cbd9f92ee273)
+
+```html
+<x-backpack::menu-dropdown title=" Vet Clinic" icon="las la-clinic-medical" :withColumns="true">
+        <x-theme-tabler::menu-dropdown-column>
+            <x-backpack::menu-dropdown-item title=" Appointments" icon="las la-calendar-check" link="https://example.com" />
+            <x-backpack::menu-dropdown-item title=" Medical Records" icon="las la-file-medical" link="https://example.com" />
+            <x-backpack::menu-dropdown-item title=" Prescriptions" icon="las la-prescription" link="https://example.com" />
+        </x-theme-tabler::menu-dropdown-column>
+        <x-theme-tabler::menu-dropdown-column>
+            <x-backpack::menu-dropdown-item title=" Pet Vaccinations" icon="las la-syringe" link="https://example.com" />
+            <x-backpack::menu-dropdown-item title=" Pet Grooming" icon="las la-cut" link="https://example.com" />
+            <x-backpack::menu-dropdown-item title=" Pet Boarding" icon="las la-home" link="https://example.com" />
+        </x-theme-tabler::menu-dropdown-column>
 </x-backpack::menu-dropdown>
 ```
