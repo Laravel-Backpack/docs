@@ -12,10 +12,11 @@ For more information about installation and/or configuration steps, see [`backpa
 ### View Components
 
 `MenuDropdownMenu` - In addition to regular menu components provided by backpack [Menu Dropdown and Menu Dropdown Item](https://backpackforlaravel.com/docs/base-components#menu-dropdown-and-menu-dropdown-item), Tabler theme provides a new component `Menu Dropdown Menu` which is used to create side by side menus on horizontal layouts.
-> Backpack/CRUD `v6.6.4` or higher.
-> Backpack/theme-tabler `v1.2.1` or higher
 
-![tabler side by side menus](https://github.com/Laravel-Backpack/docs/assets/7188159/2c65e523-a545-486a-b7b0-cbd9f92ee273)
+> Require `Backpack/CRUD:6.6.4` and `Backpack/theme-tabler:1.2.1` or higher
+
+#### Component Usage
+In your parent dropdown item, enable the feature by setting `:withColumns="true"` and then use `x-theme-tabler::menu-dropdown-column` component to wrap each set of menu items. See the example below:
 
 ```html
 <x-backpack::menu-dropdown title=" Vet Clinic" icon="las la-clinic-medical" :withColumns="true">
@@ -31,3 +32,5 @@ For more information about installation and/or configuration steps, see [`backpa
         </x-theme-tabler::menu-dropdown-column>
 </x-backpack::menu-dropdown>
 ```
+
+![tabler side by side menus](https://github.com/Laravel-Backpack/docs/assets/7188159/2c65e523-a545-486a-b7b0-cbd9f92ee273)
