@@ -976,10 +976,18 @@ The button makes one call for all entries, and only triggers one notification. I
 <a name="creating-a-new-operation-with-a-form"></a>
 #### Creating a New Operation With a Form
 
-Say we want to create a ```Comment``` operation. Click the Comment button on an entry, and it brings up a form with a textarea. Submit the form and you're back to the list view. What we need to do is:
+Say we want to create a ```Comment``` operation. Click the Comment button on an entry, and it brings up a form with a textarea. Submit the form and you're back to the list view. Let's get started. What we need to do is:
+
+**Step 0.** Install ```backpack/generators``` if you haven't yet. [https://github.com/Laravel-Backpack/Generators](https://github.com/Laravel-Backpack/Generators). We have built a set of commands to help you create a new form operation easy peasy. You can use it like this:
+
+```bash
+php artisan backpack:crud-operation Comment # will create a form for the entries in your list view, with the id in the URL
+
+php artisan backpack:crud-operation Comment --no-id # will create a form, without the id in the URL (generators v4.0.4+)
+```
 
 
-**Step 1.** Generate the operation trait, by running  `php artisan backpack:crud-form-operation Comment`. This will create a new trait, `CommentOperation` that should look very similar to this:
+**Step 1.** Back to our goal, lets generate the operation trait, by running `php artisan backpack:crud-form-operation Comment`. This will create a new trait, `CommentOperation` that should look very similar to this:
 
 ```php
 <?php
@@ -1017,7 +1025,7 @@ trait CommentOperation
     {
         $this->formDefaults(
             operationName: 'comment',
-            // buttonStack: 'line', // alternatives: top, bottom
+            buttonStack: 'line', // alternatives: top, bottom
             // buttonMeta: [
             //     'icon' => 'la la-home',
             //     'label' => 'Comment',
@@ -1034,7 +1042,7 @@ trait CommentOperation
      * @param  int  $id
      * @return \Illuminate\Contracts\View\View
      */
-    public function getCommentForm(int $id = null)
+    public function getCommentForm(int $id)
     {
         $this->crud->hasAccessOrFail('comment');
 
@@ -1051,7 +1059,7 @@ trait CommentOperation
     {
         $this->crud->hasAccessOrFail('comment');
 
-        return $this->formAction($id, function ($inputs, $entry) {
+        return $this->formAction(id: $id, formLogic: function ($inputs, $entry) {
             // You logic goes here...
             // dd('got to ' . __METHOD__, $inputs, $entry);
 
@@ -1103,6 +1111,10 @@ public function setupCommentOperation(): void
 {
     $this->crud->field('message')->type('textarea');
     $this->crud->field('rating')->type('number');
+
+    // if you want to add a FormRequest to validate the fields you do it here.
+    // later when you handle the form submission, the request will be automatically validated
+    $this->crud->setValidation(CommentRequest::class); // this file is not automatically created. You have to create it yourself.
 }
 
 ```
@@ -1114,11 +1126,14 @@ public function setupCommentOperation(): void
     {
         $this->crud->hasAccessOrFail('comment');
 
-        return $this->formAction($id, function ($inputs, $entry) {
+        return $this->formAction(id: $id, formLogic: function ($inputs, $entry) {
             // You logic goes here...
 
             // You can validate the inputs using the Laravel Validator, eg:
             // $valid = Validator::make($inputs, ['message' => 'required'])->validated();
+
+            // alternatively if you set a FormRequest in the setupCommentOperation() method, 
+            // the request will be validated here already
 
             // and then save it to database
             // $entry->comments()->create($valid);
