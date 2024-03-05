@@ -57,6 +57,13 @@ You can easily disable the default trash filter:
 public function setupTrashOperation()
 {
     CRUD::setOperationSetting('withTrashFilter', false);
+
+    // one of the things the filter does is preventing the update/access to trashed items. 
+    // if you disable it and use Update/Show operations, you should manually disable the 
+    // access to those operations or they will throw 404:
+    CRUD::setAccessCondition(['update', 'show'], function($entry) {
+        return ! $entry->trashed();
+    });
 }
 ```
 
