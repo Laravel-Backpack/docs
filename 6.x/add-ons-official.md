@@ -7,6 +7,7 @@ Premium add-ons (paid separately):
 - [Backpack DevTools](https://backpackforlaravel.com/products/devtools) - a GUI to easily generate Migrations, Models, Seeders, Factories and CRUDs, right from your browser window; a power user's dream come true! <span class="badge badge-pill badge-warning">PAID EXTRA</span>
 - [Backpack Figma Template](https://backpackforlaravel.com/products/figma-template) - quickly create designs and mockups, using Backpack's design, screens and components; empower your designers to design admin panels that are easy-to-code; <span class="badge badge-pill badge-warning">PAID EXTRA</span>
 - [Backpack EditableColumns](https://backpackforlaravel.com/products/editable-columns) - let admins make quick edits, right from the table view; <span class="badge badge-pill badge-warning">PAID EXTRA</span>
+- [Backpack CalendarOperation](https://backpackforlaravel.com/products/calendar-operation) - adds a Calendar view to your CRUD toolkit; let admins list, search and preview db entries on a calendar, as well as make quick edits with drag&drop; <span class="badge badge-pill badge-warning">PAID EXTRA</span>
 
 
 Free add-ons:
