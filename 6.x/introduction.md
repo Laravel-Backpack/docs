@@ -78,7 +78,7 @@ Backpack v6 is the current version, and is actively maintained by the Backpack t
 ### License
 
 Backpack is open-core:
-- **Backpack CRUD is free & open-source, licensed under the [MIT License](LICENSE.md)**; it is perfect if you're building a simple admin panel - it's packed with features! it's also perfect if you're building an open-source project, the permissive license allows you to do whatever you want;
+- **Backpack CRUD is free & open-source, licensed under the [MIT License](https://github.com/Laravel-Backpack/CRUD/blob/main/LICENSE.md)**; it is perfect if you're building a simple admin panel - it's packed with features! it's also perfect if you're building an open-source project, the permissive license allows you to do whatever you want;
 - **Backpack PRO is a paid, closed-source add-on, licensed under our [EULA](https://backpackforlaravel.com/eula)**; [PRO](https://backpackforlaravel.com/products/pro-for-unlimited-projects) add additional functionality to CRUD, that will be useful when your admin panel grows (see our [FREE vs PRO comparison](https://backpackforlaravel.com/docs/5.x/features-free-vs-paid));
 - the other add-ons we've created are some FREE, some PAID; please see [our add-ons list](https://backpackforlaravel.test/docs/6.x/add-ons-official) for more info;
 

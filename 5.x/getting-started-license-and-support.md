@@ -24,7 +24,7 @@ Starting with v5, Backpack has become open-core. The main features are now split
 
 Backpack\CRUD is perfect if you're building a simple admin panel - it's packed with features! It's also perfect if you're building an open-source project, the permissive license allows you to do whatever you want.
 
-When your admin panel grows and your needs become more complex, you can purchase our [Backpack\PRO](https://backpackforlaravel.com/products/pro-for-unlimited-projects) add-on, which adds A LOT of features for complex use-cases (see [list here]([Backpack\Pro](https://backpackforlaravel.com/products/pro-for-unlimited-projects))). Our documentation includes instructions on how to use both Backpack\CRUD and Backpack\PRO, with all the PRO features clearly labeled <span class="badge badge-pill badge-info">PRO</span>
+When your admin panel grows and your needs become more complex, you can purchase our [Backpack\PRO](https://backpackforlaravel.com/products/pro-for-unlimited-projects) add-on, which adds A LOT of features for complex use-cases (see [list here](https://backpackforlaravel.com/products/pro-for-unlimited-projects))). Our documentation includes instructions on how to use both Backpack\CRUD and Backpack\PRO, with all the PRO features clearly labeled <span class="badge badge-pill badge-info">PRO</span>
 
 
 <a name="support"></a>
