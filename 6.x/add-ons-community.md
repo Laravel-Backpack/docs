@@ -6,8 +6,6 @@ We've been blessed with a wonderful, supportive community, where developers help
 
 | Name          | Description   | License  |
 | ------------- |:-------------:| --------:|
-| [BackpackBlog](https://github.com/AbbyJanke/BackpackBlog)      | blog front-end and back-end | - |
-| [BackpackMeta](https://github.com/AbbyJanke/BackpackMeta)      | helps create meta options for extending core functions      |   - |
 | [LogViewer](https://github.com/eduardoarandah/backpacklogviewer) | advanced logging interface - brings the ArcaneDev/LogViewer package to Backpack admin panels    | [MIT](https://github.com/eduardoarandah/backpacklogviewer/blob/master/LICENSE.md) |
 | [UserManager](https://github.com/eduardoarandah/UserManager) | manage the default Laravel users table (no permissions, no groups)      |  [MIT](https://github.com/eduardoarandah/UserManager/blob/master/LICENSE) |
 | [laravel-backpack-redirection-manager](https://github.com/novius/laravel-backpack-redirection-manager) | manage missing page redirections      | [AGPL-3](https://github.com/eduardoarandah/backpacklogviewer/blob/master/LICENSE.md) |

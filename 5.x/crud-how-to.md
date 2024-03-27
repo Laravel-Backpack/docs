@@ -901,7 +901,7 @@ How do you find out what's the last version you have access to?
 
 (1) **Whenever the error above happens, Backpack will send you an email**, with details and instructions. **Check your email**, it will also include the latest version you have access to.
 
-(2) [Your Tokens page](https://backpackforlaravel.com/user/tokens) will show more details. For each token you have, it will say when it stops giving you access to updates. If it doesn't say the last version directly, you can corroborate that last day with [the changelog](https://backpackforlaravel.com/products/pro-for-unlimited-projects/changelog.md), to determine what's the last version that _you_ have access to.
+(2) [Your Tokens page](https://backpackforlaravel.com/user/tokens) will show more details. For each token you have, it will say when it stops giving you access to updates. If it doesn't say the last version directly, you can corroborate that last day with [the changelog](https://backpackforlaravel.com/products/pro-for-unlimited-projects/CHANGELOG.md), to determine what's the last version that _you_ have access to.
 
 --
 

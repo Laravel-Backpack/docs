@@ -12,7 +12,7 @@ Here are the BIG things Backpack v6 brings to the table and why you should upgra
 - **[Pedro Martins](https://github.com/pxpm)** for creating [Uploaders](#uploaders-making-upload-fields-easier-than-ever) and [MediaLibrary Uploaders](#spatie-medialibrary-support);
 - **[Antonio Almeida](https://github.com/promatik)** for creating [Basset](#basset-a-better-way-to-load-css-and-js-assets);
 - **[Mauro Martinez](https://github.com/maurohmartinez)** for creating the [CoreUIv4](#coreui-v4-theme-easy-upgrade) & [Tabler](#tabler-theme-new-default) themes, plus our [new video course](/docs/6.x/getting-started-videos);
-- **[Jorge Castro](https://github.com/jorgetwgroup)** for creating [the dropzone field](#new-field-dropzone);
+- **[Jorge Castro](https://github.com/jcastroa87)** for creating [the dropzone field](#new-field-dropzone);
 - **[Munjal Mayank](https://github.com/munjaldevelopment)** for the [dozens of new columns](#23-new-column-types) we've added;
 - **[Karan Datwani](https://github.com/karandatwani92)** and **[Mohammad Emran](https://github.com/phpfour)** for bug fixes and docs improvements;
 - **[Cristian Tabacitu](https://github.com/tabacitu)** for [custom form operations](#custom-form-operations-now-easy), [quick buttons](#quick-buttons-now-one-line) and guidance on all of the above;

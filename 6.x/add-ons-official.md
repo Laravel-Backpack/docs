@@ -18,7 +18,7 @@ Free add-ons:
   - [NewsCRUD](https://github.com/Laravel-Backpack/NewsCRUD) - interface to manage news articles, categories and tags; <span class="badge badge-pill badge-success">FREE</span>
   - [LogManager](https://github.com/Laravel-Backpack/LogManager) - interface to preview Laravel log files; <span class="badge badge-pill badge-success">FREE</span>
   - [BackupManager](https://github.com/Laravel-Backpack/BackupManager) - interface to backup your files & db using [spatie/laravel-backup](https://github.com/spatie/laravel-backup); <span class="badge badge-pill badge-success">FREE</span>
-  - [Download Operation](https://github.com/Laravel-Backpack/download-operation) - download PDFs related to your entries, using [spatie/laravel-browsershot](https://github.com/spatie/laravel-browsershot); <span class="badge badge-pill badge-success">FREE</span>
+  - [Download Operation](https://github.com/Laravel-Backpack/download-operation) - download PDFs related to your entries, using [spatie/laravel-browsershot](https://github.com/spatie/browsershot); <span class="badge badge-pill badge-success">FREE</span>
   - [MediaLibrary Uploaders](https://github.com/Laravel-Backpack/medialibrary-uploaders) - attach files to your Eloquent models using [spatie/laravel-medialibrary](https://github.com/spatie/laravel-medialibrary); <span class="badge badge-pill badge-success">FREE</span>
   - [Activity Log](https://github.com/Laravel-Backpack/activity-log) - see who changed what, when using [spatie/laravel-activitylog](https://github.com/spatie/laravel-activitylog); <span class="badge badge-pill badge-success">FREE</span>
 
