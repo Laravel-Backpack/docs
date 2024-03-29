@@ -80,7 +80,7 @@ One regular need we've identified was needing to change the layout _slightly_. I
 
 ![Backpack v6 Tabler theme now has layouts](https://user-images.githubusercontent.com/1032474/240273221-8d5f5d53-ead0-4242-b83c-7dbb56028085.gif)
 
-Go head, check out the new layouts in [our online demo](http://v6demo.backpackforlaravel.com/).
+Go head, check out the new layouts in [our online demo](https://demo.backpackforlaravel.com/).
 
 #### Auth Layouts
 
