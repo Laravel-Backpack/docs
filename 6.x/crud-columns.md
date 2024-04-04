@@ -678,6 +678,8 @@ The select column will output its connected entity. Used for relationships like 
    'entity'    => 'parent', // the method that defines the relationship in your Model
    'attribute' => 'name', // foreign key attribute that is shown to user
    'model'     => "App\Models\Category", // foreign key model
+   // OPTIONAL
+   // 'limit' => 32, // Limit the number of characters shown
 ],
 ```
 
