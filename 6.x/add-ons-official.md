@@ -12,6 +12,7 @@ Premium add-ons (paid separately):
 
 Free add-ons:
   - [PermissionManager](https://github.com/Laravel-Backpack/PermissionManager) - interface to manage users & permissions, using [spatie/laravel-permission](https://github.com/spatie/laravel-permission); <span class="badge badge-pill badge-success">FREE</span>
+  - [TranslationManager](https://github.com/Laravel-Backpack/translation-manager) - interface to translate your language strings, using [spatie/laravel-translation-loader](https://github.com/spatie/laravel-translation-loader); <span class="badge badge-pill badge-success">FREE</span>
   - [Settings](https://github.com/Laravel-Backpack/Settings) - interface to edit site-wide settings; <span class="badge badge-pill badge-success">FREE</span>
   - [PageManager](https://github.com/Laravel-Backpack/PageManager) - interface to manage content for custom pages, using page templates; <span class="badge badge-pill badge-success">FREE</span>
   - [MenuCRUD](https://github.com/Laravel-Backpack/MenuCRUD) - interface to create/update/reorder menu items;  <span class="badge badge-pill badge-success">FREE</span>
