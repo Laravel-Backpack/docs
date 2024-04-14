@@ -21,9 +21,9 @@ Mentioned in this video:
 ----
 
 <a name="video-2"></a>
-<h2 class="mb-7">2. Installation & Setup</h2>
+<h2 class="mb-7">2. Installation and Setup</h2>
 
-Let's setup a Laravel project and follow the Backpack installation.
+Let's set up a Laravel project and follow the Backpack installation.
 
 <div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840026719' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
@@ -36,8 +36,8 @@ Mentioned in this video:
 ----
 
 <a name="video-3"></a>
-<h2 class="mb-7">3. Look & Feel - Introduction to Backpack Themes</h2>
-A quick intro to Backpack themes - how to customize the look & feel of your admin panel, or use a Bootstrap theme of your choice.
+<h2 class="mb-7">3. Look and Feel - Introduction to Backpack Themes</h2>
+A quick intro to Backpack themes - how to customize the look and feel of your admin panel, or use a Bootstrap theme of your choice.
 <div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840030924' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
 <br>
@@ -63,12 +63,12 @@ Mentioned in this video:
 
 <a name="video-5"></a>
 <h2 class="mb-7">5. CRUDs - Intro to Operations</h2>
-Operations are a very important part of Backpack - they allow you to do things like [Create](https://backpackforlaravel.com/docs/{{version}}/crud-operation-create), Read([List](https://backpackforlaravel.com/docs/{{version}}/crud-operation-list-entries) & [Show](https://backpackforlaravel.com/docs/{{version}}/crud-operation-show)), [Update](https://backpackforlaravel.com/docs/{{version}}/crud-operation-update) & [Delete](https://backpackforlaravel.com/docs/{{version}}/crud-operation-delete). Let's understand how they work.
+Operations are a very important part of Backpack - they allow you to do things like [Create](https://backpackforlaravel.com/docs/{{version}}/crud-operation-create), Read ([List](https://backpackforlaravel.com/docs/{{version}}/crud-operation-list-entries) and [Show](https://backpackforlaravel.com/docs/{{version}}/crud-operation-show)), [Update](https://backpackforlaravel.com/docs/{{version}}/crud-operation-update), and [Delete](https://backpackforlaravel.com/docs/{{version}}/crud-operation-delete). Let's understand how they work.
 <div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840032727' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
 <br>
 Mentioned in this video:
-- [Setup CRUD - basic guide](https://backpackforlaravel.com/docs/{{version}}/getting-started-crud-operations)
+- [Set up CRUD - basic guide](https://backpackforlaravel.com/docs/{{version}}/getting-started-crud-operations)
 - [Operations - in depth](https://backpackforlaravel.com/docs/{{version}}/crud-operations)
 
 
@@ -77,7 +77,7 @@ Mentioned in this video:
 <a name="video-6"></a>
 <h2 class="mb-7">6. DevTools - Generating CRUDs</h2>
 
-Go from idea to full CRUD in seconds! Quickly build an admin panel for your Eloquent models using a web interface to generate migrations, models and CRUDs.
+Go from an idea to a full CRUD in seconds! Quickly build an admin panel for your Eloquent models using a web interface to generate migrations, models, and CRUDs.
 
 <div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840033334' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
@@ -103,9 +103,9 @@ Mentioned in this video:
 ----
 
 <a name="video-8"></a>
-<h2 class="mb-7">8. Create & Update Operations</h2>
+<h2 class="mb-7">8. Create and Update Operations</h2>
 
-Now let's do a deeper dive into Backpack form - particularly the ones in the Create & Update operations, who use Backpack fields, another important feature.
+Now let's do a deeper dive into Backpack forms - particularly the ones in the Create and Update operations, which use Backpack fields, another important feature.
 
 <div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840035385' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
@@ -118,8 +118,8 @@ Mentioned in this video:
 ----
 
 <a name="video-9"></a>
-<h2 class="mb-7">9. Show & Delete Operations</h2>
-Let's also address some easy operations - Show & Delete operation. You'll see they are very similar to the ones above.
+<h2 class="mb-7">9. Show and Delete Operations</h2>
+Let's also address some easy operations - the Show and Delete operations. You'll see they are very similar to the ones above.
 <div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840035558' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
 <br>
@@ -131,8 +131,8 @@ Mentioned in this video:
 ----
 
 <a name="video-10"></a>
-<h2 class="mb-7">10. Reorder & BulkClone Operations</h2>
-Here are two other operation you will most likely need - they will help you reorder or duplicate the entries.
+<h2 class="mb-7">10. Reorder and BulkClone Operations</h2>
+Here are two other operation you will most likely need - they will help you reorder or duplicate entries.
 <div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840059217' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
 <br>
@@ -147,7 +147,7 @@ Mentioned in this video:
 <a name="video-11"></a>
 <h2 class="mb-7">11. Custom Operations using DevTools</h2>
 
-This video shows how to create custom operations, using our premium add-on DevTools.
+This video shows you how to create custom operations, using our premium add-on DevTools.
 
 <div class='mx-n1 mt-7 embed-container'><iframe src='https://player.vimeo.com/video/840059347' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
@@ -158,7 +158,7 @@ Mentioned in this video:
 ----
 
 
-Thank you for dedicating these 59 minutes to learning Backpack. **You should now be able to build your first admin panel.** But if you feel like you're _not quite ready yet_, here are a few more things you can do:
+Thank you for dedicating those 59 minutes to learning Backpack. **You should now be able to build your first admin panel.** But first, here are a few more links, if you are still not sure whether you are ready:
 
 - [Go through the demo](/docs/{{version}}/demo) and play around, browse the features (pay special attention to the Monsters CRUD)
 - Read this [CRUD Crash Course](/docs/{{version}}/crud-tutorial) and do the steps yourself
