@@ -140,7 +140,7 @@ In case you need to change how this operation works, just create a ```bulkTrash(
 ```php
 use \Backpack\Pro\Http\Controllers\Operations\BulkTrashOperation { bulkTrash as traitBulkTrash; }
 
-public function bulkTrash($id)
+public function bulkTrash()
 {
     $this->crud->hasAccessOrFail('bulkTrash');
 
