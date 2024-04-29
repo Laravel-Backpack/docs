@@ -2349,6 +2349,77 @@ Input preview:
 
 <hr>
 
+### select2_json_from_api  <span class="badge badge-pill badge-info">PRO</span>
+
+Display a select2 that takes its values from an AJAX call.
+Similar to [select2_from_ajax](#section-select2_from_ajax) above, but this one is not limited to a single entity. It can be used to select any JSON object from an API.
+
+```php
+CRUD::field([
+    'label'                   => 'Airports', // Table column heading
+    'type'                    => 'select2_json_from_api',
+    'name'                    => 'airports', // a unique identifier (usually the method that defines the relationship in your Model)
+    'data_source'             => url('airports/fetch/list'), // url to controller search function (with /{id} should return model)
+
+    // OPTIONAL
+    'delay'                   => 500, // the minimum amount of time between ajax requests when searching in the field
+    'method'                  => 'POST', // route method, either GET or POST
+    'placeholder'             => 'Select an airport', // placeholder for the select
+    'minimum_input_length'    => 2, // minimum characters to type before querying results
+    'multiple'                => true, // allow multiple selections
+    'method'                  => 'POST', // HTTP method to use for the AJAX call (GET, POST)
+    'include_all_form_fields' => false, // only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
+    
+    // OPTIONAL - if the response is a list of objects (and not a simple array)
+    'attribute'               => 'title', // foreign key attribute that is shown to user
+    'stored_attributes'       => ['id', 'title'], // attributes to store in the database
+]);
+```
+
+For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
+
+You may create a controller and routes for the data_source above. Here's an example using the FetchOperation, including a search term:
+Note that this example is for a non paginated response, but `select2_json_from_api` also accepts a paginated response.
+
+```php
+// use the FetchOperation
+use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
+```
+
+```php
+public function fetchAirports()
+{
+    $types = [
+        ['id' => 'OPO', 'city' => 'Porto', 'title' => 'Francisco Sá Carneiro Airport'],
+        ['id' => 'LIS', 'city' => 'Lisbon', 'title' => 'Humberto Delgado Airport'],
+        ['id' => 'FAO', 'city' => 'Faro', 'title' => 'Faro Airport'],
+        ['id' => 'FNC', 'city' => 'Funchal', 'title' => 'Cristiano Ronaldo Airport'],
+        ['id' => 'PDL', 'city' => 'Ponta Delgada', 'title' => 'João Paulo II Airport'],
+    ];
+
+    return collect($types)->filter(fn(array $value): bool => str_contains(strtolower($value['title']), strtolower(request('q'))));
+}
+```
+
+A simple array with a key value pair will also work:
+
+```php
+public function fetchAirports()
+{
+    $types = [
+        'OPO' => 'Francisco Sá Carneiro Airport',
+        'LIS' => 'Humberto Delgado Airport',
+        'FAO' => 'Faro Airport',
+        'FNC' => 'Cristiano Ronaldo Airport',
+        'PDL' => 'João Paulo II Airport',
+    ];
+
+    return collect($types)->filter(fn(string $value): bool => str_contains(strtolower($value), strtolower(request('q'))));
+}
+```
+
+<hr>
+
 ### slug  <span class="badge badge-pill badge-info">PRO</span>
 
 Track the value of a different text input and turn it into a valid URL segment (aka. slug), as you type, using Javascript. Under the hood it uses [slugify](https://github.com/simov/slugify/blob/master/README.md) to generate the slug with some sensible defaults. 
