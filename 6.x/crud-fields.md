@@ -2356,10 +2356,10 @@ Similar to [select2_from_ajax](#section-select2_from_ajax) above, but this one i
 
 ```php
 CRUD::field([
-    'label'                   => 'Airports', // Table column heading
+    'label'                   => 'Airports', // Displayed column label
     'type'                    => 'select2_json_from_api',
-    'name'                    => 'airports', // a unique identifier (usually the method that defines the relationship in your Model)
-    'data_source'             => url('airports/fetch/list'), // url to controller search function (with /{id} should return model)
+    'name'                    => 'airports', // the column where this field will be stored
+    'data_source'             => url('airports/fetch/list'), // the endpoint used by this field
 
     // OPTIONAL
     'delay'                   => 500, // the minimum amount of time between ajax requests when searching in the field
@@ -2367,12 +2367,11 @@ CRUD::field([
     'placeholder'             => 'Select an airport', // placeholder for the select
     'minimum_input_length'    => 2, // minimum characters to type before querying results
     'multiple'                => true, // allow multiple selections
-    'method'                  => 'POST', // HTTP method to use for the AJAX call (GET, POST)
     'include_all_form_fields' => false, // only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
     
     // OPTIONAL - if the response is a list of objects (and not a simple array)
-    'attribute'               => 'title', // foreign key attribute that is shown to user
-    'stored_attributes'       => ['id', 'title'], // attributes to store in the database
+    'attribute'               => 'title', // attribute to show in the select2
+    'attributes_to_store'       => ['id', 'title'], // attributes to store in the database
 ]);
 ```
 
@@ -2382,7 +2381,7 @@ You may create a controller and routes for the data_source above. Here's an exam
 Note that this example is for a non paginated response, but `select2_json_from_api` also accepts a paginated response.
 
 ```php
-// use the FetchOperation
+// use the FetchOperation to quickly create an endpoint
 use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
 ```
 
