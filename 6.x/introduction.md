@@ -56,7 +56,7 @@ We heavily recommend you spend a little time to understand Backpack, and only af
 <a name="requirements"></a>
 ### Requirements
 
-  - Laravel 10.x
+  - Laravel 10.x or 11.x
   - MySQL / PostgreSQL / SQLite / SQL Server
 
 <a name="how-does-it-look"></a>
