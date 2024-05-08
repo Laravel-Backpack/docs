@@ -484,9 +484,10 @@ return new class extends Migration
 ```
 Then run `php artisan migrate`. [More info](https://laravel.com/docs/10.x/verification#database-preparation).
 
-**Step 3** - Make sure you have the `verified` and `signed` middleware alias in your `App\Http\Kernel.php` file. New Laravel 10 installations already have them, but if you came from earlier versions it's possible that they are missing.
+**Step 3** - New Laravel 10/11 installations already have them in place so you can skip this step. If you came from earlier versions it's possible that they are missing in your app, in that case you can add them manually.
 
 ```php
+// for Laravel 10:
 protected $middlewareAliases = [
         // ... other middleware aliases
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,

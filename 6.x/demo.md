@@ -8,7 +8,7 @@ We've put together a working Laravel app (backend-only). This should make it eas
 - change stuff in code, to see how easy it is to customize Backpack;
 
 In this [Demo repository](https://github.com/laravel-backpack/demo), we've:
-- installed Laravel 10;
+- installed Laravel 11;
 - installed Backpack\CRUD; <span class="badge badge-pill badge-success">FREE</span>
 - installed Backpack\PRO; <span class="badge badge-pill badge-info">PRO</span>
 - installed Backpack\Editable-Columns; <span class="badge badge-pill badge-warning">PREMIUM</span>
@@ -58,10 +58,10 @@ php artisan db:seed --class="Backpack\Settings\database\seeds\SettingsTableSeede
 php artisan db:seed
 ```
 
-5) Internalize the CSS and JS assets using Basset:
+5) Cache the CSS and JS assets using Basset:
 ```zsh
 php artisan storage:link
-php artisan basset:internalize
+php artisan basset:cache
 ```
 
 <a name="usage"></a>
@@ -69,7 +69,7 @@ php artisan basset:internalize
 
 Once everything's installed, and your database has been set up:
 
-- Your admin panel is available at http://localhost/backpack-demo/admin
+- Your admin panel is available at `{APP_URL}`/admin
 - Login with email ```admin@example.com```, password ```admin```
 - You can register a different account, to check out the process and see your Gravatar inside the admin panel.
 - By default, registration is open only in your local environment. Check out ```config/backpack/base.php``` to change this and other preferences.

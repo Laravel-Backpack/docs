@@ -5,11 +5,11 @@
 <a name="requirements"></a>
 ## Requirements
 
-If you can run Laravel 10, you can install Backpack. Backpack does _not_ have additional requirements.
+If you can run Laravel 10 or 11, you can install Backpack. Backpack does _not_ have additional requirements.
 
 For the following process, we assume:
 
-- you have a [working installation of Laravel](https://laravel.com/docs/10.x#installation) (an existing project is fine, you don't need a *fresh* Laravel install);
+- you have a [working installation of Laravel](https://laravel.com/docs/11.x#installation) (an existing project is fine, you don't need a *fresh* Laravel install);
 
 - you have configured your .ENV file with your database and mail information;
 
