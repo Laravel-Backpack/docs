@@ -2417,6 +2417,30 @@ public function fetchAirports()
 }
 ```
 
+#### Storing only one the id in the database
+
+A very common use case you may have is to store only the id of the selected item in the database instead of a `json` string. For those cases you can achieve that by setting the `attributes_to_store` attribute to an array with only one item, the id of the selected item and do a little trick with the model events to store the id you want, and to give the field that id in a way it understands. 
+
+```php
+
+CRUD::field([
+    'label'               => 'Airports',
+    'type'                => 'select2_json_from_api',
+    'name'                => 'airport_id', // dont make your column json if not storing json on it!
+     // .... the rest your field configuration
+    'attribute'           => 'id', 
+    'attributes_to_store' => ['id'],
+    'events'              => [
+        'saving' => function($entry) {
+            $entry->airport_id = json_decode($entry->airport_id ?? [], true)['id'] ?? null;
+        'retrieved' => function($entry) {
+            $entry->airport_id = json_encode(['id' => $entry->airport_id]);
+        }
+    ]
+]);
+
+```
+
 <hr>
 
 ### slug  <span class="badge badge-pill badge-info">PRO</span>
