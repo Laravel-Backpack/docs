@@ -148,10 +148,14 @@ Quick Buttons can be easily configured to make an AJAX request. This is useful w
 CRUD::button('email')->stack('line')->view('crud::buttons.quick')->meta([
     'label' => 'Email',
     'icon' => 'la la-envelope',
+    'wrapper' => [
+        'href' => function ($entry, $crud) {
+            return backpack_url("invoice/$entry->id/email");
+        },
     'ajax' => true, // <- just add `ajax` and it's ready to make ajax request
 ]);
 
-// optinal ajax configuration
+// optional ajax configuration
 'ajax' => [
     'method' => 'POST',
     'refreshCrudTable' => false, // should the crud table be refreshed after a successful request ?
