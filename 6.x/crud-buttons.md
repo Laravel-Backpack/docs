@@ -139,7 +139,8 @@ CRUD::button('email')->stack('line')->view('crud::buttons.quick')->meta([
 > You should always control the access of your buttons. The key for access by default is the button name `->studly()` with a fallback to the button name without modifications. It means that for a button named `some_button`, the access key will be either `SomeButton` or `some_button`. Eg: `CRUD::allowAccess('some_button')` or `CRUD::allowAccess('SomeButton')`.
 
 #### Quick Button with Ajax
-You can make your Quick button do Ajax Calls with just one attribute. Examples:
+
+You can make your Quick button do Ajax calls with just one attribute. Examples:
 ```php
 // enable ajax
 CRUD::button('email')->stack('line')->view('crud::buttons.quick')->meta([
@@ -166,11 +167,12 @@ CRUD::button('email')->stack('line')->view('crud::buttons.quick')->meta([
         'error_title' => 'Error',
         'error_message' => 'There was an error sending the payment reminder. Please try again.',
     ],
-    /* Server Response examples:
-       Success response; ex: return ["message" => "Email sent successfully"];
-       OR
-       Laravel Error response; ex: abort(500),abort(403, 'Unauthorized Access!');
-    */
+    /*
+     * Server Response examples:
+     * Success response; ex: return ["message" => "Email sent successfully"];
+     * OR
+     * Laravel Error response; ex: abort(500),abort(403, 'Unauthorized Access!');
+     */
 ]);
 ```
 
