@@ -141,6 +141,7 @@ CRUD::button('email')->stack('line')->view('crud::buttons.quick')->meta([
 #### Quick Button with Ajax
 
 You can make your Quick button do Ajax calls with just one attribute. Examples:
+
 ```php
 // enable ajax
 CRUD::button('email')->stack('line')->view('crud::buttons.quick')->meta([
@@ -171,7 +172,7 @@ CRUD::button('email')->stack('line')->view('crud::buttons.quick')->meta([
      * Server Response examples:
      * Success response; ex: return ["message" => "Email sent successfully"];
      * OR
-     * Laravel Error response; ex: abort(500),abort(403, 'Unauthorized Access!');
+     * Laravel Error response; ex: abort(500); abort(403, 'Unauthorized Access!');
      */
 ]);
 ```
