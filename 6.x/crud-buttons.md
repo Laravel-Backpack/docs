@@ -166,13 +166,14 @@ CRUD::button('email')->stack('line')->view('crud::buttons.quick')->meta([
 ],
 ```
 
-You can overwrite the success/error messages by returning a key `message` from the response.
+You can overwrite the success/error messages by returning a `message` key from the response or providing the exception message.
 
 ```php
-public function sendPaymentReminder(Request $request)
+public function email($id)
 {
-    // send the email
-    $user = User::find($request->id);
+    CRUD::hasAccessOrFail('email');
+
+    $user = CRUD::getEntry($id);
 
     if($user->alreadyPaid()) {
         return abort(400, 'The user has already paid.');
@@ -183,6 +184,12 @@ public function sendPaymentReminder(Request $request)
     return response()->json([
         'message' => 'The payment reminder has been sent successfully.',
     ]);
+
+    // to return the default or field messages just return the response status without message:
+    // return reponse('');
+    // return response('', 400);
+    // abort(400);
+
 }
 ```
 
