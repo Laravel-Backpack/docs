@@ -138,43 +138,59 @@ CRUD::button('email')->stack('line')->view('crud::buttons.quick')->meta([
 
 > You should always control the access of your buttons. The key for access by default is the button name `->studly()` with a fallback to the button name without modifications. It means that for a button named `some_button`, the access key will be either `SomeButton` or `some_button`. Eg: `CRUD::allowAccess('some_button')` or `CRUD::allowAccess('SomeButton')`.
 
-#### Quick Button with Ajax
+<a name="creating-a-quick-button-with-ajax"></a>
+#### Create a Quick Button with Ajax
 
-You can make your Quick button do Ajax calls with just one attribute. Examples:
+Quick Buttons can be easily configured to make an AJAX request. This is useful when you want to perform an operation without leaving the page. For example, you can send an email to a user without leaving the page.
 
 ```php
 // enable ajax
 CRUD::button('email')->stack('line')->view('crud::buttons.quick')->meta([
     'label' => 'Email',
     'icon' => 'la la-envelope',
+    'wrapper' => [
+        'href' => function ($entry, $crud) {
+            return backpack_url("invoice/$entry->id/email");
+        },
     'ajax' => true, // <- just add `ajax` and it's ready to make ajax request
 ]);
 
-// customize Ajax URL, method, success/error messages with optional attributes
-CRUD::button('email')->stack('line')->view('crud::buttons.quick')->meta([
-    'access' => 'email', // operation name or boolean
-    'label' => 'Email',
-    'icon' => 'la la-envelope',
-    'wrapper' => [
-        'href' => function ($entry, $crud) {
-            return backpack_url("pet-shop/invoice/$entry->id/email");
-        },
-    ],
-    'ajax' => [
-        'method' => 'POST',
-        //'refreshCrudTable' => true, // to refresh table on success
-        'success_title' => "Payment Reminder Sent", // configure messages here if not receiving in server response
-        'success_message' => 'The payment reminder has been sent successfully.',
-        'error_title' => 'Error',
-        'error_message' => 'There was an error sending the payment reminder. Please try again.',
-    ],
-    /*
-     * Server Response examples:
-     * Success response; ex: return ["message" => "Email sent successfully"];
-     * OR
-     * Laravel Error response; ex: abort(500); abort(403, 'Unauthorized Access!');
-     */
-]);
+// optional ajax configuration
+'ajax' => [
+    'method' => 'POST',
+    'refreshCrudTable' => false, // should the crud table be refreshed after a successful request ?
+    'success_title' => "Payment Reminder Sent", // the title of the success notification
+    'success_message' => 'The payment reminder has been sent successfully.', // the message of the success notification
+    'error_title' => 'Error', // the title of the error notification
+    'error_message' => 'There was an error sending the payment reminder. Please try again.', // the message of the error notification
+],
+```
+
+You can overwrite the success/error messages by returning a `message` key from the response or providing the exception message.
+
+```php
+public function email($id)
+{
+    CRUD::hasAccessOrFail('email');
+
+    $user = CRUD::getEntry($id);
+
+    if($user->alreadyPaid()) {
+        return abort(400, 'The user has already paid.');
+    }
+
+    $user->schedulePaymentEmail();
+
+    return response()->json([
+        'message' => 'The payment reminder has been sent successfully.',
+    ]);
+
+    // to return the default or field messages just return the response status without message:
+    // return reponse('');
+    // return response('', 400);
+    // abort(400);
+
+}
 ```
 
 <a name="creating-a-custom-button"></a>
