@@ -90,11 +90,11 @@ That means **you can override an existing button simply by creating a blade file
 Most of the times, the buttons you want to create aren't complex at all. They're just an `<a>` element, with a `href` and `class` that is show **if the admin has access** to that particular operation. That's why we've created the `quick.blade.php` button, that allows you to _quickly_ create a button, right from your Operation or CrudController. This covers most simple use cases:
 
 ```php
-// the following example will create a button for each entry in the table with: 
+// the following example will create a button for each entry in the table with:
 // label: Email
 // access: Email
 // href: /entry/{id}/email
-CRUD::button('email')->stack('line')->view('crud::buttons.quick'); 
+CRUD::button('email')->stack('line')->view('crud::buttons.quick');
 
 // you can also add buttons on the "top" stack
 CRUD::button('export')->stack('top')->view('crud::buttons.quick');
@@ -125,9 +125,73 @@ CRUD::button('email')->stack('line')->view('crud::buttons.quick')->meta([
         'title' => 'Send a new email to this user',
     ]
 ]);
+
+// build custom URL using closure
+CRUD::button('email')->stack('line')->view('crud::buttons.quick')->meta([
+    'wrapper' => [
+        'href' => function ($entry, $crud) {
+            return backpack_url("invoice/$entry->id/email");
+        },
+    ],
+]);
 ```
 
 > You should always control the access of your buttons. The key for access by default is the button name `->studly()` with a fallback to the button name without modifications. It means that for a button named `some_button`, the access key will be either `SomeButton` or `some_button`. Eg: `CRUD::allowAccess('some_button')` or `CRUD::allowAccess('SomeButton')`.
+
+<a name="creating-a-quick-button-with-ajax"></a>
+#### Create a Quick Button with Ajax
+
+Quick Buttons can be easily configured to make an AJAX request. This is useful when you want to perform an operation without leaving the page. For example, you can send an email to a user without leaving the page.
+
+```php
+// enable ajax
+CRUD::button('email')->stack('line')->view('crud::buttons.quick')->meta([
+    'label' => 'Email',
+    'icon' => 'la la-envelope',
+    'wrapper' => [
+        'href' => function ($entry, $crud) {
+            return backpack_url("invoice/$entry->id/email");
+        },
+    'ajax' => true, // <- just add `ajax` and it's ready to make ajax request
+]);
+
+// optional ajax configuration
+'ajax' => [
+    'method' => 'POST',
+    'refreshCrudTable' => false, // should the crud table be refreshed after a successful request ?
+    'success_title' => "Payment Reminder Sent", // the title of the success notification
+    'success_message' => 'The payment reminder has been sent successfully.', // the message of the success notification
+    'error_title' => 'Error', // the title of the error notification
+    'error_message' => 'There was an error sending the payment reminder. Please try again.', // the message of the error notification
+],
+```
+
+You can overwrite the success/error messages by returning a `message` key from the response or providing the exception message.
+
+```php
+public function email($id)
+{
+    CRUD::hasAccessOrFail('email');
+
+    $user = CRUD::getEntry($id);
+
+    if($user->alreadyPaid()) {
+        return abort(400, 'The user has already paid.');
+    }
+
+    $user->schedulePaymentEmail();
+
+    return response()->json([
+        'message' => 'The payment reminder has been sent successfully.',
+    ]);
+
+    // to return the default or field messages just return the response status without message:
+    // return reponse('');
+    // return response('', 400);
+    // abort(400);
+
+}
+```
 
 <a name="creating-a-custom-button"></a>
 ### Creating a Custom Button
