@@ -1883,6 +1883,39 @@ CRUD::field([
 
 **That's it.** Backpack now will save those additional inputs on the pivot table.
 
+#### Allow user to select multiple times the same pivot
+
+By default Backpack does not allow you to select the same pivot twice. If you want to allow the selection of the same pivot more than once you should take some setup steps before. Follow along with the steps below:
+
+**1)** Make sure your pivot table has a unique key, usually an auto-increment id. If you don't have one, you can add it with a migration. 
+
+**2)** Add the `id` to your `->withPivot()` fields on your relation. Eg:
+```php
+
+$this->belongsToMany(\App\Models\Company::class)
+                ->withPivot('job_title', 'job_description', 'id');
+```
+
+If you unique identifier is not called `id`, you can tell Backpack the appropriate name using `pivot_key_name` in your field definition. Eg:
+```php
+CRUD::field([
+    'name'          => 'companies',
+    'type'          => 'relationship',
+    'pivot_key_name' => 'uuid',
+    // ...
+]);
+```
+
+**3)** Add the `allow_duplicate_pivots` attribute to your relationship field definition. Eg:
+```php
+CRUD::field([
+    'name'          => 'companies',
+    'type'          => 'relationship',
+    'allow_duplicate_pivots' => true,
+    'subfields' => // your subfields (do not add `id` as a subfield. That's done automatically by Backpack). 
+]);
+```
+
 #### Configuring the Pivot Select field
 If you want to change something about the primary select (the pivot select field created by Backpack), you can do that using the `pivotSelect` attribute:
 
