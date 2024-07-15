@@ -316,7 +316,9 @@ CRUD::field([   // Checklist
     'attribute' => 'name',
     'model'     => "Backpack\PermissionManager\app\Models\Role",
     'pivot'     => true,
+    'show_select_all' => true, // default false
     // 'number_of_columns' => 3,
+    
 ]);
 ```
 
