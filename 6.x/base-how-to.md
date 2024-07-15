@@ -64,6 +64,18 @@ Starting with Backpack v6, we have multiple themes. Each theme provides some con
 
 Please take a look at your theme's config file or README on Github, to see what you can change and how.
 
+<a name="publish-mobile-and-favicon-headers-and-assets"></a>
+### Publish mobile and favicon headers and assets
+
+A very common use case is that your users bookmark or add your admin panel to their home screen on their mobile devices. In order to make that experience better, you can publish the mobile and favicon headers and assets. You can do that by running:
+
+```bash
+php artisan backpack:publish-header-metas
+```
+
+This will ask you a few questions and then publish the necessary files. You can then customize them as you please to fit your branding.
+Files that already exist will not be replaced, so if you want to re-publish Backpack files you need to delete the already published first. 
+
 
 <a name="create-a-new-theme"></a>
 ### Create a new theme / child theme
