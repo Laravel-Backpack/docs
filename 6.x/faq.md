@@ -39,7 +39,7 @@ Backpack PRO is a closed-source add-on, which requires payment in order to recei
 <a name="backpack-pro-for-non-commercial-projects"></a>
 ### Can I get Backpack PRO for free to use in a non-commercial project?
 
-No - we're no longer giving away free licenses. But we _have_ released Backpack CRUD v5 and v6 under the MIT License, which means it's free and open-source. It has fewer features, but you can do absolutely anything you want with it.
+No - we're no longer giving away free licenses. But we _have_ released Backpack CRUD v5 and v6 under the MIT License, which means it's free and open-source. It has fewer features, but you can do absolutely do anything you want with it.
 
 <a name="Installation"></a>
 ## Installation
@@ -48,17 +48,11 @@ No - we're no longer giving away free licenses. But we _have_ released Backpack 
 <a name="how-do-i-update-backpack"></a>
 ### How do I update Backpack to the latest non-breaking version?
 
-First of all, **run `composer update` on your project**. That will pull in the latest supported version of all your Backpack packages.
+Run **`composer update`** on your project to update the dependencies given your version constrains in `composer.json`. If you want to update a specific package, you can run **`composer update backpack/crud`** for example to only update `backpack/crud` and it's dependencies.
 
-Then you should **re-publish the JS and CSS assets**. There are two ways to do that:
+If you have your assets cached you can run `php artisan basset:clear` to clear the cache too. You can manually rebuild the asset cache if necessary with `php artisan basset:cache`. We do recommend you keep basset disabled on localhost while developing. 
 
-(A) Run `php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag=public --force`. Please note this will overwrite anything that's already there. This B solution has a downside: _unused files are not removed_. A few files Backpack no longer uses will still be in your public/packages folder, even though they're no longer used.
-
-(B) If you have NOT touched you `public/packages` folder, or placed anything custom inside it:
-- delete the public/packages directory and all its contents;
-- run `php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag=public`
-- if you use elFinder, also delete `resources/views/vendor/elfinder` and run `php artisan backpack:filemanager:install`
-
+Some packages may require you to run additional commands to update the database schema or publish new assets. Please refer to the package documentation or upgrade guide for more information.
 
 <a name="how-do-i-uninstall-backpack"></a>
 ### How do I uninstall Backpack from my project?
@@ -70,8 +64,6 @@ You can remove Backpack from your project pretty easily, if you decide to stop u
 rm -rf app/Http/Middleware/CheckIfAdmin.php
 rm -rf config/backpack
 rm -rf config/gravatar.php
-rm -rf public/packages
-rm -rf resources/views/errors
 rm -rf resources/views/vendor/backpack
 rm -rf routes/backpack
 
