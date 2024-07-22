@@ -51,6 +51,13 @@ $this->crud->addColumn($column_definition_array);
 // add multiple columns, at the end of the stack
 $this->crud->addColumns([$column_definition_array, $another_column_definition_array]);
 
+// to change the same attribute across multiple columns you can wrap them in a `group`
+// this will add the '$' prefix to both columns
+CRUD::group(
+    CRUD::column('price'),
+    CRUD::column('discount')
+)->prefix('$');
+
 // remove a column from the stack
 $this->crud->removeColumn('column_name');
 

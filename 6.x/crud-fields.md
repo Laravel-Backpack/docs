@@ -34,6 +34,13 @@ CRUD::field([
 // to change an attribute on a field, you can target it at any point
 CRUD::field('price')->prefix('$');
 
+// to change the same attribute across multiple fields you can wrap them in a `group`
+// this will add the '$' prefix to both fields
+CRUD::group(
+    CRUD::field('price'),
+    CRUD::field('discount')
+)->prefix('$');
+
 // to move fields before or after other fields
 CRUD::field('price')->before('name');
 CRUD::field('price')->after('name');
