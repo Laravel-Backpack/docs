@@ -56,8 +56,6 @@ To use the Update operation, you must:
 ```php
 // add a field only to the Update operation
 $this->crud->addField($field_definition_array);
-// add a field to both the Update and Update operations
-$this->crud->addField($field_definition_array);
 ```
 
 **Step 2. Specify which FormRequest file to use for validation and authorization**, inside your ```setupUpdateOperation()``` method. You can pass the same FormRequest as you did for the Create operation if there are no differences. If you need separate validation for Create and Update [look here](#separate-validation).
@@ -66,6 +64,13 @@ $this->crud->setValidation(StoreRequest::class);
 ```
 
 For more on how to manipulate fields, please read the [Fields documentation page](/docs/{{version}}/crud-fields). For more on validation rules, check out [Laravel's validation docs](https://laravel.com/docs/master/validation#available-validation-rules).
+
+**Step 3. (optional recommended) eager load relationships**. If you're displaying relationships in your fields, you might want to eager load them to avoid the N+1 problem. You can do that in the `setupUpdateOperation()` method:
+
+```php
+$this->crud->setOperationSetting('eagerLoadRelationships', true);
+```
+Note: You can enable this setting globally for all your cruds in the `config/backpack/operations/update.php` file.
 
 <a name="how-it-works"></a>
 ## How It Works
