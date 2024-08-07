@@ -24,7 +24,8 @@
 - [Themes](/docs/{{version}}/base-themes)
 - [Widgets](/docs/{{version}}/base-widgets)
 - [Components](/docs/{{version}}/base-components)
-- [FAQ](/docs/{{version}}/base-how-to)
+- [FAQs](/docs/{{version}}/base-how-to)
+- [Tutorials](/docs/{{version}}/tutorials)
 
 #### CRUD Panels
 
