@@ -15,7 +15,8 @@
     - [2. CRUD Operations](/docs/{{version}}/getting-started-crud-operations)
     - [3. Advanced Features](/docs/{{version}}/getting-started-advanced-features)
     - [4. Add-ons, License & Support](/docs/{{version}}/getting-started-license-and-support)
-
+- [Tutorials](/docs/{{version}}/tutorials)
+  
 #### Admin UI
 
 - [About](/docs/{{version}}/base-about)
@@ -24,7 +25,7 @@
 - [Themes](/docs/{{version}}/base-themes)
 - [Widgets](/docs/{{version}}/base-widgets)
 - [Components](/docs/{{version}}/base-components)
-- [FAQ](/docs/{{version}}/base-how-to)
+- [FAQs](/docs/{{version}}/base-how-to)
 
 #### CRUD Panels
 
