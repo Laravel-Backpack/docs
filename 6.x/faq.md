@@ -114,7 +114,9 @@ If you still can't figure it out, please [open a new discussion in our Community
 <a name="how-do-i-deploy-backpack-to-production"></a>
 ### How do I deploy Backpack to production?
 
-This is a detailed step-by-step guide for deploying a Backpack project to production.
+Deploying a Laravel+Backpack project to production isn't very different from deploying a normal Laravel project to production. You only need to account for Basset, the system in Backpack that publishes the CSS and JS assets your admin panel needs. 
+
+That being said, here's a detailed step-by-step guide to deploying a Backpack project to production, that should work for most production servers: 
 
 1. Local Preparations
 Before deploying your application, make sure your development environment is in order:
