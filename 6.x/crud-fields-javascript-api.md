@@ -32,8 +32,10 @@ Here's everything our **CrudField JavaScript Library** provides:
 - specialty methods on `CrudField`:
     - `.check()` - if the field is a checkbox, checks it;
     - `.uncheck()` - if the field is a checkbox, unchecks it;
+- current action:
+    - `crud.action` -> returns the current action ("create" or "edit")
 
-The beauty of this solution is that... it's flexibility. Since it's only a JS library that makes the most difficult things easy... there is _no limit_ to what you can do with it. Just write pure JS or jQuery on top of it, to achieve your business logic.
+The beauty of this solution is that... it's flexible. Since it's only a JS library that makes the most difficult things easy... there is _no limit_ to what you can do with it. Just write pure JS or jQuery on top of it, to achieve your business logic.
 
 <a name="how-to-use"></a>
 ## How to Use
