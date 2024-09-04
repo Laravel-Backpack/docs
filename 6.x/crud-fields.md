@@ -356,6 +356,9 @@ CRUD::field([   // two interconnected entities
             'model'            => "Backpack\PermissionManager\app\Models\Role", // foreign key model
             'pivot'            => true, // on create&update, do you need to add/delete pivot table entries?]
             'number_columns'   => 3, //can be 1,2,3,4,6
+            'options' => (function ($query) {
+                return $query->where('name', '!=', 'admin');
+            }), // force the related options to be a custom query, instead of all(); you can use this to filter the available options
         ],
         'secondary' => [
             'label'          => 'Permission',
@@ -366,6 +369,9 @@ CRUD::field([   // two interconnected entities
             'model'          => "Backpack\PermissionManager\app\Models\Permission", // foreign key model
             'pivot'          => true, // on create&update, do you need to add/delete pivot table entries?]
             'number_columns' => 3, //can be 1,2,3,4,6
+            'options' => (function ($query) {
+                return $query->where('name', '!=', 'admin');
+            }), // force the related options to be a custom query, instead of all(); you can use this to filter the available options
         ],
     ],
 ]);
