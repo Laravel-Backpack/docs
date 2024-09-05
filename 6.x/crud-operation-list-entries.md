@@ -337,6 +337,8 @@ public function setupLast12MonthsView()
 }
 ```
 
+**NOTE:** The `CustomView` will apply the query "on top" of the current `$crud->query`. If you would like to use a "fresh query" for your custom view you can use the `CRUD::setQuery()` method that will overwrite the previous set query.
+
 <a name="widget"></a>
 ## How to add custom sections (aka. Widgets)
 

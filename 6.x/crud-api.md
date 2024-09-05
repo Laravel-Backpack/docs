@@ -263,6 +263,10 @@ $this->crud->limit();
 ```php
 $this->crud->orderBy();
 ```
+- **setQuery(Builder $query)** - replaces the query with the new provided query.
+```php
+$this->crud->setQuery(User::where('status', 'active'));
+```
 
 <a name="show-api"></a>
 ### Show Operation
