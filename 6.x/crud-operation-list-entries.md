@@ -95,6 +95,21 @@ a) For all CrudController (globally) in the `config/backpack/operations/list.php
 
 b) For a specific CrudController, in its `setupListOperation()` define `CRUD::setOperationSetting('lineButtonsAsDropdown', true);`
 
+##### Available options
+
+Additionally you can control the dropdown behavior with `lineButtonsAsDropdownMinimumToDrop` and `lineButtonsAsDropdownDropAfter`. By default the dropdown is created no matter how many buttons are present in the line stack. You can change this behavior by setting `lineButtonsAsDropdownMinimumToDrop` to a number. If the number of buttons in the line stack is less than this number, the buttons will not be converted to a dropdown. You can also set `lineButtonsAsDropdownDropAfter` to a number to drop the buttons after that number of buttons.
+
+```php
+CRUD::setOperationSetting('lineButtonsAsDropdown', true);
+CRUD::setOperationSetting('lineButtonsAsDropdownMinimumToDrop', 5); // if there are less than 5 buttons, don't create the dropdown (default: 1)
+CRUD::setOperationSetting('lineButtonsAsDropdownDropAfter', 3); // force the first 3 buttons to be inline, and the rest in a dropdown (default: 0)
+
+// in the above example, when:
+// - there are 3 or less buttons in the line stack, they will be shown inline
+// - there are 4 buttons, all 4 will be shown inline
+// - there are 5 or more buttons, the first 3 will be shown inline, and the rest in a dropdown
+```
+
 To learn more about buttons, **check out the [Buttons](/docs/{{version}}/crud-buttons) documentation page**.
 
 <a name="filters"></a>
