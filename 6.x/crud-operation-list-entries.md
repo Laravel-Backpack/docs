@@ -164,7 +164,7 @@ Exporting the DataTable to PDF, CSV, XLS is as easy as typing ```CRUD::enableExp
 
 **Please note that when clicked, the button will export**
 - **the _currently visible_ table columns** (except columns marked as ```visibleInExport => false```);
-- **the columns that are forced to export** (with ```visibleInExport => true``` or ```exportOnlyField => true```);
+- **the columns that are forced to export** (with ```visibleInExport => true``` or ```exportOnlyColumn => true```);
 
 **In the UI, the admin can use the "Visibility" button, and the "Items per page" dropdown to manipulate what is visible in the table - and consequently what will be exported.**
 
@@ -174,7 +174,7 @@ Available customization:
 ```
 'visibleInExport' => true/false
 'visibleInTable' => true/false
-'exportOnlyField' => true
+'exportOnlyColumn' => true
 ```
 
 By default, the field will start visible in the table. Users can hide it toggling visibility. Will be exported if visible in the table.
@@ -187,7 +187,7 @@ Setting `visibleInTable => true` will force the field to stay in the table no ma
 
 Using `'visibleInTable' => false` will make the field start hidden in the table. But users can toggle it's visibility.
 
-If you want a field that is not on table, user can't show it, but will **ALWAYS** be exported use the `exportOnlyField => true`. If used will ignore any other custom visibility you defined.
+If you want a field that is not on table, user can't show it, but will **ALWAYS** be exported use the `exportOnlyColumn => true`. If used will ignore any other custom visibility you defined.
 
 #### How to use different separator in DataTables (eg. semicolon instead of comma)
 
