@@ -364,12 +364,6 @@ class Product extends Model
     use CrudTrait;
     use HasTranslations;
 
-     /*
-  |--------------------------------------------------------------------------
-  | GLOBAL VARIABLES
-  |--------------------------------------------------------------------------
-  */
-
     protected $table = 'products';
     protected $primaryKey = 'id';
     protected $fillable = ['name', 'category_id', 'options', 'price', 'tags'];
@@ -382,6 +376,19 @@ class Product extends Model
 > - you _should_ cast ```extras``` to ```array```, if each translation stores an array of some sort;
 
 Change the languages available to translate to/from, in your crud config file (```config/backpack/crud.php```). By default there are quite a few enabled (English, French, German, Italian, Romanian).
+
+
+#### Updating and creating translatable entries
+
+When you're creating a translatable entry, the entry will be created in the current user app locale. Either the one set in `config/app.php` or if you allow your admins to change the panel locale, the one set by them will be used. 
+
+When you update a translatable entry you choose in what language you want to create the translation for, idependently of the panel language or app locale. 
+
+When the entry has no translations in the chosen language for translation, you will get the option to select another language to copy the translations from. 
+
+
+
+
 
 Additionally, if you have slugs (but only if you need translatable slugs), you'll need to use backpack's classes instead of the ones provided by `cviebrock/eloquent-sluggable`. 
 Make sure you have `cviebrock/eloquent-sluggable` installed as well, if not, please do it with `composer require cviebrock/eloquent-sluggable`:
