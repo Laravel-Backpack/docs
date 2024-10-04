@@ -50,6 +50,15 @@ class ProductCrudController extends CrudController
         CRUD::setModel(\App\Models\Product::class);
         CRUD::setRoute(backpack_url('product'));
         CRUD::setEntityNameStrings('product', 'products');
+
+        // optionally you can redirect the user after the clone operation succeeds
+        // if you set the `redirect_after_clone` option to true, it defaults to the edit page
+        $this->crud->set('clone.redirect_after_clone', true);
+
+        // you can also use a closure to define the redirect URL
+        $this->crud->set('clone.redirect_after_clone', function($entry) {
+            return backpack_url('product/'.$entry->id.'/show'); // redirect to show view instead of edit
+        });
     }
 }
 ```
