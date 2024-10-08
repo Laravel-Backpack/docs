@@ -2291,6 +2291,7 @@ CRUD::field([   // select2_from_array
     'allows_null' => false,
     'default'     => 'one',
     // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
+    // 'sortable' => true, // requires the field to accept multiple values, and allow the selected options to be sorted.
 ]);
 ```
 
