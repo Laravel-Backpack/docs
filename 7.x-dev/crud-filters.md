@@ -621,6 +621,23 @@ CRUD::filter('trashed')
 <a name="tips-and-tricks"></a>
 ## Tips and Tricks
 
+<a name="debouncing-filters"></a>
+### Add a debounce time to filters
+
+Filters can be debounced, so that the filtering logic is only applied after the user has stopped typing for a certain amount of time. This is useful when the filtering logic is expensive and you don't want it to run on every keystroke. To debounce a filter, you can use the following code:
+
+```php
+
+CRUD::filter('name')
+    ->type('text')
+    ->debounce(1000) // debounce time in milliseconds
+    ->whenActive(function($value) {
+        // CRUD::addClause('where', 'name', 'LIKE', "%$value%");
+    });
+```
+
+All filter types accept a `debounce`, like for example the simple filter, range filter etc.
+
 <a name="adding-a-filter-using-array-syntax"></a>
 ### Adding a filter using array syntax
 

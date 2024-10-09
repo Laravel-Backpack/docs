@@ -12,7 +12,20 @@ This operation allows your admins to reorder & nest entries.
 <a name="requirements"></a>
 ## Requirements
 
-Your model should have the following integer fields, with a default value of 0: ```parent_id```, ```lft```, ```rgt```, ```depth```.
+Your model should have the following integer fields, with a default value of 0: ```parent_id```, ```lft```, ```rgt```, ```depth```. The names are optional, you can change them in the ```setupReorderOperation()``` method. 
+    
+```php
+
+protected function setupReorderOperation()
+{
+    CRUD::setOperationSetting('reorderColumnNames', [
+        'parent_id' => 'custom_parent_id',
+        'lft' => 'left',
+        'rgt' => 'right',
+        'depth' => 'deep',
+    ]);
+}
+```	
 
 Additionally, the `parent_id` field has to be nullable.
 

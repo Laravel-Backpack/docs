@@ -740,6 +740,8 @@ The select_multiple column will output a comma separated list of its connected e
    'entity'    => 'tags', // the method that defines the relationship in your Model
    'attribute' => 'name', // foreign key attribute that is shown to user
    'model'     => 'App\Models\Tag', // foreign key model
+   // OPTIONAL
+   'separator' => ',', // if you want to use a different separator than the default ','
 ],
 ```
 
@@ -877,6 +879,8 @@ Show a link which opens in the new tab by default.
     'type'  => 'url',
     'label' => 'URL',
     //'target' => '_blank' // let's you change link target window.
+    //'element' => 'a' // let's you change the element of the link.
+    //'rel' => false OR 'rel' => 'noopener' // let's you disable or change the rel attribute of the link.
 ],
 ```
 
