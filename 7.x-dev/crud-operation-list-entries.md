@@ -95,6 +95,21 @@ a) For all CrudController (globally) in the `config/backpack/operations/list.php
 
 b) For a specific CrudController, in its `setupListOperation()` define `CRUD::setOperationSetting('lineButtonsAsDropdown', true);`
 
+##### Available options
+
+Additionally you can control the dropdown behavior with `lineButtonsAsDropdownMinimum` and `lineButtonsAsDropdownShowBefore`. By default the dropdown is created no matter how many buttons are present in the line stack. You can change this behavior by setting `lineButtonsAsDropdownMinimum` to a number. If the number of buttons in the line stack is less than this number, the buttons will not be converted to a dropdown. You can also set `lineButtonsAsDropdownShowBefore` to a number to drop the buttons after that number of buttons.
+
+```php
+CRUD::setOperationSetting('lineButtonsAsDropdown', true);
+CRUD::setOperationSetting('lineButtonsAsDropdownMinimum', 5); // if there are less than 5 buttons, don't create the dropdown (default: 1)
+CRUD::setOperationSetting('lineButtonsAsDropdownShowBefore', 3); // force the first 3 buttons to be inline, and the rest in a dropdown (default: 0)
+
+// in the above example, when:
+// - there are 3 or less buttons, they will be shown inline
+// - there are 4 buttons, all 4 will be shown inline
+// - there are 5 or more buttons, the first 3 will be shown inline, and the rest in a dropdown
+```
+
 To learn more about buttons, **check out the [Buttons](/docs/{{version}}/crud-buttons) documentation page**.
 
 <a name="filters"></a>
@@ -149,7 +164,7 @@ Exporting the DataTable to PDF, CSV, XLS is as easy as typing ```CRUD::enableExp
 
 **Please note that when clicked, the button will export**
 - **the _currently visible_ table columns** (except columns marked as ```visibleInExport => false```);
-- **the columns that are forced to export** (with ```visibleInExport => true``` or ```exportOnlyField => true```);
+- **the columns that are forced to export** (with ```visibleInExport => true``` or ```exportOnlyColumn => true```);
 
 **In the UI, the admin can use the "Visibility" button, and the "Items per page" dropdown to manipulate what is visible in the table - and consequently what will be exported.**
 
@@ -159,7 +174,7 @@ Available customization:
 ```
 'visibleInExport' => true/false
 'visibleInTable' => true/false
-'exportOnlyField' => true
+'exportOnlyColumn' => true
 ```
 
 By default, the field will start visible in the table. Users can hide it toggling visibility. Will be exported if visible in the table.
@@ -172,7 +187,7 @@ Setting `visibleInTable => true` will force the field to stay in the table no ma
 
 Using `'visibleInTable' => false` will make the field start hidden in the table. But users can toggle it's visibility.
 
-If you want a field that is not on table, user can't show it, but will **ALWAYS** be exported use the `exportOnlyField => true`. If used will ignore any other custom visibility you defined.
+If you want a field that is not on table, user can't show it, but will **ALWAYS** be exported use the `exportOnlyColumn => true`. If used will ignore any other custom visibility you defined.
 
 #### How to use different separator in DataTables (eg. semicolon instead of comma)
 

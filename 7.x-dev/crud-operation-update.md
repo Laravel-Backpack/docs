@@ -374,6 +374,7 @@ class Product extends Model
     protected $primaryKey = 'id';
     protected $fillable = ['name', 'category_id', 'options', 'price', 'tags'];
     protected $translatable = ['name', 'options'];
+}
 ```
 
 > You DO NOT need to cast translatable string columns as array/json/object in the Eloquent model. From Eloquent's perspective they're strings. So:
@@ -453,4 +454,4 @@ If you want to display a **Delete** button right on the **Update** operation, yo
     }
 ```
 
-This will allow admins to remove entries right from the **Update Operation**, and it will redirect them back ot the **List Operation** afterwards.
+This will allow admins to remove entries right from the **Update Operation**, and it will redirect them back to the **List Operation** afterwards.
