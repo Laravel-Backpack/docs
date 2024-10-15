@@ -11,25 +11,7 @@ In addition the usual CRUD functionality, Backpack also allows you to do a few m
 <a name="how-to-add-extra-crud-routes"></a>
 ### How to add extra CRUD routes
 
-Starting with Backpack\CRUD 4.0, routes are defined inside the Controller, in methods that look like ```setupOperationNameRoutes()```; you can use this naming convention to setup extra routes, for your custom operations:
-
-```php
-protected function setupModerateRoutes($segment, $routeName, $controller) {
-  Route::get($segment.'/{id}/moderate', [
-      'as'        => $routeName.'.moderate',
-      'uses'      => $controller.'@moderate',
-      'operation' => 'moderate',
-  ]);
-
-  Route::post($segment.'/{id}/moderate', [
-      'as'        => $routeName.'.saveModeration',
-      'uses'      => $controller.'@saveModeration',
-      'operation' => 'moderate',
-  ]);
-}
-```
-
-If you want the route to point to a different controller, you can add the route in ```routes/backpack/custom.php``` instead.
+See: [How to add extra CRUD routes](/docs/{{version}}/crud-operations#operation-routes)
 
 <a name="views"></a>
 ## Views
