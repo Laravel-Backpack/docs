@@ -78,7 +78,7 @@ The `my-cool-theme/inc/theme_styles.blade.php` file should hold all custom CSS t
 @basset('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css')
 
 {{-- You can also load files from any place in your application directories --}}
-@basset(views_path('my-cool-theme/assets/css/extra.css'))
+@basset(resource_path('my-cool-theme/assets/css/extra.css'))
 
 {{-- You can also write inline CSS blocks --}}
 @bassetBlock('my-cool-theme/custom-styling')
