@@ -1236,95 +1236,9 @@ Input preview:
 <hr>
 
 <a name="ckeditor"></a>
-### ckeditor <span class="badge badge-pill badge-info">PRO</span>
+### ckeditor 
 
-Show a wysiwyg CKEditor to the user.
-
-```php
-CRUD::field([   // CKEditor
-    'name'          => 'description',
-    'label'         => 'Description',
-    'type'          => 'ckeditor',
-
-    // optional:
-    'custom_build'  => [  // check a bit down in this docs on how to work with custom builds
-         public_path('assets/js/ckeditor/ckeditor.js'),
-         public_path('assets/js/ckeditor/ckeditor-init.js'),
-    ],
-    'extra_plugins' => [],
-    'options'       => [
-        'autoGrow_minHeight'   => 200,
-        'autoGrow_bottomSpace' => 50,
-        'removePlugins'        => [],
-    ],
-
-    // elfinder configuration options when using [the file manager package](https://github.com/Laravel-Backpack/FileManager)
-    // to use this feature you need to be running backpack/pro:2.2.1 or higher and backpack/filemanager:3.0.8 or higher
-    'elfinderOptions' => [], // it's the same as `true`, will enable with default options, by default is: `false`
-]);
-```
-
-If you'd like to be able to select files from elFinder, you need to install [Backpack/FileManager](https://github.com/Laravel-Backpack/FileManager) package and enable it in your field: `elfinderOptions => true`.
-
-#### CKEditor Custom Builds
-
-You can create a custom build on the official CKEditor website and use it in your Backpack application. This is useful if you want to have more control over the plugins and features that are included in your CKEditor instance. To use a custom build, you need to follow these steps:
-
-**1)** - Go to the [CKEditor Builder](https://ckeditor.com/ckeditor-5/online-builder/) and select the plugins you want to include in your build.
-
-**2)** - Place the downloaded ckeditor.js file in your app, for example in `public/assets/js/ckeditor/ckeditor.js`.
-
-**3)** - Create a new file, for example `public/assets/js/ckeditor/ckeditor-init.js`, and include the following code:
-
-```javascript
-async function bpFieldInitCustomCkeditorElement(element) {
-    let myConfig = {
-        'language': '{{ app()->getLocale() }}',
-    };
-    // To create CKEditor 5 classic editor
-    let ckeditorInstance = await ClassicEditor.create(element[0], myConfig).catch(error => {
-        console.error( error );
-    });
-
-    if (!ckeditorInstance) return;
-
-    element.on('CrudField:delete', function (e) {
-        ckeditorInstance.destroy();
-    });
-
-    // trigger the change event on textarea when ckeditor changes
-    ckeditorInstance.editing.view.document.on('layoutChanged', function (e) {
-        element.trigger('change');
-    });
-
-    element.on('CrudField:disable', function (e) {
-        ckeditorInstance.enableReadOnlyMode('CrudField');
-    });
-
-    element.on('CrudField:enable', function (e) {
-        ckeditorInstance.disableReadOnlyMode('CrudField');
-    });
-}
-```
-
-**4)** - Use the `custom_build` option in your field definition to include the custom build and overwrite the init function:
-
-```php
-'custom_build'  => [  // check a bit down in this docs on how to work with custom builds
-        public_path('assets/js/ckeditor/ckeditor.js'),
-        public_path('assets/js/ckeditor/ckeditor-init.js'),
-],
-'attributes' => [
-    'data-init-function' => 'bpFieldInitCustomCkeditorElement',
-]
-
-```
-
-**NOTE**: As you have noticed, using a custom build your initialization script completely overwrites Backpack behavior, for that reason you need to handle all the events and methods that are needed for the field to work properly with Backpack functionality.
-
-Input preview:
-
-![CRUD Field - ckeditor](https://backpackforlaravel.com/uploads/docs-4-2/fields/ckeditor.png)
+This field is providedy by a third-party integration, you can find instructions on how to install and use it [here](https://github.com/Laravel-Backpack/ckeditor-field).
 
 <hr>
 
@@ -2665,35 +2579,9 @@ Input preview:
 <hr>
 
 <a name="tinymce"></a>
-### tinymce <span class="badge badge-pill badge-info">PRO</span>
+### tinymce
 
-Show a wysiwyg (TinyMCE) to the user.
-
-```php
-CRUD::field([   // TinyMCE
-    'name'  => 'description',
-    'label' => 'Description',
-    'type'  => 'tinymce',
-    // optional overwrite of the configuration array
-    // 'options' => [
-        //'selector' => 'textarea.tinymce',
-        //'skin' => 'dick-light',
-        //'plugins' => 'image link media anchor'
-    // ],
-]);
-```
-
-Input preview:
-
-![CRUD Field - tinymce](https://backpackforlaravel.com/uploads/docs-4-2/fields/tinymce.png)
-
-**NOTE**: if you want to modify the toolbar buttons (add or remove), here is the default configured toolbar so you can modify it:
-
-```php
-'options' => ['toolbar' => 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent'],
-```
-
-Some buttons are related to specific plugins and need them to work, please read more about it here: [tiny mce available toolbar buttons](https://www.tiny.cloud/docs/advanced/available-toolbar-buttons/)
+TinyMCE is now provided by a third-party package, you can find instructions on how to use and configure it [here](https://github.com/Laravel-Backpack/tinymce-field).
 
 <hr>
 
