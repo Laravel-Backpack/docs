@@ -2579,35 +2579,9 @@ Input preview:
 <hr>
 
 <a name="tinymce"></a>
-### tinymce <span class="badge badge-pill badge-info">PRO</span>
+### tinymce
 
-Show a wysiwyg (TinyMCE) to the user.
-
-```php
-CRUD::field([   // TinyMCE
-    'name'  => 'description',
-    'label' => 'Description',
-    'type'  => 'tinymce',
-    // optional overwrite of the configuration array
-    // 'options' => [
-        //'selector' => 'textarea.tinymce',
-        //'skin' => 'dick-light',
-        //'plugins' => 'image link media anchor'
-    // ],
-]);
-```
-
-Input preview:
-
-![CRUD Field - tinymce](https://backpackforlaravel.com/uploads/docs-4-2/fields/tinymce.png)
-
-**NOTE**: if you want to modify the toolbar buttons (add or remove), here is the default configured toolbar so you can modify it:
-
-```php
-'options' => ['toolbar' => 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent'],
-```
-
-Some buttons are related to specific plugins and need them to work, please read more about it here: [tiny mce available toolbar buttons](https://www.tiny.cloud/docs/advanced/available-toolbar-buttons/)
+TinyMCE is now provided by a third-party package, you can find instructions on how to use and configure it [here](https://github.com/Laravel-Backpack/tinymce-field).
 
 <hr>
 
