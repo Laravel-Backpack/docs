@@ -110,3 +110,127 @@ If you still can't figure it out, please [open a new discussion in our Community
 - mention the steps you have followed to get there (e.g. `composer require backpack/pro`, `php artisan backpack:require:pro` etc.);
 - include a screenshot of the console output, so we can understand what happened;
 - cross out any personal data (e.g. token username or password); 
+
+<a name="how-do-i-deploy-backpack-to-production"></a>
+### How do I deploy Backpack to production?
+
+Deploying a Laravel+Backpack project to production isn't very different from deploying a normal Laravel project to production. You only need to account for Basset, the system in Backpack that publishes the CSS and JS assets your admin panel needs. 
+
+That being said, here's a detailed step-by-step guide to deploying a Backpack project to production, that should work for most production servers: 
+
+1. Local Preparations
+Before deploying your application, make sure your development environment is in order:
+- Update dependencies:
+```
+composer install --no-dev --optimize-autoloader
+npm install && npm run prod
+```
+- Configure your .env file for production. This file should not be included in version control (git), but make sure to have a copy with production settings.
+
+2. Configure the Production Server
+Ensure your production server meets the following requirements:
+
+Web Server: Nginx or Apache.
+PHP: Version compatible with your Laravel version.
+Database: MySQL, PostgreSQL, etc.
+Composer: Installed globally.
+Node.js and npm: If you are using asset compilation with Laravel Mix.
+
+3. Deploy the Code
+There are several ways to deploy code to production, here’s one method using Git:
+- Clone your repository on the server:
+```
+git clone https://github.com/your_user/your_repository.git
+cd your_repository
+```
+- Copy your local .env file to the production environment and adjust the settings accordingly.
+```
+APP_ENV=production
+APP_URL=https://MY_DOMAIN.COM #This need to be correctly set for Basset
+```
+
+4. Install Dependencies
+Install Composer and npm dependencies:
+```
+composer install --no-dev --optimize-autoloader
+npm install && npm run prod
+```
+
+5. Configure the Application
+Make the necessary configurations for the application:
+- Generate the application key:
+```
+php artisan key:generate
+```
+- Set permissions:
+```
+sudo chown -R www-data:www-data storage
+sudo chown -R www-data:www-data bootstrap/cache
+sudo chmod -R 775 storage
+sudo chmod -R 775 bootstrap/cache
+```
+- Run database migrations:
+```
+php artisan migrate --force
+```
+- Optimize configuration:
+```
+php artisan basset:clear
+php artisan basset:cache
+php artisan optimize:clear
+php artisan optimize
+```
+
+6. Configure the Web Server
+Set up your web server (Nginx or Apache) to point to the public directory of your Laravel application. Here’s an example Nginx configuration:
+```
+server {
+    listen 80;
+    server_name your_domain.com;
+    root /path/to/your/project/public;
+
+    index index.php index.html;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}
+```
+
+7. Configure Cron Jobs
+If your Laravel application uses scheduled tasks, add the following line to your crontab:
+```
+* * * * * cd /path/to/your/project && php artisan schedule:run >> /dev/null 2>&1
+```
+
+8. Monitor and Maintain
+Monitor your application in production:
+- Logs: Check logs in storage/logs/laravel.log.
+- Services: Ensure services like queue workers are running properly.
+
+9. Optimize for Production
+Perform additional optimizations if necessary:
+- Optimize Autoload:
+```
+composer dump-autoload --optimize
+```
+- Disable Debug in .env:
+```
+APP_DEBUG=false
+```
+- Clean & Set config cache
+```
+php artisan config:clear
+php artisan config:cache
+```
