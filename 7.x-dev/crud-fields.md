@@ -1160,55 +1160,6 @@ Input preview:
 
 <hr>
 
-<a name="browse"></a>
-### browse <span class="badge badge-pill badge-info">PRO</span>
-
-This button allows the admin to open [elFinder](http://elfinder.org/) and select a file from there. Run ```composer require backpack/filemanager && php artisan backpack:filemanager:install``` to install [FileManager](https://github.com/laravel-backpack/filemanager), then you can use the field:
-
-```php
-CRUD::field([   // Browse
-    'name'  => 'image',
-    'label' => 'Image',
-    'type'  => 'browse'
-]);
-```
-
-
-Input preview:
-
-![CRUD Field - browse](https://backpackforlaravel.com/uploads/docs-4-2/fields/browse.png)
-
-Onclick preview:
-
-![CRUD Field - browse popup](https://backpackforlaravel.com/uploads/docs-4-2/fields/browse_popup.png)
-
-<hr>
-
-<a name="browse-multiple"></a>
-### browse_multiple <span class="badge badge-pill badge-info">PRO</span>
-
-Open elFinder and select multiple files from there. Run ```composer require backpack/filemanager && php artisan backpack:filemanager:install``` to install [FileManager](https://github.com/laravel-backpack/filemanager), then you can use the field:
-
-```php
-CRUD::field([   // Browse multiple
-    'name'          => 'files',
-    'label'         => 'Files',
-    'type'          => 'browse_multiple',
-    // 'multiple'   => true, // enable/disable the multiple selection functionality
-    // 'sortable'   => false, // enable/disable the reordering with drag&drop
-    // 'mime_types' => null, // visible mime prefixes; ex. ['image'] or ['application/pdf']
-]);
-```
-
-The field assumes you've cast your attribute as ```array``` on your model.  That way, when you do ```$entry->files``` you get a nice array.
-**NOTE:** If you use `multiple => false` you should NOT cast your attribute as ```array```
-
-Input preview:
-
-![CRUD Field - browse_multiple](https://backpackforlaravel.com/uploads/docs-4-2/fields/browse_multiple.png)
-
-<hr>
-
 <a name="base64-image"></a>
 ### base64_image <span class="badge badge-pill badge-info">PRO</span>
 
