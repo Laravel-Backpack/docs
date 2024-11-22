@@ -1138,6 +1138,13 @@ CRUD::field([   // Address google
 
 Using Google Places API is dependent on using an API Key. Please [get an API key](https://console.cloud.google.com/apis/credentials) - you do have to configure billing, but you qualify for $200/mo free usage, which covers most use cases. Then copy-paste that key as your ```services.google_places.key``` value. 
 
+**IMPORTANT NOTE**: Your key needs access to the following APIS:
+- Maps JavaScript API;
+- Places API;
+- Geocoding API.
+
+While developing you can use an "unrestricted key" (no restrictions for where the key is used), but for production you should use a separate key, and **MAKE SURE** you restrict the usage of that key to your own domain. 
+
 So inside your ```config/services.php``` please add the items below:
 ```php
 'google_places' => [
@@ -1422,6 +1429,13 @@ Using Google Places API is dependent on using an API Key. Please [get an API key
     'key' => 'the-key-you-got-from-google-places'
 ],
 ```
+
+**IMPORTANT NOTE**: Your key needs access to the following APIS:
+- Maps JavaScript API;
+- Places API;
+- Geocoding API.
+
+While developing you can use an "unrestricted key" (no restrictions for where the key is used), but for production you should use a separate key, and **MAKE SURE** you restrict the usage of that key to your own domain. 
 
 **How to save in multiple inputs?**
 
