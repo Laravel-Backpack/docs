@@ -383,6 +383,13 @@ Input preview:
 
 <hr>
 
+<a name="ckeditor"></a>
+### ckeditor
+
+Show a WYSIWIG field to the user, powered by CKEditor. This field is provided as a first-party add-on - see instructions [here](https://github.com/Laravel-Backpack/ckeditor-field).
+
+<hr>
+
 <a name="color"></a>
 ### color
 
@@ -839,7 +846,7 @@ Input preview:
 <a name="summernote"></a>
 ### summernote
 
-Show a [Summernote wysiwyg editor](http://summernote.org/) to the user.
+Show a [Summernote WYSIWYG editor](http://summernote.org/) to the user.
 
 ```php
 CRUD::field([   // Summernote
@@ -960,6 +967,13 @@ CRUD::field([   // Time
     'type'  => 'time'
 ]);
 ```
+
+<hr>
+
+<a name="tinymce"></a>
+### tinymce
+
+Show a WYSIWYG editor powered by TinyMCE to the admin. This is provided using a first-party add-on - see instructions [here](https://github.com/Laravel-Backpack/tinymce-field).
 
 <hr>
 
@@ -1190,13 +1204,6 @@ CRUD::field([
 Input preview:
 
 ![CRUD Field - base64_image](https://backpackforlaravel.com/uploads/docs-4-2/fields/base64_image.png)
-
-<hr>
-
-<a name="ckeditor"></a>
-### ckeditor 
-
-This field is providedy by a third-party integration, you can find instructions on how to install and use it [here](https://github.com/Laravel-Backpack/ckeditor-field).
 
 <hr>
 
@@ -2543,13 +2550,6 @@ Input preview:
 
 <hr>
 
-<a name="tinymce"></a>
-### tinymce
-
-TinyMCE is now provided by a third-party package, you can find instructions on how to use and configure it [here](https://github.com/Laravel-Backpack/tinymce-field).
-
-<hr>
-
 <a name="video"></a>
 ### video <span class="badge badge-pill badge-info">PRO</span>
 
@@ -2580,29 +2580,6 @@ So you should use [attribute casting](https://mattstauffer.com/blog/laravel-5.0-
 
 Vimeo does not require an API key in order to query their DB, but YouTube does, even though their free quota is generous. You can get a free YouTube API Key inside [Google Developers Console](https://console.developers.google.com/) ([video tutorial here](https://www.youtube.com/watch?v=pP4zvduVAqo)). Please DO NOT use our API Key - create your own. The key above is there just for your convenience, to easily try out the field. As soon as you decide to use this field type, create an API Key and use _your_ API Key. Our key hits its ceiling every month, so if you use our key most of the time it won't work.
 
-
-<hr>
-
-<a name="wysiwyg"></a>
-### wysiwyg <span class="badge badge-pill badge-info">PRO</span>
-
-Show a wysiwyg (CKEditor) to the user.
-
-```php
-CRUD::field([   // WYSIWYG Editor
-    'name'  => 'description',
-    'label' => 'Description',
-    'type'  => 'wysiwyg',
-
-    // optional configuration
-    'options' => [], // ckeditor configuration options
-
-    // elfinder configuration options when using [the file manager package](https://github.com/Laravel-Backpack/FileManager)
-    // to use this feature you need to be running backpack/pro:2.2.1 or higher and backpack/filemanager:3.0.8 or higher
-    // for `elfinderOptions` passing an empty array or `true` will enable the file manager with default options
-    'elfinderOptions' => [], 
-]);
-```
 
 <a name="overwriting-default-field-types"></a>
 ## Overwriting Default Field Types

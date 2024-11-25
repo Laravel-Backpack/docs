@@ -208,6 +208,23 @@ Show connected items selected via checklist_dependency field. It's definition is
 
 <hr>
 
+<a name="ckeditor"></a>
+### ckeditor <span class="badge badge-pill badge-info">PRO</span>
+
+The perfect match for the [CKEditor field](https://github.com/Laravel-Backpack/ckeditor-field). The CKEditor column will just output the non-escaped text value of a db column (or model attribute). Its definition is simple:
+
+```php
+[
+   'name'      => 'info', // The db column name
+   'label'     => 'Info', // Table column heading
+   'type'      => 'ckeditor',
+],
+```
+
+For more information, please see [backpack/ckeditor-field](https://github.com/Laravel-Backpack/ckeditor-field) on Github - that is the add-on that provides this functionality.
+
+<hr>
+
 <a name="closure"></a>
 ### closure
 
@@ -818,6 +835,23 @@ The text column will just output the text value of a db column (or model attribu
 
 <hr>
 
+<a name="tinymce"></a>
+### tinymce <span class="badge badge-pill badge-info">PRO</span>
+
+The perfect match for the [`tinymce` field](https://github.com/Laravel-Backpack/tinymce-field). The tinymce column will just output the non-escaped text value of a db column (or model attribute). Its definition is simple:
+```php
+[
+   'name'      => 'info', // The db column name
+   'label'     => 'Info', // Table column heading
+   'type'      => 'tinymce',
+],
+```
+
+For more information on the TinyMCE field and column, see [backpack/tinymce-field](
+The perfect match for the [`tinymce` field](https://github.com/Laravel-Backpack/tinymce-field)) on Github - that's the addon that provides this functionality.
+
+<hr>
+
 <a name="time"></a>
 ### time
 
@@ -978,21 +1012,6 @@ Show a thumbnail image stored in the db column as `base64` image string.
     // optional width/height if 25px is not ok with you
     // 'height' => '30px',
     // 'width'  => '30px',
-],
-```
-
-<hr>
-
-<a name="ckeditor"></a>
-### ckeditor <span class="badge badge-pill badge-info">PRO</span>
-
-The ckeditor column will just output the non-escaped text value of a db column (or model attribute). Its definition is:
-
-```php
-[
-   'name'      => 'info', // The db column name
-   'label'     => 'Info', // Table column heading
-   'type'      => 'ckeditor',
 ],
 ```
 
@@ -1363,21 +1382,6 @@ Its definition is very similar to the [table *field type*](/docs/{{version}}/cru
 
 <hr>
 
-<a name="tinymce"></a>
-### tinymce <span class="badge badge-pill badge-info">PRO</span>
-
-The tinymce column will just output the non-escaped text value of a db column (or model attribute). Its definition is:
-
-```php
-[
-   'name'      => 'info', // The db column name
-   'label'     => 'Info', // Table column heading
-   'type'      => 'tinymce',
-],
-```
-
-<hr>
-
 <a name="video"></a>
 ### video <span class="badge badge-pill badge-info">PRO</span>
 
@@ -1389,21 +1393,6 @@ Display a small screenshot for a YouTube or Vimeo video, stored in the database 
    'name'  => 'name', // The db column name
    'label' => 'Tag Name', // Table column heading
    'type'  => 'video',
-],
-```
-
-<hr>
-
-<a name="wysiwyg"></a>
-### wysiwyg <span class="badge badge-pill badge-info">PRO</span>
-
-The wysiwyg column will just output the non-escaped text value of a db column (or model attribute). Its definition is:
-
-```php
-[
-   'name'      => 'info', // The db column name
-   'label'     => 'Info', // Table column heading
-   'type'      => 'wysiwyg',
 ],
 ```
 
