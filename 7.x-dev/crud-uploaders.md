@@ -5,10 +5,10 @@
 <a name="upload-about"></a>
 ## About
 
-Uploading and managing files is a common task in Admin Panels. Starting with Backpack v6, you can fully setup your upload fields in your field definition, using purpose-built classes we call Uploaders. No more need to create mutators, manual validation of input or custom code to handle the files - though you can still do that, if you want.
+Uploading and managing files is a common task in Admin Panels. In Backpack v7, your field definition can include uploading logic, thanks to some classes we call Uploaders. You don't need to create mutators, manual validation of input or custom code to handle file upload - though you can still do that, if you want.
 
-<a name="upload-how-it-works"></a>
-## How it works
+<a name="how-to-use-uploaders"></a>
+## How to Use Uploaders
 
 When adding an upload field (`upload`, `upload_multiple`, `image` or `dropzone`) to your operation, tell Backpack that you want to use the appropriate Uploader, by using `withFiles()`:
 
@@ -23,8 +23,8 @@ That's it. Backpack will now handle the upload, storage and deletion of the file
 > - (*) If you want your files to be deleted when the entry is deleted, please [Configure File Deletion](#deleting-files-when-entry-is-deleted)
 
 
-<a name="upload-configuration"></a>
-## Configuring the Uploaders
+<a name="how-to-configure-uploaders"></a>
+## How to Configure Uploaders
 
 The `withFiles()` method accepts an array of options that you can use to customize the upload.
 
@@ -55,6 +55,25 @@ When `temporaryUrl` is set to `true`, this configures the amount of time in minu
 This allows you to overwrite or set the uploader class for this field. You can use any class that implements `UploaderInterface`.
 - **`fileNamer`** - default: **null**
 It accepts a `FileNameGeneratorInterface` instance or a closure. As the name implies, this will be used to generate the file name. Read more about in the [Naming uploaded files](#upload-name-files) section.
+
+<a name="available-uploaders"></a>
+## Available Uploaders
+
+We've already created Uploaders for the most common scenarios:
+- CRUD comes with `SingleFile`, `MultipleFiles`, `SingleBas64Image`
+- PRO comes with `AjaxUploader`, `DropzoneUploader`, `EasyMDEUploader`
+- if you want to use spatie/medialibrary you can just install [medialibrary-uploaders](https://github.com/Laravel-Backpack/medialibrary-uploaders) to get `MediaAjaxUploader`, `MediaMultipleFiles`, `MediaSingleBase64Image`, `MediaSingleFile`
+
+
+<a name="how-to-create-uploaders"></a>
+## How to Create Uploaders
+
+Do you want to create your own Uploader class, for your custom field? Here's how you can do that, and how Uploader classes work behind the scenes.
+
+// TODO
+
+<a name="faq-uploaders"></a>
+## FAQ about Uploaders
 
 <a name="handling-uploaders-in-relationship-fields"></a>
 ### Handling uploads in relationship fields
