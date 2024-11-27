@@ -70,7 +70,132 @@ We've already created Uploaders for the most common scenarios:
 
 Do you want to create your own Uploader class, for your custom field? Here's how you can do that, and how Uploader classes work behind the scenes.
 
-// TODO
+First thing you need to decide if you need "Ajax" or "Non-Ajax" upload. The big difference is that the "non-ajax" uploaders process the file upload when you submit your form, while the ajax upload process the file using a javascript ajax request, so it can be uploaded before you submit the form. 
+
+First let's see how to create a non-ajax uploader, for that we will create a `CustomUploader` class that extends the abstract class `Uploader`. 
+
+```php
+namespace App\Uploaders\CustomUploader;
+
+use Backpack\CRUD\app\Library\Uploaders\Uploader;
+
+class CustomUploader extends Uploader
+{
+    // the function we need to implement
+    public function uploadFiles(Model $entry, $values)
+    {
+        // $entry is the model instance we are working with
+        // $values is the sent files from request.
+
+        // do your upload logic here
+
+        return $valueToBeStoredInTheDatabaseEntry;
+    }
+
+    // in case you want to use your uploader inside repeatable fields
+    protected function uploadRepeatableFiles($values, $previousValues, $entry = null)
+    {
+    }
+}
+```
+
+You can now use this uploader in your field definition:
+    
+```php
+CRUD::field('avatar')->type('upload')->withFiles([
+    'uploader' => \App\Uploaders\CustomUploader::class,
+]);
+```
+
+But most likely, you have a `custom_upload` field that you'd like to use this uploader without having to specify it every time. You can do that by adding it to the `UploadersRepository` in your Service Provider `boot()` method:
+
+```php
+// in your App\Providers\AppServiceProvider.php
+
+protected function boot()
+{
+    app('UploadersRepository')->addUploaderClasses(['custom_upload' => \App\Uploaders\CustomUploader::class], 'withFiles');
+}
+```
+
+You can now use `CRUD::field('avatar')->type('custom_upload')->withFiles();` and it will use your custom uploader. What happen behind the scenes is that Backpack will register your uploader to be ran in 3 different model events: `saving`, `retrieved` and `deleting`.
+
+The `Uploader` class has 3 "entry points" for the mentioned events: **`storeUploadedFiles()`**, **`retrieveUploadedFiles()`** and **`deleteUploadedFiles()`**. You can overwrite these methods in your custom uploader to add your custom logic but for most uploaders you will not need to overwrite them as they are "setup" methods for the action that will be performed, and after setup they call the relevant methods that each uploader will implement, like ```uploadFiles()``` or ```uploadRepeatableFiles()```.
+
+The base uploader class has most of the functionality implemented and use **"strategy methods"** to configure the underlying behavior. 
+
+**`shouldUploadFiles`** - a method that returns a boolean to determine if the files should be uploaded. By default it returns true, but you can overwrite it to add your custom logic.
+
+**`shouldKeepPreviousValuesUnchanged`** - a method that returns a boolean to determine if the previous values should be kept unchanged and not perform the upload. 
+
+**`hasDeletedFiles`** - a method that returns a boolean to determine if the files were deleted from the field.
+
+This is the implementation of those methods in `SingleFile` uploader:
+```php
+protected function shouldKeepPreviousValueUnchanged(Model $entry, $entryValue): bool
+{
+    // if a string is sent as the value, it means the file was not changed so we should keep
+    // previous value unchanged
+    return is_string($entryValue);
+}
+
+protected function hasDeletedFiles($entryValue): bool
+{
+    // if the value is null, it means the file was deleted from the field
+    return $entryValue === null;
+}
+
+protected function shouldUploadFiles($value): bool
+{
+    // when the value is an instance of UploadedFile, it means the file was uploaded and we should upload it
+    return is_a($value, 'Illuminate\Http\UploadedFile', true);
+}
+```
+
+For the ajax uploaders, the process is similar, but the `CustomUploader` class should extend `BackpackAjaxUploader` **(requires backpack/pro)** instead of `Uploader`.
+
+```php
+
+namespace App\Uploaders\CustomUploader;
+
+use Backpack\Pro\Uploaders\BackpackAjaxUploader;
+
+class CustomUploader extends BackpackAjaxUploader
+{
+    // this is called on `saving` event of the main entry, at this point you already performed the upload 
+    // of the files in the ajax endpoint. By default they are in a temp folder, so here is the place 
+    // where you should move them to the final disk and path and setup what will be saved in the database.
+    public function uploadFiles(Model $entry, $values)
+    {
+        return $valueToBeStoredInTheDatabaseEntry;
+    }
+
+    // in case you want to use your uploader inside repeatable fields
+    protected function uploadRepeatableFiles($values, $previousValues, $entry = null)
+    {
+    }
+}
+```
+
+The process to register the uploader in the `UploadersRepositoy` is the same as the non-ajax uploader. `app('UploadersRepository')->addUploaderClasses(['custom_upload' => \App\Uploaders\CustomUploader::class], 'withFiles');` in the boot method of your provider.
+
+In addition to the field configuration, ajax uploaders require that you use the `AjaxUploadOperation` trait in your controller. The operation is responsible to register the ajax route where your files will be sent and the upload process will be handled and the delete route from where you can delete **temporary files**.
+
+Similar to model events, there are two "setup" methods for those endpoints: **`processAjaxEndpointUploads()`** and **`deleteAjaxEndpointUpload()`**. You can overwrite them to add your custom logic but most of the time you will not need to do that and just implement the `uploadFiles()` and `uploadRepeatableFiles()` methods.
+
+The ajax uploader also has the same "strategy methods" as the non-ajax uploader (see above), but adds a few more:
+**`ajaxEndpointSuccessResponse($files = null)`** - this should return a `JsonResponse` with the needed information when the upload is successful. By default it returns a json response with the file path.
+
+**`ajaxEndpointErrorResponse($message)`** - use this method to change the endpoint response in case the upload failed. Similar to the success it should return a `JsonResponse`.
+
+**`getAjaxEndpointDisk()`** - by default a `temporaryDisk` is used to store the files before they are moved to the final disk. (when uploadFiles() is called). You can overwrite this method to change the disk used.
+
+**`getAjaxEndpointPath()`** - by default the path is `/temp` but you can overwrite this method to change the path used.
+
+**`getDefaultAjaxEndpointValidation()`** - Should return the default validation rules (in the format of `BackpackCustomRule`) for the ajax endpoint. By default it returns a `ValidGenericAjaxEndpoint` rule.
+
+
+For any other customization you would like to perform, please check the source code of the `Uploader` and `BackpackAjaxUploader` classes.
 
 <a name="faq-uploaders"></a>
 ## FAQ about Uploaders
