@@ -130,6 +130,8 @@ The base uploader class has most of the functionality implemented and use **"str
 
 **`hasDeletedFiles`** - a method that returns a boolean to determine if the files were deleted from the field.
 
+**`getUploadedFilesFromRequest`** - this is the method that will be called to get the values sent in the request. Some uploaders require you get the `->files()` others the `->input()`. By default it returns the `->files()`.
+
 This is the implementation of those methods in `SingleFile` uploader:
 ```php
 protected function shouldKeepPreviousValueUnchanged(Model $entry, $entryValue): bool
