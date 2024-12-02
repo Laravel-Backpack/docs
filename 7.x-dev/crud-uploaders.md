@@ -330,6 +330,22 @@ class SomeModel extends Model
 }
 ```
 
+<a name="deleting-temporary-files"></a>
+## Deleting temporary files
+
+When using ajax uploaders, the files are uploaded to a temporary disk and path before being moved to the final disk and path. If by some reason the user does not finish the operation, those files may lay around in your server temporary folder. 
+To delete them, we have created a `backpack:purge-temporary-folder` command that you can schedule to run every day, or in the time frame that better suits your needs.
+
+```php
+// in your routes/console
+use Illuminate\Console\Scheduling\Schedule;
+
+Schedule::command('backpack:purge-temporary-folder')->daily();
+
+```
+
+For additional configuration check the `config/backpack/operations/ajax-uploads.php` file. Those configurations can also be passed on a "per-command" basis, eg: `backpack:purge-temporary-folder --disk=public --path=temp --older-than=5`.
+
 <a name="custom-upload-fields"></a>
 ### Configuring uploaders in custom fields
 
