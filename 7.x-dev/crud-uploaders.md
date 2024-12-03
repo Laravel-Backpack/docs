@@ -10,7 +10,7 @@ Uploading and managing files is a common task in Admin Panels. In Backpack v7, y
 <a name="how-to-use-uploaders"></a>
 ## How to Use Uploaders
 
-When adding an upload field (`upload`, `upload_multiple`, `image` or `dropzone`) to your operation, tell Backpack that you want to use the appropriate Uploader, by using `withFiles()`:
+When adding an upload field (`upload`, `upload_multiple`, `image`, `dropzone`, `easymde`, `summernote`) to your operation, tell Backpack that you want to use the appropriate Uploader, by using `withFiles()`:
 
 ```php
 CRUD::field('avatar')->type('upload')->withFiles();
@@ -61,7 +61,7 @@ It accepts a `FileNameGeneratorInterface` instance or a closure. As the name imp
 
 We've already created Uploaders for the most common scenarios:
 - CRUD comes with `SingleFile`, `MultipleFiles`, `SingleBas64Image`
-- PRO comes with `AjaxUploader`, `DropzoneUploader`, `EasyMDEUploader`
+- PRO comes with `DropzoneUploader`, `EasyMDEUploader`, `SummernoteUploader`
 - if you want to use spatie/medialibrary you can just install [medialibrary-uploaders](https://github.com/Laravel-Backpack/medialibrary-uploaders) to get `MediaAjaxUploader`, `MediaMultipleFiles`, `MediaSingleBase64Image`, `MediaSingleFile`
 
 
