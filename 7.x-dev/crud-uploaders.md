@@ -75,7 +75,7 @@ First thing you need to decide if you are creating a _non-ajax_ or _ajax_ upload
 - _ajax_ uploaders process the file upload before the form is submitted, by submitting an AJAX request using Javascript; 
 
 <a name="how-to-create-a-custom-non-ajax-uploader"></a>
-## How to Create a Custom Non-Ajax Uploader
+### How to Create a Custom Non-Ajax Uploader
 
 First let's see how to create a non-ajax uploader, for that we will create a `CustomUploader` class that extends the abstract class `Uploader`. 
 
@@ -159,7 +159,7 @@ protected function shouldUploadFiles($value): bool
 }
 
 <a name="how-to-create-a-custom-ajax-uploader"></a>
-## How to Create a Custom Ajax Uploader
+### How to Create a Custom Ajax Uploader
 
 For the ajax uploaders, the process is similar, but your custom uploader class should extend `BackpackAjaxUploader` instead of `Uploader` (**note that this requires backpack/pro**).
 
