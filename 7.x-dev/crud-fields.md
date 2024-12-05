@@ -874,7 +874,7 @@ CRUD::field([
 
 #### Uploading files with summernote
 
-Summernote saves images as base64 encoded strings in the database. If you want to save them as files on the server, you can use the [Summernote File Upload](https://backpackforlaravel.com/docs/7.x/crud-uploaders) . Please note that the Summernote Uploader is part of the `backpack/pro` package. 
+Summernote saves images as base64 encoded strings in the database. If you want to save them as files on the server, you can use the [Summernote Uploader](https://backpackforlaravel.com/docs/7.x/crud-uploaders). Please note that the Summernote Uploader is part of the `backpack/pro` package. 
 Input preview:
 
 ![CRUD Field - summernote](https://backpackforlaravel.com/uploads/docs-4-2/fields/summernote.png)
