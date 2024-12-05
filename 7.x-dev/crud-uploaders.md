@@ -125,7 +125,7 @@ protected function boot()
 
 You can now use `CRUD::field('avatar')->type('custom_upload')->withFiles();` and it will use your custom uploader. What happens behind the scenes is that Backpack will register your uploader to run on 3 different model events: `saving`, `retrieved` and `deleting`.
 
-The `Uploader` class has 3 "entry points" for the mentioned events: **`storeUploadedFiles()`**, **`retrieveUploadedFiles()`** and **`deleteUploadedFiles()`**. You can overwrite these methods in your custom uploader to add your custom logic but for most uploaders you will not need to overwrite them as they are "setup" methods for the action that will be performed, and after setup they call the relevant methods that each uploader will implement, like ```uploadFiles()``` or ```uploadRepeatableFiles()```.
+The `Uploader` class has 3 "entry points" for the mentioned events: **`storeUploadedFiles()`**, **`retrieveUploadedFiles()`** and **`deleteUploadedFiles()`**. You can override these methods in your custom uploader, but typically you will not need to do that. The methods already delegate what will happen to the relevant methods (eg. if it's not a repeatable, call ```uploadFiles()```, othewise call ```uploadRepeatableFiles()```).
 
 Notice this custom class you're creating is extending `Backpack\CRUD\app\Library\Uploaders\Uploader`. That base uploader class has most of the functionality implemented and uses **"strategy methods"** to configure the underlying behavior. 
 
