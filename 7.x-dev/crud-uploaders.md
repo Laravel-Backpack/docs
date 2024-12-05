@@ -97,9 +97,20 @@ class CustomUploader extends Uploader
         return $valueToBeStoredInTheDatabaseEntry;
     }
 
-    // in case you want to use your uploader inside repeatable fields
-    protected function uploadRepeatableFiles($values, $previousValues, $entry = null)
+    // this is called when your uploader field is a subfield of a repeatable field. In here you receive 
+    // the sent values in the current request and the previous repeatable values (only the uploads values).
+    protected function uploadRepeatableFiles($values, $previousValues)
     {
+        // you should return an array of arrays (each sub array is a repeatable row) where the array key is the field name.
+        // backpack will merge this values along the other repeatable fields and save them in the database.
+        return [
+            [
+                'custom_upload' => 'path/file.jpg'
+            ],
+            [
+                'custom_upload' => 'path/file.jpg'
+            ]
+        ];
     }
 }
 ```
@@ -179,9 +190,20 @@ class CustomUploader extends BackpackAjaxUploader
         return $valueToBeStoredInTheDatabaseEntry;
     }
 
-    // in case you want to use your uploader inside repeatable fields
-    protected function uploadRepeatableFiles($values, $previousValues, $entry = null)
+    // this is called when your uploader field is a subfield of a repeatable field. In here you receive 
+    // the sent values in the current request and the previous repeatable values (only the uploads values).
+    protected function uploadRepeatableFiles($values, $previousValues)
     {
+        // you should return an array of arrays (each sub array is a repeatable row) where the array key is the field name.
+        // backpack will merge this values along the other repeatable fields and save them in the database.
+        return [
+            [
+                'custom_upload' => 'path/file.jpg'
+            ],
+            [
+                'custom_upload' => 'path/file.jpg'
+            ]
+        ];
     }
 }
 ```
