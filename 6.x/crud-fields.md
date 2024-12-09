@@ -2194,7 +2194,7 @@ Input preview:
 <a name="select2-nested"></a>
 ### select2_nested <span class="badge badge-pill badge-info">PRO</span>
 
-Display a select2 with the values ordered hierarchically and indented, for an entity where you use Reorder. Please mind that the connected model needs:
+Display a select2 with the values ordered hierarchically and indented, for an entity where you use [Reorder](https://backpackforlaravel.com/docs/6.x/crud-operation-reorder). Please mind that the connected model needs:
 - a ```children()``` relationship pointing to itself;
 - the usual ```lft```, ```rgt```, ```depth``` attributes;
 
