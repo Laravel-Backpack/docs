@@ -84,6 +84,32 @@ public function fetchUser() {
     }
 ```
 
+**Adding attributes to fetched models without appends**
+
+It's already possible to add attributes to the fetched models using the `appends` property in the model. However, this method has some drawbacks, like the fact that the appended attributes will be added to all instances of the model, whenever they are used, not only when they are fetched. If you want to add attributes to the fetched models without using the `appends` property in the model, you can use the `append_attributes` in the fetch configuration. For example:
+
+```php
+public function fetchUser() {
+        return $this->fetch([
+            'model' => User::class,
+            'append_attributes' => ['something'],
+        ]);
+    }
+
+// User.php model
+public function something(): Attribute
+{
+    return Attribute::make(
+        get: function (mixed $value, array $attributes) {
+            return $attributes['something_else'];
+        },
+    );
+}
+
+// and in your field definition
+CRUD::field('my_ajax_field')->attribute('something');
+```
+
 <a name="fetch-ajax-filter"></a>
 ## Using FetchOperation with `select2_ajax` filter
 
