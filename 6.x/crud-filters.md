@@ -666,3 +666,27 @@ function() { // if the filter is active (the GET parameter "draft" exits)
   // CRUD::addClause('draft');
 });
 ```
+
+
+<a name="when-to-use-addclause-or-add-base-clause-to-apply-filtering-logic"></a>
+### When to use `addClause()` or `addBaseClause()` to apply filtering logic
+
+In most of our filter examples we use `CRUD::addClause()` to apply filtering logic to that Eloquent model. This allows you to call methods on that model, either standard Laravel methods like `where()` or custom methods like scopes:
+
+```php
+CRUD::addClause('where', 'total', '=', '0'); // call standard laravel method "where" with params
+CRUD::addClause('free'); // call free() on the Model, which would itself call scopeFree()
+```
+
+When the filter is selected, your List operation will also show a small text: "_Showing 1 to 10 entries (filtered from 998)_".
+
+But there's another method you can use to add filtering to the Eloquent model - `addBaseClause()`. This works EXACTLY the same as `addClause()` but the filtering happens _earlier_ in the lifecycle, before pagination is even calculated. That means your users will no longer see the end part of the text above. With the EXACT same filtering, happening before pagination is calculated, your text will become: "_Showing 1 to 10 entries._". In short:
+
+```php
+CRUD::addClause('where', 'total', '=', '0'); // Showing 1 to 10 entries (filtered from 998)
+CRUD::addBaseClause('where', 'total', '=', '0'); // Showing 1 to 10 entries
+```
+
+When should you use one or the other?
+- in 99% of the cases you should probably use `addClause()`; it's more intuitive and informative for the admin, once they click a filter, to have feedback that what they see is a filtered list, out of a bigger list;
+- in 1% of the cases though, when you want to actually _hide_ the total number of entries in the table, you should use `addBaseClause()` instead; for example, if you want to ONLY show the articles of the current logged in person, you would not want them to how many entries are in the database, so you should use `addBaseClause()`;
