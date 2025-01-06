@@ -883,7 +883,7 @@ CRUD::field([   // Switch
     'label'    => 'I have not read the terms and conditions and I never will',
 
     // optional
-    'color'    => 'primary', // May be any bootstrap color class or an hex color
+    'color'    => '#232323', // in CoreUI v2 theme you can also specify bootstrap colors, like `primary`, `danger`, `success`, etc You can also overwrite the `--bg-switch-checked-color` css variable to change the color of the switch when it's checked
     'onLabel' => '✓',
     'offLabel' => '✕',
 ]);
