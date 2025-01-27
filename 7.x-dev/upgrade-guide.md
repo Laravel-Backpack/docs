@@ -94,7 +94,12 @@ No changes needed.
 <a name="controllers"></a>
 ### CrudControllers
 
-No changes needed.
+<a name="step-x" href="#step-x" class="badge badge-danger text-white" style="text-decoration: none;">Step X.</a> The `wysiwyg` field and column have been removed, because they were hiding functionality. But don't worry, they were just alias columns. Behind the scenes, they were just loading the `ckeditor` field and `text` column respectively. If you're using the `wysiwyg` column of field in your CrudController, replace them with their originals.
+
+<a name="step-x" href="#step-x" class="badge badge-danger text-white" style="text-decoration: none;">Step X.</a> The `ckeditor` field and column have been moved from the PRO package to an open-source addon. If you are using either of them and want to keep doing so, just run `composer require backpack/ckeditor-field`. Please note that CKEditor is a 3rd party JS library that requires _payment_ when used for commercial purposes (GPL licensed). See their [pricing page](https://ckeditor.com/pricing/) for options. We can give away a few sub-licenses every year - [contact us](https://backpackforlaravel.com/contact) to see if any are still available. If you would rather move away from CKEditor, you can just change your field/column to use `summernote` instead, they are both HTML editors so your content should be compatible. Summernote has more limited editing options, but it's MIT-licensed.
+
+<a name="step-x" href="#step-x" class="badge badge-danger text-white" style="text-decoration: none;">Step X.</a> Similarly, the `tinymce` field and column have been moved from the PRO package to an open-source addon. If you are using either of them and want to keep doing so, just run `composer require backpack/tinymce-field`. Please note that TinyMCE is a 3rd party JS library that normally requires _payment_ when used for commercial purposes (GLP licensed). See their [pricing page](https://www.tiny.cloud/pricing/) for options. You can sign-up for [free commercial licenses on their website here](https://www.tiny.cloud/get-tiny/). If you would rather move away from TinyMCE, you can just change your field/column to use `summernote` instead, they are both HTML editors so your content should be compatible. Summernote has more limited editing options, but it's MIT-licensed.
+
 
 <a href="assets"></a>
 ### CSS & JS Assets
