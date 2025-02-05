@@ -261,6 +261,11 @@ You'll notice the generated operation has:
 
 You can customize these to fit the operation you have in mind, then ```use \App\Http\Controllers\Admin\Operations\CommentOperation;``` inside the CrudControllers where you want the operation.
 
+<a name="operations-lifecycle-hooks"></a>
+### Operations Lifecycle Hooks
+
+Backpack operations trigger lifecycle events at various points in their execution. You can hook into these events to customize the operation's behavior. You can read a detailed guide about [how to use lifecycle hooks](/docs/{{version}}/crud-operations-lifecycle).
+
 <a name="contents-of-a-custom-operation"></a>
 ### Contents of a Custom Operation
 
