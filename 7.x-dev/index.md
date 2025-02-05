@@ -44,6 +44,7 @@
     + [Delete](/docs/{{version}}/crud-operation-delete)
     + [Show](/docs/{{version}}/crud-operation-show)
         + [Columns](/docs/{{version}}/crud-columns)
+    + [Operations Lifecycle Hooks](/docs/{{version}}/crud-operations-lifecycle)
 - [Additional Operations](/docs/{{version}}/crud-operations)
     + [Clone](/docs/{{version}}/crud-operation-clone)
     + [Reorder](/docs/{{version}}/crud-operation-reorder)
