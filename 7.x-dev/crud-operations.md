@@ -179,6 +179,118 @@ Inside a ```setupOperationNameRoutes()```, you'll notice that's also where we de
 Once an operation name has been set using that route, you can do ```$crud->getOperation()``` inside your views and do things according to this.
 
 
+<a name="operation-lifecycle"></a>
+## Operation Lifecycle
+
+When making customizations to existing operations or creating custom operations, it's important to understand how Backpack loads operations in the first place. Let's take it from the top, with a practical example. Backpack CRUDs follow the simple MVC pattern (Model-View-Controller):
+- a route points to a CrudController (eg. `Route::crud('article', 'ArticleCrudController')`)
+- that `ArticleCrudController` then loads operations as traits eg. `use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;`
+
+Inside `DeleteOperation` (or any other operation) you will typically have these at least three methods, including `setupXxxRoutes()` and `setupXxxDefaults()` methods:
+
+```php
+
+trait DeleteOperation
+{
+    // Defines which routes are needed for the operation
+    protected function setupDeleteRoutes($segment, $routeName, $controller) {}
+    
+    // Add the default settings, buttons, etc that this operation needs.
+    protected function setupDeleteDefaults() {}
+
+    // Custom methods, that the routes registered above call 
+    public function destroy($id) {}
+}
+```
+
+When do these get called? Well:
+- `setupDeleteRoutes()` gets called _when routes are being set up_; if your CRUD routes are defined in `routes/backpack/custom.php` like our convention, then _that_ is when those methods are called;
+- `setupDeleteDefaults()` and all other methods in the CrudController get called when the request is processed; let's get deeper into that;
+
+When a request to `example.com/admin/article` gets made:
+- Laravel will setup all routes; that includes the CRUD routes, so it will call all setupXxxRoutes methods, in all operation traits, used on all CrudControllers);
+- Laravel will identify that the route points to a particular CrudController, and a particular method inside that controller (in our example, `DeleteOperation::destroy`, used inside `ArticleCrudController`); so it will instantiate the ArticleCrudController;
+- when `ArticleCrudController` gets instantiate, its `parent::__construct()` method will set up the operation for you; and it will do it in the following order:
+
+1. CrudController will set up the operation defaults (by calling `DeleteOperation::setupDeleteDefaults()`);
+2. CrudController will call the `ArticleController::setup()`, to allow you as a developer to set up all operation in one place. It's discouraged to use the `setup()` method for that - in practice it's much cleaner to have a setup method for each operation.
+3. CrudController will call the `ArticleController::setupDeleteOperation()` method, if present, to allow the developer to configure that operation;
+
+This means you can think of the Operation lifecycle of having the following "lifecycle events":
+- the operation routes being set up
+- the defaults being set up
+- the operation being set up (aka configured by developer)
+
+Understanding these moments and their order, is important in order to place your custom logic _in the right place_ and _at the right time_ in the operation lifecycle.
+
+<a name="lifecycle-hooks"></a>
+### Lifecycle Hooks
+
+At important points in the CRUD Lifecycle, Backpack triggers what we call "lifecycle events". You can hook into those events - by registering custom code that will run when that lifecycle event happens. This allows you to customize the process, without having to override any of the core files for CRUD or an Operation.
+
+For example, in a Backpack CRUD all routes are setup on the **CrudController** using methods like `setupModerateOperationRoutes()`. Before those methods are called, Backpack calls `LifecycleEvent::trigger('crud:before_all_route_setup')`. If you want to add your own code that runs there, you can do:
+
+```php
+LifecycleEvent::hookInto('crud:before_setup_routes', function($controller) {
+    // do something before the routes are setup
+});
+```
+<a name="hooks-usage"></a>
+Here are all the general Lifecycle Events we currently have:
+
+`crud:before_setup_routes` - before any operation routes are registered
+`crud:after_setup_routes` - after all operation routes have been registered
+`crud:before_setup_defaults` - before all defaults are setup
+`crud:after_setup_defaults` - after all defaults have been setup
+`crud:before_setup` - before any operation is set up
+`crud:after_setup` - after that operation has been set up
+
+
+In addition to the general Lifecycle events above, each operation can trigger its own lifecycle events. For example, here are the lifecycle events triggered by the Create operation:
+
+`create:before_setup` - exposes parameters: $crud
+`create:after_setup` - exposes parameters: $crud
+
+You can hook into those events using a similar syntax to the general lifecycle events:
+
+```php
+LifecycleEvent::hookInto(['create:before_setup'], function() {
+    $this->crud->addButton('top', 'create', 'view', 'crud::buttons.create');
+});
+```
+
+Note that when using the hooks for specific operations, the hook is prefixed with the operation name followed by the hook name. This allow you to hook into specific operation events, or even to multiple events at the same time:
+
+```php
+LifecycleEvent::hookInto(['create:before_setup', 'list:before_setup'], function() {
+    // do something before the create operation and the list operation are setup
+});
+```
+
+<a name="how-to-add-your-own-hooks"></a>
+
+As a developer you may have had the need to create custom operations, and while creating a "one time use" operation may not require/demand the usage of lifecycle events, creating a reusable operation that you may want to share with the community, or use in multiple projects, may benefit from the usage of lifecycle events to allow other developers to hook into your operation and customize its behavior.
+
+You can add your own lifecycle events to your custom operations by calling the `LifecycleEvent::trigger()` method at the appropriate points in your operation. For example, if you have a custom operation that need to do something after some action happen in te operation, you can trigger a lifecycle event like this:
+
+```php
+public function moderate() {
+    // do something to "moderate" the entry and register the hook
+    LifecycleEvent::trigger('moderate:after_moderation', [
+        'controller' => $this,
+        'operation' => 'moderate',
+    ]);
+}
+```
+
+Then, other developers can hook into that event like this:
+
+```php
+LifecycleEvent::hookInto(['moderate:after_moderation'], function($controller, $operation) {
+    // do something after the moderate operation has been executed
+});
+```
+
 <a name="creating-a-custom-operation"></a>
 ## Creating a Custom Operation
 
@@ -260,11 +372,6 @@ You'll notice the generated operation has:
 - a method to perform the operation, or show an interface (```comment()```);
 
 You can customize these to fit the operation you have in mind, then ```use \App\Http\Controllers\Admin\Operations\CommentOperation;``` inside the CrudControllers where you want the operation.
-
-<a name="operations-lifecycle-hooks"></a>
-### Operations Lifecycle Hooks
-
-Backpack operations trigger lifecycle events at various points in their execution. You can hook into these events to customize the operation's behavior. You can read a detailed guide about [how to use lifecycle hooks](/docs/{{version}}/crud-operations-lifecycle).
 
 <a name="contents-of-a-custom-operation"></a>
 ### Contents of a Custom Operation
