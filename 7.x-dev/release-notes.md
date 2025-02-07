@@ -33,6 +33,10 @@ Previously when working with Operations, developers found themselves needing to 
 // just like your air purifier
 // TODO
 
+### Filters inside CustomViews
+
+Filters can now be used inside [Custom Views for your List operation](https://backpackforlaravel.com/docs/{{version}}/crud-operation-list-entries#custom-views-for-listoperation-pro). This means once the admin has selected the Custom View, they can further drill down in the list, using the filters. But not only that... you can _remove_ the general filters and add entirely new filters, just for that Custom View.
+
 ### Browser Tests
 
 // TODO
