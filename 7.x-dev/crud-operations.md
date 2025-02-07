@@ -226,25 +226,31 @@ Understanding these moments and their order, is important in order to place your
 <a name="lifecycle-hooks"></a>
 ### Lifecycle Hooks
 
-At important points in the CRUD Lifecycle, Backpack triggers what we call "lifecycle events". You can hook into those events - by registering custom code that will run when that lifecycle event happens. This allows you to customize the process, without having to override any of the core files for CRUD or an Operation.
+At important points in the CRUD Lifecycle, Backpack triggers what we call "_lifecycle events_". You can hook into those events - by registering custom code that will run when that lifecycle event happens. This allows you to customize the process, without having to override any of the core files for that CRUD or Operation.
 
-For example, in a Backpack CRUD all routes are setup on the **CrudController** using methods like `setupModerateOperationRoutes()`. Before those methods are called, Backpack calls `LifecycleEvent::trigger('crud:before_all_route_setup')`. If you want to add your own code that runs there, you can do:
+For example, in a Backpack CRUD all routes are setup on the **CrudController** using methods like `setupModerateOperationRoutes()`. Before those methods are called, Backpack triggers an event called `crud:before_all_route_setup`. If you want to add your own code that runs there, you can do:
 
 ```php
+use Backpack\CRUD\app\Library\CrudPanel\Hooks\Facades\LifecycleHook;
+
 LifecycleEvent::hookInto('crud:before_setup_routes', function($controller) {
     // do something before the routes are setup
 });
 ```
-<a name="hooks-usage"></a>
-Here are all the general Lifecycle Events we currently have:
+<a name="general-lifecycle-events"></a>
+#### General Lifecycle Events
 
-`crud:before_setup_routes` - before any operation routes are registered
-`crud:after_setup_routes` - after all operation routes have been registered
-`crud:before_setup_defaults` - before all defaults are setup
-`crud:after_setup_defaults` - after all defaults have been setup
-`crud:before_setup` - before any operation is set up
-`crud:after_setup` - after that operation has been set up
+Here are all the general lifecycle events Backpack triggers:
 
+- `crud:before_setup_routes` - before any operation routes are registered
+- `crud:after_setup_routes` - after all operation routes have been registered
+- `crud:before_setup_defaults` - before all defaults are setup
+- `crud:after_setup_defaults` - after all defaults have been setup
+- `crud:before_setup` - before any operation is set up
+- `crud:after_setup` - after that operation has been set up
+
+<a name="operation-lifecycle-events"></a>
+#### Operation Lifecycle Events
 
 In addition to the general Lifecycle events above, each operation can trigger its own lifecycle events. For example, here are the lifecycle events triggered by the Create operation:
 
@@ -268,10 +274,9 @@ LifecycleEvent::hookInto(['create:before_setup', 'list:before_setup'], function(
 ```
 
 <a name="how-to-add-your-own-hooks"></a>
+### How to add your own hooks
 
-As a developer you may have had the need to create custom operations, and while creating a "one time use" operation may not require/demand the usage of lifecycle events, creating a reusable operation that you may want to share with the community, or use in multiple projects, may benefit from the usage of lifecycle events to allow other developers to hook into your operation and customize its behavior.
-
-You can add your own lifecycle events to your custom operations by calling the `LifecycleEvent::trigger()` method at the appropriate points in your operation. For example, if you have a custom operation that need to do something after some action happen in te operation, you can trigger a lifecycle event like this:
+You can add your own lifecycle events to your custom operations by calling the `LifecycleEvent::trigger()` method at the appropriate points in your operation. For example, if you have a custom operation that need to do something after some action happens in the operation, you can trigger a lifecycle event like this:
 
 ```php
 public function moderate() {

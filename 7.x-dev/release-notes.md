@@ -22,7 +22,7 @@ Together, our team has put in an incredible amount of work to make v7 what it is
 
 ### CRUD Lifecycle Hooks
 
-// TODO
+Previously when working with Operations, developers found themselves needing to _override_ an entire operation method, in order to do things before/after the routes/defaults/operation is set up. This created a lot of duplicate code, and made it hard to maintain. Now, you can use CRUD Lifecycle Hooks to add your own code before/after each operation method. This is a much cleaner way to add your own code, without having to override the entire method. [Read more](/docs/{{version}}/crud-operations#lifecycle-hooks).
 
 ### Two-Factor Authentication
 
