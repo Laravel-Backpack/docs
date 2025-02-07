@@ -634,6 +634,11 @@ class ReportsController extends Controller
 	}
 }
 ```
+
+That's it, you should now have the filters navbar on your reports page. You can use the event listeners to update the data shown on the page based on the filters selected by the user.
+
+<-- INSERT IMAGE -->
+
 <hr>
 
 <a name="examples"></a>
