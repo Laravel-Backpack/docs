@@ -30,8 +30,10 @@ Previously when working with Operations, developers found themselves needing to 
 
 ### Re-Usable Filters
 
-// just like your air purifier
-// TODO
+
+![](https://backpackforlaravel.com/uploads/docs/filters/filters-in-custom-page.png)
+
+Starting with this Backpack version, you can use the [filters](/docs/{{version}}/crud-filters) in custom pages too. Instead of being tied to DataTables, filters now trigger generic Javascript events like `backpack:filter:changed`. You can catch those events using custom code in Javascript or Livewire... and do stuff. This it possible to use filters on completely custom pages - like custom dashboards, custom reports or custom operations. [Read more](/docs/{{version}}/crud-filters#use-filters-on-custom-admin-panel-pages).
 
 ### Filters inside CustomViews
 
