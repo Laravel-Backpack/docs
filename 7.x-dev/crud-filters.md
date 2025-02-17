@@ -555,92 +555,6 @@ Inside this file, you'll have:
 
 <hr>
 
-<a name="using-filters-on-admin-page"></a>
-## How to use Filters on any admin panel page
-
-Filters can be added to any admin panel page, not just the main CRUD table. Imagine that you want to have a dashboard page, with a few widgets that show some data. You can add filters to that page, and use them to filter the data shown in the widgets. 
-You start by creating a new page, eg: a reports page. 
-```bash
-php artisan backpack:page Reports
-```
-**NOTE:** You can read more about creating your custom pages in the [creating a custom page docs.](/docs/{{version}}/base-about#custom-pages-1)
-
-After the page is created, you should edit the `resources/views/admin/reports.blade.php` file and add the filters navbar and the event listeners:
-```diff
-@extends(backpack_view('blank'))
-
-@section('content')
-<section class="header-operation container-fluid animated fadeIn d-flex mb-2 align-items-baseline d-print-none" bp-section="page-header">
-    <h1 class="text-capitalize mb-0" bp-section="page-heading">Reports</h1>
-    <p class="ms-2 ml-2 mb-0" bp-section="page-subheading">Page for Reports</p>
-</section>
-<section class="content container-fluid animated fadeIn" bp-section="content">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
-+                   @include('crud::inc.filters_navbar')
-                </div>
-            </div>
-        </div>
-    </div>
-@endsection
-
-+@push('after_scripts')
-+<script>
-+    document.addEventListener('backpack:filters:cleared', function (event) {       
-+       console.log('filters cleared', event);
-+    });
-+
-+   document.addEventListener('backpack:filter:changed', function (event) {
-+        let filterName = event.detail.filterName;
-+        let filterValue = event.detail.filterValue;
-+        let shouldUpdateUrl = event.detail.shouldUpdateUrl;
-+        console.log('filter changed', filterName, filterValue, shouldUpdateUrl);
-+    });
-+</script>
-+@endpush
-```
-
-After that, time to add your own filters in the `ReportsController.php`
-
-```php
-class ReportsController extends Controller
-{
-    public function index()
-    {
-        $crud = app('crud');
-
-        $crud->addFilter([
-                'type'  => 'simple',
-                'name'  => 'checkbox',
-                'label' => 'Simple',
-            ], false);
-
-        $crud->addFilter([ // dropdown filter
-            'name' => 'select_from_array',
-            'type' => 'dropdown',
-            'label'=> 'Dropdown',
-        ], ['one' => 'One', 'two' => 'Two', 'three' => 'Three']);
-
-        return view('admin.reports', [
-            'title'       => 'Reports',
-            'breadcrumbs' => [
-                trans('backpack::crud.admin') => backpack_url('dashboard'),
-                'Reports'                     => false,
-            ],
-            'crud'       => $crud,
-        ]);
-	}
-}
-```
-
-That's it, you should now have the filters navbar on your reports page. You can use the event listeners to update the data shown on the page based on the filters selected by the user.
-
-<-- INSERT IMAGE -->
-
-<hr>
-
 <a name="examples"></a>
 ## Examples
 
@@ -707,6 +621,100 @@ CRUD::filter('trashed')
 <a name="tips-and-tricks"></a>
 ## Tips and Tricks
 
+<a name="using-filters-on-admin-page"></a>
+### Use Filters on custom admin panel pages
+
+Filters can be added to any admin panel page, not just the main CRUD table. Imagine that you want to have a dashboard page, with a few widgets that show some data. You can add filters to that page, and use them to filter the data shown in the widgets. 
+
+
+![](https://backpackforlaravel.com/uploads/docs/filters/filters-in-custom-page.png)
+
+You start by [creating a new page](/docs/{{version}}/base-about#custom-pages-1) to hold your custom content, eg: a reports page. 
+
+```bash
+php artisan backpack:page Reports
+```
+
+To use filters on a custom admin panel page, you should edit the blade file (in this example the `resources/views/admin/reports.blade.php` file) to **add the filters navbar** and **the event listeners**:
+```diff
+@extends(backpack_view('blank'))
+
+@section('content')
+<section class="header-operation container-fluid animated fadeIn d-flex mb-2 align-items-baseline d-print-none" bp-section="page-header">
+    <h1 class="text-capitalize mb-0" bp-section="page-heading">Reports</h1>
+    <p class="ms-2 ml-2 mb-0" bp-section="page-subheading">Page for Reports</p>
+</section>
+<section class="content container-fluid animated fadeIn" bp-section="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
++                   @include('crud::inc.filters_navbar')
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
++@push('after_scripts')
++<script>
++    document.addEventListener('backpack:filters:cleared', function (event) {       
++       console.log('all filters cleared', event);
++    });
++
++    document.addEventListener('backpack:filter:cleared', function (event) {       
++       console.log('one filter cleared', event);
++    });
++
++   document.addEventListener('backpack:filter:changed', function (event) {
++        let filterName = event.detail.filterName;
++        let filterValue = event.detail.filterValue;
++        let shouldUpdateUrl = event.detail.shouldUpdateUrl;
++        console.log('one filter changed', filterName, filterValue, shouldUpdateUrl);
++    });
++</script>
++@endpush
+```
+
+After that, time to add your own filters in your controller (in this example, `ReportsController.php`):
+
+```php
+class ReportsController extends Controller
+{
+    public function index()
+    {
+        $crud = app('crud');
+
+        $crud->addFilter([
+                'type'  => 'simple',
+                'name'  => 'checkbox',
+                'label' => 'Simple',
+            ], false);
+
+        $crud->addFilter([ // dropdown filter
+            'name' => 'select_from_array',
+            'type' => 'dropdown',
+            'label'=> 'Dropdown',
+        ], ['one' => 'One', 'two' => 'Two', 'three' => 'Three']);
+
+        return view('admin.reports', [
+            'title'       => 'Reports',
+            'breadcrumbs' => [
+                trans('backpack::crud.admin') => backpack_url('dashboard'),
+                'Reports'                     => false,
+            ],
+            'crud'       => $crud,
+        ]);
+	}
+}
+```
+
+That's it, you should now have the filters navbar on your reports page. You can use the event listeners to update the data shown on the page based on the filters selected by the user. 
+Here are the Javascript events you can listen to: 
+- `backpack:filter:changed` when a filter is changed;
+- `backpack:filter:cleared` when a filter is cleared;
+- `backpack:filters:cleared` when all filters are cleared;
+
 <a name="debouncing-filters"></a>
 ### Add a debounce time to filters
 
@@ -725,7 +733,7 @@ CRUD::filter('name')
 All filter types accept a `debounce`, like for example the simple filter, range filter etc.
 
 <a name="adding-a-filter-using-array-syntax"></a>
-### Adding a filter using array syntax
+### Add a filter using array syntax
 
 In Backpack v4-v5 we used an "array syntax" to add and manipulate filters. That syntax is still supported for backwards-compatiblity. But it most cases it's easier to use the fluent syntax.
 
