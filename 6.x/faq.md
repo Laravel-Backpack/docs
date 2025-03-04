@@ -41,6 +41,23 @@ Backpack PRO is a closed-source add-on, which requires payment in order to recei
 
 No - we're no longer giving away free licenses. But we _have_ released Backpack CRUD v5 and v6 under the MIT License, which means it's free and open-source. It has fewer features, but you can do absolutely do anything you want with it.
 
+<a name="backpack-pro-discount-for-university"></a>
+### Can I get a discount for university use?
+
+Yes, if you are a teacher at highschool or university and want to use Backpack to teach your students how to code, we're happy to give you a discount for our MULTI-PROJECT and EVERYTHING plans, so your students can quickly learn PHP, Laravel and Backpack. Reach out to us from your .edu email (or provide other proof). For this use case, please make sure to "refresh" your token every year, to prevent misuse.
+
+<a name="backpack-pro-discount-for-backlink"></a>
+### Can I get a discount for a backlink?
+
+Yes, but only for your second/third purchases. Before your license expires, you will receive an email offering you 20% discount if you include a backlink from your website to ours. Reply to that email with a link, and our team will help you get the discount.
+
+To get the 20% discount for backlink, please include a backlink from your MAIN WEBSITE (not from your admin panel), to our main website: `https://backpackforlaravel.com?utm_source=customer_ref`. What works best is to add a link to your footer:
+- Admin Panel by Backpack
+- Backoffice by Backpack
+- CMS Powered by Backpack
+- ERP Powered by Backpack
+- Powered By Backpack
+
 <a name="Installation"></a>
 ## Installation
 
