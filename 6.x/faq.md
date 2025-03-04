@@ -51,12 +51,10 @@ Yes, if you are a teacher at highschool or university and want to use Backpack t
 
 Yes, but only for your second/third purchases. Before your license expires, you will receive an email offering you 20% discount if you include a backlink from your website to ours. Reply to that email with a link, and our team will help you get the discount.
 
-To get the 20% discount for backlink, please include a backlink from your MAIN WEBSITE (not from your admin panel), to our main website: `https://backpackforlaravel.com?utm_source=customer_ref`. What works best is to add a link to your footer:
-- Admin Panel by Backpack
-- Backoffice by Backpack
-- CMS Powered by Backpack
-- ERP Powered by Backpack
-- Powered By Backpack
+To get the 20% discount:
+- include a backlink from your MAIN WEBSITE (not from your admin panel), to our main website: `https://backpackforlaravel.com?utm_source=customer_ref`; most people add a link to their footer; here are a few ideas: `Admin Panel by Backpack`, `Backoffice by Backpack`, `CMS Powered by Backpack`, `ERP Powered by Backpack`, `Powered By Backpack`;
+- make sure the link is `dofollow` (regular link);
+- make sure to keep the link there for 12 months;
 
 <a name="Installation"></a>
 ## Installation
