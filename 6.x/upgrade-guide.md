@@ -55,7 +55,8 @@ Please make sure your project respects the requirements below, before you start 
         "backpack/editable-columns": "^3.0",
         "backpack/revise-operation": "^2.0",
         "backpack/medialibrary-uploaders": "^1.0",
-        "backpack/devtools": "^2.0",
+        "backpack/devtools": "^3.0",
+        "backpack/generators": "^4.0",
 ```
 
 <a name="step-3.1" href="#step-3.1" class="badge badge-danger text-white" style="text-decoration: none;">Step 3.1.</a> We removed `PackageVersions` and the cache busting string is now handled by `Basset`.
@@ -81,7 +82,7 @@ When asked to install a theme, please choose the CoreUIv2 theme. It'll be easier
 
 **No changes needed.** But there are a few improvements you _could_ make, if you want, that will help clean up your Models and move a bit of logic that might be admin-panel-only to the admin panel files:
 
-<a name="step-4" href="#step-4" class="badge badge-secondary-soft" style="text-decoration: none;">Step 4.</a> (OPTIONAL) If you use acessors and mutators for upload fields, you can now use Uploaders instead. TODO: link to migration steps
+<a name="step-4" href="#step-4" class="badge badge-secondary-soft" style="text-decoration: none;">Step 4.</a> (OPTIONAL) If you use acessors and mutators for upload fields, you can now [use Uploaders instead](/docs/{{version}}/crud-uploaders).
 
 <a name="step-5" href="#step-5" class="badge badge-secondary-soft" style="text-decoration: none;">Step 5.</a> (OPTIONAL) If you use accessors and mutators any other fields, you can [use Eloquent model events on fields](/docs/{{version}}/crud-operation-create#use-events-in-your-field-definition).
 
