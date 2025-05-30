@@ -349,6 +349,27 @@ class ChartjsPieController extends ChartController
 
 <hr>
 
+<a name="datatable"></a>
+### Datatable
+
+Allow you to show a datatable for your CrudControllers. 
+
+```php
+[
+    'type' => 'datatable',
+    'controller' => 'App\Http\Controllers\Admin\PetShop\InvoiceCrudController',
+    'name' => 'invoice_crud',
+    'configure' => function($crud, $parent) {
+        // you can use this closure to modify your CrudController definition. 
+        if ($parent) {
+            $crud->addClause('where', 'owner_id', $parent->id);
+        }
+    }
+]
+```
+
+
+<hr>
 
 <a name="div"></a>
 ### Div
