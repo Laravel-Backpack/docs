@@ -46,6 +46,19 @@ Note that you can further customize this using custom attributes. If you define 
 
 <hr>
 
+<a name="datatable"></a>
+### Datatable
+
+Show a datatable for the defined controller. 
+
+```php
+<x-datatable controller="\App\Http\Controllers\InvoiceCrudController" :configure="function($crud, $parent) { // config }" :updatesUrl="false" name="invoices_table" />
+```
+
+Note that you can further customize this using custom attributes. If you define a `target` on it, that will be passed down to the `a` element.
+
+<hr>
+
 
 <a name="menu-separator"></a>
 ### Menu Separator
