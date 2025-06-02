@@ -49,7 +49,7 @@ Note that you can further customize this using custom attributes. If you define 
 <a name="datatable"></a>
 ### DataTable
 
-Show a datatable _anywhere you want_, so the admin to easily list, filter, search and perform other operations on entries of an Eloquent model. The datatable component is a extension of a CrudController - so a CRUD for that entity needs to be already set up, and passed to this component as a parameter. The datatable will pick up everything that in your `setupListOperation()`. You can then further add/remove/configure functionality using the configuration closure:
+Show a datatable _anywhere you want_, so the admin to easily list, filter, search and perform other operations on entries of an Eloquent model. The datatable component is a extension of a CrudController - so a CRUD for that entity needs to be already set up, and passed to this component as a parameter:
 
 ```php
 <x-datatable 
@@ -60,7 +60,17 @@ Show a datatable _anywhere you want_, so the admin to easily list, filter, searc
  />
 ```
 
-Note that you can further customize this using custom attributes. If you define a `target` on it, that will be passed down to the `a` element.
+The datatable will pick up everything that in your `setupListOperation()`. You can then further add/remove/configure functionality using the configuration closure:
+
+```php
+
+<x-datatable 
+    name="invoices_table"
+    controller="\App\Http\Controllers\InvoiceCrudController" 
+    :configure="function($crud, $parent) { if ($parent) { $crud->addClause('where', 'customer_id', $parent->id); } }" 
+    :updatesUrl="false" 
+ />
+```
 
 <hr>
 
