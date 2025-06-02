@@ -47,12 +47,17 @@ Note that you can further customize this using custom attributes. If you define 
 <hr>
 
 <a name="datatable"></a>
-### Datatable
+### DataTable
 
-Show a datatable for the defined controller. 
+Show a datatable _anywhere you want_, so the admin to easily list, filter, search and perform other operations on entries of an Eloquent model. The datatable component is a extension of a CrudController - so a CRUD for that entity needs to be already set up, and passed to this component as a parameter. The datatable will pick up everything that in your `setupListOperation()`. You can then further add/remove/configure functionality using the configuration closure:
 
 ```php
-<x-datatable controller="\App\Http\Controllers\InvoiceCrudController" :configure="function($crud, $parent) { // config }" :updatesUrl="false" name="invoices_table" />
+<x-datatable 
+    name="invoices_table"
+    controller="\App\Http\Controllers\InvoiceCrudController" 
+    :configure="function($crud, $parent) { // config }" 
+    :updatesUrl="false" 
+ />
 ```
 
 Note that you can further customize this using custom attributes. If you define a `target` on it, that will be passed down to the `a` element.

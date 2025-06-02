@@ -350,9 +350,9 @@ class ChartjsPieController extends ChartController
 <hr>
 
 <a name="datatable"></a>
-### Datatable
+### DataTable
 
-Allow you to show a datatable for your CrudControllers. 
+Shows a datatable component from a particular CrudController. For more info about the configuration parameter, please see the [datatable component docs](/docs/{{version}}/base-components#datatable).
 
 ```php
 [
