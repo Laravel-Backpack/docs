@@ -358,8 +358,8 @@ Shows a datatable component from a particular CrudController. For more info abou
 [
     'type' => 'datatable',
     'controller' => 'App\Http\Controllers\Admin\PetShop\InvoiceCrudController',
-    'name' => 'invoice_crud',
-    'configure' => function($crud, $parent) {
+    'name' => 'invoices',
+    'setup' => function($crud, $parent) {
         // you can use this closure to modify your CrudController definition. 
         if ($parent) {
             $crud->addClause('where', 'owner_id', $parent->id);
