@@ -109,7 +109,10 @@ No changes needed.
 <a name="views"></a>
 ### Views
 
-No changes needed.
+**List Operation View** - The List Operation view got a huge change. We decoupled the datatable from the view, so that you can use the table anywhere you would like. 
+Most of the code is still identical but moved to `datatable.blade.php`. The `list.blade.php` view now only includes the mentioned datatable component. 
+
+If you had customized the `list.blade.php` you should move your customizations to `datatable.blade.php`. 
 
 <a name="security"></a>
 ### Security
