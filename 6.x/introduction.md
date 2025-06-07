@@ -56,7 +56,7 @@ We heavily recommend you spend a little time to understand Backpack, and only af
 <a name="requirements"></a>
 ### Requirements
 
-  - Laravel 10.x or 11.x
+  - Laravel 10.x or 11.x or 12.x
   - MySQL / PostgreSQL / SQLite / SQL Server
 
 <a name="how-does-it-look"></a>
@@ -78,9 +78,9 @@ Backpack v6 is the current version and is actively maintained by the Backpack te
 ### License
 
 Backpack is open-core:
-- **Backpack CRUD is free & open-source, licensed under the [MIT License](https://github.com/Laravel-Backpack/CRUD/blob/main/LICENSE.md)**; it is perfect if you're building a simple admin panel - it's packed with features! it's also perfect if you're building an open-source project, the permissive license allows you to do whatever you want;
-- **Backpack PRO is a paid, closed-source add-on, licensed under our [EULA](https://backpackforlaravel.com/eula)**; [PRO](https://backpackforlaravel.com/products/pro-for-unlimited-projects) adds additional functionality to CRUD, that will be useful when your admin panel grows (see our [FREE vs PRO comparison](https://backpackforlaravel.com/docs/6.x/features-free-vs-paid));
-- Of the other add-ons we've created, some are FREE and some are PAID; please see [our add-ons list](https://backpackforlaravel.test/docs/6.x/add-ons-official) for more info;
+- **Backpack CRUD is free & open-source, licensed under the [MIT License](https://github.com/Laravel-Backpack/CRUD/blob/main/LICENSE.md)**; it is perfect if you're building a simple admin panel - it's packed with features! it's also perfect if you're building an open-source project, the permissive license allows you to do whatever you want.
+- **Backpack PRO is a paid, closed-source add-on, licensed under our [EULA](https://backpackforlaravel.com/eula)**; [PRO](https://backpackforlaravel.com/products/pro-for-unlimited-projects) adds additional functionality to CRUD, which will be useful when your admin panel grows (see our [FREE vs PRO comparison](https://backpackforlaravel.com/docs/6.x/features-free-vs-paid)).
+- Of the other add-ons we've created, some are FREE and some are PAID; please see [our add-ons list](https://backpackforlaravel.test/docs/6.x/add-ons-official) for more info.
 
 [Our documentation](https://backpackforlaravel.com/docs) covers both CRUD and PRO, with all the PRO features clearly labeled <span class="badge badge-pill badge-info">PRO</span>.
 
