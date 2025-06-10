@@ -6,8 +6,8 @@ Backpack is a collection of Laravel packages that help you **build custom admini
 
 In a nutshell:
 
-- UI - Backpack will provide you with a _visual interface_ for the admin panel (the HTML, the CSS, the JS), authentication functionality & global bubble notifications; you can choose from one of the 3 themes we have developed (powered by Tabler, CoreUI v4 or CoreUI v2), a third-party theme or create your own theme; the enormous advantage of using a Bootstrap-based HTML theme is that when you need custom pages, you already have the HTML blocks for the UI, you don't have to design them yourself;
-- CRUDs - Backpack will also help you build _sections where your admins can manipulate entries for Eloquent models_; we call them _CRUD Panels_ after the most basic operations: Create, Read, Update & Delete; after [understanding Backpack](/docs/{{version}}/getting-started-basics), you'll be able to create a CRUD panel in a few minutes per model:
+- **UI** - Backpack will provide you with a _visual interface_ for the admin panel (the HTML, the CSS, the JS), authentication functionality & global bubble notifications; you can choose from one of the 3 themes we have developed (powered by Tabler, CoreUI v4 or CoreUI v2), a third-party theme or create your own theme; the enormous advantage of using a Bootstrap-based HTML theme is that when you need custom pages, you already have the HTML blocks for the UI, you don't have to design them yourself.
+- **CRUDs** - Backpack will also help you build _sections where your admins can manipulate entries for Eloquent models_; we call them _CRUD Panels_ after the most basic operations: Create, Read, Update & Delete; after [understanding Backpack](/docs/{{version}}/getting-started-basics), you'll be able to create a CRUD panel in a few minutes per model:
 
 ![](https://user-images.githubusercontent.com/1032474/86720524-c5a1d480-c02d-11ea-87ed-d03b0197eb25.gif)
 
@@ -31,8 +31,8 @@ php artisan backpack:build
 ```
 
 If you have NOT created your Eloquent models yet, you can use whatever you want for that. We recommend:
-- FREE - [`laravel-shift/blueprint`](https://github.com/laravel-shift/blueprint) as the best **YAML-based tool** for this;
-- PAID - [`backpack/devtools`](https://backpackforlaravel.com/products/devtools) as the best **web interface** for this; it makes it dead simple to create Eloquent models, from the comfort of your web browser;
+- FREE - [`laravel-shift/blueprint`](https://github.com/laravel-shift/blueprint) as the best **YAML-based tool** for this.
+- PAID - [`backpack/devtools`](https://backpackforlaravel.com/products/devtools) as the best **web interface** for this. It makes it dead simple to create Eloquent models, from the comfort of your web browser.
 
 ---
 
@@ -56,7 +56,7 @@ We heavily recommend you spend a little time to understand Backpack, and only af
 <a name="requirements"></a>
 ### Requirements
 
-  - Laravel 10.x or 11.x
+  - Laravel 10.x or 11.x or 12.x
   - MySQL / PostgreSQL / SQLite / SQL Server
 
 <a name="how-does-it-look"></a>
@@ -78,9 +78,9 @@ Backpack v6 is the current version and is actively maintained by the Backpack te
 ### License
 
 Backpack is open-core:
-- **Backpack CRUD is free & open-source, licensed under the [MIT License](https://github.com/Laravel-Backpack/CRUD/blob/main/LICENSE.md)**; it is perfect if you're building a simple admin panel - it's packed with features! it's also perfect if you're building an open-source project, the permissive license allows you to do whatever you want;
-- **Backpack PRO is a paid, closed-source add-on, licensed under our [EULA](https://backpackforlaravel.com/eula)**; [PRO](https://backpackforlaravel.com/products/pro-for-unlimited-projects) adds additional functionality to CRUD, that will be useful when your admin panel grows (see our [FREE vs PRO comparison](https://backpackforlaravel.com/docs/6.x/features-free-vs-paid));
-- Of the other add-ons we've created, some are FREE and some are PAID; please see [our add-ons list](https://backpackforlaravel.test/docs/6.x/add-ons-official) for more info;
+- **Backpack CRUD is free & open-source, licensed under the [MIT License](https://github.com/Laravel-Backpack/CRUD/blob/main/LICENSE.md)**. It is perfect if you're building a simple admin panel - it's packed with features! It's also perfect if you're building an open-source project, the permissive license allows you to do whatever you want.
+- **Backpack PRO is a paid, closed-source add-on, licensed under our [EULA](https://backpackforlaravel.com/eula)**. [PRO](https://backpackforlaravel.com/products/pro-for-unlimited-projects) adds additional functionality to CRUD, which will be useful when your admin panel grows (see our [FREE vs PRO comparison](https://backpackforlaravel.com/docs/7.x/features-free-vs-paid)).
+- Of the other add-ons we've created, some are FREE and some are PAID. Please see [our add-ons list](https://backpackforlaravel.test/docs/7.x/add-ons-official) for more info.
 
 [Our documentation](https://backpackforlaravel.com/docs) covers both CRUD and PRO, with all the PRO features clearly labeled <span class="badge badge-pill badge-info">PRO</span>.
 
@@ -89,9 +89,9 @@ Backpack is open-core:
 ### Versioning, Updates and Upgrades
 
 Starting with the previous version, all our packages follow [semantic versioning](https://semver.org/). Here's what `major.minor.patch` (e.g. `7.0.1`) means for us:
-- `major` - breaking changes, major new features, complete rewrites; released **once a year**, in February; it adds features that were previously impossible and upgrades our dependencies; upgrading is done by following our clear and detailed upgrade guides;
-- `minor` - new features, released in backwards-compatible ways; **every few months**; update takes seconds;
-- `patch` - bug fixes & small non-breaking changes; historically **every week**; update takes seconds;
+- `major` - breaking changes, major new features, complete rewrites; released **once a year**, in February. It adds features that were previously impossible and upgrades our dependencies; upgrading is done by following our clear and detailed upgrade guides.
+- `minor` - new features, released in backwards-compatible ways; **every few months**; update takes seconds.
+- `patch` - bug fixes & small non-breaking changes; historically **every week**; update takes seconds.
 
 When we release a new Backpack\CRUD version, all paid add-ons receive support for it the same day.
 
@@ -100,15 +100,15 @@ When you buy a premium Backpack add-on, you get access to not only _updates_, bu
 <a name="add-ons"></a>
 ### Add-ons
 
-Backpack's core is open-source and free (Backpack\CRUD). <span class="badge badge-pill badge-success">FREE</span>
+Backpack's core is open-source and free (Backpack\CRUD). <span class="badge badge-pill badge-success">**FREE**</span>
 
 The reason we've been able to build and maintain Backpack since 2016 is that Laravel professionals have supported us, by buying our paid products. As of 2022, these are all Backpack add-ons, which we highly recommend:
-- [Backpack PRO](/products/pro-for-unlimited-projects) - a crazy amount of added features; <span class="badge badge-pill badge-warning">PAID</span>
-- [Backpack DevTools](/products/devtools) - a developer UI for generating migrations, models and CRUDs; <span class="badge badge-pill badge-warning">PAID</span>
-- [Backpack FigmaTemplate](/products/figma-template) - quickly create designs and mockups, using Backpack's design; <span class="badge badge-pill badge-warning">PAID</span>
-- [Backpack EditableColumns](/products/editable-columns) - let your admins do quick edits, right in the table view; <span class="badge badge-pill badge-warning">PAID</span>
+- [Backpack PRO](/products/pro-for-unlimited-projects) - a crazy amount of added features. <span class="badge badge-pill badge-warning">**PAID**</span>
+- [Backpack DevTools](/products/devtools) - a developer UI for generating migrations, models and CRUDs. <span class="badge badge-pill badge-warning">**PAID**</span>
+- [Backpack FigmaTemplate](/products/figma-template) - quickly create designs and mockups, using Backpack's design. <span class="badge badge-pill badge-warning">**PAID**</span>
+- [Backpack EditableColumns](/products/editable-columns) - let your admins do quick edits, right in the table view. <span class="badge badge-pill badge-warning">**PAID**</span>
 
 
-In addition to our open-source core and our closed-source add-ons, there are a few other add-ons you might want to take a look at, that treat common use cases. Some have been developed by our core team, some by our wonderful community. You can just install interfaces to manage [site-wide settings](https://github.com/Laravel-Backpack/Settings), [the default Laravel users table](https://github.com/eduardoarandah/UserManager), [users, groups & permissions](https://github.com/Laravel-Backpack/PermissionManager), [content for custom pages, using page templates](https://github.com/Laravel-Backpack/PageManager), [news articles, categories and tags](https://github.com/Laravel-Backpack/NewsCRUD), etc. <span class="badge badge-pill badge-success">FREE</span>
+In addition to our open-source core and our closed-source add-ons, there are a few other add-ons you might want to take a look at, that treat common use cases. Some have been developed by our core team, some by our wonderful community. You can just install interfaces to manage [site-wide settings](https://github.com/Laravel-Backpack/Settings), [the default Laravel users table](https://github.com/eduardoarandah/UserManager), [users, groups & permissions](https://github.com/Laravel-Backpack/PermissionManager), [content for custom pages, using page templates](https://github.com/Laravel-Backpack/PageManager), [news articles, categories and tags](https://github.com/Laravel-Backpack/NewsCRUD), etc. <span class="badge badge-pill badge-success">**FREE**</span>
 
 For more information, please see [our add-ons page](/addons).
