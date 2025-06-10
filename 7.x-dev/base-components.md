@@ -68,6 +68,36 @@ The datatable will pick up everything that in your `setupListOperation()`. You c
 
 <hr>
 
+<a name="form"></a>
+### Form
+
+Show a form anywhere you would like. The form component allow you to display a form for your entities anywhere you would like, by using two distinct components: FormComponent and FormModalComponent. The Form Component displays the form right where there component is defined, while Form Modal Component display the form in a modal and uses ajax to retrieve the fields and validate/submit the form.  
+
+```html
+<x-form 
+controller="\App\Http\Controllers\InvoiceCrudController" 
+<!-- optional -->
+operation="create"
+formMethod="post"
+:formAction="url('my_custom_form_handler')
+/>
+```
+
+The Modal Form works by generating a button where the admin can click to open the form modal. 
+
+```html
+<x-form 
+controller="\App\Http\Controllers\InvoiceCrudController" 
+<!-- optional -->
+operation="create"
+formMethod="post"
+:formAction="url('my_custom_form_handler')
+modalTitle="Create an Invoice"
+buttonText="Create Invoice"
+buttonClass="btn btn-primary"
+/>
+```
+<hr>
 
 <a name="menu-separator"></a>
 ### Menu Separator
