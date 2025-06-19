@@ -46,6 +46,28 @@ Note that you can further customize this using custom attributes. If you define 
 
 <hr>
 
+<a name="datatable"></a>
+### DataTable
+
+Show a datatable _anywhere you want_, so the admin to easily list, filter, search and perform other operations on entries of an Eloquent model. The datatable component is a extension of a CrudController - so a CRUD for that entity needs to be already set up, and passed to this component as a parameter:
+
+```html
+<x-datatable controller="\App\Http\Controllers\InvoiceCrudController" />
+```
+
+The datatable will pick up everything that in your `setupListOperation()`. You can then further add/remove/configure functionality using the configuration closure:
+
+```html
+<x-datatable 
+    controller="\App\Http\Controllers\InvoiceCrudController" 
+    <!-- optional -->
+    :setup="function($crud, $parent) { if ($parent) { $crud->addClause('where', 'customer_id', $parent->id); } }"
+    name="invoices"
+ />
+```
+
+<hr>
+
 
 <a name="menu-separator"></a>
 ### Menu Separator
