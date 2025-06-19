@@ -30,8 +30,8 @@ All components also allow you to specify custom attributes. When you specify a c
 Even though the 'target' attribute doesn't _technically_ exist in the component, that attribute will be placed on that component's `a` element.
 
 
-<a name="available-components"></a>
-## Available Components
+<a name="ui-components"></a>
+## UI Components
 
 <a name="menu-item"></a>
 ### Menu Item
@@ -45,29 +45,6 @@ Shows a menu item, with the title and link you specify:
 Note that you can further customize this using custom attributes. If you define a `target` on it, that will be passed down to the `a` element.
 
 <hr>
-
-<a name="datatable"></a>
-### DataTable
-
-Show a datatable _anywhere you want_, so the admin to easily list, filter, search and perform other operations on entries of an Eloquent model. The datatable component is a extension of a CrudController - so a CRUD for that entity needs to be already set up, and passed to this component as a parameter:
-
-```html
-<x-datatable controller="\App\Http\Controllers\InvoiceCrudController" />
-```
-
-The datatable will pick up everything that in your `setupListOperation()`. You can then further add/remove/configure functionality using the configuration closure:
-
-```html
-<x-datatable 
-    controller="\App\Http\Controllers\InvoiceCrudController" 
-    <!-- optional -->
-    :setup="function($crud, $parent) { if ($parent) { $crud->addClause('where', 'customer_id', $parent->id); } }"
-    name="invoices"
- />
-```
-
-<hr>
-
 
 <a name="menu-separator"></a>
 ### Menu Separator
@@ -96,11 +73,187 @@ To show a dropdown menu, with elements, you can use the `menu-dropdown` and `men
 </x-backpack::menu-dropdown>
 ```
 
-Notes: 
-- on `menu-dropdown` you can define `nested="true"` to flag that dropdown as nested (aka. having a parent); so you can have dropdown in dropdown in dropdown; 
+Notes:
+- on `menu-dropdown` you can define `nested="true"` to flag that dropdown as nested (aka. having a parent); so you can have dropdown in dropdown in dropdown;
 - on both components, you can also define custom attributes; eg. if you define a `target` on one, that will be passed down to the `a` element;
 
 <hr>
+
+<a name="data-components"></a>
+## Data Components
+
+These are the components that Backpack uses inside the default CRUD operations. Starting Backpack v7, they are exposed as components, so that you can also use them _outside_ the CrudControllers, or in your custom operations.
+
+<a name="datatable"></a>
+### Datatable
+
+![Backpack v7 Datatable component](https://backpackforlaravel.com/uploads/v7/datatable_component.jpg)
+
+Useful if you want to show the entries in the database, for an Eloquent model. This component shows a datatable _anywhere you want_, so the admin to easily list, filter, search and perform other operations on entries of an Eloquent model. The datatable component is a extension of a CrudController - so a CrudController for that entity needs to be already set up, and passed to this component as a parameter:
+
+```html
+<x-bp-datatable controller="\App\Http\Controllers\InvoiceCrudController" />
+```
+
+**Configuration options:**
+- `name='invoices_datatable'` - by default, a name will be generated; but you can pick one you can recognize;
+- `operation='list'` - by default, the datatable component will pick up everything that controller sets up for the List operation; if you want to change the operation it will initialize, you can pass this parameter;
+- `:setup="function($crud, $parent) {}"` - if you want to make changes to the operation setup (eg. add/remove columns, configure functionality), you can use this parameter; the closure passed here will be run _after_ the setup of that operation had already completed;
+
+**Advanced example:**
+
+```html
+<x-bp-datatable
+    controller="\App\Http\Controllers\InvoiceCrudController"
+    name="invoices"
+    operation="show"
+    :setup="function($crud, $parent) {
+        if ($parent) {
+            $crud->addClause('where', 'customer_id', $parent->id);
+        }
+    }"
+ />
+```
+
+<hr>
+
+<a name="datagrid"></a>
+### Datagrid
+
+![Backpack v7 Datagrid component](https://backpackforlaravel.com/uploads/v7/datagrid_component.jpg)
+
+Useful if you want to show the attributes of an entry in the database (the attributes of an Eloquent model). This components shows a grid view with all attributes that are configured using CRUD columns.
+
+There are two ways to use the Datagrid component:
+
+#### Datagrid for an existing CrudController
+
+Your datagrid will pick up the configuration in your CrudController automatically.
+
+
+```html
+<x-bp-datagrid
+    controller="\App\Http\Controllers\InvoiceCrudController"
+    :entry="\App\Models\Invoice::first()"
+/>
+```
+
+**Configuration options:**
+- `name='datagrid'` - by default, a name will be generated; but you can pick one you can recognize;
+- `operation='show'` - by default, the datagrid component will pick up everything that controller sets up for the Show operation; if you want to change the operation it will initialize, you can pass this parameter;
+- `:setup="function($crud, $entry) {}"` - if you want to make changes to the operation setup (eg. add/remove columns, configure functionality), you can use this parameter; the closure passed here will be run _after_ the setup of that operation had already completed;
+
+**Advanced example:**
+
+```html
+<x-bp-datagrid
+    controller="\App\Http\Controllers\Admin\PetShop\OwnerCrudController"
+    operation="show"
+    :entry="\App\Models\Owner::first()"
+    :setup="function($crud, $entry) {
+        $crud->removeButton('delete');
+
+        Widget::collection()->get('pets_crud')?->remove();
+        Widget::collection()->get('invoices_crud')?->remove();
+    }"
+/>
+```
+
+#### Datagrid for an Eloquent entry
+
+If you want to show a datagrid component for a entity that does _not_ have a CrudController, you can do that too. But you have to manually specify the columns you want to be shown:
+
+```html
+<x-bp-datagrid
+    :entry="\App\User::find(1)"
+    :columns="[
+        ['label' => 'Name', 'type' => 'text', 'name' => 'name', 'size' => 6],
+        ['label' => 'Email', 'type' => 'email', 'name' => 'email', 'size' => 6],
+        ['label' => 'Created At', 'type' => 'datetime', 'name' => 'created_at'],
+        ['label' => 'Updated At', 'type' => 'datetime', 'name' => 'updated_at'],
+    ]" />
+```
+
+
+<hr>
+
+<a name="datalist"></a>
+### Datalist
+
+![Backpack v7 Datalist component](https://backpackforlaravel.com/uploads/v7/datalist_component.jpg)
+
+Useful if you want to show the attributes of an entry in the database (the attributes of an Eloquent model). This components shows a table with all attributes that are configured using CRUD columns.
+
+There are two ways to use the Datalist component:
+
+#### Datalist for an existing CrudController
+
+Your datalist will pick up the configuration in your CrudController automatically.
+
+
+```html
+<x-bp-datalist
+    controller="\App\Http\Controllers\InvoiceCrudController"
+    :entry="\App\Models\Invoice::first()"
+/>
+```
+
+**Configuration options:**
+- `name='invoices_datalist'` - by default, a name will be generated; but you can pick one you can recognize;
+- `operation='show'` - by default, the datalist component will pick up everything that controller sets up for the Show operation; if you want to change the operation it will initialize, you can pass this parameter;
+- `:setup="function($crud, $entry) {}"` - if you want to make changes to the operation setup (eg. add/remove columns, configure functionality), you can use this parameter; the closure passed here will be run _after_ the setup of that operation had already completed;
+
+**Advanced example:**
+
+```html
+<x-bp-datalist
+    controller="\App\Http\Controllers\Admin\PetShop\OwnerCrudController"
+    operation="show"
+    :entry="\App\Models\Owner::first()"
+    :setup="function($crud, $entry) {
+        $crud->removeButton('delete');
+
+        Widget::collection()->get('pets_crud')?->remove();
+        Widget::collection()->get('invoices_crud')?->remove();
+    }"
+/>
+```
+
+#### Datalist for an Eloquent entry
+
+If you want to show a datalist component for a entity that does _not_ have a CrudController, you can do that too. But you have to manually specify the columns you want to be shown:
+
+```html
+<x-bp-datalist
+    :entry="\App\User::find(1)"
+    :columns="[
+        ['label' => 'Name', 'type' => 'text', 'name' => 'name', 'size' => 6],
+        ['label' => 'Email', 'type' => 'email', 'name' => 'email', 'size' => 6],
+        ['label' => 'Created At', 'type' => 'datetime', 'name' => 'created_at'],
+        ['label' => 'Updated At', 'type' => 'datetime', 'name' => 'updated_at'],
+    ]" />
+```
+
+
+<hr>
+
+<a name="syntaxes-for-using-components"></a>
+## Syntaxes for Using Components
+
+All components that Backpack provides are available to use both using the "full namespace" syntax:
+
+```html
+<x-backpack::datatable>
+```
+
+and using the slightly shorter "alias" syntax:
+
+```html
+<x-bp-datatable>
+```
+
+You can use whichever one you prefer. But please note that if you need to pass the components to a dynamic Laravel Blade component, only the "alias" syntax will work (eg. you will pass `:component='bp-datagrid'`). This is a limitation from Laravel, not Backpack.
+
 
 <a name="overwriting-default-components"></a>
 ## Overriding Default Components
