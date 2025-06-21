@@ -1,0 +1,222 @@
+# Chips
+
+---
+
+<a name="about"></a>
+## About
+
+A chips helps show the information of a database entry, in a format that takes up little space visually.
+
+It can be used inside operations to:
+- show more info inside a table cell in **ListOperation**;
+- show a related item in more detail in **ShowOperation**;
+
+A chip consists of only one file - a blade file with the same name as the chip type (ex: ```general.blade.php```). Backpack provides you with one chip type, that is designed to accomodate many types of database entries, but you can easily [create an entirely new chip type](#creating-a-custom-chip-type).
+
+<a name="default-chip-types"></a>
+### Default Chip Types
+
+<a name="general-chip"></a>
+#### General Chip
+
+// TODO: add image of general chip
+
+This chip was designed to be so general, that it's useful to show _most_ types of information from the database.
+
+```php
+@include('crud::chips.general', [
+    'text' => 'John Doe',
+    'title' => 'Example of a chip without URL',
+    'url' => 'https://google.com',
+    'target' => '_blank',
+    'image' => asset('uploads/person1.jpg'),
+    'details' => [
+        [
+            'icon' => 'la la-hashtag',
+            'text' => '8AH13A7',
+            'url' => 'mailto:john.doe@example.com',
+            'title' => 'Click to email',
+        ],
+        [
+            'icon' => 'la la-envelope',
+            'text' => 'john.doe@example.com',
+            'url' => 'mailto:john.doe@example.com',
+            'title' => 'Click to email',
+        ],
+        [
+            'icon' => 'la la-phone',
+            'text' => '+1 (555) 123-4567',
+            'url' => 'tel:+15551234567',
+            'title' => 'Click to call',
+        ]
+    ]
+])
+```
+
+<a name="how-to-use-chips"></a>
+### How to use chips
+
+Depending on _where_ you want to use a chip, there are a few ways you can do that. Remember - a chip is a simple blade file, so the methods below should be pretty intuitive:
+
+<a name="how-to-use-a-chip-inside-a-custom-blade-view"></a>
+#### How to use a chip inside a custom blade view
+
+// TODO: image with chip inside a custom blade view
+
+If you want to load a chip inside a custom page, custom component or anything else custom, you can just include the blade view directly, and pass whatever attributes you want to show. For example, if you want to use the `general` chip you can just include that blade file, and pass some of the variables it supports:
+
+```php
+{{-- Example of General chip for a person, with data from Eloquent model --}}
+@include('crud::chips.general', [
+    'text' => $user->name,
+    'url' => backpack_url('user/'.$user->id.'/show'),
+    'showImage' => false,
+    // 'image' => backpack_avatar_url($user), // doesn't work well with dummy data
+    'details' => [
+        [
+            'icon' => 'la la-hashtag',
+            'text' => $user->id,
+            'url' => backpack_url('user/'.$user->id.'/show'),
+            'title' => 'Click to preview',
+        ],
+        [
+            'icon' => 'la la-envelope',
+            'text' => $user->email,
+            'url' => 'mailto:'.$user->email,
+            'title' => 'Click to email',
+        ],
+        [
+            'icon' => 'la la-calendar',
+            'text' => $user->created_at->format('F j, Y'),
+            'title' => 'Created at '.$user->created_at,
+        ]
+    ]
+])
+```
+
+<a name="how-to-use-a-chip-as-a-datatable-column"></a>
+#### How to use a chip as a datatable column
+
+// TODO: image of CRUD before and after using chips in a Datatable
+
+When your datatables have too many columns, chips become very useful. They allow you to group multiple columns inside a chip, reducing the number of columns and thereby showing more information in less space. No longer will your admins have to expand the table row or use horizontal scrolling to see important info.
+
+Remember, a chip is just a simple blade file. So to use a chip as a column, we can just use the `view` column type, and pass the path to our chip file. For example:
+
+```php
+// after we create an `invoice` chip
+// we can use that chip as a column:
+CRUD::addColumn([
+    'name' => 'info',
+    'type' => 'view',
+    'view' => 'crud::chips.invoice',
+]);
+```
+By default, the view column type is not searchable. In order to make your chip columns searchable you need to [specify a custom ```searchLogic``` in your declaration](/docs/{{version}}/crud-columns#custom-search-logic).
+
+<a name="how-to-use-a-chip-as-a-widget"></a>
+#### How to use a chip as a widget
+
+// TODO: image with chip as a widget
+
+Chip files usually only contain the minimum content and styling necessary. You can include them as widgets directly, but they probably won't look very pretty on a custom page, because they don't have a background, borders, shadow etc. That's why we've also created a `chip` widget, which adds wrappers just like the other widgets - so that your chip will look good when placed on a custom page (or an existing CRUD page, why not).
+
+To use the `chip` widget, you can do:
+
+```php
+Widget::add()
+    ->to('after_content') // optional
+    ->type('chip')
+    ->view('crud::chips.owner')
+    ->title('Owner')
+    ->entry($owner);
+```
+
+<hr>
+
+<a name="overwriting-default-chip-types"></a>
+## Overwriting Default Chip Types
+
+You can overwrite a chip type by placing a file with the same name in your ```resources\views\vendor\backpack\crud\chips``` directory. But it is NOT recommended to do so. When you're overwriting a default chip type, you're forfeiting any future updates for that chip. We can't push updates to a file that you're no longer using.
+
+In 99.9% of the cases, it's recommended NOT to override the default `general` chip file, but to create a _custom_ chip file. That will make it a lot easier to upgrade to newer versions of Backpack - because the file is completely in your control.
+
+<hr>
+
+<a name="creating-a-custom-chip-type"></a>
+## Creating a Custom Chip Type
+
+Chips consist of only one file - a blade file with the same name as the chip type (ex: ```person.blade.php```). You can create one by placing a new blade file inside ```resources\views\vendor\backpack\crud\chips```. Be careful to choose a distinctive name - usually the model name works best.
+
+// TODO: create this command
+To create a new chip file in the standard directory, you can run `php artisan backpack:chip {chip-file-name}`. This will create a new file in that directory, from a stub, for you to customize however you want.
+
+For example, you can do `php artisan backpack:chip person` to create a ```person.blade.php``` then includes the HTML content directly:
+
+```html
+<div class="card mb-2">
+    <div class="card-body">
+        <div class="row align-items-center bp-chip">
+            <div class="col-auto">
+                <div class="d-block">
+                    <a href="https://google.com" title="Example of a chip" target="_blank" class="d-inline-block"><span class="avatar avatar-2 rounded" style="background-image: url(http://bp-v7-alpha7.test/uploads/person1.jpg)"> </span></a>
+                </div>
+            </div>
+        <div class="col text-truncate">
+            <div class="d-block">
+                <a href="https://google.com" class="mb-1 d-inline-block " title="Example of a chip without URL" target="_blank">
+                    John Doe
+                </a>
+            </div>
+            <div class="d-block text-secondary text-truncate mt-n1">
+                <small class="d-inline-block me-1">
+                    <i class="la la-hashtag" title="Click to email"></i>
+                    <a href="mailto:john.doe@example.com" class="text-reset" title="Click to email">8AH13A7</a>
+                </small>
+                            <small class="d-inline-block me-1">
+                    <i class="la la-envelope" title="Click to email"></i>
+                    <a href="mailto:john.doe@example.com" class="text-reset" title="Click to email">john.doe@example.com</a>
+                </small>
+                            <small class="d-inline-block me-1">
+                    <i class="la la-phone" title="Click to call"></i>
+                    <a href="tel:+15551234567" class="text-reset" title="Click to call">+1 (555) 123-4567</a>
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+But most likely, you'll want to create a chip that outputs some information for a particular database entry. If you like how the `general` chip looks, and only want to make it easy to re-use the chip, you can create a chip that includes the `general` chip. For example:
+
+```php
+@php
+    $last_purchase = $entry->invoices()->orderBy('issuance_date', 'DESC')->first()->issuance_date;
+@endphp
+
+@include('crud::chips.general', [
+    'text' => $entry->name,
+    'url' => backpack_url('pet-shop/owner/'.$entry->id.'/show'),
+    'image' => asset($entry->avatar->url),
+    // 'showImage' => false,
+    'details' => [
+        [
+            'icon' => 'la la-dog',
+            'text' => $entry->pets->count().' pets',
+            'title' => 'Number of pets: '.$entry->pets->count(),
+        ],
+        [
+            'icon' => 'la la-shopping-cart',
+            'text' => $entry->invoices->count(). ' purchases',
+            'title' => 'Number of purchases: '.$entry->invoices->count(),
+        ],
+        [
+            'icon' => 'la la-calendar',
+            'text' => $last_purchase->format('F j, Y'),
+            'title' => 'Last purchase: '.$last_purchase,
+        ]
+    ]
+])
+```
+
+Otherwise, you can create a completely custom chip, that looks and works differently from the `general` chip. There are no limitations - since chips are simple blade files.
