@@ -347,10 +347,27 @@ class ChartjsPieController extends ChartController
 
 ```
 
+<a name="dataform"></a>
+### Dataform
+
+Shows a dataform component from a particular CrudController. For more info about the configuration parameter, please see the [dataform component docs](/docs/{{version}}/base-components#dataform).
+
+```php
+[
+    'type' => 'dataform',
+    'controller' => 'App\Http\Controllers\Admin\InvoiceCrudController',
+    'name' => 'invoice_form',
+    'setup' => function($crud, $parent) {
+        // you can use this closure to modify your CrudController definition.
+        $crud->removeField('notes');
+    }
+]
+```
+
 <hr>
 
 <a name="datatable"></a>
-### DataTable
+### Datatable
 
 Shows a datatable component from a particular CrudController. For more info about the configuration parameter, please see the [datatable component docs](/docs/{{version}}/base-components#datatable).
 
@@ -360,7 +377,7 @@ Shows a datatable component from a particular CrudController. For more info abou
     'controller' => 'App\Http\Controllers\Admin\PetShop\InvoiceCrudController',
     'name' => 'invoices',
     'setup' => function($crud, $parent) {
-        // you can use this closure to modify your CrudController definition. 
+        // you can use this closure to modify your CrudController definition.
         if ($parent) {
             $crud->addClause('where', 'owner_id', $parent->id);
         }
@@ -388,7 +405,7 @@ Allows you to include multiple widgets within a "div" element with the attribute
 ]
 ```
 
-Anything you specify on this widget, other than ```type``` and ```content```, has to be a string, and will be considered an attribute of the "div" element. 
+Anything you specify on this widget, other than ```type``` and ```content```, has to be a string, and will be considered an attribute of the "div" element.
 For example, in the following snippet, ```class``` and ```custom-attribute``` are attributes of the "div" element:
 
 ```php
