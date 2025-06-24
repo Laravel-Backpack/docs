@@ -84,6 +84,40 @@ Notes:
 
 These are the components that Backpack uses inside the default CRUD operations. Starting Backpack v7, they are exposed as components, so that you can also use them _outside_ the CrudControllers, or in your custom operations.
 
+
+<a name="dataform"></a>
+### Dataform
+
+![Backpack v7 Dataform component](https://backpackforlaravel.com/uploads/v7/dataform_component.jpg)
+
+This component helps you show a form _anywhere you want_, so the admin to easily create or edit an entries for an Eloquent model. The dataform component is a extension of a CrudController - so a CrudController for that entity needs to be already set up, and passed to this component as a parameter:
+
+```html
+<x-bp-dataform controller="\App\Http\Controllers\Admin\InvoiceCrudController" />
+```
+
+**Configuration options:**
+- `name='invoice_form'` - by default, a name will be generated; but you can pick one you can recognize;
+- `operation='create'` - by default, the datatable component will pick up everything that controller sets up for the Create operation; if you want to change the operation it will initialize, you can pass this parameter;
+- `:entry="\App\Models\Invoice::find(1)"` - if you want to use UpdateOperation or a custom form operation that needs the entry;
+- `:setup="function($crud, $parent) {}"` - if you want to make changes to the operation setup (eg. add/remove fields, configure functionality), you can use this parameter; the closure passed here will be run _after_ the setup of that operation had already completed;
+
+**Advanced example:**
+
+```html
+<x-bp-dataform
+    controller="\App\Http\Controllers\Admin\InvoiceCrudController"
+    name="invoice_form"
+    operation="update"
+    :entry="\App\Models\Invoice::find(1)"
+    :setup="function($crud, $parent) {
+        $crud->removeColumn('notes');
+    }"
+ />
+```
+
+<hr>
+
 <a name="datatable"></a>
 ### Datatable
 
@@ -92,7 +126,7 @@ These are the components that Backpack uses inside the default CRUD operations. 
 Useful if you want to show the entries in the database, for an Eloquent model. This component shows a datatable _anywhere you want_, so the admin to easily list, filter, search and perform other operations on entries of an Eloquent model. The datatable component is a extension of a CrudController - so a CrudController for that entity needs to be already set up, and passed to this component as a parameter:
 
 ```html
-<x-bp-datatable controller="\App\Http\Controllers\InvoiceCrudController" />
+<x-bp-datatable controller="\App\Http\Controllers\Admin\InvoiceCrudController" />
 ```
 
 **Configuration options:**
@@ -104,7 +138,7 @@ Useful if you want to show the entries in the database, for an Eloquent model. T
 
 ```html
 <x-bp-datatable
-    controller="\App\Http\Controllers\InvoiceCrudController"
+    controller="\App\Http\Controllers\Admin\InvoiceCrudController"
     name="invoices"
     operation="show"
     :setup="function($crud, $parent) {
@@ -133,7 +167,7 @@ Your datagrid will pick up the configuration in your CrudController automaticall
 
 ```html
 <x-bp-datagrid
-    controller="\App\Http\Controllers\InvoiceCrudController"
+    controller="\App\Http\Controllers\Admin\InvoiceCrudController"
     :entry="\App\Models\Invoice::first()"
 />
 ```
@@ -193,7 +227,7 @@ Your datalist will pick up the configuration in your CrudController automaticall
 
 ```html
 <x-bp-datalist
-    controller="\App\Http\Controllers\InvoiceCrudController"
+    controller="\App\Http\Controllers\Admin\InvoiceCrudController"
     :entry="\App\Models\Invoice::first()"
 />
 ```
