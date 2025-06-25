@@ -366,6 +366,23 @@ Shows a dataform component from a particular CrudController. For more info about
 
 <hr>
 
+<a name="chip"></a>
+### Chip
+
+Shows a chip blade view - which is useful to show more information about a database entry, using little screen real estate.
+
+```php
+[
+    'type' => 'chip',
+    'view' => 'crud::chips.general',
+    'title' => 'invoices',
+    'entry' => Invoice::first(),
+]
+```
+
+
+<hr>
+
 <a name="datatable"></a>
 ### Datatable
 

@@ -16,7 +16,7 @@
     - [3. Advanced Features](/docs/{{version}}/getting-started-advanced-features)
     - [4. Add-ons, License & Support](/docs/{{version}}/getting-started-license-and-support)
 - [Tutorials](/docs/{{version}}/tutorials)
-  
+
 #### Admin UI
 
 - [About](/docs/{{version}}/base-about)
@@ -36,6 +36,7 @@
         + [Columns](/docs/{{version}}/crud-columns)
         + [Buttons](/docs/{{version}}/crud-buttons)
         + [Filters](/docs/{{version}}/crud-filters)
+        + [Chips](/docs/{{version}}/crud-chips)
     + [Create](/docs/{{version}}/crud-operation-create) & [Update](/docs/{{version}}/crud-operation-update)
         + [Fields](/docs/{{version}}/crud-fields)
         + [Save Actions](/docs/{{version}}/crud-save-actions)
@@ -44,6 +45,7 @@
     + [Delete](/docs/{{version}}/crud-operation-delete)
     + [Show](/docs/{{version}}/crud-operation-show)
         + [Columns](/docs/{{version}}/crud-columns)
+        + [Chips](/docs/{{version}}/crud-chips)
 - [Additional Operations](/docs/{{version}}/crud-operations)
     + [Clone](/docs/{{version}}/crud-operation-clone)
     + [Reorder](/docs/{{version}}/crud-operation-reorder)
