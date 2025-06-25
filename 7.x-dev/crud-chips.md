@@ -156,6 +156,7 @@ CRUD::addColumn([
 Now create that blade file, by running `php artisan backpack:chip invoice`. This will create a file in `resources/views/admin/chips` for you to edit, and customize as you like. By default, it just uses the `$entry` variable (which will be present if you use it as a column). You can include the `general` chip view if it's good enough for you, or copy-paste the HTML from the `general` chip, and modify it to your liking (you can run `php artisan backpack:chip invoice --from=general` to create a chip with all the HTML from general).
 
 Please note:
+- If your chip uses any info from RELATED items, you should probably eager load those items. For example if you're in an InvoiceCrudController you could do this in your `setupListOperation()` or hell maybe even in setup(): `CRUD::with(['event', 'event.production', 'event.venue', 'event.venue.city']);` - that way when your chip needs that info, it already has it onpage, and makes no extra queries;
 - By default, the view column type is not searchable. In order to make your chip columns searchable you need to [specify a custom ```searchLogic``` in your declaration](/docs/{{version}}/crud-columns#custom-search-logic).
 - By default, the view column type is not orderable. In order to make your chip columns orderable you need to [specify a custom ```orderLogic``` in your declaration](/docs/{{version}}/crud-columns#custom-order-logic).
 
