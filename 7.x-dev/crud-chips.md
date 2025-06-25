@@ -152,7 +152,12 @@ CRUD::addColumn([
     'view' => 'crud::chips.invoice',
 ]);
 ```
-By default, the view column type is not searchable. In order to make your chip columns searchable you need to [specify a custom ```searchLogic``` in your declaration](/docs/{{version}}/crud-columns#custom-search-logic).
+
+Now create that blade file, by running `php artisan backpack:chip invoice`. This will create a file in `resources/views/admin/chips` for you to edit, and customize as you like. By default, it just uses the `$entry` variable (which will be present if you use it as a column). You can include the `general` chip view if it's good enough for you, or copy-paste the HTML from the `general` chip, and modify it to your liking (you can run `php artisan backpack:chip invoice --from=general` to create a chip with all the HTML from general).
+
+Please note:
+- By default, the view column type is not searchable. In order to make your chip columns searchable you need to [specify a custom ```searchLogic``` in your declaration](/docs/{{version}}/crud-columns#custom-search-logic).
+- By default, the view column type is not orderable. In order to make your chip columns orderable you need to [specify a custom ```orderLogic``` in your declaration](/docs/{{version}}/crud-columns#custom-order-logic).
 
 <a name="how-to-use-a-chip-as-a-widget"></a>
 #### How to use a chip as a widget
@@ -188,9 +193,42 @@ In 99.9% of the cases, it's recommended NOT to override the default `general` ch
 
 Chips consist of only one file - a blade file with the same name as the chip type (ex: ```person.blade.php```). You can create one by placing a new blade file inside ```resources\views\vendor\backpack\crud\chips```. Be careful to choose a distinctive name - usually the model name works best.
 
-To create a new chip file in the standard directory, you can run `php artisan backpack:chip {chip-file-name}`. This will create a new file in that directory, from a stub, for you to customize however you want.
+To create a new chip file in the standard directory, you can run:
+- `php artisan backpack:chip {chip-name}` to create a new file in that directory, from our stub that assumes you want to use that chip inside the ListOperation and ShowOperation, so you'll be using the `$entry` variable to define what you want the chip to include;
+- `php artisan backpack:chip {chip-name} --from=general` to create a new file in that directory, from our `general` chip, so you can change the HTML however you want;
 
-For example, you can do `php artisan backpack:chip person` to create a ```person.blade.php``` then includes the HTML content directly:
+For example, you can do `php artisan backpack:chip invoice` to create ```invoice.blade.php``` that helps you define what that chips includes:
+
+```php
+@php
+    $last_purchase = $entry->invoices()->orderBy('issuance_date', 'DESC')->first()->issuance_date;
+@endphp
+
+@include('crud::chips.general', [
+    'heading' => [
+        'content' => 'Invoice '.$entry->series.' '.$entry->number.' - '.$entry->owner->name,
+        'href' => backpack_url('pet-shop/invoice/'.$entry->id.'/show'),
+    ],
+    'details' => [
+        [
+            'icon' => 'la la-dollar',
+            'content' => $entry->total,
+            'title' => 'Total invoice amount $'.$entry->total,
+        ],
+        [
+            'icon' => 'la la-tags',
+            'content' => $entry->items->count().' items',
+        ],
+        [
+            'icon' => 'la la-calendar',
+            'content' => $last_purchase->format('F j, Y'),
+            'title' => 'Issuance date: '.$last_purchase,
+        ]
+    ]
+])
+```
+
+But you can also run `php artisan backpack:chip custom --from=general`, wipe everything inside the generated file, and include your own custom HTML, hardcoded or not:
 
 ```html
 <div class="card mb-2">
@@ -226,36 +264,4 @@ For example, you can do `php artisan backpack:chip person` to create a ```person
 </div>
 ```
 
-But most likely, you'll want to create a chip that outputs some information for a particular database entry. If you like how the `general` chip looks, and only want to make it easy to re-use the chip, you can create a chip that includes the `general` chip. For example:
-
-```php
-@php
-    $last_purchase = $entry->invoices()->orderBy('issuance_date', 'DESC')->first()->issuance_date;
-@endphp
-
-@include('crud::chips.general', [
-    'heading' => [
-        'content' => 'Invoice '.$entry->series.' '.$entry->number.' - '.$entry->owner->name,
-        'href' => backpack_url('pet-shop/invoice/'.$entry->id.'/show'),
-    ],
-    'details' => [
-        [
-            'icon' => 'la la-dollar',
-            'content' => $entry->total,
-            'title' => 'Total invoice amount $'.$entry->total,
-        ],
-        [
-            'icon' => 'la la-tags',
-            'content' => $entry->items->count().' items',
-        ],
-        [
-            'icon' => 'la la-calendar',
-            'content' => $last_purchase->format('F j, Y'),
-            'title' => 'Issuance date: '.$last_purchase,
-        ]
-    ]
-])
-
-```
-
-Otherwise, you can create a completely custom chip, that looks and works differently from the `general` chip. There are no limitations - since chips are simple blade files. Just copy-paste the HTML from the `general` chip and change it to match your needs. Or add completely different HTML - there are no limitations.
+Otherwise, you can create a completely custom chip, that looks and works differently from the `general` chip, and re-use that in your application. There are no limitations - since chips are simple blade files. Just copy-paste the HTML from the `general` chip and change it to match your needs.
