@@ -4,6 +4,8 @@
 
 This will guide you to upgrade from Backpack v6 to v7. The steps are color-coded by the probability that you will need it for your application: <span class="badge badge-danger text-white" style="text-decoration: none;">High</span>, <span class="badge badge-warning text-white" style="text-decoration: none;">Medium</span> and <span class="badge badge-secondary-soft" style="text-decoration: none;">Low</span>.  **At the very least, please read what's in bold**.
 
+> IMPORTANT NOTE: This upgrade guide is NOT AT ALL final. We do not recommend you upgrade your existing project to v7. We're working on making the upgrade process easier for you. We will let you know when this changes.
+
 <a name="requirements"></a>
 ## Requirements
 
@@ -26,7 +28,7 @@ Please make sure your project respects the requirements below, before you start 
 <a name="upgraade-steps"></a>
 ## Upgrade Steps
 
-<a name="step-0" href="#step-0" class="badge badge-danger" style="text-decoration: none;">Step 0.</a> **[Upgrade to Laravel 11](https://laravel.com/docs/11.x/upgrade) if you don't use it yet, then test to confirm your app is working fine.**
+<a name="step-0" href="#step-0" class="badge badge-danger" style="text-decoration: none;">Step 0.</a> **[Upgrade to Laravel 12](https://laravel.com/docs/12.x/upgrade) if you don't use it yet, then test to confirm your app is working fine.**
 
 <a name="composer"></a>
 ### Composer
@@ -34,29 +36,29 @@ Please make sure your project respects the requirements below, before you start 
 <a name="step-1" href="#step-1" class="badge badge-danger text-white" style="text-decoration: none;">Step 1.</a> Update your ```composer.json``` file to require:
 
 ```
-        "backpack/crud": "v7-dev",
+        "backpack/crud": "^7.0@dev",
 ```
 
 <a name="step-2" href="#step-2" class="badge badge-danger text-white" style="text-decoration: none;">Step 2.</a> Bump the version of any first-party Backpack add-ons you have installed (eg. `backpack/pro`, `backpack/editable-columns` etc.) to the versions that support Backpack v6. For 3rd-party add-ons, please check each add-on's Github page. Here's a quick list of 1st party packages and versions:
 
 ```js
-        "backpack/crud": "v7-dev",
-        "backpack/pro": "v3-dev",
-        "backpack/filemanager": "^3.0",
-        "backpack/theme-coreuiv2": "^1.0",
-        "backpack/theme-coreuiv4": "^1.0",
-        "backpack/theme-tabler": "^1.0",
-        "backpack/logmanager": "^5.0",
-        "backpack/settings": "^3.1",
-        "backpack/newscrud": "^5.0",
-        "backpack/permissionmanager": "^7.0",
-        "backpack/pagemanager": "^3.2",
-        "backpack/menucrud": "^4.0",
-        "backpack/backupmanager": "^5.0",
-        "backpack/editable-columns": "^3.0",
-        "backpack/revise-operation": "^2.0",
-        "backpack/medialibrary-uploaders": "^1.0",
-        "backpack/devtools": "^2.0",
+        "backpack/crud": "dev-next",
+        "backpack/pro": "dev-next",
+        "backpack/filemanager": "dev-next",
+        "backpack/theme-coreuiv2": "dev-next",
+        "backpack/theme-coreuiv4": "dev-next",
+        "backpack/theme-tabler": "dev-next",
+        "backpack/logmanager": "dev-next",
+        "backpack/settings": "dev-next",
+        "backpack/newscrud": "dev-next",
+        "backpack/permissionmanager": "dev-next",
+        "backpack/pagemanager": "dev-next",
+        "backpack/menucrud": "dev-next",
+        "backpack/backupmanager": "dev-next",
+        "backpack/editable-columns": "dev-next",
+        "backpack/revise-operation": "dev-next",
+        "backpack/medialibrary-uploaders": "dev-next",
+        "backpack/devtools": "dev-next",
 ```
 
 <a name="step-3" href="#step-3" class="badge badge-danger text-white" style="text-decoration: none;">Step 3.</a> Let's get the latest Backpack and install it. If you get any conflicts with **Backpack 1st party add-ons**, most of the time you just need to move one version up, eg: from `backpack/menucrud: ^3.0` to `backpack/menucrud: ^4.0`. See the step above again. Please run:
@@ -109,10 +111,10 @@ No changes needed.
 <a name="views"></a>
 ### Views
 
-**List Operation View** - The List Operation view got a huge change. We decoupled the datatable from the view, so that you can use the table anywhere you would like. 
-Most of the code is still identical but moved to `datatable.blade.php`. The `list.blade.php` view now only includes the mentioned datatable component. 
+**List Operation View** - The List Operation view got a huge change. We decoupled the datatable from the view, so that you can use the table anywhere you would like.
+Most of the code is still identical but moved to `datatable.blade.php`. The `list.blade.php` view now only includes the mentioned datatable component.
 
-If you had customized the `list.blade.php` you should move your customizations to `datatable.blade.php`. 
+If you had customized the `list.blade.php` you should move your customizations to `datatable.blade.php`.
 
 <a name="security"></a>
 ### Security

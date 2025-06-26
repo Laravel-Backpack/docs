@@ -5,11 +5,11 @@
 <a name="requirements"></a>
 ## Requirements
 
-If you can run Laravel 10 or 11, you can install Backpack. Backpack does _not_ have additional requirements.
+If you can run Laravel 12, you can install Backpack. Backpack does _not_ have additional requirements.
 
 For the following process, we assume:
 
-- you have a [working installation of Laravel](https://laravel.com/docs/11.x#installation) (an existing project is fine, you don't need a *fresh* Laravel install);
+- you have a [working installation of Laravel](https://laravel.com/docs/12.x#installation) (an existing project is fine, you don't need a *fresh* Laravel install);
 
 - you have configured your .ENV file with your database and mail information;
 
@@ -24,7 +24,14 @@ For the following process, we assume:
 Go to your Laravel project's directory, then in your terminal, run:
 
 ``` bash
-composer require backpack/crud
+# during beta, configure your Composer.json to accept unstable version, by running:
+composer config minimum-stability dev
+composer config prefer-stable true
+
+# then require the v7-beta:
+composer require backpack/crud:"^7.0@dev"
+
+# and finally, install Backpack:
 php artisan backpack:install
 ```
 
