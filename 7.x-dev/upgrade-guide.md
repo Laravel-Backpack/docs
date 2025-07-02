@@ -126,6 +126,7 @@ No changes needed.
 
 <a name="step-Xx" href="#step-xx" class="badge badge-danger text-white" style="text-decoration: none;">Step xx.</a> Clear your app's cache:
 ```
+php artisan basset:clear
 php artisan config:clear
 php artisan cache:clear
 php artisan view:clear
