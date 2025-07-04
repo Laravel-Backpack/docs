@@ -51,7 +51,7 @@ In order to place something else inside that view, like [widgets](/docs/{{versio
 ```
 
 To use information from the database, you can:
-- [use view composers](https://laravel.com/docs/5.7/views#view-composers) to push variables inside this view, when it's loaded;
+- [use view composers](https://laravel.com/docs/views#view-composers) to push variables inside this view, when it's loaded;
 - load all your dashboard information using AJAX calls, if you're loading charts, reports, etc, and the DB queries might take a long time;
 - use the full namespace for your models, like ```\App\Models\Product::count()```;
 
@@ -290,7 +290,7 @@ This is a default in Backpack v4.
 
 Backpack's authentication uses a completely separate authentication driver, provider, guard and password broker. They're all named ```backpack```, and registered in the vendor folder, invisible to you.
 
-If you need a separate login for user, just go ahead and create it. [Add the Laravel authentication, like instructed in the Laravel documentation](https://laravel.com/docs/5.7/authentication#authentication-quickstart): ```php artisan make:auth```. You'll then have:
+If you need a separate login for user, just go ahead and create it. [Add the Laravel authentication, like instructed in the Laravel documentation](https://laravel.com/docs/authentication#authentication-quickstart): ```php artisan make:auth```. You'll then have:
 - the user login at ```/login``` -> using the AuthenticationController Laravel provides
 - the admin login at ```/admin/login``` -> using the AuthenticationControllers Backpack provides
 
@@ -440,7 +440,7 @@ This will make the registration process pick up a view you can create, in ```res
 
 In Backpack CRUD 6.2 we introduced the ability to require email verification when accessing Backpack routes. To enable this feature please do the following:
 
-**Step 1** - Make sure your user model (usually `App\Models\User`) implements the `Illuminate\Contracts\Auth\MustVerifyEmail` contract. [More info](https://laravel.com/docs/10.x/verification#model-preparation).
+**Step 1** - Make sure your user model (usually `App\Models\User`) implements the `Illuminate\Contracts\Auth\MustVerifyEmail` contract. [More info](https://laravel.com/docs/verification#model-preparation).
 
 ```php
 <?php
@@ -494,7 +494,7 @@ return new class extends Migration
 };
 
 ```
-Then run `php artisan migrate`. [More info](https://laravel.com/docs/10.x/verification#database-preparation).
+Then run `php artisan migrate`. [More info](https://laravel.com/docs/verification#database-preparation).
 
 **Step 3** - New Laravel 10/11 installations already have them in place so you can skip this step. If you came from earlier versions it's possible that they are missing in your app, in that case you can add them manually.
 
