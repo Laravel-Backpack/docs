@@ -42,8 +42,8 @@ Please make sure your project respects the requirements below, before you start 
 <a name="step-2" href="#step-2" class="badge badge-danger text-white" style="text-decoration: none;">Step 2.</a> Bump the version of any first-party Backpack add-ons you have installed (eg. `backpack/pro`, `backpack/editable-columns` etc.) to the versions that support Backpack v6. For 3rd-party add-ons, please check each add-on's Github page. Here's a quick list of 1st party packages and versions:
 
 ```js
-        "backpack/crud": "dev-next",
-        "backpack/pro": "dev-next",
+        "backpack/crud": "^7.0@dev",
+        "backpack/pro": "^3.0@dev",
         "backpack/filemanager": "dev-next",
         "backpack/theme-coreuiv2": "dev-next",
         "backpack/theme-coreuiv4": "dev-next",
@@ -91,7 +91,19 @@ No changes needed.
 <a name="config"></a>
 ### Config
 
-No changes needed.
+**Theme Tabler** - The default layout for theme tabler has changed. If you had the tabler config published you are good to go. **In case you don't have the tabler theme config published** and want to keep the old layout, you should publish it by running `php artisan vendor:publish --tag="theme-tabler-config"` and changing: 
+```diff
+- 'layout' => 'horizontal',
++ 'layout' => 'horizontal_overlap',
+```
+You should also remove the glass skin and fuzzy background from the theme styles:
+```diff
+'styles' => [
+        base_path('vendor/backpack/theme-tabler/resources/assets/css/skins/backpack-color-palette.css'),
+-        base_path('vendor/backpack/theme-tabler/resources/assets/css/skins/glass.css'),
+-        base_path('vendor/backpack/theme-tabler/resources/assets/css/skins/fuzzy-background.css'),
+    ],
+```
 
 <a name="controllers"></a>
 ### CrudControllers
@@ -106,7 +118,7 @@ No changes needed.
 <a href="assets"></a>
 ### CSS & JS Assets
 
-No changes needed.
+
 
 <a name="views"></a>
 ### Views
@@ -143,9 +155,10 @@ If the table view still looks wonky (search bar out of place, big + instead of e
 <a name="addons"></a>
 ### Upgrade Add-ons
 
-For any addons you might have upgraded, please double-check if they have an upgrade guide. For example:
-- Xx package has the upgrade guide here;
-- Yy package has the upgrade guide here;
+**backpack/file-manager** Using the File Manager package? Most of the views that weren't in use  were removed, and the dependencies were bumped. If you didn't do any customization you should delete the `resources/views/vendor/elfinder` (`rm -rf resources/views/vendor/elfinder`) folder. 
+No need to publish any views anymore if you are not customizing them. If you were, publish the new view files (`php artisan vendor:publish --provider="Backpack\FileManager\FileManagerServiceProvider" --tag="elfinder-views"`). Then apply your customization on the new files, now located at: `resources/views/vendor/backpack/filemanager/`
+
+Additional the `browse` and `browse_multiple` **fields/columns** are now part of this package. If you previously made any modifications to this fields/columns you should publish the new views (`php artisan vendor:publish --provider="Backpack\FileManager\FileManagerServiceProvider" --tag="filemanger-fields"` and `php artisan vendor:publish --provider="Backpack\FileManager\FileManagerServiceProvider" --tag="filemanager-columns"`), and carry over the modifications from the old files to this new files. 
 
 ---
 
