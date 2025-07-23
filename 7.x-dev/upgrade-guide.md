@@ -59,6 +59,7 @@ Please make sure your project respects the requirements below, before you start 
         "backpack/revise-operation": "dev-next",
         "backpack/medialibrary-uploaders": "dev-next",
         "backpack/devtools": "dev-next",
+        "backpack/generators": "dev-next",
 ```
 
 <a name="step-3" href="#step-3" class="badge badge-danger text-white" style="text-decoration: none;">Step 3.</a> Let's get the latest Backpack and install it. If you get any conflicts with **Backpack 1st party add-ons**, most of the time you just need to move one version up, eg: from `backpack/menucrud: ^3.0` to `backpack/menucrud: ^4.0`. See the step above again. Please run:
