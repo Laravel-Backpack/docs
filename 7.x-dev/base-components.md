@@ -150,6 +150,8 @@ This component helps you show a form _anywhere you want_ inside a modal, so the 
 ```
 <hr>
 
+> **NOTE**: The tinymce and date_picker (jquery version) does not properly work in this context. Please use any alternative. 
+
 <a name="datatable"></a>
 ### Datatable
 
