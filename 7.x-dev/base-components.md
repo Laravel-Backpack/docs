@@ -90,7 +90,7 @@ These are the components that Backpack uses inside the default CRUD operations. 
 
 ![Backpack v7 Dataform component](https://backpackforlaravel.com/uploads/v7/dataform_component.jpg)
 
-This component helps you show a form _anywhere you want_, so the admin to easily create or edit an entries for an Eloquent model. The dataform component is a extension of a CrudController - so a CrudController for that entity needs to be already set up, and passed to this component as a parameter:
+This component helps you show a form _anywhere you want_, so the admin can easily create or edit an entries for an Eloquent model. The dataform component is a extension of a CrudController - so a CrudController for that entity needs to be already set up, and passed to this component as a parameter:
 
 ```html
 <x-bp-dataform controller="\App\Http\Controllers\Admin\InvoiceCrudController" />
@@ -116,6 +116,38 @@ This component helps you show a form _anywhere you want_, so the admin to easily
  />
 ```
 
+<hr>
+
+<a name="dataform-modal"></a>
+### Dataform Modal
+
+![Backpack v7 Dataform Modal component](https://backpackforlaravel.com/uploads/v7/dataform_component.jpg)
+
+This component helps you show a form _anywhere you want_ inside a modal, so the admin can easily create or edit an entry for an Eloquent model without having to refresh the whole page. The dataform modal component is a extension of a CrudController - so a CrudController for that entity needs to be already set up, and passed to this component as a parameter:
+
+```html
+<x-bp-dataform-modal controller="\App\Http\Controllers\Admin\InvoiceCrudController" />
+```
+
+**Configuration options:**
+- `name='invoice_form'` - by default, a name will be generated; but you can pick one you can recognize;
+- `operation='create'` - by default, the datatable component will pick up everything that controller sets up for the Create operation; if you want to change the operation it will initialize, you can pass this parameter;
+- `:entry="\App\Models\Invoice::find(1)"` - if you want to use UpdateOperation or a custom form operation that needs the entry;
+- `:setup="function($crud, $parent) {}"` - if you want to make changes to the operation setup (eg. add/remove fields, configure functionality), you can use this parameter; the closure passed here will be run _after_ the setup of that operation had already completed;
+
+**Advanced example:**
+
+```html
+<x-bp-dataform-modal
+    controller="\App\Http\Controllers\Admin\InvoiceCrudController"
+    name="invoice_form"
+    operation="update"
+    :entry="\App\Models\Invoice::find(1)"
+    :setup="function($crud, $parent) {
+        $crud->removeColumn('notes');
+    }"
+ />
+```
 <hr>
 
 <a name="datatable"></a>
