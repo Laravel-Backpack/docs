@@ -36,13 +36,13 @@ Please make sure your project respects the requirements below, before you start 
 <a name="step-1" href="#step-1" class="badge badge-danger text-white" style="text-decoration: none;">Step 1.</a> Update your ```composer.json``` file to require:
 
 ```
-        "backpack/crud": "^7.0@dev",
+        "backpack/crud": "^7.0.0-beta",
 ```
 
 <a name="step-2" href="#step-2" class="badge badge-danger text-white" style="text-decoration: none;">Step 2.</a> Bump the version of any first-party Backpack add-ons you have installed (eg. `backpack/pro`, `backpack/editable-columns` etc.) to the versions that support Backpack v6. For 3rd-party add-ons, please check each add-on's Github page. Here's a quick list of 1st party packages and versions:
 
 ```js
-        "backpack/crud": "^7.0@dev",
+        "backpack/crud": "^7.0.0-beta",
         "backpack/pro": "^3.0@dev",
         "backpack/filemanager": "dev-next",
         "backpack/theme-coreuiv2": "dev-next",
