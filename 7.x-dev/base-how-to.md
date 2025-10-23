@@ -6,6 +6,17 @@
 <a name="look-and-feel"></a>
 ## Look and feel
 
+<a name="text-direction-ltr-or-rtl"></a>
+### Text direction: LTR or RTL
+
+By default, the text direction is set to left-to-right. If your UI is in Arabic, Hebrew or any other language that needs to show right-to-left, you can easily enable that - just go to `config/backpack/ui.php` and change the `html_direction` variable to `rtl`:
+
+```
+    // Direction, according to language
+    // (left-to-right vs right-to-left)
+    'html_direction' => 'ltr',
+```
+
 <a name="customize-menu-or-sidebar"></a>
 ### Customize the menu or sidebar
 
