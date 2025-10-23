@@ -43,7 +43,7 @@ Please make sure your project respects the requirements below, before you start 
 
 ```js
         "backpack/crud": "^7.0.0-beta",
-        "backpack/pro": "^3.0@dev",
+        "backpack/pro": "^3.0.0-alpha",
         "backpack/filemanager": "dev-next",
         "backpack/theme-coreuiv2": "dev-next",
         "backpack/theme-coreuiv4": "dev-next",
@@ -94,7 +94,16 @@ No changes needed.
 <a name="config"></a>
 ### Config
 
-**Theme Tabler** - The default layout for theme tabler has changed. If you had the tabler config published you are good to go. **In case you don't have the tabler theme config published** and want to keep the old layout, you should publish it by running `php artisan vendor:publish --tag="theme-tabler-config"` and changing:
+<a name="step-x" href="#step-x" class="badge badge-danger text-white" style="text-decoration: none;">Step X.</a> **Operation Config Files** - We have added new configuration options in the files inside `config/backpack/operations/`. If you have those files published, it is recommended that you copy the new options in your files too.
+
+<a name="step-x" href="#step-x" class="badge badge-danger text-white" style="text-decoration: none;">Step X.</a> **Show Operation New Default** - inside `config/backpack/operations/show.php` you'll find a new option, to choose which component will be used on the show operation. By default it's the new component `bp-datagrid`, but you can switch to `bp-datalist` if you want to keep the same look as before:
+
+```php
+    // Which component to use for displaying the Show page?
+    'component' => 'bp-datalist', // options: bp-datagrid, bp-datalist, or a custom component alias
+```
+
+<a name="step-x" href="#step-x" class="badge badge-danger text-white" style="text-decoration: none;">Step X.</a> **Theme Tabler** - The default layout for theme tabler has changed. If you had the tabler config published you are good to go. **In case you don't have the tabler theme config published** and want to keep the old layout, you should publish it by running `php artisan vendor:publish --tag="theme-tabler-config"` and changing:
 ```diff
 - 'layout' => 'horizontal',
 + 'layout' => 'horizontal_overlap',
