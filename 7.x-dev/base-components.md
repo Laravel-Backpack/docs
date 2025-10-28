@@ -126,6 +126,12 @@ This component helps you show a form _anywhere you want_ inside a modal, so the 
 
 To use this component you are required to add `CreateInModalOperation` and/or `UpdateInModalOperation` in your CrudController. The dataform modal component is a extension of a CrudController - so a CrudController for that entity needs to be already set up, and passed to this component as a parameter:
 
+First, in your CrudController, either remove `CreateOperation` in favor of `CreateInModalOperation`, or you can keep both operations. Having both of them is usefull if you want your ListOperation to still show the regular "Create" button, but you would like also to have the possibility to create this entity somewhere else in your application using a modal form. 
+
+```php
+use \Backpack\DataformModal\Http\Controllers\Operations\CreateInModalOperation;
+```
+
 ```html
 <x-bp-dataform-modal controller="\App\Http\Controllers\Admin\InvoiceCrudController" />
 ```
