@@ -16,6 +16,91 @@ There are four save actions registered by Backpack by default. They are:
   - ```save_and_new``` (Save and go to create new entity page)
   - ```save_and_preview``` (Save and go to show the current entity)
 
+<a name="save-action-classes"></a>
+## Save Action Classes
+
+Save actions are now first-class citizens. Instead of maintaining large array definitions in each CrudController, you can encapsulate the behaviour inside PHP classes that implement `Backpack\CRUD\app\Library\CrudPanel\SaveActions\SaveActionInterface`. Backpack ships with `SaveAndBack`, `SaveAndEdit`, `SaveAndNew`, and `SaveAndPreview` as examples.
+
+### Quick start
+
+1. **Create a class** inside your application (for example `app/Backpack/Crud/SaveActions/SaveAndApprove.php`).
+2. **Extend** `AbstractSaveAction` (recommended) or implement `SaveActionInterface` directly.
+3. **Override** the methods that describe your button.
+4. **Register** the class with `CRUD::addSaveAction()` / `CRUD::replaceSaveActions()` or pass it to Blade components like `<x-bp-dataform>`.
+
+```php
+<?php
+
+namespace App\Backpack\Crud\SaveActions;
+
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
+use Backpack\CRUD\app\Library\CrudPanel\SaveActions\AbstractSaveAction;
+use Illuminate\Http\Request;
+
+class SaveAndApprove extends AbstractSaveAction
+{
+    protected ?int $order = 2;
+
+    public function getName(): string
+    {
+        return 'save_and_approve';
+    }
+
+    public function getButtonText(): string
+    {
+        return trans('backpack::crud.save_action_save_and_approve');
+    }
+
+    public function isVisible(CrudPanel $crud): bool
+    {
+        return $crud->hasAccess('update') && $crud->entry?->canBeApproved();
+    }
+
+    public function getRedirectUrl(CrudPanel $crud, Request $request, $itemId = null): ?string
+    {
+        return route('admin.invoices.approve', $itemId ?? $request->input('id'));
+    }
+}
+```
+
+> **Tip:** `AbstractSaveAction` already implements `toArray()`, order handling, and sensible defaults. Override only what you need. If you must store additional data, you can still return a custom array by implementing `SaveActionInterface` yourself.
+
+### Registering class-based actions
+
+Inside your CrudController you can now pass the class instead of an array:
+
+```php
+use App\Backpack\Crud\SaveActions\SaveAndApprove;
+
+CRUD::replaceSaveActions([
+    new SaveAndApprove(),
+    \Backpack\CRUD\app\Library\CrudPanel\SaveActions\SaveAndBack::class,
+]);
+```
+
+Backpack recognizes three inputs when registering save actions:
+- an instantiated save action class;
+- the fully qualified class name (it is resolved via the container so dependencies can be injected);
+- the legacy associative array definition (still supported).
+
+The action `order` is taken from the class (or array) and Backpack reorders conflicts automatically. If you need to adjust the order later you can still call `CRUD::orderSaveActions()`.
+
+### Using classes in Blade components
+
+The `bp-dataform` component accept save action classes through the `:save-actions` attribute. This allows you to reuse the same custom buttons outside CrudControllers:
+
+```php
+<x-bp-dataform
+    controller="\App\Http\Controllers\Admin\InvoiceCrudController"
+    :save-actions="[
+        new App\\Backpack\\Crud\\SaveActions\\SaveAndApprove(),
+        Backpack\\CRUD\\app\\Library\\CrudPanel\\SaveActions\\SaveAndBack::class,
+    ]"
+/>
+```
+
+When no save actions are provided, Backpack falls back to the defaults registered on the controller.
+
 <a name="save-actions-api"></a>
 ## Save Actions API
 

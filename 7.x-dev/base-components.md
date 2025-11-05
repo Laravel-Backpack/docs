@@ -100,6 +100,7 @@ This component helps you show a form _anywhere you want_, so the admin can easil
 - `operation='create'` - by default, the datatable component will pick up everything that controller sets up for the Create operation; if you want to change the operation it will initialize, you can pass this parameter;
 - `:entry="\App\Models\Invoice::find(1)"` - if you want to use UpdateOperation or a custom form operation that needs the entry;
 - `:setup="function($crud, $parent) {}"` - if you want to make changes to the operation setup (eg. add/remove fields, configure functionality), you can use this parameter; the closure passed here will be run _after_ the setup of that operation had already completed;
+- `:save-actions="[]"` - provide an array of save action definitions or save action classes to replace the defaults (see [Custom save actions](#dataform-custom-save-actions));
 
 **Advanced example:**
 
@@ -114,6 +115,33 @@ This component helps you show a form _anywhere you want_, so the admin can easil
     }"
  />
 ```
+
+<a name="dataform-custom-save-actions"></a>
+#### Custom save actions
+
+The Dataform component can swap out the default `Save and back / edit / new` buttons with your own logic. Pass an array to the `:save-actions` attribute containing save action classes (or definitions) that implement Backpack's `SaveActionInterface`:
+
+```php
+@php
+    use App\Backpack\Crud\SaveActions\SaveAndApprove;
+    use Backpack\CRUD\app\Library\CrudPanel\SaveActions\SaveAndBack;
+@endphp
+
+<x-bp-dataform
+    controller="\App\Http\Controllers\Admin\InvoiceCrudController"
+    :save-actions="[
+        new SaveAndApprove,
+        SaveAndBack::class,
+    ]"
+/>
+```
+
+Each entry in the array can be:
+- an instance of a class that implements `SaveActionInterface` (recommended);
+- the fully qualified class name of a save action (the container will resolve it);
+- a plain array definition (see [`crud-save-actions.md`](crud-save-actions.md)).
+
+Backpack will replace the default actions for that form, honour the order defined by each class, and fallback to the first action if no default applies.
 
 <hr>
 
