@@ -19,7 +19,7 @@ There are four save actions registered by Backpack by default. They are:
 <a name="save-action-classes"></a>
 ## Save Action Classes
 
-Save actions are now first-class citizens. Instead of maintaining large array definitions in each CrudController, you can encapsulate the behaviour inside PHP classes that implement `Backpack\CRUD\app\Library\CrudPanel\SaveActions\SaveActionInterface`. Backpack ships with `SaveAndBack`, `SaveAndEdit`, `SaveAndNew`, and `SaveAndPreview` as examples.
+Save actions are now first-class citizens. Instead of maintaining large array definitions in each CrudController, you can encapsulate the behaviour inside PHP classes that implement `Backpack\CRUD\app\Library\CrudPanel\SaveActions\SaveActionInterface`. Backpack ships with `SaveAndBack`, `SaveAndEdit`, `SaveAndNew`, and `SaveAndPreview` as examples, and also provides `SaveAndList` for projects that want an explicit "Save and go to list" button.
 
 ### Quick start
 

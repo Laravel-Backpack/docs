@@ -169,6 +169,7 @@ use \Backpack\DataformModal\Http\Controllers\Operations\CreateInModalOperation;
 - `operation='createInModal'` - by default, the component will pick up everything that controller sets up for the Create operation; if you want to change the operation it will initialize, you can pass this parameter, eg: `updateInModal`
 - `:entry="\App\Models\Invoice::find(1)"` - if you want to use UpdateInModalOperation or a custom form operation that needs the entry;
 - `:setup="function($crud, $parent) {}"` - if you want to make changes to the operation setup (eg. add/remove fields, configure functionality), you can use this parameter; the closure passed here will be run _after_ the setup of that operation had already completed;
+- `:save-actions="[]"` - replace the default modal buttons with your own save action classes.
 
 **Advanced example:**
 
