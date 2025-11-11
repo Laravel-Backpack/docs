@@ -102,6 +102,7 @@ This component helps you show a form _anywhere you want_, so the admin can easil
 - `:setup="function($crud, $parent) {}"` - if you want to make changes to the operation setup (eg. add/remove fields, configure functionality), you can use this parameter; the closure passed here will be run _after_ the setup of that operation had already completed;
 - `:save-actions="[]"` - provide an array of save action definitions or save action classes to replace the defaults (see [Custom save actions](#dataform-custom-save-actions));
 - `:form-inside-card="true"` - render the form inside a Backpack card wrapper so it visually matches the default create/update screens; leave it `false` to output only the raw form markup.
+- `:showCancelButton="false"` - do not render the "Cancel" button in the form. 
 
 **Advanced example:**
 
