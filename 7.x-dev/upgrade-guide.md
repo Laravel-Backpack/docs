@@ -152,6 +152,27 @@ All 3rd party dependencies have been updated to their latest versions. A lot of 
 
 <a name="step-10" href="#step-10" class="badge badge-danger text-white" style="text-decoration: none;">Step 10.</a>  **List Operation View** has received significant changes. We decoupled the datatable from the view, so that you can use the table anywhere you would like. Most of the code is still identical but moved to `datatable.blade.php`. The `list.blade.php` view now only includes the mentioned datatable component. If you had customized the `list.blade.php` you should move your customizations to `datatable.blade.php`.
 
+<a name="step-11" href="#step-11" class="badge badge-danger text-white" style="text-decoration: none;">Step 11.</a>  **Filters Views** from Backpack/PRO have all suffered considerable changes, mostly to their JS. That's because we've liberated them - and [filters can now we used in custom pages as well](/docs/{{version}}/crud-filters#use-filters-on-custom-admin-panel-pages). If you have overridden the default filters, or created custom filters - they should still work. But to make them work on custom pages, you should do the same changes we did. Do diff between your files and ours, to see the difference. You can do that using a diff app like [Kaleidoscope](https://kaleidoscope.app/) or using the `diff` command in your terminal. For example:
+
+```
+# compare the file from the project with the new file from the package
+diff resources/views/vendor/backpack/crud/filters/simple.blade.php vendor/backpack/pro/resources/views/filters/simple.blade.php
+```
+
+<a name="step-12" href="#step-12" class="badge warning text-white" style="text-decoration: none;">Step 12.</a>  **Select2 Fields** from Backpack/PRO have all suffered tiny changes, to make them work inside the DataForm Modal. If you have overridden `select2_multiple`, `select2_nested`, `select2_json_from_api`, `select2_grouped`, `select2_from_array`, `select2_from_ajax`, `select2_from_ajax_multiple`, `select2` or `relationship`... or created any custom select2 fields - they should still work in your context. But to make them work inside the DataForm modal, you should do the same tiny changes we did. Do a diff between your files and ours, to see the difference. You can do that using a diff app like [Kaleidoscope](https://kaleidoscope.app/) or using the `diff` command in your terminal. For example:
+
+```
+# compare the file from the project with the new file from the package
+diff resources/views/vendor/backpack/crud/fields/select2_multiple.blade.php vendor/backpack/pro/resources/views/fields/select2_multiple.blade.php
+```
+
+<a name="step-13" href="#step-13" class="badge warning text-white" style="text-decoration: none;">Step 13.</a>  **Other Fields** from Backpack/PRO have suffered tiny changes, for various reasons. They should still work in your context, but you should consider updating them to get the latest features. If you have any other files in your `resources/views/vendor/backpack/crud/fields`, do a diff between your files and ours, to see the difference. You can do that using a diff app like [Kaleidoscope](https://kaleidoscope.app/) or using the `diff` command in your terminal. For example:
+
+```
+# compare the file from the project with the new file from the package
+diff resources/views/vendor/backpack/crud/fields/datetime_picker.blade.php vendor/backpack/pro/resources/views/fields/datetime_picker.blade.php
+```
+
 <a name="security"></a>
 ### Security
 
@@ -160,7 +181,7 @@ No changes needed.
 <a name="cache"></a>
 ### Cache
 
-<a name="step-11" href="#step-11" class="badge badge-danger text-white" style="text-decoration: none;">Step 11.</a> Clear your app's cache:
+<a name="step-14" href="#step-14" class="badge badge-danger text-white" style="text-decoration: none;">Step 14.</a> Clear your app's cache:
 ```
 php artisan basset:clear
 php artisan config:clear
@@ -172,16 +193,23 @@ If the table view still looks wonky (search bar out of place, big + instead of e
 
 ---
 
-<a name="step-12" href="#step-12" class="badge badge-danger text-white" style="text-decoration: none;">Step 12.</a> If your pages are slow to load, that's because Basset caching the assets as you load the pages, so your first pageload will be quite slow. If you find that annoying, run `php artisan basset:cache` to cache all CSS and JS assets. Alternatively, if you want Basset NOT to run because you're making changes to CSS and JS files, you can add `BASSET_DEV_MODE=true` to your `.ENV` file.
+<a name="step-15" href="#step-15" class="badge badge-danger text-white" style="text-decoration: none;">Step 15.</a> If your pages are slow to load, that's because Basset caching the assets as you load the pages, so your first pageload will be quite slow. If you find that annoying, run `php artisan basset:cache` to cache all CSS and JS assets. Alternatively, if you want Basset NOT to run because you're making changes to CSS and JS files, you can add `BASSET_DEV_MODE=true` to your `.ENV` file.
 
 ---
 
 <a name="addons"></a>
 ### Upgrade Add-ons
 
-**backpack/file-manager** Using the File Manager package? Most of the views that weren't in use  were removed, and the dependencies were bumped. If you didn't do any customization you should delete the `resources/views/vendor/elfinder` (`rm -rf resources/views/vendor/elfinder`) folder. No need to publish any views anymore if you are not customizing them. If you were, publish the new view files (`php artisan vendor:publish --provider="Backpack\FileManager\FileManagerServiceProvider" --tag="elfinder-views"`). Then apply your customization on the new files, now located at: `resources/views/vendor/backpack/filemanager/`
+
+#### Backpack/FileManager
+
+Using the File Manager package? Most of the views that weren't in use  were removed, and the dependencies were bumped. If you didn't do any customization you should delete the `resources/views/vendor/elfinder` (`rm -rf resources/views/vendor/elfinder`) folder. No need to publish any views anymore if you are not customizing them. If you were, publish the new view files (`php artisan vendor:publish --provider="Backpack\FileManager\FileManagerServiceProvider" --tag="elfinder-views"`). Then apply your customization on the new files, now located at: `resources/views/vendor/backpack/filemanager/`
 
 Additional the `browse` and `browse_multiple` **fields/columns** are now part of this package. If you previously made any modifications to this fields/columns you should publish the new views (`php artisan vendor:publish --provider="Backpack\FileManager\FileManagerServiceProvider" --tag="filemanger-fields"` and `php artisan vendor:publish --provider="Backpack\FileManager\FileManagerServiceProvider" --tag="filemanager-columns"`), and carry over the modifications from the old files to this new files.
+
+#### Backpack/Basset
+
+By upgrading Backpack from v6 to v7, you've automatically upgraded from Basset v1 to v2. This new version changes some default behaviour, so please [read more about it here](https://github.com/Laravel-Backpack/basset). Most projects will not be affected.
 
 ---
 
