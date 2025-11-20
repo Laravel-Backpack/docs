@@ -30,51 +30,65 @@ Please make sure your project respects the requirements below, before you start 
 
 <a name="step-0" href="#step-0" class="badge badge-danger" style="text-decoration: none;">Step 0.</a> **[Upgrade to Laravel 12](https://laravel.com/docs/12.x/upgrade) if you don't use it yet, then test to confirm your app is working fine.**
 
+<a name="upgrade-command"></a>
+### Upgrade Command
+
+<a name="step-1" href="#step-1" class="badge badge-danger text-white" style="text-decoration: none;">Step 1.</a> We've created a command to help you run a lot of the steps in this upgrade guide, automatically. To run it:
+
+```bash
+# update your existing v6 installation, to get the upgrade command
+composer update
+
+# before calling the next command make sure you have no pending migrations with `php artisan migrate:status`
+# and that your webserver is running and accessible in the URL you defined in .env `APP_URL`
+php artisan backpack:upgrade
+
+# follow the prompts in that command, then run
+composer update
+```
+
+Now you should be running Backpack v7, with a lot of the steps below already finished. But don't stop here. Please read the upgrade steps below. Either double-check that the command has already done them or do them manually.
+
 <a name="composer"></a>
 ### Composer
 
-<a name="step-1" href="#step-1" class="badge badge-danger text-white" style="text-decoration: none;">Step 1.</a> Update your ```composer.json``` file to require:
+<a name="step-2" href="#step-2" class="badge badge-danger text-white" style="text-decoration: none;">Step 2.</a> Your `composer.json` should require the new version of Backpack CRUD:
 
 ```
         "backpack/crud": "^7.0.0-beta",
 ```
 
-<a name="step-2" href="#step-2" class="badge badge-danger text-white" style="text-decoration: none;">Step 2.</a> Bump the version of any first-party Backpack add-ons you have installed (eg. `backpack/pro`, `backpack/editable-columns` etc.) to the versions that support Backpack v6. For 3rd-party add-ons, please check each add-on's Github page. Here's a quick list of 1st party packages and versions:
+<a name="step-3" href="#step-3" class="badge badge-danger text-white" style="text-decoration: none;">Step 3.</a> Bump the version of any first-party Backpack add-ons you have installed (eg. `backpack/pro`, `backpack/editable-columns` etc.) to the versions that support Backpack v6. For 3rd-party add-ons, please check each add-on's Github page. Here's a quick list of 1st party packages and versions:
 
 ```js
-        "backpack/crud": "^7.0.0-beta",
-        "backpack/pro": "^3.0.0-alpha",
-        "backpack/filemanager": "dev-next",
-        "backpack/theme-coreuiv2": "dev-next",
-        "backpack/theme-coreuiv4": "dev-next",
-        "backpack/theme-tabler": "dev-next",
-        "backpack/logmanager": "dev-next",
-        "backpack/settings": "dev-next",
-        "backpack/newscrud": "dev-next",
-        "backpack/permissionmanager": "dev-next",
-        "backpack/pagemanager": "dev-next",
-        "backpack/menucrud": "dev-next",
-        "backpack/backupmanager": "dev-next",
-        "backpack/editable-columns": "dev-next",
-        "backpack/revise-operation": "dev-next",
-        "backpack/medialibrary-uploaders": "dev-next",
-        "backpack/devtools": "dev-next",
-        "backpack/generators": "dev-next",
+    'backpack/crud' => '^7.0.0-beta',
+    'backpack/theme-coreuiv2' => 'dev-next',
+    'backpack/theme-coreuiv4' => '^1.2',
+    'backpack/theme-tabler' => 'dev-next',
+    'backpack/logmanager' => '^5.1',
+    'backpack/settings' => '^3.2',
+    'backpack/newscrud' => '^5.2',
+    'backpack/permissionmanager' => '^7.3',
+    'backpack/pagemanager' => '^3.4',
+    'backpack/menucrud' => '^4.1',
+    'backpack/backupmanager' => '^5.1',
+    'backpack/editable-columns' => '^3.1',
+    'backpack/revise-operation' => '^2.1',
+    'backpack/medialibrary-uploaders' => '^2.0',
+    'backpack/devtools' => '^4.0',
+    'backpack/generators' => '^4.1',
+    'backpack/activity-log' => '^2.1',
+    'backpack/calendar-operation' => '^1.1',
+    'backpack/language-switcher' => '^2.1',
+    'backpack/pan-panel' => '^1.1',
+    'backpack/pro' => '^3.0.0-alpha',
+    'backpack/translation-manager' => '^1.1',
+    'backpack/ckeditor-field' => '^1.0',
+    'backpack/tinymce-field' => '^1.0',
 ```
 
 > **Note:** To install Backpack v7 beta and its add-ons, set `"minimum-stability": "beta"` in your `composer.json`.
 
-<a name="step-3" href="#step-3" class="badge badge-danger text-white" style="text-decoration: none;">Step 3.</a> Let's get the latest Backpack and install it. If you get any conflicts with **Backpack 1st party add-ons**, most of the time you just need to move one version up, eg: from `backpack/menucrud: ^3.0` to `backpack/menucrud: ^4.0`. See the step above again. Please run:
-
-```bash
-composer update
-
-# before calling the next command make sure you have no pending migrations with `php artisan migrate:status`
-# and that your webserver is running and accessible in the URL you defined in .env `APP_URL`.
-php artisan backpack:upgrade
-```
-
-// TODO: actually create an upgrade command that does only the things we need from the `install` command.
 
 <a name="models"></a>
 ### Models
@@ -94,16 +108,16 @@ No changes needed.
 <a name="config"></a>
 ### Config
 
-<a name="step-x" href="#step-x" class="badge badge-danger text-white" style="text-decoration: none;">Step X.</a> **Operation Config Files** - We have added new configuration options in the files inside `config/backpack/operations/`. If you have those files published, it is recommended that you copy the new options in your files too.
+<a name="step-4" href="#step-4" class="badge badge-danger text-white" style="text-decoration: none;">Step 4.</a> **Operation Config Files** - We have added new configuration options in the files inside `config/backpack/operations/`. If you have those files published, it is recommended that you copy the new options in your files too.
 
-<a name="step-x" href="#step-x" class="badge badge-danger text-white" style="text-decoration: none;">Step X.</a> **Show Operation New Default** - inside `config/backpack/operations/show.php` you'll find a new option, to choose which component will be used on the show operation. By default it's the new component `bp-datagrid`, but you can switch to `bp-datalist` if you want to keep the same look as before:
+<a name="step-5" href="#step-5" class="badge badge-danger text-white" style="text-decoration: none;">Step 5.</a> **Show Operation New Default** - inside `config/backpack/operations/show.php` you'll find a new option, to choose which component will be used on the show operation. By default it's the new component `bp-datagrid`, but you can switch to `bp-datalist` if you want to keep the same look as before:
 
 ```php
     // Which component to use for displaying the Show page?
     'component' => 'bp-datalist', // options: bp-datagrid, bp-datalist, or a custom component alias
 ```
 
-<a name="step-x" href="#step-x" class="badge badge-danger text-white" style="text-decoration: none;">Step X.</a> **Theme Tabler** - The default layout for theme tabler has changed. If you had the tabler config published you are good to go. **In case you don't have the tabler theme config published** and want to keep the old layout, you should publish it by running `php artisan vendor:publish --tag="theme-tabler-config"` and changing:
+<a name="step-6" href="#step-6" class="badge badge-danger text-white" style="text-decoration: none;">Step 6.</a> **Theme Tabler** - The default layout for theme tabler has changed. If you had the tabler config published you are good to go. **In case you don't have the tabler theme config published** and want to keep the old layout, you should publish it by running `php artisan vendor:publish --tag="theme-tabler-config"` and changing:
 ```diff
 - 'layout' => 'horizontal',
 + 'layout' => 'horizontal_overlap',
@@ -120,25 +134,23 @@ You should also remove the glass skin and fuzzy background from the theme styles
 <a name="controllers"></a>
 ### CrudControllers
 
-<a name="step-x" href="#step-x" class="badge badge-danger text-white" style="text-decoration: none;">Step X.</a> The `wysiwyg` field and column have been removed, because they were hiding functionality. But don't worry, they were just alias columns. Behind the scenes, they were just loading the `ckeditor` field and `text` column respectively. If you're using the `wysiwyg` column of field in your CrudController, replace them with their originals.
+<a name="step-7" href="#step-7" class="badge badge-danger text-white" style="text-decoration: none;">Step 7.</a> The `wysiwyg` field and column have been removed, because they were hiding functionality. But don't worry, they were just alias columns. Behind the scenes, they were just loading the `ckeditor` field and `text` column respectively. If you're using the `wysiwyg` column of field in your CrudController, replace them with their originals.
 
-<a name="step-x" href="#step-x" class="badge badge-danger text-white" style="text-decoration: none;">Step X.</a> The `ckeditor` field and column have been moved from the PRO package to an open-source addon. If you are using either of them and want to keep doing so, just run `composer require backpack/ckeditor-field`. Please note that CKEditor is a 3rd party JS library that requires _payment_ when used for commercial purposes (GPL licensed). See their [pricing page](https://ckeditor.com/pricing/) for options. We can give away a few sub-licenses every year - [contact us](https://backpackforlaravel.com/contact) to see if any are still available. If you would rather move away from CKEditor, you can just change your field/column to use `summernote` instead, they are both HTML editors so your content should be compatible. Summernote has more limited editing options, but it's MIT-licensed.
+<a name="step-8" href="#step-8" class="badge badge-danger text-white" style="text-decoration: none;">Step 8.</a> The `ckeditor` field and column have been moved from the PRO package to an open-source addon. If you are using either of them and want to keep doing so, just run `composer require backpack/ckeditor-field`. Please note that CKEditor is a 3rd party JS library that requires _payment_ when used for commercial purposes (GPL licensed). See their [pricing page](https://ckeditor.com/pricing/) for options. We can give away a few sub-licenses every year - [contact us](https://backpackforlaravel.com/contact) to see if any are still available. If you would rather move away from CKEditor, you can just change your field/column to use `summernote` instead, they are both HTML editors so your content should be compatible. Summernote has more limited editing options, but it's MIT-licensed.
 
-<a name="step-x" href="#step-x" class="badge badge-danger text-white" style="text-decoration: none;">Step X.</a> Similarly, the `tinymce` field and column have been moved from the PRO package to an open-source addon. If you are using either of them and want to keep doing so, just run `composer require backpack/tinymce-field`. Please note that TinyMCE is a 3rd party JS library that normally requires _payment_ when used for commercial purposes (GLP licensed). See their [pricing page](https://www.tiny.cloud/pricing/) for options. You can sign-up for [free commercial licenses on their website here](https://www.tiny.cloud/get-tiny/). If you would rather move away from TinyMCE, you can just change your field/column to use `summernote` instead, they are both HTML editors so your content should be compatible. Summernote has more limited editing options, but it's MIT-licensed.
+<a name="step-9" href="#step-9" class="badge badge-danger text-white" style="text-decoration: none;">Step 9.</a> Similarly, the `tinymce` field and column have been moved from the PRO package to an open-source addon. If you are using either of them and want to keep doing so, just run `composer require backpack/tinymce-field`. Please note that TinyMCE is a 3rd party JS library that normally requires _payment_ when used for commercial purposes (GLP licensed). See their [pricing page](https://www.tiny.cloud/pricing/) for options. You can sign-up for [free commercial licenses on their website here](https://www.tiny.cloud/get-tiny/). If you would rather move away from TinyMCE, you can just change your field/column to use `summernote` instead, they are both HTML editors so your content should be compatible. Summernote has more limited editing options, but it's MIT-licensed.
 
 
 <a href="assets"></a>
 ### CSS & JS Assets
 
+All 3rd party dependencies have been updated to their latest versions. A lot of CSS & JS assets have suffered changes. Fortunately, thanks to Basset, we can easily clear the old files and get the new ones.
 
 
 <a name="views"></a>
 ### Views
 
-**List Operation View** - The List Operation view got a huge change. We decoupled the datatable from the view, so that you can use the table anywhere you would like.
-Most of the code is still identical but moved to `datatable.blade.php`. The `list.blade.php` view now only includes the mentioned datatable component.
-
-If you had customized the `list.blade.php` you should move your customizations to `datatable.blade.php`.
+<a name="step-10" href="#step-10" class="badge badge-danger text-white" style="text-decoration: none;">Step 10.</a>  **List Operation View** has received significant changes. We decoupled the datatable from the view, so that you can use the table anywhere you would like. Most of the code is still identical but moved to `datatable.blade.php`. The `list.blade.php` view now only includes the mentioned datatable component. If you had customized the `list.blade.php` you should move your customizations to `datatable.blade.php`.
 
 <a name="security"></a>
 ### Security
@@ -148,7 +160,7 @@ No changes needed.
 <a name="cache"></a>
 ### Cache
 
-<a name="step-Xx" href="#step-xx" class="badge badge-danger text-white" style="text-decoration: none;">Step xx.</a> Clear your app's cache:
+<a name="step-11" href="#step-11" class="badge badge-danger text-white" style="text-decoration: none;">Step 11.</a> Clear your app's cache:
 ```
 php artisan basset:clear
 php artisan config:clear
@@ -160,15 +172,14 @@ If the table view still looks wonky (search bar out of place, big + instead of e
 
 ---
 
-<a name="step-yy" href="#step-yy" class="badge badge-danger text-white" style="text-decoration: none;">Step yy.</a> If your pages are slow to load, that's because Basset caching the assets as you load the pages, so your first pageload will be quite slow. If you find that annoying, run `php artisan basset:cache` to cache all CSS and JS assets. Alternatively, if you want Basset NOT to run because you're making changes to CSS and JS files, you can add `BASSET_DEV_MODE=true` to your `.ENV` file.
+<a name="step-12" href="#step-12" class="badge badge-danger text-white" style="text-decoration: none;">Step 12.</a> If your pages are slow to load, that's because Basset caching the assets as you load the pages, so your first pageload will be quite slow. If you find that annoying, run `php artisan basset:cache` to cache all CSS and JS assets. Alternatively, if you want Basset NOT to run because you're making changes to CSS and JS files, you can add `BASSET_DEV_MODE=true` to your `.ENV` file.
 
 ---
 
 <a name="addons"></a>
 ### Upgrade Add-ons
 
-**backpack/file-manager** Using the File Manager package? Most of the views that weren't in use  were removed, and the dependencies were bumped. If you didn't do any customization you should delete the `resources/views/vendor/elfinder` (`rm -rf resources/views/vendor/elfinder`) folder.
-No need to publish any views anymore if you are not customizing them. If you were, publish the new view files (`php artisan vendor:publish --provider="Backpack\FileManager\FileManagerServiceProvider" --tag="elfinder-views"`). Then apply your customization on the new files, now located at: `resources/views/vendor/backpack/filemanager/`
+**backpack/file-manager** Using the File Manager package? Most of the views that weren't in use  were removed, and the dependencies were bumped. If you didn't do any customization you should delete the `resources/views/vendor/elfinder` (`rm -rf resources/views/vendor/elfinder`) folder. No need to publish any views anymore if you are not customizing them. If you were, publish the new view files (`php artisan vendor:publish --provider="Backpack\FileManager\FileManagerServiceProvider" --tag="elfinder-views"`). Then apply your customization on the new files, now located at: `resources/views/vendor/backpack/filemanager/`
 
 Additional the `browse` and `browse_multiple` **fields/columns** are now part of this package. If you previously made any modifications to this fields/columns you should publish the new views (`php artisan vendor:publish --provider="Backpack\FileManager\FileManagerServiceProvider" --tag="filemanger-fields"` and `php artisan vendor:publish --provider="Backpack\FileManager\FileManagerServiceProvider" --tag="filemanager-columns"`), and carry over the modifications from the old files to this new files.
 
