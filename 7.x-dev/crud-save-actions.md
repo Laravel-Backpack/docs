@@ -19,14 +19,25 @@ There are four save actions registered by Backpack by default. They are:
 <a name="save-action-classes"></a>
 ## Save Action Classes
 
-Save actions are now first-class citizens. Instead of maintaining large array definitions in each CrudController, you can encapsulate the behaviour inside PHP classes that implement `Backpack\CRUD\app\Library\CrudPanel\SaveActions\SaveActionInterface`. Backpack ships with `SaveAndBack`, `SaveAndEdit`, `SaveAndNew`, and `SaveAndPreview` as examples, and also provides `SaveAndList` for projects that want an explicit "Save and go to list" button.
+You can define save actions either as simple arrays (inside the API methods) or as classes (starting with Backpack v7). Creating classes for your save actions has multiple benefits:
+- any call will only occupy one line in your CrudController (instead of 10);
+- you can easily re-use that saveaction in other CrudControllers;
 
-### Quick start
+Backpack ships with a few save action classes itself:
+- `SaveAndBack`, `SaveAndEdit`, `SaveAndNew` and `SaveAndPreview` are the default;
+- `SaveAndList` is also present, but not used (for projects that want an explicit "Save and go to list" button);
+
+### How to create a Save Action Class
+
+To create a save action class:
 
 1. **Create a class** inside your application (for example `app/Backpack/Crud/SaveActions/SaveAndApprove.php`).
 2. **Extend** `AbstractSaveAction` (recommended) or implement `SaveActionInterface` directly.
 3. **Override** the methods that describe your button.
-4. **Register** the class with `CRUD::addSaveAction()` / `CRUD::replaceSaveActions()` or pass it to Blade components like `<x-bp-dataform>`.
+
+That's it, you can now use the class with `CRUD::addSaveAction()` / `CRUD::replaceSaveActions()` or pass it to Blade components like `<x-bp-dataform>`.
+
+Here's an example of a custom save action class:
 
 ```php
 <?php
@@ -111,6 +122,10 @@ Inside your CrudController, inside your ```setupCreateOperation()``` or ```setup
 Adds a new SaveAction to the "Save" button/dropdown.
 
 ```php
+// using save action classes
+CRUD::addSaveAction(SaveAndGoWild::class);
+
+// using an array (the save action gets defined on the spot)
 CRUD::addSaveAction([
     'name' => 'save_action_one',
     'redirect' => function($crud, $request, $itemId) {
@@ -136,6 +151,10 @@ CRUD::addSaveAction([
 The same principle of `addSaveAction([])` but for adding multiple actions with only one crud call.
 
 ```php
+// using save action classes
+CRUD::addSaveActions([SaveAndGoWild::class, SaveAndGoNuts::class]);
+
+// using arrays (the save actions get defined on the spot)
 CRUD::addSaveActions([
     [
         'name' => 'save_action_one',
@@ -181,6 +200,10 @@ CRUD::replaceSaveActions(
 
 This allows you to remove a specific save action from the save actions array. Provide the name of the save action that you would like to remove.
 ```php
+// using class actions
+CRUD::removeSaveAction(SaveAndGoWild::class);
+
+// using the action name
 CRUD::removeSaveAction('save_action_one');
 ```
 
@@ -188,6 +211,7 @@ CRUD::removeSaveAction('save_action_one');
 
 The same principle as `removeSaveAction()` but to remove multiple actions at same time. You should provide an array with save action names.
 ```php
+CRUD::removeSaveActions([SaveAndGoWild::class, SaveAndGoNuts::class]);
 CRUD::removeSaveActions(['save_action_one','save_action_two']);
 ```
 
@@ -196,6 +220,7 @@ CRUD::removeSaveActions(['save_action_one','save_action_two']);
 You can specify a certain order for a certain save action.
 
 ```php
+CRUD::orderSaveAction(SaveAndGoWild::class, 1);
 CRUD::orderSaveAction('save_action_one', 1);
 ```
 
@@ -208,8 +233,11 @@ Allows you to reorder multiple save actions at same time. You can use it by eith
 ```php
 // make save actions show up in this order
 CRUD::orderSaveActions(['save_action_one','save_action_two']);
+CRUD::orderSaveActions([SaveAndGoWild::class, SaveAndGoNuts::class]);
+
 // or
 CRUD::orderSaveActions(['save_action_one' => 3,'save_action_two' => 2]);
+CRUD::orderSaveActions([SaveAndGoWild::class => 3, SaveAndGoNuts::class => 2]);
 ```
 
 #### setSaveActions(array $saveActions)
