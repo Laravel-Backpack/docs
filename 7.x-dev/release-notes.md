@@ -2,7 +2,7 @@
 
 ---
 
-**Planned launch date:** August 1st, 2025
+**Planned launch date:** November 21st, 2025
 
 For the past 2.5 years, we've done our very best to make all changes to Backpack in a backwards-compatible way. To not push a new version, because we know it's a pain to upgrade stuff. But... it's time for a new release. Have no fear though, we've made this super easy for you - and the new features & bug fixes are worth it!
 
@@ -128,17 +128,14 @@ A revolution in how easy it is to load CSS and JS assets in PHP, but we found ou
 - use Basset on localhost (to code without an internet connection);
 - store your assets in Git, so there's zero need to run basset in production;
 
-For more information, check out [the docs for Basset's next version](https://github.com/Laravel-Backpack/basset/tree/next).
+For more information, check out [the docs for Basset's next version](https://github.com/Laravel-Backpack/basset).
 
-### Parent Theme
-
-// TODO: docs
 
 <a name="removed"></a>
 ## Removed
 
-- Support for Laravel 10?! 👀
-- Support for PHP lower than 8.2?
+- Support for Laravel 10 and Laravel 11
+- Support for PHP lower than 8.2
 
 ---
 
