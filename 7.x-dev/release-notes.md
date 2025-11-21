@@ -69,6 +69,42 @@ Starting with this Backpack version, you can use the [filters](/docs/{{version}}
 
 Filters can now be used inside [Custom Views for your List operation](https://backpackforlaravel.com/docs/{{version}}/crud-operation-list-entries#custom-views-for-listoperation-pro). This means once the admin has selected the Custom View, they can further drill down in the list, using the filters. But not only that... you can _remove_ the general filters and add entirely new filters, just for that Custom View.
 
+### SaveAction Classes
+
+Save actions are now first-class citizens. Instead of maintaining large array definitions in each CrudController, you can encapsulate the behaviour inside PHP classes that implement Backpack\CRUD\app\Library\CrudPanel\SaveActions\SaveActionInterface. Backpack ships with 
+- `SaveAndBack`, `SaveAndEdit`, `SaveAndNew` and `SaveAndPreview` as defaults;
+- other examples like `SaveAndList`, that you can easily use (more coming as needed);
+
+There's a huge difference, when you create your own SaveAction classes:
+
+```php
+
+// you get to do this in your CrudController
+CRUD::addSaveAction(SaveActionOne::class);
+
+// instead of all this
+CRUD::addSaveAction([
+    'name' => 'save_action_one',
+    'redirect' => function($crud, $request, $itemId) {
+        return $crud->route;
+    }, // what's the redirect URL, where the user will be taken after saving?
+
+    // OPTIONAL:
+    'button_text' => 'Custom save message', // override text appearing on the button
+    // You can also provide translatable texts, for example:
+    // 'button_text' => trans('backpack::crud.save_action_one'),
+    'visible' => function($crud) {
+        return true;
+    }, // customize when this save action is visible for the current operation
+    'referrer_url' => function($crud, $request, $itemId) {
+        return $crud->route;
+    }, // override http_referrer_url
+    'order' => 1, // change the order save actions are in
+]);
+```
+
+For more information, see the [SaveAction docs](https://backpackforlaravel.com/docs/{{version}}/crud-save-actions#save-action-classes-1).
+
 <a name="changed"></a>
 ## Changed
 
