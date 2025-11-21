@@ -5,7 +5,7 @@
 <a name="about"></a>
 ## About
 
-A chips helps show the information of a database entry, in a format that takes up little space visually. It can be used anywhere you want, but it's particularly useful inside operations to:
+A chip helps show the information of a database entry, in a format that takes up little space visually. It can be used anywhere you want, but it's particularly useful inside operations to:
 - show more info inside a table cell in the **ListOperation**;
 - show a related item in more detail in the **ShowOperation**;
 
