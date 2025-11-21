@@ -150,27 +150,59 @@ All 3rd party dependencies have been updated to their latest versions. A lot of 
 <a name="views"></a>
 ### Views
 
-<a name="step-10" href="#step-10" class="badge badge-danger text-white" style="text-decoration: none;">Step 10.</a>  **List Operation View** has received significant changes. We decoupled the datatable from the view, so that you can use the table anywhere you would like. Most of the code is still identical but moved to `datatable.blade.php`. The `list.blade.php` view now only includes the mentioned datatable component. If you had customized the `list.blade.php` you should move your customizations to `datatable.blade.php`.
+<a name="step-10" href="#step-10" class="badge badge-warning text-white" style="text-decoration: none;">Step 10.</a>  Many **views** have suffered tiny changes, for various reasons. They should still work in your context, but you should consider updating them to get the latest features. Here's a quick way to see if you have overidden any core files from Backpack packages, and those files have had changes:
 
-<a name="step-11" href="#step-11" class="badge badge-danger text-white" style="text-decoration: none;">Step 11.</a>  **Filters Views** from Backpack/PRO have all suffered considerable changes, mostly to their JS. That's because we've liberated them - and [filters can now we used in custom pages as well](/docs/{{version}}/crud-filters#use-filters-on-custom-admin-panel-pages). If you have overridden the default filters, or created custom filters - they should still work. But to make them work on custom pages, you should do the same changes we did. Do diff between your files and ours, to see the difference. You can do that using a diff app like [Kaleidoscope](https://kaleidoscope.app/) or using the `diff` command in your terminal. For example:
+```
+# run this in your terminal, to register these 2 custom functions
+# the functions will only be available in the current terminal session
+# (if you close the terminal, the functions need to be pasted again)
+
+# anychange()
+# - receives 2 directories as parameters
+# - the result is a list of files that are present in both directories, but have differences
+
+anychange() { src=${1%/}; dst=${2%/}; find "$src" -type f -print0 | while IFS= read -r -d '' f; do rel=${f#"$src/"}; g="$dst/$rel"; if [ -f "$g" ] && ! cmp -s "$f" "$g"; then echo "$rel"; fi; done; }
+
+# anydiff()
+# - receives 2 directories as parameters
+# - the result is the actual diffs of files that are present in both directories, but have differences
+
+anydiff() { src=${1%/}; dst=${2%/}; find "$src" -type f -print0 | while IFS= read -r -d '' f; do rel=${f#"$src/"}; g="$dst/$rel"; [ -f "$g" ] && echo ">>> Diff for $rel" && diff -u "$f" "$g" && echo; done; }
+```
+
+Here are the commands we recommend you run, at a minimum:
+```
+anychange resources/views/vendor/backpack/crud vendor/backpack/crud/src/resources/views/crud
+anychange resources/views/vendor/backpack/ui vendor/backpack/crud/src/resources/views/ui
+anychange resources/views/vendor/backpack/crud vendor/backpack/pro/resources/views
+```
+
+If _you do_ have differences, you can then do a diff between your files and ours, to see the difference. You can do that using a diff app like [Kaleidoscope](https://kaleidoscope.app/) or using the `diff` command in your terminal. For example:
+
+```
+# compare the file from the project with the new file from the package
+diff resources/views/vendor/backpack/crud/fields/datetime_picker.blade.php vendor/backpack/pro/resources/views/fields/datetime_picker.blade.php
+```
+
+<a name="step-10a" href="#step-10a" class="badge badge-danger text-white" style="text-decoration: none;">Step 10.A.</a> If the `anychange` command has told you there are differences in the list operation. Yes, the **List Operation view** has received significant changes. We decoupled the datatable from the view, so that you can use the table anywhere you would like. Most of the code is still identical but moved to `datatable.blade.php`. The `list.blade.php` view now only includes the mentioned datatable component. If you had customized the `list.blade.php` you should move your customizations to `datatable.blade.php`. If you've overidden it, you should do a diff and implement the changes. You can do that using a diff app like [Kaleidoscope](https://kaleidoscope.app/) or using the `diff` command in your terminal. For example:
+
+```
+# compare the file from the project with the new file from the package
+diff resources/views/vendor/backpack/crud/list.blade.php vendor/backpack/crud/src/resources/views/crud/list.blade.php
+```
+
+<a name="step-10b" href="#step-10b" class="badge badge-danger text-white" style="text-decoration: none;">Step 10.B.</a> If the `anychange` command has told you there are differences in the filters. Yes,  **Filters Views** from Backpack/PRO have all suffered considerable changes, mostly to their JS. That's because we've liberated them - and [filters can now we used in custom pages as well](/docs/{{version}}/crud-filters#use-filters-on-custom-admin-panel-pages). If you have overridden the default filters, or created custom filters - they should still work. But to make them work on custom pages, you should do the same changes we did.  If you've overidden it, you should do a diff and implement the changes. You can do that using a diff app like [Kaleidoscope](https://kaleidoscope.app/) or using the `diff` command in your terminal. For example:
 
 ```
 # compare the file from the project with the new file from the package
 diff resources/views/vendor/backpack/crud/filters/simple.blade.php vendor/backpack/pro/resources/views/filters/simple.blade.php
 ```
 
-<a name="step-12" href="#step-12" class="badge warning text-white" style="text-decoration: none;">Step 12.</a>  **Select2 Fields** from Backpack/PRO have all suffered tiny changes, to make them work inside the DataForm Modal. If you have overridden `select2_multiple`, `select2_nested`, `select2_json_from_api`, `select2_grouped`, `select2_from_array`, `select2_from_ajax`, `select2_from_ajax_multiple`, `select2` or `relationship`... or created any custom select2 fields - they should still work in your context. But to make them work inside the DataForm modal, you should do the same tiny changes we did. Do a diff between your files and ours, to see the difference. You can do that using a diff app like [Kaleidoscope](https://kaleidoscope.app/) or using the `diff` command in your terminal. For example:
+<a name="step-10c" href="#step-12c" class="badge badge-warning text-white" style="text-decoration: none;">Step 12.C.</a> If the `anychange` command has told you there are differences in the select2 fields. Yes, **Select2 Fields** from Backpack/PRO have all suffered tiny changes, to make them work inside the DataForm Modal. If you have overridden `select2_multiple`, `select2_nested`, `select2_json_from_api`, `select2_grouped`, `select2_from_array`, `select2_from_ajax`, `select2_from_ajax_multiple`, `select2` or `relationship`... or created any custom select2 fields - they should still work in your context. But to make them work inside the DataForm modal, you should do the same tiny changes we did. Do a diff between your files and ours, to see the difference. You can do that using a diff app like [Kaleidoscope](https://kaleidoscope.app/) or using the `diff` command in your terminal. For example:
 
 ```
 # compare the file from the project with the new file from the package
 diff resources/views/vendor/backpack/crud/fields/select2_multiple.blade.php vendor/backpack/pro/resources/views/fields/select2_multiple.blade.php
-```
-
-<a name="step-13" href="#step-13" class="badge warning text-white" style="text-decoration: none;">Step 13.</a>  **Other Fields** from Backpack/PRO have suffered tiny changes, for various reasons. They should still work in your context, but you should consider updating them to get the latest features. If you have any other files in your `resources/views/vendor/backpack/crud/fields`, do a diff between your files and ours, to see the difference. You can do that using a diff app like [Kaleidoscope](https://kaleidoscope.app/) or using the `diff` command in your terminal. For example:
-
-```
-# compare the file from the project with the new file from the package
-diff resources/views/vendor/backpack/crud/fields/datetime_picker.blade.php vendor/backpack/pro/resources/views/fields/datetime_picker.blade.php
 ```
 
 <a name="security"></a>
@@ -181,7 +213,7 @@ No changes needed.
 <a name="cache"></a>
 ### Cache
 
-<a name="step-14" href="#step-14" class="badge badge-danger text-white" style="text-decoration: none;">Step 14.</a> Clear your app's cache:
+<a name="step-11" href="#step-11" class="badge badge-danger text-white" style="text-decoration: none;">Step 11.</a> Clear your app's cache:
 ```
 php artisan basset:clear
 php artisan config:clear
@@ -193,7 +225,7 @@ If the table view still looks wonky (search bar out of place, big + instead of e
 
 ---
 
-<a name="step-15" href="#step-15" class="badge badge-danger text-white" style="text-decoration: none;">Step 15.</a> If your pages are slow to load, that's because Basset caching the assets as you load the pages, so your first pageload will be quite slow. If you find that annoying, run `php artisan basset:cache` to cache all CSS and JS assets. Alternatively, if you want Basset NOT to run because you're making changes to CSS and JS files, you can add `BASSET_DEV_MODE=true` to your `.ENV` file.
+<a name="step-12" href="#step-12" class="badge badge-danger text-white" style="text-decoration: none;">Step 12.</a> If your pages are slow to load, that's because Basset caching the assets as you load the pages, so your first pageload will be quite slow. If you find that annoying, run `php artisan basset:cache` to cache all CSS and JS assets. Alternatively, if you want Basset NOT to run because you're making changes to CSS and JS files, you can add `BASSET_DEV_MODE=true` to your `.ENV` file.
 
 ---
 
