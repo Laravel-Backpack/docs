@@ -4,15 +4,13 @@
 
 This will guide you to upgrade from Backpack v6 to v7. The steps are color-coded by the probability that you will need it for your application: <span class="badge badge-danger text-white" style="text-decoration: none;">High</span>, <span class="badge badge-warning text-white" style="text-decoration: none;">Medium</span> and <span class="badge badge-secondary-soft" style="text-decoration: none;">Low</span>.  **At the very least, please read what's in bold**.
 
-> IMPORTANT NOTE: This upgrade guide is NOT AT ALL final. We do not recommend you upgrade your existing project to v7. We're working on making the upgrade process easier for you. We will let you know when this changes.
-
 <a name="requirements"></a>
 ## Requirements
 
 Please make sure your project respects the requirements below, before you start the upgrade process. You can check with ```php artisan backpack:version```:
 
-- PHP 8.1+
-- Laravel 11.x
+- PHP 8.2+
+- Laravel 12.x
 - Backpack\CRUD 6.x
 - 5-10 minutes (for most projects)
 
