@@ -593,7 +593,7 @@ $this->crud->addColumn([  // Select
    'attribute' => 'name', // foreign key attribute that is shown to user
    'orderable' => true,
    'orderLogic' => function ($query, $column, $columnDirection) {
-        return $query->leftJoin('categories', 'categories.id', '=', 'articles.select')
+        return $query->leftJoin('categories', 'categories.id', '=', 'articles.category_id')
             ->orderBy('categories.name', $columnDirection)->select('articles.*');
     }
 ]);
