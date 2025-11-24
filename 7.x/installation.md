@@ -24,14 +24,10 @@ For the following process, we assume:
 Go to your Laravel project's directory, then in your terminal, run:
 
 ``` bash
-# during beta, configure your Composer.json to accept unstable version, by running:
-composer config minimum-stability dev
-composer config prefer-stable true
+# first, require Backpack:
+composer require backpack/crud:"^7.0"
 
-# then require the v7-beta:
-composer require backpack/crud:"^7.0@dev"
-
-# and finally, install Backpack:
+# then, run the installation command:
 php artisan backpack:install
 ```
 

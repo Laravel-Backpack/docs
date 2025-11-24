@@ -67,7 +67,7 @@ Backpack has never had a critical vulnerability/hack. But there _have_ been impo
 <a name="maintenance"></a>
 ### Maintenance
 
-Backpack 4.1 is the current version, and is being actively maintained by the Backpack team, with the help of a wonderful community of Backpack veterans. [See all contributors](https://github.com/Laravel-Backpack/CRUD/graphs/contributors).
+Backpack v4.1 is no longer the current version. Please upgrade to continue receiving updates.
 
 <a name="license"></a>
 ### License

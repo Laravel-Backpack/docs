@@ -1264,4 +1264,4 @@ public function setupCommentOperation(): void
 That's it. This all you needed to do to achieve a working operation with a Backpack form, that looks a lot like this:
 
 
-![Custom form operation in Backpack v6](https://github.com/Laravel-Backpack/CRUD/assets/1032474/0bc88660-70d5-41c8-a298-b8a971fd9539)
+![Custom form operation in Backpack](https://github.com/Laravel-Backpack/CRUD/assets/1032474/0bc88660-70d5-41c8-a298-b8a971fd9539)

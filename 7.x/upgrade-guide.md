@@ -14,7 +14,7 @@ Please make sure your project respects the requirements below, before you start 
 - Backpack\CRUD 6.x
 - 5-10 minutes (for most projects)
 
-**If you're running Backpack version 3.x-5.x, please follow ALL other upgrade guides first, to incrementally get to use Backpack v6**. Test that your app works well with each version, after each upgrade. Only _afterwards_ can you follow this guide, to upgrade from v5 to v6. Previous upgrade guides:
+**If you're running Backpack version 3.x-5.x, please follow ALL other upgrade guides first, to incrementally get to use Backpack v6**. Test that your app works well with each version, after each upgrade. Only _afterwards_ can you follow this guide, to upgrade from v6 to v7. Previous upgrade guides:
 - [upgrade from 5.x to 6.x](https://backpackforlaravel.com/docs/6.x/upgrade-guide);
 - [upgrade from 4.1 to 5.x](https://backpackforlaravel.com/docs/5.x/upgrade-guide);
 - [upgrade from 4.0 to 4.1](https://backpackforlaravel.com/docs/4.1/upgrade-guide);
@@ -53,16 +53,16 @@ Now you should be running Backpack v7, with a lot of the steps below already fin
 <a name="step-2" href="#step-2" class="badge badge-danger text-white" style="text-decoration: none;">Step 2.</a> Your `composer.json` should require the new version of Backpack CRUD:
 
 ```
-        "backpack/crud": "^7.0.0-beta",
+        "backpack/crud": "^7.0",
 ```
 
 <a name="step-3" href="#step-3" class="badge badge-danger text-white" style="text-decoration: none;">Step 3.</a> Bump the version of any first-party Backpack add-ons you have installed (eg. `backpack/pro`, `backpack/editable-columns` etc.) to the versions that support Backpack v6. For 3rd-party add-ons, please check each add-on's Github page. Here's a quick list of 1st party packages and versions:
 
 ```js
-    'backpack/crud' => '^7.0.0-beta',
-    'backpack/theme-coreuiv2' => 'dev-next',
+    'backpack/crud' => '^7.0',
+    'backpack/theme-coreuiv2' => '^2.0',
     'backpack/theme-coreuiv4' => '^1.2',
-    'backpack/theme-tabler' => 'dev-next',
+    'backpack/theme-tabler' => '^2.0',
     'backpack/logmanager' => '^5.1',
     'backpack/settings' => '^3.2',
     'backpack/newscrud' => '^5.2',
@@ -84,9 +84,6 @@ Now you should be running Backpack v7, with a lot of the steps below already fin
     'backpack/ckeditor-field' => '^1.0',
     'backpack/tinymce-field' => '^1.0',
 ```
-
-> **Note:** To install Backpack v7 beta and its add-ons, set `"minimum-stability": "beta"` in your `composer.json`.
-
 
 <a name="models"></a>
 ### Models

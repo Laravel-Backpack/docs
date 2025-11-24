@@ -5,7 +5,7 @@
 <a name="about"></a>
 ## About
 
-Backpack v6 provides three new themes:
+Backpack provides three themes:
 - `backpack/theme-tabler` - includes Tabler, the excellent Bootstrap 5 HTML template;
 - `backpack/theme-coreuiv2` - includes Backstrap, which is a CoreUI v2 fork we used in Backpack v5;
 - `backpack/theme-coreuiv4` - includes CoreUI v4;
@@ -92,7 +92,7 @@ Replace `{themeName}` and `{language}` with the theme name and language you want
 - 3 alternative authentication views (default, cover, image);
 - 9 alternative layouts (horizontal, horizontal overlap, horizontal dark, vertical, vertical dark, vertical transparent, right vertical, right vertical dark, right vertical transparent);
 
-We believe Tabler is the best HTML template on the market right now, with many _many_ HTML components to choose from, which is why we've chosen Tabler as the default theme for Backpack v6.
+We believe Tabler is the best HTML template on the market right now, with many _many_ HTML components to choose from, which is why we've chosen Tabler as the default theme for Backpack.
 
 For more information and installation steps, see [`backpack/theme-tabler`](https://github.com/Laravel-Backpack/theme-tabler) on Github.
 
@@ -103,10 +103,10 @@ To get more information on Backpack specific built-in components for tabler, ple
 
 ![](https://user-images.githubusercontent.com/1032474/240272550-456499a0-ef31-48a1-a985-1de3ff6107e5.png)
 
-[`backpack/theme-coreuiv2`](https://github.com/Laravel-Backpack/theme-coreuiv2) is a legacy theme. It provides the views from Backpack v5... to Backpack v6 users. It serves three purposes:
-- allows Backpack developers who need Internet Explorer support to upgrade to Backpack v6;
-- allows Backpack developers who have _heavily_ customized their blade files to upgrade to Backpack v6;
-- allows Backpack developers to easily upgrade from v5 to v6, by using this theme with few breaking changes, before moving to one with a lot more breaking changes;
+[`backpack/theme-coreuiv2`](https://github.com/Laravel-Backpack/theme-coreuiv2) is a legacy theme. It provides the views from Backpack v5... to Backpack v6 and v7 users. It serves three purposes:
+- allows Backpack developers who need Internet Explorer support to upgrade to Backpack v6 & v7;
+- allows Backpack developers who have _heavily_ customized their blade files to upgrade to Backpack v6 & v7;
+- allows Backpack developers to easily upgrade from v5 to v6 and v7, by using this theme with few breaking changes, before moving to one with a lot more breaking changes;
 
 We do not recommend using this theme in production, long-term. We recommend using `theme-coreuiv4` or ideally `theme-tabler`, which use Bootstrap 5. But we do understand some projects are too difficult to upgrade or migrate, and for those projects we've spent the time to create this theme.
 
@@ -124,7 +124,9 @@ For more information and installation steps, see [`backpack/theme-coreuiv4`](htt
 <a name="what-theme-should-i-use"></a>
 ## What Theme Should I Use
 
-Backpack v6 has launched with 3 themes from day one, to cater for the most scenarios possible:
+**Short answer:** Tabler.
+
+**Long answer:** Backpack has 3 themes, to cater for the most scenarios possible:
 - **if you're starting a new project, use `backpack/theme-tabler`**; it's the newest theme, with the most features: dark mode, vertical layouts, alternative auth views and many more HTML components to choose from, in your custom pages;
 - **if you're upgrading an old project**, depending on how many files there are in your `resources/views/vendor/backpack/`, under the `base` or `ui` directories:
     - if you don't have many files (1-5), use `backpack/theme-tabler`;

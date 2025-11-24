@@ -25,13 +25,13 @@ No:
 <a name="backpack-license-for-open-source-projects"></a>
 ### Can I use Backpack to create an open-source project?
 
-Yes you can! Use [Backpack CRUD v6](https://github.com/laravel-backpack/crud), which is free and open-source, released under the MIT License.
+Yes you can! Use [Backpack CRUD](https://github.com/laravel-backpack/crud), which is free and open-source, released under the MIT License.
 
 
 <a name="backpack-pro-for-open-source-projects"></a>
 ### Can I use Backpack PRO in an open-source project?
 
-In short - no, you cannot. Please use [Backpack CRUD v6](https://github.com/laravel-backpack/crud) instead, which is free and open-source, released under the MIT License.
+In short - no, you cannot. Please use [Backpack CRUD](https://github.com/laravel-backpack/crud) instead, which is free and open-source, released under the MIT License.
 
 Backpack PRO is a closed-source add-on, which requires payment in order to receive an access token. If you did include `backpack/pro` as a dependency in your open-source software, then your software would no longer be open-source. Everybody who installed your project/package would need to pay for Backpack PRO to get access to it.
 
@@ -39,7 +39,7 @@ Backpack PRO is a closed-source add-on, which requires payment in order to recei
 <a name="backpack-pro-for-non-commercial-projects"></a>
 ### Can I get Backpack PRO for free to use in a non-commercial project?
 
-No - we're no longer giving away free licenses. But we _have_ released Backpack CRUD v5 and v6 under the MIT License, which means it's free and open-source. It has fewer features, but you can do absolutely do anything you want with it.
+No - we're no longer giving away free licenses. But we _have_ released Backpack CRUD under the MIT License, which means it's free and open-source. It has fewer features, but you can do absolutely do anything you want with it.
 
 <a name="Installation"></a>
 ## Installation

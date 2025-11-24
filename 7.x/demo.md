@@ -8,7 +8,7 @@ We've put together a working Laravel app (backend-only). This should make it eas
 - change stuff in code, to see how easy it is to customize Backpack;
 
 In this [Demo repository](https://github.com/laravel-backpack/demo), we've:
-- installed Laravel 11;
+- installed Laravel 12;
 - installed Backpack\CRUD; <span class="badge badge-pill badge-success">FREE</span>
 - installed Backpack\PRO; <span class="badge badge-pill badge-info">PRO</span>
 - installed Backpack\Editable-Columns; <span class="badge badge-pill badge-warning">PREMIUM</span>

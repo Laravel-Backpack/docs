@@ -56,7 +56,7 @@ We heavily recommend you spend a little time to understand Backpack, and only af
 <a name="requirements"></a>
 ### Requirements
 
-  - Laravel 10.x or 11.x or 12.x
+  - Laravel 12.x
   - MySQL / PostgreSQL / SQLite / SQL Server
 
 <a name="how-does-it-look"></a>
@@ -72,7 +72,7 @@ Backpack has never had a critical vulnerability/hack. But there _have_ been impo
 <a name="maintenance"></a>
 ### Maintenance
 
-Backpack v6 is the current version and is actively maintained by the Backpack team, with the help of a wonderful community of Backpack veterans. [See all contributors](https://github.com/Laravel-Backpack/CRUD/graphs/contributors).
+Backpack v7 is the current version and is actively maintained by the Backpack team, with the help of a wonderful community of Backpack veterans. [See all contributors](https://github.com/Laravel-Backpack/CRUD/graphs/contributors).
 
 <a name="license"></a>
 ### License
