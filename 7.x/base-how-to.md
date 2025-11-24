@@ -143,6 +143,24 @@ In ```config/backpack/ui.php``` you'll notice this config option:
 
 You can add files to this array, and they'll be loaded in all admin panels pages.
 
+<a name="add-custom-icons"></a>
+### Add custom icons in admin panel pages
+
+Backpack uses Line Awesome by default. In you custom pages and features, it's recommended that you [choose icons from the LineAwesome website](https://icons8.com/line-awesome) - and use it the same way Backpack does (eg. `<i class="la la-home">`). One reason we chose Line Awesome is that it provides tons of icons, so you should be able to find icons for whatever you need.
+
+However, if you want to add you own iconset, you can also do that. Since an iconset should only be a CSS file, you use the same procedure to add that iconset to your admin panel. In ```config/backpack/ui.php``` you'll notice this config option:
+
+```php
+    // CSS files that are loaded in all pages, using Laravel's asset() helper
+    'styles' => [
+        // Example file from disk:
+        'path/to/file.css',
+
+        // Example file from CDN:
+        // 'https://maxcdn.icons8.com/fonts/line-awesome/1.1/css/line-awesome-font-awesome.min.css',
+    ],
+```
+
 <a name="customize-overlays-css"></a>
 ### Customize the look and feel of the admin panel (using CSS)
 
