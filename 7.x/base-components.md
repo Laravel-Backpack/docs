@@ -97,7 +97,7 @@ This component helps you show a form _anywhere you want_, so the admin can easil
 ```
 
 **Configuration options:**
-- `operation='create'` - by default, the datatable component will pick up everything that controller sets up for the Create operation; if you want to change the operation it will initialize, you can pass this parameter;
+- `form-operation='create'` - by default, the datatable component will pick up everything that controller sets up for the Create operation; if you want to change the operation it will initialize, you can pass this parameter;
 - `:entry="\App\Models\Invoice::find(1)"` - if you want to use UpdateOperation or a custom form operation that needs the entry;
 - `:setup="function($crud, $parent) {}"` - if you want to make changes to the operation setup (eg. add/remove fields, configure functionality), you can use this parameter; the closure passed here will be run _after_ the setup of that operation had already completed;
 - `:save-actions="[]"` - provide an array of save action definitions or save action classes to replace the defaults (see [Custom save actions](#dataform-custom-save-actions));
@@ -109,7 +109,7 @@ This component helps you show a form _anywhere you want_, so the admin can easil
 <x-bp-dataform
     controller="\App\Http\Controllers\Admin\InvoiceCrudController"
     name="invoice_form"
-    operation="update"
+    form-operation="update"
     :entry="\App\Models\Invoice::find(1)"
     :setup="function($crud, $parent) {
         $crud->removeColumn('notes');
@@ -166,10 +166,11 @@ use \Backpack\DataformModal\Http\Controllers\Operations\CreateInModalOperation;
 ```
 
 **Configuration options:**
-- `operation='createInModal'` - by default, the component will pick up everything that controller sets up for the Create operation; if you want to change the operation it will initialize, you can pass this parameter, eg: `updateInModal`
+- `form-operation='createInModal'` - by default, the component will pick up everything that controller sets up for the Create operation; if you want to change the operation it will initialize, you can pass this parameter, eg: `updateInModal`
 - `:entry="\App\Models\Invoice::find(1)"` - if you want to use UpdateInModalOperation or a custom form operation that needs the entry;
 - `:setup="function($crud, $parent) {}"` - if you want to make changes to the operation setup (eg. add/remove fields, configure functionality), you can use this parameter; the closure passed here will be run _after_ the setup of that operation had already completed;
 - `:save-actions="[]"` - replace the default modal buttons with your own save action classes.
+- `:form-inside-card="true"` - render the form inside a Backpack card wrapper so it visually matches the default create/update screens; leave it `false` to output only the raw form markup.
 
 **Advanced example:**
 
@@ -177,7 +178,7 @@ use \Backpack\DataformModal\Http\Controllers\Operations\CreateInModalOperation;
 <x-bp-dataform-modal
     controller="\App\Http\Controllers\Admin\InvoiceCrudController"
     name="invoice_form"
-    operation="updateInModal"
+    form-operation="updateInModal"
     :entry="\App\Models\Invoice::find(1)"
     :setup="function($crud, $parent) {
         $crud->removeColumn('notes');
@@ -201,9 +202,10 @@ Useful if you want to show the entries in the database, for an Eloquent model. T
 
 **Configuration options:**
 - `name='invoices_datatable'` - by default, a name will be generated; but you can pick one you can recognize;
-- `operation='list'` - by default, the datatable component will pick up everything that controller sets up for the List operation; if you want to change the operation it will initialize, you can pass this parameter;
+- `form-operation='list'` - by default, the datatable component will pick up everything that controller sets up for the List operation; if you want to change the operation it will initialize, you can pass this parameter;
 - `:useFixedHeader="false"` - set this to explicitly enable or disable the sticky header; it defaults to the operation's `useFixedHeader` setting, falling back to `true`;
 - `:setup="function($crud, $parent) {}"` - if you want to make changes to the operation setup (eg. add/remove columns, configure functionality), you can use this parameter; the closure passed here will be run _after_ the setup of that operation had already completed;
+- `:form-inside-card="true"` - render the form inside a Backpack card wrapper so it visually matches the default create/update screens; leave it `false` to output only the raw form markup.
 
 **Advanced example:**
 
@@ -211,7 +213,7 @@ Useful if you want to show the entries in the database, for an Eloquent model. T
 <x-bp-datatable
     controller="\App\Http\Controllers\Admin\InvoiceCrudController"
     name="invoices"
-    operation="show"
+    form-operation="show"
     :setup="function($crud, $parent) {
         if ($parent) {
             $crud->addClause('where', 'customer_id', $parent->id);
