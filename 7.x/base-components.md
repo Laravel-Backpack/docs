@@ -149,6 +149,8 @@ Backpack will replace the default actions for that form, honour the order define
 <a name="dataform-modal"></a>
 ### Dataform Modal
 
+**!! IMPORTANT !!** - This is a **PAID** package that is accessible only to "Everything" customers.
+
 ![Backpack v7 Dataform Modal component](https://backpackforlaravel.com/uploads/v7/dataform_component.jpg)
 
 This component helps you show a form _anywhere you want_ inside a modal, so the admin can easily create or edit an entry for an Eloquent model without having to refresh the whole page.
