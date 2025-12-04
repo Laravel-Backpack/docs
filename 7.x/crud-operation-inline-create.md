@@ -30,6 +30,8 @@ In addition, it needs:
     - the _main entity_ would be Article (big form); 
     - the _secondary entity_ would be Category (small form, in a modal);
 
+> **NOTE**: It does not work with HasMany relationships, as those relationships require the "_main_" entity to be created before the "_secondary_" entity. 
+
 <a name="how-to-use"></a>
 ## How to Use
 
