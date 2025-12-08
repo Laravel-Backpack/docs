@@ -149,7 +149,7 @@ Backpack will replace the default actions for that form, honour the order define
 <a name="dataform-modal"></a>
 ### Dataform Modal
 
-**!! IMPORTANT !!** - This is a **PAID** package that is accessible only to "Everything" customers.
+> IMPORTANT: This is a **PAID** package. You can get access to it by purchasing [our Everything bundle](https://backpackforlaravel.com/pricing) or by [buying separate access to dataform-modal here](https://backpackforlaravel.com/products/dataform-modal).
 
 ![Backpack v7 Dataform Modal component](https://backpackforlaravel.com/uploads/v7/dataform_component.jpg)
 
