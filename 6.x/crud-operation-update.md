@@ -387,7 +387,7 @@ When you update a translatable entry you choose in what language you want to cre
 When the entry has no translations in the chosen language for translation, you will get the option to select another language to copy the translations from. 
 
 
-
+![https://backpackforlaravel.com/uploads/docs/translatable-bar.png](https://backpackforlaravel.com/uploads/docs/translatable-bar.png)
 
 
 Additionally, if you have slugs (but only if you need translatable slugs), you'll need to use backpack's classes instead of the ones provided by `cviebrock/eloquent-sluggable`. 
