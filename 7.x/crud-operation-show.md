@@ -11,6 +11,8 @@ This CRUD operation allows your admins to preview an entry. When enabled, it wil
 
 In case your entity is translatable, it will show a multi-language dropdown, just like Edit.
 
+**NOTE FOR TRANSLATED ENTRIES**: The `edit` and `show` buttons, show a dropdown with a language selector, so that you can directly edit/show the desired entry in a specific locale. Sometimes you wish to have "plain" buttons without all those dropdowns. In that case, you can turn `showLanguagesDirectlyInEditButton` and/or `showLanguagesDirectlyInShowButton` located in `config/backpack/operations/list.php` and it will disable the language dropdowns from those buttons. As usual you can do it for a specific crud only, by setting `CRUD::setOperationSetting('showLanguagesDirectlyInEditButton', false);` in your controller `setupListOperation` function. 
+
 <a name="how-it-works"></a>
 ## How it Works
 

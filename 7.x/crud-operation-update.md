@@ -335,7 +335,7 @@ class ProductCrudController extends CrudController
 }
 ```
 
->But before you do that, ask yourself - **_is this something that should be done when an entry is added/updated/deleted from the application, too_**? Not just the admin admin? If so, a better place for it would be the Model. Remember your Model is a pure Eloquent Model, so the cleanest way might be to use [Eloquent Event Observers](https://laravel.com/docs/5.5/eloquent#events) or [accessors and mutators](https://laravel.com/docs/master/eloquent-mutators#accessors-and-mutators).
+>But before you do that, ask yourself - **_is this something that should be done when an entry is added/updated/deleted from the application, too_**? Not just the admin admin? If so, a better place for it would be the Model. Remember your Model is a pure Eloquent Model, so the cleanest way might be to use [Eloquent Event Observers](https://laravel.com/docs/12.x/eloquent#events) or [accessors and mutators](https://laravel.com/docs/master/eloquent-mutators#accessors-and-mutators).
 
 <a name="translatable-models"></a>
 ### Translatable models and multi-language CRUDs
@@ -434,6 +434,8 @@ class Category extends Model
 }
 ```
 > If your slugs are not translatable, use the ```cviebrock/eloquent-sluggable``` traits. The Backpack's ```Sluggable``` trait saves your slug as a JSON object, regardless of the ```slug``` field being defined inside the ```$translatable``` property.
+
+**NOTE**: The `edit` and `show` buttons, show a dropdown with a language selector, so that you can directly edit/show the desired entry in a specific locale. Sometimes you wish to have "plain" buttons without all those dropdowns. In that case, you can turn `showLanguagesDirectlyInEditButton` and/or `showLanguagesDirectlyInShowButton` located in `config/backpack/operations/list.php` and it will disable the language dropdowns from those buttons. As usual you can do it for a specific crud only, by setting `CRUD::setOperationSetting('showLanguagesDirectlyInEditButton', false);` in your controller `setupListOperation` function. 
 
 <a name="delete-button-on-update-operation"></a>
 ### Delete button on Update operation
