@@ -95,6 +95,8 @@ a) For all CrudController (globally) in the `config/backpack/operations/list.php
 
 b) For a specific CrudController, in its `setupListOperation()` define `CRUD::setOperationSetting('lineButtonsAsDropdown', true);`
 
+**NOTE FOR TRANSLATED ENTRIES**: The `edit` and `show` buttons, show a dropdown with a language selector, so that you can directly edit/show the desired entry in a specific locale. Sometimes you wish to have "plain" buttons without all those dropdowns. In that case, you can turn `showLanguagesDirectlyInEditButton` and/or `showLanguagesDirectlyInShowButton` located in `config/backpack/operations/list.php` and it will disable the language dropdowns from those buttons. As usual you can do it for a specific crud only, by setting `CRUD::setOperationSetting('showLanguagesDirectlyInEditButton', false);` in your controller `setupListOperation` function. 
+
 ##### Available options
 
 Additionally you can control the dropdown behavior with `lineButtonsAsDropdownMinimum` and `lineButtonsAsDropdownShowBefore`. By default the dropdown is created no matter how many buttons are present in the line stack. You can change this behavior by setting `lineButtonsAsDropdownMinimum` to a number. If the number of buttons in the line stack is less than this number, the buttons will not be converted to a dropdown. You can also set `lineButtonsAsDropdownShowBefore` to a number to drop the buttons after that number of buttons.
