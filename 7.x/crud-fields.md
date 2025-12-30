@@ -325,7 +325,7 @@ CRUD::field([   // Checklist
     'pivot'     => true,
     'show_select_all' => true, // default false
     // 'number_of_columns' => 3,
-
+    
 ]);
 ```
 
@@ -874,7 +874,7 @@ CRUD::field([
 
 #### Uploading files with summernote
 
-Summernote saves images as base64 encoded strings in the database. If you want to save them as files on the server, you can use the [Summernote Uploader](https://backpackforlaravel.com/docs/7.x/crud-uploaders). Please note that the Summernote Uploader is part of the `backpack/pro` package.
+Summernote saves images as base64 encoded strings in the database. If you want to save them as files on the server, you can use the [Summernote Uploader](https://backpackforlaravel.com/docs/7.x/crud-uploaders). Please note that the Summernote Uploader is part of the `backpack/pro` package. 
 Input preview:
 
 ![CRUD Field - summernote](https://backpackforlaravel.com/uploads/docs-4-2/fields/summernote.png)
@@ -1153,14 +1153,14 @@ CRUD::field([   // Address google
 ]);
 ```
 
-Using Google Places API is dependent on using an API Key. Please [get an API key](https://console.cloud.google.com/apis/credentials) - you do have to configure billing, but you qualify for $200/mo free usage, which covers most use cases. Then copy-paste that key as your ```services.google_places.key``` value.
+Using Google Places API is dependent on using an API Key. Please [get an API key](https://console.cloud.google.com/apis/credentials) - you do have to configure billing, but you qualify for $200/mo free usage, which covers most use cases. Then copy-paste that key as your ```services.google_places.key``` value. 
 
 **IMPORTANT NOTE**: Your key needs access to the following APIS:
 - Maps JavaScript API;
 - Places API;
 - Geocoding API.
 
-While developing you can use an "unrestricted key" (no restrictions for where the key is used), but for production you should use a separate key, and **MAKE SURE** you restrict the usage of that key to your own domain.
+While developing you can use an "unrestricted key" (no restrictions for where the key is used), but for production you should use a separate key, and **MAKE SURE** you restrict the usage of that key to your own domain. 
 
 So inside your ```config/services.php``` please add the items below:
 ```php
@@ -1168,7 +1168,7 @@ So inside your ```config/services.php``` please add the items below:
     'key' => 'the-key-you-got-from-google-places'
 ],
 ```
-Alternatively you can set the key in your field definition, but we do **not recommend** it:
+Alternatively you can set the key in your field definition, but we do **not recommend** it: 
 ```php
 [
     'name' => 'google_field',
@@ -1445,7 +1445,7 @@ Using Google Places API is dependent on using an API Key. Please [get an API key
 - Places API;
 - Geocoding API.
 
-While developing you can use an "unrestricted key" (no restrictions for where the key is used), but for production you should use a separate key, and **MAKE SURE** you restrict the usage of that key to your own domain.
+While developing you can use an "unrestricted key" (no restrictions for where the key is used), but for production you should use a separate key, and **MAKE SURE** you restrict the usage of that key to your own domain. 
 
 **How to save in multiple inputs?**
 
@@ -1791,7 +1791,7 @@ CRUD::field([
 
 By default Backpack does not allow you to select the same pivot twice. If you want to allow the selection of the same pivot more than once you should take some setup steps before. Follow along with the steps below:
 
-**1)** Make sure your pivot table has a unique key, usually an auto-increment id. If you don't have one, you can add it with a migration.
+**1)** Make sure your pivot table has a unique key, usually an auto-increment id. If you don't have one, you can add it with a migration. 
 
 **2)** Add the `id` to your `->withPivot()` fields on your relation. Eg:
 ```php
@@ -1816,7 +1816,7 @@ CRUD::field([
     'name'          => 'companies',
     'type'          => 'relationship',
     'allow_duplicate_pivots' => true,
-    'subfields' => // your subfields (do not add `id` as a subfield. That's done automatically by Backpack).
+    'subfields' => // your subfields (do not add `id` as a subfield. That's done automatically by Backpack). 
 ]);
 ```
 
@@ -2180,8 +2180,7 @@ CRUD::field([   // select2_from_array
     'allows_null' => false,
     'default'     => 'one',
     // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
-    // 'sortable' => true, // requires the field to accept multiple values, and allow the selected options to be sorted;
-    // 'tagging' => true, // allow users to type and create new options.
+    // 'sortable' => true, // requires the field to accept multiple values, and allow the selected options to be sorted.
 ]);
 ```
 
@@ -2369,7 +2368,7 @@ CRUD::field([
     'minimum_input_length'    => 2, // minimum characters to type before querying results
     'multiple'                => true, // allow multiple selections
     'include_all_form_fields' => false, // only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
-
+    
     // OPTIONAL - if the response is a list of objects (and not a simple array)
     'attribute'               => 'title', // attribute to show in the select2
     'attributes_to_store'       => ['id', 'title'], // attributes to store in the database
@@ -2420,7 +2419,7 @@ public function fetchAirports()
 
 #### Storing only one the id in the database
 
-A very common use case you may have is to store only the id of the selected item in the database instead of a `json` string. For those cases you can achieve that by setting the `attributes_to_store` attribute to an array with only one item, the id of the selected item and do a little trick with the model events to store the id you want, and to give the field that id in a way it understands.
+A very common use case you may have is to store only the id of the selected item in the database instead of a `json` string. For those cases you can achieve that by setting the `attributes_to_store` attribute to an array with only one item, the id of the selected item and do a little trick with the model events to store the id you want, and to give the field that id in a way it understands. 
 
 ```php
 
@@ -2429,7 +2428,7 @@ CRUD::field([
     'type'                => 'select2_json_from_api',
     'name'                => 'airport_id', // dont make your column json if not storing json on it!
      // .... the rest your field configuration
-    'attribute'           => 'id',
+    'attribute'           => 'id', 
     'attributes_to_store' => ['id'],
     'events'              => [
         'saving' => function($entry) {
@@ -2446,7 +2445,7 @@ CRUD::field([
 
 ### slug  <span class="badge badge-pill badge-info">PRO</span>
 
-Track the value of a different text input and turn it into a valid URL segment (aka. slug), as you type, using Javascript. Under the hood it uses [slugify](https://github.com/simov/slugify/blob/master/README.md) to generate the slug with some sensible defaults.
+Track the value of a different text input and turn it into a valid URL segment (aka. slug), as you type, using Javascript. Under the hood it uses [slugify](https://github.com/simov/slugify/blob/master/README.md) to generate the slug with some sensible defaults. 
 
 ```php
 CRUD::field([   // Text
