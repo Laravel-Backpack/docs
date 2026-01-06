@@ -40,6 +40,8 @@ CRUD::filters(); // gets all the filters
 <a name="adding-a-filter"></a>
 ### Adding and configuring a filter
 
+> Some filter names are reserved. Do **NOT** use the following names in filters: **lenght**, **draw**, **start**, **search**, **totalEntryCount**, **columns** or **datatable_id**.
+
 Inside your `setupListOperation()` you can add or select a filter using `CRUD::filter('name')`, then chain methods to completely configure it:
 
 ```php
