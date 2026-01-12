@@ -112,7 +112,28 @@ No changes needed.
     'component' => 'bp-datalist', // options: bp-datagrid, bp-datalist, or a custom component alias
 ```
 
-<a name="step-6" href="#step-6" class="badge badge-danger text-white" style="text-decoration: none;">Step 6.</a> **Theme Tabler** - The default layout for theme tabler has changed. If you had the tabler config published you are good to go. **In case you don't have the tabler theme config published** and want to keep the old layout, you should publish it by running `php artisan vendor:publish --tag="theme-tabler-config"` and changing:
+<a name="step-6" href="#step-6" class="badge badge-danger text-white" style="text-decoration: none;">Step 6.</a> **Theme Tabler** - The default layout for theme tabler has changed.
+
+A. If you had the tabler config published - no changes are needed. But consider removing the `colors.css` and `color-adjustments.css` files from Backpack (they are no longer needed). Additionally, v7 provides a few skinds you might want to use, to prettify your admin panel so it feels new too:
+
+```
+'styles' => [
+        // you can remove:
+        // base_path('vendor/backpack/theme-tabler/resources/assets/css/color-adjustments.css'),
+        // base_path('vendor/backpack/theme-tabler/resources/assets/css/colors.css'),
+
+        // and consider using one or more of these:
+        base_path('vendor/backpack/theme-tabler/resources/assets/css/skins/backpack-color-palette.css'),
+        base_path('vendor/backpack/theme-tabler/resources/assets/css/skins/glass.css'),
+        base_path('vendor/backpack/theme-tabler/resources/assets/css/skins/vertical-lines-background.css'),
+        base_path('vendor/backpack/theme-tabler/resources/assets/css/skins/pinstripe-background.css'),
+        base_path('vendor/backpack/theme-tabler/resources/assets/css/skins/paper-background.css'),
+        base_path('vendor/backpack/theme-tabler/resources/assets/css/skins/dotted-background.css'),
+        base_path('vendor/backpack/theme-tabler/resources/assets/css/skins/fuzzy-background.css'),
+],
+```
+
+B. **In case you don't have the tabler theme config published** and want to keep the old layout, you should publish it by running `php artisan vendor:publish --tag="theme-tabler-config"` and changing:
 ```diff
 - 'layout' => 'horizontal',
 + 'layout' => 'horizontal_overlap',
