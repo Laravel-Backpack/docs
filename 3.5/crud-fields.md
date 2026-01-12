@@ -684,10 +684,13 @@ public function setImageAttribute($value)
     	{
     		// 0. Make the image
     		$image = \Image::make($value)->encode('jpg', 90);
+    		
     		// 1. Generate a filename.
 	    	$filename = md5($value.time()).'.jpg';
+	    	
 	    	// 2. Store the image on disk.
 	    	\Storage::disk($disk)->put($destination_path.'/'.$filename, $image->stream());
+	    	
 	        // 3. Save the path to the database
 	        $this->attributes[$attribute_name] = $destination_path.'/'.$filename;
     	}
