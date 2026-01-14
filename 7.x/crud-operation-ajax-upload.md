@@ -77,6 +77,7 @@ It accepts the following optional parameters:
 
 
 You can use any strategy to run this command periodically - a cron job, a scheduled task or hooking into application termination hooks. Laravel provides a very easy way to setup your scheduled tasks. You can read more about it [here](https://laravel.com/docs/scheduling). For example, you can run the command every hour by adding the following line to your `app/Console/Kernel.php` in the `schedule()` method:
+
 ```php
 // app/Console/Kernel.php
 $schedule->command('backpack:purge-temporary-files')->hourly();

@@ -62,3 +62,22 @@ use Backpack\Pro\Uploads\Validation\ValidDropzone;
 'attachments' => ValidDropzone::field('min:2|max:5')->file('file|mimes:jpg,png,gif|max:10000'),    
 
 ```
+
+<a name="valid-easymde-validation-rule"></a>
+## `ValidEasyMDE` for `easymde` field type
+
+You can use this validation rule to handle validation for your `easymde` field - both for the Create and the Update operation in one go:
+- use the `::field()` constructor to define the rules for the field;
+- use the `->file()` method for rules specific to the files sent in field;
+
+```php
+// for the field
+CRUD::field('photos')->type('dropzone');
+
+// you can write the validation rule as
+
+use Backpack\Pro\Uploads\Validation\ValidEasyMDE;
+
+'easymde' => ValidEasyMDE::field('min:50|max:3000')->file('file|mimes:jpg,png,gif|max:2048'),    
+
+```
