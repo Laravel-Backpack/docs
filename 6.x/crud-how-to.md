@@ -930,7 +930,6 @@ How do you find out what's the last version you have access to?
 
 Why the ugly, general error? Because Composer doesn't allow vendors to customize the error, unfortunately. Backpack's server returns a better error message, but Composer doesn't show it.
 
-
 <a name="configuring-the-temporary-directory"></a>
 ### Configuring the Temporary Directory
 
@@ -938,12 +937,12 @@ The [dropzone field](/docs/{{version}}/crud-fields#dropzone-pro) and DropzoneOpe
 
 **Configure Temp Directory**
 
-To configure that temporary directory for ALL dropzone operations, call `php artisan vendor:publish --provider="Backpack\Pro\AddonServiceProvider" --tag="dropzone-config"` and then edit your  `config/backpack/operations/dropzone.php` to fit your needs. Here are the most important values you'll find there:
+To configure that temporary directory for ALL dropzone operations, call `php artisan vendor:publish --provider="Backpack\Pro\AddonServiceProvider" --tag="dropzone-config"` and then edit your `config/backpack/operations/dropzone.php` to fit your needs. Here are the most important values you'll find there:
 
 ```php
-    'temporary_disk' => 'local', // disk in config/filesystems.php that will be used
-    'temporary_folder' => 'backpack/temp', // the directory inside the disk above
-    'purge_temporary_files_older_than' => 72 // automatically delete files older than 72 hours
+'temporary_disk' => 'local', // disk in config/filesystems.php that will be used
+'temporary_folder' => 'backpack/temp', // the directory inside the disk above
+'purge_temporary_files_older_than' => 72 // automatically delete files older than 72 hours
 ```
 
 Alternatively, you can also configure the temp directory for the current CRUD only using:
@@ -973,6 +972,7 @@ It accepts the following optional parameters:
 
 
 You can use any strategy to run this command periodically - a cron job, a scheduled task or hooking into application termination hooks. Laravel provides a very easy way to setup your scheduled tasks. You can read more about it [here](https://laravel.com/docs/10.x/scheduling). For example, you can run the command every hour by adding the following line to your `app/Console/Kernel.php` in the `schedule()` method:
+
 ```php
 // app/Console/Kernel.php
 $schedule->command('backpack:purge-temporary-files')->hourly();

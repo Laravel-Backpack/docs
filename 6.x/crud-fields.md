@@ -1463,7 +1463,6 @@ CRUD::field([
     'name'  => 'photos',
     'label' => 'Photos',
     'type'  => 'dropzone',
-
     // optional configuration.
     // check available options in https://docs.dropzone.dev/configuration/basics/configuration-options
     // 'configuration' => [
@@ -1487,7 +1486,6 @@ CRUD::field([
 
 Alternatively, you can manually implement the saving process yourself using model events, mutators or any other solution that suits you. To know more about the `withFiles`, how it works and how to configure it, [read its documentation](https://backpackforlaravel.com/docs/6.x/crud-uploaders).
 
-
 **Step 4:** Configure validation. Yes you can do some basic validation in Javascript, but we highly advise you prioritize server-side validation. To make validation easy we created `ValidDropzone` validation rule. It allows you to define two set of rules:
 - `::field()` - the field rules (independent of the file content);
 - `->file()` - rules that apply to the sent files;
@@ -1499,9 +1497,7 @@ use Backpack\Pro\Uploads\Validation\ValidDropzone;
                 ->file('file|mimes:jpeg,png,jpg,gif,svg|max:2048'),
 ```
 
-
 **Step 5:** (optional) Configure the temp directory. Whenever new files are uploaded using the Dropzone operation, old files are automatically deleted from the temp directory. But you can also manually clean the temp directory. For more info and temp directory configuration options, see [this link](/docs/{{version}}/crud-how-to#configuring-the-temporary-directory).
-
 
 Input preview:
 
