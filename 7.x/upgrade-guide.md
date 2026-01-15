@@ -135,6 +135,13 @@ You should also remove the glass skin and fuzzy background from the theme styles
 
 <a name="step-9" href="#step-9" class="badge badge-danger text-white" style="text-decoration: none;">Step 9.</a> Similarly, the `tinymce` field and column have been moved from the PRO package to an open-source addon. If you are using either of them and want to keep doing so, just run `composer require backpack/tinymce-field`. Please note that TinyMCE is a 3rd party JS library that normally requires _payment_ when used for commercial purposes (GLP licensed). See their [pricing page](https://www.tiny.cloud/pricing/) for options. You can sign-up for [free commercial licenses on their website here](https://www.tiny.cloud/get-tiny/). If you would rather move away from TinyMCE, you can just change your field/column to use `summernote` instead, they are both HTML editors so your content should be compatible. Summernote has more limited editing options, but it's MIT-licensed.
 
+<a name="step-9a" href="#step-9a" class="badge badge-danger text-white" style="text-decoration: none;">Step 9.A.</a> **Dropzone Field** - To standardize the implementation of the `dropzone` field, in v7 it uses a dedicated operation to handle uploads `AjaxUploadOperation` and a validation rule `ValidDropzone` to validate the uploaded files. If you are using the `dropzone` field and want to help upgrading it, you can run the following command:
+
+```bash
+php artisan backpack:upgrade-dropzone
+```
+
+<a name="step-9b" href="#step-9b" class="badge badge-danger text-white" style="text-decoration: none;">Step 9.B.</a> **EasyMDE Field** - The `easymde` field now also uses the `AjaxUploadOperation` to handle uploads. To secure the endpoint, we've introduced a new validation rule `ValidEasyMDE`. By default the endpoint will only allow images up to 1MB. If you want to use other file types or sizes, you MUST use the `ValidEasyMDE` rule in your FormRequest to validate the field.
 
 <a href="assets"></a>
 ### CSS & JS Assets
