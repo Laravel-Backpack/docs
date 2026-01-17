@@ -1018,6 +1018,21 @@ Show a thumbnail image stored in the db column as `base64` image string.
 
 <hr>
 
+<a name="code_mirror_editor"></a>
+### Code Mirror (Code editor) <span class="badge badge-pill badge-info">PRO</span>
+
+Show a preview of the code stored in the database, with a "View" button to show the full code in accordeon style (hidden div).
+
+```php
+[
+    'name' => 'code',
+    'type' => 'code_mirror_editor',
+    'label' => 'Code',
+],
+```
+
+<hr>
+
 <a name="date_picker"></a>
 ### date_picker <span class="badge badge-pill badge-info">PRO</span>
 
@@ -1136,6 +1151,21 @@ Convert a markdown string to HTML, using ```Illuminate\Mail\Markdown```. Since M
 ```
 
 > <span class="badge badge-danger text-white" style="text-decoration: none;">IMPORTANT</span> As opposed to most other Backpack columns, the output of `markdown` is **NOT escaped by default**. That means if the database value contains malicious JS, that JS might be run when the admin previews it. Make sure to purify the value of this column in an accessor on your Model. At a minimum, you can use `strip_tags()` (here's [an example](https://github.com/Laravel-Backpack/demo/commit/509c0bf0d8b9ee6a52c50f0d2caed65f1f986385)), but a lot better would be to use an [HTML Purifier package](https://github.com/mewebstudio/Purifier) (do that [manually](https://github.com/Laravel-Backpack/demo/commit/7342cffb418bb568b9e4ee279859685ddc0456c1) or by casting the attribute to `CleanHtmlOutput::class`).
+
+<hr>
+
+<a name="monaco_editor"></a>
+### Monaco Editor (code editor) <span class="badge badge-pill badge-info">PRO</span>
+
+Show a preview of the code stored in the database, with a "View" button to show the full code in a accordion like behavior (hidden div).
+
+```php
+[
+    'name' => 'code',
+    'type' => 'monaco_editor',
+    'label' => 'Code',
+],
+```
 
 <hr>
 

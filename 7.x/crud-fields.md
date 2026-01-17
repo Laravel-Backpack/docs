@@ -1210,6 +1210,31 @@ Input preview:
 
 <hr>
 
+<a name="code_mirror_editor"></a>
+### Code Mirror (Code Editor) <span class="badge badge-pill badge-info">PRO</span>
+
+Show a CodeMirror code editor. It supports syntax highlighting for multiple languages and themes.
+
+```php
+CRUD::field([
+    'name' => 'code',
+    'type' => 'code_mirror_editor',
+    'label' => 'Code',
+    // optional
+    'configuration' => [
+        'theme' => 'monokai', // options: monokai, dracula, material, eclipse, idea
+        'mode' => 'javascript', // options: javascript, xml, css, htmlmixed, php, sql, python
+        'height' => '300px',
+    ]
+]);
+```
+
+Input preview:
+
+![CRUD Field - code_mirror_editor](https://backpackforlaravel.com/uploads/docs-4-2/fields/code_mirror_editor.png)
+
+<hr>
+
 <a name="date-range"></a>
 ### date_range <span class="badge badge-pill badge-info">PRO</span>
 
@@ -1545,6 +1570,32 @@ Input preview:
 ![CRUD Field - image](https://backpackforlaravel.com/uploads/docs-4-2/fields/image.png)
 
 > NOTE: if you are having trouble uploading big images, please check your php extensions **apcu** and/or **opcache**, users have reported some issues with these extensions when trying to upload very big images. REFS: https://github.com/Laravel-Backpack/CRUD/issues/3457
+
+<hr>
+
+<a name="monaco_editor"></a>
+### Monaco Editor (Code editor) <span class="badge badge-pill badge-info">PRO</span>
+
+Show a Monaco Editor (VS Code editor). It provides a rich code editing experience.
+
+```php
+CRUD::field([
+    'name' => 'code',
+    'type' => 'monaco_editor',
+    'label' => 'Code',
+    // optional
+    'configuration' => [
+        'language' => 'javascript', // default: javascript
+        'theme' => 'vs-dark', // options: vs, vs-dark, hc-black
+        'minimap' => ['enabled' => true],
+        // other monaco options...
+    ]
+]);
+```
+
+Input preview:
+
+![CRUD Field - monaco_editor](https://backpackforlaravel.com/uploads/docs-4-2/fields/monaco_editor.png)
 
 <hr>
 
