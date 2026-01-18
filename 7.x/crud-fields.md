@@ -1573,32 +1573,6 @@ Input preview:
 
 <hr>
 
-<a name="monaco_editor"></a>
-### Monaco Editor (Code editor) <span class="badge badge-pill badge-info">PRO</span>
-
-Show a Monaco Editor (VS Code editor). It provides a rich code editing experience.
-
-```php
-CRUD::field([
-    'name' => 'code',
-    'type' => 'monaco_editor',
-    'label' => 'Code',
-    // optional
-    'configuration' => [
-        'language' => 'javascript', // default: javascript
-        'theme' => 'vs-dark', // options: vs, vs-dark, hc-black
-        'minimap' => ['enabled' => true],
-        // other monaco options...
-    ]
-]);
-```
-
-Input preview:
-
-![CRUD Field - monaco_editor](https://backpackforlaravel.com/uploads/docs-4-2/fields/monaco_editor.png)
-
-<hr>
-
 <a name="phone"></a>
 ### phone <span class="badge badge-pill badge-info">PRO</span>
 

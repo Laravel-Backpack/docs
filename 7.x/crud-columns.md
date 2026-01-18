@@ -1154,21 +1154,6 @@ Convert a markdown string to HTML, using ```Illuminate\Mail\Markdown```. Since M
 
 <hr>
 
-<a name="monaco_editor"></a>
-### Monaco Editor (code editor) <span class="badge badge-pill badge-info">PRO</span>
-
-Show a preview of the code stored in the database, with a "View" button to show the full code in a accordion like behavior (hidden div).
-
-```php
-[
-    'name' => 'code',
-    'type' => 'monaco_editor',
-    'label' => 'Code',
-],
-```
-
-<hr>
-
 <a name="relationship"></a>
 ### relationship <span class="badge badge-pill badge-info">PRO</span>
 
