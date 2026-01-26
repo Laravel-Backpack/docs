@@ -1210,6 +1210,31 @@ Input preview:
 
 <hr>
 
+<a name="code_mirror_editor"></a>
+### Code Mirror (Code Editor) <span class="badge badge-pill badge-info">PRO</span>
+
+Show a CodeMirror code editor. It supports syntax highlighting for multiple languages and themes.
+
+```php
+CRUD::field([
+    'name' => 'code',
+    'type' => 'code_mirror_editor',
+    'label' => 'Code',
+    // optional
+    'configuration' => [
+        'theme' => 'monokai', // options: monokai, dracula, material, eclipse, idea
+        'mode' => 'javascript', // options: javascript, xml, css, htmlmixed, php, sql, python
+        'height' => '300px',
+    ]
+]);
+```
+
+Input preview:
+
+![CRUD Field - code_mirror_editor](https://backpackforlaravel.com/uploads/docs-4-2/fields/code_mirror_editor.png)
+
+<hr>
+
 <a name="date-range"></a>
 ### date_range <span class="badge badge-pill badge-info">PRO</span>
 

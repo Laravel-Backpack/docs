@@ -1018,6 +1018,21 @@ Show a thumbnail image stored in the db column as `base64` image string.
 
 <hr>
 
+<a name="code_mirror_editor"></a>
+### Code Mirror (Code editor) <span class="badge badge-pill badge-info">PRO</span>
+
+Show a preview of the code stored in the database, with a "View" button to show the full code in accordeon style (hidden div).
+
+```php
+[
+    'name' => 'code',
+    'type' => 'code_mirror_editor',
+    'label' => 'Code',
+],
+```
+
+<hr>
+
 <a name="date_picker"></a>
 ### date_picker <span class="badge badge-pill badge-info">PRO</span>
 
