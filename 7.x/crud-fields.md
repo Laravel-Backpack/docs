@@ -1210,15 +1210,15 @@ Input preview:
 
 <hr>
 
-<a name="code_mirror_editor"></a>
-### Code Mirror (Code Editor) <span class="badge badge-pill badge-info">PRO</span>
+<a name="code_mirror"></a>
+### code_mirror <span class="badge badge-pill badge-info">PRO</span>
 
-Show a CodeMirror code editor. It supports syntax highlighting for multiple languages and themes.
+Show a [CodeMirror](https://codemirror.net/) code editor. It supports syntax highlighting for multiple languages and themes.
 
 ```php
 CRUD::field([
     'name' => 'code',
-    'type' => 'code_mirror_editor',
+    'type' => 'code_mirror',
     'label' => 'Code',
     // optional
     'configuration' => [
@@ -1231,7 +1231,7 @@ CRUD::field([
 
 Input preview:
 
-![CRUD Field - code_mirror_editor](https://backpackforlaravel.com/uploads/docs-4-2/fields/code_mirror_editor.png)
+![CRUD Field - Code_Mirror_Editor](https://backpackforlaravel.com/uploads/docs/code_mirror_field.png)
 
 <hr>
 
