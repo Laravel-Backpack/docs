@@ -211,9 +211,7 @@ The stub receives method content that will be injected into the generated test c
 
 The `backpack:tests` command generates tests based on **stubs** defined in the Backpack package. Currently, stubs are provided for standard operations: `list`, `create`, `update`, `delete`, and `show`.
 
-If you use custom operations (e.g., `clone`, `reorder`, or your own custom actions) and want to test them, you have a few options:
-
-1.  **Create a Stub**: If you have published the stubs (see above), you can create a new stub file for your custom operation in `resources/views/vendor/backpack/crud/stubs/testing/feature`. The file name should be `{operation}.stub` (e.g., `clone.stub`). The generator will automatically use this stub when it encounters the custom operation in your controllers.
+If you use custom operations (e.g., `clone`, `reorder`, or your own custom actions) and want to test them you can create a **stub file** for your custom operation in `resources/views/vendor/backpack/crud/stubs/testing/feature`. The file name should be `{operation}.stub` (e.g., `clone.stub`). The generator will automatically use this stub when it encounters the custom operation in your controllers.
 
 
 
