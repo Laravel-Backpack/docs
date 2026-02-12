@@ -1654,7 +1654,7 @@ Class Product extends Model
         {
             // 0. Make the image
             $image = \Image::make($value)->encode('jpg', 90);
-
+                        
             // 1. Generate a filename.
             $filename = md5($value.time()).'.jpg';
 
