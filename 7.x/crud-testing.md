@@ -55,163 +55,128 @@ php artisan backpack:tests --operation=list
 ```
 
 <a name="generated-file-structure"></a>
-## Generated File Structure
+## Generated testes file structure
 
-The command generates a structured set of test files for each controller. For a controller named `UserCrudController`, the structure will be:
+Generated tests rely on a small hierarchy of base classes, reusable traits and on per-controller test bases inside your app's `tests/Feature` folder. 
 
+You will notice that there will be a new "Backpack" folder. That folder contain the "base" tests that each of your crud controllers will re-use. eg:
+
+```markdown
+tests/Feature/Admin/SomeController/
+├─ TestBase.php            # extends Tests\\Feature\\Backpack\\DefaultTestBase and sets properties
+├─ CreateTest.php          # uses DefaultCreateTests trait
+├─ UpdateTest.php          # uses DefaultUpdateTests trait
+├─ ListTest.php            # uses DefaultListTests trait
+├─ ShowTest.php            # uses DefaultShowTests trait
 ```
-tests/Feature/Admin/UserCrud/
-├── UserCrudTestBase.php    # Base class containing setup and configuration
-├── ListTest.php            # Tests for List operation
-├── CreateTest.php          # Tests for Create operation
-├── UpdateTest.php          # Tests for Update operation
-└── ...
-```
 
-The `UserCrudTestBase` class extends `Backpack\CRUD\app\Library\CrudTesting\CrudFeatureTestCase` and handles authentication and test configuration setup. Each operation test class extends this base class.
+<a name="configurations-available-in-test-traits"></a>
+## Operation test traits and configuration variables
 
+The operation test traits implement the assert logic and expose variables you can set in your test `setUp()` to customise behaviour:
 
-<a name="how-to-configure-the-generated-tests"></a>
-## How to configure the generated tests
+- `DefaultCreateTests` exposes `$createInput` and `$assertCreateInput`.
+- `DefaultUpdateTests` exposes `$updateInput` and `$assertUpdateInput`.
+- `DefaultListTests` and `DefaultShowTests` inspect the CRUD configuration via the test helper.
 
-By default, the generated tests rely on your Model Factories and standard Backpack conventions to create valid data for requests. However, complex real-world applications often require specific setup, valid data states, or mocked dependencies.
+Usage pattern:
 
-You can customize the test behavior for each CrudController by creating a **Test Configuration** class.
+- In your operation test's `setUp()` (or the controller `TestBase::setUp()`), create and set `$this->createInput` or `$this->updateInput` when you need to submit additional or transformed data. The trait will use those arrays when performing the POST/PUT requests.
+- Use `$assertCreateInput` / `$assertUpdateInput` when the database assertion differs from the raw submission (for example, do not include `password` or file upload metadata in assertions).
 
-### 1. Create a Configuration Class
+Example (from `tests/Feature/Admin/PetShop/PetCrud/CreateTest.php`):
 
-Create a class that extends `Backpack\CRUD\app\Library\CrudTesting\TestConfigHelper`. This allows you to override only the methods you need to customize, while keeping the default behavior for others.
+- set an avatar URL to be submitted with the create request:
 
 ```php
-namespace Tests\Config;
+$this->createInput = array_merge($this->model::factory()->make()->toArray(), [
+    'avatar' => ['url' => 'https://lorempixel.com/400/200/animals'],
+]);
+```
+<a name="route-parameters-and-controller-initialization"></a>
+## Route parameters and controller initialization
 
-use Backpack\CRUD\app\Library\CrudTesting\TestConfigHelper;
+Controllers that require route parameters for their routes (for example nested resources like an owner ID) can expose defaults for tests using the `TestingRouteParameters` attribute. Example found in the demo application controller:
 
-class ProductConfig extends TestConfigHelper
+- [app/Http/Controllers/Admin/PetShop/OwnerPetsCrudController.php](app/Http/Controllers/Admin/PetShop/OwnerPetsCrudController.php) uses the attribute:
+
+```php
+#[\Backpack\CRUD\app\Library\CrudTesting\TestingRouteParameters(['owner' => 1])]
+class OwnerPetsCrudController extends PetCrudController { ... }
+```
+
+The attribute provides default route parameter values when the package's test helpers mock the current route. Tests can rely on those defaults. The generated controller `TestBase` sets `public string $route = 'pet-shop/owner/1/pets';` so trait requests properly include the parameter.
+
+
+<a name="overriding-the-traits-behaviour"></a>
+## Overriding trait behaviour
+
+If the default trait behaviour doesn't match your controller logic (e.g., you need to attach relationships before asserting the edit page), override the trait methods inside your test class. You can keep the original trait implementation available by aliasing it when importing the trait. Example from `tests/Feature/Admin/PetShop/OwnerPetsCrud/UpdateTest.php`:
+
+```php
+use \\Tests\\Feature\\Backpack\\DefaultUpdateTests {
+    test_update_page_loads_successfully as default_test_update_page_loads_successfully;
+}
+
+public function test_update_page_loads_successfully(): void
 {
-    public function setup()
-    {
-        // E.g., create a specific category required for products
-        // \App\Models\Category::factory()->create();
-    }
+    $this->skipIfModelDoesNotHaveFactory();
 
-    public function getRouteParameters()
-    {
-        // If your route is /admin/category/{category_id}/product
-        // return ['category_id' => 1];
-        return [];
-    }
+    $entry = $this->model::factory()->create();
+    $entry->owners()->attach(1, ['role' => 'Owner']);
 
-    public function validCreateInput($model)
-    {
-        // Return valid data for a Create Request
-        // Defaults to: return $model::factory()->raw();
-        
-        $data = parent::validCreateInput($model);
-        $data['name'] = 'Valid Product Name';
-        return $data;
-    }
-
-    public function validUpdateInput($model)
-    {
-        // Return valid data for an Update Request
-        // Defaults to: return $model::factory()->raw();
-        
-        $data = parent::validUpdateInput($model);
-        $data['price'] = 200;
-        return $data;
-    }
-
-    public function invalidInput()
-    {
-        // Return data that should trigger a validation error
-        // Defaults to: return [];
-        
-        return ['name' => '']; // assuming name is required
-    }
-    
-    public static function getDatabaseAssertInput(string $model, array $data = []): array
-    {
-        // Helper to filter data for database assertion (e.g. remove password_confirmation)
-        $data = parent::getDatabaseAssertInput($model, $data);
-        
-        // unset($data['password_confirmation']);
-        
-        return $data;
-    }
+    $response = $this->get($this->testHelper->getCrudUrl($entry->getKey().'/edit'));
+    $response->assertStatus(200);
 }
 ```
 
-### 2. Register the Configuration
+### Short checklist when adapting or writing tests
 
-You can configure the test generator globally in `config/backpack/testing.php`. This file allows you to map your controllers to configuration classes, but also control generation behavior.
+- Ensure the controller's required route parameters are provided by the `TestingRouteParameters` attribute or the generated `TestBase::$route` includes concrete values.
+- In `TestBase::setUp()` create any related models your controller requires (attached owners, categories, etc.).
+- Set `$createInput` / `$updateInput` in tests when the form requires additional structured data (files, nested arrays, relationship ids).
+- Use `$assertCreateInput` / `$assertUpdateInput` to shape the expected DB assertion.
+- Override trait methods only when you need custom assertions; alias the trait method if you still want to call the default behaviour.
 
-```php
-// config/backpack/testing.php
+<a name="publish-the-configuration"></a>
+## Publishing the Configuration
 
-return [
-    // The path where your CrudControllers are located
-    'controllers_path' => app_path('Http/Controllers'),
+You can publish the configuration by running `php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag=config`. There you will be able to change your controllers path. 
 
-    // Toggle test generation for specific operations
-    'coverage' => [
-        'operations' => [
-            // 'list' => true,
-            // 'create' => false, // Don't generate create tests
-        ],
-    ],
+<a name="customizing-or-creating-test-stubs"></a>
+## Customizing or creating test stubs
 
-    // Map your CrudControllers to TestConfiguration classes
-    'configurations' => [
-        \App\Http\Controllers\Admin\ProductCrudController::class => \Tests\Config\ProductConfig::class,
-    ],
-    
-    // ... other advanced options
-];
-```
-
-When you run your tests, `TestConfigHelper` will automatically load this configuration and use your provided inputs instead of the defaults.
-
-<a name="customizing-test-stubs"></a>
-## Customizing Test Stubs
-
-You can customize the test stubs used by the generator by publishing them to your application.
+You can customize or add new operation test stubs used by the generator by publishing them to your application.
 
 ```bash
 php artisan vendor:publish --provider="Backpack\CRUD\BackpackServiceProvider" --tag=stubs
 ```
 
 This will create a `resources/views/vendor/backpack/crud/stubs/testing` directory in your application root. Any changes you make to these stubs will be used when generating tests.
-
-### Minimal Stub Example
-
-Here is a minimal example of what a custom operation stub (e.g., `clone.stub`) might look like:
+Here is an example of what a custom operation stub (e.g., `clone.stub`) might look like:
 
 ```php
+<?php
+
+namespace Tests\Feature\Backpack;
+
+trait DefaultCloneTests
+{
     /**
-     * Test that the clone operation functions correctly.
+     * Test that the list page loads and there is a clone button on page
      */
-    public function test_can_clone_item()
+    public function test_create_clone_button_is_on_page(): void
     {
-        // The setUp() method in the base class authenticates the user
-        
-        $entry = $this->testHelper->createEntry();
-        
-        $response = $this->post($this->testHelper->getCrudUrl($entry->getKey().'/clone'));
-        
+        $response = $this->get($this->testHelper->getCrudUrl('list'));
         $response->assertStatus(200);
-        // Add more specific assertions here
+        $response->assertSee('bp-button="clone"', true);
     }
+}
 ```
 
-The stub receives method content that will be injected into the generated test class. You can use available properties like `$this->model`, `$this->testHelper`, etc.
+<a name="troubleshooting"></a>
+## Troubleshooting
 
-<a name="how-to-add-new-operations-for-test-generation"></a>
-### How to add new operations for test generation
-
-The `backpack:tests` command generates tests based on **stubs** defined in the Backpack package. Currently, stubs are provided for standard operations: `list`, `create`, `update`, `delete`, and `show`.
-
-If you use custom operations (e.g., `clone`, `reorder`, or your own custom actions) and want to test them you can create a **stub file** for your custom operation in `resources/views/vendor/backpack/crud/stubs/testing/feature`. The file name should be `{operation}.stub` (e.g., `clone.stub`). The generator will automatically use this stub when it encounters the custom operation in your controllers.
-
+The test generation highly relies on your Model Factories. It's highly important that your Factories are up-to-date with the database/model requirements. 
 
 
