@@ -57,17 +57,24 @@ php artisan backpack:tests --operation=list
 <a name="generated-file-structure"></a>
 ## Generated testes file structure
 
-Generated tests rely on a small hierarchy of base classes, reusable traits and on per-controller test bases inside your app's `tests/Feature` folder. 
+Generated tests rely on a small hierarchy of base classes, reusable traits and on per-controller test files inside your app's `tests/Feature` folder. 
 
-You will notice that there will be a new "Backpack" folder. That folder contain the "base" tests that each of your crud controllers will re-use. eg:
+You will notice that there will be a new "Backpack" folder. That folder contain the "base" tests that each of your crud controllers will re-use.
+
+Each controller gets a single test file that extends `DefaultTestBase` and uses trait(s) for each operation:
 
 ```markdown
-tests/Feature/Admin/SomeController/
-├─ TestBase.php            # extends Tests\\Feature\\Backpack\\DefaultTestBase and sets properties
-├─ CreateTest.php          # uses DefaultCreateTests trait
-├─ UpdateTest.php          # uses DefaultUpdateTests trait
-├─ ListTest.php            # uses DefaultListTests trait
-├─ ShowTest.php            # uses DefaultShowTests trait
+tests/Feature/Admin/
+├─ SomeCrudControllerTest.php  # extends DefaultTestBase, uses operation traits
+├─ AnotherCrudControllerTest.php
+```
+
+For controllers in subfolders (e.g., `PetShop`), the folder structure is respected:
+
+```markdown
+tests/Feature/Admin/PetShop/
+├─ OwnerCrudControllerTest.php
+├─ PetCrudControllerTest.php
 ```
 
 <a name="configurations-available-in-test-traits"></a>
@@ -81,10 +88,10 @@ The operation test traits implement the assert logic and expose variables you ca
 
 Usage pattern:
 
-- In your operation test's `setUp()` (or the controller `TestBase::setUp()`), create and set `$this->createInput` or `$this->updateInput` when you need to submit additional or transformed data. The trait will use those arrays when performing the POST/PUT requests.
+- In your test's `setUp()`, create and set `$this->createInput` or `$this->updateInput` when you need to submit additional or transformed data. The trait will use those arrays when performing the POST/PUT requests.
 - Use `$assertCreateInput` / `$assertUpdateInput` when the database assertion differs from the raw submission (for example, do not include `password` or file upload metadata in assertions).
 
-Example (from `tests/Feature/Admin/PetShop/PetCrud/CreateTest.php`):
+Example (from `tests/Feature/Admin/PetShop/PetCrudControllerTest.php`):
 
 - set an avatar URL to be submitted with the create request:
 
@@ -96,22 +103,20 @@ $this->createInput = array_merge($this->model::factory()->make()->toArray(), [
 <a name="route-parameters-and-controller-initialization"></a>
 ## Route parameters and controller initialization
 
-Controllers that require route parameters for their routes (for example nested resources like an owner ID) can expose defaults for tests using the `TestingRouteParameters` attribute. Example found in the demo application controller:
-
-- [app/Http/Controllers/Admin/PetShop/OwnerPetsCrudController.php](app/Http/Controllers/Admin/PetShop/OwnerPetsCrudController.php) uses the attribute:
+Controllers that require route parameters for their routes (for example nested resources like an owner ID) should define those parameters directly in the generated test class using the `$routeParameters` array and the `$route` property. Example from `tests/Feature/Admin/PetShop/OwnerPetsCrudControllerTest.php`:
 
 ```php
-#[\Backpack\CRUD\app\Library\CrudTesting\TestingRouteParameters(['owner' => 1])]
-class OwnerPetsCrudController extends PetCrudController { ... }
+public string $route = 'pet-shop/owner/1/pets';
+public array $routeParameters = ['owner' => 1];
 ```
 
-The attribute provides default route parameter values when the package's test helpers mock the current route. Tests can rely on those defaults. The generated controller `TestBase` sets `public string $route = 'pet-shop/owner/1/pets';` so trait requests properly include the parameter.
+The `$routeParameters` array provides route parameter values when the test helpers mock the current route, while the `$route` property ensures trait requests target the correct URL with concrete values.
 
 
 <a name="overriding-the-traits-behaviour"></a>
 ## Overriding trait behaviour
 
-If the default trait behaviour doesn't match your controller logic (e.g., you need to attach relationships before asserting the edit page), override the trait methods inside your test class. You can keep the original trait implementation available by aliasing it when importing the trait. Example from `tests/Feature/Admin/PetShop/OwnerPetsCrud/UpdateTest.php`:
+If the default trait behaviour doesn't match your controller logic (e.g., you need to attach relationships before asserting the edit page), override the trait methods inside your test class. You can keep the original trait implementation available by aliasing it when importing the trait. Example from `tests/Feature/Admin/PetShop/OwnerPetsCrudControllerTest.php`:
 
 ```php
 use \\Tests\\Feature\\Backpack\\DefaultUpdateTests {
@@ -132,8 +137,8 @@ public function test_update_page_loads_successfully(): void
 
 ### Short checklist when adapting or writing tests
 
-- Ensure the controller's required route parameters are provided by the `TestingRouteParameters` attribute or the generated `TestBase::$route` includes concrete values.
-- In `TestBase::setUp()` create any related models your controller requires (attached owners, categories, etc.).
+- Ensure the controller's required route parameters are provided via `$routeParameters` and the `$route` property includes concrete values in the generated test class.
+- In `setUp()` create any related models your controller requires (attached owners, categories, etc.).
 - Set `$createInput` / `$updateInput` in tests when the form requires additional structured data (files, nested arrays, relationship ids).
 - Use `$assertCreateInput` / `$assertUpdateInput` to shape the expected DB assertion.
 - Override trait methods only when you need custom assertions; alias the trait method if you still want to call the default behaviour.
