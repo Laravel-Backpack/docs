@@ -74,10 +74,43 @@ Disabling the filter also will make the trashed items show in your List view.  N
 CRUD::setOperationSetting('canDestroyNonTrashedItems', true);
 ```
 
+<a name="how-to-configure-redirect-after-trash-or-destroy"></a>
+#### How to configure redirect after Trash or Destroy
+
+When the Trash or Destroy buttons are used **outside a DataTable** (e.g. on the Show page), the entry is no longer accessible after the action. By default, the user will be redirected to the List route. If you want to customize where the user is redirected, you can set:
+
+```php
+public function setupTrashOperation()
+{
+    // redirect to a custom URL after trashing an entry (outside a DataTable)
+    CRUD::setOperationSetting('trashButtonRedirect', url('admin/dashboard'));
+
+    // redirect to a custom URL after permanently destroying an entry (outside a DataTable)
+    CRUD::setOperationSetting('destroyButtonRedirect', url('admin/dashboard'));
+}
+```
+
+You can also use a Closure for dynamic redirects:
+
+```php
+CRUD::setOperationSetting('trashButtonRedirect', function () {
+    return url('admin/dashboard');
+});
+```
+
+> **Note:** When the Trash, Destroy or Restore buttons are used **inside a DataTable** (on the List page, or inside a related-entries table on the Show page), the table is simply redrawn - no redirect occurs. The redirect settings only affect buttons that are rendered outside of a DataTable context.
+
 <a name="how-to-control-access-to-operation-actions"></a>
 ### How to control access to operation actions
 
-When used, `TrashOperation` each action inside this operation (`trash`, `restore` and `destroy`) checks for access, before being performed.  Likewise, `BulkTrashOperation` checks for access to `bulkTrash`, `bulkRestore` and `bulkDestroy`.
+When `TrashOperation` is used, it automatically controls button visibility based on whether an entry is trashed:
+
+- **Trashed entries** show only: `Restore`, `Destroy` buttons
+- **Non-trashed entries** show only: `Trash` button (and all other operation buttons like Update, Show, Delete, etc.)
+
+When the Trashed filter is active, **all non-trash line buttons are removed automatically** — this includes buttons from any operation (Update, UpdateInModal, Show, Delete, Clone, etc.), regardless of the order in which operations are declared in your controller.
+
+Each action inside the TrashOperation (`trash`, `restore` and `destroy`) also checks for access before being performed. Likewise, `BulkTrashOperation` checks for access to `bulkTrash`, `bulkRestore` and `bulkDestroy`.
 
 That means you can revoke access to some operations, depending on user roles or anything else you want:
 ```php
