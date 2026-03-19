@@ -19,13 +19,33 @@ The tests are designed to be "smart" — they inspect your CrudController's conf
 <a name="generating-tests"></a>
 ## Generate Tests
 
-You can generate feature tests for your CRUD controllers using the artisan command:
+**Step 1.** Generate feature tests for your CRUD controllers using the artisan command:
 
 ```bash
 php artisan backpack:tests
 ```
 
 This will scan your controllers directory (configurable via `backpack.testing.controllers_path`) and generate test files for all supported operations.
+
+**Step 2.** Configure `tests/Feature/Backpack/DefaultTestBase.php` to make sure the admin user that is used for testing... can actually do the things you're testing. Otherwise all your generator tests will fail (403 http status code instead of 200). This most likely means giving that admin user the correct roles/permissions. If you're using PermissionManager, that file includes some commented code for you, as example.
+
+**Step 3.** The generated tests for CrudControllers need Factories and Seeders for those Eloquent Models, in order to work. If you're using [our DevTools package](https://backpackforlaravel.com/products/devtools), they should already be there. Otherwise, frontier LLMs will do a reasonable job of generating Factories and Seeders, here's a prompt you can use to get you started:
+
+```
+In this Laravel application, not all Eloquent Models that have a CrudController have factories and seeders. Please do a full evaluation of CrudControllers, Models and Factories and make sure we have a full suite of Factories for any model that has a CrudController, so that we can build a test suite on top of them.
+```
+
+**Step 4.** You should then run your tests, to see if there's anything left to fix (there usually is):
+
+```bash
+# how to run only the CRUD tests
+php artisan test --filter="crud"
+
+# how to run tests only for a particular CRUD
+php artisan test --filter="usercrud"
+```
+
+Some of the errors you meet are to be expected. We've tried to cover the most common errors in the Troubleshooting section below. We recommend taking a look at it, when debugging your CRUD tests.
 
 ### Options
 
@@ -35,6 +55,7 @@ This will scan your controllers directory (configurable via `backpack.testing.co
 | `--operation=list` | Only generate tests for the given CRUD operation (list, create, update, etc.) |
 | `--type=feature` | The type of test to generate (`feature` is currently the only supported type) |
 | `--framework=phpunit` | The testing framework to use (`phpunit` or `pest`). Defaults to `phpunit` |
+| `--path=` | Override the controllers path from config |
 | `--force` | Overwrite existing test classes |
 
 ### Examples
@@ -54,8 +75,34 @@ Generate only list operation tests:
 php artisan backpack:tests --operation=list
 ```
 
+<a name="test-status"></a>
+## Test Status
+
+You can check which of your CrudControllers have tests generated and which operations are covered using:
+
+```bash
+php artisan backpack:tests:status
+```
+
+This will display a visual overview of test coverage per controller:
+
+```
+────────────────────────────────────────────
+✓ MonsterCrudController  List · Create · Update
+✗ UserCrudController     List · Create
+────────────────────────────────────────────
+Total: 2  Tested: 1  Missing: 1
+```
+
+### Options
+
+| Option | Description |
+| --- | --- |
+| `--controller=Name` | Show status for a specific controller |
+| `--type=feature` | Type of tests to check |
+
 <a name="generated-file-structure"></a>
-## Generated testes file structure
+## Generated test file structure
 
 Generated tests rely on a small hierarchy of base classes, reusable traits and on per-controller test files inside your app's `tests/Feature` folder. 
 
@@ -182,6 +229,89 @@ trait DefaultCloneTests
 <a name="troubleshooting"></a>
 ## Troubleshooting
 
-The test generation highly relies on your Model Factories. It's highly important that your Factories are up-to-date with the database/model requirements. 
+The test generation highly relies on your Model Factories. It's highly important that your Factories are up-to-date with the database/model requirements. That being said, here are a few of the most common failures people see in their generated tests, and how to fix them:
+
+### The field X is required
+
+If you see a failure like this:
+```
+ FAILED  Tests\Feature\Admin\VenueCrudControllerTest > update endpoint modifies entry in database
+  Session has unexpected errors:
+{
+    "default": [
+        "The city field is required."
+    ]
+}
+Failed asserting that true is false.
+```
+
+Most likely the factory for your model isn't proper. In this example, your factory is most likely missing a related city - which is mandatory in the Update operation. The test isn't your problem, but the inconsistency between your Factory and your CrudController. To make this test pass, you need to either
+- (a) change your Venue factory to include a City;
+- (b) change your CRUD to not have the City required;
+
+Alternatively, it's possible that your Factory creates an entry with `city_id` but the actual Backpack field uses a relationship field, and its name is `city` (not `city_id`). This mismatch between `city` and `city_id` can be fixed my overriding what input the CRUD tests use for the Create and Update operations, to have both `city` and `city_id`. In your `XCrudControllerTest`:
+
+```php
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $data = Venue::factory()->raw();
+        $data['city'] = $data['city_id'];
+        // unset($data['city_id']); // if you'd like
+        
+        $this->createInput = $data;
+        $this->updateInput = $data;
+    }
+```
+
+### The password field confirmation does not match.
+
+It's likely that you'll see a failure like this for the Create & Update tests, when you have a password confirmation field:
+
+```
+  FAILED  Tests\Feature\Admin\UserCrudControllerTest > update endpoint modifies entry in database                                                                        
+  Session has unexpected errors: 
+
+{
+    "default": [
+        "The password field confirmation does not match."
+    ]
+}
+Failed asserting that true is false.
+```
+
+One way to fix this would be to hard-code the for input that gets created/updated, in your `UserCrudControllerTest`:
+
+```php
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->createInput = [
+            'name'                  => 'Test User',
+            'email'                 => 'testuser@example.com',
+            'password'              => 'Password123!',
+            'password_confirmation' => 'Password123!',
+        ];
+
+        $this->assertCreateInput = [
+            'name'  => 'Test User',
+            'email' => 'testuser@example.com',
+        ];
+
+        $this->updateInput = [
+            'name'                  => 'Updated User',
+            'email'                 => 'updateduser@example.com',
+            'password'              => 'NewPassword123!',
+            'password_confirmation' => 'NewPassword123!',
+        ];
+
+        $this->assertUpdateInput = [
+            'name'  => 'Updated User',
+            'email' => 'updateduser@example.com',
+        ];
+    }
+```
 
 
