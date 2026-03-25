@@ -5,7 +5,7 @@
 <a name="requirements"></a>
 ## Requirements
 
-If you can run Laravel 12, you can install Backpack. Backpack does _not_ have additional requirements.
+If you can run Laravel 12 or 13, you can install Backpack. Backpack does _not_ have additional requirements.
 
 For the following process, we assume:
 
