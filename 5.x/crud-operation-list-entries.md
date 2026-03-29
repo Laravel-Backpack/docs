@@ -209,8 +209,10 @@ $this->crud->limit();
 // you can change the baseQuery instead, by using:
 $this->crud->addBaseClause('where', 'name', '=', 'car');
 
+// please note it's generally a good idea to use crud->orderBy() inside 
+// "if (!$this->crud->getRequest()->has('order')) {}";
+// that way, your custom order is applied ONLY IF the user hasn't forced another order (by clicking a column heading)
 $this->crud->orderBy();
-// please note it's generally a good idea to use crud->orderBy() inside "if (!$this->crud->getRequest()->has('order')) {}"; that way, your custom order is applied ONLY IF the user hasn't forced another order (by clicking a column heading)
 ```
 **NOTE:** The query constraints added in the `setup()` method operation _cannot_ be reset by `Reset Button`. They are permanent for that CRUD, for all operation.
 
