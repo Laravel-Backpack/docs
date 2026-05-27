@@ -241,16 +241,24 @@ CRUD::addField([
     'attribute'               => 'title', // foreign key attribute that is shown to user
     'data_source'             => url('api/article'), // url to controller search function (with /{id} should return model)
     'placeholder'             => 'Select an article', // placeholder for the select
-    'include_all_form_fields' => true, //sends the other form fields along with the request so it can be filtered.
     'minimum_input_length'    => 0, // minimum characters to type before querying results
     'dependencies'            => ['category'], // when a dependency changes, this select2 is reset to null
-    // 'method'               => 'POST', // optional - HTTP method to use for the AJAX call (GET, POST)
+    'include_all_form_fields' => true, // what to send alongside the search query (see note below)
+    'method'                  => 'POST', // recommended when using include_all_form_fields
 ]);
 ```
 
 **DIFFERENT HERE**: ```minimum_input_length```,  ```dependencies``` and ```include_all_form_fields```.
 
-Note: if you are going to use `include_all_form_fields` we recommend you to set the method to `POST`, and to properly setup that in your routes. Since all the fields in the form are going to be sent in the request, `POST` support more data.
+**`include_all_form_fields`** controls what gets sent in the AJAX request alongside the search term. It accepts three values:
+
+| Value | What gets sent |
+|---|---|
+| `false` (default for `select2_from_ajax`, `select2_from_ajax_multiple`) | Nothing extra — unless `dependencies` are set, in which case only the dependency field values are sent |
+| `true` (default for `relationship`/fetch fields) | All form fields are serialised and sent |
+| `['field_a', 'field_b']` | Only the listed fields are sent. Any fields listed in `dependencies` are automatically merged in, even if they are not in the array — so dependency values are never accidentally dropped |
+
+Note: whenever `include_all_form_fields` is `true` or an array, we recommend setting `'method' => 'POST'` and registering a POST route. GET requests have URL-length limits that can truncate a large form payload.
 
 2. That second select points to routes that need to be registered:
 
