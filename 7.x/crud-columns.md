@@ -1104,9 +1104,9 @@ Its definition is very similar to the [dropzone *field type*](/docs/{{version}}/
 <a name="easymde"></a>
 ### easymde <span class="badge badge-pill badge-info">PRO</span>
 
-Convert easymde generated markdown string to HTML, using Illuminate\Mail\Markdown. Since Markdown is usually used for long texts, this column is most helpful in the "Show" operation - not so much in the "ListEntries" operation, where only short snippets make sense.
+Convert easymde generated markdown string to HTML, using `Illuminate\Support\Str::markdown()`. Since Markdown is usually used for long texts, this column is most helpful in the "Show" operation - not so much in the "ListEntries" operation, where only short snippets make sense.
 
-It's the same [markdown](#markdown-pro) column with an alias, the field name.
+It's the same [markdown](#markdown-pro) column with an alias, named after its field name. See the [markdown column](#markdown-pro) for the full list of options, including `markdown_options`.
 
 ```php
 [
@@ -1140,7 +1140,7 @@ It's definition is totally similar to the [icon_picker *field type*](/docs/{{ver
 ### markdown <span class="badge badge-pill badge-info">PRO</span>
 
 
-Convert a markdown string to HTML, using ```Illuminate\Mail\Markdown```. Since Markdown is usually used for long texts, this column is most helpful in the "Show" operation - not so much in the "ListEntries" operation, where only short snippets make sense.
+Convert a markdown string to HTML, using `Illuminate\Support\Str::markdown()`. Since Markdown is usually used for long texts, this column is most helpful in the "Show" operation - not so much in the "ListEntries" operation, where only short snippets make sense.
 
 ```php
 [
@@ -1150,7 +1150,39 @@ Convert a markdown string to HTML, using ```Illuminate\Mail\Markdown```. Since M
 ],
 ```
 
-> <span class="badge badge-danger text-white" style="text-decoration: none;">IMPORTANT</span> As opposed to most other Backpack columns, the output of `markdown` is **NOT escaped by default**. That means if the database value contains malicious JS, that JS might be run when the admin previews it. Make sure to purify the value of this column in an accessor on your Model. At a minimum, you can use `strip_tags()` (here's [an example](https://github.com/Laravel-Backpack/demo/commit/509c0bf0d8b9ee6a52c50f0d2caed65f1f986385)), but a lot better would be to use an [HTML Purifier package](https://github.com/mewebstudio/Purifier) (do that [manually](https://github.com/Laravel-Backpack/demo/commit/7342cffb418bb568b9e4ee279859685ddc0456c1) or by casting the attribute to `CleanHtmlOutput::class`).
+By default, raw HTML embedded in the markdown is **stripped** and unsafe links (`javascript:`, `vbscript:`, `data:`) are **blocked**. This is a safe default for content that may have been entered by untrusted users.
+
+You can customise the rendering behaviour by passing a `markdown_options` array, which is forwarded directly to `Str::markdown()`:
+
+```php
+[
+   'name'             => 'text',
+   'label'            => 'Text',
+   'type'             => 'markdown',
+   // OPTIONAL - override the CommonMark options (these are the defaults):
+   'markdown_options' => [
+       'html_input'         => 'strip',   // 'allow' | 'escape' | 'strip'
+       'allow_unsafe_links' => false,     // disallow javascript:/vbscript: links
+       // 'max_nesting_level' => 10,       // prevent deeply nested structures (DoS protection)
+   ],
+],
+```
+
+If you explicitly trust the markdown source (e.g. content only ever entered by admins) and need raw HTML to pass through, you can opt in:
+
+```php
+[
+   'name'             => 'text',
+   'label'            => 'Text',
+   'type'             => 'markdown',
+   'markdown_options' => [
+       'html_input'         => 'allow', // ⚠ only use for fully trusted content
+       'allow_unsafe_links' => true,
+   ],
+],
+```
+
+> <span class="badge badge-danger text-white" style="text-decoration: none;">IMPORTANT</span> The output of `markdown` is **NOT escaped by default** — it is rendered as HTML. With the default `markdown_options`, raw HTML tags are stripped and unsafe links are blocked, which protects against the most common XSS vectors. If you override `html_input` to `'allow'`, you take full responsibility for sanitising the stored value. In that case, make sure to purify the value in an accessor on your Model using an [HTML Purifier package](https://github.com/mewebstudio/Purifier)
 
 <hr>
 
