@@ -238,6 +238,30 @@ But if you want to overwrite any of the relationship attributes Backpack guesses
 - `multiple` - boolean, allows the user to pick one or multiple items; usually deduced depending on whether it's a 1-to-n or n-n relationship;
 - `pivot` - boolean, instructs Backpack to store the information inside a pivot table; usually deduced depending on whether it's a 1-to-n or n-n relationship;
 - `relation_type` - text, deduced from `entity`; not a good idea to overwrite;
+- <a name="relation-options-query"></a>`relation_options_query` - a closure that limits which related entries are **valid at save time**, acting as a server-side authorization guard against manipulated requests (IDOR). For page-rendered selects, Backpack automatically uses your `options` closure for this purpose. For ajax fields powered by the [FetchOperation](/docs/{{version}}/crud-operation-fetch) whose entity matches the `fetchXxx()` naming convention, the fetch `query` is used automatically. For fields backed by a **fully custom endpoint** (no FetchOperation), declare the allowed set here yourself — without it, any key can be submitted and persisted:
+
+```php
+CRUD::field([
+    'type'                   => 'select2_from_ajax',
+    'name'                   => 'category_id',
+    'data_source'            => url('api/category'),
+    'relation_options_query' => function ($query) {
+        return $query->where('active', true); // only these IDs will be accepted at save time
+    },
+]);
+```
+
+Out-of-scope keys are silently dropped for `HasMany`, `MorphMany`, `BelongsToMany`, and `MorphToMany` relationships. For `BelongsTo`, an out-of-scope value aborts the save with a validation error on the field.
+- <a name="relation-options-query-source"></a>`relation_options_query_source` - the **name of the FetchOperation method** (eg. `'fetchCategory'`) whose `query` defines this field's allowed options. Use this instead of `relation_options_query` when the field is powered by the [FetchOperation](/docs/{{version}}/crud-operation-fetch) but you had to set `data_source` **manually** (eg. the field entity does not match the fetch method name). Backpack reuses that method's `query` closure to enforce submitted values at save time, so you don't have to duplicate it:
+
+```php
+CRUD::field([
+    'type'                          => 'select2_from_ajax',
+    'name'                          => 'category_id',
+    'data_source'                   => backpack_url('article/fetch/product-category'),
+    'relation_options_query_source' => 'fetchProductCategory', // reuse this fetch method's query
+]);
+```
 
 If you do need a field that contains relationships to behave a certain way, it's usually enough to just specify a different `entity`. However, you _can_ specify any of the attributes above, and Backpack will take your value for it, instead of trying to guess one.
 
@@ -2246,6 +2270,17 @@ For more information about the optional attributes that fields use when they int
 
 Of course, you also need to create make the data_source above respond to AJAX calls. You can use the [FetchOperation](https://backpackforlaravel.com/docs/{{version}}/crud-operation-fetch) to quickly do that in your current CrudController, or you can set up your custom API by creating a custom Route and Controller. Here's an example:
 
+> **Security note:** When this field is powered by the [FetchOperation](/docs/{{version}}/crud-operation-fetch), Backpack reuses your `fetchXxx()` query to validate submitted IDs at save time. This happens automatically when the field entity matches the fetch method name. If you set `data_source` **manually** and the names no longer match, tell Backpack which method to use via `relation_options_query_source`:
+> ```php
+> CRUD::field([
+>     'type'                          => 'select2_from_ajax',
+>     'name'                          => 'category_id',
+>     'data_source'                   => backpack_url('article/fetch/product-category'),
+>     'relation_options_query_source' => 'fetchProductCategory',
+> ]);
+> ```
+> If your `data_source` is a **custom endpoint** (not the FetchOperation), declare the allowed set directly with a [`relation_options_query`](#relation-options-query) closure instead. Skipping both leaves the field open to tampered requests (IDOR).
+
 ```php
 Route::post('/api/category', 'Api\CategoryController@index');
 ```
@@ -2321,6 +2356,18 @@ CRUD::field([   // n-n relationship
 For more information about the optional attributes that fields use when they interact with related entries - [look here](#optional-attributes-for-fields-containing-related-entries).
 
 Of course, you also need to create a controller and routes for the data_source above. Here's an example:
+
+> **Security note:** When this field is powered by the [FetchOperation](/docs/{{version}}/crud-operation-fetch), Backpack reuses your `fetchXxx()` query to validate submitted IDs at save time. This happens automatically when the field entity matches the fetch method name. If you set `data_source` **manually** and the names no longer match, tell Backpack which method to use via `relation_options_query_source`:
+> ```php
+> CRUD::field([
+>     'type'                          => 'select2_from_ajax_multiple',
+>     'name'                          => 'cities',
+>     'data_source'                   => backpack_url('article/fetch/active-city'),
+>     'pivot'                         => true,
+>     'relation_options_query_source' => 'fetchActiveCity',
+> ]);
+> ```
+> If your `data_source` is a **custom endpoint** (not the FetchOperation), declare the allowed set directly with a [`relation_options_query`](#relation-options-query) closure instead. Skipping both leaves the field open to tampered requests (IDOR).
 
 ```php
 Route::post('/api/city', 'Api\CityController@index');
