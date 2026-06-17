@@ -135,6 +135,44 @@ function($value) { // if the filter is active
 ```
 
 
+<a name="security"></a>
+## Security - Save-time Authorization Guard
+
+The `query` closure you define in your `fetchXxx()` method does more than filter the AJAX search results — **it is also applied on the server at save time** to verify every submitted key was within the allowed set. This protects against tampered requests that try to relate entries the admin was never shown (IDOR / CWE-862).
+
+```php
+protected function fetchTag()
+{
+    return $this->fetch([
+        'model' => \App\Models\Tag::class,
+        'query' => function ($model) {
+            return $model->where('active', true); // only active tags are valid at save time too
+        },
+    ]);
+}
+```
+
+If an attacker submits IDs that your `query` would not have returned, Backpack will:
+- **silently drop** the out-of-scope keys for `HasMany`, `MorphMany`, `BelongsToMany`, and `MorphToMany` relationships (the valid selections still persist);
+- **abort with a validation error** on the field for `BelongsTo` relationships (the save is rejected with a 422).
+
+If you do not define a `query` closure, all IDs are considered valid — the same behaviour as before this security fix.
+
+> **Important — when is the guard applied automatically?** Backpack derives the guard from your `fetchXxx()` query whenever it can map the field to its fetch method — i.e. for any ajax relationship field (`relationship`, `select2_from_ajax`, `select2_from_ajax_multiple`) whose entity matches the `fetchXxx()` naming convention (e.g. entity `tag` → `fetchTag()`).
+>
+> If you had to set `data_source` **manually** and the field entity no longer matches the fetch method name, the convention breaks and the guard cannot be derived automatically. In that case, point the field at the right method explicitly with [`relation_options_query_source`](/docs/{{version}}/crud-fields#relation-options-query-source):
+> ```php
+> CRUD::field([
+>     'type'                          => 'select2_from_ajax',
+>     'name'                          => 'category_id',
+>     'data_source'                   => backpack_url('article/fetch/product-category'),
+>     'relation_options_query_source' => 'fetchProductCategory', // reuse this fetch method's query
+> ]);
+> ```
+>
+> For fields backed by a **fully custom endpoint** (no FetchOperation at all), there is no fetch query to reuse — declare the allowed set directly with a [`relation_options_query`](/docs/{{version}}/crud-fields#relation-options-query) closure instead.
+
+
 <a name="how-to-overwrite"></a>
 ## How to Overwrite
 
