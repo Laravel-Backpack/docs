@@ -578,7 +578,7 @@ By default, when you select a filter value, the filter dropdown closes and there
 
 Backpack can show **badges/chips** below the filter navbar that display the active filter values. Each badge shows the filter label and its current value, with an "×" button to quickly remove that filter:
 
-![Backpack CRUD Filter Badges](https://backpackforlaravel.com/uploads/docs-4-0/filters/filter-badges.png)
+![Backpack CRUD Filter Badges](https://backpackforlaravel.com/uploads/docs/filters/filter-badges.png)
 
 ### Enabling Filter Badges
 
