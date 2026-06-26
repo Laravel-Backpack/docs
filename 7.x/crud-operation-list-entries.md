@@ -119,6 +119,14 @@ To learn more about buttons, **check out the [Buttons](/docs/{{version}}/crud-bu
 
 Filters show up right before the actual table, and provide a way for the admin to filter the results in the ListEntries table. To learn more about filters, **check out the [Filters](/docs/{{version}}/crud-filters) documentation page**. Please note that filters are a <span class="badge badge-pill badge-info">PRO</span> feature. Check out more differences in [FREE vs PRO](/docs/{{version}}/features-free-vs-paid#features).
 
+You can show the currently active filter values as badges/chips below the filter navbar by enabling `showFilterValues` in the List operation config (`config/backpack/operations/list.php`), or per CRUD:
+
+```php
+CRUD::setOperationSetting('showFilterValues', true);
+```
+
+See the [Filter Value Badges](/docs/{{version}}/crud-filters#filter-value-badges) section for details.
+
 <a name="other-features"></a>
 ### Other Features
 
