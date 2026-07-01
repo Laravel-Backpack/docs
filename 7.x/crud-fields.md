@@ -1260,8 +1260,86 @@ Input preview:
 
 <hr>
 
+<a name="air-datepicker"></a>
+### air-datepicker <span class="badge badge-pill badge-info">PRO</span>
+
+A unified date/time/range picker field powered by [air-datepicker](https://air-datepicker.com/). 
+Replaces the legacy `date_picker`, `datetime_picker`, and `date_range` fields with a single, 
+dependency-free widget (~13KB).
+
+```php
+CRUD::field([
+    'name'  => 'published_at',
+    'label' => 'Published Date',
+    'type'  => 'air-datepicker',
+
+    // OPTIONALS
+    'air-datepicker' => [
+        // Date only (default, format: yyyy-MM-dd)
+
+        // DateTime mode
+        'timepicker' => true,
+
+        // Date range mode (requires two db columns)
+        'range'      => true,
+        // When using range, name should be two columns:
+        // 'name' => ['start_date', 'end_date'] or 'name' => 'start_date,end_date'
+
+        // Display format — Unicode TR35 tokens only (NOT Carbon/Moment!)
+        // TR35: dd=day MM=month yyyy=year  E=day name  MMM=month name
+        // When timepicker is on, dateFormat and timeFormat are separate.
+        'dateFormat' => 'dd/MM/yyyy',
+        'timeFormat' => 'HH:mm',
+
+        // Calendar options
+        'firstDay'   => 1,                       // Monday (0 = Sunday)
+        'minDate'    => '2024-01-01',
+        'maxDate'    => '2024-12-31',
+        'autoClose'  => true,
+        'buttons'    => ['today', 'clear'],
+
+        // Time constraints (when timepicker is on)
+        'minHours'    => 9,
+        'maxHours'    => 18,
+        'minutesStep' => 15,
+
+        // Range preset buttons (when range is true)
+        'ranges' => [
+            'Today'      => [now()->startOfDay(), now()->endOfDay()],
+            'Last 7 Days' => [now()->subDays(6)->startOfDay(), now()],
+            'This Month' => [now()->startOfMonth(), now()->endOfMonth()],
+        ],
+
+        // Locale: pass a full air-datepicker locale object to override
+        // day/month names (defaults come from Backpack translations).
+        'locale' => [
+            'days'        => ['Sunday', 'Monday', ...],
+            'months'      => ['January', 'February', ...],
+            'firstDay'    => 1,
+        ],
+    ],
+]);
+```
+
+**Format tokens:** This field uses Unicode TR35 tokens, not Carbon/Moment. 
+Common equivalents: Carbon `d/m/Y` → TR35 `dd/MM/yyyy`, Carbon `D MMM YYYY` → TR35 `E MMM yyyy`.
+Full reference: [air-datepicker docs](https://air-datepicker.com/docs#dateFormat).
+
+**Locale:** Day and month names come from Backpack's translation files 
+(`resources/lang/vendor/backpack/{lang}/crud.php` → `date_time` section).
+To customize, publish the lang files and edit the `date_time` array.
+
+Any option from [air-datepicker's documentation](https://air-datepicker.com/docs) can be passed 
+inside the `air-datepicker` config array.
+
+<hr>
+
 <a name="date-range"></a>
 ### date_range <span class="badge badge-pill badge-info">PRO</span>
+
+> ⚠️ **DEPRECATED** — This field is deprecated and will be removed in the next major version. 
+> Please migrate to the new [`air-datepicker`](#air-datepicker) field which replaces it with 
+> a modern, dependency-free widget (air-datepicker instead of bootstrap-daterangepicker + moment.js).
 
 Show a DateRangePicker and let the user choose a start date and end date.
 
@@ -1298,6 +1376,10 @@ Input preview:
 <a name="date-picker"></a>
 ### date_picker <span class="badge badge-pill badge-info">PRO</span>
 
+> ⚠️ **DEPRECATED** — This field is deprecated and will be removed in the next major version. 
+> Please migrate to the new [`air-datepicker`](#air-datepicker) field which replaces it with 
+> a modern, dependency-free widget (air-datepicker instead of bootstrap-datepicker + moment.js).
+
 Show a pretty [Bootstrap Datepicker](http://bootstrap-datepicker.readthedocs.io/en/latest/).
 
 ```php
@@ -1326,6 +1408,10 @@ Input preview:
 
 <a name="datetime-picker"></a>
 ### datetime_picker <span class="badge badge-pill badge-info">PRO</span>
+
+> ⚠️ **DEPRECATED** — This field is deprecated and will be removed in the next major version. 
+> Please migrate to the new [`air-datepicker`](#air-datepicker) field which replaces it with 
+> a modern, dependency-free widget (air-datepicker instead of bootstrap-datetimepicker + moment.js).
 
 Show a [Bootstrap Datetime Picker](https://eonasdan.github.io/bootstrap-datetimepicker/).
 
