@@ -125,6 +125,28 @@ In ```config/backpack/ui.php``` you'll notice this config option:
 
 You can add files to this array, and they'll be loaded in all admin panels pages.
 
+<a name="preload-assets-for-basset-cache"></a>
+### Preload assets for basset:cache
+
+When using `@basset()` with conditional Blade directives (like `@if`), Basset's `basset:cache` command cannot discover those assets because it scans blade source files without evaluating conditions. This is common for locale-specific scripts.
+
+To pre-cache conditionally loaded assets, use the `basset_preload` config key in `config/backpack/ui.php`:
+
+```php
+'basset_preload' => [
+    'scripts' => [
+        // Conditionally loaded locale scripts, dynamic dependencies, etc.
+        // 'https://cdn.example.com/locale-es.js',
+        // 'https://cdn.example.com/locale-fr.js',
+    ],
+    'styles' => [
+        // 'https://cdn.example.com/theme-dark.css',
+    ],
+],
+```
+
+Assets listed here are **not** loaded on every page — they are only registered so that `php artisan basset:cache` can internalize them ahead of time. They are still loaded conditionally via `@basset()` in your blade files.
+
 <a name="add-custom-css"></a>
 ### Add custom CSS to all admin panel pages
 
