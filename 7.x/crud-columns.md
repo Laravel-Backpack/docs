@@ -209,7 +209,7 @@ Show connected items selected via checklist_dependency field. It's definition is
 <hr>
 
 <a name="ckeditor"></a>
-### ckeditor <span class="badge badge-pill badge-info">PRO</span>
+### ckeditor
 
 The perfect match for the [CKEditor field](https://github.com/Laravel-Backpack/ckeditor-field). The CKEditor column will just output the non-escaped text value of a db column (or model attribute). Its definition is simple:
 
@@ -837,7 +837,7 @@ The text column will just output the text value of a db column (or model attribu
 <hr>
 
 <a name="tinymce"></a>
-### tinymce <span class="badge badge-pill badge-info">PRO</span>
+### tinymce
 
 The perfect match for the [`tinymce` field](https://github.com/Laravel-Backpack/tinymce-field). The tinymce column will just output the non-escaped text value of a db column (or model attribute). Its definition is simple:
 ```php
