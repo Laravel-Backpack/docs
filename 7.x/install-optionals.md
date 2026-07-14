@@ -9,7 +9,7 @@ Everything else is optional. Your project might use them or it might not. Only d
 <a name="backup-manager"></a>
 ## BackupManager
 
-[>> See screenshots and installation](https://github.com/Laravel-Backpack/BackupManager)
+[>> See dedicated docs](https://backpackforlaravel.com/docs/{{version}}/add-on-backup-manager)
 
 1) In your terminal
 
@@ -61,7 +61,7 @@ protected function schedule(Schedule $schedule)
 <a name="log-manager"></a>
 ## LogManager
 
-[>> See screenshots and installation](https://github.com/Laravel-Backpack/logmanager)
+[>> See dedicated docs](https://backpackforlaravel.com/docs/{{version}}/add-on-log-manager)
 
 
 1) Install via composer:
@@ -101,7 +101,7 @@ php artisan backpack:add-menu-content "<x-backpack::menu-item title='Logs' icon=
 
 An interface for the administrator to easily change application settings. Uses Laravel Backpack.
 
-[>> See screenshots and installation](https://github.com/Laravel-Backpack/settings)
+[>> See dedicated docs](https://backpackforlaravel.com/docs/{{version}}/add-on-settings)
 
 Installation:
 
@@ -125,28 +125,28 @@ php artisan db:seed --class="Backpack\Settings\database\seeds\SettingsTableSeede
 
 An admin panel where you, as a developer, can define templates with different fields, and the admin can choose between those templates to create/edit pages with content.
 
-[>> See screenshots and installation](https://github.com/Laravel-Backpack/pagemanager)
+[>> See dedicated docs](https://backpackforlaravel.com/docs/{{version}}/add-on-page-manager)
 
 <a name="permission-manager"></a>
 ## PermissionManager
 
 An admin panel for user authentication on Laravel 5, using Backpack\CRUD. Add, edit, delete users, roles and permission.
 
-[>> See screenshots and installation](https://github.com/Laravel-Backpack/PermissionManager)
+[>> See dedicated docs](https://backpackforlaravel.com/docs/{{version}}/add-on-permission-manager)
 
 <a name="menu-crud"></a>
 ## MenuCrud
 
 An admin panel for menu items on Laravel 5, using Backpack\CRUD. Add, edit, reorder, nest, rename menu items and link them to Backpack\PageManager pages, external link or custom internal link.
 
-[>> GitHub](https://github.com/Laravel-Backpack/MenuCRUD)
+[>> See dedicated docs](https://backpackforlaravel.com/docs/{{version}}/add-on-menu-crud)
 
 <a name="news-crud"></a>
 ## NewsCrud
 
 Since NewsCRUD does not provide any extra functionality other than Backpack\CRUD, it is not a package. It's just a tutorial to show you how this can be achieved. In the future, CRUD examples like this one will be easily installed from the command line, from a central repository. Until then, you will need to manually create the files.
 
-[>> GitHub](https://github.com/Laravel-Backpack/NewsCRUD)
+[>> See dedicated docs](https://backpackforlaravel.com/docs/{{version}}/add-on-news-crud)
 
 
 <a name="file-manager"></a>
@@ -154,7 +154,7 @@ Since NewsCRUD does not provide any extra functionality other than Backpack\CRUD
 
 Backpack admin interface for files and folders, using [barryvdh/laravel-elfinder](https://github.com/barryvdh/laravel-elfinder).
 
-[>> See screenshots and installation](https://github.com/Laravel-Backpack/FileManager)
+[>> See dedicated docs](https://backpackforlaravel.com/docs/{{version}}/add-on-file-manager)
 
 Installation:
 

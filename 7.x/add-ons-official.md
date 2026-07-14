@@ -6,21 +6,27 @@ Premium add-ons (paid separately):
 - [Backpack PRO](https://backpackforlaravel.com/products/pro-for-unlimited-projects) - adds 6 more operations, 10 filters, 28 more fields, 28 more columns and 1 more widget to your toolbelt; we believe it's everything you need to build admin panels... of any complexity <span class="badge badge-pill badge-warning">PAID EXTRA</span>
 - [Backpack DevTools](https://backpackforlaravel.com/products/devtools) - a GUI to easily generate Migrations, Models, Seeders, Factories and CRUDs, right from your browser window; a power user's dream come true! <span class="badge badge-pill badge-warning">PAID EXTRA</span>
 - [Backpack Figma Template](https://backpackforlaravel.com/products/figma-template) - quickly create designs and mockups, using Backpack's design, screens and components; empower your designers to design admin panels that are easy-to-code; <span class="badge badge-pill badge-warning">PAID EXTRA</span>
+- [Backpack DataForm Modal](https://backpackforlaravel.com/products/dataform-modal) - open complex forms in modal dialogs and keep the user in context; <span class="badge badge-pill badge-warning">PAID EXTRA</span>
 - [Backpack EditableColumns](https://backpackforlaravel.com/products/editable-columns) - let admins make quick edits, right from the table view; <span class="badge badge-pill badge-warning">PAID EXTRA</span>
 - [Backpack CalendarOperation](https://backpackforlaravel.com/products/calendar-operation) - adds a Calendar view to your CRUD toolkit; let admins list, search and preview db entries on a calendar, as well as make quick edits with drag&drop; <span class="badge badge-pill badge-warning">PAID EXTRA</span>
+- [Backpack Report Operation](https://backpackforlaravel.com/products/report-operation) - add a reporting workflow to your CRUD panels for custom exports and charts; <span class="badge badge-pill badge-warning">PAID EXTRA</span>
 
 
 Free add-ons:
   - [PermissionManager](https://github.com/Laravel-Backpack/PermissionManager) - interface to manage users & permissions, using [spatie/laravel-permission](https://github.com/spatie/laravel-permission); <span class="badge badge-pill badge-success">FREE</span>
   - [TranslationManager](https://github.com/Laravel-Backpack/translation-manager) - UI to translate language strings, using [spatie/laravel-translation-loader](https://github.com/spatie/laravel-translation-loader); <span class="badge badge-pill badge-success">FREE</span>
+  - [LangFileManager](https://github.com/Laravel-Backpack/langfile-manager) - manage language file translations, with support for Backpack language handling; <span class="badge badge-pill badge-success">FREE</span>
+  - [Language Switcher](https://github.com/Laravel-Backpack/language-switcher) - add a language dropdown to the Backpack admin UI; <span class="badge badge-pill badge-success">FREE</span>
   - [Settings](https://github.com/Laravel-Backpack/Settings) - interface to edit site-wide settings; <span class="badge badge-pill badge-success">FREE</span>
   - [PageManager](https://github.com/Laravel-Backpack/PageManager) - interface to manage content for custom pages, using page templates; <span class="badge badge-pill badge-success">FREE</span>
   - [MenuCRUD](https://github.com/Laravel-Backpack/MenuCRUD) - interface to create/update/reorder menu items;  <span class="badge badge-pill badge-success">FREE</span>
   - [NewsCRUD](https://github.com/Laravel-Backpack/NewsCRUD) - interface to manage news articles, categories and tags; <span class="badge badge-pill badge-success">FREE</span>
+  - [FileManager](https://github.com/Laravel-Backpack/FileManager) - interface to manage files and folders, integrated with Backpack and elFinder; <span class="badge badge-pill badge-success">FREE</span>
   - [LogManager](https://github.com/Laravel-Backpack/LogManager) - interface to preview Laravel log files; <span class="badge badge-pill badge-success">FREE</span>
   - [BackupManager](https://github.com/Laravel-Backpack/BackupManager) - interface to backup your files & db using [spatie/laravel-backup](https://github.com/spatie/laravel-backup); <span class="badge badge-pill badge-success">FREE</span>
   - [Download Operation](https://github.com/Laravel-Backpack/download-operation) - download PDFs related to your entries, using [spatie/laravel-browsershot](https://github.com/spatie/browsershot); <span class="badge badge-pill badge-success">FREE</span>
   - [MediaLibrary Uploaders](https://github.com/Laravel-Backpack/medialibrary-uploaders) - attach files to your Eloquent models using [spatie/laravel-medialibrary](https://github.com/spatie/laravel-medialibrary); <span class="badge badge-pill badge-success">FREE</span>
+  - [PAN Panel](https://github.com/Laravel-Backpack/pan-panel) - view PAN analytics in Backpack; <span class="badge badge-pill badge-success">FREE</span>
   - [Activity Log](https://github.com/Laravel-Backpack/activity-log) - see who changed what, when using [spatie/laravel-activitylog](https://github.com/spatie/laravel-activitylog); <span class="badge badge-pill badge-success">FREE</span>
 
 
