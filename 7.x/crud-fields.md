@@ -1332,6 +1332,10 @@ To customize, publish the lang files and edit the `date_time` array.
 Any option from [air-datepicker's documentation](https://air-datepicker.com/docs) can be passed 
 inside the `air-datepicker` config array.
 
+Input preview:
+
+![CRUD Field - Air Datepicker](https://backpackforlaravel.com/uploads/docs/fields/air-datepicker.jpeg)
+
 <hr>
 
 <a name="date-range"></a>
