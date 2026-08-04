@@ -99,19 +99,40 @@ Use a modal when the message needs the user's full attention. The PHP API uses `
 <a name="modals-php"></a>
 ### From PHP
 
-```php
-\Alert::dialog('Article saved', 'The article is now visible to editors.');
+To show a `swal`-style modal from PHP, queue a dialog with the `Alert` facade. It is rendered in the response just like a toast. Call `flash()` before a redirect so it is available on the next page:
 
-\Alert::dialogSuccess('The article was saved.', 'Saved')
-    ->timer(5000)
-    ->button('Continue')
-    ->showCloseButton()
+```php
+\Alert::dialog('Article saved', 'The article is now visible to editors.')
     ->flash();
 
 return redirect()->route('article.index');
 ```
 
-Typed dialogs are also available: `dialogError()`, `dialogWarning()`, and `dialogInfo()`. They accept the message first and an optional title second.
+`dialog()` creates an informational modal. For the other icon types, use `dialogSuccess()`, `dialogError()`, `dialogWarning()`, or `dialogInfo()`. These methods accept the message first and an optional title second:
+
+```php
+\Alert::dialogError('The article could not be saved.', 'Save failed')
+    ->backdrop(false)
+    ->escapeKey(false)
+    ->button('Review the form')
+    ->showCloseButton()
+    ->flash();
+
+return redirect()->back();
+```
+
+Without `flash()`, the modal is rendered in the current response only. PHP dialogs are display-only; use JavaScript `swal()` when the current page needs to react to the user's choice.
+
+```php
+\Alert::dialogSuccess('The article was saved.', 'Saved')
+    ->timer(5000)
+    ->button('Continue')
+    ->showCloseButton();
+```
+
+#### PHP Modal Limitations
+
+PHP dialogs support one optional dismiss button, whose label you can set with `button()`. They do not support multiple buttons or button values, custom content or inputs, button callbacks, or handling the user's selection: the PHP request has already finished when the modal is displayed. Use JavaScript `swal()` for confirmation flows, custom actions, input dialogs, or any workflow that needs to react to the selected button.
 
 | Method | Default | Description |
 | --- | --- | --- |
@@ -170,3 +191,39 @@ swal('The article was saved.');
 ```
 
 You can close the active dialog with `swal.close()`. Use `swal.setActionValue(value)` to change the confirm value, or pass an object keyed by button name to change several button values.
+
+<a name="legacy-libraries"></a>
+## Use The Full Noty Or SweetAlert Library
+
+Backpack ships small, Bootstrap-based compatibility layers for `Noty` and `swal`. They support the options documented above. If you need an option that Backpack does not support, you can load the original library instead.
+
+For JavaScript calls, publish or create the shared UI overrides at `resources/views/vendor/backpack/ui/inc/scripts.blade.php` and `resources/views/vendor/backpack/ui/inc/styles.blade.php`. Copy their current contents from `vendor/backpack/crud/src/resources/views/ui/inc/`, then add the following **after** Backpack loads `backpack-notifications.js` in `scripts.blade.php`:
+
+```blade
+@basset('https://cdn.jsdelivr.net/npm/noty@3.2.0-beta-deprecated/lib/noty.min.js')
+@basset('https://cdn.jsdelivr.net/npm/sweetalert@2.1.2/dist/sweetalert.min.js')
+```
+
+Add the Noty styles to `styles.blade.php`:
+
+```blade
+@basset('https://cdn.jsdelivr.net/npm/noty@3.2.0-beta-deprecated/lib/noty.css')
+@basset('https://cdn.jsdelivr.net/npm/@digitallyhappy/backstrap@0.5.1/dist/css/legacy.min.css')
+```
+
+The upstream scripts replace Backpack's `window.Noty` and `window.swal` implementations, so your subsequent JavaScript can use the complete library APIs. Loading the upstream SweetAlert library does not need an additional stylesheet.
+
+For PHP-flashed notifications, also override your active theme's `inc/alerts.blade.php` view. Backpack's toast payload uses `message`, whereas upstream Noty expects `text`. Before calling `new Noty(msg).show()`, adapt each message:
+
+```js
+if (typeof msg === 'string') {
+    msg = { text: msg };
+} else {
+    msg.text = msg.message || msg.text || '';
+}
+
+msg.type = type;
+new Noty(msg).show();
+```
+
+For the full legacy PHP behavior, start from the alerts view in the Backpack version you are upgrading from and adapt it to your active theme. Keep this override maintained when upgrading Backpack, because it replaces the built-in notification rendering.
