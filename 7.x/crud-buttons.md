@@ -80,7 +80,7 @@ CRUD::moveButton($target, $where, $destination);
 <a name="overwriting-a-default-button"></a>
 ### Overriding a Button
 
-Before showing any buttons, Backpack will check your ```resources\views\vendor\backpack\crud\buttons``` directory, to see if you've overriden any buttons. If it finds a blade file with the same name there as the operation buttons, it will use your blade file, instead of the one in the package.
+Before showing any buttons, Backpack will check your ```resources\views\vendor\backpack\crud\buttons``` directory, to see if you've overridden any buttons. If it finds a blade file with the same name there as the operation buttons, it will use your blade file, instead of the one in the package.
 
 That means **you can override an existing button simply by creating a blade file with the same name inside this directory**.
 

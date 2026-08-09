@@ -349,7 +349,7 @@ The enum column will output the value of your database ENUM column or your PHP e
 ],
 ```
 
-By default, in case it's a `BackedEnum` it will show the `value` of the enum (when casted), in `database` or `UnitEnum` it will show the the enum value without parsing the value.
+By default, in case it's a `BackedEnum` it will show the `value` of the enum (when casted), in `database` or `UnitEnum` it will show the enum value without parsing the value.
 
 If you want to output something different than what your enum stores you have two options:
 - For `database enums` you need to provide the `options` that translates the enums you store in database.
