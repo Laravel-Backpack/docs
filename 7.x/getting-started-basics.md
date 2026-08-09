@@ -34,7 +34,7 @@ However, you will _almost never_ use all of Backpack's features in one CRUD. But
 <a name="backpack-design"></a>
 ### Front-End Design
 
-New Backpack installs come with an HTML theme installed - you choose which theme. All themes use Bootstrap, and have many HTML blocks ready for you to use. When you're building a custom page in your admin panel, it's easy to just copy-paste the HTML from the the theme's demo or from its documentation. And the page will look good, without you having to design anything. Currently, we have three first-party themes:
+New Backpack installs come with an HTML theme installed - you choose which theme. All themes use Bootstrap, and have many HTML blocks ready for you to use. When you're building a custom page in your admin panel, it's easy to just copy-paste the HTML from the theme's demo or from its documentation. And the page will look good, without you having to design anything. Currently, we have three first-party themes:
 - [Tabler](https://github.com/Laravel-Backpack/theme-tabler)
 - [CoreUI v4](https://github.com/Laravel-Backpack/theme-coreuiv4)
 - [CoreUI v2](https://github.com/Laravel-Backpack/theme-tabler) (which still provides IE support)

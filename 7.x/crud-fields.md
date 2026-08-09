@@ -1085,7 +1085,7 @@ To know more about the `withFiles`, how it works and how to configure it, [ clic
 **Validation**
 
 You can use standard Laravel validation rules. But we've also made it easy for you to validate the `upload` fields, using a [Custom Validation Rule](/docs/{{version}}/custom-validation-rules). The `ValidUploadMultiple` validation rule allows you to define two sets of rules:
-- `::field()` - the input rules, independant of the content;
+- `::field()` - the input rules, independent of the content;
 - `file()` - rules that apply to each file that gets sent;
 
 This will help you avoid most quirks of using Laravel's standard validation rules alone.
@@ -1746,7 +1746,7 @@ CRUD::field([   // relationship
  ]);
 ```
 
-More more optional attributes on relationship fields [look here](#optional-attributes-for-fields-containing-related-entries).
+More optional attributes on relationship fields [look here](#optional-attributes-for-fields-containing-related-entries).
 
 Out of the box, it supports all common relationships:
 - ✅ `hasOne` (1-1) - shows subform if you define `subfields`
