@@ -1332,6 +1332,9 @@ To customize, publish the lang files and edit the `date_time` array.
 Any option from [air-datepicker's documentation](https://air-datepicker.com/docs) can be passed 
 inside the `air-datepicker` config array.
 
+To control the picker from JavaScript (eg. link two pickers so that one excludes the dates 
+of the other), see [How to link two air-datepicker fields](/docs/{{version}}/crud-how-to#how-to-link-two-air-datepicker-fields).
+
 Input preview:
 
 ![CRUD Field - Air Datepicker](https://backpackforlaravel.com/uploads/docs/fields/air-datepicker.jpeg)
