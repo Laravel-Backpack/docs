@@ -165,8 +165,10 @@ $this->crud->addClause('whereHas', 'posts', function($query) {
 $this->crud->groupBy();
 $this->crud->limit();
 
+// please note it's generally a good idea to use crud->orderBy() inside 
+// "if (!$this->crud->getRequest()->has('order')) {}";
+// that way, your custom order is applied ONLY IF the user hasn't forced another order (by clicking a column heading)
 $this->crud->orderBy();
-// please note it's generally a good idea to use crud->orderBy() inside "if (!$this->crud->getRequest()->has('order')) {}"; that way, your custom order is applied ONLY IF the user hasn't forced another order (by clicking a column heading)
 ```
 
 <a name="show-api"></a>

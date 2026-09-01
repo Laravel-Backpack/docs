@@ -473,18 +473,18 @@ Shows the number of items that are related to the current entry, for a particula
 
 ```php
 [
-   // relationship count
-   'name'      => 'tags', // name of relationship method in the model
-   'type'      => 'relationship_count', 
-   'label'     => 'Tags', // Table column heading
-   // OPTIONAL
-   // 'suffix' => ' tags', // to show "123 tags" instead of "123 items"
-   
-   // if you need that column to be orderable in table, you need to manually provide the orderLogic
-   // 'orderable' => true,
-   // 'orderLogic' => function ($query, $column, $columnDirection) {
-                $query->orderBy('tags_count', $columnDirection);
-            },
+    // relationship count
+    'name'      => 'tags', // name of relationship method in the model
+    'type'      => 'relationship_count', 
+    'label'     => 'Tags', // Table column heading
+    // OPTIONAL
+    // 'suffix' => ' tags', // to show "123 tags" instead of "123 items"
+    
+    // if you need that column to be orderable in table, you need to manually provide the orderLogic
+    'orderable' => true,
+    'orderLogic' => function ($query, $column, $columnDirection) {
+        $query->orderBy('tags_count', $columnDirection);
+    },
 ],
 ```
 
@@ -868,7 +868,7 @@ $this->crud->addColumn([
    'attribute'  => 'name', // foreign key attribute that is shown to user
    'orderable'  => true,
    'orderLogic' => function ($query, $column, $columnDirection) {
-        return $query->leftJoin('categories', 'categories.id', '=', 'articles.select')
+        return $query->leftJoin('categories', 'categories.id', '=', 'articles.category_id')
             ->orderBy('categories.name', $columnDirection)->select('articles.*');
     }
 ]);
