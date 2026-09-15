@@ -1055,8 +1055,10 @@ This helps you avoid most quirks when validating file uploads using Laravel's va
 use Backpack\CRUD\app\Library\Validation\Rules\ValidUpload;
 
 'image' => ValidUpload::field('required')
-                ->file('file|mimes:jpeg,png,jpg,gif,svg|max:2048'),
+                ->file('file|mimes:jpeg,png,jpg,gif|max:2048'),
 ```
+
+**NOTE**: When using `withFiles`, files are also checked against a list of [allowed file types](/docs/{{version}}/crud-uploaders#allowed-file-types). File types that browsers render as pages, like `svg` and `html`, are not allowed by default.
 
 Input preview:
 
@@ -1106,8 +1108,10 @@ This will help you avoid most quirks of using Laravel's standard validation rule
 use Backpack\CRUD\app\Library\Validation\Rules\ValidUploadMultiple;
 
 'photos' => ValidUploadMultiple::field('required|min:2|max:5')
-                ->file('file|mimes:jpeg,png,jpg,gif,svg|max:2048'),
+                ->file('file|mimes:jpeg,png,jpg,gif|max:2048'),
 ```
+
+**NOTE**: When using `withFiles`, files are also checked against a list of [allowed file types](/docs/{{version}}/crud-uploaders#allowed-file-types). File types that browsers render as pages, like `svg` and `html`, are not allowed by default.
 
 **NOTE**: This field uses a `clear_{fieldName}` input to send the deleted files from the frontend to the backend. In case you are using `$guarded` add it there.
 Eg: `protected $guarded = ['id', 'clear_photos'];`
@@ -1513,8 +1517,10 @@ Alternatively, you can manually implement the saving process yourself using mode
 use Backpack\Pro\Uploads\Validation\ValidDropzone;
 
 'photos' => ValidDropzone::field('required|min:2|max:5')
-                ->file('file|mimes:jpeg,png,jpg,gif,svg|max:2048'),
+                ->file('file|mimes:jpeg,png,jpg,gif|max:2048'),
 ```
+
+**NOTE**: When using `withFiles`, files are also checked against a list of [allowed file types](/docs/{{version}}/crud-uploaders#allowed-file-types). File types that browsers render as pages, like `svg` and `html`, are not allowed by default.
 
 Input preview:
 
@@ -1552,7 +1558,7 @@ Starting Backpack 6.7 you can now upload images using drag & drop directly into 
 **Step 1:** Add the `AjaxUploadOperation` to your `EntityCrudController` where you defined your easyMDE field.
 **Step 2:** Add the `withFiles => true` attribute to your field definition. You can check other available options in the [uploaders documentation](https://backpackforlaravel.com/docs/crud-uploaders).
 
-**Note:** EasyMDE provides some basic javascript file validation. By default only `jpg, jpeg, png, gif, svg, webp` are allowed and files up to 2MB. You can change this by setting the `imageMaxSize` and `imageAccept` options in the `easymdeAttributes` attribute. Eg:
+**Note:** EasyMDE provides some basic javascript file validation. By default only `jpg, jpeg, png, gif, svg, webp` are allowed and files up to 2MB. This is only a convenience for the user: the server still validates the files with `ValidEasyMDE` (by default, `jpg` and `png` images up to 1MB) and only stores [allowed file types](/docs/{{version}}/crud-uploaders#allowed-file-types), so `svg` images are rejected unless you allow them. You can change the javascript validation by setting the `imageMaxSize` and `imageAccept` options in the `easymdeAttributes` attribute. Eg:
 
 ```php
 'easymdeAttributes' => [
