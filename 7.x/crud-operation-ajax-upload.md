@@ -16,6 +16,8 @@ All Backpack fields that allow the user to upload files have their correspondent
 
 This enpoint comes with a default security configuration, only allow the upload of `jpg/jpeg/png/gif` images with a maximum size of 1MB. To overwrite this configuration, you need to validate your field using the previously mentioned rules that apply for your field, for example `ValidDropzone` or `ValidEasyMDE`. 
 
+After validation, the endpoint also checks the uploaded files against the [allowed file types](https://backpackforlaravel.com/docs/{{version}}/crud-uploaders#allowed-file-types) of the field. If any file is not allowed, none of the files in the request are stored, and a `422` response is returned with the error for the field.
+
 
 <a name="how-to-use"></a>
 ## How to Use
