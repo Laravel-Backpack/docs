@@ -12,7 +12,28 @@ This operation allows your admins to reorder & nest entries.
 <a name="requirements"></a>
 ## Requirements
 
-Your model should have the following integer fields, with a default value of 0: ```parent_id```, ```lft```, ```rgt```, ```depth```. The names are optional, you can change them in the ```setupReorderOperation()``` method. 
+Your model should have the following integer fields, with a default value of 0: `parent_id`, `lft`, `rgt`, `depth`. Additionally, the `parent_id` field has to be nullable. Here is an example migration:
+
+```php
+public function up(): void
+{
+    Schema::create('categories', function (Blueprint $table) {
+        $table->increments('id');
+        $table->string('name')->unique();
+
+        $table->unsignedInteger('parent_id')
+            ->nullable()
+            ->default(null);
+        $table->unsignedInteger('lft')->default(0);
+        $table->unsignedInteger('rgt')->default(0);
+        $table->unsignedInteger('depth')->default(0);
+
+        $table->timestamps();
+    });
+}
+```
+
+The names are optional, you can change them in the ```setupReorderOperation()``` method. 
     
 ```php
 
@@ -25,9 +46,25 @@ protected function setupReorderOperation()
         'depth' => 'deep',
     ]);
 }
-```	
+```
 
-Additionally, the `parent_id` field has to be nullable.
+Then, define the `children` relationship of the model that points to itself:
+
+```php
+<?php
+
+class Category extends Model
+{
+    public function children()
+    {
+        return $this->hasMany(
+            \App\Models\Category::class,
+            'parent_id'
+        );
+    }
+}
+
+```
 
 <a name="how-to-use"></a>
 ## How to Use
