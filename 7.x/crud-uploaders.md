@@ -54,12 +54,73 @@ When `temporaryUrl` is set to `true`, this configures the amount of time in minu
 - **`uploader`** - default: **null**
 This allows you to overwrite or set the uploader class for this field. You can use any class that implements `UploaderInterface`.
 - **`fileNamer`** - default: **null**
-It accepts a `FileNameGeneratorInterface` instance or a closure. As the name implies, this will be used to generate the file name. Read more about in the [Naming uploaded files](#upload-name-files) section.
+It accepts a `FileNameGeneratorInterface` instance or a closure. As the name implies, this will be used to generate the file name. Read more about in the [Naming uploaded files](#naming-files-when-using-uploaders) section.
+- **`allowedExtensions`** - default: **null** (uses the `allowed_upload_extensions` config)
+The extensions files uploaded to this field can be stored with. Read more about it in the [Allowed file types](#allowed-file-types) section.
 
 <a name="upload-validation"></a>
 ### Upload Validation
 
-We can't stress enough how **IMPORTANT** is to properly validate and autenticate the file uploads and the upload endpoints. We have created a set of custom validation rules that will make validation of upload fields dead-simple. Please see the [Custom Validation Rules](https://backpackforlaravel/docs/custom-validation-rules) section for more information.
+We can't stress enough how **IMPORTANT** is to properly validate and autenticate the file uploads and the upload endpoints. We have created a set of custom validation rules that will make validation of upload fields dead-simple. Please see the [Custom Validation Rules](https://backpackforlaravel.com/docs/{{version}}/custom-validation-rules) section for more information.
+
+<a name="allowed-file-types"></a>
+### Allowed file types
+
+On top of your validation rules, Uploaders only store files whose extension is in an allow list. This protects your admins even when a field has no validation rules: a file that browsers render as a page (like `svg` or `html`) could run scripts in the session of the admin that opens it, when served from your application domain.
+
+With the default [file namer](#naming-files-when-using-uploaders), the extension a file is stored with comes from **its content**, not from the name the user sent. So a `payload.png` file that contains SVG markup is detected as `svg`, and rejected. When the content can't be identified, the file is stored with the `bin` extension.
+
+By default, the following extensions are allowed:
+- **images:** `jpg`, `jpeg`, `png`, `gif`, `webp`, `avif`, `bmp`, `tif`, `tiff`, `ico`, `heic`, `heif`
+- **documents:** `pdf`, `txt`, `csv`, `rtf`, `json`, `epub`, `doc`, `docx`, `xls`, `xlsx`, `ppt`, `pptx`, `odt`, `ods`, `odp`
+- **archives:** `zip`, `rar`, `7z`, `gz`, `tgz`, `tar`, `bz2`
+- **audio:** `mp3`, `wav`, `ogg`, `oga`, `opus`, `m4a`, `aac`, `flac`, `weba`
+- **video:** `mp4`, `m4v`, `webm`, `mov`, `avi`, `mkv`, `mpeg`, `mpg`, `ogv`, `3gp`
+- **unidentified content:** `bin`
+
+Extensions that web servers may execute (`php`, `phtml`, `phar`, `shtml`, `pl`, `py`, `cgi`, `asp`, `jsp`, `sh`, `exe`, `htaccess` and similar) are **always** rejected, even if you add them to the allow list. They are checked in every part of the file name, so a name like `shell.php.jpg` is rejected too.
+
+**Changing the allowed extensions for all fields**
+
+Set the `allowed_upload_extensions` key in your `config/backpack/crud.php` file:
+
+```php
+use Backpack\CRUD\app\Library\Uploaders\Support\FileExtensions;
+
+'allowed_upload_extensions' => [...FileExtensions::DEFAULT_ALLOWED, 'dwg'],
+```
+
+If you published the config file before this option existed, you don't need to add it - Backpack will use the default list.
+
+**Changing the allowed extensions for one field**
+
+Pass `allowedExtensions` to the uploader configuration. It replaces the list from the config for that field, so you can use it both to restrict and to extend what is allowed:
+
+```php
+use Backpack\CRUD\app\Library\Uploaders\Support\FileExtensions;
+
+// only accept pdfs
+CRUD::field('invoice')->type('upload')->withFiles([
+    'allowedExtensions' => ['pdf'],
+]);
+
+// the default extensions, plus svg
+CRUD::field('logo')->type('upload')->withFiles([
+    'allowedExtensions' => [...FileExtensions::DEFAULT_ALLOWED, 'svg'],
+]);
+```
+
+> **IMPORTANT**: Only allow `svg`, `html`, `xml` or other file types that browsers can render when you trust everyone who can upload to that field, or when the files are served from a different domain than your admin panel (eg. a cloud disk). Otherwise, a crafted file can run scripts in the session of the admin who opens it.
+
+**What happens when a file is not allowed**
+
+The form is returned with a validation error for that field, just like any other validation rule. For fields inside a `repeatable` or a relationship, the error is reported on the subfield of the row that sent the file (eg. `gallery.2.photos`).
+
+All the files sent in the form are checked **before** any uploader stores or deletes files. So if one file is rejected, nothing is changed: the new files are not stored and the previous files of the entry are kept. This applies to all fields in the form, including fields inside repeatables and relationships, and to the [Spatie MediaLibrary uploaders](#spatie-media-library).
+
+Ajax uploaders (`dropzone`, `easymde`, `summernote`) check the files when they are sent to the [AjaxUpload endpoint](https://backpackforlaravel.com/docs/{{version}}/crud-operation-ajax-upload), so files that are not allowed never reach the temporary folder. The error is returned in the endpoint response and shown in the field.
+
+> **NOTE**: The allow list is a safety net, not a replacement for validation. You should still validate each upload field with the file types it expects, using the [Custom Validation Rules](https://backpackforlaravel.com/docs/{{version}}/custom-validation-rules).
 
 <a name="available-uploaders"></a>
 ## Available Uploaders
@@ -152,6 +213,8 @@ Notice this custom class you're creating is extending `Backpack\CRUD\app\Library
 **`hasDeletedFiles`** - a method that returns a boolean to determine if the files were deleted from the field.
 
 **`getUploadedFilesFromRequest`** - this is the method that will be called to get the values sent in the request. Some uploaders require you get the `->files()` others the `->input()`. By default it returns the `->files()`.
+
+> **IMPORTANT**: Always name the files you store with **`$this->getFileName($file)`**. Besides calling the configured `fileNamer`, it makes sure the file type is [allowed](#allowed-file-types), and throws a `ValidationException` when it's not. Call it for all new files **before** deleting or replacing any previous file, so a rejected upload doesn't remove the files the entry already has. Uploaders that extend `Uploader` also get the uploaded files (`UploadedFile` instances) checked before any uploader in the form runs, but files your uploader gets in other ways (eg. base64 strings) are only checked when you call `getFileName()`.
 
 This is the implementation of those methods in `SingleFile` uploader:
 ```php
@@ -292,8 +355,8 @@ public function categories() {
 ### Naming files when using Uploaders
 
 Backpack provides a naming strategy for uploaded files that works well for most scenarios:
-- For `upload`, `upload_multiple` and `dropzone` fields, the file name will be the original file name slugged and with a random 4 character string appended to it, to avoid name collisions. Eg: `my file.pdf` becomes `my-file-aY5x.pdf`.
-- For `image` it will generate a unique name for the file, and will keep the original extension. Eg: `my file.jpg` becomes `5f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c.jpg`.
+- For `upload`, `upload_multiple` and `dropzone` fields, the file name will be the original file name slugged and with a random 4 character string appended to it, to avoid name collisions. The extension is detected from the file content. Eg: `my file.pdf` becomes `my-file-aY5x.pdf`.
+- For `image` it will generate a random name for the file, with the extension of the image type. Eg: `5f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c.jpeg`. Only `jpeg`, `png`, `gif`, `webp` and `avif` images are accepted, and the image content must match its type.
 
 You can customize the naming strategy by creating a class that implements `FileNameGeneratorInterface` and pass it to the upload configuration (the default used by Backpack).
 
@@ -307,6 +370,10 @@ CRUD::field('avatar')->type('upload')->withFiles([
     'fileNamer' => function($file, $uploader) { return 'the_file_name.png'; },
 ])
 ```
+
+The names returned by your file namer must end with an [allowed extension](#allowed-file-types), otherwise the file is rejected. Keep in mind that the original file name (`$file->getClientOriginalName()`) is sent by the user: if you use it, the extension the user picked is the one that gets checked, not the file content. Names without an extension are rejected too.
+
+The default name generator can be changed for all fields in the `file_name_generator` key of your `config/backpack/crud.php` file.
 <a name="subfields-in-uploaders"></a>
 ### Subfields in Uploaders
 

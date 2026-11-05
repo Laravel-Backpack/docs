@@ -254,6 +254,33 @@ CRUD::filter('birthday')
     });
 ```
 
+#### Format
+
+By default, both the datepicker input and the filter badge use the global `backpack.ui.default_date_format` config value (`D MMM YYYY` by default). To use a different format, chain `format()` with [Moment.js format tokens](https://momentjs.com/docs/#/displaying/format/):
+
+```php
+CRUD::filter('birthday')
+    ->type('date')
+    ->format('DD/MM/YYYY') // datepicker input + badge format
+    ->whenActive(function($value) {
+        // even with a custom format, the value is always in raw format: Y-m-d
+        CRUD::addClause('where', 'date', $value);
+    });
+```
+
+With the example above, picking `2026-01-05` would show `05/01/2026` in the datepicker input and in the [filter badge](#filter-value-badges), while the URL parameter and the `$value` received by `whenActive()` stay `2026-01-05`. If you enable badges, you might also want a custom badge label:
+
+```php
+CRUD::filter('birthday')
+    ->type('date')
+    ->format('DD/MM/YYYY')
+    ->showFilterValues()
+    ->filterValuesLabel('Born on :value') // "Born on 05/01/2026"
+    ->whenActive(function($value) {
+        CRUD::addClause('where', 'date', $value);
+    });
+```
+
 <hr>
 
 <a name="date-range"></a>
@@ -276,6 +303,43 @@ CRUD::filter('from_to')
       // CRUD::addClause('where', 'date', '<=', $dates->to);
     });
 ```
+
+#### Format
+
+The `locale.format` option (Moment.js tokens, see [daterangepicker options](https://www.daterangepicker.com/#options)) controls both the picker display and the [filter badge](#filter-value-badges):
+
+```php
+CRUD::filter('from_to')
+    ->type('date_range')
+    ->date_range_options([
+        'locale' => ['format' => 'DD/MM/YYYY'], // picker + badge format
+    ])
+    ->showFilterValues()
+    ->whenActive(function($value) {
+        $dates = json_decode($value); // always in raw format: Y-m-d H:i:s
+        CRUD::addClause('where', 'date', '>=', $dates->from);
+        CRUD::addClause('where', 'date', '<=', $dates->to);
+    });
+```
+
+The badge will show something like `From To: 01/01/2026 → 31/01/2026`. If `timePicker` is enabled, times are included in the badge, using the same format:
+
+```php
+CRUD::filter('from_to')
+    ->type('date_range')
+    ->date_range_options([
+        'timePicker' => true,
+        'locale'     => ['format' => 'DD/MM/YYYY HH:mm'],
+    ])
+    // badge: "01/01/2026 00:00 → 31/01/2026 23:59"
+    ->whenActive(function($value) {
+        $dates = json_decode($value);
+        CRUD::addClause('where', 'date', '>=', $dates->from);
+        CRUD::addClause('where', 'date', '<=', $dates->to);
+    });
+```
+
+The URL parameter and the `$value` passed to `whenActive()` always stay in the raw `Y-m-d H:i:s` format - the format option only changes how values are displayed.
 
 <hr>
 
@@ -638,6 +702,36 @@ CRUD::filter('price')
 For `select2_ajax` filters, the badge automatically shows the human-readable text (not the raw ID), using the `_text` URL parameter that Backpack already stores.
 
 > **Note:** Filter badges are disabled by default to avoid breaking existing layouts. Enable them explicitly at any level.
+
+### Customizing the Display Value for Custom Filter Types
+
+For the built-in filter types, Backpack automatically computes a readable display value for badges (labels for `dropdown`/`select2`, ranges joined with `→`, etc.). The `date` and `date_range` filters also apply their user-defined formats, as shown above.
+
+If you create a [custom filter type](#creating-a-custom-filter-type) and want to control what its badge displays, register a **badge display value formatter** on the filter's `<li>` element, using `data-badge-display-value-formatter`:
+
+```blade
+{{-- resources/views/vendor/backpack/crud/filters/my_custom_filter.blade.php --}}
+<li filter-name="{{ $filter->name }}"
+    filter-type="{{ $filter->type }}"
+    data-badge-display-value-formatter="formatMyCustomFilterBadge"
+    ...>
+  ...
+</li>
+
+@push('after_scripts')
+  <script>
+    if (typeof window.formatMyCustomFilterBadge !== 'function') {
+        window.formatMyCustomFilterBadge = function(rawValue, filter) {
+            // receives the raw filter value (from the URL parameter) and the
+            // filter <li> element; return the string shown on the badge.
+            return 'Filtered by: ' + rawValue;
+        };
+    }
+  </script>
+@endpush
+```
+
+The formatter only affects the badge - the raw value stored in the URL parameter and passed to `whenActive()` is not modified. This is how the built-in `date` and `date_range` filters apply their user-defined formats to badges.
 
 <a name="examples"></a>
 ## Examples

@@ -7,6 +7,8 @@
 
 Some Backpack fields are more difficult to validate using standard Laravel validation rules. So we've created a few custom validation rules, that will make validation them dead-simple.
 
+> **NOTE**: When the field uses `withFiles` or `withMedia`, the uploaded files are also checked against a list of [allowed file types](/docs/{{version}}/crud-uploaders#allowed-file-types), after your validation rules pass. If your rules accept a type that is not in that list (eg. `mimes:svg`), you also need to allow its extension in the uploader configuration.
+
 <a name="valid-upload-validation-rule"></a>
 ## `ValidUpload` for `upload` field type
 

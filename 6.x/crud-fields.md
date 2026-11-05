@@ -1025,8 +1025,10 @@ This helps you avoid most quirks when validating file uploads using Laravel's va
 use Backpack\CRUD\app\Library\Validation\Rules\ValidUpload;
 
 'image' => ValidUpload::field('required')
-                ->file('file|mimes:jpeg,png,jpg,gif,svg|max:2048'),
+                ->file('file|mimes:jpeg,png,jpg,gif|max:2048'),
 ```
+
+**NOTE**: When using `withFiles`, files are also checked against a list of [allowed file types](/docs/{{version}}/crud-uploaders#allowed-file-types). File types that browsers render as pages, like `svg` and `html`, are not allowed by default.
 
 Input preview:
 
@@ -1076,8 +1078,10 @@ This will help you avoid most quirks of using Laravel's standard validation rule
 use Backpack\CRUD\app\Library\Validation\Rules\ValidUploadMultiple;
 
 'photos' => ValidUploadMultiple::field('required|min:2|max:5')
-                ->file('file|mimes:jpeg,png,jpg,gif,svg|max:2048'),
+                ->file('file|mimes:jpeg,png,jpg,gif|max:2048'),
 ```
+
+**NOTE**: When using `withFiles`, files are also checked against a list of [allowed file types](/docs/{{version}}/crud-uploaders#allowed-file-types). File types that browsers render as pages, like `svg` and `html`, are not allowed by default.
 
 **NOTE**: This field uses a `clear_{fieldName}` input to send the deleted files from the frontend to the backend. In case you are using `$guarded` add it there.
 Eg: `protected $guarded = ['id', 'clear_photos'];`
@@ -1518,8 +1522,10 @@ Alternatively, you can manually implement the saving process yourself using mode
 use Backpack\Pro\Uploads\Validation\ValidDropzone;
 
 'photos' => ValidDropzone::field('required|min:2|max:5')
-                ->file('file|mimes:jpeg,png,jpg,gif,svg|max:2048'),
+                ->file('file|mimes:jpeg,png,jpg,gif|max:2048'),
 ```
+
+**NOTE**: When using `withFiles`, files are also checked against a list of [allowed file types](/docs/{{version}}/crud-uploaders#allowed-file-types). File types that browsers render as pages, like `svg` and `html`, are not allowed by default.
 
 **Step 5:** (optional) Configure the temp directory. Whenever new files are uploaded using the Dropzone operation, old files are automatically deleted from the temp directory. But you can also manually clean the temp directory. For more info and temp directory configuration options, see [this link](/docs/{{version}}/crud-how-to#configuring-the-temporary-directory).
 
