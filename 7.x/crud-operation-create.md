@@ -212,6 +212,8 @@ protected function setupCreateOperation()
 }
 ```
 
+> **Fields that submit JSON** (eg. `checklist`, or a value sent as a JSON string): rules for the items inside the value (eg. `'roles.*' => 'integer'` or `'items.*.name' => 'required'`) are also checked against the decoded JSON. Rules on the field itself (eg. `'roles' => 'json'`) still see the raw value that was submitted.
+
 <a name="callbacks"></a>
 ### Callbacks
 
