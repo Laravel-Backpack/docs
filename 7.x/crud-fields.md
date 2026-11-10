@@ -1947,6 +1947,8 @@ CRUD::field([
 
 **That's it.** Backpack now will save those additional inputs on the pivot table.
 
+Only the pivot columns defined as `subfields` are saved. The keys that connect the pivot row to both models (the foreign and related pivot keys, and the morph type for `morphToMany`) are always set by the relationship, never by the submitted values. To save another pivot column, add a subfield for it (a `hidden` field works too).
+
 #### Allow user to select multiple times the same pivot
 
 By default Backpack does not allow you to select the same pivot twice. If you want to allow the selection of the same pivot more than once you should take some setup steps before. Follow along with the steps below:
