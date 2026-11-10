@@ -778,6 +778,8 @@ The summernote column will output the non-escaped text value of a db column (or 
 ],
 ```
 
+> **Security warning:** this column renders the stored HTML as-is, so any `<script>` tag or event handler (eg. `onerror`) in the value will run in the admin's browser. Backpack does NOT sanitize it. Use this column only for content that you trust, or sanitize the HTML before it reaches the page — for example with [HTML Purifier](https://github.com/mewebstudio/Purifier) in a model accessor/mutator, so it's clean no matter where the value was saved from (admin panel, API, imports, front-end forms). If the value can come from users you don't trust and you can't sanitize it, add `'escaped' => true` to the column definition to show the HTML as text instead.
+
 <hr>
 
 <a name="switch"></a>
@@ -918,6 +920,8 @@ Show a link which opens in the new tab by default.
     //'rel' => false OR 'rel' => 'noopener' // let's you disable or change the rel attribute of the link.
 ],
 ```
+
+Only relative URLs and `http`, `https`, `ftp`, `mailto` or `tel` URLs are used as the link. Any other URL (eg. `javascript:`) is not used as the link target.
 
 <hr>
 
@@ -1725,7 +1729,7 @@ $this->crud->addColumn([
 <a name="escape-column-output"></a>
 ### Escape column output
 
-For security purposes, Backpack escapes the output of all column types except for `markdown` and `custom_html` (those columns would be useless escaped). That means it uses `{{ }}` to echo the output, not `{!! !!}`. If you have any HTML inside a db column, it will be shown as HTML instead of interpreted. It does that because, if the value was added by a malicious user (not admin), it could contain malicious JS code.
+For security purposes, Backpack escapes the output of all column types except for `markdown`, `summernote` and `custom_html` (those columns would be useless escaped). That means it uses `{{ }}` to echo the output, not `{!! !!}`. If you have any HTML inside a db column, it will be shown as HTML instead of interpreted. It does that because, if the value was added by a malicious user (not admin), it could contain malicious JS code.
 
 However, if you trust that a certain column contains _safe_ HTML, you can disable this behaviour by setting the `escaped` attribute to `false`.
 

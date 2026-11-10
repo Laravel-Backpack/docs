@@ -907,7 +907,7 @@ CRUD::field([
 ],
 ```
 
-> NOTE: Summernote does NOT sanitize the input. If you do not trust the users of this field, you should sanitize the input or output using something like HTML Purifier. Personally we like to use install [mewebstudio/Purifier](https://github.com/mewebstudio/Purifier) and add an [accessor or mutator](https://laravel.com/docs/8.x/eloquent-mutators#accessors-and-mutators) on the Model, so that wherever the model is created from (admin panel or app), the output will always be clean. [Example here](https://github.com/Laravel-Backpack/demo/commit/7342cffb418bb568b9e4ee279859685ddc0456c1).
+> NOTE: Summernote does NOT sanitize the input, and the editor loads the stored HTML as-is when the edit form is opened (so a malicious value runs in the browser of whoever edits that entry). If you do not trust the users of this field, or the value can be saved from anywhere else (API, imports, front-end forms), you should sanitize the input or output using something like HTML Purifier. Personally we like to use install [mewebstudio/Purifier](https://github.com/mewebstudio/Purifier) and add an [accessor or mutator](https://laravel.com/docs/8.x/eloquent-mutators#accessors-and-mutators) on the Model, so that wherever the model is created from (admin panel or app), the output will always be clean. [Example here](https://github.com/Laravel-Backpack/demo/commit/7342cffb418bb568b9e4ee279859685ddc0456c1).
 
 #### Uploading files with summernote
 
@@ -2008,6 +2008,8 @@ CRUD::field([
 ]);
 ```
 
+The `options` (or `relation_options_query`) of the `pivotSelect` are also enforced when saving: entries the pivot select would not list are dropped from the submitted rows. When the pivot select is `ajax` (or uses `inline_create`), the `query` of the matching `fetchXxx()` method is used.
+
 #### Manage related entries in the same form (create, update, delete)
 
 Sometimes for `hasMany` and `morphMany` relationships, the secondary entry cannot stand on its own. It's so dependent on the primary entry, that you don't want it to have a Create/Update form of its own - you just want it to be managed inside its parent. Let's take `Invoice` and `InvoiceItem` as an example, with the following database structure:
@@ -2070,7 +2072,9 @@ CRUD::field([
 ]);
 ```
 
-Backpack will then take care of the creating/updating/deleting of the secondary model, after the "Save" button is clicked on the form.
+Backpack will then take care of the creating/updating/deleting of the secondary model, after the "Save" button is clicked on the form. Only the attributes defined as `subfields` are saved on the related entries, and the keys that connect them to the parent entry (the foreign key, and the morph type/id for `morphOne`/`morphMany`) are always set by the relationship, never by the submitted values. If you need to save an attribute on the related entry, add a subfield for it (a `hidden` field works too).
+
+A field **without** `subfields` only selects existing entries (it submits a list of keys), and a field **with** `subfields` only creates/updates the entries it manages. Anything else submitted to the field is ignored.
 
 
 <a name="create-related-entries-in-a-modal-using-the-inlinecreate-operation"></a>
