@@ -427,7 +427,7 @@ instead of
 This is completely optional - whatever you prefer.
 
 
-<a href="views"></a>
+<a name="views"></a>
 ### Views
 
 Most views have suffered big changes, since we've moved from Bootstrap 3 to Bootstrap 4, and from AdminLTE to CoreUI. If you've overwritten many Backpack views, the upgrade process will be more difficult for you: you have to start from our new views and make the changes again.

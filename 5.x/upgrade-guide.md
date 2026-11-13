@@ -258,7 +258,7 @@ Alternatively... if you absolutely _hate_ this new behaviour and want your previ
     -  you can create a new file in your `resources/views/vendor/backpack/fields/page_or_link.blade.php` and paste [the content from here](https://raw.githubusercontent.com/Laravel-Backpack/MenuCRUD/e0afc7960d5513017ef847480f50591400bd4a6b/src/resources/views/fields/page_or_link.blade.php);
 
 
-<a href="assets"></a>
+<a name="assets"></a>
 ### CSS & JS Assets
 
 <a name="step-18" href="#step-18" class="badge badge-danger text-white" style="text-decoration: none;">Step 18.</a> We've removed the custom CSS & JS files that Backpack provided for each operation (eg. `list.css` and `create.js` - [see why here](https://github.com/Laravel-Backpack/CRUD/pull/3942)).
