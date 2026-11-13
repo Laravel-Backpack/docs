@@ -143,7 +143,7 @@ php artisan backpack:upgrade-dropzone
 
 <a name="step-9b" href="#step-9b" class="badge badge-danger text-white" style="text-decoration: none;">Step 9.B.</a> **EasyMDE Field** - The `easymde` field now also uses the `AjaxUploadOperation` to handle uploads. To secure the endpoint, we've introduced a new validation rule `ValidEasyMDE`. By default the endpoint will only allow images up to 1MB. If you want to use other file types or sizes, you MUST use the `ValidEasyMDE` rule in your FormRequest to validate the field.
 
-<a href="assets"></a>
+<a name="assets"></a>
 ### CSS & JS Assets
 
 All 3rd party dependencies have been updated to their latest versions. A lot of CSS & JS assets have suffered changes. Fortunately, thanks to Basset, we can easily clear the old files and get the new ones.

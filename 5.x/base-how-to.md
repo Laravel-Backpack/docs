@@ -79,7 +79,7 @@ Our default design might not be pleasant for your, or you might need to make the
 
 You'll find a few examples below - but you should use which classes you want to get the result you need.
 
-<a href="ui-with-dark-sidebar"></a>
+<a name="ui-with-dark-sidebar"></a>
 #### Backstrap
 
 Transparent top menu, transparent sidebar, transparent footer. This is the default. This is what _we_ think is best for most users, from our 8+ years of experience building admin panels. Prioritising _content_ over _menus_.
@@ -93,7 +93,7 @@ Transparent top menu, transparent sidebar, transparent footer. This is the defau
     'footer_class' => 'app-footer',
 ```
 
-<a href="inspired-by-coreui"></a>
+<a name="inspired-by-coreui"></a>
 #### Inspired by CoreUI
 
 White top menu, dark sidebar.
@@ -107,7 +107,7 @@ White top menu, dark sidebar.
     'footer_class' => 'app-footer d-none',
 ```
 
-<a href="inspired-by-github"></a>
+<a name="inspired-by-github"></a>
 #### Inspired by GitHub
 
 Black top menu, white sidebar.
@@ -121,7 +121,7 @@ Black top menu, white sidebar.
     'footer_class' => 'app-footer d-none',
 ```
 
-<a href="blue-top-menu"></a>
+<a name="blue-top-menu"></a>
 #### Blue Top Menu
 
 Blue top menu, dark sidebar.
@@ -136,7 +136,7 @@ Blue top menu, dark sidebar.
 ```
 
 
-<a href="inspired-by-contruction"></a>
+<a name="inspired-by-contruction"></a>
 #### Construction / Warning
 
 Yellow top menu, dark sidebar.
@@ -150,7 +150,7 @@ Yellow top menu, dark sidebar.
     'footer_class' => 'app-footer d-none',
 ```
 
-<a href="red-top-menu"></a>
+<a name="red-top-menu"></a>
 #### Red Top Menu
 
 Red top menu, dark sidebar.
@@ -164,7 +164,7 @@ Red top menu, dark sidebar.
     'footer_class' => 'app-footer d-none',
 ```
 
-<a href="pink-top-menu"></a>
+<a name="pink-top-menu"></a>
 #### Pink Top Menu
 
 Pink top menu, transparent sidebar.
@@ -179,7 +179,7 @@ Pink top menu, transparent sidebar.
 ```
 
 
-<a href="green-top-menu"></a>
+<a name="green-top-menu"></a>
 #### Green Top Menu
 
 Green top menu, white sidebar.

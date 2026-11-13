@@ -46,7 +46,7 @@ Notice the last item should NOT have a link, it should be ```false```.
 <a name="how-to-define-breadcrumbs"></a>
 ## How to Define Breadcrumbs
 
-<a href="define-breadcrumbs-in-the-controller"></a>
+<a name="define-breadcrumbs-in-the-controller"></a>
 ### Define Breadcrumbs Inside the Controller
 
 Make sure a ```$breadcrumbs``` variable is present inside your views:
@@ -68,7 +68,7 @@ Make sure a ```$breadcrumbs``` variable is present inside your views:
     }
 ```
 
-<a href="define-breadcrumbs-in-the-view"></a>
+<a name="define-breadcrumbs-in-the-view"></a>
 ### Define Breadcrumbs Inside the View
 
 Make sure a ```$breadcrumbs``` variable is present:

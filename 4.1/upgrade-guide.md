@@ -188,7 +188,7 @@ Why? Since ```$this->request``` did nothing at all, we've removed it, to avoid a
 
 Additionally, for the `select2_from_ajax` and `select2_from_ajax_multiple` field types, the inputs on the main form are no longer sent through the AJAX request by default. If you're using [dependant selects](https://backpackforlaravel.com/docs/4.1/crud-how-to#add-a-select2-field-that-depends-on-another-field), please make sure that you add `'include_all_form_fields' => true` to your `select2_from_ajax` and `select2_from_ajax_multiple` field definition to keep the same behaviour as before.
 
-<a href="assets"></a>
+<a name="assets"></a>
 ### CSS & JS Assets
 
 <a name="step-13" href="#step-13" class="badge badge-info text-white" style="text-decoration: none;">Step 13.</a> We've updated most CSS & JS dependencies to their latest versions. There are two ways to publish the latest styles and scripts for these dependencies:

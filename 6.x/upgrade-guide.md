@@ -153,7 +153,7 @@ CRUD::field([
 
 <a name="step-15" href="#step-15" class="badge badge-secondary-soft" style="text-decoration: none;">Step 15.</a> (OPTIONAL) If you have your `store()` or `update()` methods overriden just as callbacks, to do stuff when entries are `created` or `updated`, we have a suggestion for you that will clean up your code. Instead of overriding those methods, you can use Eloquent model events to achieve the same thing. See [the updated callbacks docs](/docs/6.x/crud-operation-create#callbacks) for all the options available.
 
-<a href="assets"></a>
+<a name="assets"></a>
 ### CSS & JS Assets
 
 <a name="step-16" href="#step-16" class="badge badge-warning text-white" style="text-decoration: none;">Step 16.</a> We have invented a whole new way of using CSS & JS assets in Laravel projects. We heavily recommend you use it too for you custom assets. Instead of installing assets using NPM, then minimizing and compiling them:
